@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="La Fabrique, Passage à l'échelle de services web">
+
+        <link rel="alternate"  href="/feeds/all.atom.xml" type="application/atom+xml" title="La Fabrique Full Atom Feed"/>
+
+        <title>La Fabrique // La Fabrique // Passage à l'échelle de services web</title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/theme/css/pure.css">
+    <link rel="stylesheet" href="/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+              
+                <h5>Published</h5>
+                <p>mer. 15 avril 2015</p>
+                <a href="/">&larr;Home</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>La Fabrique</h1>
+                        <p class="post-meta">
+                            // under                         </p>
+                </header>
+            </section>
+            <p>C'est le printemps et n'en déplaise à certains, il est temps de faire
+un peu de ménage.</p>
+<p>Voilà quelques temps que nous accumulons les expériences et que nous
+ne les partagions plus tellement par écrit.</p>
+<p>Il y a bien eu une conférence francophone sur Hawk l'an passé et
+quelques articles en anglais sur le blog de Mozilla, mais
+parfois la barrière de la langue ne permet pas une entière
+satisfaction sur ces retours d'expérience.</p>
+<p>C'est ainsi qu'en ce début de printemps 2015 nous dépoussiérons nos
+esprits et que nous vous proposons un ensemble d'articles en français
+sur ce que nous faisons dans notre petite équipe du Service de Nuages
+de Mozilla.</p>
+<img alt="" src="/images/service_de_nuages.png" />
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Go Top</a>
+<footer class="footer">
+    <p>&copy; La Fabrique &ndash;
+        Built with <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        for <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>

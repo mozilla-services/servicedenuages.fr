@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>La Fabrique</title><link href="/" rel="alternate"></link><link href="/feeds/remy-hubscher.atom.xml" rel="self"></link><id>/</id><updated>2015-04-15T00:00:00+02:00</updated><entry><title>La Fabrique</title><link href="/la-fabrique.html" rel="alternate"></link><updated>2015-04-15T00:00:00+02:00</updated><author><name>Rémy Hubscher</name></author><id>tag:,2015-04-15:la-fabrique.html</id><summary type="html">&lt;p&gt;C'est le printemps et n'en déplaise à certains, il est temps de faire
+un peu de ménage.&lt;/p&gt;
+&lt;p&gt;Voilà quelques temps que nous accumulons les expériences et que nous
+ne les partagions plus tellement par écrit.&lt;/p&gt;
+&lt;p&gt;Il y a bien eu une conférence francophone sur Hawk l'an passé et
+quelques articles en anglais sur le blog de Mozilla, mais
+parfois la barrière de la langue ne permet pas une entière
+satisfaction sur ces retours d'expérience.&lt;/p&gt;
+&lt;p&gt;C'est ainsi qu'en ce début de printemps 2015 nous dépoussiérons nos
+esprits et que nous vous proposons un ensemble d'articles en français
+sur ce que nous faisons dans notre petite équipe du Service de Nuages
+de Mozilla.&lt;/p&gt;
+&lt;img alt="" src="/images/service_de_nuages.png" /&gt;
+</summary></entry></feed>
