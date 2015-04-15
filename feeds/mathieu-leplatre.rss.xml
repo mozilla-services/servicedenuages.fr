@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>La Fabrique</title><link>/</link><description></description><atom:link href="/feeds/mathieu-leplatre.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 15 Apr 2015 00:00:00 +0200</lastBuildDate><item><title>La Fabrique</title><link>/la-fabrique.html</link><description>&lt;p&gt;C'est le printemps et n'en déplaise à certains, il est temps de faire
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>La Fabrique</title><link>https://mozilla-services.github.io/da-french-team/</link><description></description><atom:link href="https://mozilla-services.github.io/da-french-team/feeds/mathieu-leplatre.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 15 Apr 2015 00:00:00 +0200</lastBuildDate><item><title>La Fabrique</title><link>https://mozilla-services.github.io/da-french-team/la-fabrique.html</link><description>&lt;p&gt;C'est le printemps et n'en déplaise à certains, il est temps de faire
 un peu de ménage.&lt;/p&gt;
 &lt;p&gt;Voilà quelques temps que nous accumulons les expériences et que nous
 ne les partagions plus tellement par écrit.&lt;/p&gt;
@@ -12,4 +12,4 @@ esprits et que nous vous proposons un ensemble d'articles en français
 sur ce que nous faisons dans notre petite équipe du Service de Nuages
 de Mozilla.&lt;/p&gt;
 &lt;img alt="" src="/images/service_de_nuages.png" /&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Rémy Hubscher</dc:creator><pubDate>Wed, 15 Apr 2015 00:00:00 +0200</pubDate><guid>tag:,2015-04-15:la-fabrique.html</guid></item></channel></rss>
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Rémy Hubscher</dc:creator><pubDate>Wed, 15 Apr 2015 00:00:00 +0200</pubDate><guid>tag:mozilla-services.github.io,2015-04-15:da-french-team/la-fabrique.html</guid></item></channel></rss>
