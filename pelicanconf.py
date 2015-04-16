@@ -2,7 +2,13 @@
 # -*- coding: utf-8 -*- #
 from __future__ import unicode_literals
 
-AUTHOR = u'Da French Team'
+AUTHORS = (
+    u'Rémy Hubscher',
+    u'Mathieu Leplatre',
+    u'Alexis Métaireau',
+    u'Tarek Ziadé',
+    u'Nicolas Perriault'
+)
 SITENAME = u'Service de nuages'
 SITEURL = ''
 
@@ -19,7 +25,6 @@ DEFAULT_PAGINATION = False
 
 THEME = "pure"
 
-TAGLINE = u"Passage à l'échelle de services web"
 COVER_IMG_URL = '/theme/sidebar.jpg'
 
 SOCIAL = (
@@ -27,8 +32,9 @@ SOCIAL = (
     ('rss', SITEURL + 'feeds/all.atom.xml'),
     ('github', 'https://github.com/mozilla-services'),
 )
+
 MENUITEMS = (
-('Archives', '/archives.html'),
+    ('Archives', '/archives.html'),
 )
 STATIC_PATHS = ['images', 'documents', 'extra/CNAME', 'presentations']
 EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}}
