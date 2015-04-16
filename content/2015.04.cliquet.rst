@@ -1,5 +1,8 @@
-ervice de nuages !
-==================
+Service de nuages !
+===================
+
+:date: 2015-04-16
+
 
 Pas mal de changements depuis le début de l'année pour l'équipe
 "cloud-services" francophone (da french team, comme on dit).
