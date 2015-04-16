@@ -1,5 +1,5 @@
-La Fabrique
-###########
+Service de nuages
+#################
 
 :date: 2015-04-15
 :authors: Rémy Hubscher, Mathieu Leplatre, Alexis Métaireau, Tarek Ziadé, Nicolas Perriault
