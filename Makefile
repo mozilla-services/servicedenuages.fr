@@ -1,5 +1,3 @@
-PY?=python
-PELICAN?=pelican
 PELICANOPTS=
 
 BASEDIR=$(CURDIR)
@@ -10,32 +8,43 @@ PUBLISHCONF=$(BASEDIR)/publishconf.py
 
 GITHUB_PAGES_BRANCH=gh-pages
 
+VENV := $(shell echo $${VIRTUAL_ENV-.venv})
+VIRTUALENV = virtualenv
+INSTALL_STAMP = $(VENV)/.install.stamp
+
+PYTHON=$(VENV)/bin/python
+PELICAN=$(VENV)/bin/pelican
+PIP=$(VENV)/bin/pip
+
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)
 	PELICANOPTS += -D
 endif
 
-html:
+install: $(INSTALL_STAMP)
+$(INSTALL_STAMP): $(PYTHON) requirements.txt
+	$(VENV)/bin/pip install -r requirements.txt
+	touch $(INSTALL_STAMP)
+
+virtualenv: $(PYTHON)
+$(PYTHON):
+	$(VIRTUALENV) $(VENV)
+
+html: install
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
 
 clean:
 	[ ! -d $(OUTPUTDIR) ] || rm -rf $(OUTPUTDIR)
+	rm -rf $(VENV)
 
-serve:
+serve: install
 ifdef PORT
-	cd $(OUTPUTDIR) && $(PY) -m pelican.server $(PORT)
+	cd $(OUTPUTDIR) && $(PYTHON) -m pelican.server $(PORT)
 else
-	cd $(OUTPUTDIR) && $(PY) -m pelican.server
+	cd $(OUTPUTDIR) && $(PYTHON) -m pelican.server
 endif
 
-devserver:
-ifdef PORT
-	$(BASEDIR)/develop_server.sh restart $(PORT)
-else
-	$(BASEDIR)/develop_server.sh restart
-endif
-
-publish:
+publish: install
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
 	echo "www.servicedenuages.fr" > $(OUTPUTDIR)/CNAME
 
