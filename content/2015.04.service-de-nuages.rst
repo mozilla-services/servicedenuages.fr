@@ -28,6 +28,9 @@ En parallèle, un projet de `synchronisation de liste de lecture
 lecture sur n'importe quel périphérique synchronisé (Firefox pour Android ou
 Firefox Desktop).
 
+.. image:: {filename}/images/readinglist-screenshot.png
+    :alt: Capture d'écran de Firefox nightly avec readinglist.
+
 Nous aurions pu réutiliser `Firefox Sync`_, après tout c'est un service
 robuste, construit avec `Cornice`_. Mais seulement, Sync ne garantit pas la
 pérennité des données, et la marche était trop haute pour changer ça en
@@ -45,20 +48,20 @@ Mais cette nouvelle petite équipe n'est pas là par hasard :)
 La “Daybed Team”
 ----------------
 
-On partage une vision: un service de stockage de données générique ! Peut-être
-que ça vous rappelle `un certain projet nommé daybed <https://daybed.io>`_?
+On partage une vision: un service générique de stockage de données ! Peut-être
+que ça vous rappelle `un certain projet nommé daybed <https://daybed.io>`_ ?
 Pour les application clientes, JavaScript, mobiles ou autres, l'utilisation de
 ce service doit être un jeu d'enfant ! L'application gère ses données
 localement (aka offline-first), et synchronise à la demande.
 
-Ici, le cœur du serveur liste de lecture est justement une API "CRUD" (Create,
+Ici, le cœur du serveur *Reading List* est justement une API "CRUD" (Create,
 Retrieve, Update, Delete), qui gère de la synchronisation et de
 l'authentification. Nous avons donc pris le parti de faire une API "simple",
 mais qui poserait les bases d'un service générique. 
 
 Pas mal d'expérience ayant été accumulée au sein de l'équipe avec d'une part la
 création de Firefox Sync, et d'autre part avec Daybed, notre side-project, nous
-tenterons de ne pas reproduire les mêmes erreurs, tout en gardant les concepts
+tentons de ne pas reproduire les mêmes erreurs, tout en gardant les concepts
 qui ont fait leurs preuves.
 
 Par exemple, nous avons conservé le mécanisme de collections d'enregistrements
@@ -92,3 +95,5 @@ dans une application Cliquet, et ça `avec 20 lignes de code
 Ah, et cette fois, nous ne construirons les fonctionnalités qu'à partir des
 besoins concrets qui surviennent. Ça paraît tout bête, mais sur Daybed on
 l'a pas vu venir :)
+
+À bientôt, donc !
