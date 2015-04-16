@@ -19,6 +19,4 @@ First install ghp-import::
 
 Then build the content::
 
-    make html
-    ghp-import output
-    git push origin gh-pages
+    make github
