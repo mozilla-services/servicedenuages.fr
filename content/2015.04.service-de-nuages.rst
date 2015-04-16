@@ -49,8 +49,8 @@ La “Daybed Team”
 ----------------
 
 On partage une vision: un service générique de stockage de données ! Peut-être
-que ça vous rappelle `un certain projet nommé daybed <https://daybed.io>`_ ?
-Pour les application clientes, JavaScript, mobiles ou autres, l'utilisation de
+que ça vous rappelle `un certain projet nommé Daybed <https://daybed.io>`_ ?
+Pour les applications clientes, JavaScript, mobiles ou autres, l'utilisation de
 ce service doit être un jeu d'enfant ! L'application gère ses données
 localement (aka offline-first), et synchronise à la demande.
 
@@ -95,5 +95,9 @@ dans une application Cliquet, et ça `avec 20 lignes de code
 Ah, et cette fois, nous ne construirons les fonctionnalités qu'à partir des
 besoins concrets qui surviennent. Ça paraît tout bête, mais sur Daybed on
 l'a pas vu venir :)
+
+Dans les prochains articles, nous avons prévu de décrire certains points
+techniques précis et de vous présenter notre vision via des exemples et
+tutoriaux.
 
 À bientôt, donc !
