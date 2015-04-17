@@ -11,11 +11,6 @@
             <h1 class="content-subhead">Tous les articles</h1>
             {% for article in dates %}
                 <div class="archive-item">
-                    <a href="{{ SITEURL }}/{{ article.author.url }}" title="See posts by {{ article.author }}">
-                        {% if article.author_gravatar %}
-                            <img class="avatar" alt="{{ article.author }}" src="{{ article.author_gravatar }}">
-                        {% endif %}
-                    </a>
                     <h5 class="archive-date">{{ article.date|strftime('%Y') }}</h5>
                     <h4 class="archive-date">{{ article.date|strftime('%d %B') }}</h4>
                     <div class="archive-post"><a href="{{ article.url }}">{{ article.title }}</a></div>

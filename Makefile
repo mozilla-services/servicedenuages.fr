@@ -67,8 +67,10 @@ regenerate:
 
 serve:
 ifdef PORT
+	@echo "http://localhost:$(PORT)"
 	cd $(OUTPUTDIR) && $(PY) -m pelican.server $(PORT)
 else
+	@echo "http://localhost:8000"
 	cd $(OUTPUTDIR) && $(PY) -m pelican.server
 endif
 

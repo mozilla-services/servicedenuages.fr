@@ -1,8 +1,7 @@
-Service de nuages
-#################
+Le printemps
+############
 
 :date: 2015-04-15
-:authors: Rémy Hubscher, Mathieu Leplatre, Alexis Métaireau, Tarek Ziadé, Nicolas Perriault
 
 
 C'est le printemps et n'en déplaise à certains, il est temps de faire
@@ -22,3 +21,4 @@ sur ce que nous faisons dans notre petite équipe du Service de Nuages
 de Mozilla.
 
 .. image:: /images/service_de_nuages.png
+    :alt: Logo du service des nuages
