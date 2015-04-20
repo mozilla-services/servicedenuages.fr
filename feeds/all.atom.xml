@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-04-16T00:00:00+02:00</updated><entry><title>Service de nuages !</title><link href="http://www.servicedenuages.fr/service-de-nuages.html" rel="alternate"></link><updated>2015-04-16T00:00:00+02:00</updated><author><name></name></author><id>tag:www.servicedenuages.fr,2015-04-16:service-de-nuages.html</id><summary type="html">&lt;p&gt;Pas mal de changements depuis le début de l'année pour l'équipe
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-04-16T00:00:00+02:00</updated><entry><title>Service de nuages !</title><link href="http://www.servicedenuages.fr/service-de-nuages.html" rel="alternate"></link><updated>2015-04-16T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-16:service-de-nuages.html</id><summary type="html">&lt;p&gt;Pas mal de changements depuis le début de l'année pour l'équipe
 «cloud-services» francophone!&lt;/p&gt;
 &lt;p&gt;Tout d'abord, nouvelle importante, l'équipe s'étoffe avec des profils assez
 complémentaires: &lt;a class="reference external" href="https://nicolas.perriault.net/"&gt;n1k0&lt;/a&gt; et &lt;a class="reference external" href="http://mathieu-leplatre.info"&gt;Mathieu&lt;/a&gt; sont venus prêter main forte à &lt;a class="reference external" href="http://ziade.org/"&gt;Tarek&lt;/a&gt;, &lt;a class="reference external" href="http://natim.ionyse.com"&gt;Rémy&lt;/a&gt; et &lt;a class="reference external" href="http://notmyidea.org"&gt;Alexis&lt;/a&gt;.&lt;/p&gt;
@@ -68,7 +68,7 @@ rassemblées dans le protocole (ou &lt;em&gt;Cliquet&lt;/em&gt;), certains point
 et de vous présenter notre vision via des exemples et tutoriaux.&lt;/p&gt;
 &lt;p&gt;À bientôt, donc !&lt;/p&gt;
 &lt;/div&gt;
-</summary></entry><entry><title>Le printemps</title><link href="http://www.servicedenuages.fr/le-printemps.html" rel="alternate"></link><updated>2015-04-15T00:00:00+02:00</updated><author><name></name></author><id>tag:www.servicedenuages.fr,2015-04-15:le-printemps.html</id><summary type="html">&lt;p&gt;C'est le printemps et n'en déplaise à certains, il est temps de faire
+</summary></entry><entry><title>Le printemps</title><link href="http://www.servicedenuages.fr/le-printemps.html" rel="alternate"></link><updated>2015-04-15T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-15:le-printemps.html</id><summary type="html">&lt;p&gt;C'est le printemps et n'en déplaise à certains, il est temps de faire
 un peu de ménage.&lt;/p&gt;
 &lt;p&gt;Voilà quelques temps que nous accumulons les expériences et que nous
 ne les partagions plus tellement par écrit.&lt;/p&gt;
