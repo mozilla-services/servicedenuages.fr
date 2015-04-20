@@ -1,22 +1,10 @@
-Da French Team Blog
-===================
+service de nuages
+=================
 
-To build the blog
------------------
+To build the blog, just run::
 
-Just install pelican and run the Makefile::
-
-    pip install pelican
     make html
 
+and to publish it::
 
-To publish the blog
--------------------
-
-First install ghp-import::
-
-    pip install ghp-import
-
-Then build the content::
-
-    make github
+    make publish
