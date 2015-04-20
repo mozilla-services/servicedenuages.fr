@@ -5,7 +5,7 @@ Service de nuages !
 
 
 Pas mal de changements depuis le début de l'année pour l'équipe
-«cloud-services» francophone (*da french team*, comme on dit).
+«cloud-services» francophone!
 
 Tout d'abord, nouvelle importante, l'équipe s'étoffe avec des profils assez
 complémentaires: `n1k0 <https://nicolas.perriault.net/>`_ et `Mathieu
@@ -48,8 +48,8 @@ une API et persiste des données dans une base de données.
 Mais cette nouvelle petite équipe n'est pas là par hasard :)
 
 
-Protocole et service génériques
--------------------------------
+La «Daybed Team»
+----------------
 
 On partage une vision: un service générique de stockage de données ! Peut-être
 que ça vous rappelle `un certain projet nommé Daybed <https://daybed.io>`_ ?
@@ -105,7 +105,7 @@ besoins concrets qui surviennent. Ça paraît tout bête, mais sur *Daybed* on
 l'a pas vu venir :)
 
 Dans les prochains articles, nous avons prévu de décrire les bonnes pratiques
-empaquetées dans le protocole (ou *Cliquet*), certains points techniques précis
+rassemblées dans le protocole (ou *Cliquet*), certains points techniques précis
 et de vous présenter notre vision via des exemples et tutoriaux.
 
 À bientôt, donc !
