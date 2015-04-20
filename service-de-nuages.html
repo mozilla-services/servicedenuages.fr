@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Service de nuages, Passage à l'échelle de services web">
+    <meta name="description" content="Service de nuages, ">
 
         <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
 
-        <title>Service de nuages // Service de nuages // Passage à l'échelle de services web</title>
+        <title>Service de nuages ! // Service de nuages // </title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
@@ -29,9 +29,9 @@
     <div class="sidebar sidebar-article pure-u">
         <header class="header-article">
             <hgroup>
-              
                 <h5>Publié</h5>
-                <p>mer. 15 avril 2015</p>
+                <p title="~626 mots">~3mn de lecture</p>
+                <p>jeu. 16 avril 2015</p>
                 <a href="/">&larr;Liste des articles</a>
             </hgroup>
         </header>
@@ -40,26 +40,96 @@
         <div class="content">
             <section class="post">
                 <header class="post-header">
-                    <h1>Service de nuages</h1>
+                    <h1>Service de nuages !</h1>
                 </header>
             </section>
-            <p>C'est le printemps et n'en déplaise à certains, il est temps de faire
-un peu de ménage.</p>
-<p>Voilà quelques temps que nous accumulons les expériences et que nous
-ne les partagions plus tellement par écrit.</p>
-<p>Il y a bien eu une conférence francophone sur Hawk l'an passé et
-quelques articles en anglais sur le blog de Mozilla, mais
-parfois la barrière de la langue ne permet pas une entière
-satisfaction sur ces retours d'expérience.</p>
-<p>C'est ainsi qu'en ce début de printemps 2015 nous dépoussiérons nos
-esprits et que nous vous proposons un ensemble d'articles en français
-sur ce que nous faisons dans notre petite équipe du Service de Nuages
-de Mozilla.</p>
-<img alt="" src="/images/service_de_nuages.png" />
+            <p>Pas mal de changements depuis le début de l'année pour l'équipe
+«cloud-services» francophone!</p>
+<p>Tout d'abord, nouvelle importante, l'équipe s'étoffe avec des profils assez
+complémentaires: <a class="reference external" href="https://nicolas.perriault.net/">n1k0</a> et <a class="reference external" href="http://mathieu-leplatre.info">Mathieu</a> sont venus prêter main forte à <a class="reference external" href="http://ziade.org/">Tarek</a>, <a class="reference external" href="http://natim.ionyse.com">Rémy</a> et <a class="reference external" href="http://notmyidea.org">Alexis</a>.</p>
+<p>Le début de l'année a vu le lancement de <a class="reference external" href="https://www.mozilla.org/en-US/firefox/hello/">Firefox Hello</a> ce qui nous a permis de passer
+à l'échelle <a class="reference external" href="https://github.com/mozilla-services/loop-server">le serveur</a>,
+écrit en Node.js®, pour l'occasion.</p>
+<div class="section" id="un-serveur-de-listes-de-lecture">
+<h2>Un serveur de listes de lecture</h2>
+<p>En parallèle, un projet de <a class="reference external" href="https://readinglist.readthedocs.org">synchronisation de liste de lecture</a> (<em>Reading List</em>) a vu le jour.  L'idée
+étant de pouvoir marquer des pages &quot;à lire pour plus tard&quot; et de continuer la
+lecture sur n'importe quel périphérique synchronisé (Firefox pour Android ou
+Firefox Desktop). Un équivalent libre à <a class="reference external" href="http://getpocket.com">Pocket</a> en quelque sorte, qu'il est
+possible d'héberger soit-même.</p>
+<img alt="Capture d'écran de Firefox nightly avec readinglist." src="http://www.servicedenuages.fr/images/readinglist-screenshot.png" />
+<p>Pour le construire, nous aurions pu réutiliser <a class="reference external" href="https://github.com/mozilla-services/server-syncstorage">Firefox Sync</a>, après tout
+c'est un service de synchronisation de données très robuste, construit avec <a class="reference external" href="http://cornice.readthedocs.org/">Cornice</a>.
+Mais seulement, <em>Sync</em> n'a pas été pensé pour garantir la pérennité des données,
+et la marche était trop haute pour changer ça en profondeur.</p>
+<p>Nous aurions pu aussi nous contenter de faire une énième application qui expose
+une API et persiste des données dans une base de données.</p>
+<p>Mais cette nouvelle petite équipe n'est pas là par hasard :)</p>
+</div>
+<div class="section" id="la-daybed-team">
+<h2>La «Daybed Team»</h2>
+<p>On partage une vision: un service générique de stockage de données ! Peut-être
+que ça vous rappelle <a class="reference external" href="https://daybed.io">un certain projet nommé Daybed</a> ?
+Pour les applications clientes, JavaScript, mobiles ou autres, l'utilisation de
+ce service doit être un jeu d'enfant ! L'application gère ses données
+localement (aka offline-first), et synchronise à la demande.</p>
+<p>Ici, le cœur du serveur <em>Reading List</em> est justement une API &quot;CRUD&quot; (Create,
+Retrieve, Update, Delete), qui gère de la synchronisation et de
+l'authentification. Nous avons donc pris le parti de faire une API &quot;simple&quot;,
+avec le moins de spécificités possible, qui poserait les bases d'un service
+générique. Notamment parce qu'il y a d'autres projets dans la même trempe qui vont suivre.</p>
+<p>Pas mal d'expérience ayant été accumulée au sein de l'équipe, avec d'une part la
+création de <em>Firefox Sync</em>, et d'autre part avec <em>Daybed</em>, notre side-project, nous
+tentons de ne pas reproduire les mêmes erreurs, tout en gardant les concepts
+qui ont fait leurs preuves.</p>
+<p>Par exemple, nous avons conservé le mécanisme de collections d'enregistrements
+et de <em>timestamp</em> de <em>Sync</em>. Comme ces problématiques sont récurrentes, voire
+incontournables, nous avons décidé de reprendre le protocole de synchronisation,
+de l'étendre légèrement et surtout de le dissocier du projet de listes de lecture.</p>
+</div>
+<div class="section" id="le-mecanisme-qui-force-a-aller-de-l-avant">
+<h2>Le mécanisme qui force à aller de l'avant</h2>
+<p>Comme première pierre à l'édifice, nous avons donné naissance au projet
+<a class="reference external" href="https://cliquet.readthedocs.org">Cliquet</a>, dont l'idée principale est de
+fournir une implémentation de ce protocole en python, tout en factorisant
+l'ensemble de nos bonnes pratiques (pour la prod notamment).</p>
+<img alt="Logo du projet Cliquet" src="http://www.servicedenuages.fr/images/cliquet-logo.png" />
+<p>L'avantage d'avoir un protocole plutôt qu'un monolithe, c'est que si vous
+préférez Asyncio, io.js ou Go, on vous encouragera à publier votre
+implémentation alternative !</p>
+<p>Avec <em>Cliquet</em>, le code du serveur liste de lecture consiste principalement
+à définir un schéma pour les enregistrements, puis à forcer des valeurs de
+champs sur certains appels. Cela réduit ce projet à quelques dizaines de lignes
+de code.</p>
+<p>Quant au futur service de stockage générique, <a class="reference external" href="http://kinto.readthedocs.org">le projet</a> en est encore à ses balbutiements mais c'est
+bel et bien en route ! Il permet déjà d'être branché comme backend de stockage
+dans une application <em>Cliquet</em>, et ça <a class="reference external" href="https://github.com/mozilla-services/kinto/blob/0.2.1/kinto/views/collection.py">avec 20 lignes de code</a>!</p>
+<p>Ah, et cette fois, nous ne construirons les fonctionnalités qu'à partir des
+besoins concrets qui surviennent. Ça paraît tout bête, mais sur <em>Daybed</em> on
+l'a pas vu venir :)</p>
+<p>Dans les prochains articles, nous avons prévu de décrire les bonnes pratiques
+rassemblées dans le protocole (ou <em>Cliquet</em>), certains points techniques précis
+et de vous présenter notre vision via des exemples et tutoriaux.</p>
+<p>À bientôt, donc !</p>
+</div>
 
             <div class="hr"></div>
             <a href="#" class="go-top">Revenir au début</a>
-<footer class="footer">
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
     <p>&copy; Service de nuages &ndash;
         Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
         et <a href="http://blog.getpelican.com/">Pelican</a>

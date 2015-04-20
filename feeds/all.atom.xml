@@ -1,5 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-04-15T00:00:00+02:00</updated><entry><title>Service de nuages</title><link href="http://www.servicedenuages.fr/service-de-nuages.html" rel="alternate"></link><updated>2015-04-15T00:00:00+02:00</updated><author><name>Rémy Hubscher</name></author><id>tag:www.servicedenuages.fr,2015-04-15:service-de-nuages.html</id><summary type="html">&lt;p&gt;C'est le printemps et n'en déplaise à certains, il est temps de faire
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-04-16T00:00:00+02:00</updated><entry><title>Service de nuages !</title><link href="http://www.servicedenuages.fr/service-de-nuages.html" rel="alternate"></link><updated>2015-04-16T00:00:00+02:00</updated><author><name></name></author><id>tag:www.servicedenuages.fr,2015-04-16:service-de-nuages.html</id><summary type="html">&lt;p&gt;Pas mal de changements depuis le début de l'année pour l'équipe
+«cloud-services» francophone!&lt;/p&gt;
+&lt;p&gt;Tout d'abord, nouvelle importante, l'équipe s'étoffe avec des profils assez
+complémentaires: &lt;a class="reference external" href="https://nicolas.perriault.net/"&gt;n1k0&lt;/a&gt; et &lt;a class="reference external" href="http://mathieu-leplatre.info"&gt;Mathieu&lt;/a&gt; sont venus prêter main forte à &lt;a class="reference external" href="http://ziade.org/"&gt;Tarek&lt;/a&gt;, &lt;a class="reference external" href="http://natim.ionyse.com"&gt;Rémy&lt;/a&gt; et &lt;a class="reference external" href="http://notmyidea.org"&gt;Alexis&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Le début de l'année a vu le lancement de &lt;a class="reference external" href="https://www.mozilla.org/en-US/firefox/hello/"&gt;Firefox Hello&lt;/a&gt; ce qui nous a permis de passer
+à l'échelle &lt;a class="reference external" href="https://github.com/mozilla-services/loop-server"&gt;le serveur&lt;/a&gt;,
+écrit en Node.js®, pour l'occasion.&lt;/p&gt;
+&lt;div class="section" id="un-serveur-de-listes-de-lecture"&gt;
+&lt;h2&gt;Un serveur de listes de lecture&lt;/h2&gt;
+&lt;p&gt;En parallèle, un projet de &lt;a class="reference external" href="https://readinglist.readthedocs.org"&gt;synchronisation de liste de lecture&lt;/a&gt; (&lt;em&gt;Reading List&lt;/em&gt;) a vu le jour.  L'idée
+étant de pouvoir marquer des pages &amp;quot;à lire pour plus tard&amp;quot; et de continuer la
+lecture sur n'importe quel périphérique synchronisé (Firefox pour Android ou
+Firefox Desktop). Un équivalent libre à &lt;a class="reference external" href="http://getpocket.com"&gt;Pocket&lt;/a&gt; en quelque sorte, qu'il est
+possible d'héberger soit-même.&lt;/p&gt;
+&lt;img alt="Capture d'écran de Firefox nightly avec readinglist." src="http://www.servicedenuages.fr/images/readinglist-screenshot.png" /&gt;
+&lt;p&gt;Pour le construire, nous aurions pu réutiliser &lt;a class="reference external" href="https://github.com/mozilla-services/server-syncstorage"&gt;Firefox Sync&lt;/a&gt;, après tout
+c'est un service de synchronisation de données très robuste, construit avec &lt;a class="reference external" href="http://cornice.readthedocs.org/"&gt;Cornice&lt;/a&gt;.
+Mais seulement, &lt;em&gt;Sync&lt;/em&gt; n'a pas été pensé pour garantir la pérennité des données,
+et la marche était trop haute pour changer ça en profondeur.&lt;/p&gt;
+&lt;p&gt;Nous aurions pu aussi nous contenter de faire une énième application qui expose
+une API et persiste des données dans une base de données.&lt;/p&gt;
+&lt;p&gt;Mais cette nouvelle petite équipe n'est pas là par hasard :)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="la-daybed-team"&gt;
+&lt;h2&gt;La «Daybed Team»&lt;/h2&gt;
+&lt;p&gt;On partage une vision: un service générique de stockage de données ! Peut-être
+que ça vous rappelle &lt;a class="reference external" href="https://daybed.io"&gt;un certain projet nommé Daybed&lt;/a&gt; ?
+Pour les applications clientes, JavaScript, mobiles ou autres, l'utilisation de
+ce service doit être un jeu d'enfant ! L'application gère ses données
+localement (aka offline-first), et synchronise à la demande.&lt;/p&gt;
+&lt;p&gt;Ici, le cœur du serveur &lt;em&gt;Reading List&lt;/em&gt; est justement une API &amp;quot;CRUD&amp;quot; (Create,
+Retrieve, Update, Delete), qui gère de la synchronisation et de
+l'authentification. Nous avons donc pris le parti de faire une API &amp;quot;simple&amp;quot;,
+avec le moins de spécificités possible, qui poserait les bases d'un service
+générique. Notamment parce qu'il y a d'autres projets dans la même trempe qui vont suivre.&lt;/p&gt;
+&lt;p&gt;Pas mal d'expérience ayant été accumulée au sein de l'équipe, avec d'une part la
+création de &lt;em&gt;Firefox Sync&lt;/em&gt;, et d'autre part avec &lt;em&gt;Daybed&lt;/em&gt;, notre side-project, nous
+tentons de ne pas reproduire les mêmes erreurs, tout en gardant les concepts
+qui ont fait leurs preuves.&lt;/p&gt;
+&lt;p&gt;Par exemple, nous avons conservé le mécanisme de collections d'enregistrements
+et de &lt;em&gt;timestamp&lt;/em&gt; de &lt;em&gt;Sync&lt;/em&gt;. Comme ces problématiques sont récurrentes, voire
+incontournables, nous avons décidé de reprendre le protocole de synchronisation,
+de l'étendre légèrement et surtout de le dissocier du projet de listes de lecture.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="le-mecanisme-qui-force-a-aller-de-l-avant"&gt;
+&lt;h2&gt;Le mécanisme qui force à aller de l'avant&lt;/h2&gt;
+&lt;p&gt;Comme première pierre à l'édifice, nous avons donné naissance au projet
+&lt;a class="reference external" href="https://cliquet.readthedocs.org"&gt;Cliquet&lt;/a&gt;, dont l'idée principale est de
+fournir une implémentation de ce protocole en python, tout en factorisant
+l'ensemble de nos bonnes pratiques (pour la prod notamment).&lt;/p&gt;
+&lt;img alt="Logo du projet Cliquet" src="http://www.servicedenuages.fr/images/cliquet-logo.png" /&gt;
+&lt;p&gt;L'avantage d'avoir un protocole plutôt qu'un monolithe, c'est que si vous
+préférez Asyncio, io.js ou Go, on vous encouragera à publier votre
+implémentation alternative !&lt;/p&gt;
+&lt;p&gt;Avec &lt;em&gt;Cliquet&lt;/em&gt;, le code du serveur liste de lecture consiste principalement
+à définir un schéma pour les enregistrements, puis à forcer des valeurs de
+champs sur certains appels. Cela réduit ce projet à quelques dizaines de lignes
+de code.&lt;/p&gt;
+&lt;p&gt;Quant au futur service de stockage générique, &lt;a class="reference external" href="http://kinto.readthedocs.org"&gt;le projet&lt;/a&gt; en est encore à ses balbutiements mais c'est
+bel et bien en route ! Il permet déjà d'être branché comme backend de stockage
+dans une application &lt;em&gt;Cliquet&lt;/em&gt;, et ça &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/blob/0.2.1/kinto/views/collection.py"&gt;avec 20 lignes de code&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;Ah, et cette fois, nous ne construirons les fonctionnalités qu'à partir des
+besoins concrets qui surviennent. Ça paraît tout bête, mais sur &lt;em&gt;Daybed&lt;/em&gt; on
+l'a pas vu venir :)&lt;/p&gt;
+&lt;p&gt;Dans les prochains articles, nous avons prévu de décrire les bonnes pratiques
+rassemblées dans le protocole (ou &lt;em&gt;Cliquet&lt;/em&gt;), certains points techniques précis
+et de vous présenter notre vision via des exemples et tutoriaux.&lt;/p&gt;
+&lt;p&gt;À bientôt, donc !&lt;/p&gt;
+&lt;/div&gt;
+</summary></entry><entry><title>Le printemps</title><link href="http://www.servicedenuages.fr/le-printemps.html" rel="alternate"></link><updated>2015-04-15T00:00:00+02:00</updated><author><name></name></author><id>tag:www.servicedenuages.fr,2015-04-15:le-printemps.html</id><summary type="html">&lt;p&gt;C'est le printemps et n'en déplaise à certains, il est temps de faire
 un peu de ménage.&lt;/p&gt;
 &lt;p&gt;Voilà quelques temps que nous accumulons les expériences et que nous
 ne les partagions plus tellement par écrit.&lt;/p&gt;
@@ -11,5 +80,5 @@ satisfaction sur ces retours d'expérience.&lt;/p&gt;
 esprits et que nous vous proposons un ensemble d'articles en français
 sur ce que nous faisons dans notre petite équipe du Service de Nuages
 de Mozilla.&lt;/p&gt;
-&lt;img alt="" src="/images/service_de_nuages.png" /&gt;
+&lt;img alt="Logo du service des nuages" src="/images/service_de_nuages.png" /&gt;
 </summary></entry></feed>
