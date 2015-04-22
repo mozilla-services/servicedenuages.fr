@@ -42,4 +42,5 @@ STATIC_PATHS = ['images', 'documents', 'extra/CNAME', 'presentations']
 EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}}
 
 PLUGIN_PATHS = ['plugins']
-PLUGINS = ['post_stats', ]
+PLUGINS = ['post_stats', 'better_figures_and_images']
+RESPONSIVE_IMAGES = True
