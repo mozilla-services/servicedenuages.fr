@@ -9,6 +9,8 @@ AUTHORS = (
     u'Tarek Ziadé',
     u'Nicolas Perriault'
 )
+AUTHOR = "Service de Nuages"
+
 SITENAME = u'Service de nuages'
 SITEURL = ''
 
