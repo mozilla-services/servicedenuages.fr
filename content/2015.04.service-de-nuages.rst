@@ -83,6 +83,7 @@ fournir une implémentation de ce protocole en python, tout en factorisant
 l'ensemble de nos bonnes pratiques (pour la prod notamment).
 
 .. image:: {filename}/images/cliquet-logo.png
+    :align: right
     :alt: Logo du projet Cliquet
 
 L'avantage d'avoir un protocole plutôt qu'un monolithe, c'est que si vous
