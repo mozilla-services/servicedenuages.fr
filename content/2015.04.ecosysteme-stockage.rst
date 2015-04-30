@@ -37,6 +37,7 @@ Il y a plusieurs `implémentations <https://github.com/jcoglan/restore>`_ du ser
 
 
 .. image:: {filename}/images/remotestorage-widget.png
+    :align: left
     :alt: Remote Storage widget
 
 Le client `remoteStorage.js <https://github.com/remotestorage/remotestorage.js/>`_ permet d'intégrer la solution dans les applications Web.
