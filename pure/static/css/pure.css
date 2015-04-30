@@ -359,24 +359,20 @@ pre {
 }
 /* Styles for Figures & Images */
 
-img {
-    border: 1px solid #bbb;
-    border-radius: 3px;
-    padding: 4px;
-    float: left;
-    margin: 1em 1em 1em 0;
-    box-shadow: 4px 4px 4px 0px rgba(128, 128, 128, 0.5);
-}
 img.align-right {
     float: right;
     margin: 1em 0 1em 1em;
 }
 
-.figure {
+img.align-left {
+    float: left;
+    margin: 1em 1em 1em 0;
+}
+
+.figure, img{
     border: 1px solid #bbb;
     border-radius: 3px;
     padding: 4px;
-    float: left;
     margin: 0 1em 1em 0;
     box-shadow: 4px 4px 4px 0px rgba(128, 128, 128, 0.5);
 }
