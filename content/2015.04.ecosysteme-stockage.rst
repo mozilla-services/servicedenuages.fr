@@ -93,10 +93,10 @@ différences avec ce que nous souhaitons faire:
 En résumé, il semblerait que ce que nous souhaitons faire avec le stockage
 d'enregistrements validés est complémentaire avec *Remote Storage*.
 
-Si des besoin de persistence orientés «fichiers» se présentent, a priori nous aurions tort
+Si des besoins de persistence orientés «fichiers» se présentent, a priori nous aurions tort
 de réinventer les solutions apportées par cette spécification. Il y a donc de grandes
 chances que nous l´intégrions à terme, et que *Remote Storage* devienne une facette
-de notre service.
+de notre solution.
 
 
 PouchDB
@@ -195,7 +195,7 @@ Avec RemoteStorage
     :align: center
 
 Clairement, l'idée de *RemoteStorage* est de dissocier l'application executée,
-et les données crées par l'utilisateur avec celle-ci.
+et les données créées par l'utilisateur avec celle-ci.
 
 Dans notre cas, c'est l'application « Payment » qui manipule des données
 concernant un utilisateur. Mais celles-ci ne lui appartiennent pas directement:
@@ -288,7 +288,7 @@ En revanche, nous avons plusieurs fonctionnalités intéressantes:
   <https://github.com/dfahlander/Dexie.js>`_) ;
 
 
-Et, on répond au reste des `specifications mentionnées au début de l'article <storage-specs>`_ !
+Et, on répond au reste des `specifications mentionnées au début de l'article <#storage-specs>`_ !
 
 
 Les arguments philosophiques
@@ -308,7 +308,7 @@ qui sont mal adressés par *PouchDB*. Il se voudra:
 * Naïf (*pas de rocket science*) ;
 * Sans magie (*explicite et facile à réimplémenter from scratch*) ;
 
-`La philosophie et les fonctionnalités du toolkit python *Cliquet*
+`La philosophie et les fonctionnalités du toolkit python Cliquet
 <http://cliquet.readthedocs.org/en/latest/rationale.html>`_ seront bien entendu
 à l'honneur :)
 
@@ -330,9 +330,10 @@ Avec *Cliquet*, en utilisant le backend PostgreSQL, les données sont persistée
 Ce qui ne sera pas le cas d'un adapteur LevelDown qui va manipuler des notions
 de révisions éclatées dans un schéma clé-valeur.
 
-Si nous basons le service sur *Cliquet*, tout le travail d'automatisation
-de la mise en production (*monitoring, builds RPM, Puppet...*) que nous avons
-fait pour *Reading List* est complètement réutilisable.
+Si nous basons le service sur *Cliquet*, comme c'est le cas avec `Kinto <http://kinto.readthedocs.org>`_,
+tout le travail d'automatisation de la mise en production (*monitoring,
+builds RPM, Puppet...*) que nous avons fait pour *Reading List* est
+complètement réutilisable.
 
 De même, si on repart avec une stack complètement différente, nous allons
 devoir recommencer tout le travail de rodage, de profiling et d'optimisation
@@ -362,7 +363,7 @@ quand au protocole de synchronisation...
     :alt: XKCD — Standards https://xkcd.com/927/
 
 Utiliser ce nouvel écosystème pour le projet « Payments » va nous permettre de
-mettre au point un système de permissions (*basés sur les scopes OAuth*) qui
+mettre au point un système de permissions (*probablement basé sur les scopes OAuth*) qui
 correspond au besoin exprimé. Et nous avons bien l'intention de puiser dans
 `notre expérience avec Daybed sur le sujet
 <http://blog.daybed.io/daybed-revival.html>`_.
@@ -372,8 +373,8 @@ de faire un client JavaScript minimaliste.
 
 En partant dans notre coin, nous prenons plusieurs risques:
 
-* réinventer une roue dont nous n'avons pas connaissance;
-* échouer à faire de l'éco-système *Cliquet* un projet communautaire;
+* réinventer une roue dont nous n'avons pas connaissance ;
+* échouer à faire de l'éco-système *Cliquet* un projet communautaire ;
 * échouer à positionner *Cliquet* dans la niche des cas non couverts par PouchDB :)
 
 Comme `le dit Giovanni Ornaghi <http://pouchdb.com/2015/04/05/filtered-replication.html>`_:

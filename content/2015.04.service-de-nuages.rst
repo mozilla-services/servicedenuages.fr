@@ -98,7 +98,7 @@ de code.
 Quant au futur service de stockage générique, `le projet
 <http://kinto.readthedocs.org>`_ en est encore à ses balbutiements mais c'est
 bel et bien en route ! Il permet déjà d'être branché comme backend de stockage
-dans une application *Cliquet*, et ça `avec 20 lignes de code
+dans une application *Cliquet*, et ça `implémenté en 20 lignes de code
 <https://github.com/mozilla-services/kinto/blob/0.2.1/kinto/views/collection.py>`_!
 
 Ah, et cette fois, nous ne construirons les fonctionnalités qu'à partir des
