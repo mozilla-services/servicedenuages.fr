@@ -4,6 +4,11 @@ Eco-système et stockage générique
 :date: 2015-04-30
 
 
+**tl;dr Nous devons construire un service de suivi de paiements, et nous
+hésitons à continuer à nous entêter avec notre propre solution de
+stockage/synchronisation.**
+
+
 Comme nous l'écrivions `dans l'article précédent
 <{filename}/2015.04.service-de-nuages.rst>`_, nous souhaitons construire une
 solution de stockage générique.
