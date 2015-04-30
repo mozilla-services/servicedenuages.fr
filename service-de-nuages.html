@@ -30,7 +30,7 @@
         <header class="header-article">
             <hgroup>
                 <h5>Publié</h5>
-                <p title="~626 mots">~3mn de lecture</p>
+                <p title="~626 mots">~3mn de lecture 🕑</p>
                 <p>jeu. 16 avril 2015</p>
                 <a href="/">&larr;Liste des articles</a>
             </hgroup>
@@ -53,11 +53,11 @@ complémentaires: <a class="reference external" href="https://nicolas.perriault.
 <div class="section" id="un-serveur-de-listes-de-lecture">
 <h2>Un serveur de listes de lecture</h2>
 <p>En parallèle, un projet de <a class="reference external" href="https://readinglist.readthedocs.org">synchronisation de liste de lecture</a> (<em>Reading List</em>) a vu le jour.  L'idée
-étant de pouvoir marquer des pages &quot;à lire pour plus tard&quot; et de continuer la
+étant de pouvoir marquer des pages "à lire pour plus tard" et de continuer la
 lecture sur n'importe quel périphérique synchronisé (Firefox pour Android ou
 Firefox Desktop). Un équivalent libre à <a class="reference external" href="http://getpocket.com">Pocket</a> en quelque sorte, qu'il est
 possible d'héberger soit-même.</p>
-<img alt="Capture d'écran de Firefox nightly avec readinglist." src="http://www.servicedenuages.fr/images/readinglist-screenshot.png" />
+<img alt="Capture d'écran de Firefox nightly avec readinglist." src="http://www.servicedenuages.fr/images/readinglist-screenshot.png" style="width: 953px; height: auto; max-width: 100%;"/>
 <p>Pour le construire, nous aurions pu réutiliser <a class="reference external" href="https://github.com/mozilla-services/server-syncstorage">Firefox Sync</a>, après tout
 c'est un service de synchronisation de données très robuste, construit avec <a class="reference external" href="http://cornice.readthedocs.org/">Cornice</a>.
 Mais seulement, <em>Sync</em> n'a pas été pensé pour garantir la pérennité des données,
@@ -73,9 +73,9 @@ que ça vous rappelle <a class="reference external" href="https://daybed.io">un 
 Pour les applications clientes, JavaScript, mobiles ou autres, l'utilisation de
 ce service doit être un jeu d'enfant ! L'application gère ses données
 localement (aka offline-first), et synchronise à la demande.</p>
-<p>Ici, le cœur du serveur <em>Reading List</em> est justement une API &quot;CRUD&quot; (Create,
+<p>Ici, le cœur du serveur <em>Reading List</em> est justement une API "CRUD" (Create,
 Retrieve, Update, Delete), qui gère de la synchronisation et de
-l'authentification. Nous avons donc pris le parti de faire une API &quot;simple&quot;,
+l'authentification. Nous avons donc pris le parti de faire une API "simple",
 avec le moins de spécificités possible, qui poserait les bases d'un service
 générique. Notamment parce qu'il y a d'autres projets dans la même trempe qui vont suivre.</p>
 <p>Pas mal d'expérience ayant été accumulée au sein de l'équipe, avec d'une part la
@@ -93,7 +93,7 @@ de l'étendre légèrement et surtout de le dissocier du projet de listes de lec
 <a class="reference external" href="https://cliquet.readthedocs.org">Cliquet</a>, dont l'idée principale est de
 fournir une implémentation de ce protocole en python, tout en factorisant
 l'ensemble de nos bonnes pratiques (pour la prod notamment).</p>
-<img alt="Logo du projet Cliquet" src="http://www.servicedenuages.fr/images/cliquet-logo.png" />
+<img alt="Logo du projet Cliquet" class="align-right" src="http://www.servicedenuages.fr/images/cliquet-logo.png" style="width: 300px; height: auto; max-width: 100%;"/>
 <p>L'avantage d'avoir un protocole plutôt qu'un monolithe, c'est que si vous
 préférez Asyncio, io.js ou Go, on vous encouragera à publier votre
 implémentation alternative !</p>

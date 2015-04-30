@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>Eco-système et stockage générique // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Publié</h5>
+                <p title="~1949 mots">~8mn de lecture 🕑</p>
+                <p>jeu. 30 avril 2015</p>
+                <a href="/">&larr;Liste des articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Eco-système et stockage générique</h1>
+                </header>
+            </section>
+            <p>Comme nous l'écrivions <a class="reference external" href="http://www.servicedenuages.fr/service-de-nuages.html">dans l'article précédent</a>, nous souhaitons construire une
+solution de stockage générique.</p>
+<p>Notre objectif est simple: permettre aux développeurs d'application, internes
+à Mozilla ou du monde entier, de faire persister et synchroniser facilement des
+données associées à un utilisateur.</p>
+<p id="storage-specs">Les aspects de l'architecture qui nous semblent incontournables:</p>
+<ul class="simple">
+<li>La solution doit reposer sur un protocole, et non sur une implémentation ;</li>
+<li>L'auto-hébergement de l'ensemble doit être simplissime ;</li>
+<li>L'authentification doit être <em>pluggable</em>, voire décentralisée (OAuth2, FxA,
+Persona) ;</li>
+<li>Les enregistrements doivent pouvoir être validés par le serveur ;</li>
+<li>Les données doivent pouvoir être stockées dans n'importe quel backend ;</li>
+<li>Un système de permissions doit permettre de protéger des collections, ou de
+partager des enregistrements de manière fine ;</li>
+<li>La résolution de conflits doit pouvoir avoir lieu sur le serveur ;</li>
+<li>Le client doit être pensé «<em>offline-first</em>» ;</li>
+<li>Le client doit pouvoir réconcilier les données simplement ;</li>
+<li>Le client doit pouvoir être utilisé aussi bien dans le navigateur que côté
+serveur.</li>
+</ul>
+<p>La première question qui nous a été posée fût «<em>Pourquoi vous n'utilisez pas
+PouchDB ou Remote Storage ?</em>»</p>
+<div class="section" id="remote-storage">
+<h2>Remote Storage</h2>
+<p>Remote Storage est un standard ouvert pour du stockage par utilisateur.  <a class="reference external" href="http://tools.ietf.org/html/draft-dejong-remotestorage-04">La
+specification</a> se
+base sur des standards déjà existants et éprouvés:  Webfinger, OAuth 2, CORS et
+REST.</p>
+<p>L'API est simple, des <a class="reference external" href="http://blog.cozycloud.cc/news/2014/08/12/when-unhosted-meets-cozy-cloud/">projets prestigieux l'utilisent</a>.
+Il y a plusieurs <a class="reference external" href="https://github.com/jcoglan/restore">implémentations</a> du
+serveur, et il existe <a class="reference external" href="https://www.npmjs.com/package/remotestorage-server">un squelette Node</a> pour construire un
+serveur sur mesure.</p>
+<img alt="Remote Storage widget" class="align-left" src="http://www.servicedenuages.fr/images/remotestorage-widget.png" style="width: 243px; height: auto; max-width: 100%;"/>
+<p>Le client <a class="reference external" href="https://github.com/remotestorage/remotestorage.js/">remoteStorage.js</a> permet d'intégrer la
+solution dans les applications Web.  Il se charge du «store local», du cache,
+de la synchronization, et fournit un widget qui permet aux utilisateurs des
+applications de choisir le serveur qui recevra les données (via Webfinger).</p>
+<p><a class="reference external" href="https://github.com/michielbdejong/ludbud">ludbud</a>, la version épurée de
+<em>remoteStorage.js</em>, se limite à l'abstraction du stockage distant.  Cela
+permettrait à terme, d'avoir une seule bibliothèque pour stocker dans un
+serveur <em>remoteStorage</em>, <em>ownCloud</em> ou chez les méchants comme <em>Google Drive</em>
+ou <em>Dropbox</em>.</p>
+<p>Au premier abord, la spécification correspond à ce que nous voulons accomplir:</p>
+<ul class="simple">
+<li>La philosophie du protocole est saine;</li>
+<li>L'éco-système est bien fichu;</li>
+<li>La vision politique colle: redonner le contrôle des données aux utilisateurs
+(voir <a class="reference external" href="http://unhosted.org/">unhosted</a>);</li>
+<li>Les choix techniques compatibles avec ce qu'on a commencé (CORS, REST, OAuth 2);</li>
+</ul>
+<p>En revanche, vis à vis de la manipulation des données, il y a plusieurs
+différences avec ce que nous souhaitons faire:</p>
+<ul class="simple">
+<li>L'API suit globalement une métaphore «fichiers» (dossier/documents), plutôt
+que «données» (collection/enregistrements) ;</li>
+<li>Il n'y a pas de validation des enregistrements selon un schéma (même si
+<a class="reference external" href="https://remotestorage.io/doc/code/files/baseclient/types-js.html">certaines implémentations</a> du
+protocole le font) ;</li>
+<li>Il n'y a pas la possibilité de trier/filtrer les enregistrements selon des attributs ;</li>
+<li>Les permissions <a class="reference external" href="https://groups.google.com/forum/#!topic/unhosted/5_NOGq8BPTo">se limitent à privé/public</a> (et
+<a class="reference external" href="https://github.com/remotestorage/spec/issues/58#issue-27249452">l'auteur envisage plutôt un modèle à la Git</a>) <a class="footnote-reference" href="#id3" id="id1">[1]</a> ;</li>
+</ul>
+<p>En résumé, il semblerait que ce que nous souhaitons faire avec le stockage
+d'enregistrements validés est complémentaire avec <em>Remote Storage</em>.</p>
+<p>Si des besoin de persistence orientés «fichiers» se présentent, a priori nous aurions tort
+de réinventer les solutions apportées par cette spécification. Il y a donc de grandes
+chances que nous l´intégrions à terme, et que <em>Remote Storage</em> devienne une facette
+de notre service.</p>
+</div>
+<div class="section" id="pouchdb">
+<h2>PouchDB</h2>
+<p><a class="reference external" href="http://pouchdb.com/">PouchDB</a> est une bibliothèque JavaScript qui permet
+de manipuler des enregistrements en local et de les synchroniser vers une base distante.</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PouchDB</span><span class="p">(</span><span class="s1">'dbname'</span><span class="p">);</span>
+
+<span class="nx">db</span><span class="p">.</span><span class="nx">put</span><span class="p">({</span>
+ <span class="nx">_id</span><span class="o">:</span> <span class="s1">'dave@gmail.com'</span><span class="p">,</span>
+ <span class="nx">name</span><span class="o">:</span> <span class="s1">'David'</span><span class="p">,</span>
+ <span class="nx">age</span><span class="o">:</span> <span class="mi">68</span>
+<span class="p">});</span>
+
+<span class="nx">db</span><span class="p">.</span><span class="nx">replicate</span><span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="s1">'http://example.com/mydb'</span><span class="p">);</span>
+</pre></div>
+<p>Le projet a le vent en poupe, bénéficie de nombreux contributeurs,
+l'éco-système est très riche et l'adoption par des projets <a class="reference external" href="https://github.com/hoodiehq/wip-hoodie-store-on-pouchdb">comme Hoodie</a> ne fait que
+confirmer la pertinence de l'outil pour les développeurs frontend.</p>
+<p><em>PouchDB</em> gère un « store » local, dont la persistence est abstraite et <a class="reference external" href="http://pouchdb.com/2014/07/25/pouchdb-levels-up.html">repose
+sur</a> l'API <a class="reference external" href="https://github.com/level/levelup#relationship-to-leveldown">LevelDown</a> pour persister
+les données dans <a class="reference external" href="https://github.com/Level/levelup/wiki/Modules#storage-back-ends">n'importe quel backend</a>.</p>
+<p>Même si <em>PouchDB</em> adresse principalement les besoins des applications
+«<em>offline-first</em>», il peut être utilisé aussi bien dans le navigateur que côté
+serveur, via Node.</p>
+<div class="section" id="synchronisation">
+<h3>Synchronisation</h3>
+<p>La synchronisation (ou réplication) des données locales s'effectue sur un
+<a class="reference external" href="http://couchdb.apache.org/">CouchDB</a> distant.</p>
+<p>Le projet <a class="reference external" href="https://github.com/pouchdb/pouchdb-server">PouchDB Server</a>
+implémente l'API de CouchDB en NodeJS. Comme <em>PouchDB</em> est utilisé, on obtient
+un service qui se comporte comme un <em>CouchDB</em> mais qui stocke ses données
+n'importe où, dans un <em>Redis</em> ou un <em>PostgreSQL</em> par exemple.</p>
+<p>La synchronisation est complète. Autrement dit, tous les enregistrements qui
+sont sur le serveur se retrouvent synchronisés dans le client. Il est possible
+de filtrer les collections synchronisées, mais cela <a class="reference external" href="http://pouchdb.com/2015/04/05/filtered-replication.html">n'a pas pour objectif de
+sécuriser l'accès aux données</a>.</p>
+<p>L'approche recommandée pour cloisonner les données par utilisateur consiste
+à créer <a class="reference external" href="https://github.com/nolanlawson/pouchdb-authentication#some-people-can-read-some-docs-some-people-can-write-those-same-docs">une base de données par utilisateur</a>.</p>
+<p>Ce n'est pas forcément un problème, CouchDB <a class="reference external" href="https://mail-archives.apache.org/mod_mbox/couchdb-user/201401.mbox/%3C52CEB873.7080404@ironicdesign.com%3E">supporte des centaines de milliers
+de bases sans sourciller</a>.
+Mais selon les cas d'utilisation, le cloisement n'est pas toujours facile
+à déterminer (par rôle, par application, par collection, ...).</p>
+</div>
+</div>
+<div class="section" id="le-cas-d-utilisation-payments">
+<h2>Le cas d'utilisation « Payments »</h2>
+<img alt="Put Payments Here  -- Before the Internet - CC-NC-SA Katy Silberger https://www.flickr.com/photos/katysilbs/11163812186" src="http://www.servicedenuages.fr/images/put-payments.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
+<p>Dans les prochaines semaines, nous devrons mettre sur pied un prototype pour
+tracer l'historique des paiements et abonnements d'un utilisateur.</p>
+<p>Le besoin est simple:</p>
+<ul class="simple">
+<li>l'application « Payment » enregistre les paiements et abonnements d'un
+utilisateur pour une application donnée;</li>
+<li>l'application « Donnée » interroge le service pour vérifier qu'un utilisateur
+a payé ou est abonné;</li>
+<li>l'utilisateur interroge le service pour obtenir la liste de tous ses
+abonnements.</li>
+</ul>
+<p>Seule l'application « Payment » a le droit de créer/modifier/supprimer des
+enregistrements, les deux autres ne peuvent que consulter en lecture seule.</p>
+<p>Une application donnée ne peut pas accéder aux paiements des autres
+applications, et un utilisateur ne peut pas accéder aux paiements des autres
+utilisateurs.</p>
+<div class="section" id="avec-remotestorage">
+<h3>Avec RemoteStorage</h3>
+<img alt="Remote Love - CC-BY-NC Julie https://www.flickr.com/photos/mamajulie2008/2609549461" class="align-center" src="http://www.servicedenuages.fr/images/remote-love.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
+<p>Clairement, l'idée de <em>RemoteStorage</em> est de dissocier l'application executée,
+et les données crées par l'utilisateur avec celle-ci.</p>
+<p>Dans notre cas, c'est l'application « Payment » qui manipule des données
+concernant un utilisateur. Mais celles-ci ne lui appartiennent pas directement:
+certes un utilisateur doit pouvoir les supprimer, surtout pas en créer ou les
+modifier!</p>
+<p>La notion de permissions limitée à privé/publique ne suffit pas dans ce cas
+précis.</p>
+</div>
+<div class="section" id="avec-pouchdb">
+<h3>Avec PouchDB</h3>
+<p>Il va falloir créer une <em>base de données</em> par utilisateur, afin d'isoler les
+enregistrements de façon sécurisée.  Seule l'application « Payment » aura tous
+les droits sur les databases.</p>
+<p>Mais cela ne suffit pas.</p>
+<p>Il ne faut pas qu'une application puisse voir les paiements des autres
+applications, donc il va aussi falloir recloisonner, et créer une <em>base de
+données</em> par application.</p>
+<p>Quand un utilisateur voudra accéder à l'ensemble de ses paiements, il faudra
+agréger les <em>databases</em> de toutes les applications. Quand l'équipe marketing
+voudra faire des statistiques sur l'ensemble des applications, il faudra
+agrégér des centaines de milliers de <em>databases</em>.</p>
+<p>Ce qui est fort dommage, puisqu'il est probable que les paiements ou
+abonnements d'un utilisateur pour une application se comptent sur les doigts
+d'une main. Des centaines de milliers de bases contenant moins de
+5 enregistrements ?</p>
+<p>De plus, dans le cas de l'application « Payment », le serveur est implémenté en
+Python. Utiliser un wrapper JavaScript comme le fait <a class="reference external" href="https://pythonhosted.org/Python-PouchDB/">python-pouchdb</a> cela ne nous fait pas trop rêver.</p>
+</div>
+</div>
+<div class="section" id="un-nouvel-eco-systeme">
+<h2>Un nouvel éco-système ?</h2>
+<img alt="Wagon wheel - CC-BY-NC-SA arbyreed https://www.flickr.com/photos/19779889@N00/16161808220" src="http://www.servicedenuages.fr/images/wagon-wheel.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
+<p>Évidemment, quand on voit la richesse des projets <em>PouchDB</em> et <em>Remote Storage</em>
+et la dynamique de ces communautés, il est légitime d'hésiter avant de
+développer une solution alternative.</p>
+<p>Quand nous avons créé le serveur <em>Reading List</em>, nous l'avons construit avec
+<a class="reference external" href="http://cliquet.readthedocs.org/">Cliquet</a>, ce fût l'occasion de mettre au
+point <a class="reference external" href="http://cliquet.readthedocs.org/en/latest/api/">un protocole très simple</a>, fortement inspiré de
+<a class="reference external" href="http://en.wikipedia.org/wiki/Firefox_Sync">Firefox Sync</a>, pour faire de la
+synchronisation d'enregistrements.</p>
+<p>Et si les clients <em>Reading List</em> ont pu être implémentés en quelques semaines,
+que ce soit en JavaScript, Java (Android) et ASM (Add-on Firefox), c'est que le
+principe «<em>offline first</em>» du service est trivial.</p>
+<div class="section" id="les-compromis">
+<h3>Les compromis</h3>
+<p>Évidemment, nous n'avons pas la prétention de concurrencer <em>CouchDB</em>. Nous faisons plusieurs
+concessions:</p>
+<ul class="simple">
+<li>De base, les collections d'enregistrements sont cloisonnées par utilisateur;</li>
+<li>Pas d'historique des révisions;</li>
+<li>Pas de diff sur les enregistrements entre révisions;</li>
+<li>De base, pas de résolution de conflit automatique;</li>
+<li>Pas de synchronisation par flux (<em>streams</em>);</li>
+</ul>
+<p>Jusqu'à preuve du contraire, ces compromis excluent la possibilité
+d'implémenter un <a class="reference external" href="https://github.com/pouchdb/pouchdb/blob/master/lib/adapters/http/http.js#L721-L946">adapter PouchDB</a>
+pour la synchronisation avec le protocole HTTP de <em>Cliquet</em>.</p>
+<p>Dommage puisque capitaliser sur l'expérience client de <em>PouchDB</em> au niveau
+synchro client semble être une très bonne idée.</p>
+<p>En revanche, nous avons plusieurs fonctionnalités intéressantes:</p>
+<ul class="simple">
+<li>Pas de map-reduce;</li>
+<li>Synchronisation partielle et/ou ordonnée et/ou paginée    ;</li>
+<li>Le client choisit, via des headers, d'écraser la donnée ou de respecter la version du serveur ;</li>
+<li>Un seul serveur à déployer pour N applications ;</li>
+<li>Auto-hébergement simplissime ;</li>
+<li>Le client peut choisir de ne pas utiliser de « store local » du tout ;</li>
+<li>Dans le client JS, la gestion du « store local » sera externalisée (on pense
+à <a class="reference external" href="https://github.com/mozilla/localForage">LocalForage</a> ou <a class="reference external" href="https://github.com/dfahlander/Dexie.js">Dexie.js</a>) ;</li>
+</ul>
+<p>Et, on répond au reste des <a class="reference external" href="storage-specs">specifications mentionnées au début de l'article</a> !</p>
+</div>
+<div class="section" id="les-arguments-philosophiques">
+<h3>Les arguments philosophiques</h3>
+<p>Il est <a class="reference external" href="http://en.wikipedia.org/wiki/Law_of_the_instrument">illusoire de penser qu'on peut tout faire avec un seul outil</a>.</p>
+<p>Nous avons d'autres cas d'utilisations dans les cartons qui semblent correspondre au scope de <em>PouchDB</em>
+(<em>pas de notion de permissions ou de partage, environnement JavaScript, ...</em>). Nous saurons en tirer
+profit quand cela s'avèrera pertinent !</p>
+<p>L'éco-système que nous voulons construire tentera de couvrir les cas d'utilisation
+qui sont mal adressés par <em>PouchDB</em>. Il se voudra:</p>
+<ul class="simple">
+<li>Basé sur notre protocole très simple ;</li>
+<li>Minimaliste et multi-usages (<em>comme la fameuse 2CV</em>) ;</li>
+<li>Naïf (<em>pas de rocket science</em>) ;</li>
+<li>Sans magie (<em>explicite et facile à réimplémenter from scratch</em>) ;</li>
+</ul>
+<p><a class="reference external" href="http://cliquet.readthedocs.org/en/latest/rationale.html">La philosophie et les fonctionnalités du toolkit python *Cliquet*</a> seront bien entendu
+à l'honneur :)</p>
+<p>Quant à <em>Remote Storage</em>, dès que le besoin se présentera, nous serons très fier
+de rejoindre l'initiative, mais pour l'instant cela nous paraît risqué de démarrer
+en tordant la solution.</p>
+</div>
+<div class="section" id="les-arguments-pratiques">
+<h3>Les arguments pratiques</h3>
+<p>Avant d'accepter de déployer une solution à base de <em>CouchDB</em>, les <em>ops</em> de Mozilla
+vont nous demander de leur prouver par A+B que ce n'est pas faisable avec
+les stacks qui sont déjà rodées en interne (i.e. MySQL, Redis, PostgreSQL).</p>
+<p>De plus, on doit s'engager sur une pérennité d'au moins 5 ans pour les données.
+Avec <em>Cliquet</em>, en utilisant le backend PostgreSQL, les données sont persistées
+à plat dans un <a class="reference external" href="https://github.com/mozilla-services/cliquet/blob/40aa33/cliquet/storage/postgresql/schema.sql#L14-L28">schéma PostgreSQL tout bête</a>.
+Ce qui ne sera pas le cas d'un adapteur LevelDown qui va manipuler des notions
+de révisions éclatées dans un schéma clé-valeur.</p>
+<p>Si nous basons le service sur <em>Cliquet</em>, tout le travail d'automatisation
+de la mise en production (<em>monitoring, builds RPM, Puppet...</em>) que nous avons
+fait pour <em>Reading List</em> est complètement réutilisable.</p>
+<p>De même, si on repart avec une stack complètement différente, nous allons
+devoir recommencer tout le travail de rodage, de profiling et d'optimisation
+effectué au premier trimestre.</p>
+</div>
+</div>
+<div class="section" id="les-prochaines-etapes">
+<h2>Les prochaines étapes</h2>
+<p>Et il est encore temps de changer de stratégie :) Nous aimerions avoir un
+maximum de retours !  C'est toujours une décision difficile à prendre...
+<tt class="docutils literal">&lt;/appel à troll&gt;</tt></p>
+<ul class="simple">
+<li>Tordre un éco-système existant vs. constuire sur mesure ;</li>
+<li>Maîtriser l'ensemble vs. s'intégrer ;</li>
+<li>Contribuer vs. refaire ;</li>
+<li>Guider vs. suivre.</li>
+</ul>
+<p>Nous avons vraiment l'intention de rejoindre l'initiative <a class="reference external" href="https://nobackend.org/">no-backend</a>, et ce premier pas n'exclue pas que nous convergions
+à terme ! Peut-être que nous allons finir par rendre notre service compatible
+avec <em>Remote Storage</em>, et peut-être que <em>PouchDB</em> deviendra plus agnostique
+quand au protocole de synchronisation...</p>
+<img alt="XKCD — Standards https://xkcd.com/927/" src="http://www.servicedenuages.fr/images/standards.png" style="width: 500px; height: auto; max-width: 100%;"/>
+<p>Utiliser ce nouvel écosystème pour le projet « Payments » va nous permettre de
+mettre au point un système de permissions (<em>basés sur les scopes OAuth</em>) qui
+correspond au besoin exprimé. Et nous avons bien l'intention de puiser dans
+<a class="reference external" href="http://blog.daybed.io/daybed-revival.html">notre expérience avec Daybed sur le sujet</a>.</p>
+<p>Nous extrairons aussi le code des clients implémentés pour <em>Reading List</em> afin
+de faire un client JavaScript minimaliste.</p>
+<p>En partant dans notre coin, nous prenons plusieurs risques:</p>
+<ul class="simple">
+<li>réinventer une roue dont nous n'avons pas connaissance;</li>
+<li>échouer à faire de l'éco-système <em>Cliquet</em> un projet communautaire;</li>
+<li>échouer à positionner <em>Cliquet</em> dans la niche des cas non couverts par PouchDB :)</li>
+</ul>
+<p>Comme <a class="reference external" href="http://pouchdb.com/2015/04/05/filtered-replication.html">le dit Giovanni Ornaghi</a>:</p>
+<blockquote>
+Rolling out your set of webservices, push notifications, or background services
+might give you more control, but at the same time it will force you to engineer,
+write, test, and maintain a whole new ecosystem.</blockquote>
+<p>C'est justement l'éco-système dont est responsable l'équipe <em>Mozilla Cloud Services</em>!</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label"></col><col></col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Il existe le <a class="reference external" href="https://sharesome.5apps.com/">projet Sharesome</a> qui
+permet de partager publiquement des ressources de son <em>remote Storage</em>.</td></tr>
+</tbody>
+</table>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>
