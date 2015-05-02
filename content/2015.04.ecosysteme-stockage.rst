@@ -4,9 +4,15 @@ Eco-système et stockage générique
 :date: 2015-04-30
 
 
+**tl;dr Nous devons construire un service de suivi de paiements, et nous
+hésitons à continuer à nous entêter avec notre propre solution de
+stockage/synchronisation.**
+
+
 Comme nous l'écrivions `dans l'article précédent
 <{filename}/2015.04.service-de-nuages.rst>`_, nous souhaitons construire une
-solution de stockage générique.
+solution de stockage générique. On refait `Daybed <http://daybed.readthedocs.org>`_
+chez Mozilla !
 
 Notre objectif est simple: permettre aux développeurs d'application, internes
 à Mozilla ou du monde entier, de faire persister et synchroniser facilement des
@@ -28,7 +34,8 @@ Les aspects de l'architecture qui nous semblent incontournables:
 * Le client doit être pensé «*offline-first*» ;
 * Le client doit pouvoir réconcilier les données simplement ;
 * Le client doit pouvoir être utilisé aussi bien dans le navigateur que côté
-  serveur.
+  serveur ;
+* Tous les composants se doivent d´être simples et substituables facilement.
 
 La première question qui nous a été posée fût «*Pourquoi vous n'utilisez pas
 PouchDB ou Remote Storage ?*»
