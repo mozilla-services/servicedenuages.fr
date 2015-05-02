@@ -30,7 +30,7 @@
         <header class="header-article">
             <hgroup>
                 <h5>Publié</h5>
-                <p title="~1949 mots">~8mn de lecture 🕑</p>
+                <p title="~1995 mots">~8mn de lecture 🕑</p>
                 <p>jeu. 30 avril 2015</p>
                 <a href="/">&larr;Liste des articles</a>
             </hgroup>
@@ -43,8 +43,12 @@
                     <h1>Eco-système et stockage générique</h1>
                 </header>
             </section>
-            <p>Comme nous l'écrivions <a class="reference external" href="http://www.servicedenuages.fr/service-de-nuages.html">dans l'article précédent</a>, nous souhaitons construire une
-solution de stockage générique.</p>
+            <p><strong>tl;dr Nous devons construire un service de suivi de paiements, et nous
+hésitons à continuer à nous entêter avec notre propre solution de
+stockage/synchronisation.</strong></p>
+<p>Comme nous l'écrivions <a class="reference external" href="http://www.servicedenuages.fr/service-de-nuages.html">dans l'article précédent</a>, nous souhaitons construire une
+solution de stockage générique. On refait <a class="reference external" href="http://daybed.readthedocs.org">Daybed</a>
+chez Mozilla !</p>
 <p>Notre objectif est simple: permettre aux développeurs d'application, internes
 à Mozilla ou du monde entier, de faire persister et synchroniser facilement des
 données associées à un utilisateur.</p>
@@ -62,7 +66,8 @@ partager des enregistrements de manière fine ;</li>
 <li>Le client doit être pensé «<em>offline-first</em>» ;</li>
 <li>Le client doit pouvoir réconcilier les données simplement ;</li>
 <li>Le client doit pouvoir être utilisé aussi bien dans le navigateur que côté
-serveur.</li>
+serveur ;</li>
+<li>Tous les composants se doivent d´être simples et substituables facilement.</li>
 </ul>
 <p>La première question qui nous a été posée fût «<em>Pourquoi vous n'utilisez pas
 PouchDB ou Remote Storage ?</em>»</p>
@@ -108,10 +113,10 @@ protocole le font) ;</li>
 </ul>
 <p>En résumé, il semblerait que ce que nous souhaitons faire avec le stockage
 d'enregistrements validés est complémentaire avec <em>Remote Storage</em>.</p>
-<p>Si des besoin de persistence orientés «fichiers» se présentent, a priori nous aurions tort
+<p>Si des besoins de persistence orientés «fichiers» se présentent, a priori nous aurions tort
 de réinventer les solutions apportées par cette spécification. Il y a donc de grandes
 chances que nous l´intégrions à terme, et que <em>Remote Storage</em> devienne une facette
-de notre service.</p>
+de notre solution.</p>
 </div>
 <div class="section" id="pouchdb">
 <h2>PouchDB</h2>
@@ -179,7 +184,7 @@ utilisateurs.</p>
 <h3>Avec RemoteStorage</h3>
 <img alt="Remote Love - CC-BY-NC Julie https://www.flickr.com/photos/mamajulie2008/2609549461" class="align-center" src="http://www.servicedenuages.fr/images/remote-love.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
 <p>Clairement, l'idée de <em>RemoteStorage</em> est de dissocier l'application executée,
-et les données crées par l'utilisateur avec celle-ci.</p>
+et les données créées par l'utilisateur avec celle-ci.</p>
 <p>Dans notre cas, c'est l'application « Payment » qui manipule des données
 concernant un utilisateur. Mais celles-ci ne lui appartiennent pas directement:
 certes un utilisateur doit pouvoir les supprimer, surtout pas en créer ou les
@@ -249,7 +254,7 @@ synchro client semble être une très bonne idée.</p>
 <li>Dans le client JS, la gestion du « store local » sera externalisée (on pense
 à <a class="reference external" href="https://github.com/mozilla/localForage">LocalForage</a> ou <a class="reference external" href="https://github.com/dfahlander/Dexie.js">Dexie.js</a>) ;</li>
 </ul>
-<p>Et, on répond au reste des <a class="reference external" href="storage-specs">specifications mentionnées au début de l'article</a> !</p>
+<p>Et, on répond au reste des <a class="reference external" href="#storage-specs">specifications mentionnées au début de l'article</a> !</p>
 </div>
 <div class="section" id="les-arguments-philosophiques">
 <h3>Les arguments philosophiques</h3>
@@ -265,7 +270,7 @@ qui sont mal adressés par <em>PouchDB</em>. Il se voudra:</p>
 <li>Naïf (<em>pas de rocket science</em>) ;</li>
 <li>Sans magie (<em>explicite et facile à réimplémenter from scratch</em>) ;</li>
 </ul>
-<p><a class="reference external" href="http://cliquet.readthedocs.org/en/latest/rationale.html">La philosophie et les fonctionnalités du toolkit python *Cliquet*</a> seront bien entendu
+<p><a class="reference external" href="http://cliquet.readthedocs.org/en/latest/rationale.html">La philosophie et les fonctionnalités du toolkit python Cliquet</a> seront bien entendu
 à l'honneur :)</p>
 <p>Quant à <em>Remote Storage</em>, dès que le besoin se présentera, nous serons très fier
 de rejoindre l'initiative, mais pour l'instant cela nous paraît risqué de démarrer
@@ -281,9 +286,10 @@ Avec <em>Cliquet</em>, en utilisant le backend PostgreSQL, les données sont per
 à plat dans un <a class="reference external" href="https://github.com/mozilla-services/cliquet/blob/40aa33/cliquet/storage/postgresql/schema.sql#L14-L28">schéma PostgreSQL tout bête</a>.
 Ce qui ne sera pas le cas d'un adapteur LevelDown qui va manipuler des notions
 de révisions éclatées dans un schéma clé-valeur.</p>
-<p>Si nous basons le service sur <em>Cliquet</em>, tout le travail d'automatisation
-de la mise en production (<em>monitoring, builds RPM, Puppet...</em>) que nous avons
-fait pour <em>Reading List</em> est complètement réutilisable.</p>
+<p>Si nous basons le service sur <em>Cliquet</em>, comme c'est le cas avec <a class="reference external" href="http://kinto.readthedocs.org">Kinto</a>,
+tout le travail d'automatisation de la mise en production (<em>monitoring,
+builds RPM, Puppet...</em>) que nous avons fait pour <em>Reading List</em> est
+complètement réutilisable.</p>
 <p>De même, si on repart avec une stack complètement différente, nous allons
 devoir recommencer tout le travail de rodage, de profiling et d'optimisation
 effectué au premier trimestre.</p>
@@ -306,15 +312,15 @@ avec <em>Remote Storage</em>, et peut-être que <em>PouchDB</em> deviendra plus 
 quand au protocole de synchronisation...</p>
 <img alt="XKCD — Standards https://xkcd.com/927/" src="http://www.servicedenuages.fr/images/standards.png" style="width: 500px; height: auto; max-width: 100%;"/>
 <p>Utiliser ce nouvel écosystème pour le projet « Payments » va nous permettre de
-mettre au point un système de permissions (<em>basés sur les scopes OAuth</em>) qui
+mettre au point un système de permissions (<em>probablement basé sur les scopes OAuth</em>) qui
 correspond au besoin exprimé. Et nous avons bien l'intention de puiser dans
 <a class="reference external" href="http://blog.daybed.io/daybed-revival.html">notre expérience avec Daybed sur le sujet</a>.</p>
 <p>Nous extrairons aussi le code des clients implémentés pour <em>Reading List</em> afin
 de faire un client JavaScript minimaliste.</p>
 <p>En partant dans notre coin, nous prenons plusieurs risques:</p>
 <ul class="simple">
-<li>réinventer une roue dont nous n'avons pas connaissance;</li>
-<li>échouer à faire de l'éco-système <em>Cliquet</em> un projet communautaire;</li>
+<li>réinventer une roue dont nous n'avons pas connaissance ;</li>
+<li>échouer à faire de l'éco-système <em>Cliquet</em> un projet communautaire ;</li>
 <li>échouer à positionner <em>Cliquet</em> dans la niche des cas non couverts par PouchDB :)</li>
 </ul>
 <p>Comme <a class="reference external" href="http://pouchdb.com/2015/04/05/filtered-replication.html">le dit Giovanni Ornaghi</a>:</p>

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Service de nuages</title><link>http://www.servicedenuages.fr/</link><description></description><atom:link href="http://www.servicedenuages.fr/feeds/service-de-nuages.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 30 Apr 2015 00:00:00 +0200</lastBuildDate><item><title>Eco-système et stockage générique</title><link>http://www.servicedenuages.fr/eco-systeme-et-stockage-generique.html</link><description>&lt;p&gt;Comme nous l'écrivions &lt;a class="reference external" href="http://www.servicedenuages.fr/service-de-nuages.html"&gt;dans l'article précédent&lt;/a&gt;, nous souhaitons construire une
-solution de stockage générique.&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Service de nuages</title><link>http://www.servicedenuages.fr/</link><description></description><atom:link href="http://www.servicedenuages.fr/feeds/service-de-nuages.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 30 Apr 2015 00:00:00 +0200</lastBuildDate><item><title>Eco-système et stockage générique</title><link>http://www.servicedenuages.fr/eco-systeme-et-stockage-generique.html</link><description>&lt;p&gt;&lt;strong&gt;tl;dr Nous devons construire un service de suivi de paiements, et nous
+hésitons à continuer à nous entêter avec notre propre solution de
+stockage/synchronisation.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Comme nous l'écrivions &lt;a class="reference external" href="http://www.servicedenuages.fr/service-de-nuages.html"&gt;dans l'article précédent&lt;/a&gt;, nous souhaitons construire une
+solution de stockage générique. On refait &lt;a class="reference external" href="http://daybed.readthedocs.org"&gt;Daybed&lt;/a&gt;
+chez Mozilla !&lt;/p&gt;
 &lt;p&gt;Notre objectif est simple: permettre aux développeurs d'application, internes
 à Mozilla ou du monde entier, de faire persister et synchroniser facilement des
 données associées à un utilisateur.&lt;/p&gt;
@@ -18,7 +22,8 @@ partager des enregistrements de manière fine ;&lt;/li&gt;
 &lt;li&gt;Le client doit être pensé «&lt;em&gt;offline-first&lt;/em&gt;» ;&lt;/li&gt;
 &lt;li&gt;Le client doit pouvoir réconcilier les données simplement ;&lt;/li&gt;
 &lt;li&gt;Le client doit pouvoir être utilisé aussi bien dans le navigateur que côté
-serveur.&lt;/li&gt;
+serveur ;&lt;/li&gt;
+&lt;li&gt;Tous les composants se doivent d´être simples et substituables facilement.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;La première question qui nous a été posée fût «&lt;em&gt;Pourquoi vous n'utilisez pas
 PouchDB ou Remote Storage ?&lt;/em&gt;»&lt;/p&gt;
@@ -64,10 +69,10 @@ protocole le font) ;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;En résumé, il semblerait que ce que nous souhaitons faire avec le stockage
 d'enregistrements validés est complémentaire avec &lt;em&gt;Remote Storage&lt;/em&gt;.&lt;/p&gt;
-&lt;p&gt;Si des besoin de persistence orientés «fichiers» se présentent, a priori nous aurions tort
+&lt;p&gt;Si des besoins de persistence orientés «fichiers» se présentent, a priori nous aurions tort
 de réinventer les solutions apportées par cette spécification. Il y a donc de grandes
 chances que nous l´intégrions à terme, et que &lt;em&gt;Remote Storage&lt;/em&gt; devienne une facette
-de notre service.&lt;/p&gt;
+de notre solution.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="pouchdb"&gt;
 &lt;h2&gt;PouchDB&lt;/h2&gt;
@@ -135,7 +140,7 @@ utilisateurs.&lt;/p&gt;
 &lt;h3&gt;Avec RemoteStorage&lt;/h3&gt;
 &lt;img alt="Remote Love - CC-BY-NC Julie https://www.flickr.com/photos/mamajulie2008/2609549461" class="align-center" src="http://www.servicedenuages.fr/images/remote-love.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Clairement, l'idée de &lt;em&gt;RemoteStorage&lt;/em&gt; est de dissocier l'application executée,
-et les données crées par l'utilisateur avec celle-ci.&lt;/p&gt;
+et les données créées par l'utilisateur avec celle-ci.&lt;/p&gt;
 &lt;p&gt;Dans notre cas, c'est l'application « Payment » qui manipule des données
 concernant un utilisateur. Mais celles-ci ne lui appartiennent pas directement:
 certes un utilisateur doit pouvoir les supprimer, surtout pas en créer ou les
@@ -205,7 +210,7 @@ synchro client semble être une très bonne idée.&lt;/p&gt;
 &lt;li&gt;Dans le client JS, la gestion du « store local » sera externalisée (on pense
 à &lt;a class="reference external" href="https://github.com/mozilla/localForage"&gt;LocalForage&lt;/a&gt; ou &lt;a class="reference external" href="https://github.com/dfahlander/Dexie.js"&gt;Dexie.js&lt;/a&gt;) ;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Et, on répond au reste des &lt;a class="reference external" href="storage-specs"&gt;specifications mentionnées au début de l'article&lt;/a&gt; !&lt;/p&gt;
+&lt;p&gt;Et, on répond au reste des &lt;a class="reference external" href="#storage-specs"&gt;specifications mentionnées au début de l'article&lt;/a&gt; !&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="les-arguments-philosophiques"&gt;
 &lt;h3&gt;Les arguments philosophiques&lt;/h3&gt;
@@ -221,7 +226,7 @@ qui sont mal adressés par &lt;em&gt;PouchDB&lt;/em&gt;. Il se voudra:&lt;/p&gt;
 &lt;li&gt;Naïf (&lt;em&gt;pas de rocket science&lt;/em&gt;) ;&lt;/li&gt;
 &lt;li&gt;Sans magie (&lt;em&gt;explicite et facile à réimplémenter from scratch&lt;/em&gt;) ;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;&lt;a class="reference external" href="http://cliquet.readthedocs.org/en/latest/rationale.html"&gt;La philosophie et les fonctionnalités du toolkit python *Cliquet*&lt;/a&gt; seront bien entendu
+&lt;p&gt;&lt;a class="reference external" href="http://cliquet.readthedocs.org/en/latest/rationale.html"&gt;La philosophie et les fonctionnalités du toolkit python Cliquet&lt;/a&gt; seront bien entendu
 à l'honneur :)&lt;/p&gt;
 &lt;p&gt;Quant à &lt;em&gt;Remote Storage&lt;/em&gt;, dès que le besoin se présentera, nous serons très fier
 de rejoindre l'initiative, mais pour l'instant cela nous paraît risqué de démarrer
@@ -237,9 +242,10 @@ Avec &lt;em&gt;Cliquet&lt;/em&gt;, en utilisant le backend PostgreSQL, les donn�
 à plat dans un &lt;a class="reference external" href="https://github.com/mozilla-services/cliquet/blob/40aa33/cliquet/storage/postgresql/schema.sql#L14-L28"&gt;schéma PostgreSQL tout bête&lt;/a&gt;.
 Ce qui ne sera pas le cas d'un adapteur LevelDown qui va manipuler des notions
 de révisions éclatées dans un schéma clé-valeur.&lt;/p&gt;
-&lt;p&gt;Si nous basons le service sur &lt;em&gt;Cliquet&lt;/em&gt;, tout le travail d'automatisation
-de la mise en production (&lt;em&gt;monitoring, builds RPM, Puppet...&lt;/em&gt;) que nous avons
-fait pour &lt;em&gt;Reading List&lt;/em&gt; est complètement réutilisable.&lt;/p&gt;
+&lt;p&gt;Si nous basons le service sur &lt;em&gt;Cliquet&lt;/em&gt;, comme c'est le cas avec &lt;a class="reference external" href="http://kinto.readthedocs.org"&gt;Kinto&lt;/a&gt;,
+tout le travail d'automatisation de la mise en production (&lt;em&gt;monitoring,
+builds RPM, Puppet...&lt;/em&gt;) que nous avons fait pour &lt;em&gt;Reading List&lt;/em&gt; est
+complètement réutilisable.&lt;/p&gt;
 &lt;p&gt;De même, si on repart avec une stack complètement différente, nous allons
 devoir recommencer tout le travail de rodage, de profiling et d'optimisation
 effectué au premier trimestre.&lt;/p&gt;
@@ -262,15 +268,15 @@ avec &lt;em&gt;Remote Storage&lt;/em&gt;, et peut-être que &lt;em&gt;PouchDB&lt
 quand au protocole de synchronisation...&lt;/p&gt;
 &lt;img alt="XKCD — Standards https://xkcd.com/927/" src="http://www.servicedenuages.fr/images/standards.png" style="width: 500px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Utiliser ce nouvel écosystème pour le projet « Payments » va nous permettre de
-mettre au point un système de permissions (&lt;em&gt;basés sur les scopes OAuth&lt;/em&gt;) qui
+mettre au point un système de permissions (&lt;em&gt;probablement basé sur les scopes OAuth&lt;/em&gt;) qui
 correspond au besoin exprimé. Et nous avons bien l'intention de puiser dans
 &lt;a class="reference external" href="http://blog.daybed.io/daybed-revival.html"&gt;notre expérience avec Daybed sur le sujet&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Nous extrairons aussi le code des clients implémentés pour &lt;em&gt;Reading List&lt;/em&gt; afin
 de faire un client JavaScript minimaliste.&lt;/p&gt;
 &lt;p&gt;En partant dans notre coin, nous prenons plusieurs risques:&lt;/p&gt;
 &lt;ul class="simple"&gt;
-&lt;li&gt;réinventer une roue dont nous n'avons pas connaissance;&lt;/li&gt;
-&lt;li&gt;échouer à faire de l'éco-système &lt;em&gt;Cliquet&lt;/em&gt; un projet communautaire;&lt;/li&gt;
+&lt;li&gt;réinventer une roue dont nous n'avons pas connaissance ;&lt;/li&gt;
+&lt;li&gt;échouer à faire de l'éco-système &lt;em&gt;Cliquet&lt;/em&gt; un projet communautaire ;&lt;/li&gt;
 &lt;li&gt;échouer à positionner &lt;em&gt;Cliquet&lt;/em&gt; dans la niche des cas non couverts par PouchDB :)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Comme &lt;a class="reference external" href="http://pouchdb.com/2015/04/05/filtered-replication.html"&gt;le dit Giovanni Ornaghi&lt;/a&gt;:&lt;/p&gt;
@@ -347,7 +353,7 @@ champs sur certains appels. Cela réduit ce projet à quelques dizaines de ligne
 de code.&lt;/p&gt;
 &lt;p&gt;Quant au futur service de stockage générique, &lt;a class="reference external" href="http://kinto.readthedocs.org"&gt;le projet&lt;/a&gt; en est encore à ses balbutiements mais c'est
 bel et bien en route ! Il permet déjà d'être branché comme backend de stockage
-dans une application &lt;em&gt;Cliquet&lt;/em&gt;, et ça &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/blob/0.2.1/kinto/views/collection.py"&gt;avec 20 lignes de code&lt;/a&gt;!&lt;/p&gt;
+dans une application &lt;em&gt;Cliquet&lt;/em&gt;, et ça &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/blob/0.2.1/kinto/views/collection.py"&gt;implémenté en 20 lignes de code&lt;/a&gt;!&lt;/p&gt;
 &lt;p&gt;Ah, et cette fois, nous ne construirons les fonctionnalités qu'à partir des
 besoins concrets qui surviennent. Ça paraît tout bête, mais sur &lt;em&gt;Daybed&lt;/em&gt; on
 l'a pas vu venir :)&lt;/p&gt;
