@@ -41,7 +41,8 @@ ensuite aller se déplacer jusqu'à la bonne ligne.
 
 Si pendant que vous changez de page quelqu'un modifie la collection
 vous pouvez aussi louper des entrées ou avoir des doublons dans les
-résultats. Cela rend la liste des résultats inconsistante.
+résultats. Cela rend la liste des résultats incohérente entre deux
+affichages.
 
 
 Comment faire pour s'en passer ?
@@ -50,7 +51,7 @@ Comment faire pour s'en passer ?
 Pour bien comprendre, prenons le cas le plus simple.
 
 Si vous triez par ``id`` (la clé primaire), il vous suffit de garder
-trace du dernier ``id`` de la page précedente.
+trace du dernier ``id`` de la page précédente.
 
 Prenons comme exemple la table de salariés suivante.
 Pour les besoins de l'exercice la date de recrutement est unique.
