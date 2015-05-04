@@ -1,0 +1,495 @@
+Comment passer de LIMIT / OFFSET aux Continuation Tokens ?
+##########################################################
+
+:date: 2015-05-04
+:summary: De LIMIT / OFFSET aux continuations tokens
+
+Si vous êtes là, c'est que quelqu'un a du vous le dire : Paginer sur des
+grosses tables avec LIMIT et OFFSET ne monte pas en charge : plus
+on avance dans les pages, plus c'est lent.
+
+C'est dommage parce que c'était facile à appréhender! La limite donne
+le nombre d'éléments affichés et le décalage est calculé en fonction
+de la page en cours !
+
+Il y a même une initiative "`STOP OFFSET`_" pour que les développeurs y
+pensent.
+
+.. _`STOP OFFSET`: http://use-the-index-luke.com/no-offset
+
+Sur ce site, la solution évoquée consiste à mettre en place une keyset
+pagination, ou seek method. Autrement dit une pagination à base de
+filtrage.
+
+L'idée générale consiste à remplacer les ``?page=3&size=10`` de vos URLs
+par un ensemble de critères de filtrage sur la table qui réduiront les
+résultats obtenus à ceux attendus sur la page en cours.
+
+C'est le serveur qui va construire les requêtes de filtrages
+nécessaires à la pagination à partir d'information sur le dernier
+élément affiché. C'est information sont appellée **continuation
+token** car elles permettent au serveur de savoir d'où il doit
+reprendre pour continuer à afficher les résultats.
+
+
+Pourquoi c'est mal d'utiliser OFFSET et LIMIT ?
+===============================================
+
+Le site ci-dessus l'explique mieux que moi, mais ce qu'il faut retenir
+c'est que la base de données doit faire la requête entière pour
+ensuite aller se déplacer jusqu'à la bonne ligne.
+
+Si pendant que vous changez de page quelqu'un modifie la collection
+vous pouvez aussi louper des entrées ou avoir des doublons dans les
+résultats. Ce n'est pas consistant.
+
+
+Comment faire pour s'en passer ?
+================================
+
+Pour bien comprendre, prenons le cas le plus simple.
+
+Si vous triez par ``id`` (la clé primaire), il vous suffit de garder
+trace du dernier ``id`` de la page précedente.
+
+Prenons comme exemple la table de salariés suivante.
+Pour les besoins de l'exercice la date de recrutement est unique.
+Les données sont inexactes mais plausibles.
+
+.. code-block:: sql
+
+    CREATE TABLE `salaries` (
+      `id` int(11) NOT NULL AUTO_INCREMENT,
+      `nom` text NOT NULL,
+      `societe` text NOT NULL,
+      `date_embauche` date NOT NULL,
+      PRIMARY KEY (`id`),
+      UNIQUE KEY `date_embauche` (`date_embauche`)
+    ) CHARSET=utf8 ;
+
+
+.. code-block:: sql
+
+    +----+----------+----------+---------------------+
+    | ID | Nom      | Société  | Date de recrutement | 
+    +----+----------+----------+---------------------+
+    | 1  | Rodolphe | Novapost | 2014-09-03          |
+    +----+----------+----------+---------------------+
+    | 2  | Tarek    | Mozilla  | 2009-03-01          |
+    +----+----------+----------+---------------------+
+    | 3  | Benoit   | Novapost | 2012-02-25          |
+    +----+----------+----------+---------------------+
+    | 4  | Alexis   | Mozilla  | 2012-09-24          |
+    +----+----------+----------+---------------------+
+    | 5  | Bruno    | Novapost | 2013-06-14          |
+    +----+----------+----------+---------------------+
+    | 6  | Rémy     | Mozilla  | 2014-03-11          |
+    +----+----------+----------+---------------------+
+    | 7  | Mathieu  | Mozilla  | 2014-12-06          |
+    +----+----------+----------+---------------------+
+    | 8  | Natal    | Novapost | 2013-08-05          |
+    +----+----------+----------+---------------------+
+    | 9  | Nicolas  | Mozilla  | 2014-02-27          |
+    +----+----------+----------+---------------------+
+
+Pour l'exemple, nous allons également paginer nos
+résultats par deux.
+
+
+Voici les requêtes que nous ferions en utilisant OFFSET et LIMIT
+----------------------------------------------------------------
+
+.. code-block:: sql
+
+    SELECT * FROM `salaries`
+    ORDER BY `id`
+    LIMIT 2
+
+    +----+----------+----------+---------------------+
+    | 1  | Rodolphe | Novapost | 2014-09-03          |
+    +----+----------+----------+---------------------+
+    | 2  | Tarek    | Mozilla  | 2009-03-01          |
+    +----+----------+----------+---------------------+
+
+    SELECT * FROM `salaries`
+    ORDER BY `id`
+    LIMIT 2
+    OFFSET 2
+
+    +----+----------+----------+---------------------+
+    | 3  | Benoit   | Novapost | 2012-02-25          |
+    +----+----------+----------+---------------------+
+    | 4  | Alexis   | Mozilla  | 2012-09-24          |
+    +----+----------+----------+---------------------+
+
+
+Comment peut-on obtenir le même résultat sans utiliser OFFSET ?
+---------------------------------------------------------------
+
+.. code-block:: sql
+
+    SELECT * FROM `salaries`
+    ORDER BY `id`
+    LIMIT 2
+
+    +----+----------+----------+---------------------+
+    | 1  | Rodolphe | Novapost | 2014-09-03          |
+    +----+----------+----------+---------------------+
+    | 2  | Tarek    | Mozilla  | 2009-03-01          |
+    +----+----------+----------+---------------------+
+
+    SELECT * FROM `salaries`
+    WHERE `id` > 2 
+    ORDER BY `id`
+    LIMIT 2
+
+    +----+----------+----------+---------------------+
+    | 3  | Benoit   | Novapost | 2012-02-25          |
+    +----+----------+----------+---------------------+
+    | 4  | Alexis   | Mozilla  | 2012-09-24          |
+    +----+----------+----------+---------------------+
+
+
+Quand on fait le tri sur une valeur unique pour toute la collection,
+on se rend compte que l'on peut sauvegarder la valeur du dernier
+élément de la liste et l'utiliser pour faire une condition where.
+
+Faisons maintenant le tri sur la date d'embauche :
+
+.. code-block:: sql
+
+    SELECT * FROM `salaries`
+    ORDER BY `date_embauche`
+    LIMIT 2
+
+    +----+----------+----------+---------------------+
+    | 2  | Tarek    | Mozilla  | 2009-03-01          |
+    +----+----------+----------+---------------------+
+    | 3  | Benoit   | Novapost | 2012-02-25          |
+    +----+----------+----------+---------------------+
+
+    SELECT * FROM `salaries`
+    WHERE `date_embauche` > '2012-02-25'
+    ORDER BY `date_embauche`
+    LIMIT 2
+
+    +----+----------+----------+---------------------+
+    | 4  | Alexis   | Mozilla  | 2012-09-24          |
+    +----+----------+----------+---------------------+
+    | 5  | Bruno    | Novapost | 2013-06-14          |
+    +----+----------+----------+---------------------+
+
+    SELECT * FROM `salaries`
+    WHERE `date_embauche` > '2013-06-14'
+    ORDER BY `date_embauche`
+    LIMIT 2
+
+    +----+----------+----------+---------------------+
+    | 8  | Natal    | Novapost | 2013-08-05          |
+    +----+----------+----------+---------------------+
+    | 9  | Nicolas  | Mozilla  | 2014-02-27          |
+    +----+----------+----------+---------------------+
+
+
+Et pour la page précédente ?
+----------------------------
+
+Soit on se rappelle de la règle de filtrage précédente, soit on peut
+ruser en inversant l'ordre de tri puis en selectionnant les résultats
+supérieurs au premier élément de la page courante et en affichant les
+résultats dans l'ordre inverse :
+
+.. code-block:: sql
+
+    SELECT * FROM `salaries`
+    WHERE `date_embauche` < '2013-08-05'
+    ORDER BY `date_embauche` DESC
+    LIMIT 2
+
+    +----+----------+----------+---------------------+
+    | 5  | Bruno    | Novapost | 2013-06-14          |
+    +----+----------+----------+---------------------+
+    | 4  | Alexis   | Mozilla  | 2012-09-24          |
+    +----+----------+----------+---------------------+
+
+Qu'il faut afficher à l'utilisateur comme cela :
+
+.. code-block:: sql
+
+    +----+----------+----------+---------------------+
+    | 4  | Alexis   | Mozilla  | 2012-09-24          |
+    +----+----------+----------+---------------------+
+    | 5  | Bruno    | Novapost | 2013-06-14          |
+    +----+----------+----------+---------------------+
+
+
+Et pour les tris sur des clés non uniques ?
+===========================================
+
+Dès lors qu'une clé de tri n'est plus unique, contrairement à
+``date_embauche`` et ``id`` dans notre exemple, il faut trouver une
+requête qui permet d'identifier de manière unique la ligne à partir de
+laquelle continuer.
+
+Prenons la requête suivante :
+
+.. code-block:: sql
+
+    SELECT * FROM `salaries`
+    ORDER BY `societe`, `nom`
+
+    +----+----------+----------+---------------------+
+    | ID | Nom      | Société  | Date de recrutement | 
+    +----+----------+----------+---------------------+
+    | 4  | Alexis   | Mozilla  | 2012-09-24          |
+    +----+----------+----------+---------------------+
+    | 7  | Mathieu  | Mozilla  | 2014-12-06          |
+    +----+----------+----------+---------------------+
+    | 9  | Nicolas  | Mozilla  | 2014-02-27          |
+    +----+----------+----------+---------------------+
+    | 6  | Rémy     | Mozilla  | 2014-03-11          |
+    +----+----------+----------+---------------------+
+    | 2  | Tarek    | Mozilla  | 2009-03-01          |
+    +----+----------+----------+---------------------+
+    | 3  | Benoit   | Novapost | 2012-02-25          |
+    +----+----------+----------+---------------------+
+    | 5  | Bruno    | Novapost | 2013-06-14          |
+    +----+----------+----------+---------------------+
+    | 8  | Natal    | Novapost | 2013-08-05          |
+    +----+----------+----------+---------------------+
+    | 1  | Rodolphe | Novapost | 2014-09-03          |
+    +----+----------+----------+---------------------+
+
+Si on souhaite obtenir la deuxième page en utilisant ``id`` on se rend
+compte qu'il y a un soucis.
+
+.. code-block:: sql
+
+    SELECT * FROM `salaries`
+    WHERE `id` > 7
+    ORDER BY `societe`, `nom`
+
+    +----+----------+----------+---------------------+
+    | 9  | Nicolas  | Mozilla  | 2014-02-27          |
+    +----+----------+----------+---------------------+
+    | 8  | Natal    | Novapost | 2013-08-05          |
+    +----+----------+----------+---------------------+
+
+Or la seconde page attendue est :
+
+.. code-block:: sql
+
+    +----+----------+----------+---------------------+
+    | 9  | Nicolas  | Mozilla  | 2014-02-27          |
+    +----+----------+----------+---------------------+
+    | 6  | Rémy     | Mozilla  | 2014-03-11          |
+    +----+----------+----------+---------------------+
+
+
+Tri avec une seule clé non unique
+---------------------------------
+
+Commençons avec un tri sur une seule colonne non unique ``societe``:
+
+.. code-block:: sql
+
+    SELECT * FROM `salaries`
+    ORDER BY `societe`
+
+    +----+----------+----------+---------------------+
+    | ID | Nom      | Société  | Date de recrutement | 
+    +----+----------+----------+---------------------+
+    | 2  | Tarek    | Mozilla  | 2009-03-01          |
+    +----+----------+----------+---------------------+
+    | 4  | Alexis   | Mozilla  | 2012-09-24          |
+    +----+----------+----------+---------------------+
+    | 6  | Rémy     | Mozilla  | 2014-03-11          |
+    +----+----------+----------+---------------------+
+    | 7  | Mathieu  | Mozilla  | 2014-12-06          |
+    +----+----------+----------+---------------------+
+    | 9  | Nicolas  | Mozilla  | 2014-02-27          |
+    +----+----------+----------+---------------------+
+    | 1  | Rodolphe | Novapost | 2014-09-03          |
+    +----+----------+----------+---------------------+
+    | 3  | Benoit   | Novapost | 2012-02-25          |
+    +----+----------+----------+---------------------+
+    | 5  | Bruno    | Novapost | 2013-06-14          |
+    +----+----------+----------+---------------------+
+    | 8  | Natal    | Novapost | 2013-08-05          |
+    +----+----------+----------+---------------------+
+
+On se rends compte qu'il s'agit en fait de cette requête :
+
+.. code-block:: sql
+
+    SELECT * FROM `salaries`
+    ORDER BY `societe`, `id`
+
+Notre requête pour la page deux est donc :
+
+   - Les salariés qui ont un nom de société supérieurs à Mozilla **ou**
+   - Les salariés de Mozilla qui ont un id supérieur à 4
+
+.. code-block:: sql
+
+    SELECT * FROM `salaries`
+    WHERE `societe` > 'Mozilla'
+    OR (`societe` = 'Mozilla' AND `id` > 4)
+    ORDER BY `societe`, `id`
+    LIMIT 2
+
+    +----+----------+----------+---------------------+
+    | 6  | Rémy     | Mozilla  | 2014-03-11          |
+    +----+----------+----------+---------------------+
+    | 7  | Mathieu  | Mozilla  | 2014-12-06          |
+    +----+----------+----------+---------------------+
+
+On peut vérifier que le cas limite fonctionne aussi:
+
+.. code-block:: sql
+
+    SELECT * FROM `salaries`
+    WHERE `societe` > 'Mozilla'
+    OR (`societe` = 'Mozilla' AND `id` > 7)
+    ORDER BY `societe`, `id`
+    LIMIT 2
+
+    +----+----------+----------+---------------------+
+    | 9  | Nicolas  | Mozilla  | 2014-02-27          |
+    +----+----------+----------+---------------------+
+    | 1  | Rodolphe | Novapost | 2014-09-03          |
+    +----+----------+----------+---------------------+
+
+
+Tri sur de multiples clé non uniques
+------------------------------------
+
+Maintenant revenons à notre tri par ``societe`` et par ``nom``
+
+Pour atteindre la page deux, on a donc trois ensembles à concaténer:
+
+ - Les salariés de ``Mozilla`` qui s'appellent à ``Mathieu`` et dont l'``id`` est supérieur à ``7``
+ - Les salariés de ``Mozilla`` dont le nom est supérieur à ``Mathieu``
+ - Les salariés dont le nom de société est supérieur à ``Mozilla``
+
+.. code-block:: sql
+
+    SELECT * FROM `salaries`
+    WHERE `societe` = 'Mozilla' AND `nom` = 'Mathieu' AND `id` > 7
+    OR (`societe` = 'Mozilla' AND `nom` > 'Mathieu')
+    OR `societe` > 'Mozilla'
+    ORDER BY `societe`, `nom`
+    LIMIT 2
+
+    +----+----------+----------+---------------------+
+    | 9  | Nicolas  | Mozilla  | 2014-02-27          |
+    +----+----------+----------+---------------------+
+    | 6  | Rémy     | Mozilla  | 2014-03-11          |
+    +----+----------+----------+---------------------+
+
+On peut tester notre cas limite en ajoutant 
+
+.. code-block:: sql
+
+    +----+----------+----------+---------------------+
+    | 10 | Mathieu  | Mozilla  | 2015-03-22          |
+    +----+----------+----------+---------------------+
+    
+Et on a bien :
+
+.. code-block:: sql
+
+    SELECT * FROM `salaries`
+    WHERE `societe` = 'Mozilla' AND `nom` = 'Mathieu' AND `id` > 7
+    OR (`societe` = 'Mozilla' AND `nom` > 'Mathieu')
+    OR `societe` > 'Mozilla'
+    ORDER BY `societe`, `nom`
+    LIMIT 2
+
+    +----+----------+----------+---------------------+
+    | 10 | Mathieu  | Mozilla  | 2015-03-22          |
+    +----+----------+----------+---------------------+
+    | 9  | Nicolas  | Mozilla  | 2014-02-27          |
+    +----+----------+----------+---------------------+
+
+
+Généralisation
+==============
+
+La manière générique que j'ai trouvée pour utiliser un **Continuation
+Token** ou **jeton de continuation** tout en laissant l'utilisateur
+choisir sa requête de tri est de générer le jeton à partir du dernier
+élément de la page et des champs de tri.
+
+En complétant toujours les champs de tri par la clé primaire à la fin.
+
+Ensuite je génère une fonction recursive qui prend la liste des
+champs de tri et la dernière entrée de la page précédente et me
+retourne une liste de conditions de tri.
+
+
+.. code-block:: python
+
+    def get_continuation_token_conditions(record, sorting, results=None):
+        """Return the list of conditions for a given record and sorting attributes.
+    
+        >>> get_continuation_token_conditions(
+        ...     {'id': 7, 'nom': 'Mathieu', 'societe': 'Mozilla'},
+        ...     ['societe', 'nom', 'id']
+        ... )
+        [(('societe', '=', 'Mozilla'), ('nom', '=', 'Mathieu'), ('id', '>', 7)),
+         (('societe', '=', 'Mozilla'), ('nom', '>', 'Mathieu')),
+         (('societe', '>', 'Mozilla'))]
+
+        >>> get_continuation_token_conditions(
+        ...     {'id': 7, 'nom': 'Mathieu', 'societe': 'Mozilla'},
+        ...     ['societe', '-nom', 'id']
+        ... )
+        [(('societe', '=', 'Mozilla'), ('nom', '=', 'Mathieu'), ('id', '>', 7)),
+         (('societe', '=', 'Mozilla'), ('nom', '<', 'Mathieu')),
+         (('societe', '>', 'Mozilla'))]
+        
+        """
+        
+        result = []
+        for field in sorting[:-1]:
+            field_name = field.lstrip('-')
+            result.append((field_name, '=', record[field_name]))
+        
+        field = sorting[-1]
+        field_name = field.lstrip('-')
+        direction = '<' if (field[0] == '-') else '>'
+        result.append((field_name, direction, record[field_name]))
+        
+        if results is not None:
+            results.append(result)
+        else:
+            results = [result]
+        
+        if len(sorting) == 1:
+            return results
+        else:
+            return get_continuation_token_conditions(record, sorting[:-1], results)
+
+
+
+Conclusion
+==========
+
+Vous voyez que c'est possible de faire de la pagination à l'aide d'un
+**continuation token** tout en gardant les fonctionnalités de tri.
+
+L'inconvénient c'est qu'il est impossible de pouvoir sauter à la
+dernière page ou à une page donnée, heureusement les utilisateurs sont
+maintenant habitués à filtrer les résultats afin d'avoir la réponse
+sur la première ou deuxième page et dans le cas où ils souhaitent tous
+les résultats, ils regardent les pages dans l'ordre.
+
+Qui dit conditions de tri dit aussi index et c'est là que bien cadrer
+les fonctionnalités de tri autorisées devient intéressant. Est-ce bien
+nécessaire de laisser l'utilisateur choisir les champs de tri, ou
+peut-on se contenter de ne lui laisser comme choix que le sens du tri
+sur des champs prédéfinis ?
+
+Si votre condition de pagination est fixe, vous allez pouvoir créer
+les index nécessaires et optimiser au maximum vos requêtes de pagination.
