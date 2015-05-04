@@ -2,7 +2,7 @@ Comment passer de LIMIT / OFFSET aux Continuation Tokens ?
 ##########################################################
 
 :date: 2015-05-04
-:summary: De LIMIT / OFFSET aux continuations tokens
+:summary: Comment passer de LIMIT / OFFSET aux jetons de continuation pour la pagination.
 
 Si vous êtes là, c'est que quelqu'un a du vous le dire : Paginer sur des
 grosses tables avec LIMIT et OFFSET ne monte pas en charge : plus
@@ -27,7 +27,7 @@ résultats obtenus à ceux attendus sur la page en cours.
 
 C'est le serveur qui va construire les requêtes de filtrages
 nécessaires à la pagination à partir d'information sur le dernier
-élément affiché. C'est information sont appellée **continuation
+élément affiché. Ces informations sont appellées **continuation
 token** car elles permettent au serveur de savoir d'où il doit
 reprendre pour continuer à afficher les résultats.
 
@@ -41,7 +41,7 @@ ensuite aller se déplacer jusqu'à la bonne ligne.
 
 Si pendant que vous changez de page quelqu'un modifie la collection
 vous pouvez aussi louper des entrées ou avoir des doublons dans les
-résultats. Ce n'est pas consistant.
+résultats. Cela rend la liste des résultats inconsistante.
 
 
 Comment faire pour s'en passer ?

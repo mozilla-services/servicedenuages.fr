@@ -49,7 +49,7 @@ publish: install
 	echo "www.servicedenuages.fr" > $(OUTPUTDIR)/CNAME
 
 github: publish
-	ghp-import -b $(GITHUB_PAGES_BRANCH) $(OUTPUTDIR)
+	$(VENV)/bin/ghp-import -b $(GITHUB_PAGES_BRANCH) $(OUTPUTDIR)
 	git push origin $(GITHUB_PAGES_BRANCH)
 
 .PHONY: html clean serve devserver github publish
