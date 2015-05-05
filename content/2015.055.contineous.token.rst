@@ -4,11 +4,11 @@ Comment passer de LIMIT / OFFSET aux Continuation Tokens ?
 :date: 2015-05-04
 :summary: Comment passer de LIMIT / OFFSET aux jetons de continuation pour la pagination.
 
-Si vous êtes là, c'est que quelqu'un a du vous le dire : Paginer sur des
+Si vous êtes là, c'est que quelqu'un a dû vous le dire : Paginer sur des
 grosses tables avec LIMIT et OFFSET ne monte pas en charge : plus
 on avance dans les pages, plus c'est lent.
 
-C'est dommage parce que c'était facile à appréhender! La limite donne
+C'est dommage parce que c'était facile à appréhender ! La limite donne
 le nombre d'éléments affichés et le décalage est calculé en fonction
 de la page en cours !
 
@@ -26,8 +26,8 @@ par un ensemble de critères de filtrage sur la table qui réduiront les
 résultats obtenus à ceux attendus sur la page en cours.
 
 C'est le serveur qui va construire les requêtes de filtrages
-nécessaires à la pagination à partir d'information sur le dernier
-élément affiché. Ces informations sont appellées **continuation
+nécessaires à la pagination à partir d'informations sur le dernier
+élément affiché. Ces informations sont appelées **continuation
 token** car elles permettent au serveur de savoir d'où il doit
 reprendre pour continuer à afficher les résultats.
 
@@ -262,7 +262,7 @@ Prenons la requête suivante :
     +----+----------+----------+---------------------+
 
 Si on souhaite obtenir la deuxième page en utilisant ``id`` on se rend
-compte qu'il y a un soucis.
+compte qu'il y a un souci.
 
 .. code-block:: sql
 
@@ -319,7 +319,7 @@ Commençons avec un tri sur une seule colonne non unique ``societe``:
     | 8  | Natal    | Novapost | 2013-08-05          |
     +----+----------+----------+---------------------+
 
-On se rends compte qu'il s'agit en fait de cette requête :
+On se rend compte qu'il s'agit en fait de cette requête :
 
 .. code-block:: sql
 
@@ -328,7 +328,7 @@ On se rends compte qu'il s'agit en fait de cette requête :
 
 Notre requête pour la page deux est donc :
 
-   - Les salariés qui ont un nom de société supérieurs à Mozilla **ou**
+   - Les salariés qui ont un nom de société supérieur à Mozilla **ou**
    - Les salariés de Mozilla qui ont un id supérieur à 4
 
 .. code-block:: sql
@@ -369,7 +369,7 @@ Maintenant revenons à notre tri par ``societe`` et par ``nom``
 
 Pour atteindre la page deux, on a donc trois ensembles à concaténer:
 
- - Les salariés de ``Mozilla`` qui s'appellent à ``Mathieu`` et dont l'``id`` est supérieur à ``7``
+ - Les salariés de ``Mozilla`` qui s'appellent ``Mathieu`` et dont l'``id`` est supérieur à ``7``
  - Les salariés de ``Mozilla`` dont le nom est supérieur à ``Mathieu``
  - Les salariés dont le nom de société est supérieur à ``Mozilla``
 
@@ -424,7 +424,7 @@ choisir sa requête de tri est de générer le jeton à partir du dernier
 
 En complétant toujours les champs de tri par la clé primaire à la fin.
 
-Ensuite je génère une fonction recursive qui prend la liste des
+Ensuite je génère une fonction récursive qui prend la liste des
 champs de tri et la dernière entrée de la page précédente et me
 retourne une liste de conditions de tri.
 
