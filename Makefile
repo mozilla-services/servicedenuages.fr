@@ -44,6 +44,10 @@ else
 	cd $(OUTPUTDIR) && ../$(PYTHON) -m pelican.server
 endif
 
+regenerate:
+	cd $(OUTPUTDIR) && ../$(PYTHON) -m pelican.server&
+	$(PELICAN) -r $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
+
 publish: install
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
 	echo "www.servicedenuages.fr" > $(OUTPUTDIR)/CNAME
