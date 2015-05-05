@@ -2,6 +2,7 @@ Eco-système et stockage générique
 =================================
 
 :date: 2015-04-30
+:slug: eco-systeme-et-stockage-generique
 
 
 **tl;dr Nous devons construire un service de suivi de paiements, et nous
@@ -295,7 +296,7 @@ En revanche, nous avons plusieurs fonctionnalités intéressantes:
   <https://github.com/dfahlander/Dexie.js>`_) ;
 
 
-Et, on répond au reste des `specifications mentionnées au début de l'article <#storage-specs>`_ !
+Et, on répond au reste des `specifications mentionnées au début de l'storage <#article-specs>`_ !
 
 
 Les arguments philosophiques
