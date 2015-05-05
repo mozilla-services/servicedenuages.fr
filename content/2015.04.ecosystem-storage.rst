@@ -16,7 +16,7 @@ Ecosystem & generic storage
 **tl;dr We have to build a service for tracking payments, and we're hesitatant
 to go on with our own solution for storage and synchronization.**
 
-As we wrote in `the previous article (FR)<{filename}/2015.04.service-de-nuages.rst>`_,
+As we wrote in `the previous article (FR) <{filename}/2015.04.service-de-nuages.rst>`_,
 we want to build a solution for generic data storage. We reboot `Daybed <http://daybed.readthedocs.org>`_
 at Mozilla !
 
@@ -235,8 +235,8 @@ A new ecosystem ?
 
 It is obvious that *PouchDB* and *Remote Storage* are rich projects with dynamic communities. Therefore, it's reasonable to wonder if one should develop another solution.
 
-When we created the *Reading List* server, we built it with `Cliquet
-http://cliquet.readthedocs.org/>`_. We had a chance to setup `a very simple protocol <http://cliquet.readthedocs.org/en/latest/api/>`_, strongly inspired by
+When we created the *Reading List* server, we built it with
+`Cliquet <http://cliquet.readthedocs.org/>`_. We had a chance to setup `a very simple protocol <http://cliquet.readthedocs.org/en/latest/api/>`_, strongly inspired by
 `Firefox Sync <http://en.wikipedia.org/wiki/Firefox_Sync>`_, to sync records.
 
 The reason clients for *Reading List* were implemented in few weeks, whether in
