@@ -8,17 +8,16 @@ Ecosystem & generic storage
 .. note::
 
     This article was translated from French by Julien/Sphinx. We thank him a lot
-    for this effort ! Note, that at the beginning of this year,
-    `he also translated MDN to French <https://medium.com/@Sphinx/mdn-pr%C3%A9sentation-de-la-documentation-javascript-70541cecae54>`_ !
+    for this effort! Note, that at the beginning of this year,
+    `he also translated MDN to French <https://medium.com/@Sphinx/mdn-pr%C3%A9sentation-de-la-documentation-javascript-70541cecae54>`_!
     **Big up !**
 
 
-**tl;dr We must build a service for tracking payments, and we hesitate over
-going on with our solution for storage and synchronization.**
+**tl;dr We have to build a service for tracking payments, and we're hesitatant
+to go on with our own solution for storage and synchronization.**
 
-
-As we wrote in `the previous article<{filename}/2015.04.service-de-nuages.rst>`_,
-we want to build a solution for generic storage. We reboot `Daybed <http://daybed.readthedocs.org>`_
+As we wrote in `the previous article (FR)<{filename}/2015.04.service-de-nuages.rst>`_,
+we want to build a solution for generic data storage. We reboot `Daybed <http://daybed.readthedocs.org>`_
 at Mozilla !
 
 Our goal is simple: allow developers, whether they are from Mozilla or from the whole world,
@@ -34,7 +33,7 @@ Here are the aspects of the architecture that seem essential to us:
 * Authentication must be pluggable or decentralized (OAuth2, FxA, Persona) ;
 * The server should be able to validate records ;
 * An authorization/permissions system must allow collection protection or
-  fine-coarsed records sharing ;
+  fine-grained records sharing ;
 * Conflicts resolution could happen server-side ;
 * Clients should be «*offline-first*» ;
 * Clients should be able to easily merge/reconciliate data ;
@@ -65,7 +64,7 @@ makes possible the integration of this solution in Web apps. This client is in c
 caching, syncing and gives users a widget so that they can choose the server
 which will receive the data (using Webfinger).
 
-`ludbud <https://github.com/michielbdejong/ludbud>`_, the refined version of
+`ludbud <https://github.com/michielbdejong/ludbud>`_, a refined version of
 *remoteStorage.js* limits itself to the abstraction of the remote data storage.
 At the end, it would be possible to have a single library and to store data
 in either a *Remote Storage* server, an *ownCloud* server, or even on the bad guys'
@@ -146,23 +145,22 @@ obtain a service which is behaving like a *CouchDB*, but stores data
 anywhere (in a *Redis* or a *PostgreSQL* database for instance).
 
 The synchronisation is complete. In other words, all records that are on
-the server will end being synchronised with the client. It is possible to filter
+the server will end up being synchronised with the client. It is possible to filter
 synchronized collections but `its purpose is not to secure data access
 <http://pouchdb.com/2015/04/05/filtered-replication.html>`_.
 
-In order to do so, it is recommanded to create `a database for each user so that
-a user can only see one's data.
+In order to do so, it is recommanded to create `a database per user
 <https://github.com/nolanlawson/pouchdb-authentication#some-people-can-read-some-docs-some-people-can-write-those-same-docs>`_.
 
 This isn't necessarily a problem since CouchDB `can handle hundreds of thousands
-of database without any problem
+of databases without any problem
 <https://mail-archives.apache.org/mod_mbox/couchdb-user/201401.mbox/%3C52CEB873.7080404@ironicdesign.com%3E>`_.
 However, depending on use cases, clustering and isolation (by role, application,
 collection, ...) might not be dealt with easily.
 
 
-The use case of « Payments »
-----------------------------
+The « Payments » use case
+--------------------------
 
 .. image:: {filename}/images/put-payments.jpg
     :alt: Put Payments Here  -- Before the Internet - CC-NC-SA Katy Silberger https://www.flickr.com/photos/katysilbs/11163812186
@@ -176,7 +174,8 @@ The requirements are simple:
   for a given application ;
 * The « Data » application requests the service to check if a user paid or
   has suscribed ;
-* The user requests the service to get a list of all payments/subscriptions.
+* The user requests the service to get a list of all payments/subscriptions
+  reltated to her.
 
 The « Payment » application only should have the right to create/modify/delete
 records. The two others can only have read-only access to these records.
@@ -209,7 +208,7 @@ It will be necessary to create a *database* per user in order to separate the
 records in a secure way. Only the « Payment » app will be granted full rights
 on the different databases.
 
-This won't be enough.
+But this won't be enough.
 
 An app must not see payments from another application so it would also be
 necessary to create a database per application.
@@ -221,10 +220,11 @@ of thousands of databases.
 
 This doesn't seem appropriate: most of the time, there are only few
 payments/subscriptions for a given user. Should we have hundreds of thousands of
-databases, each of which will have less than 5 records ?
+databases, each of which will have less than 5 records?
 
-Moreover, the server side of « Payment » is implemented with Python, using a JavaScript wrapper (as `python-pouchdb
-<https://pythonhosted.org/Python-PouchDB/>`_) is not something we would go for.
+Moreover, the server side of « Payment » is implemented with Python, using a
+JavaScript wrapper (as `python-pouchdb
+<https://pythonhosted.org/Python-PouchDB/>`_) is not something we thrive for.
 
 
 A new ecosystem ?
@@ -236,7 +236,7 @@ A new ecosystem ?
 It is obvious that *PouchDB* and *Remote Storage* are rich projects with dynamic communities. Therefore, it's reasonable to wonder if one should develop another solution.
 
 When we created the *Reading List* server, we built it with `Cliquet
-http://cliquet.readthedocs.org/>`_. We had a chance to setup `a very simple protocol <http://cliquet.readthedocs.org/en/latest/api/>`_, based on
+http://cliquet.readthedocs.org/>`_. We had a chance to setup `a very simple protocol <http://cliquet.readthedocs.org/en/latest/api/>`_, strongly inspired by
 `Firefox Sync <http://en.wikipedia.org/wiki/Firefox_Sync>`_, to sync records.
 
 The reason clients for *Reading List* were implemented in few weeks, whether in
@@ -244,26 +244,26 @@ JavaScript, Java (Android) or ASM (Firefox addon), is that the «*offline first*
 principle of the service is trivial.
 
 
-Compromis
+Tradeoffs
 '''''''''
 
-Of course, we don't intend to compete with *CouchDB* and we are making some
+Of course, we don't intend to compete with *CouchDB* and are making some
 concessions:
 
-* Basically, records collections are isolated by user ;
+* Per default, records collections are isolated by user ;
 * There is no history of revisions ;
 * There is no diff between each revision ;
-* Basically, there is no automatic conflict resolution ;
+* Per default, there is no automatic conflict resolution ;
 * There is no stream synchronization.
 
-If we are not mistaken, these compromises exclude the possibility of
+If we are not mistaken, these tradeoffs exclude the possibility of
 implementing `a PouchDB adapter
 <https://github.com/pouchdb/pouchdb/blob/master/lib/adapters/http/http.js#L721-L946>`_ for the HTTP-based synchronisation protocol of *Cliquet*.
 
 Too bad since it would have been a great opportunity to capitalize on the user
 experience of *PouchDB* regarding the synchronisation client.
 
-However, we've seen many interesting features:
+However, we have some interesting features:
 
 * No map-reduce ;
 * Partial and/or ordered and/or paginated synchronisation ;
@@ -273,7 +273,7 @@ However, we've seen many interesting features:
 * Self hosting is dead simple ;
 * The client can choose not to use local storage at all ;
 * The JavaScript client will have its local store management delegated (we're
-  thinking of `LocalForage <https://github.com/mozilla/localForage>`_ or
+  thinking about `LocalForage <https://github.com/mozilla/localForage>`_ or
   `Dexie.js <https://github.com/dfahlander/Dexie.js>`_) ;
 
 And we are complying with `the specs we drew at the beginning of the article
@@ -286,11 +286,11 @@ Philosophical arguments
 It's `illusionary to think that we can achieve everything with a single tool
 <http://en.wikipedia.org/wiki/Law_of_the_instrument>`_.
 
-We have other use cases that perfectly fit with *PouchDB* (*no concept of
-permission or sharing, JavaScript environment, ...*). When this will be
-relevant, we'll use it.
+We have other use cases that seem to fit with *PouchDB* (*no concept of
+permission or sharing, JavaScript environment, ...*). We'll take advantage of it
+when relevant!
 
-The ecosystem we want to build should adress the use cases that are not fully
+The ecosystem we want to build should adress the use cases that are badly
 handled by *PouchDB*. It should be:
 
 * Based on our very simple protocol ;
@@ -298,26 +298,26 @@ handled by *PouchDB*. It should be:
 * Naive (*no rocket-science*) ;
 * Without magic (*explicit and easy to reimplement from scratch*) ;
 
-`The philosophy and the feature of our Python toolkit, Cliquet
+`The philosophy and the features of our Python toolkit, Cliquet
 <http://cliquet.readthedocs.org/en/latest/rationale.html>`_, will of course be honoured :)
 
 As for *Remote Storage*, whenever we face the need, we will proud to join
 this initiative. However, as for now, it seems risky to start by bending the
-solution.
+solution to our own needs.
 
 
 Practical arguments
 '''''''''''''''''''
 
-Before being willingly to deploy a *CouchDB* solution, Mozilla *op* will ask us
+Before being willingly to deploy a *CouchDB* solution, Mozilla *ops* will ask us
 to precisely prove that it's not currently doable with experienced stacks (e.g.
 MySQL, Redis, PostgreSQL).
 
-And we have to guarantee a minimum 5 years lifetime regarding the data. With
+We will also have to guarantee a minimum 5 years lifetime regarding the data. With
 *Cliquet*, using the PostgreSQL backend, our data is persisted in `a flat PostgreSQL schema <https://github.com/mozilla-services/cliquet/blob/40aa33/cliquet/storage/postgresql/schema.sql#L14-L28>`_.
 
-This wouldn't be the case with a LevelDown adapter that handles revisions as
-cluttered records in a key-value scheme.
+This wouldn't be the case with a LevelDown adapter that handles revisions split
+in a key-value scheme.
 
 If we based our service on Cliquet, like we did with `Kinto
 <http://kinto.readthedocs.org>`_, all the automation work of deploying
@@ -326,22 +326,22 @@ completely reusable.
 
 As said before, if we go with another totally new stack, we will have to start
 again from scratch, including lapping, profiling, optimizing, all of which has
-already been done during the first quarter.
+already been done during the first quarter of this year for Reading List.
 
 
 Next steps
 ----------
 
-It's still time to change our strategy :) And we welcome any feedback !
+It's still time to change our strategy :) And we welcome any feedback!
 It's always a difficult decision to make... ``</troll call>``
 
-* Whether to twist an existing ecosystem or to build a new custom one ;
-* Whether to master the whole system or to integrate our solution in another one ;
-* Whether to contribute or to redo ;
-* Whether to guide or to follow.
+* Twist an existing ecosystem vs build a new custom one ;
+* Master the whole system or to integrate our solution ;
+* Contribute vs redo ;
+* Guide vs follow.
 
 We really seek to join the `no-backend <https://nobackend.org/>`_ initiative.
-This first step might lead us to converge in the end ! Maybe our service will end
+This first step might lead us to converge in the end! Maybe our service will end
 up being compatible with Remote Storage, maybe PouchDB will become more agnostic
 regarding the synchronisation protocol...
 
@@ -358,7 +358,7 @@ for *Reading List* in order to provide a minimalist JavaScript client.
 
 By going this way, we are taking several risks:
 
-* reinventing a wheel that we didn't know of ;
+* reinventing a wheel we don't know;
 * failing to make the *Cliquet* ecosystem a community project ;
 * failing to place *Cliquet* in the niche for the use cases that are not
   covered with *PouchDB* :)
@@ -370,7 +370,7 @@ As `Giovanni Ornaghi said <http://pouchdb.com/2015/04/05/filtered-replication.ht
     might give you more control, but at the same time it will force you to engineer,
     write, test, and maintain a whole new ecosystem.
 
-And this ecosystem is precisely the one that *Mozilla Cloud Services* departement
+And this ecosystem is precisely the one that *Mozilla Cloud Services* team
 is in charge of !
 
 
