@@ -13,7 +13,7 @@ Ecosystem & generic storage
     **Big up !**
 
 
-**tl;dr We have to build a service for tracking payments, and we're hesitatant
+**tl;dr We have to build a service to track payments, and we're hesitant
 to go on with our own solution for storage and synchronization.**
 
 As we wrote in `the previous article (FR) <{filename}/2015.04.service-de-nuages.rst>`_,
@@ -28,16 +28,16 @@ to easily synchronize and save data associated to a user.
 
 Here are the aspects of the architecture that seem essential to us:
 
-* The solution must rely on a protocol, not on a particular implementation ;
-* Self-hosting of the whole solution must be dead simple ;
-* Authentication must be pluggable or decentralized (OAuth2, FxA, Persona) ;
-* The server should be able to validate records ;
+* The solution must rely on a protocol, not on a particular implementation;
+* Self-hosting of the whole solution must be dead simple;
+* Authentication must be pluggable or decentralized (OAuth2, FxA, Persona);
+* The server should be able to validate records;
 * An authorization/permissions system must allow collection protection or
-  fine-grained records sharing ;
-* Conflicts resolution could happen server-side ;
-* Clients should be «*offline-first*» ;
-* Clients should be able to easily merge/reconciliate data ;
-* Clients should be usable in the browser *and* server-side ;
+  fine-grained records sharing;
+* Conflicts resolution could happen server-side;
+* Clients should be «*offline-first*»;
+* Clients should be able to easily merge/reconciliate data;
+* Clients should be usable in the browser *and* server-side;
 * Every component should be simple and easily substituable.
 
 The first question we were asked was: «*Why don't you rather use PouchDB or Remote Storage?*»
@@ -73,23 +73,23 @@ like *Google Drive* or *Dropbox*.
 
 At first sight, the specification seemed to fit with what we want to do:
 
-* The philosophy of the protocol is sound ;
-* The ecosystem is well-thought ;
+* The philosophy of the protocol is sound;
+* The ecosystem is well-thought;
 * The political vision fits: give back the control of the data to the users
-  (see `unhosted <http://unhosted.org/>`_) ;
-* Technical choices are compatible with what we've already started (CORS, REST, OAuth2) ;
+  (see `unhosted <http://unhosted.org/>`_);
+* Technical choices are compatible with what we've already started (CORS, REST, OAuth2);
 
 
 However, regarding data manipulation, there are several differences with what we want to do:
 
-* The API seems «files» oriented (folders and documents) and not «data» (collections and records) ;
+* The API seems «files» oriented (folders and documents) and not «data» (collections and records);
 * There is no record validation following some schema (though `some implementations
-  <https://remotestorage.io/doc/code/files/baseclient/types-js.html>`_ of the protocol are actually doing this) ;
-* There is no option to sort/filter records regarding their attributes ;
+  <https://remotestorage.io/doc/code/files/baseclient/types-js.html>`_ of the protocol are actually doing this);
+* There is no option to sort/filter records with regards to their attributes;
 * The permission system `is limited to private/public
   <https://groups.google.com/forum/#!topic/unhosted/5_NOGq8BPTo>`_ (and
   `the author is going for a git-like model
-  <https://github.com/remotestorage/spec/issues/58#issue-27249452>`_) [#]_ ;
+  <https://github.com/remotestorage/spec/issues/58#issue-27249452>`_) [#]_;
 
 
 To summarize, it would seem that what we want to achieve with the storage of
@@ -171,9 +171,9 @@ of a user's payments and subscriptions.
 The requirements are simple:
 
 * The « Payment » application tracks payments and subscriptions of a user
-  for a given application ;
+  for a given application;
 * The « Data » application requests the service to check if a user paid or
-  has suscribed ;
+  has suscribed;
 * The user requests the service to get a list of all payments/subscriptions
   reltated to her.
 
@@ -196,7 +196,7 @@ the user created with the application.
 
 In our use case, the « Payment » app is dealing with the data concerning a user.
 However, this data does not directly belong to the user. A user should be able
-to delete some records but he/she cannot create or edit some existing payments !
+to delete some records but he/she cannot create or edit some existing payments!
 
 The concept of permissions, limited to private/public is not suitable here.
 
@@ -250,10 +250,10 @@ Tradeoffs
 Of course, we don't intend to compete with *CouchDB* and are making some
 concessions:
 
-* Per default, records collections are isolated by user ;
-* There is no history of revisions ;
-* There is no diff between each revision ;
-* Per default, there is no automatic conflict resolution ;
+* Per default, records collections are isolated by user;
+* There is no history of revisions;
+* There is no diff between each revision;
+* Per default, there is no automatic conflict resolution;
 * There is no stream synchronization.
 
 If we are not mistaken, these tradeoffs exclude the possibility of
@@ -265,19 +265,19 @@ experience of *PouchDB* regarding the synchronisation client.
 
 However, we have some interesting features:
 
-* No map-reduce ;
-* Partial and/or ordered and/or paginated synchronisation ;
+* No map-reduce;
+* Partial and/or ordered and/or paginated synchronisation;
 * The client can choose, with headers, to delete the data or to accept the
-  server version ;
-* A single server is deployed for N apps ;
-* Self hosting is dead simple ;
-* The client can choose not to use local storage at all ;
+  server version;
+* A single server is deployed for N apps;
+* Self hosting is dead simple;
+* The client can choose not to use local storage at all;
 * The JavaScript client will have its local store management delegated (we're
   thinking about `LocalForage <https://github.com/mozilla/localForage>`_ or
-  `Dexie.js <https://github.com/dfahlander/Dexie.js>`_) ;
+  `Dexie.js <https://github.com/dfahlander/Dexie.js>`_);
 
 And we are complying with `the specs we drew at the beginning of the article
-<#article-specs>`_ !
+<#storage-specs>`_!
 
 
 Philosophical arguments
@@ -290,13 +290,13 @@ We have other use cases that seem to fit with *PouchDB* (*no concept of
 permission or sharing, JavaScript environment, ...*). We'll take advantage of it
 when relevant!
 
-The ecosystem we want to build should adress the use cases that are badly
+The ecosystem we want to build should address the use cases that are badly
 handled by *PouchDB*. It should be:
 
-* Based on our very simple protocol ;
-* Minimalist and with multiple purposes (*like our very French 2CV*) ;
-* Naive (*no rocket-science*) ;
-* Without magic (*explicit and easy to reimplement from scratch*) ;
+* Based on our very simple protocol;
+* Minimalist and with multiple purposes (*like our very French 2CV*);
+* Naive (*no rocket-science*);
+* Without magic (*explicit and easy to reimplement from scratch*);
 
 `The philosophy and the features of our Python toolkit, Cliquet
 <http://cliquet.readthedocs.org/en/latest/rationale.html>`_, will of course be honoured :)
@@ -335,9 +335,9 @@ Next steps
 It's still time to change our strategy :) And we welcome any feedback!
 It's always a difficult decision to make... ``</troll call>``
 
-* Twist an existing ecosystem vs build a new custom one ;
-* Master the whole system or to integrate our solution ;
-* Contribute vs redo ;
+* Twist an existing ecosystem vs build a new custom one;
+* Master the whole system or to integrate our solution;
+* Contribute vs redo;
 * Guide vs follow.
 
 We really seek to join the `no-backend <https://nobackend.org/>`_ initiative.
@@ -359,7 +359,7 @@ for *Reading List* in order to provide a minimalist JavaScript client.
 By going this way, we are taking several risks:
 
 * reinventing a wheel we don't know;
-* failing to make the *Cliquet* ecosystem a community project ;
+* failing to make the *Cliquet* ecosystem a community project;
 * failing to place *Cliquet* in the niche for the use cases that are not
   covered with *PouchDB* :)
 
@@ -371,7 +371,7 @@ As `Giovanni Ornaghi said <http://pouchdb.com/2015/04/05/filtered-replication.ht
     write, test, and maintain a whole new ecosystem.
 
 And this ecosystem is precisely the one that *Mozilla Cloud Services* team
-is in charge of !
+is in charge of!
 
 
 .. [#] The `Sharesome project <https://sharesome.5apps.com/>`_ allows for some
