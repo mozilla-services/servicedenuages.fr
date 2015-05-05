@@ -37,6 +37,7 @@ SOCIAL = (
 
 MENUITEMS = (
     ('Archives', '/archives.html'),
+    (u'À propos', '/pages/a-propos.html'),
 )
 STATIC_PATHS = ['images', 'documents', 'extra/CNAME', 'presentations']
 EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}}

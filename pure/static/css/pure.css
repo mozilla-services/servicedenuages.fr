@@ -415,3 +415,12 @@ div.note {
 }
 
 .admonition-title { display: none }
+
+ul #links {
+    list-style-type: none;
+}
+
+ul #links > li {
+    list-style-type: none;
+    float: left;
+}
