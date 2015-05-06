@@ -227,8 +227,8 @@ JavaScript wrapper (as `python-pouchdb
 <https://pythonhosted.org/Python-PouchDB/>`_) is not something we thrive for.
 
 
-A new ecosystem ?
------------------
+A new ecosystem?
+----------------
 
 .. image:: {filename}/images/wagon-wheel.jpg
     :alt: Wagon wheel - CC-BY-NC-SA arbyreed https://www.flickr.com/photos/19779889@N00/16161808220
