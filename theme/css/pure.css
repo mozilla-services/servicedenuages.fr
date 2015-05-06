@@ -408,3 +408,24 @@ img.align-left {
     float: left;
 }
 
+div.note {
+   margin: 5px;
+   font-size: 85%;
+   font-style: italic;
+}
+
+.admonition-title { display: none }
+
+#links {
+    list-style-type: none;
+}
+
+#links li {
+    list-style-type: none;
+    float: left;
+    margin-right: 15px;
+}
+
+#links li > a {
+    color: #FFF;
+}

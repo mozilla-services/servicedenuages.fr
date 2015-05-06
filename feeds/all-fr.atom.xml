@@ -1,5 +1,415 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-fr.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-04-30T00:00:00+02:00</updated><entry><title>Eco-système et stockage générique</title><link href="http://www.servicedenuages.fr/eco-systeme-et-stockage-generique.html" rel="alternate"></link><updated>2015-04-30T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-30:eco-systeme-et-stockage-generique.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;tl;dr Nous devons construire un service de suivi de paiements, et nous
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-fr.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-05-04T00:00:00+02:00</updated><entry><title>Comment passer de LIMIT / OFFSET aux Continuation Tokens ?</title><link href="http://www.servicedenuages.fr/comment-passer-de-limit-offset-aux-continuation-tokens.html" rel="alternate"></link><updated>2015-05-04T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-04:comment-passer-de-limit-offset-aux-continuation-tokens.html</id><summary type="html">&lt;p&gt;Si vous êtes là, c'est que quelqu'un a dû vous le dire : Paginer sur des
+grosses tables avec LIMIT et OFFSET ne monte pas en charge : plus
+on avance dans les pages, plus c'est lent.&lt;/p&gt;
+&lt;p&gt;C'est dommage parce que c'était facile à appréhender ! La limite donne
+le nombre d'éléments affichés et le décalage est calculé en fonction
+de la page en cours !&lt;/p&gt;
+&lt;p&gt;Il y a même une initiative "&lt;a class="reference external" href="http://use-the-index-luke.com/no-offset"&gt;STOP OFFSET&lt;/a&gt;" pour que les développeurs y
+pensent.&lt;/p&gt;
+&lt;p&gt;Sur ce site, la solution évoquée consiste à mettre en place une keyset
+pagination, ou seek method. Autrement dit une pagination à base de
+filtrage.&lt;/p&gt;
+&lt;p&gt;L'idée générale consiste à remplacer les &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;?page=3&amp;amp;size=10&lt;/span&gt;&lt;/tt&gt; de vos URLs
+par un ensemble de critères de filtrage sur la table qui réduiront les
+résultats obtenus à ceux attendus sur la page en cours.&lt;/p&gt;
+&lt;p&gt;C'est le serveur qui va construire les requêtes de filtrages
+nécessaires à la pagination à partir d'informations sur le dernier
+élément affiché. Ces informations sont appelées &lt;strong&gt;continuation
+token&lt;/strong&gt; car elles permettent au serveur de savoir d'où il doit
+reprendre pour continuer à afficher les résultats.&lt;/p&gt;
+&lt;div class="section" id="pourquoi-c-est-mal-d-utiliser-offset-et-limit"&gt;
+&lt;h2&gt;Pourquoi c'est mal d'utiliser OFFSET et LIMIT ?&lt;/h2&gt;
+&lt;p&gt;Le site ci-dessus l'explique mieux que moi, mais ce qu'il faut retenir
+c'est que la base de données doit faire la requête entière pour
+ensuite aller se déplacer jusqu'à la bonne ligne.&lt;/p&gt;
+&lt;p&gt;Si pendant que vous changez de page quelqu'un modifie la collection
+vous pouvez aussi louper des entrées ou avoir des doublons dans les
+résultats. Cela rend la liste des résultats incohérente entre deux
+affichages.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="comment-faire-pour-s-en-passer"&gt;
+&lt;h2&gt;Comment faire pour s'en passer ?&lt;/h2&gt;
+&lt;p&gt;Pour bien comprendre, prenons le cas le plus simple.&lt;/p&gt;
+&lt;p&gt;Si vous triez par &lt;tt class="docutils literal"&gt;id&lt;/tt&gt; (la clé primaire), il vous suffit de garder
+trace du dernier &lt;tt class="docutils literal"&gt;id&lt;/tt&gt; de la page précédente.&lt;/p&gt;
+&lt;p&gt;Prenons comme exemple la table de salariés suivante.
+Pour les besoins de l'exercice la date de recrutement est unique.
+Les données sont inexactes mais plausibles.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;CREATE&lt;/span&gt; &lt;span class="k"&gt;TABLE&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;salaries&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+  &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="nb"&gt;int&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;NOT&lt;/span&gt; &lt;span class="k"&gt;NULL&lt;/span&gt; &lt;span class="n"&gt;AUTO_INCREMENT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;nom&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="nb"&gt;text&lt;/span&gt; &lt;span class="k"&gt;NOT&lt;/span&gt; &lt;span class="k"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="nb"&gt;text&lt;/span&gt; &lt;span class="k"&gt;NOT&lt;/span&gt; &lt;span class="k"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;date_embauche&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="nb"&gt;date&lt;/span&gt; &lt;span class="k"&gt;NOT&lt;/span&gt; &lt;span class="k"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="k"&gt;PRIMARY&lt;/span&gt; &lt;span class="k"&gt;KEY&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+  &lt;span class="k"&gt;UNIQUE&lt;/span&gt; &lt;span class="k"&gt;KEY&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;date_embauche&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;date_embauche&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="n"&gt;CHARSET&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;utf8&lt;/span&gt; &lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;ID&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Nom&lt;/span&gt;      &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Soci&lt;/span&gt;&lt;span class="err"&gt;é&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="err"&gt;é&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;Date&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;recrutement&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Rodolphe&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;09&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Tarek&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2009&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;01&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Benoit&lt;/span&gt;   &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2012&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;02&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;25&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Alexis&lt;/span&gt;   &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2012&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;09&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;24&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Bruno&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2013&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;06&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;14&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;R&lt;/span&gt;&lt;span class="err"&gt;é&lt;/span&gt;&lt;span class="n"&gt;my&lt;/span&gt;     &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mathieu&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;06&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Natal&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2013&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;08&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;05&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Nicolas&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;02&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;27&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Pour l'exemple, nous allons également paginer nos
+résultats par deux.&lt;/p&gt;
+&lt;div class="section" id="voici-les-requetes-que-nous-ferions-en-utilisant-offset-et-limit"&gt;
+&lt;h3&gt;Voici les requêtes que nous ferions en utilisant OFFSET et LIMIT&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;salaries&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;ORDER&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;LIMIT&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Rodolphe&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;09&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Tarek&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2009&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;01&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+
+&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;salaries&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;ORDER&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;LIMIT&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;span class="k"&gt;OFFSET&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Benoit&lt;/span&gt;   &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2012&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;02&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;25&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Alexis&lt;/span&gt;   &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2012&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;09&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;24&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="comment-peut-on-obtenir-le-meme-resultat-sans-utiliser-offset"&gt;
+&lt;h3&gt;Comment peut-on obtenir le même résultat sans utiliser OFFSET ?&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;salaries&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;ORDER&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;LIMIT&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Rodolphe&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;09&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Tarek&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2009&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;01&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+
+&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;salaries&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;WHERE&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;span class="k"&gt;ORDER&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;LIMIT&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Benoit&lt;/span&gt;   &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2012&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;02&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;25&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Alexis&lt;/span&gt;   &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2012&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;09&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;24&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Quand on fait le tri sur une valeur unique pour toute la collection,
+on se rend compte que l'on peut sauvegarder la valeur du dernier
+élément de la liste et l'utiliser pour faire une condition where.&lt;/p&gt;
+&lt;p&gt;Faisons maintenant le tri sur la date d'embauche :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;salaries&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;ORDER&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;date_embauche&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;LIMIT&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Tarek&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2009&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;01&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Benoit&lt;/span&gt;   &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2012&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;02&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;25&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+
+&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;salaries&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;WHERE&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;date_embauche&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'2012-02-25'&lt;/span&gt;
+&lt;span class="k"&gt;ORDER&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;date_embauche&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;LIMIT&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Alexis&lt;/span&gt;   &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2012&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;09&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;24&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Bruno&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2013&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;06&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;14&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+
+&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;salaries&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;WHERE&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;date_embauche&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'2013-06-14'&lt;/span&gt;
+&lt;span class="k"&gt;ORDER&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;date_embauche&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;LIMIT&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Natal&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2013&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;08&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;05&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Nicolas&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;02&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;27&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="et-pour-la-page-precedente"&gt;
+&lt;h3&gt;Et pour la page précédente ?&lt;/h3&gt;
+&lt;p&gt;Soit on se rappelle de la règle de filtrage précédente, soit on peut
+ruser en inversant l'ordre de tri puis en selectionnant les résultats
+supérieurs au premier élément de la page courante et en affichant les
+résultats dans l'ordre inverse :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;salaries&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;WHERE&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;date_embauche&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="s1"&gt;'2013-08-05'&lt;/span&gt;
+&lt;span class="k"&gt;ORDER&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;date_embauche&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="k"&gt;DESC&lt;/span&gt;
+&lt;span class="k"&gt;LIMIT&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Bruno&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2013&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;06&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;14&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Alexis&lt;/span&gt;   &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2012&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;09&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;24&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Qu'il faut afficher à l'utilisateur comme cela :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Alexis&lt;/span&gt;   &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2012&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;09&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;24&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Bruno&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2013&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;06&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;14&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="et-pour-les-tris-sur-des-cles-non-uniques"&gt;
+&lt;h2&gt;Et pour les tris sur des clés non uniques ?&lt;/h2&gt;
+&lt;p&gt;Dès lors qu'une clé de tri n'est plus unique, contrairement à
+&lt;tt class="docutils literal"&gt;date_embauche&lt;/tt&gt; et &lt;tt class="docutils literal"&gt;id&lt;/tt&gt; dans notre exemple, il faut trouver une
+requête qui permet d'identifier de manière unique la ligne à partir de
+laquelle continuer.&lt;/p&gt;
+&lt;p&gt;Prenons la requête suivante :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;salaries&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;ORDER&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;nom&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;ID&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Nom&lt;/span&gt;      &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Soci&lt;/span&gt;&lt;span class="err"&gt;é&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="err"&gt;é&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;Date&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;recrutement&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Alexis&lt;/span&gt;   &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2012&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;09&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;24&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mathieu&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;06&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Nicolas&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;02&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;27&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;R&lt;/span&gt;&lt;span class="err"&gt;é&lt;/span&gt;&lt;span class="n"&gt;my&lt;/span&gt;     &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Tarek&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2009&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;01&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Benoit&lt;/span&gt;   &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2012&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;02&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;25&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Bruno&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2013&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;06&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;14&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Natal&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2013&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;08&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;05&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Rodolphe&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;09&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Si on souhaite obtenir la deuxième page en utilisant &lt;tt class="docutils literal"&gt;id&lt;/tt&gt; on se rend
+compte qu'il y a un souci.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;salaries&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;WHERE&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;
+&lt;span class="k"&gt;ORDER&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;nom&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Nicolas&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;02&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;27&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Natal&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2013&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;08&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;05&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Or la seconde page attendue est :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Nicolas&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;02&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;27&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;R&lt;/span&gt;&lt;span class="err"&gt;é&lt;/span&gt;&lt;span class="n"&gt;my&lt;/span&gt;     &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;div class="section" id="tri-avec-une-seule-cle-non-unique"&gt;
+&lt;h3&gt;Tri avec une seule clé non unique&lt;/h3&gt;
+&lt;p&gt;Commençons avec un tri sur une seule colonne non unique &lt;tt class="docutils literal"&gt;societe&lt;/tt&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;salaries&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;ORDER&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;ID&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Nom&lt;/span&gt;      &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Soci&lt;/span&gt;&lt;span class="err"&gt;é&lt;/span&gt;&lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="err"&gt;é&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="nb"&gt;Date&lt;/span&gt; &lt;span class="n"&gt;de&lt;/span&gt; &lt;span class="n"&gt;recrutement&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Tarek&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2009&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;01&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Alexis&lt;/span&gt;   &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2012&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;09&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;24&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;R&lt;/span&gt;&lt;span class="err"&gt;é&lt;/span&gt;&lt;span class="n"&gt;my&lt;/span&gt;     &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mathieu&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;06&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Nicolas&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;02&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;27&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Rodolphe&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;09&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;3&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Benoit&lt;/span&gt;   &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2012&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;02&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;25&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;5&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Bruno&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2013&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;06&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;14&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Natal&lt;/span&gt;    &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2013&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;08&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;05&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;On se rend compte qu'il s'agit en fait de cette requête :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;salaries&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;ORDER&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Notre requête pour la page deux est donc :&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Les salariés qui ont un nom de société supérieur à Mozilla &lt;strong&gt;ou&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;Les salariés de Mozilla qui ont un id supérieur à 4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;salaries&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;WHERE&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla'&lt;/span&gt;
+&lt;span class="k"&gt;OR&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla'&lt;/span&gt; &lt;span class="k"&gt;AND&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;ORDER&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;LIMIT&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;R&lt;/span&gt;&lt;span class="err"&gt;é&lt;/span&gt;&lt;span class="n"&gt;my&lt;/span&gt;     &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mathieu&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;12&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;06&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;On peut vérifier que le cas limite fonctionne aussi:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;salaries&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;WHERE&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla'&lt;/span&gt;
+&lt;span class="k"&gt;OR&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla'&lt;/span&gt; &lt;span class="k"&gt;AND&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;ORDER&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;LIMIT&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Nicolas&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;02&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;27&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Rodolphe&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Novapost&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;09&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="tri-sur-de-multiples-cle-non-uniques"&gt;
+&lt;h3&gt;Tri sur de multiples clé non uniques&lt;/h3&gt;
+&lt;p&gt;Maintenant revenons à notre tri par &lt;tt class="docutils literal"&gt;societe&lt;/tt&gt; et par &lt;tt class="docutils literal"&gt;nom&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;Pour atteindre la page deux, on a donc trois ensembles à concaténer:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Les salariés de &lt;tt class="docutils literal"&gt;Mozilla&lt;/tt&gt; qui s'appellent &lt;tt class="docutils literal"&gt;Mathieu&lt;/tt&gt; et dont l'&lt;tt class="docutils literal"&gt;id&lt;/tt&gt; est supérieur à &lt;tt class="docutils literal"&gt;7&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;Les salariés de &lt;tt class="docutils literal"&gt;Mozilla&lt;/tt&gt; dont le nom est supérieur à &lt;tt class="docutils literal"&gt;Mathieu&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;Les salariés dont le nom de société est supérieur à &lt;tt class="docutils literal"&gt;Mozilla&lt;/tt&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;salaries&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;WHERE&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla'&lt;/span&gt; &lt;span class="k"&gt;AND&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;nom&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'Mathieu'&lt;/span&gt; &lt;span class="k"&gt;AND&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;
+&lt;span class="k"&gt;OR&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla'&lt;/span&gt; &lt;span class="k"&gt;AND&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;nom&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'Mathieu'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;OR&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla'&lt;/span&gt;
+&lt;span class="k"&gt;ORDER&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;nom&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;LIMIT&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Nicolas&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;02&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;27&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;6&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;R&lt;/span&gt;&lt;span class="err"&gt;é&lt;/span&gt;&lt;span class="n"&gt;my&lt;/span&gt;     &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;11&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;On peut tester notre cas limite en ajoutant&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mathieu&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;22&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Et on a bien :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;salaries&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;WHERE&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla'&lt;/span&gt; &lt;span class="k"&gt;AND&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;nom&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'Mathieu'&lt;/span&gt; &lt;span class="k"&gt;AND&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mi"&gt;7&lt;/span&gt;
+&lt;span class="k"&gt;OR&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla'&lt;/span&gt; &lt;span class="k"&gt;AND&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;nom&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'Mathieu'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;OR&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="s1"&gt;'Mozilla'&lt;/span&gt;
+&lt;span class="k"&gt;ORDER&lt;/span&gt; &lt;span class="k"&gt;BY&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;societe&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;`&lt;/span&gt;&lt;span class="n"&gt;nom&lt;/span&gt;&lt;span class="o"&gt;`&lt;/span&gt;
+&lt;span class="k"&gt;LIMIT&lt;/span&gt; &lt;span class="mi"&gt;2&lt;/span&gt;
+
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt; &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mathieu&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2015&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;03&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;22&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;9&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Nicolas&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="n"&gt;Mozilla&lt;/span&gt;  &lt;span class="o"&gt;|&lt;/span&gt; &lt;span class="mi"&gt;2014&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;02&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;27&lt;/span&gt;          &lt;span class="o"&gt;|&lt;/span&gt;
+&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="c1"&gt;----+----------+----------+---------------------+&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="generalisation"&gt;
+&lt;h2&gt;Généralisation&lt;/h2&gt;
+&lt;p&gt;La manière générique que j'ai trouvée pour utiliser un &lt;strong&gt;Continuation
+Token&lt;/strong&gt; ou &lt;strong&gt;jeton de continuation&lt;/strong&gt; tout en laissant l'utilisateur
+choisir sa requête de tri est de générer le jeton à partir du dernier
+élément de la page et des champs de tri.&lt;/p&gt;
+&lt;p&gt;En complétant toujours les champs de tri par la clé primaire à la fin.&lt;/p&gt;
+&lt;p&gt;Ensuite je génère une fonction récursive qui prend la liste des
+champs de tri et la dernière entrée de la page précédente et me
+retourne une liste de conditions de tri.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;get_continuation_token_conditions&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;record&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sorting&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;results&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="sd"&gt;"""Return the list of conditions for a given record and sorting attributes.&lt;/span&gt;
+
+&lt;span class="sd"&gt;    &amp;gt;&amp;gt;&amp;gt; get_continuation_token_conditions(&lt;/span&gt;
+&lt;span class="sd"&gt;    ...     {'id': 7, 'nom': 'Mathieu', 'societe': 'Mozilla'},&lt;/span&gt;
+&lt;span class="sd"&gt;    ...     ['societe', 'nom', 'id']&lt;/span&gt;
+&lt;span class="sd"&gt;    ... )&lt;/span&gt;
+&lt;span class="sd"&gt;    [(('societe', '=', 'Mozilla'), ('nom', '=', 'Mathieu'), ('id', '&amp;gt;', 7)),&lt;/span&gt;
+&lt;span class="sd"&gt;     (('societe', '=', 'Mozilla'), ('nom', '&amp;gt;', 'Mathieu')),&lt;/span&gt;
+&lt;span class="sd"&gt;     (('societe', '&amp;gt;', 'Mozilla'))]&lt;/span&gt;
+
+&lt;span class="sd"&gt;    &amp;gt;&amp;gt;&amp;gt; get_continuation_token_conditions(&lt;/span&gt;
+&lt;span class="sd"&gt;    ...     {'id': 7, 'nom': 'Mathieu', 'societe': 'Mozilla'},&lt;/span&gt;
+&lt;span class="sd"&gt;    ...     ['societe', '-nom', 'id']&lt;/span&gt;
+&lt;span class="sd"&gt;    ... )&lt;/span&gt;
+&lt;span class="sd"&gt;    [(('societe', '=', 'Mozilla'), ('nom', '=', 'Mathieu'), ('id', '&amp;gt;', 7)),&lt;/span&gt;
+&lt;span class="sd"&gt;     (('societe', '=', 'Mozilla'), ('nom', '&amp;lt;', 'Mathieu')),&lt;/span&gt;
+&lt;span class="sd"&gt;     (('societe', '&amp;gt;', 'Mozilla'))]&lt;/span&gt;
+
+&lt;span class="sd"&gt;    """&lt;/span&gt;
+
+    &lt;span class="n"&gt;result&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;field&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="n"&gt;sorting&lt;/span&gt;&lt;span class="p"&gt;[:&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt;
+        &lt;span class="n"&gt;field_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;field&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lstrip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;'-'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;field_name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;'='&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;record&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;field_name&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
+
+    &lt;span class="n"&gt;field&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;sorting&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="n"&gt;field_name&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;field&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;lstrip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;'-'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;direction&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;'&amp;lt;'&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;field&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="s"&gt;'-'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="s"&gt;'&amp;gt;'&lt;/span&gt;
+    &lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="n"&gt;field_name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;direction&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;record&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;field_name&lt;/span&gt;&lt;span class="p"&gt;]))&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;results&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;results&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="n"&gt;results&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;result&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sorting&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;results&lt;/span&gt;
+    &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;get_continuation_token_conditions&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;record&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sorting&lt;/span&gt;&lt;span class="p"&gt;[:&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;results&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="conclusion"&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Vous voyez que c'est possible de faire de la pagination à l'aide d'un
+&lt;strong&gt;continuation token&lt;/strong&gt; tout en gardant les fonctionnalités de tri.&lt;/p&gt;
+&lt;p&gt;L'inconvénient c'est qu'il est impossible de pouvoir sauter à la
+dernière page ou à une page donnée, heureusement les utilisateurs sont
+maintenant habitués à filtrer les résultats afin d'avoir la réponse
+sur la première ou deuxième page et dans le cas où ils souhaitent tous
+les résultats, ils regardent les pages dans l'ordre.&lt;/p&gt;
+&lt;p&gt;Qui dit conditions de tri dit aussi index et c'est là que bien cadrer
+les fonctionnalités de tri autorisées devient intéressant. Est-ce bien
+nécessaire de laisser l'utilisateur choisir les champs de tri, ou
+peut-on se contenter de ne lui laisser comme choix que le sens du tri
+sur des champs prédéfinis ?&lt;/p&gt;
+&lt;p&gt;Si votre condition de pagination est fixe, vous allez pouvoir créer
+les index nécessaires et optimiser au maximum vos requêtes de pagination.&lt;/p&gt;
+&lt;/div&gt;
+</summary></entry><entry><title>Eco-système et stockage générique</title><link href="http://www.servicedenuages.fr/eco-systeme-et-stockage-generique.html" rel="alternate"></link><updated>2015-04-30T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-30:eco-systeme-et-stockage-generique.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;tl;dr Nous devons construire un service de suivi de paiements, et nous
 hésitons à continuer à nous entêter avec notre propre solution de
 stockage/synchronisation.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Comme nous l'écrivions &lt;a class="reference external" href="http://www.servicedenuages.fr/service-de-nuages.html"&gt;dans l'article précédent&lt;/a&gt;, nous souhaitons construire une

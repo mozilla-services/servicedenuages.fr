@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>Comment passer de LIMIT / OFFSET aux Continuation Tokens ? // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Publié</h5>
+                <p title="~1495 mots">~6mn de lecture 🕑</p>
+                <p>lun. 04 mai 2015</p>
+                <a href="/">&larr;Liste des articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Comment passer de LIMIT / OFFSET aux Continuation Tokens ?</h1>
+                </header>
+            </section>
+            <p>Si vous êtes là, c'est que quelqu'un a dû vous le dire : Paginer sur des
+grosses tables avec LIMIT et OFFSET ne monte pas en charge : plus
+on avance dans les pages, plus c'est lent.</p>
+<p>C'est dommage parce que c'était facile à appréhender ! La limite donne
+le nombre d'éléments affichés et le décalage est calculé en fonction
+de la page en cours !</p>
+<p>Il y a même une initiative "<a class="reference external" href="http://use-the-index-luke.com/no-offset">STOP OFFSET</a>" pour que les développeurs y
+pensent.</p>
+<p>Sur ce site, la solution évoquée consiste à mettre en place une keyset
+pagination, ou seek method. Autrement dit une pagination à base de
+filtrage.</p>
+<p>L'idée générale consiste à remplacer les <tt class="docutils literal"><span class="pre">?page=3&amp;size=10</span></tt> de vos URLs
+par un ensemble de critères de filtrage sur la table qui réduiront les
+résultats obtenus à ceux attendus sur la page en cours.</p>
+<p>C'est le serveur qui va construire les requêtes de filtrages
+nécessaires à la pagination à partir d'informations sur le dernier
+élément affiché. Ces informations sont appelées <strong>continuation
+token</strong> car elles permettent au serveur de savoir d'où il doit
+reprendre pour continuer à afficher les résultats.</p>
+<div class="section" id="pourquoi-c-est-mal-d-utiliser-offset-et-limit">
+<h2>Pourquoi c'est mal d'utiliser OFFSET et LIMIT ?</h2>
+<p>Le site ci-dessus l'explique mieux que moi, mais ce qu'il faut retenir
+c'est que la base de données doit faire la requête entière pour
+ensuite aller se déplacer jusqu'à la bonne ligne.</p>
+<p>Si pendant que vous changez de page quelqu'un modifie la collection
+vous pouvez aussi louper des entrées ou avoir des doublons dans les
+résultats. Cela rend la liste des résultats incohérente entre deux
+affichages.</p>
+</div>
+<div class="section" id="comment-faire-pour-s-en-passer">
+<h2>Comment faire pour s'en passer ?</h2>
+<p>Pour bien comprendre, prenons le cas le plus simple.</p>
+<p>Si vous triez par <tt class="docutils literal">id</tt> (la clé primaire), il vous suffit de garder
+trace du dernier <tt class="docutils literal">id</tt> de la page précédente.</p>
+<p>Prenons comme exemple la table de salariés suivante.
+Pour les besoins de l'exercice la date de recrutement est unique.
+Les données sont inexactes mais plausibles.</p>
+<div class="highlight"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span> <span class="p">(</span>
+  <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">nom</span><span class="o">`</span> <span class="nb">text</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="nb">text</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span> <span class="nb">date</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+  <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="o">`</span><span class="n">id</span><span class="o">`</span><span class="p">),</span>
+  <span class="k">UNIQUE</span> <span class="k">KEY</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span><span class="p">)</span>
+<span class="p">)</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span> <span class="p">;</span>
+</pre></div>
+<div class="highlight"><pre><span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="n">ID</span> <span class="o">|</span> <span class="n">Nom</span>      <span class="o">|</span> <span class="n">Soci</span><span class="err">é</span><span class="n">t</span><span class="err">é</span>  <span class="o">|</span> <span class="nb">Date</span> <span class="n">de</span> <span class="n">recrutement</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="n">Rodolphe</span> <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">03</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span> <span class="n">Tarek</span>    <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2009</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">01</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span> <span class="n">Benoit</span>   <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">25</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span> <span class="n">Alexis</span>   <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">24</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">5</span>  <span class="o">|</span> <span class="n">Bruno</span>    <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2013</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">14</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span> <span class="n">R</span><span class="err">é</span><span class="n">my</span>     <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">11</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">7</span>  <span class="o">|</span> <span class="n">Mathieu</span>  <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">06</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">8</span>  <span class="o">|</span> <span class="n">Natal</span>    <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2013</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">05</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="n">Nicolas</span>  <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">27</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+</pre></div>
+<p>Pour l'exemple, nous allons également paginer nos
+résultats par deux.</p>
+<div class="section" id="voici-les-requetes-que-nous-ferions-en-utilisant-offset-et-limit">
+<h3>Voici les requêtes que nous ferions en utilisant OFFSET et LIMIT</h3>
+<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span>
+<span class="k">LIMIT</span> <span class="mi">2</span>
+
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="n">Rodolphe</span> <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">03</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span> <span class="n">Tarek</span>    <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2009</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">01</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span>
+<span class="k">LIMIT</span> <span class="mi">2</span>
+<span class="k">OFFSET</span> <span class="mi">2</span>
+
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span> <span class="n">Benoit</span>   <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">25</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span> <span class="n">Alexis</span>   <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">24</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+</pre></div>
+</div>
+<div class="section" id="comment-peut-on-obtenir-le-meme-resultat-sans-utiliser-offset">
+<h3>Comment peut-on obtenir le même résultat sans utiliser OFFSET ?</h3>
+<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span>
+<span class="k">LIMIT</span> <span class="mi">2</span>
+
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="n">Rodolphe</span> <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">03</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span> <span class="n">Tarek</span>    <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2009</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">01</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<span class="k">WHERE</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">2</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span>
+<span class="k">LIMIT</span> <span class="mi">2</span>
+
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span> <span class="n">Benoit</span>   <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">25</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span> <span class="n">Alexis</span>   <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">24</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+</pre></div>
+<p>Quand on fait le tri sur une valeur unique pour toute la collection,
+on se rend compte que l'on peut sauvegarder la valeur du dernier
+élément de la liste et l'utiliser pour faire une condition where.</p>
+<p>Faisons maintenant le tri sur la date d'embauche :</p>
+<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span>
+<span class="k">LIMIT</span> <span class="mi">2</span>
+
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span> <span class="n">Tarek</span>    <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2009</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">01</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span> <span class="n">Benoit</span>   <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">25</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<span class="k">WHERE</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'2012-02-25'</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span>
+<span class="k">LIMIT</span> <span class="mi">2</span>
+
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span> <span class="n">Alexis</span>   <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">24</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">5</span>  <span class="o">|</span> <span class="n">Bruno</span>    <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2013</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">14</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+
+<span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<span class="k">WHERE</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'2013-06-14'</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span>
+<span class="k">LIMIT</span> <span class="mi">2</span>
+
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">8</span>  <span class="o">|</span> <span class="n">Natal</span>    <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2013</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">05</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="n">Nicolas</span>  <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">27</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+</pre></div>
+</div>
+<div class="section" id="et-pour-la-page-precedente">
+<h3>Et pour la page précédente ?</h3>
+<p>Soit on se rappelle de la règle de filtrage précédente, soit on peut
+ruser en inversant l'ordre de tri puis en selectionnant les résultats
+supérieurs au premier élément de la page courante et en affichant les
+résultats dans l'ordre inverse :</p>
+<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<span class="k">WHERE</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span> <span class="o">&lt;</span> <span class="s1">'2013-08-05'</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span> <span class="k">DESC</span>
+<span class="k">LIMIT</span> <span class="mi">2</span>
+
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">5</span>  <span class="o">|</span> <span class="n">Bruno</span>    <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2013</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">14</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span> <span class="n">Alexis</span>   <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">24</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+</pre></div>
+<p>Qu'il faut afficher à l'utilisateur comme cela :</p>
+<div class="highlight"><pre><span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span> <span class="n">Alexis</span>   <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">24</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">5</span>  <span class="o">|</span> <span class="n">Bruno</span>    <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2013</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">14</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="et-pour-les-tris-sur-des-cles-non-uniques">
+<h2>Et pour les tris sur des clés non uniques ?</h2>
+<p>Dès lors qu'une clé de tri n'est plus unique, contrairement à
+<tt class="docutils literal">date_embauche</tt> et <tt class="docutils literal">id</tt> dans notre exemple, il faut trouver une
+requête qui permet d'identifier de manière unique la ligne à partir de
+laquelle continuer.</p>
+<p>Prenons la requête suivante :</p>
+<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span>
+
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="n">ID</span> <span class="o">|</span> <span class="n">Nom</span>      <span class="o">|</span> <span class="n">Soci</span><span class="err">é</span><span class="n">t</span><span class="err">é</span>  <span class="o">|</span> <span class="nb">Date</span> <span class="n">de</span> <span class="n">recrutement</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span> <span class="n">Alexis</span>   <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">24</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">7</span>  <span class="o">|</span> <span class="n">Mathieu</span>  <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">06</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="n">Nicolas</span>  <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">27</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span> <span class="n">R</span><span class="err">é</span><span class="n">my</span>     <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">11</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span> <span class="n">Tarek</span>    <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2009</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">01</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span> <span class="n">Benoit</span>   <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">25</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">5</span>  <span class="o">|</span> <span class="n">Bruno</span>    <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2013</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">14</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">8</span>  <span class="o">|</span> <span class="n">Natal</span>    <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2013</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">05</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="n">Rodolphe</span> <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">03</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+</pre></div>
+<p>Si on souhaite obtenir la deuxième page en utilisant <tt class="docutils literal">id</tt> on se rend
+compte qu'il y a un souci.</p>
+<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<span class="k">WHERE</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">7</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span>
+
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="n">Nicolas</span>  <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">27</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">8</span>  <span class="o">|</span> <span class="n">Natal</span>    <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2013</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">05</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+</pre></div>
+<p>Or la seconde page attendue est :</p>
+<div class="highlight"><pre><span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="n">Nicolas</span>  <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">27</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span> <span class="n">R</span><span class="err">é</span><span class="n">my</span>     <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">11</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+</pre></div>
+<div class="section" id="tri-avec-une-seule-cle-non-unique">
+<h3>Tri avec une seule clé non unique</h3>
+<p>Commençons avec un tri sur une seule colonne non unique <tt class="docutils literal">societe</tt>:</p>
+<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span>
+
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="n">ID</span> <span class="o">|</span> <span class="n">Nom</span>      <span class="o">|</span> <span class="n">Soci</span><span class="err">é</span><span class="n">t</span><span class="err">é</span>  <span class="o">|</span> <span class="nb">Date</span> <span class="n">de</span> <span class="n">recrutement</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">2</span>  <span class="o">|</span> <span class="n">Tarek</span>    <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2009</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">01</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span> <span class="n">Alexis</span>   <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">24</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span> <span class="n">R</span><span class="err">é</span><span class="n">my</span>     <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">11</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">7</span>  <span class="o">|</span> <span class="n">Mathieu</span>  <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">06</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="n">Nicolas</span>  <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">27</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="n">Rodolphe</span> <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">03</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">3</span>  <span class="o">|</span> <span class="n">Benoit</span>   <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">25</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">5</span>  <span class="o">|</span> <span class="n">Bruno</span>    <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2013</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">14</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">8</span>  <span class="o">|</span> <span class="n">Natal</span>    <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2013</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">05</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+</pre></div>
+<p>On se rend compte qu'il s'agit en fait de cette requête :</p>
+<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span>
+</pre></div>
+<p>Notre requête pour la page deux est donc :</p>
+<blockquote>
+<ul class="simple">
+<li>Les salariés qui ont un nom de société supérieur à Mozilla <strong>ou</strong></li>
+<li>Les salariés de Mozilla qui ont un id supérieur à 4</li>
+</ul>
+</blockquote>
+<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<span class="k">WHERE</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'Mozilla'</span>
+<span class="k">OR</span> <span class="p">(</span><span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mozilla'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">)</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span>
+<span class="k">LIMIT</span> <span class="mi">2</span>
+
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span> <span class="n">R</span><span class="err">é</span><span class="n">my</span>     <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">11</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">7</span>  <span class="o">|</span> <span class="n">Mathieu</span>  <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">06</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+</pre></div>
+<p>On peut vérifier que le cas limite fonctionne aussi:</p>
+<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<span class="k">WHERE</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'Mozilla'</span>
+<span class="k">OR</span> <span class="p">(</span><span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mozilla'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">7</span><span class="p">)</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span>
+<span class="k">LIMIT</span> <span class="mi">2</span>
+
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="n">Nicolas</span>  <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">27</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="n">Rodolphe</span> <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">03</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+</pre></div>
+</div>
+<div class="section" id="tri-sur-de-multiples-cle-non-uniques">
+<h3>Tri sur de multiples clé non uniques</h3>
+<p>Maintenant revenons à notre tri par <tt class="docutils literal">societe</tt> et par <tt class="docutils literal">nom</tt></p>
+<p>Pour atteindre la page deux, on a donc trois ensembles à concaténer:</p>
+<blockquote>
+<ul class="simple">
+<li>Les salariés de <tt class="docutils literal">Mozilla</tt> qui s'appellent <tt class="docutils literal">Mathieu</tt> et dont l'<tt class="docutils literal">id</tt> est supérieur à <tt class="docutils literal">7</tt></li>
+<li>Les salariés de <tt class="docutils literal">Mozilla</tt> dont le nom est supérieur à <tt class="docutils literal">Mathieu</tt></li>
+<li>Les salariés dont le nom de société est supérieur à <tt class="docutils literal">Mozilla</tt></li>
+</ul>
+</blockquote>
+<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<span class="k">WHERE</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mozilla'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mathieu'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">7</span>
+<span class="k">OR</span> <span class="p">(</span><span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mozilla'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'Mathieu'</span><span class="p">)</span>
+<span class="k">OR</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'Mozilla'</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span>
+<span class="k">LIMIT</span> <span class="mi">2</span>
+
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="n">Nicolas</span>  <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">27</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span> <span class="n">R</span><span class="err">é</span><span class="n">my</span>     <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">11</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+</pre></div>
+<p>On peut tester notre cas limite en ajoutant</p>
+<div class="highlight"><pre><span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">10</span> <span class="o">|</span> <span class="n">Mathieu</span>  <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">22</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+</pre></div>
+<p>Et on a bien :</p>
+<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<span class="k">WHERE</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mozilla'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mathieu'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">7</span>
+<span class="k">OR</span> <span class="p">(</span><span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mozilla'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'Mathieu'</span><span class="p">)</span>
+<span class="k">OR</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'Mozilla'</span>
+<span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span>
+<span class="k">LIMIT</span> <span class="mi">2</span>
+
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">10</span> <span class="o">|</span> <span class="n">Mathieu</span>  <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">22</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="n">Nicolas</span>  <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">27</span>          <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="generalisation">
+<h2>Généralisation</h2>
+<p>La manière générique que j'ai trouvée pour utiliser un <strong>Continuation
+Token</strong> ou <strong>jeton de continuation</strong> tout en laissant l'utilisateur
+choisir sa requête de tri est de générer le jeton à partir du dernier
+élément de la page et des champs de tri.</p>
+<p>En complétant toujours les champs de tri par la clé primaire à la fin.</p>
+<p>Ensuite je génère une fonction récursive qui prend la liste des
+champs de tri et la dernière entrée de la page précédente et me
+retourne une liste de conditions de tri.</p>
+<div class="highlight"><pre><span class="k">def</span> <span class="nf">get_continuation_token_conditions</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">sorting</span><span class="p">,</span> <span class="n">results</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">"""Return the list of conditions for a given record and sorting attributes.</span>
+
+<span class="sd">    &gt;&gt;&gt; get_continuation_token_conditions(</span>
+<span class="sd">    ...     {'id': 7, 'nom': 'Mathieu', 'societe': 'Mozilla'},</span>
+<span class="sd">    ...     ['societe', 'nom', 'id']</span>
+<span class="sd">    ... )</span>
+<span class="sd">    [(('societe', '=', 'Mozilla'), ('nom', '=', 'Mathieu'), ('id', '&gt;', 7)),</span>
+<span class="sd">     (('societe', '=', 'Mozilla'), ('nom', '&gt;', 'Mathieu')),</span>
+<span class="sd">     (('societe', '&gt;', 'Mozilla'))]</span>
+
+<span class="sd">    &gt;&gt;&gt; get_continuation_token_conditions(</span>
+<span class="sd">    ...     {'id': 7, 'nom': 'Mathieu', 'societe': 'Mozilla'},</span>
+<span class="sd">    ...     ['societe', '-nom', 'id']</span>
+<span class="sd">    ... )</span>
+<span class="sd">    [(('societe', '=', 'Mozilla'), ('nom', '=', 'Mathieu'), ('id', '&gt;', 7)),</span>
+<span class="sd">     (('societe', '=', 'Mozilla'), ('nom', '&lt;', 'Mathieu')),</span>
+<span class="sd">     (('societe', '&gt;', 'Mozilla'))]</span>
+
+<span class="sd">    """</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">sorting</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+        <span class="n">field_name</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s">'-'</span><span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">field_name</span><span class="p">,</span> <span class="s">'='</span><span class="p">,</span> <span class="n">record</span><span class="p">[</span><span class="n">field_name</span><span class="p">]))</span>
+
+    <span class="n">field</span> <span class="o">=</span> <span class="n">sorting</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">field_name</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s">'-'</span><span class="p">)</span>
+    <span class="n">direction</span> <span class="o">=</span> <span class="s">'&lt;'</span> <span class="k">if</span> <span class="p">(</span><span class="n">field</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">'-'</span><span class="p">)</span> <span class="k">else</span> <span class="s">'&gt;'</span>
+    <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">field_name</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">record</span><span class="p">[</span><span class="n">field_name</span><span class="p">]))</span>
+
+    <span class="k">if</span> <span class="n">results</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">result</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sorting</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">results</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">get_continuation_token_conditions</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">sorting</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">results</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion</h2>
+<p>Vous voyez que c'est possible de faire de la pagination à l'aide d'un
+<strong>continuation token</strong> tout en gardant les fonctionnalités de tri.</p>
+<p>L'inconvénient c'est qu'il est impossible de pouvoir sauter à la
+dernière page ou à une page donnée, heureusement les utilisateurs sont
+maintenant habitués à filtrer les résultats afin d'avoir la réponse
+sur la première ou deuxième page et dans le cas où ils souhaitent tous
+les résultats, ils regardent les pages dans l'ordre.</p>
+<p>Qui dit conditions de tri dit aussi index et c'est là que bien cadrer
+les fonctionnalités de tri autorisées devient intéressant. Est-ce bien
+nécessaire de laisser l'utilisateur choisir les champs de tri, ou
+peut-on se contenter de ne lui laisser comme choix que le sens du tri
+sur des champs prédéfinis ?</p>
+<p>Si votre condition de pagination est fixe, vous allez pouvoir créer
+les index nécessaires et optimiser au maximum vos requêtes de pagination.</p>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>
