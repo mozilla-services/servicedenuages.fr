@@ -408,3 +408,10 @@ img.align-left {
     float: left;
 }
 
+div.note {
+   margin: 5px;
+   font-size: 85%;
+   font-style: italic;
+}
+
+.admonition-title { display: none }

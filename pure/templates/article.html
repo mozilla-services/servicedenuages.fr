@@ -39,6 +39,15 @@
                     {% endif %}
                 </header>
             </section>
+            {% if article.translations %}
+                {% for translation in article.translations %}
+                    {% if translation.lang == "en" %}
+                        <p><a href="{{ SITEURL }}/{{ translation.url }}">Read the english version</a></p>
+                    {% else %}
+                        <p><a href="{{ SITEURL }}/{{ translation.url }}">Lire la version française</a></p>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
             {{ article.content }}
             <div class="hr"></div>
             <a href="#" class="go-top">Revenir au début</a>

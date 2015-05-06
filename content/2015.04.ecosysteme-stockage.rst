@@ -2,6 +2,7 @@ Eco-système et stockage générique
 =================================
 
 :date: 2015-04-30
+:slug: eco-systeme-et-stockage-generique
 
 
 **tl;dr Nous devons construire un service de suivi de paiements, et nous
