@@ -8,7 +8,10 @@ Nous sommes l'équipe «Cloud-services» francophone: `n1k0
 <http://ziade.org/>`_, `Rémy <http://natim.ionyse.com>`_ et `Alexis
 <http://notmyidea.org>`_.
 
-Après quelques temps à accumuler les expériences sans vraiment les partager à l'écrit, nous avons décidé d'ouvrir ce blog, ou nous nous exprimons principalement en Français, à propos de nos retours d'expériences et reflexions en cours.
+Après quelques temps à accumuler les expériences sans vraiment les
+partager à l'écrit, nous avons décidé d'ouvrir ce blog, où nous nous
+exprimons principalement en Français, à propos de nos retours
+d'expériences et réflexions en cours.
 
 .. image:: {filename}/images/service_de_nuages.png
     :alt: Logo du service des nuages
