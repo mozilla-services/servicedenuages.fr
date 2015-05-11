@@ -2,6 +2,7 @@ Retours des APIdays Barcelona
 #############################
 
 :date: 2015-05-11
+:summary: Retours d'une riche journée de conférences et d'échanges aux APIdays Barcelona.
 
 Cette journée aux APIDays Barcelona a été d'une rare richesse ! Pour commencer, bravo à toute l'équipe et
 tous les participants !
@@ -36,7 +37,7 @@ de porte, selon leur forme on sait si on doit tourner, tirer ou pousser.
 `Mike Amundsen <https://twitter.com/mamund>`_ ouvrait la journée en étendant le concept aux APIs.
 Une API, et l'apparence des informations présentées, doit suggérer ce qu'on peut faire avec.
 
-Il a rappellé cependant que les meilleurs designs étaient ceux qui permettaient de faire des
+Il a rappelé cependant que les meilleurs designs étaient ceux qui permettaient de faire des
 choses choses auxquelles les auteurs n'avaient pas pensé.
 
 
