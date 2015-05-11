@@ -1,5 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-fr.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-05-04T00:00:00+02:00</updated><entry><title>Comment passer de LIMIT / OFFSET aux Continuation Tokens ?</title><link href="http://www.servicedenuages.fr/comment-passer-de-limit-offset-aux-continuation-tokens.html" rel="alternate"></link><updated>2015-05-04T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-04:comment-passer-de-limit-offset-aux-continuation-tokens.html</id><summary type="html">&lt;p&gt;Si vous êtes là, c'est que quelqu'un a dû vous le dire : Paginer sur des
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-fr.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-05-11T00:00:00+02:00</updated><entry><title>Retours des APIdays Barcelona</title><link href="http://www.servicedenuages.fr/retours-des-apidays-barcelona.html" rel="alternate"></link><updated>2015-05-11T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-11:retours-des-apidays-barcelona.html</id><summary type="html">&lt;p&gt;Cette journée aux APIDays Barcelona a été d'une rare richesse ! Pour commencer, bravo à toute l'équipe et
+tous les participants !&lt;/p&gt;
+&lt;div class="figure align-center" style="width: 1024px; height: auto; max-width: 100%;"&gt;
+&lt;img alt="@thetonyblank — https://twitter.com/thetonyblank/status/595860394561921025" src="http://www.servicedenuages.fr/images/apidays-room.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;/div&gt;
+&lt;p&gt;Je vais tenter de faire un retour le plus complet possible, en restant un minimum concis :) S'il y a
+des points obscurs, «&lt;em&gt;lache tes coms&lt;/em&gt;» &lt;a class="footnote-reference" href="#id3" id="id1"&gt;[1]&lt;/a&gt;  !&lt;/p&gt;
+&lt;div class="section" id="l-evenement"&gt;
+&lt;h2&gt;L'évènement&lt;/h2&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://mediterranea.apidays.io/"&gt;APIdays&lt;/a&gt; est un évènement qui a lieu dans plusieurs villes,
+et par chance aussi à Barcelone.&lt;/p&gt;
+&lt;p&gt;Naïvement, je n'aurais jamais pensé qu'il puisse exister une communauté aussi forte autour des APIs !
+Je découvre donc une nouvelle famille de passionnés, pluri-disciplinaire et agnostique \o/.
+Des nouveaux métiers et des participants de tous horizons, de la grosse multinationale aux obédiences XML/Java à la startup
+hype en passant par des indépendants de toute sorte !&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="l-affordance"&gt;
+&lt;h2&gt;L'affordance&lt;/h2&gt;
+&lt;p&gt;L'affordance, formulé par Don Norman, est un concept assez connu en ergonomie. Cela définit
+la capacité d'un objet à transmettre ses fonctionnalités via son apparence. Pensez aux poignées
+de porte, selon leur forme on sait si on doit tourner, tirer ou pousser.&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://twitter.com/mamund"&gt;Mike Amundsen&lt;/a&gt; ouvrait la journée en étendant le concept aux APIs.
+Une API, et l'apparence des informations présentées, doit suggérer ce qu'on peut faire avec.&lt;/p&gt;
+&lt;p&gt;Il a rappellé cependant que les meilleurs designs étaient ceux qui permettaient de faire des
+choses choses auxquelles les auteurs n'avaient pas pensé.&lt;/p&gt;
+&lt;blockquote class="epigraph"&gt;
+&lt;p&gt;A good API is hard to misuse.&lt;/p&gt;
+&lt;p class="attribution"&gt;—&lt;a class="reference external" href="https://twitter.com/orliesaurus"&gt;Orlando Kalossakas&lt;/a&gt;, plus tard dans la journée.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class="section" id="hypermedia"&gt;
+&lt;h2&gt;Hypermedia&lt;/h2&gt;
+&lt;p&gt;Plusieurs fois dans la journée, les évangélistes et fins prédicateurs ont expliqué que le
+monde des APIs était là où était le Web il y 15 ans. On a dépassé le stade d'utiliser
+&lt;tt class="docutils literal"&gt;GET /action=create&lt;/tt&gt; et REST est bien implanté, mais l'accessibilité des APIs, leur
+fédération, leur utilisation transparente ou leur caractère inter-changeable semble encore loin.&lt;/p&gt;
+&lt;p&gt;Les APIs manquent de liens.&lt;/p&gt;
+&lt;blockquote class="epigraph"&gt;
+&lt;p&gt;Hypermedia is just like hypertext but not limited to...text!&lt;/p&gt;
+&lt;p class="attribution"&gt;—&lt;a class="reference external" href="https://twitter.com/gssor"&gt;Ross Garett&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Le Web était initialement pensé comme une gigantesque base de données distribuée et
+exploitable sans préconfiguration. Sur le tard, il y a eu diverses initiatives,
+comme le Web sémantique, avec les &lt;a class="reference external" href="http://fr.wikipedia.org/wiki/Ontologie_%28informatique%29"&gt;graphes d'ontologie&lt;/a&gt;, &lt;a class="reference external" href="http://fr.wikipedia.org/wiki/Resource_Description_Framework"&gt;RDF&lt;/a&gt; ou les micro-formats. On devrait pouvoir dire
+aujourd'hui que c'est un échec, car cela n'a pas été adopté partout.&lt;/p&gt;
+&lt;p&gt;Mais, mais... il y a encore de l'espoir avec les APIs :) &lt;a class="footnote-reference" href="#id4" id="id2"&gt;[2]&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="conventions"&gt;
+&lt;h2&gt;Conventions&lt;/h2&gt;
+&lt;p&gt;En contrebas du Web ou des APIs sémantiques, il y a l'approche qui consiste à mettre au point des
+conventions simples.&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://twitter.com/steveklabnik"&gt;Steve Klabnik&lt;/a&gt; qui a une culture Ruby a fait le parallèle
+avec les frameworks Web et l'approche «&lt;em&gt;Convention over configuration&lt;/em&gt;».&lt;/p&gt;
+&lt;div class="figure align-center" style="width: 1023px; height: auto; max-width: 100%;"&gt;
+&lt;img alt="https://twitter.com/apidaysMedit/status/595883679500623872" src="http://www.servicedenuages.fr/images/apidays-steve-klabnik.jpg" style="width: 1023px; height: auto; max-width: 100%;"/&gt;
+&lt;/div&gt;
+&lt;p&gt;C'est le cas de la &lt;a class="reference external" href="http://jsonapi.org/"&gt;spécification JSON-API&lt;/a&gt;, qui ne cherche pas à aborder
+les concepts de sémantique mais simplement d'économiser aux développeurs de débattre des
+&lt;a class="reference external" href="http://fr.wikipedia.org/wiki/Loi_de_futilit%C3%A9_de_Parkinson"&gt;choix inutiles&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote class="epigraph"&gt;
+&lt;p&gt;I looked in Google Images to find pictures of bikesheds and found that.
+I thought «that's not a bikeshed». OMG, I was actually bikeshedding about bikesheds!&lt;/p&gt;
+&lt;p class="attribution"&gt;—Steve&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Par la même occasion, l'idée est de faciliter l'implémentation des clients, et &lt;a class="reference external" href="https://github.com/emberjs/data"&gt;le composant data Ember.js&lt;/a&gt;
+supportera la spec dans la prochaine release.&lt;/p&gt;
+&lt;p&gt;Nos intentions pour &lt;a class="reference external" href="http://cliquet.readthedocs.org/en/latest/rationale.html#philosophy"&gt;Cliquet&lt;/a&gt; sont exactement celles-ci. Nous
+allons donc &lt;a class="reference external" href="https://github.com/mozilla-services/cliquet/issues/254"&gt;probablement converger&lt;/a&gt;. D'autant
+que les specs sont très proches.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="documentation-d-api"&gt;
+&lt;h2&gt;Documentation d'API&lt;/h2&gt;
+&lt;p&gt;J'ai pu assister à une &lt;a class="reference external" href="https://speakerdeck.com/l0ck3/beyond-docs-lessons-learned-rebuilding-the-paymill-documentation"&gt;excellente présentation&lt;/a&gt;
+de &lt;a class="reference external" href="https://twitter.com/yannirbah"&gt;Yann Irbah&lt;/a&gt;,
+qui résumait les bonnes pratiques pour documenter une API sous forme de produit.&lt;/p&gt;
+&lt;p&gt;Les points importants:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Exposer la valeur ajoutée du produit : Pourquoi est-ce qu'il simplifie la vie ?&lt;/li&gt;
+&lt;li&gt;Documenter les premiers pas jusqu'à l'utilisation avancée ;&lt;/li&gt;
+&lt;li&gt;Ne pas se contenter du «&lt;em&gt;hello world&lt;/em&gt;» ;&lt;/li&gt;
+&lt;li&gt;Écrire des tutoriaux pour chacun des cas d'utilisation ;&lt;/li&gt;
+&lt;li&gt;Les développeurs constituent un excellent vecteur marketting ;&lt;/li&gt;
+&lt;li&gt;Aider à avoir confiance en l'outil ;&lt;/li&gt;
+&lt;li&gt;Proposer une documentation avec des end-points interactifs ;&lt;/li&gt;
+&lt;li&gt;Mettre à jour en continu.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://swagger.io/"&gt;Swagger&lt;/a&gt; et &lt;a class="reference external" href="https://github.com/tripit/slate"&gt;Slate&lt;/a&gt; ont le vent en poupe.&lt;/p&gt;
+&lt;p&gt;Il est possible d'aller très très loin, avec des outils qui mettent à jour les snippets
+de la doc quand l'API change par exemple...&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="annuaire-d-api"&gt;
+&lt;h2&gt;Annuaire d'API&lt;/h2&gt;
+&lt;p&gt;La dernière conférence de la journée était celle de &lt;a class="reference external" href="https://twitter.com/kinlane"&gt;Kin Lane&lt;/a&gt; sur
+les cycles de vie des APIs.&lt;/p&gt;
+&lt;p&gt;Il a présenté &lt;a class="reference external" href="http://apis.io"&gt;http://apis.io&lt;/a&gt;, un annuaire d'APIs.&lt;/p&gt;
+&lt;p&gt;L'idée consiste à écrire un fichier &lt;a class="reference external" href="http://apisjson.org/"&gt;apis.json&lt;/a&gt;, un peu l'équivalent
+des &lt;em&gt;sitemaps&lt;/em&gt;, mais pour les APIs.&lt;/p&gt;
+&lt;p&gt;Celui-ci va décrire les end-points (en référençant un fichier &lt;a class="reference external" href="http://swagger.io/"&gt;Swagger&lt;/a&gt; par exemple) et ajouter des
+métadonnées (description, tags, version, blog URI, licence, ...).&lt;/p&gt;
+&lt;p&gt;Cela n'a pas seulement pour objectif de construire un annuaire global ! Cela peut être un
+annuaire local à l'infrastructure que les (micro)services interrogent, plutôt que reposer
+sur une configuration en dur (a.k.a &lt;a class="reference external" href="http://jasonwilder.com/blog/2014/02/04/service-discovery-in-the-cloud/"&gt;Service discovery&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;À terme, on pourrait aussi imaginer que tous les appareils de la maison qui disposent
+d'une API viennent s'enregistrer sur le routeur ADSL du domicile !
+Ainsi en un seul coup d'oeil on pourrait avoir accès à leur documentation et les bidouiller !
+Voire même que les appareils se détectent et se connectent entre eux automatiquement
+si leurs APIs respectives suivent des normes/standards.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="discussions"&gt;
+&lt;h2&gt;Discussions&lt;/h2&gt;
+&lt;p&gt;Cette journée a été l'occasion de faire des rencontres ! Tout d'abord, ce fût un grand
+plaisir de retrouver Silvia, qui a été &lt;a class="reference external" href="https://github.com/mozilla-services/cliquet/pull/120"&gt;la première à contribuer sur Cliquet&lt;/a&gt; !&lt;/p&gt;
+&lt;div class="section" id="loosely-coupled"&gt;
+&lt;h3&gt;« Loosely coupled »&lt;/h3&gt;
+&lt;p&gt;De nombreux participants semblaient nous rejoindre sur l'idée qu'une solution à
+un problème ne doit pas être pas liée à une implémentation (ex. &lt;em&gt;CouchDB&lt;/em&gt;).&lt;/p&gt;
+&lt;p&gt;Il semblerait que les grandes idées passent aujourd'hui d'abord par la définition d'un protocole,
+puis seulement ensuite par la proposition d'implémentations de référence (e.g. &lt;a class="reference external" href="http://matrix.org"&gt;http://matrix.org&lt;/a&gt;, &lt;a class="reference external" href="http://wamp.ws/"&gt;http://wamp.ws/&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;C'est une condition nécessaire pour que les services soient «&lt;em&gt;faiblement liés&lt;/em&gt;», simples et interchangeables.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="kinto-est-pertinent"&gt;
+&lt;h3&gt;Kinto est pertinent&lt;/h3&gt;
+&lt;p&gt;En échangeant, j'ai pu confirmer que ce que nous essayons de faire avec &lt;a class="reference external" href="http://kinto.readthedocs.org/"&gt;Kinto&lt;/a&gt; a du sens.
+La plupart ont résumé en disant «&lt;em&gt;Oh, un [Parse|Kinvey|Firebase] open-source !&lt;/em&gt;». Nous aurons
+l'occasion d'en reparler, et restons modestes...&lt;/p&gt;
+&lt;p&gt;Même les gens de &lt;a class="reference external" href="http://www.typeform.com/"&gt;Typeform&lt;/a&gt;, une startup barcelonaise qui fait une alternative
+à Google Forms, ont manifesté son intérêt pour ce genre de solution !&lt;/p&gt;
+&lt;p&gt;L'idée qu'on expérimente autour des permissions et des rôles avec OAuth2
+paraissait séduire :) Après un très bref échange avec &lt;a class="reference external" href="https://twitter.com/medjawii"&gt;Medhi&lt;/a&gt; fondateur
+de &lt;a class="reference external" href="https://oauth.io"&gt;OAuth.io&lt;/a&gt;, il semblerait que les scopes OAuth2 ne suffisent pas pour
+faire ce qu'on veut.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="mashape-kong"&gt;
+&lt;h3&gt;Mashape Kong&lt;/h3&gt;
+&lt;p&gt;Les gens de Mashape m'ont sauté dessus «&lt;em&gt;Oh Mathieu !&lt;/em&gt;». Ça fait drôle ! ... c'était juste
+grâce à &lt;a class="reference external" href="https://twitter.com/leplatrem/status/594238272177577984"&gt;ce tweet sur Kong&lt;/a&gt; :]&lt;/p&gt;
+&lt;p&gt;Ils n'ont pas lâché le mode gros délire, et on a bien papotté, notamment de
+&lt;a class="reference external" href="https://github.com/mozilla/videur"&gt;videur&lt;/a&gt;, qu'ils ne connaissaient pas. Ils semblaient
+bien intéressés par la partie &lt;em&gt;validation de RFC / specs&lt;/em&gt; et devraient revenir
+vers nous :)&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="boite-a-outils"&gt;
+&lt;h2&gt;Boite à outils&lt;/h2&gt;
+&lt;p&gt;Gestion&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://getkong.org"&gt;http://getkong.org&lt;/a&gt; — API middleware&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://www.apitools.com"&gt;https://www.apitools.com&lt;/a&gt; — API middleware&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://www.mashape.com"&gt;https://www.mashape.com&lt;/a&gt; — Market place pour APIs&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Documentation&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://docpad.org"&gt;https://docpad.org&lt;/a&gt; — générateur de sites statiques ;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://apiblueprint.org"&gt;https://apiblueprint.org&lt;/a&gt; — comme Swagger mais en markdown ;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://raml.org"&gt;http://raml.org&lt;/a&gt; — RESTful API Modeling Language ;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://readme.io"&gt;http://readme.io&lt;/a&gt; — Service de documentation&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://gelato.io"&gt;https://gelato.io&lt;/a&gt; — Documentations techniques jolies&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://apiembed.com"&gt;https://apiembed.com&lt;/a&gt; — Snippets de requetes API&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Studio / Mock / SDK&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://apiary.io"&gt;https://apiary.io&lt;/a&gt; ­— Studio&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://www.mocaroni.com"&gt;https://www.mocaroni.com&lt;/a&gt; — Studio/Mock&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://mockbin.org"&gt;http://mockbin.org&lt;/a&gt; — Créer des mock d'API&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://restunited.com"&gt;http://restunited.com&lt;/a&gt; — Génération de SDK&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://apimatic.io"&gt;https://apimatic.io&lt;/a&gt; — Génération de SDK&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://www.getpostman.com"&gt;https://www.getpostman.com&lt;/a&gt; — Extension Chrome pour REST&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Divers&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://management.apievangelist.com/building-blocks.html"&gt;API building blocks&lt;/a&gt; par Kin Lane&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://github.com/cjbarber/ToolsOfTheTrade"&gt;https://github.com/cjbarber/ToolsOfTheTrade&lt;/a&gt; — Services en ligne utiles&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://github.com/oauth-io/oauthd"&gt;OAuthd&lt;/a&gt; — Le daemon de OAuth.io&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://loader.io"&gt;http://loader.io&lt;/a&gt; — Load testing service&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://divshot.com"&gt;https://divshot.com&lt;/a&gt; — Hébergement de fichiers statiques&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://schemaform.io"&gt;http://schemaform.io&lt;/a&gt; — Angular + JSON Schema&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://github.com/mgonto/restangular"&gt;restangular&lt;/a&gt; — REST + Angular&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://sailsjs.org"&gt;http://sailsjs.org&lt;/a&gt; — Framework NodeJS&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="conclusion"&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Les APIs sont partout. Toutes les entreprises ont des APIs. Les APIs sont les
+blocs avec lesquels les développeurs construiront les applications du futur.&lt;/p&gt;
+&lt;img alt="@paulsbruce — https://twitter.com/paulsbruce/status/596347015283548161" src="http://www.servicedenuages.fr/images/apidays-thanks-staff.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;Merci à toutes et tous ceux qui ont participé de près ou de loin à l'organisation
+de cet évènement fédérateur.&lt;/p&gt;
+&lt;p&gt;Je vous conseille de guetter les futures dates dans les différentes villes du monde !&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://www.apidays.io"&gt;http://www.apidays.io&lt;/a&gt;&lt;/p&gt;
+&lt;table class="docutils footnote" frame="void" id="id3" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Bon courage à celui qui tentera de traduire ça &lt;a class="reference external" href="http://blog.notmyidea.org/language.html"&gt;tiens&lt;/a&gt; !&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class="docutils footnote" frame="void" id="id4" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id2"&gt;[2]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;&lt;a class="reference external" href="http://sookocheff.com/posts/2014-03-11-on-choosing-a-hypermedia-format/"&gt;http://sookocheff.com/posts/2014-03-11-on-choosing-a-hypermedia-format/&lt;/a&gt; (gist: &lt;a class="reference external" href="https://gist.github.com/soofaloofa/9350847"&gt;https://gist.github.com/soofaloofa/9350847&lt;/a&gt;)&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+</summary></entry><entry><title>Comment passer de LIMIT / OFFSET aux Continuation Tokens ?</title><link href="http://www.servicedenuages.fr/comment-passer-de-limit-offset-aux-continuation-tokens.html" rel="alternate"></link><updated>2015-05-04T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-04:comment-passer-de-limit-offset-aux-continuation-tokens.html</id><summary type="html">&lt;p&gt;Si vous êtes là, c'est que quelqu'un a dû vous le dire : Paginer sur des
 grosses tables avec LIMIT et OFFSET ne monte pas en charge : plus
 on avance dans les pages, plus c'est lent.&lt;/p&gt;
 &lt;p&gt;C'est dommage parce que c'était facile à appréhender ! La limite donne
