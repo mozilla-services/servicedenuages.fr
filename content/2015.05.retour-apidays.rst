@@ -1,0 +1,246 @@
+Retours des APIdays Barcelona
+#############################
+
+:date: 2015-05-11
+
+Cette journée aux APIDays Barcelona a été d'une rare richesse ! Pour commencer, bravo à toute l'équipe et
+tous les participants !
+
+Je vais tenter de faire un retour le plus complet possible, en restant un minimum concis :) S'il y a
+des points obscurs, «*lache tes coms*» [#]_  !
+
+L'évènement
+-----------
+
+`APIdays <http://mediterranea.apidays.io/>`_ est un évènement qui a lieu dans plusieurs villes,
+et par chance aussi à Barcelone.
+
+Naïvement, je n'aurais jamais pensé qu'il puisse exister une communauté aussi forte autour des APIs !
+Je découvre donc une nouvelle famille de passionnés, pluri-disciplinaire et agnostique \o/.
+Des participants de tous horizons, de la grosse multinationale aux obédiences XML/Java à la startup
+hype en passant par des indépendants de toute sorte !
+
+
+L'affordance
+------------
+
+L'affordance, formulé par Don Norman, est un concept assez connu en ergonomie. Cela définit
+la capacité d'un objet à transmettre ses fonctionnalités via son apparence. Pensez aux poignées
+de porte, selon leur forme on sait si on doit pousser, tirer ou pousser.
+
+`Mike Amundsen <https://twitter.com/mamund>`_ ouvrait la journée en étendant le concept aux APIs.
+Une API, et l'apparence des informations présentées, doit suggérer ce qu'on peut faire avec.
+
+Il a rappellé cependant que les meilleurs designs étaient ceux qui permettaient de faire des
+choses choses auquelles les auteurs n'avaient pas pensé.
+
+> Tiens, ça me rapelle ça: http://lucumr.pocoo.org/2015/4/28/unintended-affordances/
+
+`Orlando Kalossakas <https://twitter.com/orliesaurus>`_ ajoutait plus tard dans la journée:
+
+    *A good API is hard to misuse*
+
+Hypermedia
+----------
+
+Plusieurs fois dans la journée, les évangélistes et fins prédicateurs ont expliqué que le
+monde des APIs était là où était le Web il y 15 ans. On a dépassé le stade d'utiliser
+``GET /action=create`` et REST est bien implanté, mais l'accessibilité des APIs, leur
+fédération, leur utilisation transparence ou leur caractère inter-changeable semble encore loin.
+
+Les APIs manquent de liens.
+
+.. epigraph::
+
+
+    Hypermedia is just like hypertext but not limited to...text!
+
+
+    -- `Ross Garett <https://twitter.com/gssor>`_
+
+
+Le Web était initialement pensé comme une gigantesque base de données distribuée et
+exploitable sans préconfiguration. Sur le tard, il y a eu diverses initiatives,
+comme le Web sémantique, avec les `graphes d'ontologie`_, `RDF`_ ou les micro-formats. On devrait pouvoir dire
+aujourd'hui que c'est un échec, car cela n'a pas été adopté partout.
+
+Mais, mais... il y a encore de l'espoir avec les APIs :) [#]_
+
+.. [#] http://sookocheff.com/posts/2014-03-11-on-choosing-a-hypermedia-format/ (gist: https://gist.github.com/soofaloofa/9350847)
+
+.. graphes d'ontologie: http://fr.wikipedia.org/wiki/Ontologie_%28informatique%29
+.. RDF: http://fr.wikipedia.org/wiki/Resource_Description_Framework
+
+
+Conventions
+-----------
+
+En contrebas du Web ou des APIs sémantiques, il y a l'approche qui consiste à mettre au point des
+conventions simples.
+
+`Steve Klabnik <https://twitter.com/steveklabnik>`_ qui a une culture Ruby a fait le parallèle
+avec les frameworks Web et l'approche «*Convention over configuration*».
+
+C'est le cas de la `spécification JSON-API <http://jsonapi.org/>`_, qui ne cherche pas à aborder
+les concepts de sémantique mais simplement d'économiser aux développeurs de débattre des
+`choix inutiles <http://fr.wikipedia.org/wiki/Loi_de_futilit%C3%A9_de_Parkinson>`_.
+
+
+.. figure:: http://transitionculture.org/wp-content/uploads/bikeshed2.jpg
+    :align: center
+    *I looked in Google Images and found this. I thought «that's not a bikeshed».
+    OMG, I was actually bikeshedding about bikesheds! — Steve
+
+Par la même occasion, l'idée est de faciliter l'implémentation des clients, et `le composant data Ember.js <https://github.com/emberjs/data>`_
+supportera la spec dans la prochaine release.
+
+Nos intentions pour `Cliquet <http://cliquet.readthedocs.org/en/latest/rationale.html#philosophy>`_ sont exactement celles-ci. Nous
+allons donc `probablement converger <https://github.com/mozilla-services/cliquet/issues/254>`_. D'autant
+que les spécs sont très proches.
+
+
+Documentation d'API
+-------------------
+
+J'ai pu assister à une `excellente présentation <https://speakerdeck.com/l0ck3/beyond-docs-lessons-learned-rebuilding-the-paymill-documentation>`_
+de `Yann Irbah <https://twitter.com/yannirbah>`_,
+qui résumait les bonnes pratiques pour documenter une API sous forme de produit.
+
+Les points importants:
+
+* Exposer la valeur ajoutée du produit : Pourquoi est-ce qu'il simplifie la vie ?
+* Documenter les premiers pas jusqu'à l'utilisation avancée ;
+* Ne pas se contenter du «*hello world*» ;
+* Écrire des tutoriaux pour chacun des cas d'utilisation ;
+* Les développeurs constituent un excellent vecteur marketting ;
+* Aider à avoir confiance en l'outil ;
+* Proposer une documentation avec des end-points interactifs ;
+* Mettre à jour en continu.
+
+`Swagger`_ et `Slate`_ ont le vent en poupe.
+
+* https://docpad.org — générateur de sites statiques ;
+* https://apiblueprint.org — comme Swagger mais en markdown ;
+* http://raml.org — RESTful API Modeling Language ;
+
+Il est possible d'aller très très loin, avec des outils qui mettent à jour les snippets
+de la doc quand l'API change par exemple...
+
+
+Annuaire d'API
+--------------
+
+La dernière conférence de la journée était celle de `Kin Lane <https://twitter.com/kinlane>`_ sur
+les cycles de vie des APIs.
+
+Il a présenté http://apis.io, un annuaire d'APIs.
+
+L'idée consiste à écrire un fichier `apis.json <http://apisjson.org/>`_, un peu l'équivalent
+des *sitemaps*, mais pour les APIs.
+
+Celui-ci va décrire les end-points (en référençant un fichier `Swagger`_ par exemple) et ajouter des
+métadonnées (description, tags, version, blog URI, license, ...).
+
+Cela n'a pas seulement pour objectif de construire un annuaire global ! Cela peut être un
+annuaire local à l'infrastructure que les (micro)services interrogent, plutôt que reposer
+sur une configuration en dur (a.k.a `Service discovery <http://jasonwilder.com/blog/2014/02/04/service-discovery-in-the-cloud/>`_).
+
+À terme, on pourrait aussi imaginer que tous les appareils de la maison qui disposent
+d'une API viennent s'enregistrer sur le routeur ADSL du domicile !
+Ainsi en un seul coup d'oeil on pourrait avoir accès à leur documentation et les bidouiller !
+Voire même que les appareils se détectent et se connectent entre eux automatiquement
+si leurs APIs respectives suivent des normes/standards.
+
+
+Discussions
+-----------
+
+Cette journée a été l'occasion de faire des rencontres ! Tout d'abord, ce fût un grand
+plaisir de retrouver Silvia, qui a été `la première à contribuer sur Cliquet <https://github.com/mozilla-services/cliquet/pull/120>`_ !
+
+« Loosely coupled »
+'''''''''''''''''''
+
+De nombreux participants semblaient nous rejoindre sur l'idée qu'une solution à
+un problème ne doit pas être pas liée à une implémentation (ex. *CouchDB*).
+
+Il semblerait que les grandes idées passent aujourd'hui d'abord par la définition d'un protocole,
+puis seulement ensuite par la proposition d'implémentations de référence (e.g. http://matrix.org, http://wamp.ws/).
+
+C'est une condition nécessaire pour que les services soient «*faiblement liés*», simples et interchangeables.
+
+Kinto est pertinent
+'''''''''''''''''''
+
+En échangeant, j'ai pu confirmer que ce que nous essayons de faire avec `Kinto`_ a du sens.
+La plupart ont résumé en disant «*Oh, un [Parse|Kinvey|Firebase] open-source !*». Nous aurons
+l'occasion d'en reparler, et restons modestes...
+
+Même les gens de `Typeform <http://www.typeform.com/>`_, une startup barcelonaise qui fait une alternative
+à Google Forms, a manifesté son intérêt pour ce genre de solution !
+
+L'idée qu'on expérimente autour des permissions et des rôles avec OAuth2
+paraissait séduire :) Après un très bref échange avec `Medhi <https://twitter.com/medjawii>`_ fondateur
+de `OAuth.io <https://oauth.io>`_, il semblerait que les scopes OAuth2 ne suffisent pas pour
+faire ce qu'on veut.
+
+Mashape Kong
+''''''''''''
+
+Les gens de Mashape m'ont sauté dessus «*Oh Mathieu !*». Ça fait drôle ! ... c'était juste
+grâce à `ce tweet sur Kong <https://twitter.com/leplatrem/status/594238272177577984>`_ :]
+
+Ils n'ont pas lâché le mode gros délire, et on a bien papotté, notamment de
+`videur <https://github.com/mozilla/videur>`_, qu'ils ne connaissaient pas. Ils semblaient
+bien intéressés par la partie *validation de RFC / specs* et devraient revenir
+vers nous :)
+
+
+Boite à outils
+--------------
+
+Énormément de produits Mashape
+
+* http://getkong.org — API middleware
+* https://www.apitools.com — API middleware
+* http://loader.io — Load testing service
+* `API building blocks <http://management.apievangelist.com/building-blocks.html>`_ par Kin Lane
+* https://apiary.io ­— Studio
+* http://readme.io — Service de documentation
+* https://gelato.io — Documentations techniques jolies
+* `OAuthd <https://github.com/oauth-io/oauthd>`_ — Le daemon de OAuth.io
+* http://restunited.com — Génération de SDK
+* https://apimatic.io — Génération de SDK
+* https://www.getpostman.com — Extension Chrome pour REST
+* http://mockbin.org — Créer des mock d'API
+* https://apiembed.com — Snippets de requetes API
+* https://divshot.com — Hébergement de fichiers statiques
+* http://schemaform.io — Angular + JSON Schema
+* `restangular <https://github.com/mgonto/restangular>`_ — REST + Angular
+* http://sailsjs.org — Framework NodeJS
+* https://github.com/cjbarber/ToolsOfTheTrade — Services en ligne utiles
+* https://www.mocaroni.com — Studio/Mock
+* https://www.mashape.com — Market place pour APIs
+
+
+Conclusion
+----------
+
+Les APIs sont partout. Toutes les entreprises ont des APIs. Les APIs sont les
+blocs avec lesquels les développeurs construiront les applications du futur.
+
+Merci à toutes et tous qui ont participé de près
+ou de loin à l'organisation ! Je vous conseille de guetter les futures dates
+dans les différentes villes du monde !
+
+http://www.apidays.io
+
+
+.. _Kinto: http://kinto.readthedocs.org/
+.. _Swagger: http://swagger.io/
+.. _Slate: https://github.com/tripit/slate
+
+
+[#]_ Bon courage à celui qui tentera de traduire ça `tiens <http://blog.notmyidea.org/language.html>`_ !
+
+
