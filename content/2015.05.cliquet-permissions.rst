@@ -1,0 +1,125 @@
+Le vocabulaire des permissions
+##############################
+
+:date: 2015-05-12
+:summary: Démystification du vocabulaire des permissions
+
+Nous sommes actuellement en train de réfléchir à ajouter la gestion
+des permissions à notre service de stockage.
+
+Cela permet la mutualisation d'informations et la collaboration entre
+divers intervenants sur les données.
+
+Or en creusant un peu on se rends compte que tous les intervenants
+n'ont pas nécessairement les mêmes droits d'accès aux données.
+
+
+Le concept de principal
+=======================
+
+Un principal, en sécurité informatique, est une entité qui peut-être
+authentifié par un système informatique. [#]_
+
+Il peut s'agir aussi bien d'un individu, d'un ordinateur, d'un service, d'un
+processus, d'un thread ou d'un groupe regroupant l'une de ces entités.
+
+Les permissions sont alors associés à ces principals.
+
+Par exemple, un utilisateur est identifié de manière unique lors de la
+connexion par le système d'authentification dont le rôle est de
+définir une liste de principals pour l'utilisateur se connectant.
+
+.. [#] Pour en savoir plus sur les principals:
+       https://en.wikipedia.org/wiki/Principal_%28computer_security%29
+
+
+La différence entre rôle et groupe
+==================================
+
+De but en blanc il n'est pas évident de définir précisément la
+différence entre ces deux concepts qui permettent tous deux de donner
+des permissions à un groupe de principals.
+
+- Un rôle est une liste de permissions que l'on associe à un principal.
+- Un groupe est une liste de principals que l'on associe à une permission.
+
+
+
+La différence entre permission et ACL
+=====================================
+
+Un ACL est une liste de principals associé à une permission sur un
+objet :
+
+::
+
+    create_record: alexis,remy,tarek
+
+Cet ACL donne la permission ``create`` sur l'objet ``record`` aux
+utilisateurs ``alexis,remy,tarek``
+
+
+La délégation de permissions
+============================
+
+Un utilisateur peut avoir un certain nombre de droits sur ses données
+stockées dans le service de stockage. Prenons un exemple :
+
+- Ses contacts.
+- Une liste de tâches à faire qui peut associer à ses contacts.
+
+L'utilisateur a tous les droits sur ses données.
+
+Cependant il utilise deux apps :
+
+- Une application de gestion des contacts a qui il souhaite délèguer
+  la gestion intégrale de ses contacts : ``contacts:read+write``
+- Une application de gestion des tâches a qui il souhaite délèguer la
+  gestion des tâches : ``contacts:read,tasks:read+write``
+
+Il souhaite que son application de contacts ne puisse pas accèder à
+ses tâches et que son application de tâches ne puisse pas modifier ses
+contacts.
+
+Il lui faut donc un moyen de déléguer ses droits en tant
+qu'utilisateur.
+
+C'est précisément le rôle des `scopes OAuth2
+<http://tools.ietf.org/html/rfc6749#page-23>`_.
+
+La difficulté dans notre service de stockage générique étant qu'il est
+impossible d'établir une liste exhaustive des scopes a priori
+puisqu'elle dépends des collections créées par les utilisateurs.
+
+
+Espace de noms
+==============
+
+Initialement, l'espace de nom était réduit au contexte de l'utilisateur.
+
+C'est à dire que les enregistrements de Bob dans sa collection article
+pouvaient être des articles de blog et les enregistrements d'Alice dans
+sa collection article pouvaient être des articles de Wiki sans aucun
+lien entre les deux collections portant pourtant le même nom.
+
+En permettant l'accès aux mêmes données par plusieurs utilisateurs, il
+nous faut maintenant définir des espaces de noms communs à un ensemble
+d'utilisateurs.
+
+Pour se faire nous avons choisi de reprendre le modèle de GitHub.
+
+Les utilisateurs peuvent créer des buckets dans lesquels seront
+définis des groupes et des collections. Les ACLs sur ces collections
+pouvant être attribués aux groupes du buckets ainsi qu'à d'autres
+principals.
+
+
+Conclusion
+==========
+
+Nous avons du éclaircir de nouveaux concepts et bien découper les
+différents domaines liés à la gestion des permissions.
+
+Nous allons bientôt revenir vers vous avec la documentation de ce que
+nous prévoyons de mettre en place en terme d'API de gestion de ces
+permissions.
