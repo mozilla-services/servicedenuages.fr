@@ -21,7 +21,7 @@ En regardant les cas d'utilisations, on se rend compte qu'on a plusieurs types
 d'utilisateurs:
 
 - Les utilisateurs "finaux" (vous);
-- Les applications qui intéragissent en leur nom.
+- Les applications qui interagissent en leur nom.
 
 Tous les intervenants n'ont donc pas les mêmes droits : certains doivent
 pouvoir lire, d'autres écrire, d'autres encore créer de nouveaux
@@ -116,7 +116,7 @@ Cependant il utilise deux applications qui doivent elle avoir un accès restrein
 - Une application de gestion des tâches à qui il souhaite déléguer la
   gestion des tâches : ``contacts:read tasks:write``
 
-Il souhaite que son application de contacts ne puisse pas accèder à
+Il souhaite que son application de contacts ne puisse pas accéder à
 ses tâches et que son application de tâches ne puisse pas modifier ses
 contacts existants, juste éventuellement en créer de nouveaux.
 
@@ -250,7 +250,7 @@ l'objet enfant en question car un objet peut avoir plusieurs types
 d'enfants. Par exemple: ``collections:create``, ``groups:create``.
 
 Nous n'avons pour l'instant pas de permissions pour `delete` et `update`,
-puisque nous n'avons pas trouvé de cas d'utilisation qui les necessitent.
+puisque nous n'avons pas trouvé de cas d'utilisation qui les nécessitent.
 Quiconque avec le droit d'écriture peut donc supprimer un enregistrement.
 
 Les permissions d'un objet sont héritées de son parent. Par exemple,
@@ -280,14 +280,14 @@ Voici la liste exhaustive des permissions :
 |                | `collections:create`   | Permission de créer des           |
 |                |                        | collections dans le bucket.       |
 |                +------------------------+-----------------------------------+
-|                | `groups:create`        | Permission de créer des gorupes   |
+|                | `groups:create`        | Permission de créer des groupes   |
 |                |                        | dans le bucket.                   |
 +----------------+------------------------+-----------------------------------+
 | ``collection`` | `write`                | Permission d'administrer tous les |
 |                |                        | objets de la collection.          |
 |                +------------------------+-----------------------------------+
 |                | `read`                 | Permission de consulter tous les  |
-|                |                        | objets de la collecton.           |
+|                |                        | objets de la collection.          |
 |                +------------------------+-----------------------------------+
 |                | `records:create`       | Permission de créer des nouveaux  |
 |                |                        | enregistrement dans la collection.|
@@ -402,9 +402,9 @@ Quelques exemples
 
 **Plateformes**
 
-Bien-sûr, il y a plusieurs façons de modéliser les cas d'utilisation typiques.
+Bien sûr, il y a plusieurs façons de modéliser les cas d'utilisation typiques.
 Par exemple, on peut imaginer une plateforme de wikis (à-la wikia.com), où les
-wikis sont privés par défault et certaines pages peuvent être rendues publiques:
+wikis sont privés par défaut et certaines pages peuvent être rendues publiques:
 
 +-------------------------+-----------------------+-----------------------------+
 | Objet                   | Permissions           | Principals                  |
@@ -416,7 +416,7 @@ wikis sont privés par défault et certaines pages peuvent être rendues publiqu
 |                         | ``group:create``      | ``Authenticated``           |
 +-------------------------+-----------------------+-----------------------------+
 | ``collection:<wiki id>``| ``write``             | ``fxa:<wiki owner id>``,    |
-|                         |                       | ``group:<editors id>        |
+|                         |                       | ``group:<editors id>``      |
 |                         +-----------------------+-----------------------------+
 |                         | ``read``              | ``group:<readers id>``      |
 +-------------------------+-----------------------+-----------------------------+
@@ -471,14 +471,14 @@ Il est possible d'ajouter des permissions à l'aide de ``PATCH`` :
         }
     }
 
-Pour le ``PATCH`` nous utilisons la syntaxe prefixée par un ``+`` ou
-par un ``-`` pour ajouter ou enlever des principals sur un ACL.
+Pour le ``PATCH`` nous utilisons la syntaxe préfixée par un ``+`` ou
+par un ``-`` pour ajouter ou enlever des *principals* sur un ACL.
 
-Il est également possible de faire un PUT pour réinialiser les ACLs,
+Il est également possible de faire un PUT pour réinitialiser les ACLs,
 sachant que le PUT va ajouter l'utilisateur courant à la
 liste automatiquement mais qu'il pourra se retirer avec un PATCH.
 Ajouter l'utilisateur courant permet d'éviter les situations ou plus
-personne n'à accès aux données.
+personne n'a accès aux données.
 
 
 .. note::
@@ -543,8 +543,7 @@ Une partie de la complexité est donc de réussir à présenter ces *scopes* de
 manière lisible à l'utilisateur, afin qu'il choisisse quelles permissions
 donner aux applications qui agissent en son nom.=
 
-Voilà ou nous en sommes de notre reflexion !
+Voilà ou nous en sommes de notre réflexion !
 
 Si vous avez des choses à rajouter, des points de désaccord ou autres
-reflexions, n'hésitez pas à nous interrompre pendant qu'il en est encore temps
-!
+réflexions, n'hésitez pas à nous interrompre pendant qu'il en est encore temps !
