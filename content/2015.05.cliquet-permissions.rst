@@ -90,7 +90,7 @@ La différence entre permission, ACL, ACE
 
 Je dirais même plus, dans notre cas, "à un *principal*". Par exemple:
 
-::
+.. code-block:: text
 
     create_record: alexis,remy,tarek
 
@@ -541,7 +541,7 @@ existants et en ajouter de nouveaux.
 
 Une partie de la complexité est donc de réussir à présenter ces *scopes* de
 manière lisible à l'utilisateur, afin qu'il choisisse quelles permissions
-donner aux applications qui agissent en son nom.=
+donner aux applications qui agissent en son nom.
 
 Voilà ou nous en sommes de notre réflexion !
 

@@ -429,3 +429,54 @@ div.note {
 #links li > a {
     color: #FFF;
 }
+
+.attribution {
+  font-weight: bold;
+  font-size: 0.8em;
+  text-align: right;
+}
+
+
+blockquote {
+    padding: 0.5rem 1rem;
+    margin: 0.8rem 0px;
+    color: #7A7A7A;
+    background-color: #F2FBFE;
+}
+
+table {
+    width: 100%;
+    max-width: 100%;
+    border-spacing: 0px;
+    border-collapse: collapse;
+    border: 1px solid #E1E4E5;
+}
+
+thead:first-child > tr:first-child > th {
+    border-top: 0px none;
+}
+
+table > thead > tr > th {
+    vertcal-align: bottom;
+    border: 1px solid #E1E4E5;
+    border-bottom: 2px solid #DDD;
+}
+
+th {
+    text-align: left;
+}
+
+table > tbody > tr > td, table > tbody > tr > th, table > tfoot > tr > td, table > tfoot > tr > th, table > thead > tr > td, table > thead > tr > th {
+
+    padding: 8px;
+    line-height: 1.42857;
+    vertical-align: top;
+    border: 1px solid #E1E4E5;
+    border-top: 1px solid #DDD;
+
+}
+
+table > tbody > tr:nth-of-type(2n+1) {
+    background-color: #F9F9F9;
+}
+
