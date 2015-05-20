@@ -466,6 +466,7 @@ Il est possible d'ajouter des permissions à l'aide de ``PATCH`` :
     {
         "id": "servicedenuages_blog",
         "permissions": {
+            "write": ["fxa:49d02d55ad10973b7b9d0dc9eba7fdf0"],
             "read": ["system.Everyone"]
         }
     }
