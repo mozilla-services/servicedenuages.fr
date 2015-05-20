@@ -1,65 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-fr.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-05-12T00:00:00+02:00</updated><entry><title>La gestion des permissions</title><link href="http://www.servicedenuages.fr/la-gestion-des-permissions.html" rel="alternate"></link><updated>2015-05-12T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-12:la-gestion-des-permissions.html</id><summary type="html">&lt;p&gt;Dans le cadre de la création d'un service de stockage de données personnelles
-(Kinto), un des gros challenges est la gestion des permissions : qui doit avoir
+(Kinto), la gestion des permissions est un des gros challenges : qui doit avoir
 accès à quoi, et comment le définir ?&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;tl;dr: Quelques retours sur le vocabulaire sur les permissions et sur nos
-idées pour l'implementation des permissions dans un stockage générique&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;tl;dr: Quelques retours sur le vocabulaire des systèmes de permission et sur nos idées pour l'implementation des permissions dans un stockage générique.&lt;/strong&gt;&lt;/p&gt;
 &lt;div class="section" id="la-problematique"&gt;
 &lt;h2&gt;La problématique&lt;/h2&gt;
 &lt;p&gt;La problématique est simple : des données sont stockées en ligne, et il
 faut un moyen de pouvoir les partager avec d'autres personnes.&lt;/p&gt;
 &lt;p&gt;En regardant les cas d'utilisations, on se rend compte qu'on a plusieurs types
-d'utilisateurs:&lt;/p&gt;
+d'utilisateurs :&lt;/p&gt;
 &lt;ul class="simple"&gt;
-&lt;li&gt;Les utilisateurs "finaux" (vous);&lt;/li&gt;
-&lt;li&gt;Les applications qui interagissent en leur nom.&lt;/li&gt;
+&lt;li&gt;les utilisateurs "finaux" (vous) ;&lt;/li&gt;
+&lt;li&gt;les applications qui interagissent en leurs noms.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Tous les intervenants n'ont donc pas les mêmes droits : certains doivent
 pouvoir lire, d'autres écrire, d'autres encore créer de nouveaux
 enregistrements, et le contrôle doit pouvoir s'effectuer de manière fine : il
-doit être possible de lire un enregistrement? mais pas un autre, par exemple.&lt;/p&gt;
+doit être possible de lire un enregistrement mais pas un autre, par exemple.&lt;/p&gt;
 &lt;p&gt;Nous sommes partis du constat que les solutions disponibles n'apportaient pas
-une réponse satisfaisante pour ces besoins.&lt;/p&gt;
+une réponse satisfaisante à ces besoins.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="un-probleme-de-vocabulaire"&gt;
 &lt;h2&gt;Un problème de vocabulaire&lt;/h2&gt;
 &lt;p&gt;Le principal problème rencontré lors des réflexions fût le vocabulaire.&lt;/p&gt;
 &lt;p&gt;Voici ci-dessous une explication des différents termes.&lt;/p&gt;
 &lt;div class="section" id="le-concept-de-principal"&gt;
-&lt;h3&gt;Le concept de «principal»&lt;/h3&gt;
-&lt;p&gt;Un &lt;em&gt;principal&lt;/em&gt;, en sécurité informatique, est une entité qui peut-être
+&lt;h3&gt;Le concept de « principal »&lt;/h3&gt;
+&lt;p&gt;Un &lt;em&gt;principal&lt;/em&gt;, en sécurité informatique, est une entité qui peut être
 authentifiée par un système informatique. &lt;a class="footnote-reference" href="#id2" id="id1"&gt;[1]&lt;/a&gt; En Français il s'agit
-du "commettant", l'acteur qui commet l'action (oui, le terme est conceptuel !)&lt;/p&gt;
+du « commettant », l'acteur qui commet l'action (oui, le terme est conceptuel !)&lt;/p&gt;
 &lt;p&gt;Il peut s'agir aussi bien d'un individu, d'un ordinateur, d'un
 service ou d'un groupe regroupant l'une de ces entités, ce qui
-est plus large que le classique "user id".&lt;/p&gt;
-&lt;p&gt;Les permissions sont alors associées à ces principals.&lt;/p&gt;
+est plus large que le classique « &lt;em&gt;user id&lt;/em&gt; ».&lt;/p&gt;
+&lt;p&gt;Les permissions sont alors associées à ces &lt;em&gt;principals&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;Par exemple, un utilisateur est identifié de manière unique lors de la
 connexion par le système d'authentification dont le rôle est de
 définir une liste de &lt;em&gt;principals&lt;/em&gt; pour l'utilisateur se connectant.&lt;/p&gt;
 &lt;table class="docutils footnote" frame="void" id="id2" rules="none"&gt;
 &lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
-&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Pour en savoir plus sur les principals:
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Pour en savoir plus sur les &lt;em&gt;principals&lt;/em&gt; :
 &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Principal_%28computer_security%29"&gt;https://en.wikipedia.org/wiki/Principal_%28computer_security%29&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
 &lt;div class="section" id="la-difference-entre-role-et-groupe"&gt;
 &lt;h3&gt;La différence entre rôle et groupe&lt;/h3&gt;
-&lt;p&gt;De but en blanc il n'est pas évident de définir précisément la
-différence entre ces deux concepts qui permettent tous deux d'associer
-des permissions à un groupe de principals. &lt;a class="footnote-reference" href="#id4" id="id3"&gt;[2]&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;De but en blanc, il n'est pas évident de définir précisément la
+différence entre ces deux concepts qui permettent d'associer
+des permissions à un groupe de &lt;em&gt;principals&lt;/em&gt;. &lt;a class="footnote-reference" href="#id4" id="id3"&gt;[2]&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;La différence est principalement sémantique. Mais on peut y voir une
-différence dans la «direction» de la relation entre les deux concepts.&lt;/p&gt;
+différence dans la « direction » de la relation entre les deux concepts.&lt;/p&gt;
 &lt;ul class="simple"&gt;
-&lt;li&gt;Un rôle est une liste de permissions que l'on associe à un principal.&lt;/li&gt;
-&lt;li&gt;Un groupe est une liste de principals que l'on peut associer à une permission.&lt;/li&gt;
+&lt;li&gt;Un rôle est une liste de permissions que l'on associe à un &lt;em&gt;principal&lt;/em&gt;.&lt;/li&gt;
+&lt;li&gt;Un groupe est une liste de &lt;em&gt;principals&lt;/em&gt; que l'on peut associer à une permission.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;table class="docutils footnote" frame="void" id="id4" rules="none"&gt;
 &lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
-&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id3"&gt;[2]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Plus d'informations:
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id3"&gt;[2]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Plus d'informations :
 &lt;a class="reference external" href="http://stackoverflow.com/questions/7770728/group-vs-role-any-real-difference"&gt;http://stackoverflow.com/questions/7770728/group-vs-role-any-real-difference&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
@@ -71,7 +70,7 @@ différence dans la «direction» de la relation entre les deux concepts.&lt;/p&
 donnant ou supprimant des droits d'accès à une personne ou un groupe.&lt;/p&gt;
 &lt;p class="attribution"&gt;—&lt;a class="reference external" href="https://fr.wikipedia.org/wiki/Access_Control_List"&gt;https://fr.wikipedia.org/wiki/Access_Control_List&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;Je dirais même plus, dans notre cas, "à un &lt;em&gt;principal&lt;/em&gt;". Par exemple:&lt;/p&gt;
+&lt;p&gt;Je dirais même plus, dans notre cas, « à un &lt;em&gt;principal&lt;/em&gt; ». Par exemple:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;create_record: alexis,remy,tarek
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Cet ACE donne la permission &lt;tt class="docutils literal"&gt;create&lt;/tt&gt; sur l'objet &lt;tt class="docutils literal"&gt;record&lt;/tt&gt; aux
@@ -81,17 +80,17 @@ utilisateurs Tarek, Rémy et Alexis.&lt;/p&gt;
 &lt;div class="section" id="la-delegation-de-permissions"&gt;
 &lt;h2&gt;La délégation de permissions&lt;/h2&gt;
 &lt;p&gt;Imaginez l'exemple suivant, où un utilisateur stocke deux types de données en
-ligne:&lt;/p&gt;
+ligne :&lt;/p&gt;
 &lt;ul class="simple"&gt;
-&lt;li&gt;Des contacts.&lt;/li&gt;
-&lt;li&gt;Une liste de tâches à faire qu'il peut associer à ses contacts.&lt;/li&gt;
+&lt;li&gt;des contacts ;&lt;/li&gt;
+&lt;li&gt;une liste de tâches à faire qu'il peut associer à ses contacts.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;L'utilisateur a tous les droits sur ses données.&lt;/p&gt;
-&lt;p&gt;Cependant il utilise deux applications qui doivent elle avoir un accès restreint :&lt;/p&gt;
+&lt;p&gt;Cependant il utilise deux applications qui doivent elles avoir un accès restreint :&lt;/p&gt;
 &lt;ul class="simple"&gt;
-&lt;li&gt;Une application de gestion des contacts à qui il souhaite déléguer
-la gestion intégrale de ses contacts : &lt;tt class="docutils literal"&gt;contacts:write&lt;/tt&gt;&lt;/li&gt;
-&lt;li&gt;Une application de gestion des tâches à qui il souhaite déléguer la
+&lt;li&gt;une application de gestion des contacts à qui il souhaite déléguer
+la gestion intégrale de ses contacts : &lt;tt class="docutils literal"&gt;contacts:write&lt;/tt&gt; ;&lt;/li&gt;
+&lt;li&gt;une application de gestion des tâches à qui il souhaite déléguer la
 gestion des tâches : &lt;tt class="docutils literal"&gt;contacts:read tasks:write&lt;/tt&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Il souhaite que son application de contacts ne puisse pas accéder à
@@ -107,7 +106,7 @@ d'authentification utilisé. Cette information doit être
 considérée comme une entrée utilisateur (c'est à dire qu'on ne peut
 pas lui faire confiance). Il s'agit de ce que l'utilisateur souhaite.&lt;/p&gt;
 &lt;p&gt;Or, il est également possible que l'utilisateur n'ait pas accès aux données
-qu'il demande. Le service doit donc utiliser deux niveaux de permissions:
+qu'il demande. Le service doit donc utiliser deux niveaux de permissions :
 celles de l'utilisateur, et celles qui ont été déléguées à l'application.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="espace-de-noms"&gt;
@@ -116,14 +115,14 @@ celles de l'utilisateur, et celles qui ont été déléguées à l'application.&
 construction), l'espace de nom était implicite : les données stockées étaient
 nécessairement celles de l'utilisateur connecté.&lt;/p&gt;
 &lt;p&gt;Les données d'un utilisateur étaient donc cloisonnées et impossible à partager.&lt;/p&gt;
-&lt;p&gt;Une manière simple de gérer le partage des données est l'utilisation d'espaces de noms.&lt;/p&gt;
+&lt;p&gt;L'utilisation d'espaces de noms est une manière simple de gérer le partage des données.&lt;/p&gt;
 &lt;p&gt;Nous avons choisi de reprendre le modèle de GitHub et de Bitbucket, qui
-utilisent les "organisations" comme espace de noms.&lt;/p&gt;
-&lt;p&gt;Dans notre cas, il est possible de créer des "buckets", qui correspondent à cet
-espace de noms.  Un bucket est un conteneur de collections et de groupes
+utilisent les « organisations » comme espaces de noms.&lt;/p&gt;
+&lt;p&gt;Dans notre cas, il est possible de créer des "buckets", qui correspondent à ces
+espaces de noms. Un bucket est un conteneur de collections et de groupes
 utilisateurs.&lt;/p&gt;
 &lt;p&gt;Les ACLs sur ces collections peuvent être attribuées à certains groupes du
-bucket ainsi qu'à d'autres principals directement.&lt;/p&gt;
+&lt;em&gt;bucket&lt;/em&gt; ainsi qu'à d'autres &lt;em&gt;principals&lt;/em&gt; directement.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="notre-proposition-d-api"&gt;
 &lt;h2&gt;Notre proposition d'API&lt;/h2&gt;
@@ -145,7 +144,7 @@ objets suivants :&lt;/p&gt;
 &lt;tr&gt;&lt;td&gt;&lt;strong&gt;bucket&lt;/strong&gt;&lt;/td&gt;
 &lt;td&gt;On peut les voir comme des espaces de noms. Ils
 permettent d'avoir différentes collections portant
-le même nom mais stockées dans différents buckets de
+le même nom mais stockées dans différents &lt;em&gt;buckets&lt;/em&gt; de
 manière à ce que les données soient distinctes.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;&lt;td&gt;&lt;strong&gt;collection&lt;/strong&gt;&lt;/td&gt;
@@ -155,11 +154,11 @@ manière à ce que les données soient distinctes.&lt;/td&gt;
 &lt;td&gt;Un enregistrement d'une collection.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;&lt;td&gt;&lt;strong&gt;group&lt;/strong&gt;&lt;/td&gt;
-&lt;td&gt;Un groupe de commetants ("principals").&lt;/td&gt;
+&lt;td&gt;Un groupe de commetants (« &lt;em&gt;principals&lt;/em&gt; »).&lt;/td&gt;
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;Pour la définition des ACLs, il y a une hiérarchie et les objets «héritent» des
+&lt;p&gt;Pour la définition des ACLs, il y a une hiérarchie et les objets « héritent » des
 ACLs de leur parents :&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;           +---------------+
            | Bucket        |
@@ -192,7 +191,7 @@ ACLs de leur parents :&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="les-permissions"&gt;
 &lt;h3&gt;Les permissions&lt;/h3&gt;
-&lt;p&gt;Pour chacun des ces objets nous avons identifiés les permissions suivantes :&lt;/p&gt;
+&lt;p&gt;Pour chacun de ces objets nous avons identifié les permissions suivantes :&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
 &lt;colgroup&gt;
 &lt;col width="23%"&gt;&lt;/col&gt;
@@ -223,18 +222,18 @@ spécifié. Par exemple:
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;p&gt;À chaque permission spécifiée sur un objet est associé une liste de
-&lt;tt class="docutils literal"&gt;principals&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;À chaque permission spécifiée sur un objet est associée une liste de
+&lt;em&gt;principals&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;Dans le cas de la permission &lt;tt class="docutils literal"&gt;create&lt;/tt&gt; on est obligé de spécifier
 l'objet enfant en question car un objet peut avoir plusieurs types
-d'enfants. Par exemple: &lt;tt class="docutils literal"&gt;collections:create&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;groups:create&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;Nous n'avons pour l'instant pas de permissions pour &lt;cite&gt;delete&lt;/cite&gt; et &lt;cite&gt;update&lt;/cite&gt;,
+d'enfants. Par exemple : &lt;tt class="docutils literal"&gt;collections:create&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;groups:create&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;Nous n'avons pour l'instant pas de permission pour &lt;cite&gt;delete&lt;/cite&gt; et &lt;cite&gt;update&lt;/cite&gt;,
 puisque nous n'avons pas trouvé de cas d'utilisation qui les nécessitent.
 Quiconque avec le droit d'écriture peut donc supprimer un enregistrement.&lt;/p&gt;
 &lt;p&gt;Les permissions d'un objet sont héritées de son parent. Par exemple,
 un enregistrement créé dans une collection accessible à tout le monde
 en lecture sera lui aussi accessible à tout le monde.&lt;/p&gt;
-&lt;p&gt;Par conséquence, les permissions sont cumulées. Autrement dit, il n'est pas
+&lt;p&gt;Par conséquent, les permissions sont cumulées. Autrement dit, il n'est pas
 possible qu'un objet ait des permissions plus restrictives que son parent.&lt;/p&gt;
 &lt;p&gt;Voici la liste exhaustive des permissions :&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
@@ -253,27 +252,27 @@ possible qu'un objet ait des permissions plus restrictives que son parent.&lt;/p
 &lt;tr&gt;&lt;td&gt;Configuration
 (.ini)&lt;/td&gt;
 &lt;td&gt;&lt;cite&gt;buckets:create&lt;/cite&gt;&lt;/td&gt;
-&lt;td&gt;Les principals ayant le droit de
-créer un bucket sont définis
+&lt;td&gt;Les &lt;em&gt;principals&lt;/em&gt; ayant le droit
+de créer un bucket sont définis
 dans la configuration du serveur.
 (&lt;em&gt;ex. utilisateurs authentifiés&lt;/em&gt;)&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;&lt;td rowspan="4"&gt;&lt;tt class="docutils literal"&gt;bucket&lt;/tt&gt;&lt;/td&gt;
 &lt;td&gt;&lt;cite&gt;write&lt;/cite&gt;&lt;/td&gt;
 &lt;td&gt;C'est en quelque sorte le droit
-d'administration du bucket.&lt;/td&gt;
+d'administration du &lt;em&gt;bucket&lt;/em&gt;.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;&lt;td&gt;&lt;cite&gt;read&lt;/cite&gt;&lt;/td&gt;
 &lt;td&gt;C'est le droit de lire le contenu
-de tous les objets du bucket.&lt;/td&gt;
+de tous les objets du &lt;em&gt;bucket&lt;/em&gt;.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;&lt;td&gt;&lt;cite&gt;collections:create&lt;/cite&gt;&lt;/td&gt;
 &lt;td&gt;Permission de créer des
-collections dans le bucket.&lt;/td&gt;
+collections dans le &lt;em&gt;bucket&lt;/em&gt;.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;&lt;td&gt;&lt;cite&gt;groups:create&lt;/cite&gt;&lt;/td&gt;
 &lt;td&gt;Permission de créer des groupes
-dans le bucket.&lt;/td&gt;
+dans le &lt;em&gt;bucket&lt;/em&gt;.&lt;/td&gt;
 &lt;/tr&gt;
 &lt;tr&gt;&lt;td rowspan="3"&gt;&lt;tt class="docutils literal"&gt;collection&lt;/tt&gt;&lt;/td&gt;
 &lt;td&gt;&lt;cite&gt;write&lt;/cite&gt;&lt;/td&gt;
@@ -310,29 +309,29 @@ membres du groupe.&lt;/td&gt;
 &lt;/table&gt;
 &lt;/div&gt;
 &lt;div class="section" id="les-principals"&gt;
-&lt;h3&gt;Les "principals"&lt;/h3&gt;
+&lt;h3&gt;Les « &lt;em&gt;principals&lt;/em&gt; »&lt;/h3&gt;
 &lt;p&gt;Les acteurs se connectant au service de stockage peuvent s'authentifier.&lt;/p&gt;
 &lt;p&gt;Ils reçoivent alors une liste de &lt;em&gt;principals&lt;/em&gt; :&lt;/p&gt;
 &lt;ul class="simple"&gt;
-&lt;li&gt;&lt;tt class="docutils literal"&gt;Everyone&lt;/tt&gt;: Le &lt;em&gt;principal&lt;/em&gt; donné à tous les acteurs (authentifiés ou pas) ;&lt;/li&gt;
-&lt;li&gt;&lt;tt class="docutils literal"&gt;Authenticated&lt;/tt&gt;: Le &lt;em&gt;principal&lt;/em&gt; donné à tous les acteurs authentifiés ;&lt;/li&gt;
-&lt;li&gt;Un &lt;em&gt;principal&lt;/em&gt; identifiant l'acteur, par exemple &lt;tt class="docutils literal"&gt;fxa:32aa95a474c984d41d395e2d0b614aa2&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;Everyone&lt;/tt&gt;: le &lt;em&gt;principal&lt;/em&gt; donné à tous les acteurs (authentifiés ou pas) ;&lt;/li&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;Authenticated&lt;/tt&gt;: le &lt;em&gt;principal&lt;/em&gt; donné à tous les acteurs authentifiés ;&lt;/li&gt;
+&lt;li&gt;un &lt;em&gt;principal&lt;/em&gt; identifiant l'acteur, par exemple &lt;tt class="docutils literal"&gt;fxa:32aa95a474c984d41d395e2d0b614aa2&lt;/tt&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Afin d'éviter les collisions d'identifiants, le &lt;em&gt;principal&lt;/em&gt; de l'acteur dépends
+&lt;p&gt;Afin d'éviter les collisions d'identifiants, le &lt;em&gt;principal&lt;/em&gt; de l'acteur dépend
 de son type d'authentification (&lt;tt class="docutils literal"&gt;system&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;basic&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;ipaddr&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;hawk&lt;/tt&gt;,
 &lt;tt class="docutils literal"&gt;fxa&lt;/tt&gt;) et de son identifiant (unique par acteur).&lt;/p&gt;
-&lt;p&gt;En fonction du bucket sur lequel se passe l'action les groupes dont
+&lt;p&gt;En fonction du &lt;em&gt;bucket&lt;/em&gt; sur lequel se passe l'action, les groupes dont
 fait partie l'utilisateur sont également ajoutés à sa liste de
 &lt;tt class="docutils literal"&gt;principals&lt;/tt&gt;. &lt;tt class="docutils literal"&gt;group:moderators&lt;/tt&gt; par exemple.&lt;/p&gt;
-&lt;p&gt;Ainsi si Bob se connecte avec &lt;em&gt;Firefox Accounts&lt;/em&gt; sur le bucket
+&lt;p&gt;Ainsi, si Bob se connecte avec &lt;em&gt;Firefox Accounts&lt;/em&gt; sur le &lt;em&gt;bucket&lt;/em&gt;
 &lt;tt class="docutils literal"&gt;servicedenuages_blog&lt;/tt&gt; dans lequel il fait partie du groupe
-&lt;tt class="docutils literal"&gt;moderators&lt;/tt&gt;, il aura la liste de "principals" suivantes :
+&lt;tt class="docutils literal"&gt;moderators&lt;/tt&gt;, il aura la liste de &lt;em&gt;principals&lt;/em&gt; suivante :
 &lt;tt class="docutils literal"&gt;Everyone, Authenticated, fxa:32aa95a474c984d41d395e2d0b614aa2, group:moderators&lt;/tt&gt;&lt;/p&gt;
 &lt;p&gt;Il est donc possible d'assigner une permission à Bob en utilisant l'un de
-ces 4 &lt;em&gt;principals&lt;/em&gt;.&lt;/p&gt;
+ces quatre &lt;em&gt;principals&lt;/em&gt;.&lt;/p&gt;
 &lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
-&lt;p class="last"&gt;Le principal &lt;tt class="docutils literal"&gt;&amp;lt;userid&amp;gt;&lt;/tt&gt; dépend du backend d'authentification (e.g.
+&lt;p class="last"&gt;Le &lt;em&gt;principal&lt;/em&gt; &lt;tt class="docutils literal"&gt;&amp;lt;userid&amp;gt;&lt;/tt&gt; dépend du &lt;em&gt;back-end&lt;/em&gt; d'authentification (e.g.
 &lt;tt class="docutils literal"&gt;github:leplatrem&lt;/tt&gt;).&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -464,8 +463,8 @@ maintaining venues&lt;/em&gt;)&lt;/td&gt;
 &lt;/table&gt;
 &lt;p&gt;&lt;strong&gt;Plateformes&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Bien sûr, il y a plusieurs façons de modéliser les cas d'utilisation typiques.
-Par exemple, on peut imaginer une plateforme de wikis (à-la wikia.com), où les
-wikis sont privés par défaut et certaines pages peuvent être rendues publiques:&lt;/p&gt;
+Par exemple, on peut imaginer une plateforme de wikis (à la wikia.com), où les
+wikis sont privés par défaut et certaines pages peuvent être rendues publiques :&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
 &lt;colgroup&gt;
 &lt;col width="32%"&gt;&lt;/col&gt;
@@ -539,16 +538,17 @@ Content-Type: application/json; charset=utf-8
 {
     "id": "servicedenuages_blog",
     "permissions": {
+        "write": ["fxa:49d02d55ad10973b7b9d0dc9eba7fdf0"],
         "read": ["system.Everyone"]
     }
 }
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Pour le &lt;tt class="docutils literal"&gt;PATCH&lt;/tt&gt; nous utilisons la syntaxe préfixée par un &lt;tt class="docutils literal"&gt;+&lt;/tt&gt; ou
 par un &lt;tt class="docutils literal"&gt;-&lt;/tt&gt; pour ajouter ou enlever des &lt;em&gt;principals&lt;/em&gt; sur un ACL.&lt;/p&gt;
-&lt;p&gt;Il est également possible de faire un PUT pour réinitialiser les ACLs,
-sachant que le PUT va ajouter l'utilisateur courant à la
-liste automatiquement mais qu'il pourra se retirer avec un PATCH.
-Ajouter l'utilisateur courant permet d'éviter les situations ou plus
+&lt;p&gt;Il est également possible de faire un &lt;tt class="docutils literal"&gt;PUT&lt;/tt&gt; pour réinitialiser les ACLs,
+sachant que le &lt;tt class="docutils literal"&gt;PUT&lt;/tt&gt; va ajouter l'utilisateur courant à la
+liste automatiquement mais qu'il pourra se retirer avec un &lt;tt class="docutils literal"&gt;PATCH&lt;/tt&gt;.
+Ajouter l'utilisateur courant permet d'éviter les situations où plus
 personne n'a accès aux données.&lt;/p&gt;
 &lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
@@ -558,7 +558,7 @@ lorsque l'enregistrement n'existe pas.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="le-cas-specifique-des-donnees-utilisateurs"&gt;
 &lt;h3&gt;Le cas spécifique des données utilisateurs&lt;/h3&gt;
-&lt;p&gt;Une des fonctionnalité actuelle de &lt;em&gt;Kinto&lt;/em&gt; est de pouvoir gérer des
+&lt;p&gt;Une des fonctionnalités actuelles de &lt;em&gt;Kinto&lt;/em&gt; est de pouvoir gérer des
 collections d'enregistrements par utilisateur.&lt;/p&gt;
 &lt;p&gt;Sous &lt;em&gt;*nix&lt;/em&gt; il est possible, pour une
 application, de sauvegarder la configuration de l'utilisateur courant
@@ -566,8 +566,8 @@ dans son dossier personnel sans se soucier de l'emplacement sur
 le disque en utilisant &lt;tt class="docutils literal"&gt;~/&lt;/tt&gt;.&lt;/p&gt;
 &lt;p&gt;Dans notre cas si une application souhaite sauvegarder les contacts d'un
 utilisateur, elle peut utiliser le raccourci &lt;tt class="docutils literal"&gt;~&lt;/tt&gt; pour faire référence au
-bucket &lt;em&gt;personnel&lt;/em&gt; de l'utilisateur : &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;/buckets/~/collections/contacts&lt;/span&gt;&lt;/tt&gt;&lt;/p&gt;
-&lt;p&gt;Cette URL retournera le code HTTP 307 vers le bucket de l'utilisateur courant :&lt;/p&gt;
+&lt;em&gt;bucket&lt;/em&gt; &lt;strong&gt;personnel&lt;/strong&gt; de l'utilisateur : &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;/buckets/~/collections/contacts&lt;/span&gt;&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;Cette URL retournera le code &lt;tt class="docutils literal"&gt;HTTP 307&lt;/tt&gt; vers le &lt;em&gt;bucket&lt;/em&gt; de l'utilisateur courant :&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nf"&gt;POST&lt;/span&gt; &lt;span class="nn"&gt;/v1/buckets/~/collections/contacts/records&lt;/span&gt; &lt;span class="kr"&gt;HTTP&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1.1&lt;/span&gt;
 
 {
@@ -590,18 +590,18 @@ Bob sur sa collection et de donner l'URL complète
 &lt;p&gt;Dans le cas de &lt;em&gt;Kinto&lt;/em&gt;, nous avons défini un format pour restreindre les
 permissions via les scopes OAuth2:
 &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;storage:&amp;lt;bucket_id&amp;gt;:&amp;lt;collection_id&amp;gt;:&amp;lt;permissions_list&amp;gt;&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;Ainsi, si on reprends l'exemple précédent de la liste de tâches, il est possible pour
-Bob de créer un token OAuth spécifique avec les scopes suivants :
+&lt;p&gt;Ainsi, si on reprend l'exemple précédent de la liste de tâches, il est possible pour
+Bob de créer un token OAuth spécifique avec les &lt;em&gt;scopes&lt;/em&gt; suivants :
 &lt;tt class="docutils literal"&gt;profile storage:todolist:tasks:write &lt;span class="pre"&gt;storage:~:contacts:read+records:create&lt;/span&gt;&lt;/tt&gt;&lt;/p&gt;
-&lt;p&gt;Ainsi, bien que Bob ait la permission &lt;tt class="docutils literal"&gt;write&lt;/tt&gt; sur ses contacts,
+&lt;p&gt;Donc, bien que Bob a la permission &lt;tt class="docutils literal"&gt;write&lt;/tt&gt; sur ses contacts,
 l'application utilisant ce token pourra uniquement lire les contacts
 existants et en ajouter de nouveaux.&lt;/p&gt;
 &lt;p&gt;Une partie de la complexité est donc de réussir à présenter ces &lt;em&gt;scopes&lt;/em&gt; de
 manière lisible à l'utilisateur, afin qu'il choisisse quelles permissions
 donner aux applications qui agissent en son nom.&lt;/p&gt;
-&lt;p&gt;Voilà ou nous en sommes de notre réflexion !&lt;/p&gt;
-&lt;p&gt;Si vous avez des choses à rajouter, des points de désaccord ou autres
-réflexions, n'hésitez pas à nous interrompre pendant qu'il en est encore temps !&lt;/p&gt;
+&lt;p&gt;Voilà où nous en sommes de notre réflexion !&lt;/p&gt;
+&lt;p&gt;Si vous avez des choses à ajouter, des points de désaccord ou autres
+réflexions, n'hésitez pas à nous interrompre pendant qu'il est encore temps !&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </summary></entry><entry><title>Retours des APIdays Barcelona</title><link href="http://www.servicedenuages.fr/retours-des-apidays-barcelona.html" rel="alternate"></link><updated>2015-05-11T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-11:retours-des-apidays-barcelona.html</id><summary type="html">&lt;p&gt;Cette journée aux APIDays Barcelona a été d'une rare richesse ! Pour commencer, bravo à toute l'équipe et
