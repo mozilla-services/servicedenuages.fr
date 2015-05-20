@@ -8,8 +8,7 @@ Dans le cadre de la création d'un service de stockage de données personnelles
 (Kinto), la gestion des permissions est un des gros challenges : qui doit avoir
 accès à quoi, et comment le définir ?
 
-**tl;dr: Quelques retours sur le vocabulaire des systèmes de permission et sur nos
-idées pour l'implementation des permissions dans un stockage générique. **
+**tl;dr: Quelques retours sur le vocabulaire des systèmes de permission et sur nos idées pour l'implementation des permissions dans un stockage générique.**
 
 La problématique
 ================
