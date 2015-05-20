@@ -5,11 +5,11 @@ La gestion des permissions
 :summary: Démystification du vocabulaire des permissions et proposition d'implémentation pour Kinto
 
 Dans le cadre de la création d'un service de stockage de données personnelles
-(Kinto), un des gros challenges est la gestion des permissions : qui doit avoir
+(Kinto), la gestion des permissions est un des gros challenges : qui doit avoir
 accès à quoi, et comment le définir ?
 
-**tl;dr: Quelques retours sur le vocabulaire sur les permissions et sur nos
-idées pour l'implementation des permissions dans un stockage générique**
+**tl;dr: Quelques retours sur le vocabulaire des systèmes de permission et sur nos
+idées pour l'implementation des permissions dans un stockage générique. **
 
 La problématique
 ================
@@ -18,18 +18,18 @@ La problématique est simple : des données sont stockées en ligne, et il
 faut un moyen de pouvoir les partager avec d'autres personnes.
 
 En regardant les cas d'utilisations, on se rend compte qu'on a plusieurs types
-d'utilisateurs:
+d'utilisateurs :
 
-- Les utilisateurs "finaux" (vous);
-- Les applications qui interagissent en leur nom.
+- les utilisateurs "finaux" (vous) ;
+- les applications qui interagissent en leurs noms.
 
 Tous les intervenants n'ont donc pas les mêmes droits : certains doivent
 pouvoir lire, d'autres écrire, d'autres encore créer de nouveaux
 enregistrements, et le contrôle doit pouvoir s'effectuer de manière fine : il
-doit être possible de lire un enregistrement? mais pas un autre, par exemple.
+doit être possible de lire un enregistrement mais pas un autre, par exemple.
 
 Nous sommes partis du constat que les solutions disponibles n'apportaient pas
-une réponse satisfaisante pour ces besoins.
+une réponse satisfaisante à ces besoins.
 
 
 Un problème de vocabulaire
@@ -40,41 +40,41 @@ Le principal problème rencontré lors des réflexions fût le vocabulaire.
 Voici ci-dessous une explication des différents termes.
 
 
-Le concept de «principal»
--------------------------
+Le concept de « principal »
+---------------------------
 
-Un *principal*, en sécurité informatique, est une entité qui peut-être
+Un *principal*, en sécurité informatique, est une entité qui peut être
 authentifiée par un système informatique. [#]_ En Français il s'agit
-du "commettant", l'acteur qui commet l'action (oui, le terme est conceptuel !)
+du « commettant », l'acteur qui commet l'action (oui, le terme est conceptuel !)
 
 Il peut s'agir aussi bien d'un individu, d'un ordinateur, d'un
 service ou d'un groupe regroupant l'une de ces entités, ce qui
-est plus large que le classique "user id".
+est plus large que le classique « *user id* ».
 
-Les permissions sont alors associées à ces principals.
+Les permissions sont alors associées à ces *principals*.
 
 Par exemple, un utilisateur est identifié de manière unique lors de la
 connexion par le système d'authentification dont le rôle est de
 définir une liste de *principals* pour l'utilisateur se connectant.
 
-.. [#] Pour en savoir plus sur les principals:
+.. [#] Pour en savoir plus sur les *principals* :
        https://en.wikipedia.org/wiki/Principal_%28computer_security%29
 
 
 La différence entre rôle et groupe
 ----------------------------------
 
-De but en blanc il n'est pas évident de définir précisément la
-différence entre ces deux concepts qui permettent tous deux d'associer
-des permissions à un groupe de principals. [#]_
+De but en blanc, il n'est pas évident de définir précisément la
+différence entre ces deux concepts qui permettent d'associer
+des permissions à un groupe de *principals*. [#]_
 
 La différence est principalement sémantique. Mais on peut y voir une
-différence dans la «direction» de la relation entre les deux concepts.
+différence dans la « direction » de la relation entre les deux concepts.
 
-- Un rôle est une liste de permissions que l'on associe à un principal.
-- Un groupe est une liste de principals que l'on peut associer à une permission.
+- Un rôle est une liste de permissions que l'on associe à un *principal*.
+- Un groupe est une liste de *principals* que l'on peut associer à une permission.
 
-.. [#] Plus d'informations:
+.. [#] Plus d'informations :
        http://stackoverflow.com/questions/7770728/group-vs-role-any-real-difference
 
 
@@ -88,7 +88,7 @@ La différence entre permission, ACL, ACE
 
   -- https://fr.wikipedia.org/wiki/Access_Control_List
 
-Je dirais même plus, dans notre cas, "à un *principal*". Par exemple:
+Je dirais même plus, dans notre cas, « à un *principal* ». Par exemple:
 
 .. code-block:: text
 
@@ -102,18 +102,18 @@ La délégation de permissions
 ============================
 
 Imaginez l'exemple suivant, où un utilisateur stocke deux types de données en
-ligne:
+ligne :
 
-- Des contacts.
-- Une liste de tâches à faire qu'il peut associer à ses contacts.
+- des contacts ;
+- une liste de tâches à faire qu'il peut associer à ses contacts.
 
 L'utilisateur a tous les droits sur ses données.
 
-Cependant il utilise deux applications qui doivent elle avoir un accès restreint :
+Cependant il utilise deux applications qui doivent elles avoir un accès restreint :
 
-- Une application de gestion des contacts à qui il souhaite déléguer
-  la gestion intégrale de ses contacts : ``contacts:write``
-- Une application de gestion des tâches à qui il souhaite déléguer la
+- une application de gestion des contacts à qui il souhaite déléguer
+  la gestion intégrale de ses contacts : ``contacts:write`` ;
+- une application de gestion des tâches à qui il souhaite déléguer la
   gestion des tâches : ``contacts:read tasks:write``
 
 Il souhaite que son application de contacts ne puisse pas accéder à
@@ -135,7 +135,7 @@ considérée comme une entrée utilisateur (c'est à dire qu'on ne peut
 pas lui faire confiance). Il s'agit de ce que l'utilisateur souhaite.
 
 Or, il est également possible que l'utilisateur n'ait pas accès aux données
-qu'il demande. Le service doit donc utiliser deux niveaux de permissions:
+qu'il demande. Le service doit donc utiliser deux niveaux de permissions :
 celles de l'utilisateur, et celles qui ont été déléguées à l'application.
 
 
@@ -148,17 +148,17 @@ nécessairement celles de l'utilisateur connecté.
 
 Les données d'un utilisateur étaient donc cloisonnées et impossible à partager.
 
-Une manière simple de gérer le partage des données est l'utilisation d'espaces de noms.
+L'utilisation d'espaces de noms est une manière simple de gérer le partage des données.
 
 Nous avons choisi de reprendre le modèle de GitHub et de Bitbucket, qui
-utilisent les "organisations" comme espace de noms.
+utilisent les « organisations » comme espaces de noms.
 
-Dans notre cas, il est possible de créer des "buckets", qui correspondent à cet
-espace de noms.  Un bucket est un conteneur de collections et de groupes
+Dans notre cas, il est possible de créer des "buckets", qui correspondent à ces
+espaces de noms. Un bucket est un conteneur de collections et de groupes
 utilisateurs.
 
 Les ACLs sur ces collections peuvent être attribuées à certains groupes du
-bucket ainsi qu'à d'autres principals directement.
+*bucket* ainsi qu'à d'autres *principals* directement.
 
 
 Notre proposition d'API
@@ -175,17 +175,17 @@ objets suivants :
 +=================+=========================================================+
 | **bucket**      | On peut les voir comme des espaces de noms. Ils         |
 |                 | permettent d'avoir différentes collections portant      |
-|                 | le même nom mais stockées dans différents buckets de    |
+|                 | le même nom mais stockées dans différents *buckets* de  |
 |                 | manière à ce que les données soient distinctes.         |
 +-----------------+---------------------------------------------------------+
 | **collection**  | Une liste d'enregistrements.                            |
 +-----------------+---------------------------------------------------------+
 | **record**      | Un enregistrement d'une collection.                     |
 +-----------------+---------------------------------------------------------+
-| **group**       | Un groupe de commetants ("principals").                 |
+| **group**       | Un groupe de commetants (« *principals* »).             |
 +-----------------+---------------------------------------------------------+
 
-Pour la définition des ACLs, il y a une hiérarchie et les objets «héritent» des
+Pour la définition des ACLs, il y a une hiérarchie et les objets « héritent » des
 ACLs de leur parents :
 
 .. code-block:: text
@@ -222,7 +222,7 @@ ACLs de leur parents :
 Les permissions
 ---------------
 
-Pour chacun des ces objets nous avons identifiés les permissions suivantes :
+Pour chacun de ces objets nous avons identifié les permissions suivantes :
 
 +------------+-----------------------------------------+
 | Permission | Description                             |
@@ -242,14 +242,14 @@ Pour chacun des ces objets nous avons identifiés les permissions suivantes :
 |            | ``collections:create``                  |
 +------------+-----------------------------------------+
 
-À chaque permission spécifiée sur un objet est associé une liste de
-``principals``.
+À chaque permission spécifiée sur un objet est associée une liste de
+*principals*.
 
 Dans le cas de la permission ``create`` on est obligé de spécifier
 l'objet enfant en question car un objet peut avoir plusieurs types
-d'enfants. Par exemple: ``collections:create``, ``groups:create``.
+d'enfants. Par exemple : ``collections:create``, ``groups:create``.
 
-Nous n'avons pour l'instant pas de permissions pour `delete` et `update`,
+Nous n'avons pour l'instant pas de permission pour `delete` et `update`,
 puisque nous n'avons pas trouvé de cas d'utilisation qui les nécessitent.
 Quiconque avec le droit d'écriture peut donc supprimer un enregistrement.
 
@@ -257,7 +257,7 @@ Les permissions d'un objet sont héritées de son parent. Par exemple,
 un enregistrement créé dans une collection accessible à tout le monde
 en lecture sera lui aussi accessible à tout le monde.
 
-Par conséquence, les permissions sont cumulées. Autrement dit, il n'est pas
+Par conséquent, les permissions sont cumulées. Autrement dit, il n'est pas
 possible qu'un objet ait des permissions plus restrictives que son parent.
 
 
@@ -266,22 +266,22 @@ Voici la liste exhaustive des permissions :
 +----------------+------------------------+-----------------------------------+
 | Objet          | Permissions associées  | Commentaire                       |
 +================+========================+===================================+
-| Configuration  | `buckets:create`       | Les principals ayant le droit de  |
-| (.ini)         |                        | créer un bucket sont définis      |
+| Configuration  | `buckets:create`       | Les *principals* ayant le droit   |
+| (.ini)         |                        | de créer un bucket sont définis   |
 |                |                        | dans la configuration du serveur. |
 |                |                        | (*ex. utilisateurs authentifiés*) |
 +----------------+------------------------+-----------------------------------+
 | ``bucket``     | `write`                | C'est en quelque sorte le droit   |
-|                |                        | d'administration du bucket.       |
+|                |                        | d'administration du *bucket*.     |
 |                +------------------------+-----------------------------------+
 |                | `read`                 | C'est le droit de lire le contenu |
-|                |                        | de tous les objets du bucket.     |
+|                |                        | de tous les objets du *bucket*.   |
 |                +------------------------+-----------------------------------+
 |                | `collections:create`   | Permission de créer des           |
-|                |                        | collections dans le bucket.       |
+|                |                        | collections dans le *bucket*.     |
 |                +------------------------+-----------------------------------+
 |                | `groups:create`        | Permission de créer des groupes   |
-|                |                        | dans le bucket.                   |
+|                |                        | dans le *bucket*.                 |
 +----------------+------------------------+-----------------------------------+
 | ``collection`` | `write`                | Permission d'administrer tous les |
 |                |                        | objets de la collection.          |
@@ -306,36 +306,36 @@ Voici la liste exhaustive des permissions :
 +----------------+------------------------+-----------------------------------+
 
 
-Les "principals"
-----------------
+Les « *principals* »
+--------------------
 
 Les acteurs se connectant au service de stockage peuvent s'authentifier.
 
 Ils reçoivent alors une liste de *principals* :
 
-- ``Everyone``: Le *principal* donné à tous les acteurs (authentifiés ou pas) ;
-- ``Authenticated``: Le *principal* donné à tous les acteurs authentifiés ;
-- Un *principal* identifiant l'acteur, par exemple ``fxa:32aa95a474c984d41d395e2d0b614aa2``
+- ``Everyone``: le *principal* donné à tous les acteurs (authentifiés ou pas) ;
+- ``Authenticated``: le *principal* donné à tous les acteurs authentifiés ;
+- un *principal* identifiant l'acteur, par exemple ``fxa:32aa95a474c984d41d395e2d0b614aa2``
 
-Afin d'éviter les collisions d'identifiants, le *principal* de l'acteur dépends
+Afin d'éviter les collisions d'identifiants, le *principal* de l'acteur dépend
 de son type d'authentification (``system``, ``basic``, ``ipaddr``, ``hawk``,
 ``fxa``) et de son identifiant (unique par acteur).
 
-En fonction du bucket sur lequel se passe l'action les groupes dont
+En fonction du *bucket* sur lequel se passe l'action, les groupes dont
 fait partie l'utilisateur sont également ajoutés à sa liste de
 ``principals``. ``group:moderators`` par exemple.
 
-Ainsi si Bob se connecte avec *Firefox Accounts* sur le bucket
+Ainsi, si Bob se connecte avec *Firefox Accounts* sur le *bucket*
 ``servicedenuages_blog`` dans lequel il fait partie du groupe
-``moderators``, il aura la liste de "principals" suivantes :
+``moderators``, il aura la liste de *principals* suivante :
 ``Everyone, Authenticated, fxa:32aa95a474c984d41d395e2d0b614aa2, group:moderators``
 
 Il est donc possible d'assigner une permission à Bob en utilisant l'un de
-ces 4 *principals*.
+ces quatre *principals*.
 
 .. note::
 
-    Le principal ``<userid>`` dépend du backend d'authentification (e.g.
+    Le *principal* ``<userid>`` dépend du *back-end* d'authentification (e.g.
     ``github:leplatrem``).
 
 
@@ -403,8 +403,8 @@ Quelques exemples
 **Plateformes**
 
 Bien sûr, il y a plusieurs façons de modéliser les cas d'utilisation typiques.
-Par exemple, on peut imaginer une plateforme de wikis (à-la wikia.com), où les
-wikis sont privés par défaut et certaines pages peuvent être rendues publiques:
+Par exemple, on peut imaginer une plateforme de wikis (à la wikia.com), où les
+wikis sont privés par défaut et certaines pages peuvent être rendues publiques :
 
 +-------------------------+-----------------------+-----------------------------+
 | Objet                   | Permissions           | Principals                  |
@@ -474,10 +474,10 @@ Il est possible d'ajouter des permissions à l'aide de ``PATCH`` :
 Pour le ``PATCH`` nous utilisons la syntaxe préfixée par un ``+`` ou
 par un ``-`` pour ajouter ou enlever des *principals* sur un ACL.
 
-Il est également possible de faire un PUT pour réinitialiser les ACLs,
-sachant que le PUT va ajouter l'utilisateur courant à la
-liste automatiquement mais qu'il pourra se retirer avec un PATCH.
-Ajouter l'utilisateur courant permet d'éviter les situations ou plus
+Il est également possible de faire un ``PUT`` pour réinitialiser les ACLs,
+sachant que le ``PUT`` va ajouter l'utilisateur courant à la
+liste automatiquement mais qu'il pourra se retirer avec un ``PATCH``.
+Ajouter l'utilisateur courant permet d'éviter les situations où plus
 personne n'a accès aux données.
 
 
@@ -490,7 +490,7 @@ personne n'a accès aux données.
 Le cas spécifique des données utilisateurs
 ------------------------------------------
 
-Une des fonctionnalité actuelle de *Kinto* est de pouvoir gérer des
+Une des fonctionnalités actuelles de *Kinto* est de pouvoir gérer des
 collections d'enregistrements par utilisateur.
 
 Sous *\*nix* il est possible, pour une
@@ -500,9 +500,9 @@ le disque en utilisant ``~/``.
 
 Dans notre cas si une application souhaite sauvegarder les contacts d'un
 utilisateur, elle peut utiliser le raccourci ``~`` pour faire référence au
-bucket *personnel* de l'utilisateur : ``/buckets/~/collections/contacts``
+*bucket* **personnel** de l'utilisateur : ``/buckets/~/collections/contacts``
 
-Cette URL retournera le code HTTP 307 vers le bucket de l'utilisateur courant :
+Cette URL retournera le code ``HTTP 307`` vers le *bucket* de l'utilisateur courant :
 
 .. code-block:: http
 
@@ -531,11 +531,11 @@ Dans le cas de *Kinto*, nous avons défini un format pour restreindre les
 permissions via les scopes OAuth2:
 ``storage:<bucket_id>:<collection_id>:<permissions_list>``.
 
-Ainsi, si on reprends l'exemple précédent de la liste de tâches, il est possible pour
-Bob de créer un token OAuth spécifique avec les scopes suivants :
+Ainsi, si on reprend l'exemple précédent de la liste de tâches, il est possible pour
+Bob de créer un token OAuth spécifique avec les *scopes* suivants :
 ``profile storage:todolist:tasks:write storage:~:contacts:read+records:create``
 
-Ainsi, bien que Bob ait la permission ``write`` sur ses contacts,
+Donc, bien que Bob a la permission ``write`` sur ses contacts,
 l'application utilisant ce token pourra uniquement lire les contacts
 existants et en ajouter de nouveaux.
 
@@ -543,7 +543,7 @@ Une partie de la complexité est donc de réussir à présenter ces *scopes* de
 manière lisible à l'utilisateur, afin qu'il choisisse quelles permissions
 donner aux applications qui agissent en son nom.
 
-Voilà ou nous en sommes de notre réflexion !
+Voilà où nous en sommes de notre réflexion !
 
-Si vous avez des choses à rajouter, des points de désaccord ou autres
-réflexions, n'hésitez pas à nous interrompre pendant qu'il en est encore temps !
+Si vous avez des choses à ajouter, des points de désaccord ou autres
+réflexions, n'hésitez pas à nous interrompre pendant qu'il est encore temps !
