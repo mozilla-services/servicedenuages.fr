@@ -1,0 +1,265 @@
+Stocker et intéroger les permissions avec Kinto
+###############################################
+
+:date: 2015-05-26
+:summary: Comment faire pour stocker et intéroger la base de données au sujet des permissions avec Kinto ?
+
+**tl;dr: On a maintenant un super système de permission mais comment on fait pour stocker et intéroger ces permissions de manière efficace ?**
+
+La problématique
+================
+
+Maintenant que nous avons défini un modèle de gestion des permissions
+sur les objets qui nous satisfait, le problème est de stocker ces
+permissions de manière efficace afin de pouvoir permettre ou interdire
+l'accès à un objet pour la personne qui fait la requête.
+
+Chaque requête sur notre API va générer une ou plusieurs demandes
+d'accès, il faut donc que la réponse soit très rapide sous peine
+d'impacter la vélocité du service.
+
+
+Obtenir la liste des "principals" d'un utilisateur
+==================================================
+
+Le mieux est de maintenir un set listant les *principals* du user.
+
+Les *principals* du user correspondent à son `user_id` ainsi qu'à la
+liste des groupes dans lesquels il a été ajouté.
+
+Ainsi lorsqu'on ajoute un utilisateur à un groupe, il faut bien penser
+à ajouter le groupe à la liste des *principals* de l'utilisateur.
+
+Ça se complexifie lorsqu'on ajoute un groupe à un groupe.
+
+Dans un premier temps interdire l'ajout d'un groupe à un groupe est
+une limitation qu'on est prêts à mettre en place pour simplifier le
+modèle.
+
+L'avantage de maintenir la liste des *principals* d'un utilisateur
+lors de la modification de cette liste c'est qu'elle est déjà
+construite lors des lectures, qui sont dans notre cas plus fréquentes
+que les écritures.
+
+Cela nécessite de donner un identifiant unique aux groupes pour tous
+les *buckets*.
+
+Nous proposons de de les nommer avec leur URI:
+``/buckets/blog/groups/moderators``
+
+
+Obtenir la liste des "principals" d'un ACE
+==========================================
+
+Avec le système de permission choisi, les permissions d'un objet
+héritent de celle de l'objet parent.
+
+Ainsi avoir le droit d'écriture sur un *bucket* permet la création des
+permissions et la modification de tous les records.
+
+Ce qui veut dire que pour obtenir la liste complète des *principals*
+ayant une permission sur un objet, il faut regarder à plusieurs
+endroits.
+
+J'ai décrit la liste d'héritage de chaque permission ici:
+https://gist.github.com/Natim/77c8f61c1d42e476cef8#file-permission-py-L9-L52
+
+Prenons l'exemple de l'ajout d'un record dans une collection.
+
+Le droit ``records:create`` est obtenu si l'on a l'un des droits suivants:
+
+- ``bucket:write``
+- ``collection:write``
+- ``records:create``
+
+Notre première idée était de stocker la valeur des permissions sur
+chaque objets et de mettre en cache la liste exhaustive des
+permissions lors d'une modification, cependant cela nécessitait de
+construire cette liste lors de l'ajout d'un objet et de la mettre à
+jour tout l'arbre lors de la suppression.
+
+Je vous laisse imaginer le nombre de requêtes pour ajouter un
+administrateur sur un bucket contenant 1000 collections avec 100000
+records chacune.
+
+La solution que nous avons adoptée est donc de stocker les
+*principals* de chaque ACE (*qui* a le droit de faire telle action sur
+l'objet) puis ensuite de faire l'union des sets des ACE hérités puis
+l'intersection avec les *principals* de l'utilisateur :
+
+::
+
+    (ACE(object, permission) ∪ inherited_ACE) ∩ PRINCIPALS(user)
+
+Par exemple l'ACE: ``/buckets/blog/collections/article:write`` hérite de
+l'ACE ``/buckets/blog:write`` :
+
+::
+
+    (ACE(/buckets/blog/collections/article:write) ∪ ACE(/buckets/blog:write)) ∩ PRINCIPALS('fxa:alexis')
+
+Avec Redis on peut l'écrire comme cela :
+
+.. code-block:: redis
+
+    SUNIONSTORE temp_perm:/buckets/blog/collections/articles:write permission:/buckets/blog:write permission:/buckets/blog/collections/articles:write
+    SINTER temp_perm:/buckets/blog/collections/articles:write principals:fxa:alexis
+
+- ``SUNIONSTORE`` permet de créer un set contenant les éléments de
+  l'union de tous les set suivants Dans notre cas on le nomme
+  ``temp_perm:/buckets/blog/collections/articles:write`` et il contient
+  l'union des sets d'ACLs suivants:
+  - ``permission:/buckets/blog:write``
+  - ``permission:/buckets/blog/collections/articles:write``
+- ``SINTER`` retourne l'intersection de tous les sets passés en paramètres dans notre cas :
+  - ``temp_perm:/buckets/blog/collections/articles:write``
+  - ``principals:fxa:alexis``
+
+Plus d'informations sur :
+- http://redis.io/commands/sinter
+- http://redis.io/commands/sunionstore
+
+Si le set résultant de la commande ``SINTER`` n'est pas vide, alors
+l'utilisateur possède la permission
+
+On peut ensuite supprimer la clé temporaire.
+
+En utilisant MULTI on peut même faire tout cela au sein d'une
+transaction:
+https://gist.github.com/Natim/77c8f61c1d42e476cef8#file-permission-py-L117-L124
+et garantir ainsi l'intégrité de la requête.
+
+
+Récupérer les données de l'utilisateur
+======================================
+
+La situation se corse lorsqu'on souhaite récupérer la liste des
+*records* accessibles à l'utilisateur, car on doit faire cette
+intersection pour tous les records.
+
+Une première solution est de regarder si l'utilisateur est
+administrateur du record ou de la collection:
+
+Par exemple pour obtenir les permissions pour la lecture des records :
+
+.. code-block:: postgresql
+
+    WITH required_principals AS (
+        SELECT unnest(principals) as p
+        FROM perms WHERE name IN (
+            '/buckets/blog:write', '/buckets/blog:read', '/buckets/blog/collections/article:write', '/buckets/blog/collections/article:read'
+        )
+    )
+    SELECT COUNT(*) FROM required_principals
+    WHERE array_agg(required_principals.p) && '{"fxa:userid","system.Authenticated", "system.Everyone"}';
+
+
+Ensuite, si l'utilisateur a les droits pour tous les records ou pour
+certains uniquement:
+
+.. code-block:: python
+
+    has_collection_read_perm = has_read_perms(bucket_id, collection_id, user_id)
+    
+    if has_collection_read_perms:
+        records = filter_read_records(user_id)
+    else:
+        records = get_all_records(bucket_id, collection_id)
+    
+    def filter_read_records(user_id):
+        
+        """
+        SELECT o.* FROM object o
+         JOIN user u ON u.id = '%(user_id)'
+         WHERE o.type = 'record' AND o.parent_id = '/buckets/blog/collections/article'
+         AND o.permissions->>read && u.principals
+        """ % {
+            user_id: user_id
+        }
+
+
+Le modèle de données
+====================
+
+Les tables
+----------
+
+.. code-block:: postgresql
+
+    CREATE TABLE user(id TEXT, principals TEXT[]);
+    CREATE TABLE object(id TEXT, type TEXT, parent_id TEXT, permissions JSONB, data JSONB);
+
+
+Le format des ID
+----------------
+
+Je  me dis qu'idéalement utiliser des URI comme identifiant des ressources  présentes de nombreux avantages (lisibilité, unicité, cohérence avec les  URLs)
+
+Id d'un objet bucket     : ``/buckets/blog``
+Id d'un groupe :           ``/buckets/blog/group/moderators``
+Id d'un objet collection : ``/buckets/blog/collections/articles``
+Id d'un record :           ``/buckets/blog/collections/articles/records/02f3f76f-7059-4ae4-888f-2ac9824e9200``
+
+
+Exemple d'utilisateur
+---------------------
+
+.. code-block:: postgresql
+
+    INSERT INTO user VALUES ('fxa:alexis' '{}');
+    INSERT INTO user VALUES ('fxa:natim' '{"/buckets/blog/groups/moderators"}');
+
+
+Exemple d'objets
+----------------
+
+Bucket
+::::::
+
+.. code-block:: postgresql
+
+    INSERT INTO object VALUES (
+        '/buckets/blog',
+        'bucket',
+        NULL,
+        '{"write": ["fxa:alexis"]}'::JSONB,
+        '{"name": "blog"}'::JSONB);
+
+Group
+:::::
+
+.. code-block:: postgresql
+
+    INSERT INTO object VALUES (
+        '/buckets/blog/groups/moderators',
+        'group',
+        '/buckets/blog',
+        '{}'::JSONB,
+        '{"name": "moderators", "members": ['fxa:natim']}'::JSONB);
+
+
+Collection
+::::::::::
+
+.. code-block:: postgresql
+
+    INSERT INTO object VALUES (
+        '/buckets/blog/collections/articles',
+        'collection',
+        '/buckets/blog',
+        '{"read": ["system.Everyone"],
+          "write": ["/buckets/blog/groups/moderators"]}'::JSONB,
+        '{"name": "article"}'::JSONB);
+
+Records
+:::::::
+
+.. code-block:: postgresql
+
+    INSERT INTO object VALUES (
+        '/buckets/blog/collections/articles/records/02f3f76f-7059-4ae4-888f-2ac9824e9200',
+        'record',
+        '/buckets/blog/collections/articles',
+        '{}'::JSONB,
+        '{"name": "02f3f76f-7059-4ae4-888f-2ac9824e9200",
+          "title": "Stocker les permissions", ...}'::JSONB);
