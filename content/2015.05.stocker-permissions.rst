@@ -54,8 +54,6 @@ Nous proposons de de les nommer avec leur URI:
 Obtenir la liste des "principals" d'un ACE
 ==========================================
 
-..note::
-
     Rappel, un "ACE" est un *Access Control Entry*, un des éléments
     d'une ACL (e.g. *modifier un enregistrement*).
 
@@ -93,14 +91,11 @@ La solution que nous avons désormais adoptée consiste à stocker les
 sur l'objet), et de faire l'union des *ACE* hérités, afin de les
 croiser avec les *principals* de l'utilisateur :
 
-::
 
     (ACE(object, permission) ∪ inherited_ACE) ∩ PRINCIPALS(user)
 
 Par exemple l'ACE: ``/buckets/blog/collections/article:records:create`` hérite de
 l'ACE ``/buckets/blog/collections/article:write`` et de ``/buckets/blog:write`` :
-
-::
 
     (ACE(/buckets/blog/collections/article:records:create) ∪ ACE(/buckets/blog/collections/article:write) ∪ ACE(/buckets/blog:write)) ∩ PRINCIPALS('fxa:alexis')
 
@@ -190,7 +185,7 @@ Exemple d'utilisateur
 
     INSERT INTO user (id, principals)
          VALUES ('fxa:alexis', '{}');
-         
+
     INSERT INTO user (id, principals)
          VALUES ('fxa:natim',
                  '{"/buckets/blog/groups/moderators"}');
@@ -247,7 +242,7 @@ Collection
         '{"name": "article"}'::JSONB,
         '{"/buckets/blog/groups/moderators"}',
         '{"system.Everyone"}');
-        
+
 Cette collection d'articles peut être lue par tout le monde,
 et gérée par les membres du group ``moderators``, ainsi que
 ``fxa:alexis``, via le *bucket*.
