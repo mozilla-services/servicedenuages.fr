@@ -1,17 +1,17 @@
-Stocker et intéroger les permissions avec Kinto
-###############################################
+Stocker et interroger les permissions avec Kinto
+################################################
 
 :date: 2015-05-26
-:summary: Comment faire pour stocker et intéroger la base de données au sujet des permissions avec Kinto ?
+:summary: Comment faire pour stocker et interroger la base de données au sujet des permissions avec Kinto ?
 
-**tl;dr: On a maintenant un super système de permission mais comment on fait pour stocker et intéroger ces permissions de manière efficace ?**
+**tl;dr: On a maintenant un super système de permission mais comment faire pour stocker et interroger ces permissions de manière efficace ?**
 
 La problématique
 ================
 
 Maintenant que nous avons défini un modèle de gestion des permissions
 sur les objets qui nous satisfait, le problème est de stocker ces
-permissions de manière efficace afin de pouvoir permettre ou interdire
+permissions de manière efficace afin de pouvoir autoriser ou interdire
 l'accès à un objet pour la personne qui fait la requête.
 
 Chaque requête sur notre API va générer une ou plusieurs demandes
@@ -22,10 +22,11 @@ d'impacter la vélocité du service.
 Obtenir la liste des "principals" d'un utilisateur
 ==================================================
 
-Le mieux est de maintenir un set listant les *principals* du user.
+Le mieux est de maintenir un set listant les *principals* de l'utilisateur.
 
-Les *principals* du user correspondent à son `user_id` ainsi qu'à la
-liste des groupes dans lesquels il a été ajouté.
+Les *principals* de l'utilisateur correspondent à son `user_id` ainsi
+qu'à la liste des identifiants des groupes dans lesquels il a été
+ajouté.
 
 Ainsi lorsqu'on ajoute un utilisateur à un groupe, il faut bien penser
 à ajouter le groupe à la liste des *principals* de l'utilisateur.
@@ -51,7 +52,7 @@ Nous proposons de de les nommer avec leur URI:
 Obtenir la liste des "principals" d'un ACE
 ==========================================
 
-Avec le système de permission choisi, les permissions d'un objet
+Avec le système de permissions choisi, les permissions d'un objet
 héritent de celle de l'objet parent.
 
 Ainsi avoir le droit d'écriture sur un *bucket* permet la création des
@@ -167,14 +168,13 @@ certains uniquement:
         records = get_all_records(bucket_id, collection_id)
     
     def filter_read_records(user_id):
-        
+        principals = get_user_principals(user_id)
         """
         SELECT o.* FROM object o
-         JOIN user u ON u.id = '%(user_id)'
          WHERE o.type = 'record' AND o.parent_id = '/buckets/blog/collections/article'
-         AND o.permissions->>read && u.principals
+         AND o.read_principals && '{"%(principals)s"}'
         """ % {
-            user_id: user_id
+            principals: '","'.join(principals)
         }
 
 
@@ -186,14 +186,21 @@ Les tables
 
 .. code-block:: postgresql
 
+    ; Pour le backend de permission
     CREATE TABLE user(id TEXT, principals TEXT[]);
-    CREATE TABLE object(id TEXT, type TEXT, parent_id TEXT, permissions JSONB, data JSONB);
+    CREATE TABLE perms(permission TEXT, principal TEXT[]);
+
+    ; Pour le backend de stockage
+    CREATE TABLE object(id TEXT, type TEXT, parent_id TEXT, data JSONB,
+                        write_principals TEXT[], read_principals TEXT[]);
 
 
 Le format des ID
 ----------------
 
-Je  me dis qu'idéalement utiliser des URI comme identifiant des ressources  présentes de nombreux avantages (lisibilité, unicité, cohérence avec les  URLs)
+Je me dis qu'idéalement utiliser des URI comme identifiant des
+ressources présentes de nombreux avantages (lisibilité, unicité,
+cohérence avec les URLs)
 
 Id d'un objet bucket     : ``/buckets/blog``
 Id d'un groupe :           ``/buckets/blog/group/moderators``
@@ -222,7 +229,8 @@ Bucket
         '/buckets/blog',
         'bucket',
         NULL,
-        '{"write": ["fxa:alexis"]}'::JSONB,
+        '{"fxa:alexis"}',
+        '{}',
         '{"name": "blog"}'::JSONB);
 
 Group
@@ -234,7 +242,7 @@ Group
         '/buckets/blog/groups/moderators',
         'group',
         '/buckets/blog',
-        '{}'::JSONB,
+        '{}', '{}',
         '{"name": "moderators", "members": ['fxa:natim']}'::JSONB);
 
 
@@ -247,8 +255,8 @@ Collection
         '/buckets/blog/collections/articles',
         'collection',
         '/buckets/blog',
-        '{"read": ["system.Everyone"],
-          "write": ["/buckets/blog/groups/moderators"]}'::JSONB,
+        '{"/buckets/blog/groups/moderators"}',
+        '{"system.Everyone"}',
         '{"name": "article"}'::JSONB);
 
 Records
@@ -260,6 +268,23 @@ Records
         '/buckets/blog/collections/articles/records/02f3f76f-7059-4ae4-888f-2ac9824e9200',
         'record',
         '/buckets/blog/collections/articles',
-        '{}'::JSONB,
+        '{}', '{}',
         '{"name": "02f3f76f-7059-4ae4-888f-2ac9824e9200",
           "title": "Stocker les permissions", ...}'::JSONB);
+
+
+Conclusion
+==========
+
+La solution a l'air simple mais nous a demandé beaucoup de réflexion
+en passant par plusieurs propositions.
+
+L'idée finale est d'avoir :
+
+- Un backend permettant de stocker les permissions ;
+- Les permissions read et write dénormalisées sur les objets stockés.
+
+Cela permet de rapidement connaître la permission d'un utilisateur sur
+un objet et également de pouvoir récupérer tous les objets d'une
+collection pour un utilisateur si celui-ci n'a pas accès à tous les
+records de la collection, ou toutes les collections du bucket.
