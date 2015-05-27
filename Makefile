@@ -54,6 +54,6 @@ publish: install
 
 github: publish
 	$(VENV)/bin/ghp-import -b $(GITHUB_PAGES_BRANCH) $(OUTPUTDIR)
-	git push origin $(GITHUB_PAGES_BRANCH)
+	git push origin $(GITHUB_PAGES_BRANCH) --force
 
 .PHONY: html clean serve devserver github publish
