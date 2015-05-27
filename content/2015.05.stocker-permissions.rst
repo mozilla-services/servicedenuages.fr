@@ -1,5 +1,5 @@
 Stocker et interroger les permissions avec Kinto
-###############################################
+################################################
 
 :date: 2015-05-26
 :summary: Comment faire pour stocker et interroger la base de données au sujet des permissions avec Kinto ?
@@ -70,9 +70,7 @@ Ce qui veut dire que pour obtenir la liste complète des *principals*
 ayant une permission sur un objet, il faut regarder à plusieurs
 endroits.
 
-Rémy a `décrit dans un gist la liste d'héritage de chaque permission <
-https://gist.github.com/Natim/77c8f61c1d42e476cef8#file-permission-py-L9-L52
->`_.
+Rémy a `décrit dans un gist la liste d'héritage de chaque permission <https://gist.github.com/Natim/77c8f61c1d42e476cef8#file-permission-py-L9-L52>`_.
 
 Prenons l'exemple de l'ajout d'un record dans une collection.
 
