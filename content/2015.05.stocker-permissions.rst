@@ -240,11 +240,11 @@ Collection
         'collection',
         '/buckets/blog',
         '{"name": "article"}'::JSONB,
-        '{"/buckets/blog/groups/moderators"}',
-        '{"system.Everyone"}');
+        '{"system.Everyone"}',
+        '{"/buckets/blog/groups/moderators"}');
 
 Cette collection d'articles peut être lue par tout le monde,
-et gérée par les membres du group ``moderators``, ainsi que
+et gérée par les membres du groupe ``moderators``, ainsi que
 ``fxa:alexis``, via le *bucket*.
 
 
@@ -321,8 +321,8 @@ Avec Redis
 ----------
 
 *Redis* présente plusieurs avantages pour ce genre de
- problématiques. Notamment, il gère les *set* nativement (listes de
- valeurs uniques), ainsi que les opérations d'intersection et d'union.
+problématiques. Notamment, il gère les *set* nativement (listes de
+valeurs uniques), ainsi que les opérations d'intersection et d'union.
 
 Avec *Redis* on peut écrire l'obtention des *principals* pour un *ACE*
 comme cela :
