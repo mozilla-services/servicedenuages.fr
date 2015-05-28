@@ -508,6 +508,12 @@ h1, h2, h3, h4 {
     font-family: "amaranth";
 }
 
-p {
-    font-family: "aleo"
+.content{
+  font-family: "aleo";
+}
+
+@media (min-width: 100em) {
+  .content {
+    font-size: 1.2em;
+  }
 }
