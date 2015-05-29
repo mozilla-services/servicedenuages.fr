@@ -1,4 +1,4 @@
-Comment passer de LIMIT / OFFSET aux Continuation Tokens ?
+Comment passer de LIMIT / OFFSET aux Continuation Tokens ?
 ##########################################################
 
 :date: 2015-05-04
