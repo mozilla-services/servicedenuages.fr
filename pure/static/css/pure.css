@@ -1,3 +1,28 @@
+@font-face {
+    font-family: 'amaranth';
+    src: url('fonts/amaranth-regular-webfont.eot');
+    src: url('fonts/amaranth-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/amaranth-regular-webfont.woff2') format('woff2'),
+         url('fonts/amaranth-regular-webfont.woff') format('woff'),
+         url('fonts/amaranth-regular-webfont.ttf') format('truetype'),
+         url('fonts/amaranth-regular-webfont.svg#amaranthregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'aleo';
+    src: url('fonts/Aleo-Regular-webfont.eot');
+    src: url('fonts/Aleo-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/Aleo-Regular-webfont.woff') format('woff'),
+         url('fonts/Aleo-Regular-webfont.ttf') format('truetype'),
+         url('fonts/Aleo-Regular-webfont.svg#aleoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 * {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
@@ -185,7 +210,6 @@ pre {
 }
 
 .post {
-    padding-bottom: 1em;
     border-bottom: 1px solid #f2f2f0;
 }
 .post-title {
@@ -480,3 +504,16 @@ table > tbody > tr:nth-of-type(2n+1) {
     background-color: #F9F9F9;
 }
 
+h1, h2, h3, h4 {
+    font-family: "amaranth";
+}
+
+.content{
+  font-family: "aleo";
+}
+
+@media (min-width: 100em) {
+  .content {
+    font-size: 1.2em;
+  }
+}
