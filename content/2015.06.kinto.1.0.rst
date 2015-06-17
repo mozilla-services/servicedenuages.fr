@@ -1,0 +1,47 @@
+Achievement unlocked 
+#####################
+
+:date: 2015-06-17
+:summary: We just released cliquet 2.0 and Kinto 1.0 !
+
+Today we released Cliquet 2.0 [#]_ and Kinto 1.0 [#]_ (a.k.a Cloud Storage).
+
+Kinto is a service to store, synchronize and share arbitrary data
+attached to a Firefox Account.
+
+Cliquet is a toolkit to ease the implementation of HTTP micro-services,
+such as data-driven REST APIs with synchronization needs.
+
+You can read more about our rationale for building this solution at
+http://www.servicedenuages.fr/eco-systeme-et-stockage-generique-en.html
+
+Both projects received a lot of diligence during the last months. Even
+though most of the work we had done for Reading List could be
+used, we rebuilt many parts and introduced some long awaited features,
+like permissions management.
+
+Of course, exactly like when you refurbish a ceiling at home, we can't
+resist to see loads of things that shall still be improved! Especially
+about documentation and performance :)
+
+We can already foresee how the ecosystem will look like, and it's
+promising. There is already a JavaScript client [#]_, which aims to
+synchronize browser local data with a Kinto instance.
+
+We strongly welcome any feedback, be it about the code, the
+documentation or security aspects of the solution. If you wish to reach
+to us, you can use the #storage channel of the Mozilla IRC network.
+
+And, this is just the beginning! Future plans are described in our road
+map [#]_.
+
+.. [#] Cliquet is a toolkit to ease the implementation of HTTP
+       microservices, such as data-driven REST APIs —  https://cliquet.readthedocs.org
+
+.. [#] Kinto is a server allowing you to store and synchronize arbitrary data,
+       attached to your Firefox account. — https://kinto.readthedocs.org
+
+.. [#] Cliquetis, the javascript library to consume the Kinto HTTP API —
+       https://github.com/mozilla-services/cliquetis
+
+.. [#] Kinto roadmap: https://github.com/mozilla-services/kinto/wiki/roadmap
