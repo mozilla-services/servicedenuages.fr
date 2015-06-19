@@ -3,6 +3,8 @@ Achievement unlocked
 
 :date: 2015-06-17
 :summary: We just released cliquet 2.0 and Kinto 1.0 !
+:slug: kinto-1.0-released
+:lang: en
 
 Today we released Cliquet 2.0 [#]_ and Kinto 1.0 [#]_ (a.k.a Cloud Storage).
 

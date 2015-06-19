@@ -1,0 +1,63 @@
+Achievement unlocked
+####################
+
+:date: 2015-06-17
+:summary: Nous venons de publier cliquet 2.0 et Kinto 1.0 !
+:slug: kinto-1.0-released
+:lang: fr
+
+Aujourd'hui nous avons publier Cliquet 2.0 [#]_ et Kinto 1.0 [#]_
+(alias Cloud Storage).
+
+Kinto est un service web permettant de stocker, synchroniser et
+partager des données liées à un compte utilisateur (par exemple
+Firefox Account).
+
+Cliquet est une boite à outils Python permettant de faciliter
+l'implémentation de micro-services HTTP notamment des API HTTP REST
+permettant la synchronisation des données manipulées.
+
+Pour en savoir plus sur les raisons qui nous ont poussé à créer cette
+nouvelle solution, n'hésitez pas à relire notre article à ce sujet:
+http://www.servicedenuages.fr/eco-systeme-et-stockage-generique-en.html
+
+Ces deux projets nous ont occupés pleinement durant ces derniers mois.
+
+Bien que le travail entamé sur le projet de ReadingList ai pu être
+réutilisé, nous avons réorganiser et réécrit de nombreuses parties et
+ajouter des fonctionnalités que nous attendions depuis longtemps,
+comme la gestion des permissions notamment.
+
+Bien sur, de la même manière que lorsqu'on restaure une pièce chez
+soi, il est impossible de ne pas remarquer toutes les imperfections et
+les retouches qu'on voudrait apporter ! Notamment concernant la
+documentation et les performances :)
+
+Cependant nous pouvons déjà apercevoir l'écosystème prometteur
+qu'apportent ces deux projets.
+
+Il y a dès à présent un client JavaScript [#]_, qui à pour but de
+permettre la synchronization entre les données locales du navigateur
+et celle d'une instance Kinto.
+
+Nous attendons avec impatience tous les retours que vous pouvez nous
+faire, que ce soit à propos du code, de la documentation mais
+également concernant la sécurité de la solution.
+
+Si vous souhaitez nous contacter, n'hésitez pas à nous rejoindre sur
+le chan #storage du réseau IRC de Mozilla.
+
+Et ce n'est que le début ! Nous avons détaillé nos plans dans notre
+feuille de route [#]_.
+
+.. [#] Cliquet est une boite à outils Python permettant de faciliter
+	   l'implémentation de micro-services HTTP —  https://cliquet.readthedocs.org
+
+.. [#] Kinto est un service web permettant de stocker, synchroniser et
+	   partager des données liées à un compte utilisateur (par exemple
+	   Firefox Account). — https://kinto.readthedocs.org
+
+.. [#] Cliquetis, la bibliothèque javascript qui consomme l'API HTTP
+       de Kinto — https://github.com/mozilla-services/cliquetis
+
+.. [#] Feuille de route de Kinto: https://github.com/mozilla-services/kinto/wiki/roadmap
