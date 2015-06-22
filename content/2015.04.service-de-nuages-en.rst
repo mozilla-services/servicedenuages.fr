@@ -24,7 +24,7 @@ written in Node.js®.
 A readinglist server
 --------------------
 
-In parallel, a project about `synchronizing readinglist lists
+In parallel, a project about `synchronizing reading lists
 <https://readinglist.readthedocs.org>`_ (*Reading List*) started.
 The idea is to be able to bookmark pages to "read for later" and continue the
 reading on any synchronized device (Firefox for Android or Firefox Desktop). An
@@ -49,7 +49,6 @@ persists data in a database.
 
 But, this little new team isn't here just by luck :)
 
--
 The «Daybed Team»
 -----------------
 
@@ -60,13 +59,13 @@ For client applications, Javascript or other, using this service should be as
 easy as a pie! The application handles its data locally (offline-first) and
 synchronizes upon request.
 
-Here, the heart of the *Reading List* service is "CRUD" API (Create, Retrieve,
+Here, the heart of the *Reading List* service is a "CRUD" API (Create, Retrieve,
 Update, Delete), which handles synchronisation and authentication. We made the
 bet to do a "simple" API, with the less specific code as possible, which would
 create the basis of a generic service. Also because it's likely that other
 similar projects will follow.
 
-A bunch of experience was accumulated inside the team, one one hand with the
+A bunch of experience was accumulated within the team, on one hand with the
 creation and evolution of *Firefox Sync* and on the other hand with *Daybed*
 our side-project. We try to not reproduce the same mistakes while keeping
 concepts which proved to be valid.
@@ -80,7 +79,7 @@ The one-way mechanism
 ---------------------
 
 As a first stone to build the cathedral, we created `Cliquet
-<https://cliquet.readthedocs.org>`_, which the principal idea is to have an
+<https://cliquet.readthedocs.org>`_, which main idea is to have an
 implementation of this protocol in python, while factorizing all our good
 practices (notably for putting everything in production).
 
