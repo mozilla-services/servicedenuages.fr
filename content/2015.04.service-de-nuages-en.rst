@@ -1,0 +1,112 @@
+Service de nuages !
+===================
+
+:date: 2015-04-16
+:slug: service-de-nuages
+:lang: en
+
+
+A bunch of changes since the beginning of the year for the "cloud-services"
+frenchies!
+
+First of all, two new recruits are here to complement the team: 
+`n1k0 <https://nicolas.perriault.net/>`_ and `Mathieu
+<http://mathieu-leplatre.info>`_ are now helping out `Tarek
+<http://ziade.org/>`_, `Rémy <http://natim.ionyse.com>`_ and `Alexis
+<http://notmyidea.org>`_.
+
+The starting of this year has seen the launch of `Firefox Hello
+<https://www.mozilla.org/en-US/firefox/hello/>`_ which allowed us to scale up
+`the server <https://github.com/mozilla-services/loop-server>`_,
+written in Node.js®.
+
+
+A readinglist server
+--------------------
+
+In parallel, a project about `synchronizing readinglist lists
+<https://readinglist.readthedocs.org>`_ (*Reading List*) started.
+The idea is to be able to bookmark pages to "read for later" and continue the
+reading on any synchronized device (Firefox for Android or Firefox Desktop). An
+open source counterpart to `Pocket`_, in some regards, which is possible to host
+yourself.
+
+.. _Pocket: http://getpocket.com
+
+.. image:: {filename}/images/readinglist-screenshot.png
+    :alt: Capture of Firefox nightly with the readinglist.
+
+To build this service, we could have reused `Firefox sync`_ , after all it's
+a robust synchronisation service, built on top of `Cornice`_. But *Sync* hasn't
+been thought to guarantee strong data integrity and it was too complex to change that
+deeply.
+
+.. _Firefox Sync: https://github.com/mozilla-services/server-syncstorage
+.. _Cornice: http://cornice.readthedocs.org/
+
+We could also have created yet another application which exposes an API and
+persists data in a database.
+
+But, this little new team isn't here just by luck :)
+
+-
+The «Daybed Team»
+-----------------
+
+We share a vision: a generic data storage service ! Maybe it brings to memories
+`a certain project named Daybed <https://daybed.io>`_ ?
+
+For client applications, Javascript or other, using this service should be as
+easy as a pie! The application handles its data locally (offline-first) and
+synchronizes upon request.
+
+Here, the heart of the *Reading List* service is "CRUD" API (Create, Retrieve,
+Update, Delete), which handles synchronisation and authentication. We made the
+bet to do a "simple" API, with the less specific code as possible, which would
+create the basis of a generic service. Also because it's likely that other
+similar projects will follow.
+
+A bunch of experience was accumulated inside the team, one one hand with the
+creation and evolution of *Firefox Sync* and on the other hand with *Daybed*
+our side-project. We try to not reproduce the same mistakes while keeping
+concepts which proved to be valid.
+
+For instance, we kept the *timestamp* mechanism of *Sync*, which is used to
+synchronize collections. As these problematics are recurring or even impossible
+to avoid, we decided to build on top of this synchronization protocol and to
+dissociate it from the readinglist project.
+
+The one-way mechanism
+---------------------
+
+As a first stone to build the cathedral, we created `Cliquet
+<https://cliquet.readthedocs.org>`_, which the principal idea is to have an
+implementation of this protocol in python, while factorizing all our good
+practices (notably for putting everything in production).
+
+.. image:: {filename}/images/cliquet-logo.png
+    :align: right
+    :alt: Cliquet's logo
+
+The good thing with protocols (as opposed to monoliths) is that if you prefer
+Asyncio, io.js or Go, we will encourage you to publish your alternative
+implementation!
+
+With *Cliquet*, the code of the readinglist service consists into defining
+a schema for the records and force some field values on certain calls. The size
+of the project is dramatically reduced to a dozen lines of code.
+
+As to the future generic data storage service, `the project
+<http://kinto.readthedocs.org>`_ just started but it really is!
+It can already be used as a storage backend in a *Cliquet* application, and
+this `implemented in 20 lines of code
+<https://github.com/mozilla-services/kinto/blob/0.2.1/kinto/views/collection.py>`_!
+
+Oh, and this time we will build features only from real use cases which come
+along the way. It might seem silly, but on *Daybed* we haven't seen it coming :)
+
+In future articles, we want to describe the good practices we put together in
+the protocol (or *Cliquet*), certain specific technical points and present our
+vision with examples and tutorials.
+
+See you soon, then !
