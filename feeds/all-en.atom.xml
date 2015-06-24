@@ -1,5 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-en.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-04-30T00:00:00+02:00</updated><entry><title>Ecosystem &amp; generic storage</title><link href="http://www.servicedenuages.fr/eco-systeme-et-stockage-generique-en.html" rel="alternate"></link><updated>2015-04-30T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-30:eco-systeme-et-stockage-generique-en.html</id><summary type="html">&lt;div class="note"&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-en.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-06-17T00:00:00+02:00</updated><entry><title>Achievement unlocked</title><link href="http://www.servicedenuages.fr/kinto-1.0-released-en.html" rel="alternate"></link><updated>2015-06-17T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-06-17:kinto-1.0-released-en.html</id><summary type="html">&lt;p&gt;Today we released Cliquet 2.0 &lt;a class="footnote-reference" href="#id5" id="id1"&gt;[1]&lt;/a&gt; and Kinto 1.0 &lt;a class="footnote-reference" href="#id6" id="id2"&gt;[2]&lt;/a&gt; (a.k.a Cloud Storage).&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://kinto.readthedocs.org/en/latest/"&gt;Kinto&lt;/a&gt; is a service to
+store, synchronize and share arbitrary data attached to a Firefox Account.&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://cliquet.readthedocs.org/en/latest/"&gt;Cliquet&lt;/a&gt; is a toolkit to
+ease the implementation of HTTP micro-services, such as data-driven REST APIs
+with synchronization needs.&lt;/p&gt;
+&lt;p&gt;You can read more about our rationale for building this solution at
+&lt;a class="reference external" href="http://www.servicedenuages.fr/eco-systeme-et-stockage-generique-en.html"&gt;http://www.servicedenuages.fr/eco-systeme-et-stockage-generique-en.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Both projects received a lot of diligence during the last months. Even
+though most of the work we had done for Reading List could be
+used, we rebuilt many parts and introduced some long awaited features,
+like permissions management.&lt;/p&gt;
+&lt;p&gt;Of course, exactly like when you refurbish a ceiling at home, we can't
+resist to see loads of things that shall still be improved! Especially
+about documentation and performance :)&lt;/p&gt;
+&lt;p&gt;We can already foresee how the ecosystem will look like, and it's
+promising. There is already a JavaScript client &lt;a class="footnote-reference" href="#id7" id="id3"&gt;[3]&lt;/a&gt;, which aims to
+synchronize browser local data with a Kinto instance.&lt;/p&gt;
+&lt;p&gt;We strongly welcome any feedback, be it about the code, the
+documentation or security aspects of the solution. If you wish to reach
+to us, you can use the #storage channel of the Mozilla IRC network.&lt;/p&gt;
+&lt;p&gt;And, this is just the beginning! Future plans are described in our road
+map &lt;a class="footnote-reference" href="#id8" id="id4"&gt;[4]&lt;/a&gt;.&lt;/p&gt;
+&lt;table class="docutils footnote" frame="void" id="id5" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Cliquet is a toolkit to ease the implementation of HTTP
+microservices, such as data-driven REST APIs —  &lt;a class="reference external" href="https://cliquet.readthedocs.org"&gt;https://cliquet.readthedocs.org&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class="docutils footnote" frame="void" id="id6" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id2"&gt;[2]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Kinto is a server allowing you to store and synchronize arbitrary data,
+attached to your Firefox account. — &lt;a class="reference external" href="https://kinto.readthedocs.org"&gt;https://kinto.readthedocs.org&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class="docutils footnote" frame="void" id="id7" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id3"&gt;[3]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Cliquetis, the javascript library to consume the Kinto HTTP API —
+&lt;a class="reference external" href="https://github.com/mozilla-services/cliquetis"&gt;https://github.com/mozilla-services/cliquetis&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class="docutils footnote" frame="void" id="id8" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id4"&gt;[4]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Kinto roadmap: &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/wiki/roadmap"&gt;https://github.com/mozilla-services/kinto/wiki/roadmap&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</summary></entry><entry><title>Ecosystem &amp; generic storage</title><link href="http://www.servicedenuages.fr/eco-systeme-et-stockage-generique-en.html" rel="alternate"></link><updated>2015-04-30T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-30:eco-systeme-et-stockage-generique-en.html</id><summary type="html">&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;This article was translated from French by Julien/Sphinx. We thank him a lot
 for this effort! Note, that at the beginning of this year,
@@ -273,4 +323,14 @@ public sharing of one's resources from one's &lt;em&gt;Remote Storage&lt;/em&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
+</summary></entry><entry><title>Le printemps</title><link href="http://www.servicedenuages.fr/le-printemps-en.html" rel="alternate"></link><updated>2015-04-15T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-15:le-printemps-en.html</id><summary type="html">&lt;p&gt;It's spring already, and a good time to tidy-up a bit our minds!&lt;/p&gt;
+&lt;p&gt;We've been stacking interesting experiences without really sharing them in
+writings, so now's the time.&lt;/p&gt;
+&lt;p&gt;There were a francophone conference about Hawk the past year, and some articles
+in English in the Mozilla blog, but sometimes the English language doesn't let
+us express ourselves in a compelling way.&lt;/p&gt;
+&lt;p&gt;That's why, in this beginning of spring 2015, we propose a set of articles
+written in French and translated in English whenever we can, about what we do in
+our little &lt;em&gt;Service des nuages&lt;/em&gt; team at Mozilla.&lt;/p&gt;
+&lt;img alt="Our very own logo" src="http://www.servicedenuages.fr/images/service_de_nuages.png" style="width: 2268px; height: auto; max-width: 100%;"/&gt;
 </summary></entry></feed>

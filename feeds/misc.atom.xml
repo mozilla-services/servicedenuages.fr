@@ -1,5 +1,353 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/misc.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-05-12T00:00:00+02:00</updated><entry><title>La gestion des permissions</title><link href="http://www.servicedenuages.fr/la-gestion-des-permissions.html" rel="alternate"></link><updated>2015-05-12T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-12:la-gestion-des-permissions.html</id><summary type="html">&lt;p&gt;Dans le cadre de la création d'un service de stockage de données personnelles
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/misc.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-06-17T00:00:00+02:00</updated><entry><title>Achievement unlocked</title><link href="http://www.servicedenuages.fr/kinto-1.0-released.html" rel="alternate"></link><updated>2015-06-17T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-06-17:kinto-1.0-released.html</id><summary type="html">&lt;p&gt;Aujourd'hui, c'est jour de fête : nous venons de publier Cliquet &lt;strong&gt;2.0&lt;/strong&gt;
+&lt;a class="footnote-reference" href="#id5" id="id1"&gt;[1]&lt;/a&gt; et Kinto &lt;strong&gt;1.0&lt;/strong&gt; &lt;a class="footnote-reference" href="#id6" id="id2"&gt;[2]&lt;/a&gt;.&lt;/p&gt;
+&lt;blockquote class="epigraph"&gt;
+&lt;p&gt;L'aboutissement de 3 années de R&amp;amp;D !&lt;/p&gt;
+&lt;p class="attribution"&gt;—Rémy&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://kinto.readthedocs.org/en/latest/"&gt;Kinto&lt;/a&gt; est un service pour
+stocker, synchroniser et partager des données arbitraires, attachées à un
+compte Firefox (mais le système d'authentification est &lt;em&gt;pluggable&lt;/em&gt;).&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://cliquet.readthedocs.org/en/latest/"&gt;Cliquet&lt;/a&gt; est une boite à outils pour faciliter l'implémentation de
+micro-services HTTP tels que les APIs &lt;em&gt;REST&lt;/em&gt; ayant des besoins de synchronisation.&lt;/p&gt;
+&lt;p&gt;Vous pouvez lire plus à propos des raisons qui nous ont poussé à proposer cette nouvelle solution
+et de notre ambition sur &lt;a class="reference external" href="http://www.servicedenuages.fr/eco-systeme-et-stockage-generique.html"&gt;http://www.servicedenuages.fr/eco-systeme-et-stockage-generique.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Nous sommes fiers du travail que nous avons pu réaliser durant ces derniers
+mois sur ces deux projets. Bien que la plupart du travail que nous ayons
+réalisé pour le serveur de liste de lecture (Reading List) ait pu être utilisé,
+beaucoup de parties ont été repensées et nous avons introduit des
+fonctionnalités que l'on attendait depuis longtemps, comme la gestion des
+permissions.&lt;/p&gt;
+&lt;p&gt;Bien sur, exactement comme après un ré-aménagement de salon, on ne peut
+s'empêcher de voir toutes les choses qui doivent toujours être améliorées,
+notamment sur la documentation et les performances.&lt;/p&gt;
+&lt;p&gt;On peut déjà entrevoir à quoi l'écosystème va ressembler, et c'est prometteur.
+Il y a déjà un client JavaScript &lt;a class="footnote-reference" href="#id7" id="id3"&gt;[3]&lt;/a&gt; dont l'objectif est de synchroniser les
+données locales du navigateur avec une instance de Kinto.&lt;/p&gt;
+&lt;p&gt;N'hésitez vraiment pas à nous solliciter pour discuter avec vous si vous avez
+des problématiques proches : nous accueillons avec plaisir toutes sortes de
+retours, que ce soit à propos du code, de la documentation, de la sécurité de
+la solution ou de la manière de communiquer avec le monde extérieur. Si vous
+souhaitez nous contacter, vous pouvez laisser un commentaire ici ou nous
+contacter sur le canal &lt;a class="reference external" href="irc://irc.mozilla.org/#storage"&gt;#storage&lt;/a&gt; sur le réseau IRC de Mozilla.&lt;/p&gt;
+&lt;p&gt;Et ce n'est que le début ! Le futur se dessine dans notre feuille de route
+&lt;a class="footnote-reference" href="#id8" id="id4"&gt;[4]&lt;/a&gt;.&lt;/p&gt;
+&lt;table class="docutils footnote" frame="void" id="id5" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;&lt;strong&gt;Cliquet&lt;/strong&gt; est une boite à outils pour faciliter l'implémentation de
+microservices HTTP tels que les APIs &lt;em&gt;REST&lt;/em&gt; ayant des besoins de
+synchronisation.&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class="docutils footnote" frame="void" id="id6" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id2"&gt;[2]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;&lt;strong&gt;Kinto&lt;/strong&gt; est un service pour stocker, synchroniser et partager des données
+arbitraires, attachées à un compte Firefox (mais le système d'authentification
+est &lt;em&gt;pluggable&lt;/em&gt;).&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class="docutils footnote" frame="void" id="id7" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id3"&gt;[3]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Cliquetis, la bibliothèque JavaScript pour consommer l'API HTTP de Kinto —
+&lt;a class="reference external" href="https://github.com/mozilla-services/cliquetis"&gt;https://github.com/mozilla-services/cliquetis&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class="docutils footnote" frame="void" id="id8" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id4"&gt;[4]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;La feuille de route de Kinto: &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/wiki/roadmap"&gt;https://github.com/mozilla-services/kinto/wiki/roadmap&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</summary></entry><entry><title>Stocker et interroger les permissions avec Kinto</title><link href="http://www.servicedenuages.fr/stocker-et-interroger-les-permissions-avec-kinto.html" rel="alternate"></link><updated>2015-05-26T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-26:stocker-et-interroger-les-permissions-avec-kinto.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;tl;dr: On a maintenant un super système de permission mais comment faire pour stocker et interroger ces permissions de manière efficace ?&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="section" id="la-problematique"&gt;
+&lt;h2&gt;La problématique&lt;/h2&gt;
+&lt;p&gt;Maintenant que nous avons défini un modèle de gestion des permissions
+sur les objets qui nous satisfait, le problème est de stocker ces
+permissions de manière efficace afin de pouvoir autoriser ou interdire
+l'accès à un objet pour la personne qui fait la requête.&lt;/p&gt;
+&lt;p&gt;Chaque requête sur notre API va générer une ou plusieurs demandes
+d'accès, il faut donc que la réponse soit très rapide sous peine
+d'impacter la vélocité du service.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="obtenir-la-liste-des-principals-d-un-utilisateur"&gt;
+&lt;h2&gt;Obtenir la liste des "principals" d'un utilisateur&lt;/h2&gt;
+&lt;p&gt;Les &lt;em&gt;principals&lt;/em&gt; de l'utilisateur correspondent à son &lt;tt class="docutils literal"&gt;user_id&lt;/tt&gt;
+ainsi qu'à la liste des identifiants des groupes dans lesquels il a
+été ajouté.&lt;/p&gt;
+&lt;p&gt;Pour éviter de recalculer les &lt;em&gt;principals&lt;/em&gt; de l'utilisateur à chaque
+requête, le mieux reste de maintenir une liste des &lt;em&gt;principals&lt;/em&gt; par
+utilisateur.&lt;/p&gt;
+&lt;p&gt;Ainsi lorsqu'on ajoute un utilisateur à un groupe, il faut bien penser
+à ajouter le groupe à la liste des &lt;em&gt;principals&lt;/em&gt; de l'utilisateur.&lt;/p&gt;
+&lt;p&gt;Ça se complexifie lorsqu'on ajoute un groupe à un groupe.&lt;/p&gt;
+&lt;p&gt;Dans un premier temps interdire l'ajout d'un groupe à un groupe est
+une limitation qu'on est prêts à accepter pour simplifier le
+modèle.&lt;/p&gt;
+&lt;p&gt;L'avantage de maintenir la liste des &lt;em&gt;principals&lt;/em&gt; d'un utilisateur
+lors de la modification de cette liste c'est qu'elle est déjà
+construite lors des lectures, qui sont dans notre cas plus fréquentes
+que les écritures.&lt;/p&gt;
+&lt;p&gt;Cela nécessite de donner un identifiant unique aux groupes pour tous
+les &lt;em&gt;buckets&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Nous proposons de de les nommer avec leur URI:
+&lt;tt class="docutils literal"&gt;/buckets/blog/groups/moderators&lt;/tt&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="obtenir-la-liste-des-principals-d-un-ace"&gt;
+&lt;h2&gt;Obtenir la liste des "principals" d'un ACE&lt;/h2&gt;
+&lt;blockquote&gt;
+Rappel, un "ACE" est un &lt;em&gt;Access Control Entry&lt;/em&gt;, un des éléments
+d'une ACL (e.g. &lt;em&gt;modifier un enregistrement&lt;/em&gt;).&lt;/blockquote&gt;
+&lt;p&gt;Avec le &lt;a class="reference external" href="http://www.servicedenuages.fr/la-gestion-des-permissions.html"&gt;système de permissions choisi&lt;/a&gt;, les permissions d'un
+objet héritent de celle de l'objet parent.&lt;/p&gt;
+&lt;p&gt;Par exemple, avoir le droit d'écriture sur un &lt;em&gt;bucket&lt;/em&gt; permet la
+création des permissions et la modification de tous ses records.&lt;/p&gt;
+&lt;p&gt;Ce qui veut dire que pour obtenir la liste complète des &lt;em&gt;principals&lt;/em&gt;
+ayant une permission sur un objet, il faut regarder à plusieurs
+endroits.&lt;/p&gt;
+&lt;p&gt;Rémy a &lt;a class="reference external" href="https://gist.github.com/Natim/77c8f61c1d42e476cef8#file-permission-py-L9-L52"&gt;décrit dans un gist la liste d'héritage de chaque permission&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Prenons l'exemple de l'ajout d'un record dans une collection.&lt;/p&gt;
+&lt;p&gt;Le droit &lt;tt class="docutils literal"&gt;records:create&lt;/tt&gt; est obtenu si l'on a l'un des droits suivants:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;bucket:write&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;collection:write&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;records:create&lt;/tt&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Notre première idée était de stocker les permissions sur chaque objet
+et de maintenir la liste exhaustive des permissions lors d'une
+modification d'ACL. Cependant cela nécessitait de construire cette
+liste lors de l'ajout d'un objet et de mettre à jour tout l'arbre lors
+de sa suppression.  (&lt;em&gt;Je vous laisse imaginer le nombre d'opérations
+nécessaires pour ajouter un administrateur sur un *bucket&lt;/em&gt; contenant
+1000 collections avec 100000 records chacune.*)&lt;/p&gt;
+&lt;p&gt;La solution que nous avons désormais adoptée consiste à stocker les
+&lt;em&gt;principals&lt;/em&gt; de chaque &lt;em&gt;ACE&lt;/em&gt; (&lt;em&gt;qui&lt;/em&gt; a le droit de faire telle action
+sur l'objet), et de faire l'union des &lt;em&gt;ACE&lt;/em&gt; hérités, afin de les
+croiser avec les &lt;em&gt;principals&lt;/em&gt; de l'utilisateur :&lt;/p&gt;
+&lt;blockquote&gt;
+(ACE(object, permission) ∪ inherited_ACE) ∩ PRINCIPALS(user)&lt;/blockquote&gt;
+&lt;p&gt;Par exemple l'ACE: &lt;tt class="docutils literal"&gt;/buckets/blog/collections/article:records:create&lt;/tt&gt; hérite de
+l'ACE &lt;tt class="docutils literal"&gt;/buckets/blog/collections/article:write&lt;/tt&gt; et de &lt;tt class="docutils literal"&gt;/buckets/blog:write&lt;/tt&gt; :&lt;/p&gt;
+&lt;blockquote&gt;
+(ACE(/buckets/blog/collections/article:records:create) ∪ ACE(/buckets/blog/collections/article:write) ∪ ACE(/buckets/blog:write)) ∩ PRINCIPALS('fxa:alexis')&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class="section" id="recuperer-les-donnees-de-l-utilisateur"&gt;
+&lt;h2&gt;Récupérer les données de l'utilisateur&lt;/h2&gt;
+&lt;p&gt;La situation se corse lorsqu'on souhaite limiter la liste des
+&lt;em&gt;records&lt;/em&gt; d'une collection à ceux accessibles pour l'utilisateur, car
+on doit faire cette intersection pour tous les &lt;em&gt;records&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Une première solution est de regarder si l'utilisateur est mentionné
+dans les &lt;em&gt;ACL*s du *bucket&lt;/em&gt; ou de la &lt;em&gt;collection&lt;/em&gt;:&lt;/p&gt;
+&lt;p&gt;Ensuite, si ce n'est pas le cas, alors on filtre les &lt;em&gt;records&lt;/em&gt; pour
+lesquels les &lt;em&gt;principals&lt;/em&gt; correspondent à ceux de l'utilisateur.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;principals&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;get_user_principals&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;user_id&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;can_read_all&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;has_read_perms&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bucket_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;collection_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                              &lt;span class="n"&gt;principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;can_read_all&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;records&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;get_all_records&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bucket_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;collection_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                              &lt;span class="n"&gt;filters&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;records&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;filter_read_records&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bucket_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;collection_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                                  &lt;span class="n"&gt;principals&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;principals&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                                  &lt;span class="n"&gt;filters&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Il faudra faire quelque chose de similaire pour la suppression
+multiple, lorsqu'un utilisateur souhaitera supprimer des
+enregistrements sur lesquels il a les droits de lecture mais pas
+d'écriture.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="le-modele-de-donnees"&gt;
+&lt;h2&gt;Le modèle de données&lt;/h2&gt;
+&lt;p&gt;Pour avoir une idée des requêtes dans un backend SQL, voyons un peu ce
+que donnerait le modèle de données.&lt;/p&gt;
+&lt;div class="section" id="le-format-des-id"&gt;
+&lt;h3&gt;Le format des ID&lt;/h3&gt;
+&lt;p&gt;Utiliser des URI comme identifiant des objets présente de nombreux
+avantages (lisibilité, unicité, cohérence avec les URLs)&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;bucket: &lt;tt class="docutils literal"&gt;/buckets/blog&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;groupe: &lt;tt class="docutils literal"&gt;/buckets/blog/group/moderators&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;collection: &lt;tt class="docutils literal"&gt;/buckets/blog/collections/articles&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;record: &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;/buckets/blog/collections/articles/records/02f3f76f-7059-4ae4-888f-2ac9824e9200&lt;/span&gt;&lt;/tt&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="les-tables"&gt;
+&lt;h3&gt;Les tables&lt;/h3&gt;
+&lt;p&gt;Pour le stockage des principals et des permissions:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;CREATE&lt;/span&gt; &lt;span class="k"&gt;TABLE&lt;/span&gt; &lt;span class="k"&gt;user&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="nb"&gt;TEXT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;principals&lt;/span&gt; &lt;span class="nb"&gt;TEXT&lt;/span&gt;&lt;span class="p"&gt;[]);&lt;/span&gt;
+&lt;span class="k"&gt;CREATE&lt;/span&gt; &lt;span class="k"&gt;TABLE&lt;/span&gt; &lt;span class="n"&gt;perms&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ace&lt;/span&gt; &lt;span class="nb"&gt;TEXT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;principals&lt;/span&gt; &lt;span class="nb"&gt;TEXT&lt;/span&gt;&lt;span class="p"&gt;[]);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;La table &lt;em&gt;perms&lt;/em&gt; va associer des &lt;em&gt;principals&lt;/em&gt; à chaque &lt;em&gt;ACE&lt;/em&gt;
+(e.g.``/buckets/blog:write``).&lt;/p&gt;
+&lt;p&gt;Pour le stockage des données:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;CREATE&lt;/span&gt; &lt;span class="k"&gt;TABLE&lt;/span&gt; &lt;span class="k"&gt;object&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="nb"&gt;TEXT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="nb"&gt;TEXT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;parent_id&lt;/span&gt; &lt;span class="nb"&gt;TEXT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;data&lt;/span&gt; &lt;span class="n"&gt;JSONB&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                    &lt;span class="n"&gt;write_principals&lt;/span&gt; &lt;span class="nb"&gt;TEXT&lt;/span&gt;&lt;span class="p"&gt;[],&lt;/span&gt; &lt;span class="n"&gt;read_principals&lt;/span&gt; &lt;span class="nb"&gt;TEXT&lt;/span&gt;&lt;span class="p"&gt;[]);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;La colonne &lt;em&gt;parent_id&lt;/em&gt; permet de savoir à qui appartient l'objet
+(e.g. groupe d'un &lt;em&gt;bucket&lt;/em&gt;, collection d'un &lt;em&gt;bucket&lt;/em&gt;, &lt;em&gt;record&lt;/em&gt; d'une
+collection, ...).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="exemple-d-utilisateur"&gt;
+&lt;h3&gt;Exemple d'utilisateur&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt; &lt;span class="k"&gt;user&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+     &lt;span class="k"&gt;VALUES&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'fxa:alexis'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'{}'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt; &lt;span class="k"&gt;user&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+     &lt;span class="k"&gt;VALUES&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'fxa:natim'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+             &lt;span class="s1"&gt;'{"/buckets/blog/groups/moderators"}'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="exemple-d-objets"&gt;
+&lt;h3&gt;Exemple d'objets&lt;/h3&gt;
+&lt;div class="section" id="bucket"&gt;
+&lt;h4&gt;Bucket&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt; &lt;span class="k"&gt;object&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;type&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;parent_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                    &lt;span class="n"&gt;read_principals&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;write_principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;VALUES&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="s1"&gt;'/buckets/blog'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'bucket'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="k"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'{"name": "blog"}'&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="n"&gt;JSONB&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'{}'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'{"fxa:alexis"}'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="group"&gt;
+&lt;h4&gt;Group&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt; &lt;span class="k"&gt;object&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;type&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;parent_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                    &lt;span class="n"&gt;read_principals&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;write_principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;VALUES&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="s1"&gt;'/buckets/blog/groups/moderators'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'group'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'/buckets/blog'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'{"name": "moderators", "members": ['&lt;/span&gt;&lt;span class="n"&gt;fxa&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;natim&lt;/span&gt;&lt;span class="s1"&gt;']}'&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="n"&gt;JSONB&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'{}'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'{}'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Ce groupe peut être gére par &lt;tt class="docutils literal"&gt;fxa:alexis&lt;/tt&gt; puisqu'il a la permission
+&lt;tt class="docutils literal"&gt;write&lt;/tt&gt; dans le &lt;em&gt;bucket&lt;/em&gt; parent.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="collection"&gt;
+&lt;h4&gt;Collection&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt; &lt;span class="k"&gt;object&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;type&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;parent_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                    &lt;span class="n"&gt;read_principals&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;write_principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;VALUES&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="s1"&gt;'/buckets/blog/collections/articles'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'collection'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'/buckets/blog'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'{"name": "article"}'&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="n"&gt;JSONB&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'{"system.Everyone"}'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'{"/buckets/blog/groups/moderators"}'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Cette collection d'articles peut être lue par tout le monde,
+et gérée par les membres du groupe &lt;tt class="docutils literal"&gt;moderators&lt;/tt&gt;, ainsi que
+&lt;tt class="docutils literal"&gt;fxa:alexis&lt;/tt&gt;, via le &lt;em&gt;bucket&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="records"&gt;
+&lt;h4&gt;Records&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt; &lt;span class="k"&gt;object&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;type&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;parent_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                    &lt;span class="n"&gt;read_principals&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;write_principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;VALUES&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="s1"&gt;'/buckets/blog/collections/articles/records/02f3f76f-7059-4ae4-888f-2ac9824e9200'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'record'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'/buckets/blog/collections/articles'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'{"name": "02f3f76f-7059-4ae4-888f-2ac9824e9200",&lt;/span&gt;
+&lt;span class="s1"&gt;      "title": "Stocker les permissions", ...}'&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="n"&gt;JSONB&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'{}'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'{}'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="interroger-les-permissions"&gt;
+&lt;h3&gt;Interroger les permissions&lt;/h3&gt;
+&lt;div class="section" id="id1"&gt;
+&lt;h4&gt;Obtenir la liste des "principals" d'un ACE&lt;/h4&gt;
+&lt;p&gt;Comme vu plus haut, pour vérifier une permission, on fait l'union des
+&lt;em&gt;principals&lt;/em&gt; requis par les objets hérités, et on teste leur
+intersection avec ceux de l'utilisateur:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;WITH&lt;/span&gt; &lt;span class="n"&gt;required_principals&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+     &lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="k"&gt;unnest&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;
+       &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;perms&lt;/span&gt;
+      &lt;span class="k"&gt;WHERE&lt;/span&gt; &lt;span class="n"&gt;ace&lt;/span&gt; &lt;span class="k"&gt;IN&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+         &lt;span class="s1"&gt;'/buckets/blog:write'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+         &lt;span class="s1"&gt;'/buckets/blog:read'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+         &lt;span class="s1"&gt;'/buckets/blog/collections/article:write'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+         &lt;span class="s1"&gt;'/buckets/blog/collections/article:read'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+ &lt;span class="p"&gt;),&lt;/span&gt;
+ &lt;span class="n"&gt;user_principals&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+     &lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="k"&gt;unnest&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+       &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="k"&gt;user&lt;/span&gt;
+      &lt;span class="k"&gt;WHERE&lt;/span&gt; &lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'fxa:natim'&lt;/span&gt;
+ &lt;span class="p"&gt;)&lt;/span&gt;
+ &lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="k"&gt;COUNT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+   &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;user_principals&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+  &lt;span class="k"&gt;INNER&lt;/span&gt; &lt;span class="k"&gt;JOIN&lt;/span&gt; &lt;span class="n"&gt;required_principals&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;
+     &lt;span class="k"&gt;ON&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="filtrer-les-objets-en-fonction-des-permissions"&gt;
+&lt;h4&gt;Filtrer les objets en fonction des permissions&lt;/h4&gt;
+&lt;p&gt;Pour filtrer les objets, on fait une simple intersection de liste
+(&lt;em&gt;merci PostgreSQL&lt;/em&gt;):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="k"&gt;data&lt;/span&gt;
+  &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="k"&gt;object&lt;/span&gt; &lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;user&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;
+ &lt;span class="k"&gt;WHERE&lt;/span&gt; &lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'record'&lt;/span&gt;
+   &lt;span class="k"&gt;AND&lt;/span&gt; &lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'/buckets/blog/collections/article'&lt;/span&gt;
+   &lt;span class="k"&gt;AND&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read_principals&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;principals&lt;/span&gt; &lt;span class="k"&gt;OR&lt;/span&gt;
+        &lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write_principals&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+   &lt;span class="k"&gt;AND&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'fxa:natim'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Les listes s'indexent bien, notamment grâce aux &lt;a class="reference external" href="http://www.postgresql.org/docs/current/static/indexes-types.html"&gt;index GIN&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="avec-redis"&gt;
+&lt;h3&gt;Avec Redis&lt;/h3&gt;
+&lt;p&gt;&lt;em&gt;Redis&lt;/em&gt; présente plusieurs avantages pour ce genre de
+problématiques. Notamment, il gère les &lt;em&gt;set&lt;/em&gt; nativement (listes de
+valeurs uniques), ainsi que les opérations d'intersection et d'union.&lt;/p&gt;
+&lt;p&gt;Avec &lt;em&gt;Redis&lt;/em&gt; on peut écrire l'obtention des &lt;em&gt;principals&lt;/em&gt; pour un &lt;em&gt;ACE&lt;/em&gt;
+comme cela :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;SUNIONSTORE temp_perm:/buckets/blog/collections/articles:write  permission:/buckets/blog:write  permission:/buckets/blog/collections/articles:write
+SINTER temp_perm:/buckets/blog/collections/articles:write principals:fxa:alexis
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;SUNIONSTORE&lt;/tt&gt; permet de créer un set contenant les éléments de
+l'union de tous les set suivants. Dans notre cas on le nomme
+&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;temp_perm:/buckets/blog/collections/articles:write&lt;/span&gt;&lt;/tt&gt; et il contient
+l'union des sets d'ACLs suivants:
+- &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;permission:/buckets/blog:write&lt;/span&gt;&lt;/tt&gt;
+- &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;permission:/buckets/blog/collections/articles:write&lt;/span&gt;&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;SINTER&lt;/tt&gt; retourne l'intersection de tous les sets passés en paramètres dans notre cas :
+- &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;temp_perm:/buckets/blog/collections/articles:write&lt;/span&gt;&lt;/tt&gt;
+- &lt;tt class="docutils literal"&gt;principals:fxa:alexis&lt;/tt&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Plus d'informations sur :
+- &lt;a class="reference external" href="http://redis.io/commands/sinter"&gt;http://redis.io/commands/sinter&lt;/a&gt;
+- &lt;a class="reference external" href="http://redis.io/commands/sunionstore"&gt;http://redis.io/commands/sunionstore&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Si le set résultant de la commande &lt;tt class="docutils literal"&gt;SINTER&lt;/tt&gt; n'est pas vide, alors
+l'utilisateur possède la permission.&lt;/p&gt;
+&lt;p&gt;On peut ensuite supprimer la clé temporaire &lt;tt class="docutils literal"&gt;temp_perm&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;En utilisant &lt;tt class="docutils literal"&gt;MULTI&lt;/tt&gt; on peut &lt;a class="reference external" href="https://gist.github.com/Natim/77c8f61c1d42e476cef8#file-permission-py-L117-L124"&gt;même faire tout cela au sein d'une
+transaction&lt;/a&gt;
+et garantir ainsi l'intégrité de la requête.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="conclusion"&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;La solution a l'air simple mais nous a demandé beaucoup de réflexion
+en passant par plusieurs propositions.&lt;/p&gt;
+&lt;p&gt;L'idée finale est d'avoir :&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Un backend spécifique permettant de stocker les &lt;em&gt;principals&lt;/em&gt; des
+utilisateurs et des &lt;em&gt;ACE&lt;/em&gt; (e.g. avec les sets Redis) ;&lt;/li&gt;
+&lt;li&gt;La liste des principals read et write sur la table des objets.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;C'est dommage d'avoir le concept de permissions à deux endroits, mais
+cela permet de connaître rapidement la permission d'un utilisateur sur
+un objet et également de pouvoir récupérer tous les objets d'une
+collection pour un utilisateur si celui-ci n'a pas accès à tous les
+records de la collection, ou toutes les collections du bucket.&lt;/p&gt;
+&lt;/div&gt;
+</summary></entry><entry><title>La gestion des permissions</title><link href="http://www.servicedenuages.fr/la-gestion-des-permissions.html" rel="alternate"></link><updated>2015-05-12T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-12:la-gestion-des-permissions.html</id><summary type="html">&lt;p&gt;Dans le cadre de la création d'un service de stockage de données personnelles
 (Kinto), la gestion des permissions est un des gros challenges : qui doit avoir
 accès à quoi, et comment le définir ?&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;tl;dr: Quelques retours sur le vocabulaire des systèmes de permission et sur nos idées pour l'implementation des permissions dans un stockage générique.&lt;/strong&gt;&lt;/p&gt;
@@ -806,7 +1154,7 @@ de cet évènement fédérateur.&lt;/p&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-</summary></entry><entry><title>Comment passer de LIMIT / OFFSET aux Continuation Tokens ?</title><link href="http://www.servicedenuages.fr/comment-passer-de-limit-offset-aux-continuation-tokens.html" rel="alternate"></link><updated>2015-05-04T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-04:comment-passer-de-limit-offset-aux-continuation-tokens.html</id><summary type="html">&lt;p&gt;Si vous êtes là, c'est que quelqu'un a dû vous le dire : Paginer sur des
+</summary></entry><entry><title>Comment passer de LIMIT / OFFSET aux Continuation Tokens ?</title><link href="http://www.servicedenuages.fr/comment-passer-de-limit-offset-aux-continuation-tokens.html" rel="alternate"></link><updated>2015-05-04T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-04:comment-passer-de-limit-offset-aux-continuation-tokens.html</id><summary type="html">&lt;p&gt;Si vous êtes là, c'est que quelqu'un a dû vous le dire : Paginer sur des
 grosses tables avec LIMIT et OFFSET ne monte pas en charge : plus
 on avance dans les pages, plus c'est lent.&lt;/p&gt;
 &lt;p&gt;C'est dommage parce que c'était facile à appréhender ! La limite donne
