@@ -16,11 +16,11 @@ Aujourd'hui, c'est jour de fête : nous venons de publier Cliquet **2.0**
 
   -- Rémy
 
-**Kinto** est un service pour stocker, synchroniser et partager des données
-arbitraires, attachées à un compte Firefox (mais le système d'authentification
-est *pluggable*).
+`Kinto <https://kinto.readthedocs.org/en/latest/>`_ est un service pour
+stocker, synchroniser et partager des données arbitraires, attachées à un
+compte Firefox (mais le système d'authentification est *pluggable*).
 
-**Cliquet** est une boite à outils pour faciliter l'implémentation de
+`Cliquet <https://cliquet.readthedocs.org/en/latest/>`_ est une boite à outils pour faciliter l'implémentation de
 micro-services HTTP tels que les APIs *REST* ayant des besoins de synchronisation.
 
 Vous pouvez lire plus à propos des raisons qui nous ont poussé à proposer cette nouvelle solution
