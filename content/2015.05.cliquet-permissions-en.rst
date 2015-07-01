@@ -1,0 +1,536 @@
+Handling permissions
+####################
+
+:date: 2015-05-12
+:summary: Where we clarify the vocabulary around permissions and explain what
+          we plan to implement for our generic data storage solution, Kinto.
+:slug: la-gestion-des-permissions
+:lang: en
+
+When creating a generic data storage (Kinto), permissions handling is one of
+the big challenges: who should get access to what, and how should we define
+these rules?
+
+**tl;dr: Some feedback about the permissions vocabulary and our ideas about how
+to implement permissions management in a generic data storage system**
+
+The problem at hand
+===================
+
+The problem we're facing is simple: data is stored online and we need a way to
+share this data with other people.
+
+Looking at the use cases, it's possible to split our users in two categories:
+
+- End users (you);
+- Applications which interact on their behalf.
+
+Different parties don't have the same rights: some should be able to read,
+others should write, yet another should be able to create new records, and all
+this permission handling should be fine-grained: it should be possible to read
+one record but not the other, for instance.
+
+We started from the fact that no available solution was offering an appealing
+solution to these needs.
+
+
+A vocabulary problem
+====================
+
+The principal problem that got in our way during our thinking was the
+vocabulary.
+
+
+Principals
+----------
+
+A *principal*, is an entity that can be authenticated by a computer system.
+It is the actor who does the action. [#]_
+
+It could either be someone, a computer, a service or a group of any of such
+things. This is conceptually wider than the classical "user id*".
+
+Permissions are then associated to these *principals*.
+
+For instance, a user is identified in an unique way when he connects to the
+authentication system, which role is to define a list of *principals* for the
+authenticating user.
+
+.. [#] To read more about *principals* :
+       https://en.wikipedia.org/wiki/Principal_%28computer_security%29
+
+
+The difference between a role and a group
+-----------------------------------------
+
+From scratch, it's not easy to precisely define the difference between these two
+concepts which allow to associate permissions to a group of *principals*. [#]_
+
+The difference is mainly semantic, but we can see a difference in the "direction"
+of the relationship between these two concepts.
+
+- A role is a list of permissions associated to a *principal*;
+- A group is a list of *principals* we can associate to a permission.
+
+.. [#] More information at:
+       http://stackoverflow.com/questions/7770728/group-vs-role-any-real-difference
+
+
+The difference between permission, ACL and ACE
+----------------------------------------------
+
+.. epigraph::
+
+  An ACL is a list of Access Control Entry (ACE) enabling or disabling
+  acces rights to a person or a group.
+
+  -- https://en.wikipedia.org/wiki/Access_Control_List
+
+I would even say, in our case, "to a *principal*". For instance:
+
+.. code-block:: text
+
+    create_record: alexis,remy,tarek
+
+This ACE gives the ``create`` permission on the ``record`` object to the users
+Tarek, Rémy and Alexis.
+
+
+Permissions delegation
+======================
+
+Imagine the following example, where Alice stores two types of data online:
+
+- a list of contacts ;
+- a list of tasks, which can be associated to her contacts.
+
+Alice has all the rights on its data.
+
+However, she's using two applications which should have a restricted access:
+
+- One application to handle contacts, to which she wants to delegate the entire
+  management: ``contacts:write`` ;
+- Another application to handle the tasks, to which she wants to delegate the
+  management of the tasks, and the reading of the contacts: ``contacts:read
+  tasks:write``
+
+She wants to prevent her contacts application to access the tasks and the tasks
+app should not be able to update existing contacts, just eventually creating
+new ones.
+
+She then needs a way to delegate some of her permissions to a third party (the
+app).
+
+That's precisely the role of `OAuth2 scopes
+<http://tools.ietf.org/html/rfc6749#page-23>`_.
+
+During the connection of a user, a window will ask her which access she wants
+to give to the application that will act on her behalf.
+
+The service will then have access to these *scopes* by looking at the
+used authentication token. This information should be considered as a user
+input (that is, we cannot trust it). It is what the user *wants*, not what the
+user *should have access to*.
+
+It's possible that the user don't have access to the requested data. The
+service should use two levels of permissions: the user ones, and the ones that
+were delegated to the application.
+
+
+Namespaces
+==========
+
+In our initial implementation of *Kinto* (our generic data storage service),
+the *namespace* was implicit: stored data was necessarily tied to the connected
+user.
+
+User data were then impossible to share.
+
+*Namespaces* are a simple way to handle the data sharing problem.
+
+We chose to re-use the GitHub and BitBucket mode, which uses "organisations" as
+*namespaces*.
+
+In our case, it's possible to create "buckets", which are one of these
+*namespaces*. A bucket is a container for collections and user groups.
+
+ACLs on these collections can be given to certain groups of the bucket, and
+directly to other *principals*.
+
+
+Our API proposal
+================
+
+Manipulated objects
+-------------------
+
+To handle permissions, we identified the following objects:
+
++-----------------+---------------------------------------------------------+
+| Object          | Description                                             |
++=================+=========================================================+
+| **bucket**      | We can see them as *namespaces*. They allow to have     |
+|                 | different collections having the same name but stored   |
+|                 | in different *buckets* so that data are distinct.       |
++-----------------+---------------------------------------------------------+
+| **collection**  | A list of records.                                      |
++-----------------+---------------------------------------------------------+
+| **record**      | A record from a collection                              |
++-----------------+---------------------------------------------------------+
+| **group**       | A group of principals                                   |
++-----------------+---------------------------------------------------------+
+
+To define ACLs, there is a hierarchy: objects inherit the ACLs from their
+parents.
+
+.. code-block:: text
+
+               +---------------+
+               | Bucket        |
+               +---------------+
+        +----->+ - id          +<---+
+        |      | - permissions |    |
+        |      +---------------+    |
+        |                           |
+        |                           |
+        |                           |
+        |                           |
+        |                           |
+    +---+-----------+        +------+---------+
+    | Collection    |        | Group          |
+    +---------------+        +----------------+
+    | - id          |        |  - id          |
+    | - permissions |        |  - members     |
+    +------+--------+        |  - permissions |
+           ^                 +----------------+
+           |
+           |
+    +------+---------+
+    | Record         |
+    +----------------+
+    |  - id          |
+    |  - data        |
+    |  - permissions |
+    +----------------+
+
+
+Permissions
+-----------
+
+For all of these objects, we identified the following permissions:
+
++------------+-----------------------------------------+
+| Permission | Description                             |
++============+=========================================+
+| **read**   | The permission to read the content of   |
+|            | the object and all its children.        |
++------------+-----------------------------------------+
+| **write**  | The permission to modify and            |
+|            | administration an object and all its    |
+|            | children objects. The *write*           |
+|            | permission allows reading, modification |
+|            | and deletion of objects, and the        |
+|            | handling of permissions on this object. |
++------------+-----------------------------------------+
+| **create** | The permission to create the specified  |
+|            | child object. For instance:             |
+|            | ``collections:create``                  |
++------------+-----------------------------------------+
+
+To each specified permission on an object is associated a list of *principals*.
+
+For the ``create`` permission, we are forced to specify which child the
+permission applies to since an object can have different kind of child nodes.
+For instance: ``collections:create``, ``groups:create``.
+
+We don't have a `delete` and `update` permission so far, because we don't have
+any use case which needs them. Whoever with the ``write`` permission can also
+delete a record.
+
+Permissions from an object are inherited from its parent. For instance,
+a record created in a collection available to anyone will also be available to
+anyone.
+
+Said differently, it's not possible that an object has a more restrictive
+permission that its parent.
+
+Here is a complete list of permissions:
+
++----------------+------------------------+-----------------------------------+
+| Object         | Associated permissions | Comment                           |
++================+========================+===================================+
+| Configuration  | `buckets:create`       | *Principals* who can create       |
+| (.ini)         |                        | a bucket are defined in the       |
+|                |                        | service configuration (for        |
+|                |                        | instance "authenticated users")   |
++----------------+------------------------+-----------------------------------+
+| ``bucket``     | `write`                | The "admin" permission for the    |
+|                |                        | *bucket*.                         |
+|                +------------------------+-----------------------------------+
+|                | `read`                 | The permission to read all the    |
+|                |                        | content of all objects in the     |
+|                |                        | *bucket*.                         |
+|                +------------------------+-----------------------------------+
+|                | `collections:create`   | Permission to create              |
+|                |                        | collections in the *bucket*.      |
+|                +------------------------+-----------------------------------+
+|                | `groups:create`        | Permission to create groups       |
+|                |                        | in the *bucket*.                  |
++----------------+------------------------+-----------------------------------+
+| ``collection`` | `write`                | Permission to administrate all    |
+|                |                        | objects in the collection.        |
+|                +------------------------+-----------------------------------+
+|                | `read`                 | Permission to consult all         |
+|                |                        | objects in the collection.        |
+|                +------------------------+-----------------------------------+
+|                | `records:create`       | Permission to create new          |
+|                |                        | records in the collection.        |
++----------------+------------------------+-----------------------------------+
+| ``record``     | `write`                | Permission to modify or share     |
+|                |                        | the record.                       |
+|                +------------------------+-----------------------------------+
+|                | `read`                 | Permission to read the record.    |
+|                |                        |                                   |
++----------------+------------------------+-----------------------------------+
+| ``group``      | `write`                | Permission to administrate the    |
+|                |                        | group.                            |
+|                +------------------------+-----------------------------------+
+|                | `read`                 | Permission to know the members of |
+|                |                        | the group.                        |
++----------------+------------------------+-----------------------------------+
+
+
+*principals*
+------------
+
+Actors connecting to the storage service can authenticate themselves.
+
+They then receive a list of *principals*:
+
+- ``Everyone``: the *principal* given to all actors (authenticated or not);
+- ``Authenticated``: the *principal* given to all authenticated actors;
+- A *principal* identifying the actor, for instance ``fxa:32aa95a474c984d41d395e2d0b614aa2``
+
+In order to avoid identifiers collisions, the actor *principal* is built from
+the authentication type used (``system``, ``basic``, ``ipaddr``, ``hawk``,
+``fxa``) and the identifier.
+
+Depending the *bucket* on which the action is taking place, the groups the user
+is a member of are also added to her list of principals (e.g.
+``group:moderators``)
+
+So, if Bob connects with his *Firefox Account* on the ``servicedenuages_blog``
+bucket, on which he is a member of the ``moderators`` group, he would have the
+following list of principals:
+``Everyone, Authenticated, fxa:32aa95a474c984d41d395e2d0b614aa2, group:moderators``
+
+It's then possible to assign a permission to Bob by using one of these
+*principals*.
+
+.. note::
+
+    The ``<userid>`` **principal** depends on the authentication *back-end* used (e.g.
+    ``github:leplatrem``).
+
+A few examples
+--------------
+
+**Blog**
+
++-------------------------+-------------+---------------------------------+
+| Object                  | Permissions | Principals                      |
++=========================+=============+=================================+
+| ``bucket:blog``         | ``write``   | ``fxa:<blog owner id>``         |
++-------------------------+-------------+---------------------------------+
+| ``collection:articles`` | ``write``   | ``group:moderators``            |
+|                         +-------------+---------------------------------+
+|                         | ``read``    | ``Everyone``                    |
++-------------------------+-------------+---------------------------------+
+| ``record:569e28r98889`` | ``write``   | ``fxa:<co-author id>``          |
++-------------------------+-------------+---------------------------------+
+
+**Wiki**
+
++-------------------------+-------------+---------------------------------+
+| Object                  | Permissions | Principals                      |
++=========================+=============+=================================+
+| ``bucket:wiki``         | ``write``   | ``fxa:<wiki administrator id>`` |
++-------------------------+-------------+---------------------------------+
+| ``collection:articles`` | ``write``   | ``Authenticated``               |
+|                         +-------------+---------------------------------+
+|                         | ``read``    | ``Everyone``                    |
++-------------------------+-------------+---------------------------------+
+
+**Polls**
+
++-------------------------+-----------------------+--------------------------+
+| Object                  | Permissions           | Principals               |
++=========================+=======================+==========================+
+| ``bucket:poll``         | ``write``             | ``fxa:<admin id>``       |
+|                         +-----------------------+--------------------------+
+|                         | ``collection:create`` | ``Authenticated``        |
++-------------------------+-----------------------+--------------------------+
+| ``collection:<poll id>``| ``write``             | ``fxa:<poll author id>`` |
+|                         +-----------------------+--------------------------+
+|                         | ``record:create``     | ``Everyone``             |
++-------------------------+-----------------------+--------------------------+
+
+**Collaborative maps**
+
++-------------------------+-----------------------+--------------------------+
+| Object                  | Permissions           | Principals               |
++=========================+=======================+==========================+
+| ``bucket:maps``         | ``write``             | ``fxa:<admin id>``       |
+|                         +-----------------------+--------------------------+
+|                         | ``collection:create`` | ``Authenticated``        |
++-------------------------+-----------------------+--------------------------+
+| ``collection:<map id>`` | ``write``             | ``fxa:<map author id>``  |
+|                         +-----------------------+--------------------------+
+|                         | ``read``              | ``Everyone``             |
++-------------------------+-----------------------+--------------------------+
+| ``record:<record id>``  | ``write``             | ``fxa:<maintainer id>``  |
+|                         |                       | (*ex. event staff member |
+|                         |                       | maintaining venues*)     |
++-------------------------+-----------------------+--------------------------+
+
+**Platforms**
+
+Of course, there are many ways to modelize common use cases. For instance, it's
+possible to imagine a wiki platform (ala wikia.com) where wikis are private by
+default and some pages can be published:
+
+
++-------------------------+-----------------------+-----------------------------+
+| Object                  | Permissions           | Principals                  |
++=========================+=======================+=============================+
+| ``bucket:freewiki``     | ``write``             |``fxa:<administrator id>``   |
+|                         +-----------------------+-----------------------------+
+|                         | ``collection:create`` | ``Authenticated``           |
+|                         +-----------------------+-----------------------------+
+|                         | ``group:create``      | ``Authenticated``           |
++-------------------------+-----------------------+-----------------------------+
+| ``collection:<wiki id>``| ``write``             | ``fxa:<wiki owner id>``,    |
+|                         |                       | ``group:<editors id>``      |
+|                         +-----------------------+-----------------------------+
+|                         | ``read``              | ``group:<readers id>``      |
++-------------------------+-----------------------+-----------------------------+
+| ``record:<page id>``    | ``read``              | ``Everyone``                |
++-------------------------+-----------------------+-----------------------------+
+
+
+The HTTP API
+------------
+
+During the creation of an object, the user is given the ``write`` permission on
+the object:
+
+.. code-block:: http
+
+    PUT /v1/buckets/servicedenuages_blog HTTP/1.1
+    Authorization: Bearer 0b9c2625dc21ef05f6ad4ddf47c5f203837aa32ca42fced54c2625dc21efac32
+    Accept: application/json
+
+    HTTP/1.1 201 Created
+    Content-Type: application/json; charset=utf-8
+
+    {
+        "id": "servicedenuages_blog",
+        "permissions": {
+            "write": ["fxa:49d02d55ad10973b7b9d0dc9eba7fdf0"]
+        }
+    }
+
+It's possible to add permissions using the ``PATCH`` HTTP method.
+
+.. code-block:: http
+
+    PATCH /v1/buckets/servicedenuages_blog/collections/articles HTTP/1.1
+    Authorization: Bearer 0b9c2625dc21ef05f6ad4ddf47c5f203837aa32ca42fced54c2625dc21efac32
+    Accept: application/json
+
+    {
+        "permissions": {
+            "read": ["+system.Everyone"]
+        }
+    }
+
+    HTTP/1.1 201 Created
+    Content-Type: application/json; charset=utf-8
+
+    {
+        "id": "servicedenuages_blog",
+        "permissions": {
+            "write": ["fxa:49d02d55ad10973b7b9d0dc9eba7fdf0"],
+            "read": ["system.Everyone"]
+        }
+    }
+
+For ``PATCH``, we are thinking about using a syntax prefixed with a ``+`` or
+a ``-`` to add or remove *principals* on an ACL.
+
+It is also possible to do a ``PUT`` to reset the ACLs, knowing that the ``PUT``
+will then add the current user to the list. It's possible to use a ``PATCH`` to
+remove herself from the list. Adding the current user allows to avoid
+situations where nobody has access to the data anymore.
+
+.. note:: 
+
+    The ``create`` permission is used for a ``POST`` but also for a ``PUT``
+    when the record doesn't exist.
+
+
+The specific case of user data
+------------------------------
+
+One of the current feature of *Kinto* is to handle record collections by user.
+
+On *\*nix* systems, it's possible, for an application, to save configuration
+for the current user in her personal folder, without bothering about its
+specific location, using ``~``.
+
+In our case, if an application want to save contacts for a user, it can use
+a shortcut to reference the *personal* bucket of the user:
+``/buckets/personal/collections/contacts``.
+
+This URL will return a ``HTTP 307`` to the current user *bucket*.
+
+.. code-block:: http
+
+    POST /v1/buckets/personal/collections/contacts/records HTTP/1.1
+
+    {
+       "name": "Rémy",
+       "emails": ["remy@example.com"],
+       "phones": ["+330820800800"]
+    }
+
+    HTTP/1.1 307 Temporary Redirect
+    Location: /v1/buckets/fxa:49d02d55ad10973b7b9d0dc9eba7fdf0/collections/contacts/records
+
+Like so, it's possible for Alice to share her contacts with Bob. She just have
+to give the ``read`` permission to Bob on her collection and give him the
+complete URL:
+``/v1/buckets/fxa:49d02d55ad10973b7b9d0dc9eba7fdf0/collections/contacts/records``.
+
+Permissions delegation
+----------------------
+
+In *Kinto*, we defined a format to restrict permissions using OAuth2 scopes:
+``storage:<bucket_id>:<collection_id>:<permissions_list>``.
+
+Taking back the previous *tasks* example, it is possible for Bob to create
+a specific OAuth2 token with the following *scopes*:
+``profile storage:todolist:tasks:write storage:personal:contacts:read+records:create``
+
+Like so, even if Bob has the ``write`` permission on his contacts, the
+application using this token will only be able to read the existing contacts
+and add new ones.
+
+One part of the complexity is to manage presenting these *scopes* in a readable
+way to the user, so she or he is able to chose which permissions to give to the
+applications acting on her behalf.
+
+So, here is where we're at with our thinking!
+
+If you have things to add or discuss with this proposal, don't hesitate to
+interrupt us while it's still possible!
