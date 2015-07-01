@@ -8,7 +8,8 @@ Handling permissions
 :lang: en
 
 When creating a generic data storage (Kinto), permissions handling is one of
-the big challenges: who should get access to what, and how should we define it?
+the big challenges: who should get access to what, and how should we define
+these rules?
 
 **tl;dr: Some feedback about the permissions vocabulary and our ideas about how
 to implement permissions management in a generic data storage system**
@@ -21,15 +22,15 @@ share this data with other people.
 
 Looking at the use cases, it's possible to split our users in two categories:
 
-- "Final" users (you);
+- End users (you);
 - Applications which interact on their behalf.
 
 Different parties don't have the same rights: some should be able to read,
 others should write, yet another should be able to create new records, and all
-this permission handling should be fine grained: it should be possible to read
+this permission handling should be fine-grained: it should be possible to read
 one record but not the other, for instance.
 
-We started from the fact that no available solution were offering an appealing
+We started from the fact that no available solution was offering an appealing
 solution to these needs.
 
 
@@ -51,7 +52,7 @@ things. This is conceptually wider than the classical "user id*".
 
 Permissions are then associated to these *principals*.
 
-For instance, an user is identified in an unique way when he connects to the
+For instance, a user is identified in an unique way when he connects to the
 authentication system, which role is to define a list of *principals* for the
 authenticating user.
 
@@ -98,17 +99,17 @@ Tarek, Rémy and Alexis.
 Permissions delegation
 ======================
 
-Imagine the following example, where an user stores two types of data online:
+Imagine the following example, where Alice stores two types of data online:
 
-- contacts ;
+- a list of contacts ;
 - a list of tasks, which can be associated to her contacts.
 
-The user has all the rights on its data.
+Alice has all the rights on its data.
 
 However, she's using two applications which should have a restricted access:
 
 - One application to handle contacts, to which she wants to delegate the entire
-  management of the contacts: ``contacts:write`` ;
+  management: ``contacts:write`` ;
 - Another application to handle the tasks, to which she wants to delegate the
   management of the tasks, and the reading of the contacts: ``contacts:read
   tasks:write``
@@ -123,11 +124,11 @@ app).
 That's precisely the role of `OAuth2 scopes
 <http://tools.ietf.org/html/rfc6749#page-23>`_.
 
-During the connection of an user, a window will ask her which access she want
+During the connection of a user, a window will ask her which access she wants
 to give to the application that will act on her behalf.
 
 The service will then have access to these *scopes* by looking at the
-used authentication token. This information should be considered as an user
+used authentication token. This information should be considered as a user
 input (that is, we cannot trust it). It is what the user *wants*, not what the
 user *should have access to*.
 
@@ -174,7 +175,7 @@ To handle permissions, we identified the following objects:
 +-----------------+---------------------------------------------------------+
 | **collection**  | A list of records.                                      |
 +-----------------+---------------------------------------------------------+
-| **record**      | A record of a collection                                |
+| **record**      | A record from a collection                              |
 +-----------------+---------------------------------------------------------+
 | **group**       | A group of principals                                   |
 +-----------------+---------------------------------------------------------+
@@ -228,7 +229,7 @@ For all of these objects, we identified the following permissions:
 |            | administration an object and all its    |
 |            | children objects. The *write*           |
 |            | permission allows reading, modification |
-|            | and deletion of an objects, and the     |
+|            | and deletion of objects, and the        |
 |            | handling of permissions on this object. |
 +------------+-----------------------------------------+
 | **create** | The permission to create the specified  |
@@ -311,8 +312,8 @@ They then receive a list of *principals*:
 - A *principal* identifying the actor, for instance ``fxa:32aa95a474c984d41d395e2d0b614aa2``
 
 In order to avoid identifiers collisions, the actor *principal* is built from
-the authentication type she used (``system``, ``basic``, ``ipaddr``, ``hawk``,
-``fxa``) and her identifier.
+the authentication type used (``system``, ``basic``, ``ipaddr``, ``hawk``,
+``fxa``) and the identifier.
 
 Depending the *bucket* on which the action is taking place, the groups the user
 is a member of are also added to her list of principals (e.g.
@@ -487,7 +488,7 @@ On *\*nix* systems, it's possible, for an application, to save configuration
 for the current user in her personal folder, without bothering about its
 specific location, using ``~``.
 
-In our case, if an application want to save contacts for an user, it can use
+In our case, if an application want to save contacts for a user, it can use
 a shortcut to reference the *personal* bucket of the user:
 ``/buckets/personal/collections/contacts``.
 
@@ -525,8 +526,8 @@ Like so, even if Bob has the ``write`` permission on his contacts, the
 application using this token will only be able to read the existing contacts
 and add new ones.
 
-One part of the complexity is to manage to present these *scopes* in a readable
-way to the user, so she is able to chose which permissions to give to the
+One part of the complexity is to manage presenting these *scopes* in a readable
+way to the user, so she or he is able to chose which permissions to give to the
 applications acting on her behalf.
 
 So, here is where we're at with our thinking!

@@ -9,7 +9,7 @@ Service de nuages !
 A bunch of changes since the beginning of the year for the "cloud-services"
 frenchies!
 
-First of all, two new recruits are here to complement the team: 
+First of all, two new recruits are here to complement the team:
 `n1k0 <https://nicolas.perriault.net/>`_ and `Mathieu
 <http://mathieu-leplatre.info>`_ are now helping out `Tarek
 <http://ziade.org/>`_, `Rémy <http://natim.ionyse.com>`_ and `Alexis
@@ -44,18 +44,18 @@ deeply.
 .. _Firefox Sync: https://github.com/mozilla-services/server-syncstorage
 .. _Cornice: http://cornice.readthedocs.org/
 
-We could also have created yet another application which exposes an API and
-persists data in a database.
+We could also have created yet another application to expose an API and
+persist data in a database.
 
-But, this little new team isn't here just by luck :)
+But, this little new team isn't here just by luck.
 
 The «Daybed Team»
 -----------------
 
-We share a vision: a generic data storage service ! Maybe it brings to memories
-`a certain project named Daybed <https://daybed.io>`_ ?
+We share a vision: a generic data storage service! Maybe it brings to memories
+`a certain project named Daybed <https://daybed.io>`_?
 
-For client applications, Javascript or other, using this service should be as
+For client applications, JavaScript or other, using this service should be as
 easy as a pie! The application handles its data locally (offline-first) and
 synchronizes upon request.
 
@@ -80,7 +80,7 @@ The one-way mechanism
 
 As a first stone to build the cathedral, we created `Cliquet
 <https://cliquet.readthedocs.org>`_, which main idea is to have an
-implementation of this protocol in python, while factorizing all our good
+implementation of this protocol in Python, while factorizing all our good
 practices (notably for putting everything in production).
 
 .. image:: {filename}/images/cliquet-logo.png
@@ -98,14 +98,14 @@ of the project is dramatically reduced to a dozen lines of code.
 As to the future generic data storage service, `the project
 <http://kinto.readthedocs.org>`_ just started but it really is!
 It can already be used as a storage backend in a *Cliquet* application, and
-this `implemented in 20 lines of code
-<https://github.com/mozilla-services/kinto/blob/0.2.1/kinto/views/collection.py>`_!
+this was `implemented in only 20 lines of code
+<https://github.com/mozilla-services/kinto/blob/0.2.1/kinto/views/collection.py>`_.
 
-Oh, and this time we will build features only from real use cases which come
-along the way. It might seem silly, but on *Daybed* we haven't seen it coming :)
+Oh, and this time we will build features only from real use cases which are
+coming along the way. It might seem silly, but on *Daybed* we never made that point.
 
 In future articles, we want to describe the good practices we put together in
 the protocol (or *Cliquet*), certain specific technical points and present our
 vision with examples and tutorials.
 
-See you soon, then !
+See you soon, then!
