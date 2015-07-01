@@ -1,7 +1,9 @@
 Retours des APIdays Barcelona
 #############################
 
+:lang: fr
 :date: 2015-05-11
+:url: apidays-barcelona-retours
 :summary: Retours d'une riche journée de conférences et d'échanges aux APIdays Barcelona.
 
 Cette journée aux APIDays Barcelona a été d'une rare richesse ! Pour commencer, bravo à toute l'équipe et

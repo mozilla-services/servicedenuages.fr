@@ -2,10 +2,11 @@ Handling permissions
 ####################
 
 :date: 2015-05-12
-:summary: Where we clarify the vocabulary around permissions and explain what
-          we plan to implement for our generic data storage solution, Kinto.
 :slug: la-gestion-des-permissions
 :lang: en
+:url: handling-permissions
+:summary: Where we clarify the vocabulary around permissions and explain what
+          we plan to implement for our generic data storage solution, Kinto.
 
 When creating a generic data storage (Kinto), permissions handling is one of
 the big challenges: who should get access to what, and how should we define

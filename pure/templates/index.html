@@ -7,6 +7,11 @@
         <div class="content">
             <!-- A wrapper for all the blog posts -->
             <div class="posts">
+                {% if DEFAULT_LANG == 'fr' %}
+                Articles are also available <a href="{{ lang_siteurls['en'] }}">in english</a>.
+                {% else %}
+                Les articles sont aussi disponibles <a href="{{ lang_siteurls['fr'] }}">en français</a>.
+                {% endif %}
                 <h1 class="content-subhead">
                     {% block pagetitle %}
                         {% if not articles_page.has_previous() %}

@@ -2,6 +2,9 @@ La gestion des permissions
 ##########################
 
 :date: 2015-05-12
+:slug: la-gestion-des-permissions
+:lang: fr
+:url: la-gestion-des-permissions
 :summary: Démystification du vocabulaire des permissions et proposition d'implémentation pour Kinto
 
 Dans le cadre de la création d'un service de stockage de données personnelles

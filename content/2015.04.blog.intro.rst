@@ -1,8 +1,10 @@
 Le printemps
 ############
 
+:slug: le-printemps
 :date: 2015-04-15
-
+:lang: fr
+:url: printemps
 
 C'est le printemps et n'en déplaise à certains, il est temps de faire
 un peu de ménage.

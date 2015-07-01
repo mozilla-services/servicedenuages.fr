@@ -42,6 +42,10 @@ MENUITEMS = (
 STATIC_PATHS = ['images', 'documents', 'extra/CNAME', 'presentations']
 EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}}
 
+ARTICLE_URL = '{url}.html'
+ARTICLE_SAVE_AS = '{url}.html'
+
 PLUGIN_PATHS = ['plugins']
-PLUGINS = ['post_stats', 'better_figures_and_images']
+PLUGINS = ['post_stats', 'better_figures_and_images', 'i18n_subsites']
+I18N_SUBSITES = {'en': {}, }  # Override any default settings.
 RESPONSIVE_IMAGES = True

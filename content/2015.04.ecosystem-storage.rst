@@ -4,6 +4,9 @@ Ecosystem & generic storage
 :date: 2015-04-30
 :slug: eco-systeme-et-stockage-generique
 :lang: en
+:url: generic-storage-ecosystem
+:summary: Should we build yet another generic storage system? Panorama of some
+          existing solutions and our use cases.
 
 .. note::
 

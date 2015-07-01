@@ -3,7 +3,11 @@ Eco-système et stockage générique
 
 :date: 2015-04-30
 :slug: eco-systeme-et-stockage-generique
-
+:lang: fr
+:url: stockage-generique-ecosysteme
+:summary: Devons nous construire un nouveau système de stockage générique ?
+          Petit tour de quelques solutions existantes et de nos cas
+          d'utilisation.
 
 **tl;dr Nous devons construire un service de suivi de paiements, et nous
 hésitons à continuer à nous entêter avec notre propre solution de
