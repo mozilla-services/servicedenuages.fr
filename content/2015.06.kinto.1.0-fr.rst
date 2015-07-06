@@ -6,6 +6,7 @@ Achievement unlocked
           et Kinto 1.0 !
 :lang: fr
 :slug: kinto-1.0-released
+:url: kinto-1.0
 
 Aujourd'hui, c'est jour de fête : nous venons de publier Cliquet **2.0**
 [#]_ et Kinto **1.0** [#]_.

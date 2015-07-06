@@ -1,6 +1,7 @@
 Stocker et interroger les permissions avec Kinto
 ################################################
 
+:url: stocker-et-interroger-les-permissions
 :date: 2015-05-26
 :summary: Comment faire pour stocker et interroger la base de données au sujet des permissions avec Kinto ?
 
