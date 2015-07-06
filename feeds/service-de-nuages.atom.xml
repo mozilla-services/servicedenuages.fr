@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/service-de-nuages.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-06-17T00:00:00+02:00</updated><entry><title>Achievement unlocked</title><link href="http://www.servicedenuages.fr/kinto-1.0-released.html" rel="alternate"></link><updated>2015-06-17T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-06-17:kinto-1.0-released.html</id><summary type="html">&lt;p&gt;Aujourd'hui, c'est jour de fête : nous venons de publier Cliquet &lt;strong&gt;2.0&lt;/strong&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/service-de-nuages.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-06-17T00:00:00+02:00</updated><entry><title>Achievement unlocked</title><link href="http://www.servicedenuages.fr/kinto-1.0" rel="alternate"></link><updated>2015-06-17T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-06-17:kinto-1.0</id><summary type="html">&lt;p&gt;Aujourd'hui, c'est jour de fête : nous venons de publier Cliquet &lt;strong&gt;2.0&lt;/strong&gt;
 &lt;a class="footnote-reference" href="#id5" id="id1"&gt;[1]&lt;/a&gt; et Kinto &lt;strong&gt;1.0&lt;/strong&gt; &lt;a class="footnote-reference" href="#id6" id="id2"&gt;[2]&lt;/a&gt;.&lt;/p&gt;
 &lt;blockquote class="epigraph"&gt;
 &lt;p&gt;L'aboutissement de 3 années de R&amp;amp;D !&lt;/p&gt;
@@ -61,7 +61,7 @@ est &lt;em&gt;pluggable&lt;/em&gt;).&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id4"&gt;[4]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;La feuille de route de Kinto: &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/wiki/roadmap"&gt;https://github.com/mozilla-services/kinto/wiki/roadmap&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-</summary></entry><entry><title>Stocker et interroger les permissions avec Kinto</title><link href="http://www.servicedenuages.fr/stocker-et-interroger-les-permissions-avec-kinto.html" rel="alternate"></link><updated>2015-05-26T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-26:stocker-et-interroger-les-permissions-avec-kinto.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;tl;dr: On a maintenant un super système de permission mais comment faire pour stocker et interroger ces permissions de manière efficace ?&lt;/strong&gt;&lt;/p&gt;
+</summary></entry><entry><title>Stocker et interroger les permissions avec Kinto</title><link href="http://www.servicedenuages.fr/stocker-et-interroger-les-permissions" rel="alternate"></link><updated>2015-05-26T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-26:stocker-et-interroger-les-permissions</id><summary type="html">&lt;p&gt;&lt;strong&gt;tl;dr: On a maintenant un super système de permission mais comment faire pour stocker et interroger ces permissions de manière efficace ?&lt;/strong&gt;&lt;/p&gt;
 &lt;div class="section" id="la-problematique"&gt;
 &lt;h2&gt;La problématique&lt;/h2&gt;
 &lt;p&gt;Maintenant que nous avons défini un modèle de gestion des permissions
@@ -100,7 +100,7 @@ les &lt;em&gt;buckets&lt;/em&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
 Rappel, un "ACE" est un &lt;em&gt;Access Control Entry&lt;/em&gt;, un des éléments
 d'une ACL (e.g. &lt;em&gt;modifier un enregistrement&lt;/em&gt;).&lt;/blockquote&gt;
-&lt;p&gt;Avec le &lt;a class="reference external" href="http://www.servicedenuages.fr/la-gestion-des-permissions.html"&gt;système de permissions choisi&lt;/a&gt;, les permissions d'un
+&lt;p&gt;Avec le &lt;a class="reference external" href="http://www.servicedenuages.fr/la-gestion-des-permissions"&gt;système de permissions choisi&lt;/a&gt;, les permissions d'un
 objet héritent de celle de l'objet parent.&lt;/p&gt;
 &lt;p&gt;Par exemple, avoir le droit d'écriture sur un &lt;em&gt;bucket&lt;/em&gt; permet la
 création des permissions et la modification de tous ses records.&lt;/p&gt;
@@ -347,7 +347,7 @@ un objet et également de pouvoir récupérer tous les objets d'une
 collection pour un utilisateur si celui-ci n'a pas accès à tous les
 records de la collection, ou toutes les collections du bucket.&lt;/p&gt;
 &lt;/div&gt;
-</summary></entry><entry><title>La gestion des permissions</title><link href="http://www.servicedenuages.fr/la-gestion-des-permissions.html" rel="alternate"></link><updated>2015-05-12T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-12:la-gestion-des-permissions.html</id><summary type="html">&lt;p&gt;Dans le cadre de la création d'un service de stockage de données personnelles
+</summary></entry><entry><title>La gestion des permissions</title><link href="http://www.servicedenuages.fr/la-gestion-des-permissions" rel="alternate"></link><updated>2015-05-12T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-12:la-gestion-des-permissions</id><summary type="html">&lt;p&gt;Dans le cadre de la création d'un service de stockage de données personnelles
 (Kinto), la gestion des permissions est un des gros challenges : qui doit avoir
 accès à quoi, et comment le définir ?&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;tl;dr: Quelques retours sur le vocabulaire des systèmes de permission et sur nos idées pour l'implementation des permissions dans un stockage générique.&lt;/strong&gt;&lt;/p&gt;
@@ -952,7 +952,7 @@ donner aux applications qui agissent en son nom.&lt;/p&gt;
 réflexions, n'hésitez pas à nous interrompre pendant qu'il est encore temps !&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</summary></entry><entry><title>Retours des APIdays Barcelona</title><link href="http://www.servicedenuages.fr/retours-des-apidays-barcelona.html" rel="alternate"></link><updated>2015-05-11T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-11:retours-des-apidays-barcelona.html</id><summary type="html">&lt;p&gt;Cette journée aux APIDays Barcelona a été d'une rare richesse ! Pour commencer, bravo à toute l'équipe et
+</summary></entry><entry><title>Retours des APIdays Barcelona</title><link href="http://www.servicedenuages.fr/apidays-barcelona-retours" rel="alternate"></link><updated>2015-05-11T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-11:apidays-barcelona-retours</id><summary type="html">&lt;p&gt;Cette journée aux APIDays Barcelona a été d'une rare richesse ! Pour commencer, bravo à toute l'équipe et
 tous les participants !&lt;/p&gt;
 &lt;div class="figure align-center" style="width: 1024px; height: auto; max-width: 100%;"&gt;
 &lt;img alt="@thetonyblank — https://twitter.com/thetonyblank/status/595860394561921025" src="http://www.servicedenuages.fr/images/apidays-room.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
@@ -1154,7 +1154,7 @@ de cet évènement fédérateur.&lt;/p&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-</summary></entry><entry><title>Comment passer de LIMIT / OFFSET aux Continuation Tokens ?</title><link href="http://www.servicedenuages.fr/comment-passer-de-limit-offset-aux-continuation-tokens.html" rel="alternate"></link><updated>2015-05-04T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-04:comment-passer-de-limit-offset-aux-continuation-tokens.html</id><summary type="html">&lt;p&gt;Si vous êtes là, c'est que quelqu'un a dû vous le dire : Paginer sur des
+</summary></entry><entry><title>Utiliser les continuation tokens pour sa pagination</title><link href="http://www.servicedenuages.fr/pagination-continuation-token" rel="alternate"></link><updated>2015-05-04T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-04:pagination-continuation-token</id><summary type="html">&lt;p&gt;Si vous êtes là, c'est que quelqu'un a dû vous le dire : Paginer sur des
 grosses tables avec LIMIT et OFFSET ne monte pas en charge : plus
 on avance dans les pages, plus c'est lent.&lt;/p&gt;
 &lt;p&gt;C'est dommage parce que c'était facile à appréhender ! La limite donne
@@ -1564,10 +1564,10 @@ sur des champs prédéfinis ?&lt;/p&gt;
 &lt;p&gt;Si votre condition de pagination est fixe, vous allez pouvoir créer
 les index nécessaires et optimiser au maximum vos requêtes de pagination.&lt;/p&gt;
 &lt;/div&gt;
-</summary></entry><entry><title>Eco-système et stockage générique</title><link href="http://www.servicedenuages.fr/eco-systeme-et-stockage-generique.html" rel="alternate"></link><updated>2015-04-30T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-30:eco-systeme-et-stockage-generique.html</id><summary type="html">&lt;p&gt;&lt;strong&gt;tl;dr Nous devons construire un service de suivi de paiements, et nous
+</summary></entry><entry><title>Eco-système et stockage générique</title><link href="http://www.servicedenuages.fr/stockage-generique-ecosysteme" rel="alternate"></link><updated>2015-04-30T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-30:stockage-generique-ecosysteme</id><summary type="html">&lt;p&gt;&lt;strong&gt;tl;dr Nous devons construire un service de suivi de paiements, et nous
 hésitons à continuer à nous entêter avec notre propre solution de
 stockage/synchronisation.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Comme nous l'écrivions &lt;a class="reference external" href="http://www.servicedenuages.fr/service-de-nuages.html"&gt;dans l'article précédent&lt;/a&gt;, nous souhaitons construire une
+&lt;p&gt;Comme nous l'écrivions &lt;a class="reference external" href="http://www.servicedenuages.fr/service-de-nuages"&gt;dans l'article précédent&lt;/a&gt;, nous souhaitons construire une
 solution de stockage générique. On refait &lt;a class="reference external" href="http://daybed.readthedocs.org"&gt;Daybed&lt;/a&gt;
 chez Mozilla !&lt;/p&gt;
 &lt;p&gt;Notre objectif est simple: permettre aux développeurs d'application, internes
@@ -1858,7 +1858,7 @@ permet de partager publiquement des ressources de son &lt;em&gt;remote Storage&l
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-</summary></entry><entry><title>Service de nuages !</title><link href="http://www.servicedenuages.fr/service-de-nuages.html" rel="alternate"></link><updated>2015-04-16T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-16:service-de-nuages.html</id><summary type="html">&lt;p&gt;Pas mal de changements depuis le début de l'année pour l'équipe
+</summary></entry><entry><title>Service de nuages !</title><link href="http://www.servicedenuages.fr/service-de-nuages" rel="alternate"></link><updated>2015-04-16T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-16:service-de-nuages</id><summary type="html">&lt;p&gt;Pas mal de changements depuis le début de l'année pour l'équipe
 «cloud-services» francophone!&lt;/p&gt;
 &lt;p&gt;Tout d'abord, nouvelle importante, l'équipe s'étoffe avec des profils assez
 complémentaires: &lt;a class="reference external" href="https://nicolas.perriault.net/"&gt;n1k0&lt;/a&gt; et &lt;a class="reference external" href="http://mathieu-leplatre.info"&gt;Mathieu&lt;/a&gt; sont venus prêter main forte à &lt;a class="reference external" href="http://ziade.org/"&gt;Tarek&lt;/a&gt;, &lt;a class="reference external" href="http://natim.ionyse.com"&gt;Rémy&lt;/a&gt; et &lt;a class="reference external" href="http://notmyidea.org"&gt;Alexis&lt;/a&gt;.&lt;/p&gt;
@@ -1927,7 +1927,7 @@ rassemblées dans le protocole (ou &lt;em&gt;Cliquet&lt;/em&gt;), certains point
 et de vous présenter notre vision via des exemples et tutoriaux.&lt;/p&gt;
 &lt;p&gt;À bientôt, donc !&lt;/p&gt;
 &lt;/div&gt;
-</summary></entry><entry><title>Le printemps</title><link href="http://www.servicedenuages.fr/le-printemps.html" rel="alternate"></link><updated>2015-04-15T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-15:le-printemps.html</id><summary type="html">&lt;p&gt;C'est le printemps et n'en déplaise à certains, il est temps de faire
+</summary></entry><entry><title>Le printemps</title><link href="http://www.servicedenuages.fr/printemps" rel="alternate"></link><updated>2015-04-15T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-15:printemps</id><summary type="html">&lt;p&gt;C'est le printemps et n'en déplaise à certains, il est temps de faire
 un peu de ménage.&lt;/p&gt;
 &lt;p&gt;Voilà quelques temps que nous accumulons les expériences et que nous
 ne les partagions plus tellement par écrit.&lt;/p&gt;

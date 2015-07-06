@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>Handling permissions // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/en/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Publié</h5>
+                <p title="~1889 mots">~8mn de lecture 🕑</p>
+                <p>mar. 12 mai 2015</p>
+                <a href="/">&larr;Liste des articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Handling permissions</h1>
+                </header>
+            </section>
+                        <p><a href="http://www.servicedenuages.fr/en/../la-gestion-des-permissions">Lire la version française</a></p>
+            <p>When creating a generic data storage (Kinto), permissions handling is one of
+the big challenges: who should get access to what, and how should we define
+these rules?</p>
+<p><strong>tl;dr: Some feedback about the permissions vocabulary and our ideas about how
+to implement permissions management in a generic data storage system</strong></p>
+<div class="section" id="the-problem-at-hand">
+<h2>The problem at hand</h2>
+<p>The problem we're facing is simple: data is stored online and we need a way to
+share this data with other people.</p>
+<p>Looking at the use cases, it's possible to split our users in two categories:</p>
+<ul class="simple">
+<li>End users (you);</li>
+<li>Applications which interact on their behalf.</li>
+</ul>
+<p>Different parties don't have the same rights: some should be able to read,
+others should write, yet another should be able to create new records, and all
+this permission handling should be fine-grained: it should be possible to read
+one record but not the other, for instance.</p>
+<p>We started from the fact that no available solution was offering an appealing
+solution to these needs.</p>
+</div>
+<div class="section" id="a-vocabulary-problem">
+<h2>A vocabulary problem</h2>
+<p>The principal problem that got in our way during our thinking was the
+vocabulary.</p>
+<div class="section" id="principals">
+<h3>Principals</h3>
+<p>A <em>principal</em>, is an entity that can be authenticated by a computer system.
+It is the actor who does the action. <a class="footnote-reference" href="#id2" id="id1">[1]</a></p>
+<p>It could either be someone, a computer, a service or a group of any of such
+things. This is conceptually wider than the classical "user id*".</p>
+<p>Permissions are then associated to these <em>principals</em>.</p>
+<p>For instance, a user is identified in an unique way when he connects to the
+authentication system, which role is to define a list of <em>principals</em> for the
+authenticating user.</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label"></col><col></col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>To read more about <em>principals</em> :
+<a class="reference external" href="https://en.wikipedia.org/wiki/Principal_%28computer_security%29">https://en.wikipedia.org/wiki/Principal_%28computer_security%29</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="the-difference-between-a-role-and-a-group">
+<h3>The difference between a role and a group</h3>
+<p>From scratch, it's not easy to precisely define the difference between these two
+concepts which allow to associate permissions to a group of <em>principals</em>. <a class="footnote-reference" href="#id4" id="id3">[2]</a></p>
+<p>The difference is mainly semantic, but we can see a difference in the "direction"
+of the relationship between these two concepts.</p>
+<ul class="simple">
+<li>A role is a list of permissions associated to a <em>principal</em>;</li>
+<li>A group is a list of <em>principals</em> we can associate to a permission.</li>
+</ul>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label"></col><col></col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td>More information at:
+<a class="reference external" href="http://stackoverflow.com/questions/7770728/group-vs-role-any-real-difference">http://stackoverflow.com/questions/7770728/group-vs-role-any-real-difference</a></td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="the-difference-between-permission-acl-and-ace">
+<h3>The difference between permission, ACL and ACE</h3>
+<blockquote class="epigraph">
+<p>An ACL is a list of Access Control Entry (ACE) enabling or disabling
+acces rights to a person or a group.</p>
+<p class="attribution">—<a class="reference external" href="https://en.wikipedia.org/wiki/Access_Control_List">https://en.wikipedia.org/wiki/Access_Control_List</a></p>
+</blockquote>
+<p>I would even say, in our case, "to a <em>principal</em>". For instance:</p>
+<div class="highlight"><pre>create_record: alexis,remy,tarek
+</pre></div>
+<p>This ACE gives the <tt class="docutils literal">create</tt> permission on the <tt class="docutils literal">record</tt> object to the users
+Tarek, Rémy and Alexis.</p>
+</div>
+</div>
+<div class="section" id="permissions-delegation">
+<h2>Permissions delegation</h2>
+<p>Imagine the following example, where Alice stores two types of data online:</p>
+<ul class="simple">
+<li>a list of contacts ;</li>
+<li>a list of tasks, which can be associated to her contacts.</li>
+</ul>
+<p>Alice has all the rights on its data.</p>
+<p>However, she's using two applications which should have a restricted access:</p>
+<ul class="simple">
+<li>One application to handle contacts, to which she wants to delegate the entire
+management: <tt class="docutils literal">contacts:write</tt> ;</li>
+<li>Another application to handle the tasks, to which she wants to delegate the
+management of the tasks, and the reading of the contacts: <tt class="docutils literal">contacts:read
+tasks:write</tt></li>
+</ul>
+<p>She wants to prevent her contacts application to access the tasks and the tasks
+app should not be able to update existing contacts, just eventually creating
+new ones.</p>
+<p>She then needs a way to delegate some of her permissions to a third party (the
+app).</p>
+<p>That's precisely the role of <a class="reference external" href="http://tools.ietf.org/html/rfc6749#page-23">OAuth2 scopes</a>.</p>
+<p>During the connection of a user, a window will ask her which access she wants
+to give to the application that will act on her behalf.</p>
+<p>The service will then have access to these <em>scopes</em> by looking at the
+used authentication token. This information should be considered as a user
+input (that is, we cannot trust it). It is what the user <em>wants</em>, not what the
+user <em>should have access to</em>.</p>
+<p>It's possible that the user don't have access to the requested data. The
+service should use two levels of permissions: the user ones, and the ones that
+were delegated to the application.</p>
+</div>
+<div class="section" id="namespaces">
+<h2>Namespaces</h2>
+<p>In our initial implementation of <em>Kinto</em> (our generic data storage service),
+the <em>namespace</em> was implicit: stored data was necessarily tied to the connected
+user.</p>
+<p>User data were then impossible to share.</p>
+<p><em>Namespaces</em> are a simple way to handle the data sharing problem.</p>
+<p>We chose to re-use the GitHub and BitBucket mode, which uses "organisations" as
+<em>namespaces</em>.</p>
+<p>In our case, it's possible to create "buckets", which are one of these
+<em>namespaces</em>. A bucket is a container for collections and user groups.</p>
+<p>ACLs on these collections can be given to certain groups of the bucket, and
+directly to other <em>principals</em>.</p>
+</div>
+<div class="section" id="our-api-proposal">
+<h2>Our API proposal</h2>
+<div class="section" id="manipulated-objects">
+<h3>Manipulated objects</h3>
+<p>To handle permissions, we identified the following objects:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%"></col>
+<col width="77%"></col>
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Object</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><strong>bucket</strong></td>
+<td>We can see them as <em>namespaces</em>. They allow to have
+different collections having the same name but stored
+in different <em>buckets</em> so that data are distinct.</td>
+</tr>
+<tr><td><strong>collection</strong></td>
+<td>A list of records.</td>
+</tr>
+<tr><td><strong>record</strong></td>
+<td>A record from a collection</td>
+</tr>
+<tr><td><strong>group</strong></td>
+<td>A group of principals</td>
+</tr>
+</tbody>
+</table>
+<p>To define ACLs, there is a hierarchy: objects inherit the ACLs from their
+parents.</p>
+<div class="highlight"><pre>           +---------------+
+           | Bucket        |
+           +---------------+
+    +-----&gt;+ - id          +&lt;---+
+    |      | - permissions |    |
+    |      +---------------+    |
+    |                           |
+    |                           |
+    |                           |
+    |                           |
+    |                           |
++---+-----------+        +------+---------+
+| Collection    |        | Group          |
++---------------+        +----------------+
+| - id          |        |  - id          |
+| - permissions |        |  - members     |
++------+--------+        |  - permissions |
+       ^                 +----------------+
+       |
+       |
++------+---------+
+| Record         |
++----------------+
+|  - id          |
+|  - data        |
+|  - permissions |
++----------------+
+</pre></div>
+</div>
+<div class="section" id="permissions">
+<h3>Permissions</h3>
+<p>For all of these objects, we identified the following permissions:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%"></col>
+<col width="77%"></col>
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Permission</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><strong>read</strong></td>
+<td>The permission to read the content of
+the object and all its children.</td>
+</tr>
+<tr><td><strong>write</strong></td>
+<td>The permission to modify and
+administration an object and all its
+children objects. The <em>write</em>
+permission allows reading, modification
+and deletion of objects, and the
+handling of permissions on this object.</td>
+</tr>
+<tr><td><strong>create</strong></td>
+<td>The permission to create the specified
+child object. For instance:
+<tt class="docutils literal">collections:create</tt></td>
+</tr>
+</tbody>
+</table>
+<p>To each specified permission on an object is associated a list of <em>principals</em>.</p>
+<p>For the <tt class="docutils literal">create</tt> permission, we are forced to specify which child the
+permission applies to since an object can have different kind of child nodes.
+For instance: <tt class="docutils literal">collections:create</tt>, <tt class="docutils literal">groups:create</tt>.</p>
+<p>We don't have a <cite>delete</cite> and <cite>update</cite> permission so far, because we don't have
+any use case which needs them. Whoever with the <tt class="docutils literal">write</tt> permission can also
+delete a record.</p>
+<p>Permissions from an object are inherited from its parent. For instance,
+a record created in a collection available to anyone will also be available to
+anyone.</p>
+<p>Said differently, it's not possible that an object has a more restrictive
+permission that its parent.</p>
+<p>Here is a complete list of permissions:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="21%"></col>
+<col width="32%"></col>
+<col width="47%"></col>
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Object</th>
+<th class="head">Associated permissions</th>
+<th class="head">Comment</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td>Configuration
+(.ini)</td>
+<td><cite>buckets:create</cite></td>
+<td><em>Principals</em> who can create
+a bucket are defined in the
+service configuration (for
+instance "authenticated users")</td>
+</tr>
+<tr><td rowspan="4"><tt class="docutils literal">bucket</tt></td>
+<td><cite>write</cite></td>
+<td>The "admin" permission for the
+<em>bucket</em>.</td>
+</tr>
+<tr><td><cite>read</cite></td>
+<td>The permission to read all the
+content of all objects in the
+<em>bucket</em>.</td>
+</tr>
+<tr><td><cite>collections:create</cite></td>
+<td>Permission to create
+collections in the <em>bucket</em>.</td>
+</tr>
+<tr><td><cite>groups:create</cite></td>
+<td>Permission to create groups
+in the <em>bucket</em>.</td>
+</tr>
+<tr><td rowspan="3"><tt class="docutils literal">collection</tt></td>
+<td><cite>write</cite></td>
+<td>Permission to administrate all
+objects in the collection.</td>
+</tr>
+<tr><td><cite>read</cite></td>
+<td>Permission to consult all
+objects in the collection.</td>
+</tr>
+<tr><td><cite>records:create</cite></td>
+<td>Permission to create new
+records in the collection.</td>
+</tr>
+<tr><td rowspan="2"><tt class="docutils literal">record</tt></td>
+<td><cite>write</cite></td>
+<td>Permission to modify or share
+the record.</td>
+</tr>
+<tr><td><cite>read</cite></td>
+<td>Permission to read the record.</td>
+</tr>
+<tr><td rowspan="2"><tt class="docutils literal">group</tt></td>
+<td><cite>write</cite></td>
+<td>Permission to administrate the
+group.</td>
+</tr>
+<tr><td><cite>read</cite></td>
+<td>Permission to know the members of
+the group.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id5">
+<h3><em>principals</em></h3>
+<p>Actors connecting to the storage service can authenticate themselves.</p>
+<p>They then receive a list of <em>principals</em>:</p>
+<ul class="simple">
+<li><tt class="docutils literal">Everyone</tt>: the <em>principal</em> given to all actors (authenticated or not);</li>
+<li><tt class="docutils literal">Authenticated</tt>: the <em>principal</em> given to all authenticated actors;</li>
+<li>A <em>principal</em> identifying the actor, for instance <tt class="docutils literal">fxa:32aa95a474c984d41d395e2d0b614aa2</tt></li>
+</ul>
+<p>In order to avoid identifiers collisions, the actor <em>principal</em> is built from
+the authentication type used (<tt class="docutils literal">system</tt>, <tt class="docutils literal">basic</tt>, <tt class="docutils literal">ipaddr</tt>, <tt class="docutils literal">hawk</tt>,
+<tt class="docutils literal">fxa</tt>) and the identifier.</p>
+<p>Depending the <em>bucket</em> on which the action is taking place, the groups the user
+is a member of are also added to her list of principals (e.g.
+<tt class="docutils literal">group:moderators</tt>)</p>
+<p>So, if Bob connects with his <em>Firefox Account</em> on the <tt class="docutils literal">servicedenuages_blog</tt>
+bucket, on which he is a member of the <tt class="docutils literal">moderators</tt> group, he would have the
+following list of principals:
+<tt class="docutils literal">Everyone, Authenticated, fxa:32aa95a474c984d41d395e2d0b614aa2, group:moderators</tt></p>
+<p>It's then possible to assign a permission to Bob by using one of these
+<em>principals</em>.</p>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <tt class="docutils literal">&lt;userid&gt;</tt> <strong>principal</strong> depends on the authentication <em>back-end</em> used (e.g.
+<tt class="docutils literal">github:leplatrem</tt>).</p>
+</div>
+</div>
+<div class="section" id="a-few-examples">
+<h3>A few examples</h3>
+<p><strong>Blog</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%"></col>
+<col width="18%"></col>
+<col width="46%"></col>
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Object</th>
+<th class="head">Permissions</th>
+<th class="head">Principals</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="docutils literal">bucket:blog</tt></td>
+<td><tt class="docutils literal">write</tt></td>
+<td><tt class="docutils literal"><span class="pre">fxa:&lt;blog</span> owner id&gt;</tt></td>
+</tr>
+<tr><td rowspan="2"><tt class="docutils literal">collection:articles</tt></td>
+<td><tt class="docutils literal">write</tt></td>
+<td><tt class="docutils literal">group:moderators</tt></td>
+</tr>
+<tr><td><tt class="docutils literal">read</tt></td>
+<td><tt class="docutils literal">Everyone</tt></td>
+</tr>
+<tr><td><tt class="docutils literal">record:569e28r98889</tt></td>
+<td><tt class="docutils literal">write</tt></td>
+<td><tt class="docutils literal"><span class="pre">fxa:&lt;co-author</span> id&gt;</tt></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Wiki</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="35%"></col>
+<col width="18%"></col>
+<col width="46%"></col>
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Object</th>
+<th class="head">Permissions</th>
+<th class="head">Principals</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td><tt class="docutils literal">bucket:wiki</tt></td>
+<td><tt class="docutils literal">write</tt></td>
+<td><tt class="docutils literal"><span class="pre">fxa:&lt;wiki</span> administrator id&gt;</tt></td>
+</tr>
+<tr><td rowspan="2"><tt class="docutils literal">collection:articles</tt></td>
+<td><tt class="docutils literal">write</tt></td>
+<td><tt class="docutils literal">Authenticated</tt></td>
+</tr>
+<tr><td><tt class="docutils literal">read</tt></td>
+<td><tt class="docutils literal">Everyone</tt></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Polls</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%"></col>
+<col width="31%"></col>
+<col width="35%"></col>
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Object</th>
+<th class="head">Permissions</th>
+<th class="head">Principals</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td rowspan="2"><tt class="docutils literal">bucket:poll</tt></td>
+<td><tt class="docutils literal">write</tt></td>
+<td><tt class="docutils literal"><span class="pre">fxa:&lt;admin</span> id&gt;</tt></td>
+</tr>
+<tr><td><tt class="docutils literal">collection:create</tt></td>
+<td><tt class="docutils literal">Authenticated</tt></td>
+</tr>
+<tr><td rowspan="2"><tt class="docutils literal"><span class="pre">collection:&lt;poll</span> id&gt;</tt></td>
+<td><tt class="docutils literal">write</tt></td>
+<td><tt class="docutils literal"><span class="pre">fxa:&lt;poll</span> author id&gt;</tt></td>
+</tr>
+<tr><td><tt class="docutils literal">record:create</tt></td>
+<td><tt class="docutils literal">Everyone</tt></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Collaborative maps</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="34%"></col>
+<col width="31%"></col>
+<col width="35%"></col>
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Object</th>
+<th class="head">Permissions</th>
+<th class="head">Principals</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td rowspan="2"><tt class="docutils literal">bucket:maps</tt></td>
+<td><tt class="docutils literal">write</tt></td>
+<td><tt class="docutils literal"><span class="pre">fxa:&lt;admin</span> id&gt;</tt></td>
+</tr>
+<tr><td><tt class="docutils literal">collection:create</tt></td>
+<td><tt class="docutils literal">Authenticated</tt></td>
+</tr>
+<tr><td rowspan="2"><tt class="docutils literal"><span class="pre">collection:&lt;map</span> id&gt;</tt></td>
+<td><tt class="docutils literal">write</tt></td>
+<td><tt class="docutils literal"><span class="pre">fxa:&lt;map</span> author id&gt;</tt></td>
+</tr>
+<tr><td><tt class="docutils literal">read</tt></td>
+<td><tt class="docutils literal">Everyone</tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">record:&lt;record</span> id&gt;</tt></td>
+<td><tt class="docutils literal">write</tt></td>
+<td><tt class="docutils literal"><span class="pre">fxa:&lt;maintainer</span> id&gt;</tt>
+(<em>ex. event staff member
+maintaining venues</em>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Platforms</strong></p>
+<p>Of course, there are many ways to modelize common use cases. For instance, it's
+possible to imagine a wiki platform (ala wikia.com) where wikis are private by
+default and some pages can be published:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%"></col>
+<col width="30%"></col>
+<col width="38%"></col>
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head">Object</th>
+<th class="head">Permissions</th>
+<th class="head">Principals</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><td rowspan="3"><tt class="docutils literal">bucket:freewiki</tt></td>
+<td><tt class="docutils literal">write</tt></td>
+<td><tt class="docutils literal"><span class="pre">fxa:&lt;administrator</span> id&gt;</tt></td>
+</tr>
+<tr><td><tt class="docutils literal">collection:create</tt></td>
+<td><tt class="docutils literal">Authenticated</tt></td>
+</tr>
+<tr><td><tt class="docutils literal">group:create</tt></td>
+<td><tt class="docutils literal">Authenticated</tt></td>
+</tr>
+<tr><td rowspan="2"><tt class="docutils literal"><span class="pre">collection:&lt;wiki</span> id&gt;</tt></td>
+<td><tt class="docutils literal">write</tt></td>
+<td><tt class="docutils literal"><span class="pre">fxa:&lt;wiki</span> owner id&gt;</tt>,
+<tt class="docutils literal"><span class="pre">group:&lt;editors</span> id&gt;</tt></td>
+</tr>
+<tr><td><tt class="docutils literal">read</tt></td>
+<td><tt class="docutils literal"><span class="pre">group:&lt;readers</span> id&gt;</tt></td>
+</tr>
+<tr><td><tt class="docutils literal"><span class="pre">record:&lt;page</span> id&gt;</tt></td>
+<td><tt class="docutils literal">read</tt></td>
+<td><tt class="docutils literal">Everyone</tt></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="the-http-api">
+<h3>The HTTP API</h3>
+<p>During the creation of an object, the user is given the <tt class="docutils literal">write</tt> permission on
+the object:</p>
+<div class="highlight"><pre><span class="nf">PUT</span> <span class="nn">/v1/buckets/servicedenuages_blog</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer 0b9c2625dc21ef05f6ad4ddf47c5f203837aa32ca42fced54c2625dc21efac32</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+
+HTTP/1.1 201 Created
+Content-Type: application/json; charset=utf-8
+
+{
+    "id": "servicedenuages_blog",
+    "permissions": {
+        "write": ["fxa:49d02d55ad10973b7b9d0dc9eba7fdf0"]
+    }
+}
+</pre></div>
+<p>It's possible to add permissions using the <tt class="docutils literal">PATCH</tt> HTTP method.</p>
+<div class="highlight"><pre><span class="nf">PATCH</span> <span class="nn">/v1/buckets/servicedenuages_blog/collections/articles</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer 0b9c2625dc21ef05f6ad4ddf47c5f203837aa32ca42fced54c2625dc21efac32</span>
+<span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
+
+{
+    "permissions": {
+        "read": ["+system.Everyone"]
+    }
+}
+
+HTTP/1.1 201 Created
+Content-Type: application/json; charset=utf-8
+
+{
+    "id": "servicedenuages_blog",
+    "permissions": {
+        "write": ["fxa:49d02d55ad10973b7b9d0dc9eba7fdf0"],
+        "read": ["system.Everyone"]
+    }
+}
+</pre></div>
+<p>For <tt class="docutils literal">PATCH</tt>, we are thinking about using a syntax prefixed with a <tt class="docutils literal">+</tt> or
+a <tt class="docutils literal">-</tt> to add or remove <em>principals</em> on an ACL.</p>
+<p>It is also possible to do a <tt class="docutils literal">PUT</tt> to reset the ACLs, knowing that the <tt class="docutils literal">PUT</tt>
+will then add the current user to the list. It's possible to use a <tt class="docutils literal">PATCH</tt> to
+remove herself from the list. Adding the current user allows to avoid
+situations where nobody has access to the data anymore.</p>
+<div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">The <tt class="docutils literal">create</tt> permission is used for a <tt class="docutils literal">POST</tt> but also for a <tt class="docutils literal">PUT</tt>
+when the record doesn't exist.</p>
+</div>
+</div>
+<div class="section" id="the-specific-case-of-user-data">
+<h3>The specific case of user data</h3>
+<p>One of the current feature of <em>Kinto</em> is to handle record collections by user.</p>
+<p>On <em>*nix</em> systems, it's possible, for an application, to save configuration
+for the current user in her personal folder, without bothering about its
+specific location, using <tt class="docutils literal">~</tt>.</p>
+<p>In our case, if an application want to save contacts for a user, it can use
+a shortcut to reference the <em>personal</em> bucket of the user:
+<tt class="docutils literal">/buckets/personal/collections/contacts</tt>.</p>
+<p>This URL will return a <tt class="docutils literal">HTTP 307</tt> to the current user <em>bucket</em>.</p>
+<div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/v1/buckets/personal/collections/contacts/records</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+
+{
+   "name": "Rémy",
+   "emails": ["remy@example.com"],
+   "phones": ["+330820800800"]
+}
+
+HTTP/1.1 307 Temporary Redirect
+Location: /v1/buckets/fxa:49d02d55ad10973b7b9d0dc9eba7fdf0/collections/contacts/records
+</pre></div>
+<p>Like so, it's possible for Alice to share her contacts with Bob. She just have
+to give the <tt class="docutils literal">read</tt> permission to Bob on her collection and give him the
+complete URL:
+<tt class="docutils literal">/v1/buckets/fxa:49d02d55ad10973b7b9d0dc9eba7fdf0/collections/contacts/records</tt>.</p>
+</div>
+<div class="section" id="id6">
+<h3>Permissions delegation</h3>
+<p>In <em>Kinto</em>, we defined a format to restrict permissions using OAuth2 scopes:
+<tt class="docutils literal"><span class="pre">storage:&lt;bucket_id&gt;:&lt;collection_id&gt;:&lt;permissions_list&gt;</span></tt>.</p>
+<p>Taking back the previous <em>tasks</em> example, it is possible for Bob to create
+a specific OAuth2 token with the following <em>scopes</em>:
+<tt class="docutils literal">profile storage:todolist:tasks:write storage:personal:contacts:read+records:create</tt></p>
+<p>Like so, even if Bob has the <tt class="docutils literal">write</tt> permission on his contacts, the
+application using this token will only be able to read the existing contacts
+and add new ones.</p>
+<p>One part of the complexity is to manage presenting these <em>scopes</em> in a readable
+way to the user, so she or he is able to chose which permissions to give to the
+applications acting on her behalf.</p>
+<p>So, here is where we're at with our thinking!</p>
+<p>If you have things to add or discuss with this proposal, don't hesitate to
+interrupt us while it's still possible!</p>
+</div>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>

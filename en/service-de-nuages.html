@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>Service de nuages ! // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/en/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Publié</h5>
+                <p title="~586 mots">~3mn de lecture 🕑</p>
+                <p>jeu. 16 avril 2015</p>
+                <a href="/">&larr;Liste des articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Service de nuages !</h1>
+                </header>
+            </section>
+                        <p><a href="http://www.servicedenuages.fr/en/../service-de-nuages">Lire la version française</a></p>
+            <p>A bunch of changes since the beginning of the year for the "cloud-services"
+frenchies!</p>
+<p>First of all, two new recruits are here to complement the team:
+<a class="reference external" href="https://nicolas.perriault.net/">n1k0</a> and <a class="reference external" href="http://mathieu-leplatre.info">Mathieu</a> are now helping out <a class="reference external" href="http://ziade.org/">Tarek</a>, <a class="reference external" href="http://natim.ionyse.com">Rémy</a> and <a class="reference external" href="http://notmyidea.org">Alexis</a>.</p>
+<p>The starting of this year has seen the launch of <a class="reference external" href="https://www.mozilla.org/en-US/firefox/hello/">Firefox Hello</a> which allowed us to scale up
+<a class="reference external" href="https://github.com/mozilla-services/loop-server">the server</a>,
+written in Node.js®.</p>
+<div class="section" id="a-readinglist-server">
+<h2>A readinglist server</h2>
+<p>In parallel, a project about <a class="reference external" href="https://readinglist.readthedocs.org">synchronizing reading lists</a> (<em>Reading List</em>) started.
+The idea is to be able to bookmark pages to "read for later" and continue the
+reading on any synchronized device (Firefox for Android or Firefox Desktop). An
+open source counterpart to <a class="reference external" href="http://getpocket.com">Pocket</a>, in some regards, which is possible to host
+yourself.</p>
+<img alt="Capture of Firefox nightly with the readinglist." src="http://www.servicedenuages.fr/en/../images/readinglist-screenshot.png" style="width: 953px; height: auto; max-width: 100%;"/>
+<p>To build this service, we could have reused <a class="reference external" href="https://github.com/mozilla-services/server-syncstorage">Firefox sync</a> , after all it's
+a robust synchronisation service, built on top of <a class="reference external" href="http://cornice.readthedocs.org/">Cornice</a>. But <em>Sync</em> hasn't
+been thought to guarantee strong data integrity and it was too complex to change that
+deeply.</p>
+<p>We could also have created yet another application to expose an API and
+persist data in a database.</p>
+<p>But, this little new team isn't here just by luck.</p>
+</div>
+<div class="section" id="the-daybed-team">
+<h2>The «Daybed Team»</h2>
+<p>We share a vision: a generic data storage service! Maybe it brings to memories
+<a class="reference external" href="https://daybed.io">a certain project named Daybed</a>?</p>
+<p>For client applications, JavaScript or other, using this service should be as
+easy as a pie! The application handles its data locally (offline-first) and
+synchronizes upon request.</p>
+<p>Here, the heart of the <em>Reading List</em> service is a "CRUD" API (Create, Retrieve,
+Update, Delete), which handles synchronisation and authentication. We made the
+bet to do a "simple" API, with the less specific code as possible, which would
+create the basis of a generic service. Also because it's likely that other
+similar projects will follow.</p>
+<p>A bunch of experience was accumulated within the team, on one hand with the
+creation and evolution of <em>Firefox Sync</em> and on the other hand with <em>Daybed</em>
+our side-project. We try to not reproduce the same mistakes while keeping
+concepts which proved to be valid.</p>
+<p>For instance, we kept the <em>timestamp</em> mechanism of <em>Sync</em>, which is used to
+synchronize collections. As these problematics are recurring or even impossible
+to avoid, we decided to build on top of this synchronization protocol and to
+dissociate it from the readinglist project.</p>
+</div>
+<div class="section" id="the-one-way-mechanism">
+<h2>The one-way mechanism</h2>
+<p>As a first stone to build the cathedral, we created <a class="reference external" href="https://cliquet.readthedocs.org">Cliquet</a>, which main idea is to have an
+implementation of this protocol in Python, while factorizing all our good
+practices (notably for putting everything in production).</p>
+<img alt="Cliquet's logo" class="align-right" src="http://www.servicedenuages.fr/en/../images/cliquet-logo.png" style="width: 300px; height: auto; max-width: 100%;"/>
+<p>The good thing with protocols (as opposed to monoliths) is that if you prefer
+Asyncio, io.js or Go, we will encourage you to publish your alternative
+implementation!</p>
+<p>With <em>Cliquet</em>, the code of the readinglist service consists into defining
+a schema for the records and force some field values on certain calls. The size
+of the project is dramatically reduced to a dozen lines of code.</p>
+<p>As to the future generic data storage service, <a class="reference external" href="http://kinto.readthedocs.org">the project</a> just started but it really is!
+It can already be used as a storage backend in a <em>Cliquet</em> application, and
+this was <a class="reference external" href="https://github.com/mozilla-services/kinto/blob/0.2.1/kinto/views/collection.py">implemented in only 20 lines of code</a>.</p>
+<p>Oh, and this time we will build features only from real use cases which are
+coming along the way. It might seem silly, but on <em>Daybed</em> we never made that point.</p>
+<p>In future articles, we want to describe the good practices we put together in
+the protocol (or <em>Cliquet</em>), certain specific technical points and present our
+vision with examples and tutorials.</p>
+<p>See you soon, then!</p>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>

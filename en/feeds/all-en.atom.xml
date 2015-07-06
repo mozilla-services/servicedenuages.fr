@@ -1,0 +1,1281 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-en.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2015-06-17T00:00:00+02:00</updated><entry><title>Achievement unlocked</title><link href="http://www.servicedenuages.fr/en/kinto-1.0" rel="alternate"></link><updated>2015-06-17T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-06-17:en/kinto-1.0</id><summary type="html">&lt;p&gt;Today we released Cliquet 2.0 &lt;a class="footnote-reference" href="#id5" id="id1"&gt;[1]&lt;/a&gt; and Kinto 1.0 &lt;a class="footnote-reference" href="#id6" id="id2"&gt;[2]&lt;/a&gt; (a.k.a Cloud Storage).&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://kinto.readthedocs.org/en/latest/"&gt;Kinto&lt;/a&gt; is a service to
+store, synchronize and share arbitrary data attached to a Firefox Account.&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://cliquet.readthedocs.org/en/latest/"&gt;Cliquet&lt;/a&gt; is a toolkit to
+ease the implementation of HTTP micro-services, such as data-driven REST APIs
+with synchronization needs.&lt;/p&gt;
+&lt;p&gt;You can read more about our rationale for building this solution at
+&lt;a class="reference external" href="http://www.servicedenuages.fr/eco-systeme-et-stockage-generique-en.html"&gt;http://www.servicedenuages.fr/eco-systeme-et-stockage-generique-en.html&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Both projects received a lot of diligence during the last months. Even
+though most of the work we had done for Reading List could be
+used, we rebuilt many parts and introduced some long awaited features,
+like permissions management.&lt;/p&gt;
+&lt;p&gt;Of course, exactly like when you refurbish a ceiling at home, we can't
+resist to see loads of things that shall still be improved! Especially
+about documentation and performance :)&lt;/p&gt;
+&lt;p&gt;We can already foresee how the ecosystem will look like, and it's
+promising. There is already a JavaScript client &lt;a class="footnote-reference" href="#id7" id="id3"&gt;[3]&lt;/a&gt;, which aims to
+synchronize browser local data with a Kinto instance.&lt;/p&gt;
+&lt;p&gt;We strongly welcome any feedback, be it about the code, the
+documentation or security aspects of the solution. If you wish to reach
+to us, you can use the #storage channel of the Mozilla IRC network.&lt;/p&gt;
+&lt;p&gt;And, this is just the beginning! Future plans are described in our road
+map &lt;a class="footnote-reference" href="#id8" id="id4"&gt;[4]&lt;/a&gt;.&lt;/p&gt;
+&lt;table class="docutils footnote" frame="void" id="id5" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Cliquet is a toolkit to ease the implementation of HTTP
+microservices, such as data-driven REST APIs —  &lt;a class="reference external" href="https://cliquet.readthedocs.org"&gt;https://cliquet.readthedocs.org&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class="docutils footnote" frame="void" id="id6" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id2"&gt;[2]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Kinto is a server allowing you to store and synchronize arbitrary data,
+attached to your Firefox account. — &lt;a class="reference external" href="https://kinto.readthedocs.org"&gt;https://kinto.readthedocs.org&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class="docutils footnote" frame="void" id="id7" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id3"&gt;[3]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Cliquetis, the javascript library to consume the Kinto HTTP API —
+&lt;a class="reference external" href="https://github.com/mozilla-services/cliquetis"&gt;https://github.com/mozilla-services/cliquetis&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class="docutils footnote" frame="void" id="id8" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id4"&gt;[4]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Kinto roadmap: &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/wiki/roadmap"&gt;https://github.com/mozilla-services/kinto/wiki/roadmap&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+</summary></entry><entry><title>Stocker et interroger les permissions avec Kinto</title><link href="http://www.servicedenuages.fr/en/stocker-et-interroger-les-permissions" rel="alternate"></link><updated>2015-05-26T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-26:en/stocker-et-interroger-les-permissions</id><summary type="html">&lt;p&gt;&lt;strong&gt;tl;dr: On a maintenant un super système de permission mais comment faire pour stocker et interroger ces permissions de manière efficace ?&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="section" id="la-problematique"&gt;
+&lt;h2&gt;La problématique&lt;/h2&gt;
+&lt;p&gt;Maintenant que nous avons défini un modèle de gestion des permissions
+sur les objets qui nous satisfait, le problème est de stocker ces
+permissions de manière efficace afin de pouvoir autoriser ou interdire
+l'accès à un objet pour la personne qui fait la requête.&lt;/p&gt;
+&lt;p&gt;Chaque requête sur notre API va générer une ou plusieurs demandes
+d'accès, il faut donc que la réponse soit très rapide sous peine
+d'impacter la vélocité du service.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="obtenir-la-liste-des-principals-d-un-utilisateur"&gt;
+&lt;h2&gt;Obtenir la liste des "principals" d'un utilisateur&lt;/h2&gt;
+&lt;p&gt;Les &lt;em&gt;principals&lt;/em&gt; de l'utilisateur correspondent à son &lt;tt class="docutils literal"&gt;user_id&lt;/tt&gt;
+ainsi qu'à la liste des identifiants des groupes dans lesquels il a
+été ajouté.&lt;/p&gt;
+&lt;p&gt;Pour éviter de recalculer les &lt;em&gt;principals&lt;/em&gt; de l'utilisateur à chaque
+requête, le mieux reste de maintenir une liste des &lt;em&gt;principals&lt;/em&gt; par
+utilisateur.&lt;/p&gt;
+&lt;p&gt;Ainsi lorsqu'on ajoute un utilisateur à un groupe, il faut bien penser
+à ajouter le groupe à la liste des &lt;em&gt;principals&lt;/em&gt; de l'utilisateur.&lt;/p&gt;
+&lt;p&gt;Ça se complexifie lorsqu'on ajoute un groupe à un groupe.&lt;/p&gt;
+&lt;p&gt;Dans un premier temps interdire l'ajout d'un groupe à un groupe est
+une limitation qu'on est prêts à accepter pour simplifier le
+modèle.&lt;/p&gt;
+&lt;p&gt;L'avantage de maintenir la liste des &lt;em&gt;principals&lt;/em&gt; d'un utilisateur
+lors de la modification de cette liste c'est qu'elle est déjà
+construite lors des lectures, qui sont dans notre cas plus fréquentes
+que les écritures.&lt;/p&gt;
+&lt;p&gt;Cela nécessite de donner un identifiant unique aux groupes pour tous
+les &lt;em&gt;buckets&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Nous proposons de de les nommer avec leur URI:
+&lt;tt class="docutils literal"&gt;/buckets/blog/groups/moderators&lt;/tt&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="obtenir-la-liste-des-principals-d-un-ace"&gt;
+&lt;h2&gt;Obtenir la liste des "principals" d'un ACE&lt;/h2&gt;
+&lt;blockquote&gt;
+Rappel, un "ACE" est un &lt;em&gt;Access Control Entry&lt;/em&gt;, un des éléments
+d'une ACL (e.g. &lt;em&gt;modifier un enregistrement&lt;/em&gt;).&lt;/blockquote&gt;
+&lt;p&gt;Avec le &lt;a class="reference external" href="http://www.servicedenuages.fr/en/../la-gestion-des-permissions"&gt;système de permissions choisi&lt;/a&gt;, les permissions d'un
+objet héritent de celle de l'objet parent.&lt;/p&gt;
+&lt;p&gt;Par exemple, avoir le droit d'écriture sur un &lt;em&gt;bucket&lt;/em&gt; permet la
+création des permissions et la modification de tous ses records.&lt;/p&gt;
+&lt;p&gt;Ce qui veut dire que pour obtenir la liste complète des &lt;em&gt;principals&lt;/em&gt;
+ayant une permission sur un objet, il faut regarder à plusieurs
+endroits.&lt;/p&gt;
+&lt;p&gt;Rémy a &lt;a class="reference external" href="https://gist.github.com/Natim/77c8f61c1d42e476cef8#file-permission-py-L9-L52"&gt;décrit dans un gist la liste d'héritage de chaque permission&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Prenons l'exemple de l'ajout d'un record dans une collection.&lt;/p&gt;
+&lt;p&gt;Le droit &lt;tt class="docutils literal"&gt;records:create&lt;/tt&gt; est obtenu si l'on a l'un des droits suivants:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;bucket:write&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;collection:write&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;records:create&lt;/tt&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Notre première idée était de stocker les permissions sur chaque objet
+et de maintenir la liste exhaustive des permissions lors d'une
+modification d'ACL. Cependant cela nécessitait de construire cette
+liste lors de l'ajout d'un objet et de mettre à jour tout l'arbre lors
+de sa suppression.  (&lt;em&gt;Je vous laisse imaginer le nombre d'opérations
+nécessaires pour ajouter un administrateur sur un *bucket&lt;/em&gt; contenant
+1000 collections avec 100000 records chacune.*)&lt;/p&gt;
+&lt;p&gt;La solution que nous avons désormais adoptée consiste à stocker les
+&lt;em&gt;principals&lt;/em&gt; de chaque &lt;em&gt;ACE&lt;/em&gt; (&lt;em&gt;qui&lt;/em&gt; a le droit de faire telle action
+sur l'objet), et de faire l'union des &lt;em&gt;ACE&lt;/em&gt; hérités, afin de les
+croiser avec les &lt;em&gt;principals&lt;/em&gt; de l'utilisateur :&lt;/p&gt;
+&lt;blockquote&gt;
+(ACE(object, permission) ∪ inherited_ACE) ∩ PRINCIPALS(user)&lt;/blockquote&gt;
+&lt;p&gt;Par exemple l'ACE: &lt;tt class="docutils literal"&gt;/buckets/blog/collections/article:records:create&lt;/tt&gt; hérite de
+l'ACE &lt;tt class="docutils literal"&gt;/buckets/blog/collections/article:write&lt;/tt&gt; et de &lt;tt class="docutils literal"&gt;/buckets/blog:write&lt;/tt&gt; :&lt;/p&gt;
+&lt;blockquote&gt;
+(ACE(/buckets/blog/collections/article:records:create) ∪ ACE(/buckets/blog/collections/article:write) ∪ ACE(/buckets/blog:write)) ∩ PRINCIPALS('fxa:alexis')&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class="section" id="recuperer-les-donnees-de-l-utilisateur"&gt;
+&lt;h2&gt;Récupérer les données de l'utilisateur&lt;/h2&gt;
+&lt;p&gt;La situation se corse lorsqu'on souhaite limiter la liste des
+&lt;em&gt;records&lt;/em&gt; d'une collection à ceux accessibles pour l'utilisateur, car
+on doit faire cette intersection pour tous les &lt;em&gt;records&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Une première solution est de regarder si l'utilisateur est mentionné
+dans les &lt;em&gt;ACL*s du *bucket&lt;/em&gt; ou de la &lt;em&gt;collection&lt;/em&gt;:&lt;/p&gt;
+&lt;p&gt;Ensuite, si ce n'est pas le cas, alors on filtre les &lt;em&gt;records&lt;/em&gt; pour
+lesquels les &lt;em&gt;principals&lt;/em&gt; correspondent à ceux de l'utilisateur.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="n"&gt;principals&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;get_user_principals&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;user_id&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;can_read_all&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;has_read_perms&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bucket_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;collection_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                              &lt;span class="n"&gt;principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;can_read_all&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;records&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;get_all_records&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bucket_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;collection_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                              &lt;span class="n"&gt;filters&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+    &lt;span class="n"&gt;records&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;filter_read_records&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;bucket_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;collection_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                                  &lt;span class="n"&gt;principals&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;principals&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                                  &lt;span class="n"&gt;filters&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;...&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Il faudra faire quelque chose de similaire pour la suppression
+multiple, lorsqu'un utilisateur souhaitera supprimer des
+enregistrements sur lesquels il a les droits de lecture mais pas
+d'écriture.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="le-modele-de-donnees"&gt;
+&lt;h2&gt;Le modèle de données&lt;/h2&gt;
+&lt;p&gt;Pour avoir une idée des requêtes dans un backend SQL, voyons un peu ce
+que donnerait le modèle de données.&lt;/p&gt;
+&lt;div class="section" id="le-format-des-id"&gt;
+&lt;h3&gt;Le format des ID&lt;/h3&gt;
+&lt;p&gt;Utiliser des URI comme identifiant des objets présente de nombreux
+avantages (lisibilité, unicité, cohérence avec les URLs)&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;bucket: &lt;tt class="docutils literal"&gt;/buckets/blog&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;groupe: &lt;tt class="docutils literal"&gt;/buckets/blog/group/moderators&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;collection: &lt;tt class="docutils literal"&gt;/buckets/blog/collections/articles&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;record: &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;/buckets/blog/collections/articles/records/02f3f76f-7059-4ae4-888f-2ac9824e9200&lt;/span&gt;&lt;/tt&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="les-tables"&gt;
+&lt;h3&gt;Les tables&lt;/h3&gt;
+&lt;p&gt;Pour le stockage des principals et des permissions:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;CREATE&lt;/span&gt; &lt;span class="k"&gt;TABLE&lt;/span&gt; &lt;span class="k"&gt;user&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="nb"&gt;TEXT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;principals&lt;/span&gt; &lt;span class="nb"&gt;TEXT&lt;/span&gt;&lt;span class="p"&gt;[]);&lt;/span&gt;
+&lt;span class="k"&gt;CREATE&lt;/span&gt; &lt;span class="k"&gt;TABLE&lt;/span&gt; &lt;span class="n"&gt;perms&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ace&lt;/span&gt; &lt;span class="nb"&gt;TEXT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;principals&lt;/span&gt; &lt;span class="nb"&gt;TEXT&lt;/span&gt;&lt;span class="p"&gt;[]);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;La table &lt;em&gt;perms&lt;/em&gt; va associer des &lt;em&gt;principals&lt;/em&gt; à chaque &lt;em&gt;ACE&lt;/em&gt;
+(e.g.``/buckets/blog:write``).&lt;/p&gt;
+&lt;p&gt;Pour le stockage des données:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;CREATE&lt;/span&gt; &lt;span class="k"&gt;TABLE&lt;/span&gt; &lt;span class="k"&gt;object&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="nb"&gt;TEXT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="nb"&gt;TEXT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;parent_id&lt;/span&gt; &lt;span class="nb"&gt;TEXT&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;data&lt;/span&gt; &lt;span class="n"&gt;JSONB&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                    &lt;span class="n"&gt;write_principals&lt;/span&gt; &lt;span class="nb"&gt;TEXT&lt;/span&gt;&lt;span class="p"&gt;[],&lt;/span&gt; &lt;span class="n"&gt;read_principals&lt;/span&gt; &lt;span class="nb"&gt;TEXT&lt;/span&gt;&lt;span class="p"&gt;[]);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;La colonne &lt;em&gt;parent_id&lt;/em&gt; permet de savoir à qui appartient l'objet
+(e.g. groupe d'un &lt;em&gt;bucket&lt;/em&gt;, collection d'un &lt;em&gt;bucket&lt;/em&gt;, &lt;em&gt;record&lt;/em&gt; d'une
+collection, ...).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="exemple-d-utilisateur"&gt;
+&lt;h3&gt;Exemple d'utilisateur&lt;/h3&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt; &lt;span class="k"&gt;user&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+     &lt;span class="k"&gt;VALUES&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'fxa:alexis'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'{}'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt; &lt;span class="k"&gt;user&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+     &lt;span class="k"&gt;VALUES&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'fxa:natim'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+             &lt;span class="s1"&gt;'{"/buckets/blog/groups/moderators"}'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="exemple-d-objets"&gt;
+&lt;h3&gt;Exemple d'objets&lt;/h3&gt;
+&lt;div class="section" id="bucket"&gt;
+&lt;h4&gt;Bucket&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt; &lt;span class="k"&gt;object&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;type&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;parent_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                    &lt;span class="n"&gt;read_principals&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;write_principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;VALUES&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="s1"&gt;'/buckets/blog'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'bucket'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="k"&gt;NULL&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'{"name": "blog"}'&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="n"&gt;JSONB&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'{}'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'{"fxa:alexis"}'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="group"&gt;
+&lt;h4&gt;Group&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt; &lt;span class="k"&gt;object&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;type&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;parent_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                    &lt;span class="n"&gt;read_principals&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;write_principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;VALUES&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="s1"&gt;'/buckets/blog/groups/moderators'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'group'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'/buckets/blog'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'{"name": "moderators", "members": ['&lt;/span&gt;&lt;span class="n"&gt;fxa&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;&lt;span class="n"&gt;natim&lt;/span&gt;&lt;span class="s1"&gt;']}'&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="n"&gt;JSONB&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'{}'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'{}'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Ce groupe peut être gére par &lt;tt class="docutils literal"&gt;fxa:alexis&lt;/tt&gt; puisqu'il a la permission
+&lt;tt class="docutils literal"&gt;write&lt;/tt&gt; dans le &lt;em&gt;bucket&lt;/em&gt; parent.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="collection"&gt;
+&lt;h4&gt;Collection&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt; &lt;span class="k"&gt;object&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;type&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;parent_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                    &lt;span class="n"&gt;read_principals&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;write_principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;VALUES&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="s1"&gt;'/buckets/blog/collections/articles'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'collection'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'/buckets/blog'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'{"name": "article"}'&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="n"&gt;JSONB&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'{"system.Everyone"}'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'{"/buckets/blog/groups/moderators"}'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Cette collection d'articles peut être lue par tout le monde,
+et gérée par les membres du groupe &lt;tt class="docutils literal"&gt;moderators&lt;/tt&gt;, ainsi que
+&lt;tt class="docutils literal"&gt;fxa:alexis&lt;/tt&gt;, via le &lt;em&gt;bucket&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="records"&gt;
+&lt;h4&gt;Records&lt;/h4&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;INSERT&lt;/span&gt; &lt;span class="k"&gt;INTO&lt;/span&gt; &lt;span class="k"&gt;object&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;type&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;parent_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                    &lt;span class="n"&gt;read_principals&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;write_principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;VALUES&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+    &lt;span class="s1"&gt;'/buckets/blog/collections/articles/records/02f3f76f-7059-4ae4-888f-2ac9824e9200'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'record'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'/buckets/blog/collections/articles'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'{"name": "02f3f76f-7059-4ae4-888f-2ac9824e9200",&lt;/span&gt;
+&lt;span class="s1"&gt;      "title": "Stocker les permissions", ...}'&lt;/span&gt;&lt;span class="p"&gt;::&lt;/span&gt;&lt;span class="n"&gt;JSONB&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'{}'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'{}'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="interroger-les-permissions"&gt;
+&lt;h3&gt;Interroger les permissions&lt;/h3&gt;
+&lt;div class="section" id="id1"&gt;
+&lt;h4&gt;Obtenir la liste des "principals" d'un ACE&lt;/h4&gt;
+&lt;p&gt;Comme vu plus haut, pour vérifier une permission, on fait l'union des
+&lt;em&gt;principals&lt;/em&gt; requis par les objets hérités, et on teste leur
+intersection avec ceux de l'utilisateur:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;WITH&lt;/span&gt; &lt;span class="n"&gt;required_principals&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+     &lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="k"&gt;unnest&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;
+       &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;perms&lt;/span&gt;
+      &lt;span class="k"&gt;WHERE&lt;/span&gt; &lt;span class="n"&gt;ace&lt;/span&gt; &lt;span class="k"&gt;IN&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+         &lt;span class="s1"&gt;'/buckets/blog:write'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+         &lt;span class="s1"&gt;'/buckets/blog:read'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+         &lt;span class="s1"&gt;'/buckets/blog/collections/article:write'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+         &lt;span class="s1"&gt;'/buckets/blog/collections/article:read'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+ &lt;span class="p"&gt;),&lt;/span&gt;
+ &lt;span class="n"&gt;user_principals&lt;/span&gt; &lt;span class="k"&gt;AS&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;
+     &lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="k"&gt;unnest&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+       &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="k"&gt;user&lt;/span&gt;
+      &lt;span class="k"&gt;WHERE&lt;/span&gt; &lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'fxa:natim'&lt;/span&gt;
+ &lt;span class="p"&gt;)&lt;/span&gt;
+ &lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="k"&gt;COUNT&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+   &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="n"&gt;user_principals&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;
+  &lt;span class="k"&gt;INNER&lt;/span&gt; &lt;span class="k"&gt;JOIN&lt;/span&gt; &lt;span class="n"&gt;required_principals&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;
+     &lt;span class="k"&gt;ON&lt;/span&gt; &lt;span class="n"&gt;a&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;b&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="filtrer-les-objets-en-fonction-des-permissions"&gt;
+&lt;h4&gt;Filtrer les objets en fonction des permissions&lt;/h4&gt;
+&lt;p&gt;Pour filtrer les objets, on fait une simple intersection de liste
+(&lt;em&gt;merci PostgreSQL&lt;/em&gt;):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;SELECT&lt;/span&gt; &lt;span class="k"&gt;data&lt;/span&gt;
+  &lt;span class="k"&gt;FROM&lt;/span&gt; &lt;span class="k"&gt;object&lt;/span&gt; &lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="k"&gt;user&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;
+ &lt;span class="k"&gt;WHERE&lt;/span&gt; &lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="k"&gt;type&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'record'&lt;/span&gt;
+   &lt;span class="k"&gt;AND&lt;/span&gt; &lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;parent_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'/buckets/blog/collections/article'&lt;/span&gt;
+   &lt;span class="k"&gt;AND&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;read_principals&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;principals&lt;/span&gt; &lt;span class="k"&gt;OR&lt;/span&gt;
+        &lt;span class="n"&gt;o&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;write_principals&lt;/span&gt; &lt;span class="o"&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;principals&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+   &lt;span class="k"&gt;AND&lt;/span&gt; &lt;span class="n"&gt;u&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="n"&gt;id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'fxa:natim'&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Les listes s'indexent bien, notamment grâce aux &lt;a class="reference external" href="http://www.postgresql.org/docs/current/static/indexes-types.html"&gt;index GIN&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="avec-redis"&gt;
+&lt;h3&gt;Avec Redis&lt;/h3&gt;
+&lt;p&gt;&lt;em&gt;Redis&lt;/em&gt; présente plusieurs avantages pour ce genre de
+problématiques. Notamment, il gère les &lt;em&gt;set&lt;/em&gt; nativement (listes de
+valeurs uniques), ainsi que les opérations d'intersection et d'union.&lt;/p&gt;
+&lt;p&gt;Avec &lt;em&gt;Redis&lt;/em&gt; on peut écrire l'obtention des &lt;em&gt;principals&lt;/em&gt; pour un &lt;em&gt;ACE&lt;/em&gt;
+comme cela :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;SUNIONSTORE temp_perm:/buckets/blog/collections/articles:write  permission:/buckets/blog:write  permission:/buckets/blog/collections/articles:write
+SINTER temp_perm:/buckets/blog/collections/articles:write principals:fxa:alexis
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;SUNIONSTORE&lt;/tt&gt; permet de créer un set contenant les éléments de
+l'union de tous les set suivants. Dans notre cas on le nomme
+&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;temp_perm:/buckets/blog/collections/articles:write&lt;/span&gt;&lt;/tt&gt; et il contient
+l'union des sets d'ACLs suivants:
+- &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;permission:/buckets/blog:write&lt;/span&gt;&lt;/tt&gt;
+- &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;permission:/buckets/blog/collections/articles:write&lt;/span&gt;&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;SINTER&lt;/tt&gt; retourne l'intersection de tous les sets passés en paramètres dans notre cas :
+- &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;temp_perm:/buckets/blog/collections/articles:write&lt;/span&gt;&lt;/tt&gt;
+- &lt;tt class="docutils literal"&gt;principals:fxa:alexis&lt;/tt&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Plus d'informations sur :
+- &lt;a class="reference external" href="http://redis.io/commands/sinter"&gt;http://redis.io/commands/sinter&lt;/a&gt;
+- &lt;a class="reference external" href="http://redis.io/commands/sunionstore"&gt;http://redis.io/commands/sunionstore&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Si le set résultant de la commande &lt;tt class="docutils literal"&gt;SINTER&lt;/tt&gt; n'est pas vide, alors
+l'utilisateur possède la permission.&lt;/p&gt;
+&lt;p&gt;On peut ensuite supprimer la clé temporaire &lt;tt class="docutils literal"&gt;temp_perm&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;En utilisant &lt;tt class="docutils literal"&gt;MULTI&lt;/tt&gt; on peut &lt;a class="reference external" href="https://gist.github.com/Natim/77c8f61c1d42e476cef8#file-permission-py-L117-L124"&gt;même faire tout cela au sein d'une
+transaction&lt;/a&gt;
+et garantir ainsi l'intégrité de la requête.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="conclusion"&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;La solution a l'air simple mais nous a demandé beaucoup de réflexion
+en passant par plusieurs propositions.&lt;/p&gt;
+&lt;p&gt;L'idée finale est d'avoir :&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Un backend spécifique permettant de stocker les &lt;em&gt;principals&lt;/em&gt; des
+utilisateurs et des &lt;em&gt;ACE&lt;/em&gt; (e.g. avec les sets Redis) ;&lt;/li&gt;
+&lt;li&gt;La liste des principals read et write sur la table des objets.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;C'est dommage d'avoir le concept de permissions à deux endroits, mais
+cela permet de connaître rapidement la permission d'un utilisateur sur
+un objet et également de pouvoir récupérer tous les objets d'une
+collection pour un utilisateur si celui-ci n'a pas accès à tous les
+records de la collection, ou toutes les collections du bucket.&lt;/p&gt;
+&lt;/div&gt;
+</summary></entry><entry><title>Handling permissions</title><link href="http://www.servicedenuages.fr/en/handling-permissions" rel="alternate"></link><updated>2015-05-12T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-12:en/handling-permissions</id><summary type="html">&lt;p&gt;When creating a generic data storage (Kinto), permissions handling is one of
+the big challenges: who should get access to what, and how should we define
+these rules?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;tl;dr: Some feedback about the permissions vocabulary and our ideas about how
+to implement permissions management in a generic data storage system&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="section" id="the-problem-at-hand"&gt;
+&lt;h2&gt;The problem at hand&lt;/h2&gt;
+&lt;p&gt;The problem we're facing is simple: data is stored online and we need a way to
+share this data with other people.&lt;/p&gt;
+&lt;p&gt;Looking at the use cases, it's possible to split our users in two categories:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;End users (you);&lt;/li&gt;
+&lt;li&gt;Applications which interact on their behalf.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Different parties don't have the same rights: some should be able to read,
+others should write, yet another should be able to create new records, and all
+this permission handling should be fine-grained: it should be possible to read
+one record but not the other, for instance.&lt;/p&gt;
+&lt;p&gt;We started from the fact that no available solution was offering an appealing
+solution to these needs.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="a-vocabulary-problem"&gt;
+&lt;h2&gt;A vocabulary problem&lt;/h2&gt;
+&lt;p&gt;The principal problem that got in our way during our thinking was the
+vocabulary.&lt;/p&gt;
+&lt;div class="section" id="principals"&gt;
+&lt;h3&gt;Principals&lt;/h3&gt;
+&lt;p&gt;A &lt;em&gt;principal&lt;/em&gt;, is an entity that can be authenticated by a computer system.
+It is the actor who does the action. &lt;a class="footnote-reference" href="#id2" id="id1"&gt;[1]&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;It could either be someone, a computer, a service or a group of any of such
+things. This is conceptually wider than the classical "user id*".&lt;/p&gt;
+&lt;p&gt;Permissions are then associated to these &lt;em&gt;principals&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;For instance, a user is identified in an unique way when he connects to the
+authentication system, which role is to define a list of &lt;em&gt;principals&lt;/em&gt; for the
+authenticating user.&lt;/p&gt;
+&lt;table class="docutils footnote" frame="void" id="id2" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;To read more about &lt;em&gt;principals&lt;/em&gt; :
+&lt;a class="reference external" href="https://en.wikipedia.org/wiki/Principal_%28computer_security%29"&gt;https://en.wikipedia.org/wiki/Principal_%28computer_security%29&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class="section" id="the-difference-between-a-role-and-a-group"&gt;
+&lt;h3&gt;The difference between a role and a group&lt;/h3&gt;
+&lt;p&gt;From scratch, it's not easy to precisely define the difference between these two
+concepts which allow to associate permissions to a group of &lt;em&gt;principals&lt;/em&gt;. &lt;a class="footnote-reference" href="#id4" id="id3"&gt;[2]&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The difference is mainly semantic, but we can see a difference in the "direction"
+of the relationship between these two concepts.&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;A role is a list of permissions associated to a &lt;em&gt;principal&lt;/em&gt;;&lt;/li&gt;
+&lt;li&gt;A group is a list of &lt;em&gt;principals&lt;/em&gt; we can associate to a permission.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table class="docutils footnote" frame="void" id="id4" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id3"&gt;[2]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;More information at:
+&lt;a class="reference external" href="http://stackoverflow.com/questions/7770728/group-vs-role-any-real-difference"&gt;http://stackoverflow.com/questions/7770728/group-vs-role-any-real-difference&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class="section" id="the-difference-between-permission-acl-and-ace"&gt;
+&lt;h3&gt;The difference between permission, ACL and ACE&lt;/h3&gt;
+&lt;blockquote class="epigraph"&gt;
+&lt;p&gt;An ACL is a list of Access Control Entry (ACE) enabling or disabling
+acces rights to a person or a group.&lt;/p&gt;
+&lt;p class="attribution"&gt;—&lt;a class="reference external" href="https://en.wikipedia.org/wiki/Access_Control_List"&gt;https://en.wikipedia.org/wiki/Access_Control_List&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;I would even say, in our case, "to a &lt;em&gt;principal&lt;/em&gt;". For instance:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;create_record: alexis,remy,tarek
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This ACE gives the &lt;tt class="docutils literal"&gt;create&lt;/tt&gt; permission on the &lt;tt class="docutils literal"&gt;record&lt;/tt&gt; object to the users
+Tarek, Rémy and Alexis.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="permissions-delegation"&gt;
+&lt;h2&gt;Permissions delegation&lt;/h2&gt;
+&lt;p&gt;Imagine the following example, where Alice stores two types of data online:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;a list of contacts ;&lt;/li&gt;
+&lt;li&gt;a list of tasks, which can be associated to her contacts.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Alice has all the rights on its data.&lt;/p&gt;
+&lt;p&gt;However, she's using two applications which should have a restricted access:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;One application to handle contacts, to which she wants to delegate the entire
+management: &lt;tt class="docutils literal"&gt;contacts:write&lt;/tt&gt; ;&lt;/li&gt;
+&lt;li&gt;Another application to handle the tasks, to which she wants to delegate the
+management of the tasks, and the reading of the contacts: &lt;tt class="docutils literal"&gt;contacts:read
+tasks:write&lt;/tt&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;She wants to prevent her contacts application to access the tasks and the tasks
+app should not be able to update existing contacts, just eventually creating
+new ones.&lt;/p&gt;
+&lt;p&gt;She then needs a way to delegate some of her permissions to a third party (the
+app).&lt;/p&gt;
+&lt;p&gt;That's precisely the role of &lt;a class="reference external" href="http://tools.ietf.org/html/rfc6749#page-23"&gt;OAuth2 scopes&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;During the connection of a user, a window will ask her which access she wants
+to give to the application that will act on her behalf.&lt;/p&gt;
+&lt;p&gt;The service will then have access to these &lt;em&gt;scopes&lt;/em&gt; by looking at the
+used authentication token. This information should be considered as a user
+input (that is, we cannot trust it). It is what the user &lt;em&gt;wants&lt;/em&gt;, not what the
+user &lt;em&gt;should have access to&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;It's possible that the user don't have access to the requested data. The
+service should use two levels of permissions: the user ones, and the ones that
+were delegated to the application.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="namespaces"&gt;
+&lt;h2&gt;Namespaces&lt;/h2&gt;
+&lt;p&gt;In our initial implementation of &lt;em&gt;Kinto&lt;/em&gt; (our generic data storage service),
+the &lt;em&gt;namespace&lt;/em&gt; was implicit: stored data was necessarily tied to the connected
+user.&lt;/p&gt;
+&lt;p&gt;User data were then impossible to share.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Namespaces&lt;/em&gt; are a simple way to handle the data sharing problem.&lt;/p&gt;
+&lt;p&gt;We chose to re-use the GitHub and BitBucket mode, which uses "organisations" as
+&lt;em&gt;namespaces&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;In our case, it's possible to create "buckets", which are one of these
+&lt;em&gt;namespaces&lt;/em&gt;. A bucket is a container for collections and user groups.&lt;/p&gt;
+&lt;p&gt;ACLs on these collections can be given to certain groups of the bucket, and
+directly to other &lt;em&gt;principals&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="our-api-proposal"&gt;
+&lt;h2&gt;Our API proposal&lt;/h2&gt;
+&lt;div class="section" id="manipulated-objects"&gt;
+&lt;h3&gt;Manipulated objects&lt;/h3&gt;
+&lt;p&gt;To handle permissions, we identified the following objects:&lt;/p&gt;
+&lt;table border="1" class="docutils"&gt;
+&lt;colgroup&gt;
+&lt;col width="23%"&gt;&lt;/col&gt;
+&lt;col width="77%"&gt;&lt;/col&gt;
+&lt;/colgroup&gt;
+&lt;thead valign="bottom"&gt;
+&lt;tr&gt;&lt;th class="head"&gt;Object&lt;/th&gt;
+&lt;th class="head"&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;bucket&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;We can see them as &lt;em&gt;namespaces&lt;/em&gt;. They allow to have
+different collections having the same name but stored
+in different &lt;em&gt;buckets&lt;/em&gt; so that data are distinct.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;collection&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;A list of records.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;record&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;A record from a collection&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;group&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;A group of principals&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;To define ACLs, there is a hierarchy: objects inherit the ACLs from their
+parents.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;           +---------------+
+           | Bucket        |
+           +---------------+
+    +-----&amp;gt;+ - id          +&amp;lt;---+
+    |      | - permissions |    |
+    |      +---------------+    |
+    |                           |
+    |                           |
+    |                           |
+    |                           |
+    |                           |
++---+-----------+        +------+---------+
+| Collection    |        | Group          |
++---------------+        +----------------+
+| - id          |        |  - id          |
+| - permissions |        |  - members     |
++------+--------+        |  - permissions |
+       ^                 +----------------+
+       |
+       |
++------+---------+
+| Record         |
++----------------+
+|  - id          |
+|  - data        |
+|  - permissions |
++----------------+
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="permissions"&gt;
+&lt;h3&gt;Permissions&lt;/h3&gt;
+&lt;p&gt;For all of these objects, we identified the following permissions:&lt;/p&gt;
+&lt;table border="1" class="docutils"&gt;
+&lt;colgroup&gt;
+&lt;col width="23%"&gt;&lt;/col&gt;
+&lt;col width="77%"&gt;&lt;/col&gt;
+&lt;/colgroup&gt;
+&lt;thead valign="bottom"&gt;
+&lt;tr&gt;&lt;th class="head"&gt;Permission&lt;/th&gt;
+&lt;th class="head"&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;read&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;The permission to read the content of
+the object and all its children.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;write&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;The permission to modify and
+administration an object and all its
+children objects. The &lt;em&gt;write&lt;/em&gt;
+permission allows reading, modification
+and deletion of objects, and the
+handling of permissions on this object.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;strong&gt;create&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;The permission to create the specified
+child object. For instance:
+&lt;tt class="docutils literal"&gt;collections:create&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;To each specified permission on an object is associated a list of &lt;em&gt;principals&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;For the &lt;tt class="docutils literal"&gt;create&lt;/tt&gt; permission, we are forced to specify which child the
+permission applies to since an object can have different kind of child nodes.
+For instance: &lt;tt class="docutils literal"&gt;collections:create&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;groups:create&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;We don't have a &lt;cite&gt;delete&lt;/cite&gt; and &lt;cite&gt;update&lt;/cite&gt; permission so far, because we don't have
+any use case which needs them. Whoever with the &lt;tt class="docutils literal"&gt;write&lt;/tt&gt; permission can also
+delete a record.&lt;/p&gt;
+&lt;p&gt;Permissions from an object are inherited from its parent. For instance,
+a record created in a collection available to anyone will also be available to
+anyone.&lt;/p&gt;
+&lt;p&gt;Said differently, it's not possible that an object has a more restrictive
+permission that its parent.&lt;/p&gt;
+&lt;p&gt;Here is a complete list of permissions:&lt;/p&gt;
+&lt;table border="1" class="docutils"&gt;
+&lt;colgroup&gt;
+&lt;col width="21%"&gt;&lt;/col&gt;
+&lt;col width="32%"&gt;&lt;/col&gt;
+&lt;col width="47%"&gt;&lt;/col&gt;
+&lt;/colgroup&gt;
+&lt;thead valign="bottom"&gt;
+&lt;tr&gt;&lt;th class="head"&gt;Object&lt;/th&gt;
+&lt;th class="head"&gt;Associated permissions&lt;/th&gt;
+&lt;th class="head"&gt;Comment&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td&gt;Configuration
+(.ini)&lt;/td&gt;
+&lt;td&gt;&lt;cite&gt;buckets:create&lt;/cite&gt;&lt;/td&gt;
+&lt;td&gt;&lt;em&gt;Principals&lt;/em&gt; who can create
+a bucket are defined in the
+service configuration (for
+instance "authenticated users")&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td rowspan="4"&gt;&lt;tt class="docutils literal"&gt;bucket&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;cite&gt;write&lt;/cite&gt;&lt;/td&gt;
+&lt;td&gt;The "admin" permission for the
+&lt;em&gt;bucket&lt;/em&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;cite&gt;read&lt;/cite&gt;&lt;/td&gt;
+&lt;td&gt;The permission to read all the
+content of all objects in the
+&lt;em&gt;bucket&lt;/em&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;cite&gt;collections:create&lt;/cite&gt;&lt;/td&gt;
+&lt;td&gt;Permission to create
+collections in the &lt;em&gt;bucket&lt;/em&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;cite&gt;groups:create&lt;/cite&gt;&lt;/td&gt;
+&lt;td&gt;Permission to create groups
+in the &lt;em&gt;bucket&lt;/em&gt;.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td rowspan="3"&gt;&lt;tt class="docutils literal"&gt;collection&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;cite&gt;write&lt;/cite&gt;&lt;/td&gt;
+&lt;td&gt;Permission to administrate all
+objects in the collection.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;cite&gt;read&lt;/cite&gt;&lt;/td&gt;
+&lt;td&gt;Permission to consult all
+objects in the collection.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;cite&gt;records:create&lt;/cite&gt;&lt;/td&gt;
+&lt;td&gt;Permission to create new
+records in the collection.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td rowspan="2"&gt;&lt;tt class="docutils literal"&gt;record&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;cite&gt;write&lt;/cite&gt;&lt;/td&gt;
+&lt;td&gt;Permission to modify or share
+the record.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;cite&gt;read&lt;/cite&gt;&lt;/td&gt;
+&lt;td&gt;Permission to read the record.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td rowspan="2"&gt;&lt;tt class="docutils literal"&gt;group&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;cite&gt;write&lt;/cite&gt;&lt;/td&gt;
+&lt;td&gt;Permission to administrate the
+group.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;cite&gt;read&lt;/cite&gt;&lt;/td&gt;
+&lt;td&gt;Permission to know the members of
+the group.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class="section" id="id5"&gt;
+&lt;h3&gt;&lt;em&gt;principals&lt;/em&gt;&lt;/h3&gt;
+&lt;p&gt;Actors connecting to the storage service can authenticate themselves.&lt;/p&gt;
+&lt;p&gt;They then receive a list of &lt;em&gt;principals&lt;/em&gt;:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;Everyone&lt;/tt&gt;: the &lt;em&gt;principal&lt;/em&gt; given to all actors (authenticated or not);&lt;/li&gt;
+&lt;li&gt;&lt;tt class="docutils literal"&gt;Authenticated&lt;/tt&gt;: the &lt;em&gt;principal&lt;/em&gt; given to all authenticated actors;&lt;/li&gt;
+&lt;li&gt;A &lt;em&gt;principal&lt;/em&gt; identifying the actor, for instance &lt;tt class="docutils literal"&gt;fxa:32aa95a474c984d41d395e2d0b614aa2&lt;/tt&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In order to avoid identifiers collisions, the actor &lt;em&gt;principal&lt;/em&gt; is built from
+the authentication type used (&lt;tt class="docutils literal"&gt;system&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;basic&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;ipaddr&lt;/tt&gt;, &lt;tt class="docutils literal"&gt;hawk&lt;/tt&gt;,
+&lt;tt class="docutils literal"&gt;fxa&lt;/tt&gt;) and the identifier.&lt;/p&gt;
+&lt;p&gt;Depending the &lt;em&gt;bucket&lt;/em&gt; on which the action is taking place, the groups the user
+is a member of are also added to her list of principals (e.g.
+&lt;tt class="docutils literal"&gt;group:moderators&lt;/tt&gt;)&lt;/p&gt;
+&lt;p&gt;So, if Bob connects with his &lt;em&gt;Firefox Account&lt;/em&gt; on the &lt;tt class="docutils literal"&gt;servicedenuages_blog&lt;/tt&gt;
+bucket, on which he is a member of the &lt;tt class="docutils literal"&gt;moderators&lt;/tt&gt; group, he would have the
+following list of principals:
+&lt;tt class="docutils literal"&gt;Everyone, Authenticated, fxa:32aa95a474c984d41d395e2d0b614aa2, group:moderators&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;It's then possible to assign a permission to Bob by using one of these
+&lt;em&gt;principals&lt;/em&gt;.&lt;/p&gt;
+&lt;div class="note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p class="last"&gt;The &lt;tt class="docutils literal"&gt;&amp;lt;userid&amp;gt;&lt;/tt&gt; &lt;strong&gt;principal&lt;/strong&gt; depends on the authentication &lt;em&gt;back-end&lt;/em&gt; used (e.g.
+&lt;tt class="docutils literal"&gt;github:leplatrem&lt;/tt&gt;).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="a-few-examples"&gt;
+&lt;h3&gt;A few examples&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Blog&lt;/strong&gt;&lt;/p&gt;
+&lt;table border="1" class="docutils"&gt;
+&lt;colgroup&gt;
+&lt;col width="35%"&gt;&lt;/col&gt;
+&lt;col width="18%"&gt;&lt;/col&gt;
+&lt;col width="46%"&gt;&lt;/col&gt;
+&lt;/colgroup&gt;
+&lt;thead valign="bottom"&gt;
+&lt;tr&gt;&lt;th class="head"&gt;Object&lt;/th&gt;
+&lt;th class="head"&gt;Permissions&lt;/th&gt;
+&lt;th class="head"&gt;Principals&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td&gt;&lt;tt class="docutils literal"&gt;bucket:blog&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;write&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;fxa:&amp;lt;blog&lt;/span&gt; owner id&amp;gt;&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td rowspan="2"&gt;&lt;tt class="docutils literal"&gt;collection:articles&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;write&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;group:moderators&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;tt class="docutils literal"&gt;read&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;Everyone&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;tt class="docutils literal"&gt;record:569e28r98889&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;write&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;fxa:&amp;lt;co-author&lt;/span&gt; id&amp;gt;&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Wiki&lt;/strong&gt;&lt;/p&gt;
+&lt;table border="1" class="docutils"&gt;
+&lt;colgroup&gt;
+&lt;col width="35%"&gt;&lt;/col&gt;
+&lt;col width="18%"&gt;&lt;/col&gt;
+&lt;col width="46%"&gt;&lt;/col&gt;
+&lt;/colgroup&gt;
+&lt;thead valign="bottom"&gt;
+&lt;tr&gt;&lt;th class="head"&gt;Object&lt;/th&gt;
+&lt;th class="head"&gt;Permissions&lt;/th&gt;
+&lt;th class="head"&gt;Principals&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td&gt;&lt;tt class="docutils literal"&gt;bucket:wiki&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;write&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;fxa:&amp;lt;wiki&lt;/span&gt; administrator id&amp;gt;&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td rowspan="2"&gt;&lt;tt class="docutils literal"&gt;collection:articles&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;write&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;Authenticated&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;tt class="docutils literal"&gt;read&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;Everyone&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Polls&lt;/strong&gt;&lt;/p&gt;
+&lt;table border="1" class="docutils"&gt;
+&lt;colgroup&gt;
+&lt;col width="34%"&gt;&lt;/col&gt;
+&lt;col width="31%"&gt;&lt;/col&gt;
+&lt;col width="35%"&gt;&lt;/col&gt;
+&lt;/colgroup&gt;
+&lt;thead valign="bottom"&gt;
+&lt;tr&gt;&lt;th class="head"&gt;Object&lt;/th&gt;
+&lt;th class="head"&gt;Permissions&lt;/th&gt;
+&lt;th class="head"&gt;Principals&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td rowspan="2"&gt;&lt;tt class="docutils literal"&gt;bucket:poll&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;write&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;fxa:&amp;lt;admin&lt;/span&gt; id&amp;gt;&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;tt class="docutils literal"&gt;collection:create&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;Authenticated&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td rowspan="2"&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;collection:&amp;lt;poll&lt;/span&gt; id&amp;gt;&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;write&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;fxa:&amp;lt;poll&lt;/span&gt; author id&amp;gt;&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;tt class="docutils literal"&gt;record:create&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;Everyone&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Collaborative maps&lt;/strong&gt;&lt;/p&gt;
+&lt;table border="1" class="docutils"&gt;
+&lt;colgroup&gt;
+&lt;col width="34%"&gt;&lt;/col&gt;
+&lt;col width="31%"&gt;&lt;/col&gt;
+&lt;col width="35%"&gt;&lt;/col&gt;
+&lt;/colgroup&gt;
+&lt;thead valign="bottom"&gt;
+&lt;tr&gt;&lt;th class="head"&gt;Object&lt;/th&gt;
+&lt;th class="head"&gt;Permissions&lt;/th&gt;
+&lt;th class="head"&gt;Principals&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td rowspan="2"&gt;&lt;tt class="docutils literal"&gt;bucket:maps&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;write&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;fxa:&amp;lt;admin&lt;/span&gt; id&amp;gt;&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;tt class="docutils literal"&gt;collection:create&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;Authenticated&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td rowspan="2"&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;collection:&amp;lt;map&lt;/span&gt; id&amp;gt;&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;write&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;fxa:&amp;lt;map&lt;/span&gt; author id&amp;gt;&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;tt class="docutils literal"&gt;read&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;Everyone&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;record:&amp;lt;record&lt;/span&gt; id&amp;gt;&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;write&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;fxa:&amp;lt;maintainer&lt;/span&gt; id&amp;gt;&lt;/tt&gt;
+(&lt;em&gt;ex. event staff member
+maintaining venues&lt;/em&gt;)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;&lt;strong&gt;Platforms&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Of course, there are many ways to modelize common use cases. For instance, it's
+possible to imagine a wiki platform (ala wikia.com) where wikis are private by
+default and some pages can be published:&lt;/p&gt;
+&lt;table border="1" class="docutils"&gt;
+&lt;colgroup&gt;
+&lt;col width="32%"&gt;&lt;/col&gt;
+&lt;col width="30%"&gt;&lt;/col&gt;
+&lt;col width="38%"&gt;&lt;/col&gt;
+&lt;/colgroup&gt;
+&lt;thead valign="bottom"&gt;
+&lt;tr&gt;&lt;th class="head"&gt;Object&lt;/th&gt;
+&lt;th class="head"&gt;Permissions&lt;/th&gt;
+&lt;th class="head"&gt;Principals&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td rowspan="3"&gt;&lt;tt class="docutils literal"&gt;bucket:freewiki&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;write&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;fxa:&amp;lt;administrator&lt;/span&gt; id&amp;gt;&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;tt class="docutils literal"&gt;collection:create&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;Authenticated&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;tt class="docutils literal"&gt;group:create&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;Authenticated&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td rowspan="2"&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;collection:&amp;lt;wiki&lt;/span&gt; id&amp;gt;&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;write&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;fxa:&amp;lt;wiki&lt;/span&gt; owner id&amp;gt;&lt;/tt&gt;,
+&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;group:&amp;lt;editors&lt;/span&gt; id&amp;gt;&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;tt class="docutils literal"&gt;read&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;group:&amp;lt;readers&lt;/span&gt; id&amp;gt;&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;&lt;td&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;record:&amp;lt;page&lt;/span&gt; id&amp;gt;&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;read&lt;/tt&gt;&lt;/td&gt;
+&lt;td&gt;&lt;tt class="docutils literal"&gt;Everyone&lt;/tt&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class="section" id="the-http-api"&gt;
+&lt;h3&gt;The HTTP API&lt;/h3&gt;
+&lt;p&gt;During the creation of an object, the user is given the &lt;tt class="docutils literal"&gt;write&lt;/tt&gt; permission on
+the object:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nf"&gt;PUT&lt;/span&gt; &lt;span class="nn"&gt;/v1/buckets/servicedenuages_blog&lt;/span&gt; &lt;span class="kr"&gt;HTTP&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1.1&lt;/span&gt;
+&lt;span class="na"&gt;Authorization&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;Bearer 0b9c2625dc21ef05f6ad4ddf47c5f203837aa32ca42fced54c2625dc21efac32&lt;/span&gt;
+&lt;span class="na"&gt;Accept&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;application/json&lt;/span&gt;
+
+HTTP/1.1 201 Created
+Content-Type: application/json; charset=utf-8
+
+{
+    "id": "servicedenuages_blog",
+    "permissions": {
+        "write": ["fxa:49d02d55ad10973b7b9d0dc9eba7fdf0"]
+    }
+}
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;It's possible to add permissions using the &lt;tt class="docutils literal"&gt;PATCH&lt;/tt&gt; HTTP method.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nf"&gt;PATCH&lt;/span&gt; &lt;span class="nn"&gt;/v1/buckets/servicedenuages_blog/collections/articles&lt;/span&gt; &lt;span class="kr"&gt;HTTP&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1.1&lt;/span&gt;
+&lt;span class="na"&gt;Authorization&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;Bearer 0b9c2625dc21ef05f6ad4ddf47c5f203837aa32ca42fced54c2625dc21efac32&lt;/span&gt;
+&lt;span class="na"&gt;Accept&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;application/json&lt;/span&gt;
+
+{
+    "permissions": {
+        "read": ["+system.Everyone"]
+    }
+}
+
+HTTP/1.1 201 Created
+Content-Type: application/json; charset=utf-8
+
+{
+    "id": "servicedenuages_blog",
+    "permissions": {
+        "write": ["fxa:49d02d55ad10973b7b9d0dc9eba7fdf0"],
+        "read": ["system.Everyone"]
+    }
+}
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;For &lt;tt class="docutils literal"&gt;PATCH&lt;/tt&gt;, we are thinking about using a syntax prefixed with a &lt;tt class="docutils literal"&gt;+&lt;/tt&gt; or
+a &lt;tt class="docutils literal"&gt;-&lt;/tt&gt; to add or remove &lt;em&gt;principals&lt;/em&gt; on an ACL.&lt;/p&gt;
+&lt;p&gt;It is also possible to do a &lt;tt class="docutils literal"&gt;PUT&lt;/tt&gt; to reset the ACLs, knowing that the &lt;tt class="docutils literal"&gt;PUT&lt;/tt&gt;
+will then add the current user to the list. It's possible to use a &lt;tt class="docutils literal"&gt;PATCH&lt;/tt&gt; to
+remove herself from the list. Adding the current user allows to avoid
+situations where nobody has access to the data anymore.&lt;/p&gt;
+&lt;div class="note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p class="last"&gt;The &lt;tt class="docutils literal"&gt;create&lt;/tt&gt; permission is used for a &lt;tt class="docutils literal"&gt;POST&lt;/tt&gt; but also for a &lt;tt class="docutils literal"&gt;PUT&lt;/tt&gt;
+when the record doesn't exist.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="the-specific-case-of-user-data"&gt;
+&lt;h3&gt;The specific case of user data&lt;/h3&gt;
+&lt;p&gt;One of the current feature of &lt;em&gt;Kinto&lt;/em&gt; is to handle record collections by user.&lt;/p&gt;
+&lt;p&gt;On &lt;em&gt;*nix&lt;/em&gt; systems, it's possible, for an application, to save configuration
+for the current user in her personal folder, without bothering about its
+specific location, using &lt;tt class="docutils literal"&gt;~&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;In our case, if an application want to save contacts for a user, it can use
+a shortcut to reference the &lt;em&gt;personal&lt;/em&gt; bucket of the user:
+&lt;tt class="docutils literal"&gt;/buckets/personal/collections/contacts&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;This URL will return a &lt;tt class="docutils literal"&gt;HTTP 307&lt;/tt&gt; to the current user &lt;em&gt;bucket&lt;/em&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nf"&gt;POST&lt;/span&gt; &lt;span class="nn"&gt;/v1/buckets/personal/collections/contacts/records&lt;/span&gt; &lt;span class="kr"&gt;HTTP&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1.1&lt;/span&gt;
+
+{
+   "name": "Rémy",
+   "emails": ["remy@example.com"],
+   "phones": ["+330820800800"]
+}
+
+HTTP/1.1 307 Temporary Redirect
+Location: /v1/buckets/fxa:49d02d55ad10973b7b9d0dc9eba7fdf0/collections/contacts/records
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Like so, it's possible for Alice to share her contacts with Bob. She just have
+to give the &lt;tt class="docutils literal"&gt;read&lt;/tt&gt; permission to Bob on her collection and give him the
+complete URL:
+&lt;tt class="docutils literal"&gt;/v1/buckets/fxa:49d02d55ad10973b7b9d0dc9eba7fdf0/collections/contacts/records&lt;/tt&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="id6"&gt;
+&lt;h3&gt;Permissions delegation&lt;/h3&gt;
+&lt;p&gt;In &lt;em&gt;Kinto&lt;/em&gt;, we defined a format to restrict permissions using OAuth2 scopes:
+&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;storage:&amp;lt;bucket_id&amp;gt;:&amp;lt;collection_id&amp;gt;:&amp;lt;permissions_list&amp;gt;&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;Taking back the previous &lt;em&gt;tasks&lt;/em&gt; example, it is possible for Bob to create
+a specific OAuth2 token with the following &lt;em&gt;scopes&lt;/em&gt;:
+&lt;tt class="docutils literal"&gt;profile storage:todolist:tasks:write storage:personal:contacts:read+records:create&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;Like so, even if Bob has the &lt;tt class="docutils literal"&gt;write&lt;/tt&gt; permission on his contacts, the
+application using this token will only be able to read the existing contacts
+and add new ones.&lt;/p&gt;
+&lt;p&gt;One part of the complexity is to manage presenting these &lt;em&gt;scopes&lt;/em&gt; in a readable
+way to the user, so she or he is able to chose which permissions to give to the
+applications acting on her behalf.&lt;/p&gt;
+&lt;p&gt;So, here is where we're at with our thinking!&lt;/p&gt;
+&lt;p&gt;If you have things to add or discuss with this proposal, don't hesitate to
+interrupt us while it's still possible!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</summary></entry><entry><title>Ecosystem &amp; generic storage</title><link href="http://www.servicedenuages.fr/en/generic-storage-ecosystem" rel="alternate"></link><updated>2015-04-30T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-30:en/generic-storage-ecosystem</id><summary type="html">&lt;div class="note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p class="last"&gt;This article was translated from French by Julien/Sphinx. We thank him a lot
+for this effort! Note, that at the beginning of this year,
+&lt;a class="reference external" href="https://medium.com/@Sphinx/mdn-pr%C3%A9sentation-de-la-documentation-javascript-70541cecae54"&gt;he also translated MDN to French&lt;/a&gt;!
+&lt;strong&gt;Big up !&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;tl;dr We have to build a service to track payments, and we're hesitant
+to go on with our own solution for storage and synchronization.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;As we wrote in &lt;a class="reference external" href="http://www.servicedenuages.fr/en/../service-de-nuages"&gt;the previous article (FR)&lt;/a&gt;,
+we want to build a solution for generic data storage. We reboot &lt;a class="reference external" href="http://daybed.readthedocs.org"&gt;Daybed&lt;/a&gt;
+at Mozilla !&lt;/p&gt;
+&lt;p&gt;Our goal is simple: allow developers, whether they are from Mozilla or from the whole world,
+to easily synchronize and save data associated to a user.&lt;/p&gt;
+&lt;p id="storage-specs"&gt;Here are the aspects of the architecture that seem essential to us:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;The solution must rely on a protocol, not on a particular implementation;&lt;/li&gt;
+&lt;li&gt;Self-hosting of the whole solution must be dead simple;&lt;/li&gt;
+&lt;li&gt;Authentication must be pluggable or decentralized (OAuth2, FxA, Persona);&lt;/li&gt;
+&lt;li&gt;The server should be able to validate records;&lt;/li&gt;
+&lt;li&gt;An authorization/permissions system must allow collection protection or
+fine-grained records sharing;&lt;/li&gt;
+&lt;li&gt;Conflicts resolution could happen server-side;&lt;/li&gt;
+&lt;li&gt;Clients should be «&lt;em&gt;offline-first&lt;/em&gt;»;&lt;/li&gt;
+&lt;li&gt;Clients should be able to easily merge/reconciliate data;&lt;/li&gt;
+&lt;li&gt;Clients should be usable in the browser &lt;em&gt;and&lt;/em&gt; server-side;&lt;/li&gt;
+&lt;li&gt;Every component should be simple and easily substituable.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The first question we were asked was: «&lt;em&gt;Why don't you rather use PouchDB or Remote Storage?&lt;/em&gt;»&lt;/p&gt;
+&lt;div class="section" id="remote-storage"&gt;
+&lt;h2&gt;Remote Storage&lt;/h2&gt;
+&lt;p&gt;Remote Storage is an open standard for user storage. &lt;a class="reference external" href="http://tools.ietf.org/html/draft-dejong-remotestorage-04"&gt;The specification&lt;/a&gt;
+is based on existing and proven standards: Webfinger, OAuth2, CORS and REST.&lt;/p&gt;
+&lt;p&gt;The API is pretty simple and &lt;a class="reference external" href="http://blog.cozycloud.cc/news/2014/08/12/when-unhosted-meets-cozy-cloud/"&gt;prestigious projects are using it&lt;/a&gt;.
+There exist several &lt;a class="reference external" href="https://github.com/jcoglan/restore"&gt;server implementations&lt;/a&gt;
+and there is even a &lt;a class="reference external" href="https://www.npmjs.com/package/remotestorage-server"&gt;Node squeleton&lt;/a&gt;
+to build a custom server.&lt;/p&gt;
+&lt;img alt="Remote Storage widget" class="align-left" src="http://www.servicedenuages.fr/en/../images/remotestorage-widget.png" style="width: 243px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;The &lt;a class="reference external" href="https://github.com/remotestorage/remotestorage.js/"&gt;remoteStorage.js client&lt;/a&gt;
+makes possible the integration of this solution in Web apps. This client is in charge of the «local store»,
+caching, syncing and gives users a widget so that they can choose the server
+which will receive the data (using Webfinger).&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://github.com/michielbdejong/ludbud"&gt;ludbud&lt;/a&gt;, a refined version of
+&lt;em&gt;remoteStorage.js&lt;/em&gt; limits itself to the abstraction of the remote data storage.
+At the end, it would be possible to have a single library and to store data
+in either a &lt;em&gt;Remote Storage&lt;/em&gt; server, an &lt;em&gt;ownCloud&lt;/em&gt; server, or even on the bad guys'
+like &lt;em&gt;Google Drive&lt;/em&gt; or &lt;em&gt;Dropbox&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;At first sight, the specification seemed to fit with what we want to do:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;The philosophy of the protocol is sound;&lt;/li&gt;
+&lt;li&gt;The ecosystem is well-thought;&lt;/li&gt;
+&lt;li&gt;The political vision fits: give back the control of the data to the users
+(see &lt;a class="reference external" href="http://unhosted.org/"&gt;unhosted&lt;/a&gt;);&lt;/li&gt;
+&lt;li&gt;Technical choices are compatible with what we've already started (CORS, REST, OAuth2);&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;However, regarding data manipulation, there are several differences with what we want to do:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;The API seems «files» oriented (folders and documents) and not «data» (collections and records);&lt;/li&gt;
+&lt;li&gt;There is no record validation following some schema (though &lt;a class="reference external" href="https://remotestorage.io/doc/code/files/baseclient/types-js.html"&gt;some implementations&lt;/a&gt; of the protocol are actually doing this);&lt;/li&gt;
+&lt;li&gt;There is no option to sort/filter records with regards to their attributes;&lt;/li&gt;
+&lt;li&gt;The permission system &lt;a class="reference external" href="https://groups.google.com/forum/#!topic/unhosted/5_NOGq8BPTo"&gt;is limited to private/public&lt;/a&gt; (and
+&lt;a class="reference external" href="https://github.com/remotestorage/spec/issues/58#issue-27249452"&gt;the author is going for a git-like model&lt;/a&gt;) &lt;a class="footnote-reference" href="#id3" id="id1"&gt;[1]&lt;/a&gt;;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To summarize, it would seem that what we want to achieve with the storage of
+records is complementary to &lt;em&gt;Remote Storage&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;If there are some needs about «file oriented» persistence, it would be dull to
+reinvent this solution. So there is a great chance that we will integrate
+&lt;em&gt;Remote Storage&lt;/em&gt; some day and that it will become a facet of our solution.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="pouchdb"&gt;
+&lt;h2&gt;PouchDB&lt;/h2&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://pouchdb.com/"&gt;PouchDB&lt;/a&gt; is a Javascript library allowing to manipulate
+records locally and synchronize them to a distant database.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;db&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;PouchDB&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'dbname'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+&lt;span class="nx"&gt;db&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;put&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+ &lt;span class="nx"&gt;_id&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'dave@gmail.com'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+ &lt;span class="nx"&gt;name&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'David'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+ &lt;span class="nx"&gt;age&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;68&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+
+&lt;span class="nx"&gt;db&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;replicate&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;to&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'http://example.com/mydb'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The project sees some traction and benefits from a lot of contributors. The
+ecosystem is rich and adoption by projects &lt;a class="reference external" href="https://github.com/hoodiehq/wip-hoodie-store-on-pouchdb"&gt;such as Hoodie&lt;/a&gt; confirms the tool
+pertinence for frontend developers.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;PouchDB&lt;/em&gt; handles a local « store » which persistence is abstract and
+&lt;a class="reference external" href="http://pouchdb.com/2014/07/25/pouchdb-levels-up.html"&gt;is built on top&lt;/a&gt;
+of the &lt;a class="reference external" href="https://github.com/level/levelup#relationship-to-leveldown"&gt;LevelDown API&lt;/a&gt;
+to persist data in &lt;a class="reference external" href="https://github.com/Level/levelup/wiki/Modules#storage-back-ends"&gt;any backend&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Even if &lt;em&gt;PouchDB&lt;/em&gt; is mainly done for «&lt;em&gt;offline-first&lt;/em&gt;» applications, it
+can be used inside browsers and on the server side, via Node.&lt;/p&gt;
+&lt;div class="section" id="synchronization"&gt;
+&lt;h3&gt;Synchronization&lt;/h3&gt;
+&lt;p&gt;Local data synchronization (or replication) is done on a remote
+&lt;a class="reference external" href="http://couchdb.apache.org/"&gt;CouchDB&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The &lt;a class="reference external" href="https://github.com/pouchdb/pouchdb-server"&gt;PouchDB Server&lt;/a&gt; project
+implements the CouchDB API in NodeJS. Because &lt;em&gt;PouchDB&lt;/em&gt; itself is used, we
+obtain a service which is behaving like a &lt;em&gt;CouchDB&lt;/em&gt;, but stores data
+anywhere (in a &lt;em&gt;Redis&lt;/em&gt; or a &lt;em&gt;PostgreSQL&lt;/em&gt; database for instance).&lt;/p&gt;
+&lt;p&gt;The synchronisation is complete. In other words, all records that are on
+the server will end up being synchronised with the client. It is possible to filter
+synchronized collections but &lt;a class="reference external" href="http://pouchdb.com/2015/04/05/filtered-replication.html"&gt;its purpose is not to secure data access&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In order to do so, it is recommanded to create &lt;a class="reference external" href="https://github.com/nolanlawson/pouchdb-authentication#some-people-can-read-some-docs-some-people-can-write-those-same-docs"&gt;a database per user&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This isn't necessarily a problem since CouchDB &lt;a class="reference external" href="https://mail-archives.apache.org/mod_mbox/couchdb-user/201401.mbox/%3C52CEB873.7080404@ironicdesign.com%3E"&gt;can handle hundreds of thousands
+of databases without any problem&lt;/a&gt;.
+However, depending on use cases, clustering and isolation (by role, application,
+collection, ...) might not be dealt with easily.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="the-payments-use-case"&gt;
+&lt;h2&gt;The « Payments » use case&lt;/h2&gt;
+&lt;img alt="Put Payments Here  -- Before the Internet - CC-NC-SA Katy Silberger https://www.flickr.com/photos/katysilbs/11163812186" src="http://www.servicedenuages.fr/en/../images/put-payments.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;During the next weeks, we will have to setup a prototype that keeps an history
+of a user's payments and subscriptions.&lt;/p&gt;
+&lt;p&gt;The requirements are simple:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;The « Payment » application tracks payments and subscriptions of a user
+for a given application;&lt;/li&gt;
+&lt;li&gt;The « Data » application requests the service to check if a user paid or
+has suscribed;&lt;/li&gt;
+&lt;li&gt;The user requests the service to get a list of all payments/subscriptions
+reltated to her.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The « Payment » application only should have the right to create/modify/delete
+records. The two others can only have read-only access to these records.&lt;/p&gt;
+&lt;p&gt;A given application cannot access to some other application payments and a given user cannot access to some other user's payments.&lt;/p&gt;
+&lt;div class="section" id="with-remotestorage"&gt;
+&lt;h3&gt;With RemoteStorage&lt;/h3&gt;
+&lt;img alt="Remote Love - CC-BY-NC Julie https://www.flickr.com/photos/mamajulie2008/2609549461" class="align-center" src="http://www.servicedenuages.fr/en/../images/remote-love.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;The idea of &lt;em&gt;Remote Storage&lt;/em&gt; is to separate the application from the data that
+the user created with the application.&lt;/p&gt;
+&lt;p&gt;In our use case, the « Payment » app is dealing with the data concerning a user.
+However, this data does not directly belong to the user. A user should be able
+to delete some records but he/she cannot create or edit some existing payments!&lt;/p&gt;
+&lt;p&gt;The concept of permissions, limited to private/public is not suitable here.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="with-pouchdb"&gt;
+&lt;h3&gt;With PouchDB&lt;/h3&gt;
+&lt;p&gt;It will be necessary to create a &lt;em&gt;database&lt;/em&gt; per user in order to separate the
+records in a secure way. Only the « Payment » app will be granted full rights
+on the different databases.&lt;/p&gt;
+&lt;p&gt;But this won't be enough.&lt;/p&gt;
+&lt;p&gt;An app must not see payments from another application so it would also be
+necessary to create a database per application.&lt;/p&gt;
+&lt;p&gt;When a user will need to access payments, it will be mandatory to join every
+&lt;em&gt;database&lt;/em&gt; of every application for this current user. When the marketing
+department will want to build stats for all apps, one will have to join hundreds
+of thousands of databases.&lt;/p&gt;
+&lt;p&gt;This doesn't seem appropriate: most of the time, there are only few
+payments/subscriptions for a given user. Should we have hundreds of thousands of
+databases, each of which will have less than 5 records?&lt;/p&gt;
+&lt;p&gt;Moreover, the server side of « Payment » is implemented with Python, using a
+JavaScript wrapper (as &lt;a class="reference external" href="https://pythonhosted.org/Python-PouchDB/"&gt;python-pouchdb&lt;/a&gt;) is not something we thrive for.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="a-new-ecosystem"&gt;
+&lt;h2&gt;A new ecosystem?&lt;/h2&gt;
+&lt;img alt="Wagon wheel - CC-BY-NC-SA arbyreed https://www.flickr.com/photos/19779889@N00/16161808220" src="http://www.servicedenuages.fr/en/../images/wagon-wheel.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;It is obvious that &lt;em&gt;PouchDB&lt;/em&gt; and &lt;em&gt;Remote Storage&lt;/em&gt; are rich projects with dynamic communities. Therefore, it's reasonable to wonder if one should develop another solution.&lt;/p&gt;
+&lt;p&gt;When we created the &lt;em&gt;Reading List&lt;/em&gt; server, we built it with
+&lt;a class="reference external" href="http://cliquet.readthedocs.org/"&gt;Cliquet&lt;/a&gt;. We had a chance to setup &lt;a class="reference external" href="http://cliquet.readthedocs.org/en/latest/api/"&gt;a very simple protocol&lt;/a&gt;, strongly inspired by
+&lt;a class="reference external" href="http://en.wikipedia.org/wiki/Firefox_Sync"&gt;Firefox Sync&lt;/a&gt;, to sync records.&lt;/p&gt;
+&lt;p&gt;The reason clients for &lt;em&gt;Reading List&lt;/em&gt; were implemented in few weeks, whether in
+JavaScript, Java (Android) or ASM (Firefox addon), is that the «&lt;em&gt;offline first&lt;/em&gt;»
+principle of the service is trivial.&lt;/p&gt;
+&lt;div class="section" id="tradeoffs"&gt;
+&lt;h3&gt;Tradeoffs&lt;/h3&gt;
+&lt;p&gt;Of course, we don't intend to compete with &lt;em&gt;CouchDB&lt;/em&gt; and are making some
+concessions:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Per default, records collections are isolated by user;&lt;/li&gt;
+&lt;li&gt;There is no history of revisions;&lt;/li&gt;
+&lt;li&gt;There is no diff between each revision;&lt;/li&gt;
+&lt;li&gt;Per default, there is no automatic conflict resolution;&lt;/li&gt;
+&lt;li&gt;There is no stream synchronization.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If we are not mistaken, these tradeoffs exclude the possibility of
+implementing &lt;a class="reference external" href="https://github.com/pouchdb/pouchdb/blob/master/lib/adapters/http/http.js#L721-L946"&gt;a PouchDB adapter&lt;/a&gt; for the HTTP-based synchronisation protocol of &lt;em&gt;Cliquet&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Too bad since it would have been a great opportunity to capitalize on the user
+experience of &lt;em&gt;PouchDB&lt;/em&gt; regarding the synchronisation client.&lt;/p&gt;
+&lt;p&gt;However, we have some interesting features:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;No map-reduce;&lt;/li&gt;
+&lt;li&gt;Partial and/or ordered and/or paginated synchronisation;&lt;/li&gt;
+&lt;li&gt;The client can choose, with headers, to delete the data or to accept the
+server version;&lt;/li&gt;
+&lt;li&gt;A single server is deployed for N apps;&lt;/li&gt;
+&lt;li&gt;Self hosting is dead simple;&lt;/li&gt;
+&lt;li&gt;The client can choose not to use local storage at all;&lt;/li&gt;
+&lt;li&gt;The JavaScript client will have its local store management delegated (we're
+thinking about &lt;a class="reference external" href="https://github.com/mozilla/localForage"&gt;LocalForage&lt;/a&gt; or
+&lt;a class="reference external" href="https://github.com/dfahlander/Dexie.js"&gt;Dexie.js&lt;/a&gt;);&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;And we are complying with &lt;a class="reference external" href="#storage-specs"&gt;the specs we drew at the beginning of the article&lt;/a&gt;!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="philosophical-arguments"&gt;
+&lt;h3&gt;Philosophical arguments&lt;/h3&gt;
+&lt;p&gt;It's &lt;a class="reference external" href="http://en.wikipedia.org/wiki/Law_of_the_instrument"&gt;illusionary to think that we can achieve everything with a single tool&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We have other use cases that seem to fit with &lt;em&gt;PouchDB&lt;/em&gt; (&lt;em&gt;no concept of
+permission or sharing, JavaScript environment, ...&lt;/em&gt;). We'll take advantage of it
+when relevant!&lt;/p&gt;
+&lt;p&gt;The ecosystem we want to build should address the use cases that are badly
+handled by &lt;em&gt;PouchDB&lt;/em&gt;. It should be:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Based on our very simple protocol;&lt;/li&gt;
+&lt;li&gt;Minimalist and with multiple purposes (&lt;em&gt;like our very French 2CV&lt;/em&gt;);&lt;/li&gt;
+&lt;li&gt;Naive (&lt;em&gt;no rocket-science&lt;/em&gt;);&lt;/li&gt;
+&lt;li&gt;Without magic (&lt;em&gt;explicit and easy to reimplement from scratch&lt;/em&gt;);&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://cliquet.readthedocs.org/en/latest/rationale.html"&gt;The philosophy and the features of our Python toolkit, Cliquet&lt;/a&gt;, will of course be honoured :)&lt;/p&gt;
+&lt;p&gt;As for &lt;em&gt;Remote Storage&lt;/em&gt;, whenever we face the need, we will proud to join
+this initiative. However, as for now, it seems risky to start by bending the
+solution to our own needs.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="practical-arguments"&gt;
+&lt;h3&gt;Practical arguments&lt;/h3&gt;
+&lt;p&gt;Before being willingly to deploy a &lt;em&gt;CouchDB&lt;/em&gt; solution, Mozilla &lt;em&gt;ops&lt;/em&gt; will ask us
+to precisely prove that it's not currently doable with experienced stacks (e.g.
+MySQL, Redis, PostgreSQL).&lt;/p&gt;
+&lt;p&gt;We will also have to guarantee a minimum 5 years lifetime regarding the data. With
+&lt;em&gt;Cliquet&lt;/em&gt;, using the PostgreSQL backend, our data is persisted in &lt;a class="reference external" href="https://github.com/mozilla-services/cliquet/blob/40aa33/cliquet/storage/postgresql/schema.sql#L14-L28"&gt;a flat PostgreSQL schema&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This wouldn't be the case with a LevelDown adapter that handles revisions split
+in a key-value scheme.&lt;/p&gt;
+&lt;p&gt;If we based our service on Cliquet, like we did with &lt;a class="reference external" href="http://kinto.readthedocs.org"&gt;Kinto&lt;/a&gt;, all the automation work of deploying
+(&lt;em&gt;monitoring, RPM builds, Puppet...&lt;/em&gt;) that was done for &lt;em&gt;Reading List&lt;/em&gt; will be
+completely reusable.&lt;/p&gt;
+&lt;p&gt;As said before, if we go with another totally new stack, we will have to start
+again from scratch, including lapping, profiling, optimizing, all of which has
+already been done during the first quarter of this year for Reading List.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="next-steps"&gt;
+&lt;h2&gt;Next steps&lt;/h2&gt;
+&lt;p&gt;It's still time to change our strategy :) And we welcome any feedback!
+It's always a difficult decision to make... &lt;tt class="docutils literal"&gt;&amp;lt;/troll call&amp;gt;&lt;/tt&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Twist an existing ecosystem vs build a new custom one;&lt;/li&gt;
+&lt;li&gt;Master the whole system or to integrate our solution;&lt;/li&gt;
+&lt;li&gt;Contribute vs redo;&lt;/li&gt;
+&lt;li&gt;Guide vs follow.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We really seek to join the &lt;a class="reference external" href="https://nobackend.org/"&gt;no-backend&lt;/a&gt; initiative.
+This first step might lead us to converge in the end! Maybe our service will end
+up being compatible with Remote Storage, maybe PouchDB will become more agnostic
+regarding the synchronisation protocol...&lt;/p&gt;
+&lt;img alt="XKCD — Standards https://xkcd.com/927/" src="http://www.servicedenuages.fr/en/../images/standards.png" style="width: 500px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;Using this new ecosystem for the « Payments » project will allow us to setup a
+suitable permission system (&lt;em&gt;probably built on OAuth scopes&lt;/em&gt;). We are also
+looking forward to &lt;a class="reference external" href="http://blog.daybed.io/daybed-revival.html"&gt;capitalizing on our Daybed experience for this project&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We'll also extract some parts of the clients source code that were implemented
+for &lt;em&gt;Reading List&lt;/em&gt; in order to provide a minimalist JavaScript client.&lt;/p&gt;
+&lt;p&gt;By going this way, we are taking several risks:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;reinventing a wheel we don't know;&lt;/li&gt;
+&lt;li&gt;failing to make the &lt;em&gt;Cliquet&lt;/em&gt; ecosystem a community project;&lt;/li&gt;
+&lt;li&gt;failing to place &lt;em&gt;Cliquet&lt;/em&gt; in the niche for the use cases that are not
+covered with &lt;em&gt;PouchDB&lt;/em&gt; :)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;As &lt;a class="reference external" href="http://pouchdb.com/2015/04/05/filtered-replication.html"&gt;Giovanni Ornaghi said&lt;/a&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+Rolling out your set of webservices, push notifications, or background services
+might give you more control, but at the same time it will force you to engineer,
+write, test, and maintain a whole new ecosystem.&lt;/blockquote&gt;
+&lt;p&gt;And this ecosystem is precisely the one that &lt;em&gt;Mozilla Cloud Services&lt;/em&gt; team
+is in charge of!&lt;/p&gt;
+&lt;table class="docutils footnote" frame="void" id="id3" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;The &lt;a class="reference external" href="https://sharesome.5apps.com/"&gt;Sharesome project&lt;/a&gt; allows for some
+public sharing of one's resources from one's &lt;em&gt;Remote Storage&lt;/em&gt;.&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+</summary></entry><entry><title>Service de nuages !</title><link href="http://www.servicedenuages.fr/en/service-de-nuages" rel="alternate"></link><updated>2015-04-16T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-16:en/service-de-nuages</id><summary type="html">&lt;p&gt;A bunch of changes since the beginning of the year for the "cloud-services"
+frenchies!&lt;/p&gt;
+&lt;p&gt;First of all, two new recruits are here to complement the team:
+&lt;a class="reference external" href="https://nicolas.perriault.net/"&gt;n1k0&lt;/a&gt; and &lt;a class="reference external" href="http://mathieu-leplatre.info"&gt;Mathieu&lt;/a&gt; are now helping out &lt;a class="reference external" href="http://ziade.org/"&gt;Tarek&lt;/a&gt;, &lt;a class="reference external" href="http://natim.ionyse.com"&gt;Rémy&lt;/a&gt; and &lt;a class="reference external" href="http://notmyidea.org"&gt;Alexis&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The starting of this year has seen the launch of &lt;a class="reference external" href="https://www.mozilla.org/en-US/firefox/hello/"&gt;Firefox Hello&lt;/a&gt; which allowed us to scale up
+&lt;a class="reference external" href="https://github.com/mozilla-services/loop-server"&gt;the server&lt;/a&gt;,
+written in Node.js®.&lt;/p&gt;
+&lt;div class="section" id="a-readinglist-server"&gt;
+&lt;h2&gt;A readinglist server&lt;/h2&gt;
+&lt;p&gt;In parallel, a project about &lt;a class="reference external" href="https://readinglist.readthedocs.org"&gt;synchronizing reading lists&lt;/a&gt; (&lt;em&gt;Reading List&lt;/em&gt;) started.
+The idea is to be able to bookmark pages to "read for later" and continue the
+reading on any synchronized device (Firefox for Android or Firefox Desktop). An
+open source counterpart to &lt;a class="reference external" href="http://getpocket.com"&gt;Pocket&lt;/a&gt;, in some regards, which is possible to host
+yourself.&lt;/p&gt;
+&lt;img alt="Capture of Firefox nightly with the readinglist." src="http://www.servicedenuages.fr/en/../images/readinglist-screenshot.png" style="width: 953px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;To build this service, we could have reused &lt;a class="reference external" href="https://github.com/mozilla-services/server-syncstorage"&gt;Firefox sync&lt;/a&gt; , after all it's
+a robust synchronisation service, built on top of &lt;a class="reference external" href="http://cornice.readthedocs.org/"&gt;Cornice&lt;/a&gt;. But &lt;em&gt;Sync&lt;/em&gt; hasn't
+been thought to guarantee strong data integrity and it was too complex to change that
+deeply.&lt;/p&gt;
+&lt;p&gt;We could also have created yet another application to expose an API and
+persist data in a database.&lt;/p&gt;
+&lt;p&gt;But, this little new team isn't here just by luck.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="the-daybed-team"&gt;
+&lt;h2&gt;The «Daybed Team»&lt;/h2&gt;
+&lt;p&gt;We share a vision: a generic data storage service! Maybe it brings to memories
+&lt;a class="reference external" href="https://daybed.io"&gt;a certain project named Daybed&lt;/a&gt;?&lt;/p&gt;
+&lt;p&gt;For client applications, JavaScript or other, using this service should be as
+easy as a pie! The application handles its data locally (offline-first) and
+synchronizes upon request.&lt;/p&gt;
+&lt;p&gt;Here, the heart of the &lt;em&gt;Reading List&lt;/em&gt; service is a "CRUD" API (Create, Retrieve,
+Update, Delete), which handles synchronisation and authentication. We made the
+bet to do a "simple" API, with the less specific code as possible, which would
+create the basis of a generic service. Also because it's likely that other
+similar projects will follow.&lt;/p&gt;
+&lt;p&gt;A bunch of experience was accumulated within the team, on one hand with the
+creation and evolution of &lt;em&gt;Firefox Sync&lt;/em&gt; and on the other hand with &lt;em&gt;Daybed&lt;/em&gt;
+our side-project. We try to not reproduce the same mistakes while keeping
+concepts which proved to be valid.&lt;/p&gt;
+&lt;p&gt;For instance, we kept the &lt;em&gt;timestamp&lt;/em&gt; mechanism of &lt;em&gt;Sync&lt;/em&gt;, which is used to
+synchronize collections. As these problematics are recurring or even impossible
+to avoid, we decided to build on top of this synchronization protocol and to
+dissociate it from the readinglist project.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="the-one-way-mechanism"&gt;
+&lt;h2&gt;The one-way mechanism&lt;/h2&gt;
+&lt;p&gt;As a first stone to build the cathedral, we created &lt;a class="reference external" href="https://cliquet.readthedocs.org"&gt;Cliquet&lt;/a&gt;, which main idea is to have an
+implementation of this protocol in Python, while factorizing all our good
+practices (notably for putting everything in production).&lt;/p&gt;
+&lt;img alt="Cliquet's logo" class="align-right" src="http://www.servicedenuages.fr/en/../images/cliquet-logo.png" style="width: 300px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;The good thing with protocols (as opposed to monoliths) is that if you prefer
+Asyncio, io.js or Go, we will encourage you to publish your alternative
+implementation!&lt;/p&gt;
+&lt;p&gt;With &lt;em&gt;Cliquet&lt;/em&gt;, the code of the readinglist service consists into defining
+a schema for the records and force some field values on certain calls. The size
+of the project is dramatically reduced to a dozen lines of code.&lt;/p&gt;
+&lt;p&gt;As to the future generic data storage service, &lt;a class="reference external" href="http://kinto.readthedocs.org"&gt;the project&lt;/a&gt; just started but it really is!
+It can already be used as a storage backend in a &lt;em&gt;Cliquet&lt;/em&gt; application, and
+this was &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/blob/0.2.1/kinto/views/collection.py"&gt;implemented in only 20 lines of code&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Oh, and this time we will build features only from real use cases which are
+coming along the way. It might seem silly, but on &lt;em&gt;Daybed&lt;/em&gt; we never made that point.&lt;/p&gt;
+&lt;p&gt;In future articles, we want to describe the good practices we put together in
+the protocol (or &lt;em&gt;Cliquet&lt;/em&gt;), certain specific technical points and present our
+vision with examples and tutorials.&lt;/p&gt;
+&lt;p&gt;See you soon, then!&lt;/p&gt;
+&lt;/div&gt;
+</summary></entry><entry><title>Le printemps</title><link href="http://www.servicedenuages.fr/en/spring" rel="alternate"></link><updated>2015-04-15T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-15:en/spring</id><summary type="html">&lt;p&gt;It's spring already, and a good time to tidy-up a bit our minds!&lt;/p&gt;
+&lt;p&gt;We've been stacking interesting experiences without really sharing them in
+writings, so now's the time.&lt;/p&gt;
+&lt;p&gt;There were a francophone conference about Hawk the past year, and some articles
+in English in the Mozilla blog, but sometimes the English language doesn't let
+us express ourselves in a compelling way.&lt;/p&gt;
+&lt;p&gt;That's why, in this beginning of spring 2015, we propose a set of articles
+written in French and translated in English whenever we can, about what we do in
+our little &lt;em&gt;Service des nuages&lt;/em&gt; team at Mozilla.&lt;/p&gt;
+&lt;img alt="Our very own logo" src="http://www.servicedenuages.fr/en/../images/service_de_nuages.png" style="width: 2268px; height: auto; max-width: 100%;"/&gt;
+</summary></entry></feed>

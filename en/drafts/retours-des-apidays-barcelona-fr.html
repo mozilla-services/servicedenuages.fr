@@ -1,0 +1,298 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>Retours des APIdays Barcelona // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/en/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Publié</h5>
+                <p title="~1214 mots">~5mn de lecture 🕑</p>
+                <p>lun. 11 mai 2015</p>
+                <a href="/">&larr;Liste des articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Retours des APIdays Barcelona</h1>
+                </header>
+            </section>
+            <p>Cette journée aux APIDays Barcelona a été d'une rare richesse ! Pour commencer, bravo à toute l'équipe et
+tous les participants !</p>
+<div class="figure align-center" style="width: 1024px; height: auto; max-width: 100%;width: 1024px; height: auto; max-width: 100%;">
+<img alt="@thetonyblank — https://twitter.com/thetonyblank/status/595860394561921025" src="http://www.servicedenuages.fr/en/../images/apidays-room.jpg" style="width: 1024px; height: auto; max-width: 100%;width: 1024px; height: auto; max-width: 100%;"/>
+</div>
+<p>Je vais tenter de faire un retour le plus complet possible, en restant un minimum concis :) S'il y a
+des points obscurs, «<em>lache tes coms</em>» <a class="footnote-reference" href="#id3" id="id1">[1]</a>  !</p>
+<div class="section" id="l-evenement">
+<h2>L'évènement</h2>
+<p><a class="reference external" href="http://mediterranea.apidays.io/">APIdays</a> est un évènement qui a lieu dans plusieurs villes,
+et par chance aussi à Barcelone.</p>
+<p>Naïvement, je n'aurais jamais pensé qu'il puisse exister une communauté aussi forte autour des APIs !
+Je découvre donc une nouvelle famille de passionnés, pluri-disciplinaire et agnostique \o/.
+Des nouveaux métiers et des participants de tous horizons, de la grosse multinationale aux obédiences XML/Java à la startup
+hype en passant par des indépendants de toute sorte !</p>
+</div>
+<div class="section" id="l-affordance">
+<h2>L'affordance</h2>
+<p>L'affordance, formulé par Don Norman, est un concept assez connu en ergonomie. Cela définit
+la capacité d'un objet à transmettre ses fonctionnalités via son apparence. Pensez aux poignées
+de porte, selon leur forme on sait si on doit tourner, tirer ou pousser.</p>
+<p><a class="reference external" href="https://twitter.com/mamund">Mike Amundsen</a> ouvrait la journée en étendant le concept aux APIs.
+Une API, et l'apparence des informations présentées, doit suggérer ce qu'on peut faire avec.</p>
+<p>Il a rappelé cependant que les meilleurs designs étaient ceux qui permettaient de faire des
+choses choses auxquelles les auteurs n'avaient pas pensé.</p>
+<blockquote class="epigraph">
+<p>A good API is hard to misuse.</p>
+<p class="attribution">—<a class="reference external" href="https://twitter.com/orliesaurus">Orlando Kalossakas</a>, plus tard dans la journée.</p>
+</blockquote>
+</div>
+<div class="section" id="hypermedia">
+<h2>Hypermedia</h2>
+<p>Plusieurs fois dans la journée, les évangélistes et fins prédicateurs ont expliqué que le
+monde des APIs était là où était le Web il y 15 ans. On a dépassé le stade d'utiliser
+<tt class="docutils literal">GET /action=create</tt> et REST est bien implanté, mais l'accessibilité des APIs, leur
+fédération, leur utilisation transparente ou leur caractère inter-changeable semble encore loin.</p>
+<p>Les APIs manquent de liens.</p>
+<blockquote class="epigraph">
+<p>Hypermedia is just like hypertext but not limited to...text!</p>
+<p class="attribution">—<a class="reference external" href="https://twitter.com/gssor">Ross Garett</a></p>
+</blockquote>
+<p>Le Web était initialement pensé comme une gigantesque base de données distribuée et
+exploitable sans préconfiguration. Sur le tard, il y a eu diverses initiatives,
+comme le Web sémantique, avec les <a class="reference external" href="http://fr.wikipedia.org/wiki/Ontologie_%28informatique%29">graphes d'ontologie</a>, <a class="reference external" href="http://fr.wikipedia.org/wiki/Resource_Description_Framework">RDF</a> ou les micro-formats. On devrait pouvoir dire
+aujourd'hui que c'est un échec, car cela n'a pas été adopté partout.</p>
+<p>Mais, mais... il y a encore de l'espoir avec les APIs :) <a class="footnote-reference" href="#id4" id="id2">[2]</a></p>
+</div>
+<div class="section" id="conventions">
+<h2>Conventions</h2>
+<p>En contrebas du Web ou des APIs sémantiques, il y a l'approche qui consiste à mettre au point des
+conventions simples.</p>
+<p><a class="reference external" href="https://twitter.com/steveklabnik">Steve Klabnik</a> qui a une culture Ruby a fait le parallèle
+avec les frameworks Web et l'approche «<em>Convention over configuration</em>».</p>
+<div class="figure align-center" style="width: 1023px; height: auto; max-width: 100%;width: 1023px; height: auto; max-width: 100%;">
+<img alt="https://twitter.com/apidaysMedit/status/595883679500623872" src="http://www.servicedenuages.fr/en/../images/apidays-steve-klabnik.jpg" style="width: 1023px; height: auto; max-width: 100%;width: 1023px; height: auto; max-width: 100%;"/>
+</div>
+<p>C'est le cas de la <a class="reference external" href="http://jsonapi.org/">spécification JSON-API</a>, qui ne cherche pas à aborder
+les concepts de sémantique mais simplement d'économiser aux développeurs de débattre des
+<a class="reference external" href="http://fr.wikipedia.org/wiki/Loi_de_futilit%C3%A9_de_Parkinson">choix inutiles</a>.</p>
+<blockquote class="epigraph">
+<p>I looked in Google Images to find pictures of bikesheds and found that.
+I thought «that's not a bikeshed». OMG, I was actually bikeshedding about bikesheds!</p>
+<p class="attribution">—Steve</p>
+</blockquote>
+<p>Par la même occasion, l'idée est de faciliter l'implémentation des clients, et <a class="reference external" href="https://github.com/emberjs/data">le composant data Ember.js</a>
+supportera la spec dans la prochaine release.</p>
+<p>Nos intentions pour <a class="reference external" href="http://cliquet.readthedocs.org/en/latest/rationale.html#philosophy">Cliquet</a> sont exactement celles-ci. Nous
+allons donc <a class="reference external" href="https://github.com/mozilla-services/cliquet/issues/254">probablement converger</a>. D'autant
+que les specs sont très proches.</p>
+</div>
+<div class="section" id="documentation-d-api">
+<h2>Documentation d'API</h2>
+<p>J'ai pu assister à une <a class="reference external" href="https://speakerdeck.com/l0ck3/beyond-docs-lessons-learned-rebuilding-the-paymill-documentation">excellente présentation</a>
+de <a class="reference external" href="https://twitter.com/yannirbah">Yann Irbah</a>,
+qui résumait les bonnes pratiques pour documenter une API sous forme de produit.</p>
+<p>Les points importants:</p>
+<ul class="simple">
+<li>Exposer la valeur ajoutée du produit : Pourquoi est-ce qu'il simplifie la vie ?</li>
+<li>Documenter les premiers pas jusqu'à l'utilisation avancée ;</li>
+<li>Ne pas se contenter du «<em>hello world</em>» ;</li>
+<li>Écrire des tutoriaux pour chacun des cas d'utilisation ;</li>
+<li>Les développeurs constituent un excellent vecteur marketting ;</li>
+<li>Aider à avoir confiance en l'outil ;</li>
+<li>Proposer une documentation avec des end-points interactifs ;</li>
+<li>Mettre à jour en continu.</li>
+</ul>
+<p><a class="reference external" href="http://swagger.io/">Swagger</a> et <a class="reference external" href="https://github.com/tripit/slate">Slate</a> ont le vent en poupe.</p>
+<p>Il est possible d'aller très très loin, avec des outils qui mettent à jour les snippets
+de la doc quand l'API change par exemple...</p>
+</div>
+<div class="section" id="annuaire-d-api">
+<h2>Annuaire d'API</h2>
+<p>La dernière conférence de la journée était celle de <a class="reference external" href="https://twitter.com/kinlane">Kin Lane</a> sur
+les cycles de vie des APIs.</p>
+<p>Il a présenté <a class="reference external" href="http://apis.io">http://apis.io</a>, un annuaire d'APIs.</p>
+<p>L'idée consiste à écrire un fichier <a class="reference external" href="http://apisjson.org/">apis.json</a>, un peu l'équivalent
+des <em>sitemaps</em>, mais pour les APIs.</p>
+<p>Celui-ci va décrire les end-points (en référençant un fichier <a class="reference external" href="http://swagger.io/">Swagger</a> par exemple) et ajouter des
+métadonnées (description, tags, version, blog URI, licence, ...).</p>
+<p>Cela n'a pas seulement pour objectif de construire un annuaire global ! Cela peut être un
+annuaire local à l'infrastructure que les (micro)services interrogent, plutôt que reposer
+sur une configuration en dur (a.k.a <a class="reference external" href="http://jasonwilder.com/blog/2014/02/04/service-discovery-in-the-cloud/">Service discovery</a>).</p>
+<p>À terme, on pourrait aussi imaginer que tous les appareils de la maison qui disposent
+d'une API viennent s'enregistrer sur le routeur ADSL du domicile !
+Ainsi en un seul coup d'oeil on pourrait avoir accès à leur documentation et les bidouiller !
+Voire même que les appareils se détectent et se connectent entre eux automatiquement
+si leurs APIs respectives suivent des normes/standards.</p>
+</div>
+<div class="section" id="discussions">
+<h2>Discussions</h2>
+<p>Cette journée a été l'occasion de faire des rencontres ! Tout d'abord, ce fût un grand
+plaisir de retrouver Silvia, qui a été <a class="reference external" href="https://github.com/mozilla-services/cliquet/pull/120">la première à contribuer sur Cliquet</a> !</p>
+<div class="section" id="loosely-coupled">
+<h3>« Loosely coupled »</h3>
+<p>De nombreux participants semblaient nous rejoindre sur l'idée qu'une solution à
+un problème ne doit pas être pas liée à une implémentation (ex. <em>CouchDB</em>).</p>
+<p>Il semblerait que les grandes idées passent aujourd'hui d'abord par la définition d'un protocole,
+puis seulement ensuite par la proposition d'implémentations de référence (e.g. <a class="reference external" href="http://matrix.org">http://matrix.org</a>, <a class="reference external" href="http://wamp.ws/">http://wamp.ws/</a>).</p>
+<p>C'est une condition nécessaire pour que les services soient «<em>faiblement liés</em>», simples et interchangeables.</p>
+</div>
+<div class="section" id="kinto-est-pertinent">
+<h3>Kinto est pertinent</h3>
+<p>En échangeant, j'ai pu confirmer que ce que nous essayons de faire avec <a class="reference external" href="http://kinto.readthedocs.org/">Kinto</a> a du sens.
+La plupart ont résumé en disant «<em>Oh, un [Parse|Kinvey|Firebase] open-source !</em>». Nous aurons
+l'occasion d'en reparler, et restons modestes...</p>
+<p>Même les gens de <a class="reference external" href="http://www.typeform.com/">Typeform</a>, une startup barcelonaise qui fait une alternative
+à Google Forms, ont manifesté son intérêt pour ce genre de solution !</p>
+<p>L'idée qu'on expérimente autour des permissions et des rôles avec OAuth2
+paraissait séduire :) Après un très bref échange avec <a class="reference external" href="https://twitter.com/medjawii">Medhi</a> fondateur
+de <a class="reference external" href="https://oauth.io">OAuth.io</a>, il semblerait que les scopes OAuth2 ne suffisent pas pour
+faire ce qu'on veut.</p>
+</div>
+<div class="section" id="mashape-kong">
+<h3>Mashape Kong</h3>
+<p>Les gens de Mashape m'ont sauté dessus «<em>Oh Mathieu !</em>». Ça fait drôle ! ... c'était juste
+grâce à <a class="reference external" href="https://twitter.com/leplatrem/status/594238272177577984">ce tweet sur Kong</a> :]</p>
+<p>Ils n'ont pas lâché le mode gros délire, et on a bien papotté, notamment de
+<a class="reference external" href="https://github.com/mozilla/videur">videur</a>, qu'ils ne connaissaient pas. Ils semblaient
+bien intéressés par la partie <em>validation de RFC / specs</em> et devraient revenir
+vers nous :)</p>
+</div>
+</div>
+<div class="section" id="boite-a-outils">
+<h2>Boite à outils</h2>
+<p>Gestion</p>
+<ul class="simple">
+<li><a class="reference external" href="http://getkong.org">http://getkong.org</a> — API middleware</li>
+<li><a class="reference external" href="https://www.apitools.com">https://www.apitools.com</a> — API middleware</li>
+<li><a class="reference external" href="https://www.mashape.com">https://www.mashape.com</a> — Market place pour APIs</li>
+</ul>
+<p>Documentation</p>
+<ul class="simple">
+<li><a class="reference external" href="https://docpad.org">https://docpad.org</a> — générateur de sites statiques ;</li>
+<li><a class="reference external" href="https://apiblueprint.org">https://apiblueprint.org</a> — comme Swagger mais en markdown ;</li>
+<li><a class="reference external" href="http://raml.org">http://raml.org</a> — RESTful API Modeling Language ;</li>
+<li><a class="reference external" href="http://readme.io">http://readme.io</a> — Service de documentation</li>
+<li><a class="reference external" href="https://gelato.io">https://gelato.io</a> — Documentations techniques jolies</li>
+<li><a class="reference external" href="https://apiembed.com">https://apiembed.com</a> — Snippets de requetes API</li>
+</ul>
+<p>Studio / Mock / SDK</p>
+<ul class="simple">
+<li><a class="reference external" href="https://apiary.io">https://apiary.io</a> ­— Studio</li>
+<li><a class="reference external" href="https://www.mocaroni.com">https://www.mocaroni.com</a> — Studio/Mock</li>
+<li><a class="reference external" href="http://mockbin.org">http://mockbin.org</a> — Créer des mock d'API</li>
+<li><a class="reference external" href="http://restunited.com">http://restunited.com</a> — Génération de SDK</li>
+<li><a class="reference external" href="https://apimatic.io">https://apimatic.io</a> — Génération de SDK</li>
+<li><a class="reference external" href="https://www.getpostman.com">https://www.getpostman.com</a> — Extension Chrome pour REST</li>
+</ul>
+<p>Divers</p>
+<ul class="simple">
+<li><a class="reference external" href="http://management.apievangelist.com/building-blocks.html">API building blocks</a> par Kin Lane</li>
+<li><a class="reference external" href="https://github.com/cjbarber/ToolsOfTheTrade">https://github.com/cjbarber/ToolsOfTheTrade</a> — Services en ligne utiles</li>
+<li><a class="reference external" href="https://github.com/oauth-io/oauthd">OAuthd</a> — Le daemon de OAuth.io</li>
+<li><a class="reference external" href="http://loader.io">http://loader.io</a> — Load testing service</li>
+<li><a class="reference external" href="https://divshot.com">https://divshot.com</a> — Hébergement de fichiers statiques</li>
+<li><a class="reference external" href="http://schemaform.io">http://schemaform.io</a> — Angular + JSON Schema</li>
+<li><a class="reference external" href="https://github.com/mgonto/restangular">restangular</a> — REST + Angular</li>
+<li><a class="reference external" href="http://sailsjs.org">http://sailsjs.org</a> — Framework NodeJS</li>
+</ul>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion</h2>
+<p>Les APIs sont partout. Toutes les entreprises ont des APIs. Les APIs sont les
+blocs avec lesquels les développeurs construiront les applications du futur.</p>
+<img alt="@paulsbruce — https://twitter.com/paulsbruce/status/596347015283548161" src="http://www.servicedenuages.fr/en/../images/apidays-thanks-staff.jpg" style="width: 1024px; height: auto; max-width: 100%;width: 1024px; height: auto; max-width: 100%;"/>
+<p>Merci à toutes et tous ceux qui ont participé de près ou de loin à l'organisation
+de cet évènement fédérateur.</p>
+<p>Je vous conseille de guetter les futures dates dans les différentes villes du monde !</p>
+<p><a class="reference external" href="http://www.apidays.io">http://www.apidays.io</a></p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label"></col><col></col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Bon courage à celui qui tentera de traduire ça <a class="reference external" href="http://blog.notmyidea.org/language.html">tiens</a> !</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label"></col><col></col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td><a class="reference external" href="http://sookocheff.com/posts/2014-03-11-on-choosing-a-hypermedia-format/">http://sookocheff.com/posts/2014-03-11-on-choosing-a-hypermedia-format/</a> (gist: <a class="reference external" href="https://gist.github.com/soofaloofa/9350847">https://gist.github.com/soofaloofa/9350847</a>)</td></tr>
+</tbody>
+</table>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>
