@@ -1,0 +1,23 @@
+Le printemps
+############
+
+:slug: le-printemps
+:date: 2015-04-15
+:lang: en
+:url: spring
+
+It's spring already, and a good time to tidy-up a bit our minds!
+
+We've been stacking interesting experiences without really sharing them in
+writings, so now's the time.
+
+There were a francophone conference about Hawk the past year, and some articles
+in English in the Mozilla blog, but sometimes the English language doesn't let
+us express ourselves in a compelling way.
+
+That's why, in this beginning of spring 2015, we propose a set of articles
+written in French and translated in English whenever we can, about what we do in
+our little *Service des nuages* team at Mozilla.
+
+.. image:: {filename}/images/service_de_nuages.png
+    :alt: Our very own logo

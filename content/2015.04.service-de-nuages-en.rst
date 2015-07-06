@@ -4,6 +4,9 @@ Service de nuages !
 :date: 2015-04-16
 :slug: service-de-nuages
 :lang: en
+:url: service-de-nuages
+:summary: A quick overview of our work in the first quarter of 2015.
+          Readinglist, Kinto, Cliquet.
 
 
 A bunch of changes since the beginning of the year for the "cloud-services"

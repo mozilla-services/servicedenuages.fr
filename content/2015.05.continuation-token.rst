@@ -1,7 +1,9 @@
-Comment passer de LIMIT / OFFSET aux Continuation Tokens ?
-##########################################################
+Utiliser les continuation tokens pour sa pagination
+###################################################
 
+:lang: fr
 :date: 2015-05-04
+:url: pagination-continuation-token
 :summary: Comment passer de LIMIT / OFFSET aux jetons de continuation pour la pagination.
 
 Si vous êtes là, c'est que quelqu'un a dû vous le dire : Paginer sur des

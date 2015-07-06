@@ -2,7 +2,10 @@ Service de nuages !
 ===================
 
 :date: 2015-04-16
-
+:slug: service-de-nuages
+:lang: fr
+:url: service-de-nuages
+:summary: Retour sur le premier trimestre 2015: Readinglist, Kinto, Cliquet.
 
 Pas mal de changements depuis le début de l'année pour l'équipe
 «cloud-services» francophone!
