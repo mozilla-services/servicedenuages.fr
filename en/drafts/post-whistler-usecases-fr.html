@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>Perspectives pour l'été // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/en/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Publié</h5>
+                <p title="~1235 mots">~5mn de lecture 🕑</p>
+                <p>mar. 07 juillet 2015</p>
+                <a href="/">&larr;Liste des articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Perspectives pour l'été</h1>
+                </header>
+            </section>
+            <p>Mozilla a pour coutume d'organiser régulièrement des semaines de travail où tous les employés
+sont réunis physiquement. Pour cette dernière édition, nous avons pu retrouver
+nos collègues du monde entier à <a class="reference external" href="http://www.openstreetmap.org/node/268148288#map=4/50.12/-122.95">Whistler, en Colombie Britannique au Canada</a> !</p>
+<img alt="«All Hands» talk about Lego, by @davidcrob - CC0" class="align-center" src="http://www.servicedenuages.fr/en/../images/whistler-talks.jpg" style="width: 1024px; height: auto; max-width: 100%;width: 1024px; height: auto; max-width: 100%;"/>
+<p>Ce fût l'occasion pour notre équipe de se retrouver, et surtout de partager notre
+vision et nos idées dans le domaine du stockage, afin de collecter des cas d'utilisation pour
+notre solution <a class="reference external" href="https://kinto.readthedocs.org">Kinto</a>.</p>
+<p>Dans cet article, nous passons en revue les pistes que nous avons pour
+les prochains mois.</p>
+<div class="section" id="ateliers-et-promotion">
+<h2>Ateliers et promotion</h2>
+<img alt="Kinto.js workshop - CC0" class="align-center" src="http://www.servicedenuages.fr/en/../images/whistler-workshop.jpg" style="width: 1024px; height: auto; max-width: 100%;width: 1024px; height: auto; max-width: 100%;"/>
+<p>Nicolas a présenté <a class="reference external" href="https://github.com/mozilla-services/kinto.js">Kinto.js</a> dans un atelier dédié, avec comme support de
+présentation le <a class="reference external" href="http://kintojs.readthedocs.org/en/latest/tutorial/">tutorial d'introduction</a>.</p>
+<p>L'application résultante, pourtant toute simple, permet d'appréhender les
+concepts de synchronisation de Kinto. Le tout sans installation prélable,
+puisque Rémy a mis en place un <a class="reference external" href="https://kinto.dev.mozaws.net/v1/">serveur de dev effacé tous les jours</a>.</p>
+<p>Nous avions un point d'honneur à faire du Vanilla.JS, déjà pour éviter les
+combats de clochers autour des frameworks, mais aussi pour mettre en évidence qu'avec
+HTML5 et ES6, on n'était plus aussi démuni qu'il y a quelques années.</p>
+<p>Ce petit atelier nous a permis de nous rendre compte qu'on avait encore de
+grosses lacunes en terme de documentation, surtout en ce qui concerne
+l'éco-système et la vision globale des projets (Kinto, Kinto.js, Cliquet, ...).
+Nous allons donc faire de notre mieux pour combler ce manque.</p>
+</div>
+<div class="section" id="mozilla-payments">
+<h2>Mozilla Payments</h2>
+<img alt="Whistler Alta Lake - CC0" class="align-center" src="http://www.servicedenuages.fr/en/../images/whistler-lake.jpg" style="width: 1024px; height: auto; max-width: 100%;width: 1024px; height: auto; max-width: 100%;"/>
+<p>Comme <a class="reference external" href="http://www.servicedenuages.fr/la-gestion-des-permissions">décrit précédemment</a>, nous avons mis en place un système de permissions pour répondre aux besoins de suivi des paiements et abonnements.</p>
+<p>Pour ce projet, Kinto sera utilisé depuis une application Django, via un client Python.</p>
+<p>Maintenant que les développements ont été livrés, il faut transformer l'essai, réussir l'intégration, l'hébergement et la montée en puissance. La solution doit être livrée à la fin de l'année.</p>
+<div class="section" id="a-venir">
+<h3>À venir</h3>
+<p>Nous aimerions en profiter pour implémenter une fonctionnalité qui nous tient à coeur : la construction de la liste des enregistrements accessibles en lecture sur une collection partagée.</p>
+</div>
+</div>
+<div class="section" id="firefox-os-et-stockage">
+<h2>Firefox OS et stockage</h2>
+<img alt="Firefox OS Cloud Storage Presentation - CC0" class="align-center" src="http://www.servicedenuages.fr/en/../images/whistler-cloud-storage.jpg" style="width: 1024px; height: auto; max-width: 100%;width: 1024px; height: auto; max-width: 100%;"/>
+<p>Nous avons eu beaucoup d'échanges avec l'équipe de Firefox OS, avec qui nous avions
+déjà eu l'occasion de collaborer, pour le <a class="reference external" href="https://github.com/mozilla-services/msisdn-gateway">serveur d'identification BrowserID par SMS</a> et pour <a class="reference external" href="https://github.com/mozilla-services/loop-server">Firefox Hello</a>.</p>
+<div class="section" id="in-app-sync">
+<h3>In-App sync</h3>
+<p>Kinto, la solution simple promue pour la synchronisation de données dans les applications
+Firefox OS ? La classe ! C'est ce qu'on avait en tête depuis longtemps, déjà à
+l'époque avec <a class="reference external" href="http://daybed.readthedocs.org/">Daybed</a>. Voici donc une belle opportunité à saisir !</p>
+<p>Il va falloir expliciter les limitations et hypothèses simplificatrices de notre
+solution, surtout en terme de gestion de la concurrence. Nous sommes persuadés
+que ça colle avec la plupart des besoins, mais il ne faudrait pas décevoir :)</p>
+<p>Le fait que <a class="reference external" href="https://github.com/daleharvey">Dale</a>, un des auteurs de <a class="reference external" href="http://pouchdb.com/">PouchDB</a> et <a class="reference external" href="https://github.com/michielbdejong">Michel de Jong</a>, un des auteurs de <a class="reference external" href="http://remotestorage.io/">Remote Storage</a>, nous aient encouragés sur nos premiers pas nous a bien motivé !</p>
+</div>
+<div class="section" id="cut-the-rope">
+<h3>Cut the Rope</h3>
+<p>Kinto devrait être mis à profit pour synchroniser les paramètres et les scores
+du <a class="reference external" href="https://marketplace.firefox.com/app/cut-the-rope/">jeu</a>. Un premier exercice et une première vitrine sympa !</p>
+</div>
+<div class="section" id="syncto">
+<h3>« SyncTo »</h3>
+<p><a class="reference external" href="https://docs.services.mozilla.com/storage/apis-1.5.html">Firefox Sync</a> est la solution qui permet de synchroniser les données de Firefox (favoris, extensions, historique, complétion des formulaires, mots de passe, ...) entre plusieurs périphériques, de manière chiffrée.</p>
+<p>L'implémentation du client en JavaScript est relativement complexe et date un peu maintenant.
+La réécriture n'a jamais été vraiment menée à bout.</p>
+<p>Nous souhaitons implémenter un pont entre <em>Kinto</em> et <em>Firefox Sync</em>, de manière
+à pouvoir utiliser le client <em>Kinto.js</em>, plus simple et plus moderne, pour récupérer
+les contenus et les stocker dans IndexedDB. Le delta à implémenter côté serveur est faible car nous nous étions
+inspirés du protocole déjà éprouvé de Sync. Côté client, il s'agira surtout de
+cabler l'authentification BrowserId et la Crypto.</p>
+<p>Alexis a sauté sur l'occasion pour commencer l'écriture d'<a class="reference external" href="https://github.com/mozilla-services/syncclient">un client python pour Firefox Sync</a>, qui servira de brique de base pour l'écriture du service.</p>
+</div>
+<div class="section" id="cloud-storage">
+<h3>Cloud Storage</h3>
+<p>Eden Chuang et Sean Lee ont présenté les avancées sur l'intégration de services de stockages
+distants (<em>DropBox, Baidu Yun</em>) dans <em>Firefox OS</em>. Actuellement, leur preuve de
+concept repose sur <a class="reference external" href="https://fr.wikipedia.org/wiki/Filesystem_in_Userspace">FUSE</a>.</p>
+<p>Nous avons évidemment en tête d'introduire la notion de fichiers attachés dans
+<em>Kinto</em>, en implémentant la specification
+<a class="reference external" href="https://tools.ietf.org/html/draft-dejong-remotestorage-05">*Remote Storage*</a>,
+mais pour l'instant les cas d'utilisations ne se sont pas encore présentés officiellement.</p>
+</div>
+<div class="section" id="id2">
+<h3>À venir</h3>
+<p>Nous serons probablement amenés à introduire la gestion de la concurence dans
+le client JS, en complément de ce qui a été fait sur le serveur, pour permettre
+les écritures simultanées et synchronisation en tâche de fond.</p>
+<p>Nous sommes par ailleurs perpétuellement preneurs de vos retours — et bien
+entendu de vos contributions — tant sur le code <a class="reference external" href="https://github.com/mozilla-services/kinto/">serveur</a>
+que <a class="reference external" href="https://github.com/mozilla-services/kinto.js/">client</a>  !</p>
+</div>
+</div>
+<div class="section" id="contenus-applicatifs-de-firefox">
+<h2>Contenus applicatifs de Firefox</h2>
+<img alt="Landscape - CC0" class="align-center" src="http://www.servicedenuages.fr/en/../images/whistler-landscape.jpg" style="width: 1024px; height: auto; max-width: 100%;width: 1024px; height: auto; max-width: 100%;"/>
+<p>Aujourd'hui Firefox a un cycle de release de six mois. Un des objectifs
+consiste à désolidariser certains contenus applicatifs de ces cycles
+relativement longs (ex. <em>règles de securité, dictionnaires, traductions, ...</em>) <a class="footnote-reference" href="#id4" id="id3">[1]</a>.</p>
+<p>Il s'agit de données JSON et binaire qui doivent être versionnées et synchronisées par
+les navigateurs (<em>lecture seule</em>).</p>
+<p>Il y a plusieurs outils officiels qui existent pour gérer ça (<em>Balrog</em>, <em>Shavar</em>, ...),
+et pour l'instant, aucun choix n'a été fait. Mais lors des conversations avec
+l'équipe en charge du projet, ce fût vraiment motivant de voir que même pour
+ce genre de besoins internes, <em>Kinto</em> est tout aussi pertinent !</p>
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label"></col><col></col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id3">[1]</a></td><td>La bonne nouvelle c'est que toutes les fonctionnalités <em>third-party</em> qui ont
+été intégrées récemment vont redevenir des <em>add-ons</em> o/.</td></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="awesome-bar">
+<h2>Awesome bar</h2>
+<img alt="Firefox Labs Meeting - CC0" class="align-center" src="http://www.servicedenuages.fr/en/../images/whistler-labs.jpg" style="width: 1024px; height: auto; max-width: 100%;width: 1024px; height: auto; max-width: 100%;"/>
+<p>L'équipe <em>Firefox Labs</em>, le laboratoire qui élève des pandas roux en éprouvette,
+serait vraiment intéressé par notre solution, notamment pour abreuver en données
+la future <em>Awesome bar</em>, qui fusionnerait URL, historique et recherche.</p>
+<p>Nous ne pouvons pas en dire beaucoup plus pour l'instant, mais les fonctionnalités
+de collections d'enregistrements partagées entre utilisateurs de <em>Kinto</em>
+correspondent parfaitement à ce qui est envisagé pour le futur du navigateur :)</p>
+<div class="section" id="id5">
+<h3>À venir</h3>
+<p>Nous serons donc probablement amenés, avant de la fin de l'année, à introduire des
+fonctionnalités d'indexation et de recherche <em>full-text</em> (comprendre <em>ElasticSearch</em>).
+Cela rejoint nos plans précédents, puisque c'est quelque chose que nous avions dans
+<em>Daybed</em>, et qui figurait sur notre feuille de route !</p>
+</div>
+</div>
+<div class="section" id="browser-html">
+<h2>Browser.html</h2>
+<img alt="Roadmap - CC0" class="align-center" src="http://www.servicedenuages.fr/en/../images/whistler-roadmap.jpg" style="width: 1024px; height: auto; max-width: 100%;width: 1024px; height: auto; max-width: 100%;"/>
+<p>L'équipe <em>Recherche</em> explore les notions de plateforme, et travaille notamment
+sur l'implémentation d'un navigateur en JS/HTML avec <em>React</em>:
+<a class="reference external" href="https://github.com/mozilla/browser.html">browser.html</a></p>
+<p><em>Kinto</em> correspond parfaitement aux attentes
+de l'équipe pour synchroniser les données associées à un utilisateur.</p>
+<p>Il pourrait s'agir de données de navigation (comme Sync), mais aussi de collections
+d'enregistrements diverses, comme par exemple les préférences du navigateur
+ou un équivalent à <em>Alexa.com Top 500</em> pour fournir la complétion d'URL sans
+interroger le moteur de recherche.</p>
+<p>L'exercice pourrait être poussé jusqu'à la synchronisation d'états <em>React</em>
+entre périphériques (par exemple pour les onglets).</p>
+<div class="section" id="id7">
+<h3>À venir</h3>
+<p>Si <em>browser.html</em> doit stocker des données de navigation, il faudra ajouter
+des fonctionnalités de chiffrement sur le client JS. Ça tombe bien, c'est un
+sujet passionant, et <a class="reference external" href="http://www.w3.org/TR/WebCryptoAPI/">il y a plusieurs standards</a> !</p>
+<p>Pour éviter d'interroger le serveur à intervalle régulier afin de synchroniser les
+changements, l'introduction des <a class="reference external" href="https://w3c.github.io/push-api/">*push notifications*</a> semble assez naturelle.
+Il s'agirait alors de la dernière pierre qui manque à l'édifice pour obtenir
+un «<em>Mobile/Web backend as a service</em>» complet.</p>
+</div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion</h2>
+<img alt="Friday Night Party - CC0" class="align-center" src="http://www.servicedenuages.fr/en/../images/whistler-top-roof.jpg" style="width: 1024px; height: auto; max-width: 100%;width: 1024px; height: auto; max-width: 100%;"/>
+<p>Nous sommes dans une situation idéale, puisque ce que nous avions imaginé
+sur <a class="reference external" href="https://github.com/mozilla-services/kinto/wiki/Roadmap">notre feuille de route</a> correspond à ce qui nous est demandé par les
+différentes équipes.</p>
+<p>L'enjeu consiste maintenant à se coordonner avec tout le monde, ne pas décevoir,
+tenir la charge, continuer à améliorer et à faire la promotion du produit, se concentrer
+sur les prochaines étapes et embarquer quelques contributeurs à nos cotés pour
+construire une solution libre, générique, simple et auto-hébergeable pour le stockage
+de données sur le Web :)</p>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>
