@@ -12,7 +12,7 @@ sont réunis physiquement. Pour cette dernière édition, nous avons pu retrouve
 nos collègues du monde entier à `Whistler, en Colombie Britannique au Canada
 <http://www.openstreetmap.org/node/268148288#map=4/50.12/-122.95>`_ !
 
-.. figure:: {filename}/images/whistler-talks.jpg
+.. image:: {filename}/images/whistler-talks.jpg
     :alt: «All Hands» talk about Lego, by @davidcrob - CC0
     :align: center
 
@@ -27,7 +27,7 @@ les prochains mois.
 Ateliers et promotion
 =====================
 
-.. figure:: {filename}/images/whistler-workshop.jpg
+.. image:: {filename}/images/whistler-workshop.jpg
     :alt: Kinto.js workshop - CC0
     :align: center
 
@@ -51,7 +51,7 @@ Nous allons donc faire de notre mieux pour combler ce manque.
 Mozilla Payments
 ================
 
-.. figure:: {filename}/images/whistler-lake.jpg
+.. image:: {filename}/images/whistler-lake.jpg
     :alt: Whistler Alta Lake - CC0
     :align: center
 
@@ -70,7 +70,7 @@ Nous aimerions en profiter pour implémenter une fonctionnalité qui nous tient 
 Firefox OS et stockage
 ======================
 
-.. figure:: {filename}/images/whistler-cloud-storage.jpg
+.. image:: {filename}/images/whistler-cloud-storage.jpg
     :alt: Firefox OS Cloud Storage Presentation - CC0
     :align: center
 
@@ -141,7 +141,7 @@ que `client <https://github.com/mozilla-services/kinto.js/>`_  !
 Contenus applicatifs de Firefox
 ===============================
 
-.. figure:: {filename}/images/whistler-landscape.jpg
+.. image:: {filename}/images/whistler-landscape.jpg
     :alt: Landscape - CC0
     :align: center
 
@@ -166,7 +166,7 @@ ce genre de besoins internes, *Kinto* est tout aussi pertinent !
 Awesome bar
 ===========
 
-.. figure:: {filename}/images/whistler-labs.jpg
+.. image:: {filename}/images/whistler-labs.jpg
     :alt: Firefox Labs Meeting - CC0
     :align: center
 
@@ -191,7 +191,7 @@ Cela rejoint nos plans précédents, puisque c'est quelque chose que nous avions
 Browser.html
 ============
 
-.. figure:: {filename}/images/whistler-roadmap.jpg
+.. image:: {filename}/images/whistler-roadmap.jpg
     :alt: Roadmap - CC0
     :align: center
 
@@ -226,7 +226,7 @@ un «*Mobile/Web backend as a service*» complet.
 Conclusion
 ==========
 
-.. figure:: {filename}/images/whistler-top-roof.jpg
+.. image:: {filename}/images/whistler-top-roof.jpg
     :alt: Friday Night Party - CC0
     :align: center
 
