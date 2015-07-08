@@ -27,10 +27,6 @@ les prochains mois.
 Ateliers et promotion
 =====================
 
-.. image:: {filename}/images/whistler-workshop.jpg
-    :alt: Kinto.js workshop - CC0
-    :align: center
-
 Nicolas a présenté `Kinto.js <https://github.com/mozilla-services/kinto.js>`_ dans un atelier dédié, avec comme support de
 présentation le `tutorial d'introduction <http://kintojs.readthedocs.org/en/latest/tutorial/>`_.
 
@@ -47,13 +43,13 @@ grosses lacunes en terme de documentation, surtout en ce qui concerne
 l'éco-système et la vision globale des projets (Kinto, Kinto.js, Cliquet, ...).
 Nous allons donc faire de notre mieux pour combler ce manque.
 
+.. image:: {filename}/images/whistler-workshop.jpg
+    :alt: Kinto.js workshop - CC0
+    :align: center
+
 
 Mozilla Payments
 ================
-
-.. image:: {filename}/images/whistler-lake.jpg
-    :alt: Whistler Alta Lake - CC0
-    :align: center
 
 Comme `décrit précédemment <http://www.servicedenuages.fr/la-gestion-des-permissions>`_, nous avons mis en place un système de permissions pour répondre aux besoins de suivi des paiements et abonnements.
 
@@ -66,13 +62,13 @@ Maintenant que les développements ont été livrés, il faut transformer l'essa
 
 Nous aimerions en profiter pour implémenter une fonctionnalité qui nous tient à coeur : la construction de la liste des enregistrements accessibles en lecture sur une collection partagée.
 
+.. image:: {filename}/images/whistler-lake.jpg
+    :alt: Whistler Alta Lake - CC0
+    :align: center
+
 
 Firefox OS et stockage
 ======================
-
-.. image:: {filename}/images/whistler-cloud-storage.jpg
-    :alt: Firefox OS Cloud Storage Presentation - CC0
-    :align: center
 
 Nous avons eu beaucoup d'échanges avec l'équipe de Firefox OS, avec qui nous avions
 déjà eu l'occasion de collaborer, pour le `serveur d'identification BrowserID par SMS <https://github.com/mozilla-services/msisdn-gateway>`_ et pour `Firefox Hello <https://github.com/mozilla-services/loop-server>`_.
@@ -137,13 +133,13 @@ Nous sommes par ailleurs perpétuellement preneurs de vos retours — et bien
 entendu de vos contributions — tant sur le code `serveur <https://github.com/mozilla-services/kinto/>`_
 que `client <https://github.com/mozilla-services/kinto.js/>`_  !
 
+.. image:: {filename}/images/whistler-cloud-storage.jpg
+    :alt: Firefox OS Cloud Storage Presentation - CC0
+    :align: center
+
 
 Contenus applicatifs de Firefox
 ===============================
-
-.. image:: {filename}/images/whistler-landscape.jpg
-    :alt: Landscape - CC0
-    :align: center
 
 Aujourd'hui Firefox a un cycle de release de six mois. Un des objectifs
 consiste à désolidariser certains contenus applicatifs de ces cycles
@@ -162,13 +158,13 @@ ce genre de besoins internes, *Kinto* est tout aussi pertinent !
     La bonne nouvelle c'est que toutes les fonctionnalités *third-party* qui ont
     été intégrées récemment vont redevenir des *add-ons* \o/.
 
+.. image:: {filename}/images/whistler-landscape.jpg
+    :alt: Landscape - CC0
+    :align: center
+
 
 Awesome bar
 ===========
-
-.. image:: {filename}/images/whistler-labs.jpg
-    :alt: Firefox Labs Meeting - CC0
-    :align: center
 
 L'équipe *Firefox Labs*, le laboratoire qui élève des pandas roux en éprouvette,
 serait vraiment intéressé par notre solution, notamment pour abreuver en données
@@ -187,13 +183,13 @@ fonctionnalités d'indexation et de recherche *full-text* (comprendre *ElasticSe
 Cela rejoint nos plans précédents, puisque c'est quelque chose que nous avions dans
 *Daybed*, et qui figurait sur notre feuille de route !
 
+.. image:: {filename}/images/whistler-labs.jpg
+    :alt: Firefox Labs Meeting - CC0
+    :align: center
+
 
 Browser.html
 ============
-
-.. image:: {filename}/images/whistler-roadmap.jpg
-    :alt: Roadmap - CC0
-    :align: center
 
 L'équipe *Recherche* explore les notions de plateforme, et travaille notamment
 sur l'implémentation d'un navigateur en JS/HTML avec *React*:
@@ -222,13 +218,13 @@ changements, l'introduction des `*push notifications* <https://w3c.github.io/pus
 Il s'agirait alors de la dernière pierre qui manque à l'édifice pour obtenir
 un «*Mobile/Web backend as a service*» complet.
 
+.. image:: {filename}/images/whistler-roadmap.jpg
+    :alt: Roadmap - CC0
+    :align: center
+
 
 Conclusion
 ==========
-
-.. image:: {filename}/images/whistler-top-roof.jpg
-    :alt: Friday Night Party - CC0
-    :align: center
 
 Nous sommes dans une situation idéale, puisque ce que nous avions imaginé
 sur `notre feuille de route <https://github.com/mozilla-services/kinto/wiki/Roadmap>`_ correspond à ce qui nous est demandé par les
@@ -239,3 +235,7 @@ tenir la charge, continuer à améliorer et à faire la promotion du produit, se
 sur les prochaines étapes et embarquer quelques contributeurs à nos cotés pour
 construire une solution libre, générique, simple et auto-hébergeable pour le stockage
 de données sur le Web :)
+
+.. image:: {filename}/images/whistler-top-roof.jpg
+    :alt: Friday Night Party - CC0
+    :align: center
