@@ -134,8 +134,8 @@ le client JS, en complément de ce qui a été fait sur le serveur, pour permett
 les écritures simultanées et synchronisation en tâche de fond.
 
 Nous sommes par ailleurs perpétuellement preneurs de vos retours — et bien
-entendu de vos contributions — tant sur le code `serveur <https://github.com/mozilla-services/kinto/issues/>`_
-que `client <https://github.com/mozilla-services/kinto.js/issues/>`_  !
+entendu de vos contributions — tant sur le code `serveur <https://github.com/mozilla-services/kinto/>`_
+que `client <https://github.com/mozilla-services/kinto.js/>`_  !
 
 
 Contenus applicatifs de Firefox
@@ -172,7 +172,7 @@ Awesome bar
 
 L'équipe *Firefox Labs*, le laboratoire qui élève des pandas roux en éprouvette,
 serait vraiment intéressé par notre solution, notamment pour abreuver en données
-la future *Awesome bar*, qui fusionnera URL, historique et recherche.
+la future *Awesome bar*, qui fusionnerait URL, historique et recherche.
 
 Nous ne pouvons pas en dire beaucoup plus pour l'instant, mais les fonctionnalités
 de collections d'enregistrements partagées entre utilisateurs de *Kinto*
@@ -184,7 +184,7 @@ correspondent parfaitement à ce qui est envisagé pour le futur du navigateur :
 
 Nous serons donc probablement amenés, avant de la fin de l'année, à introduire des
 fonctionnalités d'indexation et de recherche *full-text* (comprendre *ElasticSearch*).
-Cela réjoint nos plans précédents, puisque c'est quelque chose que nous avions dans
+Cela rejoint nos plans précédents, puisque c'est quelque chose que nous avions dans
 *Daybed*, et qui figurait sur notre feuille de route !
 
 
@@ -204,7 +204,7 @@ de l'équipe pour synchroniser les données associées à un utilisateur.
 
 Il pourrait s'agir de données de navigation (comme Sync), mais aussi de collections
 d'enregistrements diverses, comme par exemple les préférences du navigateur
-ou un équivalent à *Alexa Top 500* pour fournir la complétion d'URL sans
+ou un équivalent à *Alexa.com Top 500* pour fournir la complétion d'URL sans
 interroger le moteur de recherche.
 
 L'exercice pourrait être poussé jusqu'à la synchronisation d'états *React*
@@ -215,7 +215,7 @@ entre périphériques (par exemple pour les onglets).
 
 Si *browser.html* doit stocker des données de navigation, il faudra ajouter
 des fonctionnalités de chiffrement sur le client JS. Ça tombe bien, c'est un
-sujet passionant, et `il y a plusieurs solutions standards <http://www.w3.org/TR/WebCryptoAPI/>`_ !
+sujet passionant, et `il y a plusieurs standards <http://www.w3.org/TR/WebCryptoAPI/>`_ !
 
 Pour éviter d'interroger le serveur à intervalle régulier afin de synchroniser les
 changements, l'introduction des `*push notifications* <https://w3c.github.io/push-api/>`_ semble assez naturelle.
