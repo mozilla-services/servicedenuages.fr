@@ -8,7 +8,7 @@ PUBLISHCONF=$(BASEDIR)/publishconf.py
 
 GITHUB_PAGES_BRANCH=gh-pages
 
-VENV := $(shell echo $${VIRTUAL_ENV-.venv})
+VENV = .venv
 VIRTUALENV = virtualenv
 INSTALL_STAMP = $(VENV)/.install.stamp
 
