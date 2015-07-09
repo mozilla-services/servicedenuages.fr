@@ -34,7 +34,7 @@ L'application résultante, pourtant toute simple, permet d'appréhender les
 concepts de synchronisation de Kinto. Le tout sans installation prélable,
 puisque Rémy a mis en place un `serveur de dev effacé tous les jours <https://kinto.dev.mozaws.net/v1/>`_.
 
-Nous avions un point d'honneur à faire du Vanilla.JS, déjà pour éviter les
+Nous avions mis un point d'honneur à faire du Vanilla.JS, déjà pour éviter les
 combats de clochers autour des frameworks, mais aussi pour mettre en évidence qu'avec
 HTML5 et ES6, on n'était plus aussi démuni qu'il y a quelques années.
 
@@ -84,14 +84,14 @@ Il va falloir expliciter les limitations et hypothèses simplificatrices de notr
 solution, surtout en terme de gestion de la concurrence. Nous sommes persuadés
 que ça colle avec la plupart des besoins, mais il ne faudrait pas décevoir :)
 
-Le fait que `Dale <https://github.com/daleharvey>`_, un des auteurs de `PouchDB <http://pouchdb.com/>`_ et `Michel de Jong <https://github.com/michielbdejong>`_, un des auteurs de `Remote Storage <http://remotestorage.io/>`_, nous aient encouragés sur nos premiers pas nous a bien motivé !
+Le fait que `Dale <https://github.com/daleharvey>`_, un des auteurs de `PouchDB <http://pouchdb.com/>`_ et `Michiel de Jong <https://github.com/michielbdejong>`_, un des auteurs de `Remote Storage <http://remotestorage.io/>`_, nous aient encouragés sur nos premiers pas nous a bien motivé !
 
 
 Cut the Rope
 ------------
 
 Kinto devrait être mis à profit pour synchroniser les paramètres et les scores
-du `jeu <https://marketplace.firefox.com/app/cut-the-rope/>`_. Un premier exercice et une première vitrine sympa !
+du `jeu <http://mozilla.cuttherope.net/>`_. Un premier exercice et une première vitrine sympa !
 
 « SyncTo »
 ----------
@@ -99,7 +99,8 @@ du `jeu <https://marketplace.firefox.com/app/cut-the-rope/>`_. Un premier exerci
 `Firefox Sync <https://docs.services.mozilla.com/storage/apis-1.5.html>`_ est la solution qui permet de synchroniser les données de Firefox (favoris, extensions, historique, complétion des formulaires, mots de passe, ...) entre plusieurs périphériques, de manière chiffrée.
 
 L'implémentation du client en JavaScript est relativement complexe et date un peu maintenant.
-La réécriture n'a jamais été vraiment menée à bout.
+Le code existant n'est pas vraiment portable dans *Firefox OS* et les tentatives de réécriture
+n'ont pas abouti.
 
 Nous souhaitons implémenter un pont entre *Kinto* et *Firefox Sync*, de manière
 à pouvoir utiliser le client *Kinto.js*, plus simple et plus moderne, pour récupérer
@@ -168,7 +169,7 @@ Awesome bar
 
 L'équipe *Firefox Labs*, le laboratoire qui élève des pandas roux en éprouvette,
 serait vraiment intéressé par notre solution, notamment pour abreuver en données
-la future *Awesome bar*, qui fusionnerait URL, historique et recherche.
+un prototype pour améliorer *Awesome bar*, qui fusionnerait URL, historique et recherche.
 
 Nous ne pouvons pas en dire beaucoup plus pour l'instant, mais les fonctionnalités
 de collections d'enregistrements partagées entre utilisateurs de *Kinto*
