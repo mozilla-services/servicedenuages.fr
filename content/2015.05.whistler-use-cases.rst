@@ -36,7 +36,7 @@ puisque Rémy a mis en place un `serveur de dev effacé tous les jours <https://
 
 Nous avions mis un point d'honneur à faire du Vanilla.JS, déjà pour éviter les
 combats de clochers autour des frameworks, mais aussi pour mettre en évidence qu'avec
-HTML5 et ES6, on n'était plus aussi démuni qu'il y a quelques années.
+HTML5 et ES6, on n'était plus aussi démunis qu'il y a quelques années.
 
 Ce petit atelier nous a permis de nous rendre compte qu'on avait encore de
 grosses lacunes en terme de documentation, surtout en ce qui concerne
@@ -81,7 +81,7 @@ Firefox OS ? La classe ! C'est ce qu'on avait en tête depuis longtemps, déjà 
 l'époque avec `Daybed <http://daybed.readthedocs.org/>`_. Voici donc une belle opportunité à saisir !
 
 Il va falloir expliciter les limitations et hypothèses simplificatrices de notre
-solution, surtout en terme de gestion de la concurrence. Nous sommes persuadés
+solution, surtout en termes de gestion de la concurrence. Nous sommes persuadés
 que ça colle avec la plupart des besoins, mais il ne faudrait pas décevoir :)
 
 Le fait que `Dale <https://github.com/daleharvey>`_, un des auteurs de `PouchDB <http://pouchdb.com/>`_ et `Michiel de Jong <https://github.com/michielbdejong>`_, un des auteurs de `Remote Storage <http://remotestorage.io/>`_, nous aient encouragés sur nos premiers pas nous a bien motivé !
@@ -91,7 +91,7 @@ Cut the Rope
 ------------
 
 Kinto devrait être mis à profit pour synchroniser les paramètres et les scores
-du `jeu <http://mozilla.cuttherope.net/>`_. Un premier exercice et une première vitrine sympa !
+du `jeu <http://mozilla.cuttherope.net/>`_. Un premier exercice et une première vitrine sympas !
 
 « SyncTo »
 ----------
@@ -106,7 +106,7 @@ Nous souhaitons implémenter un pont entre *Kinto* et *Firefox Sync*, de manièr
 à pouvoir utiliser le client *Kinto.js*, plus simple et plus moderne, pour récupérer
 les contenus et les stocker dans IndexedDB. Le delta à implémenter côté serveur est faible car nous nous étions
 inspirés du protocole déjà éprouvé de Sync. Côté client, il s'agira surtout de
-cabler l'authentification BrowserId et la Crypto.
+câbler l'authentification BrowserId et la Crypto.
 
 Alexis a sauté sur l'occasion pour commencer l'écriture d'`un client python pour Firefox Sync <https://github.com/mozilla-services/syncclient>`_, qui servira de brique de base pour l'écriture du service.
 
@@ -126,7 +126,7 @@ mais pour l'instant les cas d'utilisations ne se sont pas encore présentés off
 À venir
 -------
 
-Nous serons probablement amenés à introduire la gestion de la concurence dans
+Nous serons probablement amenés à introduire la gestion de la concurrence dans
 le client JS, en complément de ce qui a été fait sur le serveur, pour permettre
 les écritures simultanées et synchronisation en tâche de fond.
 
@@ -142,7 +142,7 @@ que `client <https://github.com/mozilla-services/kinto.js/>`_  !
 Contenus applicatifs de Firefox
 ===============================
 
-Aujourd'hui Firefox a un cycle de release de six mois. Un des objectifs
+Aujourd'hui Firefox a un cycle de release de six semaines. Un des objectifs
 consiste à désolidariser certains contenus applicatifs de ces cycles
 relativement longs (ex. *règles de securité, dictionnaires, traductions, ...*) [#]_.
 
@@ -157,7 +157,7 @@ ce genre de besoins internes, *Kinto* est tout aussi pertinent !
 .. [#]
 
     La bonne nouvelle c'est que toutes les fonctionnalités *third-party* qui ont
-    été intégrées récemment vont redevenir des *add-ons* \o/.
+    été intégrées récemment vont redevenir des *add-ons* \\o/.
 
 .. image:: {filename}/images/whistler-landscape.jpg
     :alt: Landscape - CC0
