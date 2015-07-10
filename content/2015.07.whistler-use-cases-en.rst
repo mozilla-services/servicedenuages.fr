@@ -36,7 +36,7 @@ Furthermore, this small workshop helped us to realise that we still have large g
 Mozilla Payments
 ================
 
-As noted in a `previous blog post <http://www.servicedenuages.fr/la-gestion-des-permissions>`_ we developed a permissions model which allows Kinto to be much more useful with regards to payment and subscription systems.
+As noted in a `previous blog post <http://www.servicedenuages.fr/la-gestion-des-permissions>`_ we developed a permissions model which allows Kinto fulfill the the requirements of payment and subscription tracker (our fist use-case).
 
 For this project, Kinto is going to be used by a Django app via a Python client.
 
@@ -62,7 +62,7 @@ In-App Sync
 
 Kinto as a simple solution for synchronising data in Firefox OS? Nice! We've had this partnership in mind for some time (remember `Daybed <http://daybed.readthedocs.org/>`_?), and now we've got a great opportunity at our fingertips.
 
-We'll need to clearly and plainly lay out the limitations and simplistic models inherent in our solution (notably regarding concurrency management), but we believe that it fits the use-case fairly well, so it should not dissapoint. :)
+We'll need to clearly and plainly lay out the limitations and simplistic models inherent in our solution (notably regarding concurrency management), but we believe that it fits the use-case fairly well, so it should not disapoint. :)
 
 We're particularly motivated as both `Dale Harvey <https://github.com/daleharvey>`_ (one of the authors of `PouchDB <http://pouchdb.com/>`_) and `Michel de Jong <https://github.com/michielbdejong>`_ (one of the authors of `Remote Storage <http://remotestorage.io/>`_) have given us plenty of encouragement from an early stage.
 
@@ -101,7 +101,7 @@ We are always looking for feedback - and, of course, code contributions - on bot
 Firefox Application Content
 ===========================
 
-The Firefox development and release process is currently based on a six-month cycle. One of the objectives is to decouple certain specific content elements (such as safety rules, dictionaries and translations, etc.) from these relatively long cycles [#]_.
+The Firefox development and release process is currently based on a six-week cycle. One of the objectives is to decouple certain specific content elements (such as safety rules, dictionaries and translations, etc.) from these relatively long cycles [#]_.
 
 The proposed solution is versioned, read-only JSON and binary blobs that can be synchronised with live browsers. There are already a number of tools to manage this sort of thing (examples include `Balrog <https://wiki.mozilla.org/Balrog>`_ and `Shavar <https://github.com/mozilla-services/shavar>`_), but for the moment no choice has been made. During conversations with the team in charge of this project it became evident that Kinto could be useful here too - which is motivating us even more to evolve our project!
 
@@ -118,7 +118,7 @@ The proposed solution is versioned, read-only JSON and binary blobs that can be 
 Awesome Bar
 ===========
 
-The *Firefox Labs* team, best known for raising red pandas in `test tubes <https://i.imgur.com/NPG7CxB.gif>`_, is interested in our solution as well, notably as regards the `Awesome Bar <https://support.mozilla.org/en-US/kb/awesome-bar-search-firefox-bookmarks-history-tabs>`_ which melds URLs, browser history, and search functions.
+The *Firefox Labs* team, best known for raising red pandas in `test tubes <https://i.imgur.com/NPG7CxB.gif>`_, is interested in our solution as well, notably as regards the evolution of the `Awesome Bar <https://support.mozilla.org/en-US/kb/awesome-bar-search-firefox-bookmarks-history-tabs>`_ which would meld URLs, browser history, and search functions.
 
 We can't say too much right now, but the aforementioned shared collections feature in *Kinto* would fit so very nicely into the future of the Firefox browser. :)
 
@@ -161,10 +161,10 @@ Our challenges ahead are:
 * Co-ordinate with the other teams efficiently.
 * Avoid `disappointment <https://i.imgur.com/jeFYGQ5.jpg>`_.
 * Maintain a high level of productivity.
-* Contunue to improve and promote our solutions.
+* Continue to improve and promote our solutions.
 * Focus on quick wins that move us forward.
 
-Finally, we encourage meaningful community contributions to help us build a free, generic, simple, and self-hostable solution for storing data on the web.
+Finally, we will work to encourage meaningful community contributions to help us build a free, generic, simple, and self-hostable solution for storing data on the web.
 
 .. image:: {filename}/images/whistler-top-roof.jpg
     :alt: Friday Night Party - CC0

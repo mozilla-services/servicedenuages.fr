@@ -141,7 +141,7 @@ que `client <https://github.com/mozilla-services/kinto.js/>`_  !
 Contenus applicatifs de Firefox
 ===============================
 
-Aujourd'hui Firefox a un cycle de release de six mois. Un des objectifs
+Aujourd'hui Firefox a un cycle de release de six semaines. Un des objectifs
 consiste à désolidariser certains contenus applicatifs de ces cycles
 relativement longs (ex. *règles de securité, dictionnaires, traductions, ...*) [#]_.
 
