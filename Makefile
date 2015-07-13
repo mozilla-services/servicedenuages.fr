@@ -8,7 +8,7 @@ PUBLISHCONF=$(BASEDIR)/publishconf.py
 
 GITHUB_PAGES_BRANCH=gh-pages
 
-VENV = .venv
+VENV := $(shell echo $${VIRTUAL_ENV-$(shell pwd)/.venv})
 VIRTUALENV = virtualenv
 INSTALL_STAMP = $(VENV)/.install.stamp
 
@@ -39,13 +39,13 @@ clean:
 
 serve: install
 ifdef PORT
-	cd $(OUTPUTDIR) && ../$(PYTHON) -m pelican.server $(PORT)
+	cd $(OUTPUTDIR) && $(PYTHON) -m pelican.server $(PORT)
 else
-	cd $(OUTPUTDIR) && ../$(PYTHON) -m pelican.server
+	cd $(OUTPUTDIR) && $(PYTHON) -m pelican.server
 endif
 
 regenerate:
-	cd $(OUTPUTDIR) && ../$(PYTHON) -m pelican.server&
+	cd $(OUTPUTDIR) && $(PYTHON) -m pelican.server &
 	$(PELICAN) -r $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
 
 publish: install
