@@ -39,13 +39,13 @@ clean:
 
 serve: install
 ifdef PORT
-	cd $(OUTPUTDIR) && ../$(PYTHON) -m pelican.server $(PORT)
+	cd $(OUTPUTDIR) && $(PYTHON) -m pelican.server $(PORT)
 else
-	cd $(OUTPUTDIR) && ../$(PYTHON) -m pelican.server
+	cd $(OUTPUTDIR) && $(PYTHON) -m pelican.server
 endif
 
 regenerate:
-	cd $(OUTPUTDIR) && ../$(PYTHON) -m pelican.server&
+	cd $(OUTPUTDIR) && $(PYTHON) -m pelican.server &
 	$(PELICAN) -r $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
 
 publish: install
