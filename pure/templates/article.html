@@ -42,7 +42,7 @@
             {% if article.translations %}
                 {% for translation in article.translations %}
                     {% if translation.lang == "en" %}
-                        <p><a href="{{ SITEURL }}/{{ translation.url }}">Read the english version</a></p>
+                        <p><a href="{{ SITEURL }}/{{ translation.url }}">Read the English version</a></p>
                     {% else %}
                         <p><a href="{{ SITEURL }}/{{ translation.url }}">Lire la version française</a></p>
                     {% endif %}
