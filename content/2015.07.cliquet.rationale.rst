@@ -8,169 +8,119 @@ Pourquoi avons-nous fait Cliquet ?
 :summary: ...
 
 
-**tldr; Cliquet est un toolkit Python pour construire des APIs, qui fait des choix
-et propose des bonnes pratiques, en terme de code, de protocole HTTP et de mise
-en production.**
+**tldr; Cliquet est un toolkit Python pour construire des APIs, qui implémente
+les bonnes pratiques en terme de mise en production et de protocole HTTP.**
 
 
-Les origines...
-===============
+Les origines
+============
 
-Jurassique
-----------
-
-A la fin des années 2000, `Tarek <http://ziade.org/>`_ nous guidait vers la
-lumière avec `ses livres <http://ziade.org/books.html>`_ sur Python, la communauté
-grandissait ! À l'époque, il participe au développement de *Firefox Sync*
-chez Mozilla.
-
-En 2012, `Nicolas <https://nicolas.perriault.net/>`_ participait à l'organisation des DjangoCong à Montpellier
-— celles qui allaient placer la barre très haut —, où ce fût l'occasion pour
-`Alexis <http://blog.notmyidea.org>`_ et `Mathieu <http://mathieu-leplatre.info/>`_ d'interagir au sujet d'un besoin
-récurrent : développer des APIs REST pour des applications JavaScript.
-
-Alexis voulait construire une alternative à *Google Forms*, et Mathieu avait en
-tête un *backoffice* où les utilisateurs pourraient définir eux-mêmes leurs
-modèles de données.
-
-Les bases d'un service de stockage JSON générique `furent posées dans un README
-<https://github.com/spiral-project/daybed/commit/bd795e964d>`_
-en ce dimanche ensoleillé du 15 Avril 2012. Daybed était né.
-
-.. photo djangocong ?
-
-À la fin de la même année, `Remy <https://github.com/natim/>`_ nous retrouvait
-au Capitole du Libre à Toulouse et s'embarquait dans le projet !
-
-Nous avons continué ce *side-projet* pendant plus de deux ans. La dernière contribution
-fût `cette présentation au FOSDEM 2015 <https://fosdem.org/2015/schedule/event/daybed/>`_.
-
-.. https://www.flickr.com/photos/kennethreitz/6932712758/in/album-72157629455416414/
-.. https://www.flickr.com/photos/madewulf/6933150652/in/photostream/
-
-
-Pléistocène
------------
-
-Tout ça pour dire que, début 2015, Alexis, Mathieu, Nicolas, Rémy et Tarek
-sommes tous miraculeusement réunis dans la même équipe: «*Mozilla Cloud Services*» !
-
-.. logo moche cloud services
-
-L'objectif pour le premier trimestre était de construire un service de
+L'objectif pour le premier trimestre 2015 était de construire un service de
 stockage et de `synchronisation de listes de lecture <{filename}2015.04.service-de-nuages.rst>`_.
 
-Évidemment nous avions bien l'intention de mettre à profit notre expérience :)
+Au démarrage du projet, nous avons tenté de rassembler toutes les bonnes pratiques
+et recommandations, venant de différentes équipes et surtout des derniers projets déployés.
 
-Plutôt que d'essayer d'adapter *Daybed*, et d'imposer notre side-project, nous
-décidons de le *rebooter* et de construire une solution guidée par les besoins,
-en mettant à profit cette équipe de choc !
+De même, nous voulions tirer parti du protocole de *Firefox Sync*, robuste et éprouvé,
+pour la synchronisation des données «offline».
 
-Mais certaines spécificités du service de liste de lecture étaient très difficiles
-à abstraire et à généraliser (*ex. règles métier manipulant les valeurs des champs*)
-pour utiliser un backend complètement générique...
+Plutôt qu'écrire un `énième <http://blog.octo.com/en/design-a-rest-api/>`_
+`article <http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api>`_ de blog,
+nous avons préféré les rassembler dans ce qu'on a appellé «un protocole».
 
+Comme pour l'architecture envisagée nous avions deux projets à construire, qui
+devaient obéir globalement à ces mêmes règles, nous avons décidé de mettre en
+commun l'implémentation de ce protocole et de ces bonnes pratiques dans un
+«toolkit».
 
-Anthropocène
-------------
+*Cliquet* est né.
 
-On imagine alors une architecture où le serveur *Reading List* est une couche métier
-devant un service de stockage générique.
-
-Concernant le protocole de synchronisation, on reprend les idées de *Firefox Sync*,
-qui fait ça pour des millions d'utilisateurs depuis plusieurs années.
-Et on décide que les deux services répondront à ce même protocole.
-
-Autrement dit, les deux APIs HTTP se comportent de la même manière et l'une est déployée
-devant l'autre.
-
-De cette manière, si un nouveau besoin de stockage et de synchronisation se présente,
-nous pourrons soit utiliser le service générique directement, soit écrire
-une autre couche métier dédiée devant. Classe.
-
-Cette architecture donnera donc lieu à trois projets :
-
-* *Reading List*, le service métier [#]_;
-* *Kinto*, le service de stockage générique;
-* *Cliquet*, le toolkit qui implémente le protocole, et contient tout le code
-  commun entre les deux services précedemment cités.
-
-.. schema
+.. image:: {filename}/images/cliquet-logo.png
+    :alt: Cliquet logo
+    :align: center
 
 
-.. [#]
+Les intentions
+--------------
 
-    Nicolas fit même un `prototype full Web avec React <https://github.com/n1k0/readinglist-client/>`_
-    afin de valider les APIs du serveur de listes de lecture.
+.. epigraph::
+
+    Quelle structure JSON pour mon API ? Quelle syntaxe pour filtrer la liste
+    via la querystring ? Comment gérer les écritures concurrentes ?
+    Et synchroniser les données dans mon application cliente ?
+
+Désormais, quand un projet souhaite bénéficier d'une API REST pour stocker et consommer
+des données, il est possible d'utiliser le **protocole HTTP** proposé
+et de se concentrer sur l'essentiel. Cela vaut aussi pour les clients, où
+la majorité du code d'interaction avec le serveur est réutilisable.
+
+.. epigraph::
+
+    Comment pouvons-nous vérifier que le service est opérationnel ? Quels indicateurs StatsD ?
+    Est-ce que Sentry est bien configuré ? Comment déployer une nouvelle version
+    sans casser les applications clientes ?
+
+Comme *Cliquet* fournit tout ce qui est nécessaire pour être conforme avec les
+exigences de la **mise en production**, le passage du prototype au service opérationnel
+est très rapide ! De base le service répondra aux attentes en terme supervision, configuration,
+déploiement et dépréciation de version. Et si celles-ci évoluent, il suffira
+de faire évoluer le toolkit.
+
+.. epigraph::
+
+    Quel backend de stockage pour des documents JSON ? Comment faire si l'équipe
+    de production impose PostgreSQL ? Et si on voulait passer à Redis ou en
+    mémoire pour lancer les tests ?
+
+En terme d'implémentation, nous avons choisi de **fournir des abstractions**.
+En effet, nous avions deux services dont le coeur consistait
+à exposer un *CRUD* en *REST*, persistant des données JSON dans un backend.
+Comme *Pyramid* et *Cornice* ne fournissent rien de tout prêt pour ça,
+nous avons voulu introduire des classes de bases pour abstraire les notions
+de resource REST et de backend de stockage.
+
+Dans le but de tout rendre optionnel et «pluggable», **tout est configurable**
+depuis le fichier ``.ini`` de l'application. Ainsi tous les projets qui utilisent
+le toolkit se déploieront de la même manière : seuls quelques éléments de configuration
+les distingueront.
+
+.. image:: {filename}/images/cliquet-notes-whiteboard.jpg
+    :alt: Une réunion à Paris...
+    :align: center
 
 
-Cliquet, le toolkit
-===================
+Le protocole
+============
 
-Il y a plusieurs choses qui nous ont vraiment motivé à faire ce *toolkit* :
+.. epigraph::
 
-* **Abstractions** : Nous avions deux services (*Kinto* et *Reading List*) dont le coeur consistait
-  à exposer un *CRUD* en *REST*, persistant des données JSON dans un backend. Comme *Pyramid* et
-  *Cornice* ne fournissent rien de tout prêt pour ça, nous avons voulu introduire
-  des classes de bases pour abstraire les notions de resource REST et de
-  backend de stockage.
+    Est-ce suffisant de parler d'«API REST» ? Est-ce bien nécessaire de
+    relire la spec HTTP à chaque fois ? Pourquoi réinventer un protocole complet
+    à chaque fois ?
 
-* **Protocole** : Quand un projet souhaitait bénéficier d'une API REST pour stocker et consommer
-  des données, il fallait mettre au point un protocole HTTP (i.e. code d'erreurs,
-  formats JSON, headers, ...) et développer un client spécifique. Là aussi on
-  voyait bien qu'on y gagnerait à décider d'un lot de bonnes pratiques réutilisables.
-
-* **Bonnes pratiques** : Avec le temps, les équipes ont accumulé de l'expérience sur les APIs HTTP. Plutôt
-  qu'écrire un `énième <http://blog.octo.com/en/design-a-rest-api/>`_
-  `article <http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api>`_ de blog,
-  nous avons préféré les rassembler dans un projet Python.
-
-* **Mise en production** : De nombreux préréquis sont exprimés de la part de l'équipe des *Ops*
-  — c'est-à-dire ceux qui se font réveiller la nuit — en terme de supervision,
-  configuration, déploiement et dépréciation pour les services à mettre en production.
-  On voyait bien qu'un *boilerplate* nous éviterait de recommencer de zéro à chaque fois !
-
-* **Configuration** : Tous les projets qui utilisent le toolkit se déploieront de la même manière,
-  puisqu'ils seront construits de la même façon. Seuls quelques éléments configuration
-  dans un ``.ini`` les distingueront. Si ça tient, c'est une grosse valeur ajoutée !
-
-*Cliquet* se distingue d'un framework à proprement dit, puisqu'il fait des choix.
-Nous parlons plutôt de boite à outils, puisque les différents éléments
-peuvent être utilisés tels quels, désactivés, remplacés ou étendus.
-
-Dans *Cliquet*, il y a deux dimensions :
-
-* **Le protocole HTTP** : URLs, status, headers, format JSON
-* **Le toolkit Python** : abstractions pour la définition des resources,
-  le stockage, le cache, etc.
-
-
-Protocole
----------
-
-Est-ce suffisant de parler d'«API REST» ? Est-ce bien nécessaire de
-réinventer un protocole complet à chaque fois ?
-
-.. image bikeshed
+Quand nous développons un (micro)service Web, nous dépensons généralement beaucoup
+trop d'énergie à (re)faire des choix (arbitraires).
 
 Nous ne prendrons pas la peine de lister ici tout ce qui concerne la dimension
-HTTP pure, qui se charge de valider le format des headers, supporter CORS, gérer
-les types mime, l'authentification, la cohérence des code status... et qui est
-d'ailleurs en grande partie assurée par *Cornice* (*voir plus bas*).
+de la spécification HTTP pure, qui nous impose le format des headers,
+le support de CORS, la négocation de contenus (types mime), la différence entre
+authentification et autorisation, la cohérence des code status...
 
-En ce qui concerne *Cliquet*, les concepts principaux du protocole sont les suivants :
+Les choix principaux du protocole concernent surtout :
 
-* **Les resources REST** : une *collection* d'enregistrements du même type,
-  répondant éventuellement à un schema.
-* **Les formats** : un ensemble de choix arbitraires pour le format JSON, la
-  `pagination des listes <{filename}/2015.05.continuation-token.rst>`_
-  et la syntaxe pour filtrer/trier via la *querystring*.
-* **La synchronisation** : une série de leviers pour récupérer et renvoyer des
-  changements sur les données, sans perte ni collision.
+* **Les resources REST** : Les deux URLs d'une resource, pour la collection
+  et les instances, acceptent des verbes et des headers précis.
+* **Les formats** : le format et la structure JSON des réponses est imposé, ainsi
+  que la `pagination des listes <{filename}/2015.05.continuation-token.rst>`_
+  ou la syntaxe pour filtrer/trier les resources via la *querystring*.
 * **Les timestamps** : un numéro de révision qui s'incrémente à chaque opération
   d'écriture sur une collection d'enregistrements.
+* **La synchronisation** : une série de leviers pour récupérer et renvoyer des
+  changements sur les données, sans perte ni collision, en utilisant les timestamps.
 * **Les permissions** : les droits d'un utilisateur sur une collection ou un enregistrement
   (*encore frais et non documenté*) [#]_.
+* **Opérations par lot**: une URL qui permet d'envoyer une série de requêtes
+  décrites en JSON et d'obtenir les réponses respectives.
 
 Dans la dimension opérationnelle du protocole, on trouve :
 
@@ -190,37 +140,71 @@ de *Firefox Sync* pour la gestion de la concurrence et de l'«offline-first».
 Il est `documenté en détail <http://cliquet.readthedocs.org/en/latest/api/index.html>`_.
 
 Dans un monde idéal, ce protocole serait versionné, et formalisé dans une RFC.
-En rêve, il existerait plusieurs implémentations du toolkit avec des technologies différentes
-(Python, Go, Node, etc.).
-
-Notons tout de même que nous souhaiterions nous rapprocher des initiatives comme
-`JSON-API <http://jsonapi.org/>`_ et `Remote Storage <http://remotestorage.io/>`_,
-afin notamment de s'intégrer dans leurs éco-systèmes respectifs.
-
+En rêve, il existerait plusieurs implémentations avec des technologies différentes
+(Python, Go, Node, etc.). [#]_
 
 .. [#] Voir notre `article dédié sur les permissions <{filename}/2015.05.cliquet-permissions.rst>`_
+.. [#] Rappel: nous sommes une toute petite équipe !
 
 
-Toolkit
--------
+Le toolkit
+==========
 
-Bien évidemment, les concepts du toolkit reflètent ceux du protocole, mais il y
+Choix techniques
+----------------
+
+*Cliquet* implémente le protocole en Python (*2.7, 3.4+, pypy*), avec `Pyramid
+<http://trypyramid.com/>`_ [#]_.
+
+**Pyramid** est un framework Web qui va prendre en charge tout la partie HTTP,
+et qui s'avère pertinent aussi bien pour des petits projets que des plus
+ambitieux.
+
+**Cornice** est une extension de *Pyramid*, écrite en partie par Alexis et Tarek,
+qui permet d'éviter d'écrire tout le code *boilerplate* quand on construit une
+API REST avec Pyramid.
+
+Avec *Cornice*, on évite de réécrire à chaque fois le code qui va
+cabler les verbes HTTP aux méthodes, valider les entêtes, choisir le sérialiseur
+en fonction des entêtes de négociation de contenus, renvoyer les codes HTTP
+rigoureux, gérer les entêtes CORS, fournir la validation JSON à partir de schémas...
+
+**Cliquet** utilise les deux précédents pour implémenter le protocole et fournir
+des abstractions, mais on a toujours *Pyramid* et *Cornice* sous la main pour
+aller au delà de ce qui est proposé !
+
+.. [#]
+
+    Au tout début nous avons commencé une implémentation avec *Python-Eve*
+    (Flask), mais n'étions pas satisfaits de l'approche pour la configuration
+    de l'API. En particulier du côté magique.
+
+Concepts
+--------
+
+Bien évidemment, les concepts du toolkit reflètent ceux du protocole mais il y
 a des éléments supplémentaires:
 
 * **Les backends** : abstractions pour le stockage, le cache et les permissions
   (*ex. PostgreSQL, Redis, en-mémoire, ...*)
-* **La supervision** : logging et indicateurs temps-réel (*StatsD*) pour suivre les
+* **La supervision** : logging JSON et indicateurs temps-réel (*StatsD*) pour suivre les
   performances et la santé du service.
-* **Le profiling** : utilitaires de développement pour trouver les goulots
-  d'étranglement.
 * **La configuration** : chargement de la configuration depuis les variables
   d'environnement et le fichier ``.ini``
 * **La flexibilité** : dés/activation ou subsitution de la majorité des composants
   depuis la configuration.
+* **Le profiling** : utilitaires de développement pour trouver les goulots
+  d'étranglement.
 
-Proportionnellement, la gestion des resources REST est la plus volumineuse dans
-le code source de *Cliquet*. Cependant, comme nous l'avons décrit plus haut,
-*Cliquet* fournit tout un ensemble d'outillage et de bonnes pratiques, et reste
+
+.. image:: {filename}/images/cliquet-concepts.png
+    :alt: Cliquet concepts
+    :align: center
+
+Proportionnellement, l'implémentation du protocole pour les resources REST est
+la plus volumineuse dans le code source de *Cliquet*.
+Cependant, comme nous l'avons décrit plus haut, *Cliquet* fournit tout un
+ensemble d'outillage et de bonnes pratiques, et reste
 donc tout à fait pertinent pour n'importe quel type d'API, même sans
 manipulation de données !
 
@@ -237,7 +221,7 @@ tout à fait possible d'étendre *Cliquet* avec des notions métiers ou des
 technologies exotiques ! Nous avons posé quelques idées dans `la documentation
 de l'éco-système <http://cliquet.readthedocs.org/en/latest/ecosystem.html>`_.
 
-À terme, nous souhaiterions introduire la notion d'«évènements» (ou signaux),
+Dans les prochaines semaines, nous allons introduire la notion d'«évènements» (ou signaux),
 qui permettraient aux extensions de s'interfacer beaucoup plus proprement.
 
 Nous attachons beaucoup d'importance à la clareté du code, la pertinence des
@@ -246,37 +230,8 @@ des critiques ou des interrogations, n'hésitez pas à `les remonter
 <https://github.com/mozilla-services/cliquet/issues>`_ !
 
 
-Cliquet, techniquement.
-=======================
-
-Choix techniques
-----------------
-
-*Cliquet* est implémenté en Python (*2.7, 3.4+, pypy*), avec `Pyramid
-<http://trypyramid.com/>`_ [#]_.
-
-**Pyramid** est un framework Web qui va prendre en charge tout la partie HTTP,
-et qui s'avère pertinent aussi bien pour des petits projets que des plus
-ambitieux.
-
-**Cornice** est une extension de *Pyramid*, écrite en partie par Alexis et Tarek,
-qui permet d'éviter d'écrire tout le code *boilerplate* quand on construit une
-API REST. Avec *Cornice*, on évite de réécrire à chaque fois le code qui va
-cabler les verbes HTTP aux méthodes, valider les entêtes, choisir le sérialiseur
-en fonction des entêtes de contenus, renvoyer les codes HTTP rigoureux, gérer
-les entêtes CORS, fournir la validation JSON à partir de schémas...
-
-**Cliquet** utilise les deux précédents pour imposer des choix, fournir des
-outils et des abstractions !
-
-.. [#]
-
-    Au tout début nous avons commencé une implémentation avec *Python-Eve*
-    (Flask), mais n'étions pas satisfaits de l'approche. En particulier du
-    côté magique.
-
-À l'action
-----------
+Cliquet, à l'action.
+====================
 
 Nous avons écrit un `guide de démarrage <http://cliquet.readthedocs.org/en/latest/quickstart.html>`_,
 qui n'exige pas de connaître *Pyramid*.
@@ -284,7 +239,7 @@ qui n'exige pas de connaître *Pyramid*.
 Pour illustrer la simplicité et les concepts, voici quelques extraits !
 
 Étape 1
-'''''''
+-------
 
 Activer *Cliquet*:
 
@@ -307,7 +262,7 @@ Mais aussi les backends de stockage, de cache, etc.
 qu'il est possible d'utiliser dans des vues classiques *Pyramid* ou *Cornice*.
 
 Étape 2
-'''''''
+-------
 
 Ajouter des vues:
 
@@ -321,13 +276,90 @@ Ajouter des vues:
         config.scan("myproject.views")
         return config.make_wsgi_app()
 
+
+Pour définir des resources CRUD, il faut commencer par définir un schéma,
+avec *Colander*, et ensuite déclarer une resource:
+
+
+.. code-block:: python
+    :hl_lines: 6 7 8
+
+    from cliquet import resource, schema
+
+    class BookmarkSchema(schema.ResourceSchema):
+        url = schema.URL()
+
+    @resource.register()
+    class Bookmark(resource.BaseResource):
+        mapping = BookmarkSchema()
+
+
+Désormais, la resource CRUD est disponible sur ``/v1/mushrooms``, avec toutes
+les fonctionnalités de synchronisation, filtrage, tri, pagination, timestamp, etc.
+De base les enregistrements sont privés, par utilisateur.
+
+
+.. code-block:: json
+
+    $ http GET "http://localhost:8000/v1/bookmarks"
+    HTTP/1.1 200 OK
+    ...
+    {
+        "data": [
+            {
+                "url": "http://cliquet.readthedocs.org",
+                "id": "cc103eb5-0c80-40ec-b6f5-dad12e7d975e",
+                "last_modified": 1437034418940,
+            }
+        ]
+    }
+
+
+Étape 3
+-------
+
+Évidemment, il est possible choisir les URLS, les verbes HTTP supportés, de modifier
+des champs avant l'enregistrement, etc.
+
+.. code-block:: python
+    :hl_lines: 1 2 3 7 8 9 10 11
+
+    @resource.register(collection_path='/user/bookmarks',
+                       record_path='/user/bookmarks/{{id}}',
+                       collection_methods=('GET',))
+    class Bookmark(resource.BaseResource):
+        mapping = BookmarkSchema()
+
+        def process_record(self, new, old=None):
+            if new['device'] != old['device']:
+                device = self.request.headers.get('User-Agent')
+                new['device'] = device
+            return new
+
+
+`Plus d'infos dans la documentation dédiée
+<http://cliquet.readthedocs.org/en/latest/reference/resource.html>`_ !
+
+.. note::
+
+    Il est possible de définir des resources schema-less. `Voir le code source de Kinto
+    <https://github.com/mozilla-services/kinto/blob/master/kinto/views/records.py>`_.
+
+
+Étape 4 (optionelle)
+--------------------
+
+Utiliser les abstractions de *Cliquet* dans une vue *Cornice*.
+
 Par exemple, une vue qui utilise le backend de stockage:
 
 .. code-block:: python
+    :hl_lines: 13 14
 
     from cliquet import Service
 
-    score = Service(name="score", path='/score/{game}',
+    score = Service(name="score",
+                    path='/score/{game}',
                     description="Store game score")
 
     @score.post(schema=ScoreSchema)
@@ -341,71 +373,15 @@ Par exemple, une vue qui utilise le backend de stockage:
         return record
 
 
-Étape 3
-'''''''
+Vos retours
+===========
 
-Pour définir des resources CRUD, il faut commencer par définir un schéma,
-avec *Colander*, et ensuite déclarer une resource:
+N'hésitez pas à nous faire part de vos retours ! Cela vous a donné envie
+d'essayer ? Vous connaissez un outil similaire ?
+Y-a-t-il des points qui ne sont pas clairs ? Manque de cas d'utilisation concrets ?
+Certains aspects mal pensés ? Trop contraignant ? Trop de magie ? Overkill ?
 
-.. code-block:: python
-    :hl_lines: 1 5 6 11
-
-    import colander
-    from cliquet import resource
-
-
-    class MushroomSchema(resource.ResourceSchema):
-        name = colander.SchemaNode(colander.String())
-
-
-    @resource.register(collection_path='/mushrooms',
-                       record_path='/mushrooms/{{id}}')
-    class Mushroom(resource.BaseResource):
-        mapping = MushroomSchema()
-
-
-Désormais, la resource CRUD est disponible sur ``/v1/mushrooms``, avec toutes
-les fonctionnalités de synchronisation, filtrage, tri, pagination, timestamp, etc.
-De base les enregistrements sont privés, par utilisateur.
-
-Évidemment, il est possible choisir les verbes HTTP supportés, de modifier
-des champs avant l'enregistrement, etc. `Plus d'infos dans la documentation dédiée
-<http://cliquet.readthedocs.org/en/latest/reference/resource.html>`_ !
-
-.. note::
-
-    Il est possible de définir des resources schema-less. `Voir le code source de Kinto
-    <https://github.com/mozilla-services/kinto/blob/master/kinto/views/records.py>`_.
-
-
-Cliquet vs. Kinto : Inception
------------------------------
-
-Comme nous l'avons mentionné au début de l'article, *Cliquet* est un toolkit
-qui nous a servi à construire *Kinto* et *Reading List*.
-
-Puisque *Cliquet* fournit une abstraction pour le stockage, et puisque *Kinto*
-est une service de stockage générique, nous avons fait un backend de stockage
-*Kinto* pour *Cliquet*.
-
-.. schema
-
-Ainsi, toute application construite avec *Cliquet* peut être configurée pour
-faire persister ses données dans une instance de *Kinto*.
-
-De cette manière, il est possible de déployer un ou plusieurs services *Kinto*,
-qui seront utilisés par une ou plusieurs applications *Cliquet*.
-
-Si un besoin générique se présente, nous utiliserons l'instance *Kinto* déjà en
-place. Si le projet évolue et que nous devons introduire des spécificités
-métiers, nous pourrions alors implémenter une application *Cliquet* dédiée, tout en
-continuant à persister les données au même endroit !
-
-.. note ::
-
-    Depuis la version 2, le backend Kinto `a été mis en chantier
-    <https://github.com/mozilla-services/kinto/pull/45>`_ mais devrait pouvoir
-    être remis sur pied :)
+Nous prenons tout.
 
 
 Points faibles
@@ -417,15 +393,6 @@ de temps. Et comme nous l'exposions dans `l'article précédent
 
 Cependant, nous sommes tout de même conscients d'un certain nombre de points
 qui peuvent être vus comme des faiblesses.
-
-* **L'éco-système** : Il est assez facile de confondre *Cliquet* et *Kinto*, surtout que la
-  documentation mentionne souvent les deux ! Nous devrions avoir bientôt un
-  site dédié à l'éco-système Kinto, ce qui devrait masquer Cliquet et limiter la confusion.
-
-* **Les interdépendances** : le revers de la médaille de la factorisation. Il
-  arrive qu'on préfère faire évoluer le toolkit pour un point précis de *Kinto*
-  plutôt que le *tweaker* en dupliquant le code. En conséquence, on doit souvent
-  releaser les projets en cascade.
 
 * **La documentation d'API** : actuellement, nous n'avons pas de solution pour qu'un
   projet qui utilise *Cliquet* puisse intégrer facilement toute
@@ -445,19 +412,11 @@ qui peuvent être vus comme des faiblesses.
   nous ne sommes pas tout seuls et devons nous plier aux contraintes de la mise
   en production ! Cependant, nous avons très envie de faire de l'async avec Python 3 !
 
+* **Les interdépendances** : le revers de la médaille de la factorisation. Il
+  arrive qu'on préfère faire évoluer le toolkit pour un point précis d'un projet
+  qu'il l'utilise, plutôt que le *tweaker* en dupliquant le code.
+  En conséquence, on doit souvent releaser les projets en cascade.
 
-Vos retours
-===========
-
-N'hésitez pas à nous faire part de vos retours ! Cela vous a donné envie
-d'essayer ? Vous connaissez un outil similaire ? Avez-vous en tête quelquechose
-de plus ambitieux (comme `David <https://larlet.fr/david/stream/2015/05/01/>`_) ?
-Êtes-vous déçu qu'on ait commencé un énième projet (comme `Nolan
-<https://disqus.com/home/discussion/servicedenuages/eco_systeme_et_stockage_generique_service_de_nuages/>`_) ?
-Y-a-t-il des points qui ne sont pas clairs ? Manque de cas d'utilisation concrets ?
-Certains aspects mal pensés ? Trop contraignant ? Trop de magie ? Overkill ?
-
-Nous prenons tout.
 
 F.A.Q
 -----
@@ -488,8 +447,24 @@ Pourquoi pas avec un framework asynchrone en Python 3+ ?
     <https://github.com/mozilla-services/readinglist/blob/1.7.0/readinglist/__init__.py#L19-L26>`_
     *gevent*.
 
-    Puisque nous basons la solution sur un protocole bien déterminé, nous n'excluons
-    pas un jour de réécrire *Cliquet* en *aiohttp* si cela s'avèrerait pertinent.
+    Puisque l'approche consiste à implémenter un protocole bien déterminé, nous n'excluons
+    pas un jour d'écrire un *Cliquet* en *aiohttp* ou *Go* si cela s'avèrerait pertinent.
+
+Pourquoi pas JSON-API ?
+
+    Comme nous l'expliquions `au retour des APIdays <{filename}/2015.05.retour-apidays.rst>`_,
+    JSON-API est une spécification qui rejoint plusieurs de nos intentions.
+
+    Quand nous avons commencé le protocole, nous ne connaissions pas JSON-API.
+    Pour l'instant, comme notre proposition est beaucoup plus minimaliste, le
+    rapprochement en `resté au stade de discussion <https://github.com/mozilla-services/cliquet/issues/254>`_.
+
+Est-ce que Cliquet est un framework REST pour Pyramid ?
+
+    Non.
+
+    Au delà des classes de resources CRUD de Cliquet, qui implémentent un
+    protocole bien précis, il faut utiliser Cornice ou Pyramid directement.
 
 Est-ce que Cliquet est suffisamment générique pour des projets hors Mozilla ?
 
@@ -501,15 +476,29 @@ Est-ce que Cliquet est suffisamment générique pour des projets hors Mozilla ?
     alors Cliquet est probablement le plus court chemin pour construire une
     application qui tient la route.
 
-    Sinon, grâce aux abstractions fournies, Cliquet reste un moyen simple de
-    manipuler un backend de stockage dans une application Pyramid/Cornice !
+    Mais l'utilisation des resources CRUD est facultative, donc Cliquet reste pertinent
+    si les bonnes pratiques en terme de mise en production ou les abstractions fournies
+    vous paraissent valables !
+
+    Cliquet reste un moyen simple d'aller très vite pour mettre sur pied
+    une application Pyramid/Cornice.
+
+Est-ce que les resources JSON supporte les modèles relationnels complexes ?
+
+    La couche de persistence fournie est très simple, et devrait
+    répondre à la majorité des cas d'utilisation où les données n'ont pas de
+    relations.
+
+    En revanche, il est tout à fait possible de bénéficier de tous les aspects
+    du protocole en utilisant une classe ``Collection`` maison, qui se chargerait
+    elle de manipuler les relations.
 
 Est-il possible de faire ci ou ça avec Cliquet ?
 
-    Nous aimerions collecter des besoins pour écrire un ensemble de «recettes». Mais
+    Nous aimerions collecter des besoins pour écrire un ensemble de «recettes/tutoriels». Mais
     pour ne pas travailler dans le vide, nous aimerions `connaitre vos idées
     <https://github.com/mozilla-services/cliquet/issues>`_ !
-    (*ex. brancher authentification Github, désactiver le logging JSON, stocker des
+    (*ex. brancher authentification Github, changer le format du logging JSON, stocker des
     données cartographiques, ...*)
 
 Est-ce que Cliquet peut manipuler des fichiers ?
@@ -518,10 +507,12 @@ Est-ce que Cliquet peut manipuler des fichiers ?
     mais pour l'instant nous attendons que le besoin survienne en interne pour se
     lancer.
 
+    Si c'est le cas, le protocole utilisé sera `Remote Storage <http://remotestorage.io/>`_,
+    afin notamment de s'intégrer dans l'éco-système grandissant.
+
 Est-ce que la fonctionnalité X va être implémentée ?
 
     *Cliquet* est déjà bien garni. Plutôt qu'implémenter la fonctionnalité X,
     il y a de grandes chances que nous agissions pour s'assurer que les abstractions
     et les mécanismes d'extension fournis permettent de l'implémenter sous forme
     d'extension.
-
