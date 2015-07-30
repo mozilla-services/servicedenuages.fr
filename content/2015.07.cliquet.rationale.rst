@@ -297,7 +297,7 @@ avec *Colander*, et ensuite déclarer une resource:
         mapping = BookmarkSchema()
 
 
-Désormais, la resource CRUD est disponible sur ``/v1/mushrooms``, avec toutes
+Désormais, la resource CRUD est disponible sur ``/v1/bookmarks``, avec toutes
 les fonctionnalités de synchronisation, filtrage, tri, pagination, timestamp, etc.
 De base les enregistrements sont privés, par utilisateur.
 
