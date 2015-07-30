@@ -5,7 +5,9 @@ Pourquoi avons-nous fait Cliquet ?
 :url: pourquoi-cliquet
 :slug: post-cliquet-rationale
 :date: 2015-07-14
-:summary: ...
+:summary:
+    Basé sur Pyramid, Cliquet est un projet qui permet de se concentrer sur l'essentiel
+    lors de la conception d'APIs.
 
 
 **tldr; Cliquet est un toolkit Python pour construire des APIs, qui implémente
@@ -101,18 +103,18 @@ Le protocole
 Quand nous développons un (micro)service Web, nous dépensons généralement beaucoup
 trop d'énergie à (re)faire des choix (arbitraires).
 
-Nous ne prendrons pas la peine de lister ici tout ce qui concerne la dimension
+Nul besoin de lister ici tout ce qui concerne la dimension
 de la spécification HTTP pure, qui nous impose le format des headers,
 le support de CORS, la négocation de contenus (types mime), la différence entre
 authentification et autorisation, la cohérence des code status...
 
 Les choix principaux du protocole concernent surtout :
 
-* **Les resources REST** : Les deux URLs d'une resource, pour la collection
-  et les instances, acceptent des verbes et des headers précis.
+* **Les resources REST** : Les deux URLs d'une resource (pour la collection
+  et les enregistrements) acceptent des verbes et des headers précis.
 * **Les formats** : le format et la structure JSON des réponses est imposé, ainsi
   que la `pagination des listes <{filename}/2015.05.continuation-token.rst>`_
-  ou la syntaxe pour filtrer/trier les resources via la *querystring*.
+  ou la syntaxe pour filtrer/trier les resources via la `querystring <https://en.wikipedia.org/wiki/Query_string>`_.
 * **Les timestamps** : un numéro de révision qui s'incrémente à chaque opération
   d'écriture sur une collection d'enregistrements.
 * **La synchronisation** : une série de leviers pour récupérer et renvoyer des
@@ -125,22 +127,23 @@ Les choix principaux du protocole concernent surtout :
 Dans la dimension opérationnelle du protocole, on trouve :
 
 * **La gestion de version** : cohabitation de plusieurs versions en production,
-  avec alertes dans les entêtes pour la fin de vie.
-* **La mise en suspens** : entêtes interprétées par les clients, activées en cas de
+  avec alertes dans les entêtes pour la fin de vie des anciennes versions.
+* **Le report des requêtes** : entêtes interprétées par les clients, activées en cas de
   maintenance ou de surchage, pour ménager le serveur.
 * **Le canal d'erreurs** : toutes les erreurs renvoyées par le serveur ont le même
   format JSON et ont un numéro précis.
-* **Les utilitaires** : URLs diverses pour répondre aux besoins exprimés par les ops.
+* **Les utilitaires** : URLs diverses pour répondre aux besoins exprimés par
+  l'équipe d'administrateurs (monitoring, metadonnées, paramètres publiques).
 
 Ce protocole est une compilation des bonnes pratiques pour les APIs HTTP (*c'est notre métier !*),
-des conseils des sysadmins dont c'est le métier de mettre à disposition des services
+des conseils des administrateurs système dont c'est le métier de mettre à disposition des services
 pour des millions d'utilisateurs et des retours d'expérience de l'équipe
 de *Firefox Sync* pour la gestion de la concurrence et de l'«offline-first».
 
 Il est `documenté en détail <http://cliquet.readthedocs.org/en/latest/api/index.html>`_.
 
 Dans un monde idéal, ce protocole serait versionné, et formalisé dans une RFC.
-En rêve, il existerait plusieurs implémentations avec des technologies différentes
+En rêve, il existerait même plusieurs implémentations avec des technologies différentes
 (Python, Go, Node, etc.). [#]_
 
 .. [#] Voir notre `article dédié sur les permissions <{filename}/2015.05.cliquet-permissions.rst>`_
@@ -193,8 +196,8 @@ a des éléments supplémentaires:
   d'environnement et le fichier ``.ini``
 * **La flexibilité** : dés/activation ou subsitution de la majorité des composants
   depuis la configuration.
-* **Le profiling** : utilitaires de développement pour trouver les goulots
-  d'étranglement.
+* **Le profiling** : utilitaires de développement pour trouver les `goulets
+  d'étranglement <https://fr.wiktionary.org/wiki/goulet_d%E2%80%99%C3%A9tranglement>`_.
 
 
 .. image:: {filename}/images/cliquet-concepts.png
@@ -208,12 +211,12 @@ ensemble d'outillage et de bonnes pratiques, et reste
 donc tout à fait pertinent pour n'importe quel type d'API, même sans
 manipulation de données !
 
-L'objectif du toolkit est de faire en sorte qu'un développeur puisse constuire
+L'objectif de la boîte à outils est de faire en sorte qu'un développeur puisse constuire
 une application simplement, en étant sûr qu'elle réponde aux exigeances de la
 mise en production, tout en ayant la possibilité de remplacer certaines parties
 au fur et à mesure que ses besoins se précisent.
 
-Par exemple, les backends fournis par défault sont *schemaless* (e.g *JSONB*),
+Par exemple, la persistence fournie par défault est *schemaless* (e.g *JSONB*),
 mais rien n'empêcherait d'implémenter le stockage dans un modèle relationnel.
 
 Comme les composants peuvent être remplacés depuis la configuration, il est
@@ -226,7 +229,7 @@ qui permettraient aux extensions de s'interfacer beaucoup plus proprement.
 
 Nous attachons beaucoup d'importance à la clareté du code, la pertinence des
 *patterns*, des tests et de la documentation. Si vous avez des commentaires,
-des critiques ou des interrogations, n'hésitez pas à `les remonter
+des critiques ou des interrogations, n'hésitez pas à `nous en faire part
 <https://github.com/mozilla-services/cliquet/issues>`_ !
 
 
@@ -342,7 +345,8 @@ des champs avant l'enregistrement, etc.
 
 .. note::
 
-    Il est possible de définir des resources schema-less. `Voir le code source de Kinto
+    Il est possible de définir des resources sans validation de schema.
+    `Voir le code source de Kinto
     <https://github.com/mozilla-services/kinto/blob/master/kinto/views/records.py>`_.
 
 
@@ -379,7 +383,7 @@ Vos retours
 N'hésitez pas à nous faire part de vos retours ! Cela vous a donné envie
 d'essayer ? Vous connaissez un outil similaire ?
 Y-a-t-il des points qui ne sont pas clairs ? Manque de cas d'utilisation concrets ?
-Certains aspects mal pensés ? Trop contraignant ? Trop de magie ? Overkill ?
+Certains aspects mal pensés ? Trop contraignants ? Trop de magie ? Overkill ?
 
 Nous prenons tout.
 
@@ -391,7 +395,7 @@ Nous sommes très fiers de ce que nous avons construit, en relativement peu
 de temps. Et comme nous l'exposions dans `l'article précédent
 <{filename/2015.07.whistler-use-cases.rst}>`_, il y a du potentiel !
 
-Cependant, nous sommes tout de même conscients d'un certain nombre de points
+Cependant, nous sommes conscients d'un certain nombre de points
 qui peuvent être vus comme des faiblesses.
 
 * **La documentation d'API** : actuellement, nous n'avons pas de solution pour qu'un
@@ -400,8 +404,8 @@ qui peuvent être vus comme des faiblesses.
   obtenue.
 
 * **La documentation** : il est très difficile d'organiser la documentation, surtout
-  quand le public visé est aussi bien débutant qu'expérimenté. Nous manquons
-  certainement d'empathie et sommes probablement victimes du «`curse of knownledge
+  quand le public visé est aussi bien débutant qu'expérimenté. Nous sommes probablement
+  victimes du «`curse of knownledge
   <https://en.wikipedia.org/wiki/Curse_of_knowledge>`_».
 
 * **Le protocole** : on sent bien qu'on va devoir versionner le protocole. Au
@@ -418,8 +422,8 @@ qui peuvent être vus comme des faiblesses.
   En conséquence, on doit souvent releaser les projets en cascade.
 
 
-F.A.Q
------
+Quelques questions courantes
+----------------------------
 
 Pourquoi Python ?
 
@@ -435,13 +439,13 @@ Pourquoi pas Django ?
     On y a pensé, surtout parce qu'il y a plusieurs fans de *Django REST Framework*
     dans l'équipe.
 
-    On l'a écarté principalement au profit de la légèreté et la flexibilité de
+    On l'a écarté principalement au profit de la légèreté et la modularité de
     *Pyramid*.
 
 Pourquoi pas avec un framework asynchrone en Python 3+ ?
 
-    Les déploiements doivent pouvoir se faire en Python 2.7, à notre grand
-    désarroi /o\
+    Pour l'instant nos administrateurs système nous impose des déploiements en
+    Python 2.7, à notre grand désarroi /o\
 
     Pour *Reading List*, nous `avions activé
     <https://github.com/mozilla-services/readinglist/blob/1.7.0/readinglist/__init__.py#L19-L26>`_
@@ -493,12 +497,15 @@ Est-ce que les resources JSON supporte les modèles relationnels complexes ?
     du protocole en utilisant une classe ``Collection`` maison, qui se chargerait
     elle de manipuler les relations.
 
+    Le besoin de relations pourrait être un bon prétexte pour implémenter le
+    protocole avec Django REST Framework :)
+
 Est-il possible de faire ci ou ça avec Cliquet ?
 
     Nous aimerions collecter des besoins pour écrire un ensemble de «recettes/tutoriels». Mais
     pour ne pas travailler dans le vide, nous aimerions `connaitre vos idées
     <https://github.com/mozilla-services/cliquet/issues>`_ !
-    (*ex. brancher authentification Github, changer le format du logging JSON, stocker des
+    (*ex. brancher l'authentification Github, changer le format du logging JSON, stocker des
     données cartographiques, ...*)
 
 Est-ce que Cliquet peut manipuler des fichiers ?
