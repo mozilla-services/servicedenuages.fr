@@ -120,7 +120,7 @@ Les choix principaux du protocole concernent surtout :
 * **La synchronisation** : une série de leviers pour récupérer et renvoyer des
   changements sur les données, sans perte ni collision, en utilisant les timestamps.
 * **Les permissions** : les droits d'un utilisateur sur une collection ou un enregistrement
-  (*encore frais et non documenté*) [#]_.
+  (*encore frais et sur le point d'être documenté*) [#]_.
 * **Opérations par lot**: une URL qui permet d'envoyer une série de requêtes
   décrites en JSON et d'obtenir les réponses respectives.
 
@@ -416,10 +416,10 @@ qui peuvent être vus comme des faiblesses.
   nous ne sommes pas tout seuls et devons nous plier aux contraintes de la mise
   en production ! Cependant, nous avons très envie de faire de l'async avec Python 3 !
 
-* **Les interdépendances** : le revers de la médaille de la factorisation. Il
-  arrive qu'on préfère faire évoluer le toolkit pour un point précis d'un projet
-  qu'il l'utilise, plutôt que le *tweaker* en dupliquant le code.
-  En conséquence, on doit souvent releaser les projets en cascade.
+* **Publication de versions** : le revers de la médaille de la factorisation. Il
+  arrive qu'on préfère faire évoluer le toolkit (e.g. ajouter une option) pour
+  un point précis d'un projet. En conséquence, on doit souvent releaser les
+  projets en cascade.
 
 
 Quelques questions courantes
