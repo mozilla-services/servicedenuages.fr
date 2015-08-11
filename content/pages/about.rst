@@ -5,7 +5,7 @@
 
 Nous sommes l'équipe «Cloud-services» francophone: `n1k0
 <https://nicolas.perriault.net/>`_, `Mathieu <http://mathieu-leplatre.info>`_, `Tarek
-<http://ziade.org/>`_, `Rémy <http://natim.ionyse.com>`_ et `Alexis
+<http://ziade.org/>`_, `Daniel <https://twitter.com/phrawzty>`_, `Rémy <https://twitter.com/Natim>`_ et `Alexis
 <http://notmyidea.org>`_.
 
 Après quelques temps à accumuler les expériences sans vraiment les
