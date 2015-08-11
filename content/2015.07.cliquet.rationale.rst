@@ -194,7 +194,7 @@ a des éléments supplémentaires:
   performances et la santé du service.
 * **La configuration** : chargement de la configuration depuis les variables
   d'environnement et le fichier ``.ini``
-* **La flexibilité** : dés/activation ou subsitution de la majorité des composants
+* **La flexibilité** : dés/activation ou substitution de la majorité des composants
   depuis la configuration.
 * **Le profiling** : utilitaires de développement pour trouver les `goulets
   d'étranglement <https://fr.wiktionary.org/wiki/goulet_d%E2%80%99%C3%A9tranglement>`_.
@@ -334,7 +334,7 @@ des champs avant l'enregistrement, etc.
         mapping = BookmarkSchema()
 
         def process_record(self, new, old=None):
-            if new['device'] != old['device']:
+            if old is not None and new['device'] != old['device']:
                 device = self.request.headers.get('User-Agent')
                 new['device'] = device
             return new
@@ -405,7 +405,7 @@ qui peuvent être vus comme des faiblesses.
 
 * **La documentation** : il est très difficile d'organiser la documentation, surtout
   quand le public visé est aussi bien débutant qu'expérimenté. Nous sommes probablement
-  victimes du «`curse of knownledge
+  victimes du «`curse of knowledge
   <https://en.wikipedia.org/wiki/Curse_of_knowledge>`_».
 
 * **Le protocole** : on sent bien qu'on va devoir versionner le protocole. Au
@@ -444,8 +444,8 @@ Pourquoi pas Django ?
 
 Pourquoi pas avec un framework asynchrone en Python 3+ ?
 
-    Pour l'instant nos administrateurs système nous impose des déploiements en
-    Python 2.7, à notre grand désarroi /o\
+    Pour l'instant nos administrateurs système nous imposent des déploiements en
+    Python 2.7, à notre grand désarroi /o\\
 
     Pour *Reading List*, nous `avions activé
     <https://github.com/mozilla-services/readinglist/blob/1.7.0/readinglist/__init__.py#L19-L26>`_
@@ -461,7 +461,7 @@ Pourquoi pas JSON-API ?
 
     Quand nous avons commencé le protocole, nous ne connaissions pas JSON-API.
     Pour l'instant, comme notre proposition est beaucoup plus minimaliste, le
-    rapprochement en `resté au stade de discussion <https://github.com/mozilla-services/cliquet/issues/254>`_.
+    rapprochement n'a `pas dépassé le stade de la discussion <https://github.com/mozilla-services/cliquet/issues/254>`_.
 
 Est-ce que Cliquet est un framework REST pour Pyramid ?
 
@@ -472,7 +472,7 @@ Est-ce que Cliquet est un framework REST pour Pyramid ?
 
 Est-ce que Cliquet est suffisamment générique pour des projets hors Mozilla ?
 
-    Premièrement, nous faisons en sorte que tout soit controllable depuis la
+    Premièrement, nous faisons en sorte que tout soit contrôlable depuis la
     configuration ``.ini`` pour permettre la dés/activation ou substitution des
     composants.
 
