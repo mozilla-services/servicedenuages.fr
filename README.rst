@@ -1,4 +1,4 @@
-service de nuages
+Service de nuages
 =================
 
 Load and update plugins submodule::
@@ -14,3 +14,7 @@ To build the blog, just run::
 and to publish it::
 
     make publish
+
+Publish to gh-pages::
+
+    make github
