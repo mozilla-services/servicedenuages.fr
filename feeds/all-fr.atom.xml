@@ -1,5 +1,412 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-fr.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-07-07T00:00:00+02:00</updated><entry><title>Perspectives pour l'été</title><link href="http://www.servicedenuages.fr/perspectives-pour-lete" rel="alternate"></link><updated>2015-07-07T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-07-07:perspectives-pour-lete</id><summary type="html">&lt;p&gt;Mozilla a pour coutume d'organiser régulièrement des semaines de travail où tous les employés
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-fr.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-07-14T00:00:00+02:00</updated><entry><title>Pourquoi avons-nous fait Cliquet ?</title><link href="http://www.servicedenuages.fr/pourquoi-cliquet" rel="alternate"></link><updated>2015-07-14T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-07-14:pourquoi-cliquet</id><summary type="html">&lt;p&gt;&lt;strong&gt;tldr; Cliquet est un toolkit Python pour construire des APIs, qui implémente
+les bonnes pratiques en terme de mise en production et de protocole HTTP.&lt;/strong&gt;&lt;/p&gt;
+&lt;div class="section" id="les-origines"&gt;
+&lt;h2&gt;Les origines&lt;/h2&gt;
+&lt;p&gt;L'objectif pour le premier trimestre 2015 était de construire un service de
+stockage et de &lt;a class="reference external" href="http://www.servicedenuages.fr/service-de-nuages"&gt;synchronisation de listes de lecture&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Au démarrage du projet, nous avons tenté de rassembler toutes les bonnes pratiques
+et recommandations, venant de différentes équipes et surtout des derniers projets déployés.&lt;/p&gt;
+&lt;p&gt;De même, nous voulions tirer parti du protocole de &lt;em&gt;Firefox Sync&lt;/em&gt;, robuste et éprouvé,
+pour la synchronisation des données «offline».&lt;/p&gt;
+&lt;p&gt;Plutôt qu'écrire un &lt;a class="reference external" href="http://blog.octo.com/en/design-a-rest-api/"&gt;énième&lt;/a&gt;
+&lt;a class="reference external" href="http://www.vinaysahni.com/best-practices-for-a-pragmatic-restful-api"&gt;article&lt;/a&gt; de blog,
+nous avons préféré les rassembler dans ce qu'on a appellé «un protocole».&lt;/p&gt;
+&lt;p&gt;Comme pour l'architecture envisagée nous avions deux projets à construire, qui
+devaient obéir globalement à ces mêmes règles, nous avons décidé de mettre en
+commun l'implémentation de ce protocole et de ces bonnes pratiques dans un
+«toolkit».&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Cliquet&lt;/em&gt; est né.&lt;/p&gt;
+&lt;img alt="Cliquet logo" class="align-center" src="http://www.servicedenuages.fr/images/cliquet-logo.png" style="width: 300px; height: auto; max-width: 100%;"/&gt;
+&lt;div class="section" id="les-intentions"&gt;
+&lt;h3&gt;Les intentions&lt;/h3&gt;
+&lt;blockquote class="epigraph"&gt;
+Quelle structure JSON pour mon API ? Quelle syntaxe pour filtrer la liste
+via la querystring ? Comment gérer les écritures concurrentes ?
+Et synchroniser les données dans mon application cliente ?&lt;/blockquote&gt;
+&lt;p&gt;Désormais, quand un projet souhaite bénéficier d'une API REST pour stocker et consommer
+des données, il est possible d'utiliser le &lt;strong&gt;protocole HTTP&lt;/strong&gt; proposé
+et de se concentrer sur l'essentiel. Cela vaut aussi pour les clients, où
+la majorité du code d'interaction avec le serveur est réutilisable.&lt;/p&gt;
+&lt;blockquote class="epigraph"&gt;
+Comment pouvons-nous vérifier que le service est opérationnel ? Quels indicateurs StatsD ?
+Est-ce que Sentry est bien configuré ? Comment déployer une nouvelle version
+sans casser les applications clientes ?&lt;/blockquote&gt;
+&lt;p&gt;Comme &lt;em&gt;Cliquet&lt;/em&gt; fournit tout ce qui est nécessaire pour être conforme avec les
+exigences de la &lt;strong&gt;mise en production&lt;/strong&gt;, le passage du prototype au service opérationnel
+est très rapide ! De base le service répondra aux attentes en terme supervision, configuration,
+déploiement et dépréciation de version. Et si celles-ci évoluent, il suffira
+de faire évoluer le toolkit.&lt;/p&gt;
+&lt;blockquote class="epigraph"&gt;
+Quel backend de stockage pour des documents JSON ? Comment faire si l'équipe
+de production impose PostgreSQL ? Et si on voulait passer à Redis ou en
+mémoire pour lancer les tests ?&lt;/blockquote&gt;
+&lt;p&gt;En terme d'implémentation, nous avons choisi de &lt;strong&gt;fournir des abstractions&lt;/strong&gt;.
+En effet, nous avions deux services dont le coeur consistait
+à exposer un &lt;em&gt;CRUD&lt;/em&gt; en &lt;em&gt;REST&lt;/em&gt;, persistant des données JSON dans un backend.
+Comme &lt;em&gt;Pyramid&lt;/em&gt; et &lt;em&gt;Cornice&lt;/em&gt; ne fournissent rien de tout prêt pour ça,
+nous avons voulu introduire des classes de bases pour abstraire les notions
+de resource REST et de backend de stockage.&lt;/p&gt;
+&lt;p&gt;Dans le but de tout rendre optionnel et «pluggable», &lt;strong&gt;tout est configurable&lt;/strong&gt;
+depuis le fichier &lt;tt class="docutils literal"&gt;.ini&lt;/tt&gt; de l'application. Ainsi tous les projets qui utilisent
+le toolkit se déploieront de la même manière : seuls quelques éléments de configuration
+les distingueront.&lt;/p&gt;
+&lt;img alt="Une réunion à Paris..." class="align-center" src="http://www.servicedenuages.fr/images/cliquet-notes-whiteboard.jpg" style="width: 1600px; height: auto; max-width: 100%;"/&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="le-protocole"&gt;
+&lt;h2&gt;Le protocole&lt;/h2&gt;
+&lt;blockquote class="epigraph"&gt;
+Est-ce suffisant de parler d'«API REST» ? Est-ce bien nécessaire de
+relire la spec HTTP à chaque fois ? Pourquoi réinventer un protocole complet
+à chaque fois ?&lt;/blockquote&gt;
+&lt;p&gt;Quand nous développons un (micro)service Web, nous dépensons généralement beaucoup
+trop d'énergie à (re)faire des choix (arbitraires).&lt;/p&gt;
+&lt;p&gt;Nul besoin de lister ici tout ce qui concerne la dimension
+de la spécification HTTP pure, qui nous impose le format des headers,
+le support de CORS, la négocation de contenus (types mime), la différence entre
+authentification et autorisation, la cohérence des code status...&lt;/p&gt;
+&lt;p&gt;Les choix principaux du protocole concernent surtout :&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;strong&gt;Les resources REST&lt;/strong&gt; : Les deux URLs d'une resource (pour la collection
+et les enregistrements) acceptent des verbes et des headers précis.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Les formats&lt;/strong&gt; : le format et la structure JSON des réponses est imposé, ainsi
+que la &lt;a class="reference external" href="http://www.servicedenuages.fr/pagination-continuation-token"&gt;pagination des listes&lt;/a&gt;
+ou la syntaxe pour filtrer/trier les resources via la &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Query_string"&gt;querystring&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Les timestamps&lt;/strong&gt; : un numéro de révision qui s'incrémente à chaque opération
+d'écriture sur une collection d'enregistrements.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;La synchronisation&lt;/strong&gt; : une série de leviers pour récupérer et renvoyer des
+changements sur les données, sans perte ni collision, en utilisant les timestamps.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Les permissions&lt;/strong&gt; : les droits d'un utilisateur sur une collection ou un enregistrement
+(&lt;em&gt;encore frais et sur le point d'être documenté&lt;/em&gt;) &lt;a class="footnote-reference" href="#id3" id="id1"&gt;[1]&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Opérations par lot&lt;/strong&gt;: une URL qui permet d'envoyer une série de requêtes
+décrites en JSON et d'obtenir les réponses respectives.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Dans la dimension opérationnelle du protocole, on trouve :&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;strong&gt;La gestion de version&lt;/strong&gt; : cohabitation de plusieurs versions en production,
+avec alertes dans les entêtes pour la fin de vie des anciennes versions.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Le report des requêtes&lt;/strong&gt; : entêtes interprétées par les clients, activées en cas de
+maintenance ou de surchage, pour ménager le serveur.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Le canal d'erreurs&lt;/strong&gt; : toutes les erreurs renvoyées par le serveur ont le même
+format JSON et ont un numéro précis.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Les utilitaires&lt;/strong&gt; : URLs diverses pour répondre aux besoins exprimés par
+l'équipe d'administrateurs (monitoring, metadonnées, paramètres publiques).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ce protocole est une compilation des bonnes pratiques pour les APIs HTTP (&lt;em&gt;c'est notre métier !&lt;/em&gt;),
+des conseils des administrateurs système dont c'est le métier de mettre à disposition des services
+pour des millions d'utilisateurs et des retours d'expérience de l'équipe
+de &lt;em&gt;Firefox Sync&lt;/em&gt; pour la gestion de la concurrence et de l'«offline-first».&lt;/p&gt;
+&lt;p&gt;Il est &lt;a class="reference external" href="http://cliquet.readthedocs.org/en/latest/api/index.html"&gt;documenté en détail&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Dans un monde idéal, ce protocole serait versionné, et formalisé dans une RFC.
+En rêve, il existerait même plusieurs implémentations avec des technologies différentes
+(Python, Go, Node, etc.). &lt;a class="footnote-reference" href="#id4" id="id2"&gt;[2]&lt;/a&gt;&lt;/p&gt;
+&lt;table class="docutils footnote" frame="void" id="id3" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Voir notre &lt;a class="reference external" href="http://www.servicedenuages.fr/la-gestion-des-permissions"&gt;article dédié sur les permissions&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;table class="docutils footnote" frame="void" id="id4" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id2"&gt;[2]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Rappel: nous sommes une toute petite équipe !&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class="section" id="le-toolkit"&gt;
+&lt;h2&gt;Le toolkit&lt;/h2&gt;
+&lt;div class="section" id="choix-techniques"&gt;
+&lt;h3&gt;Choix techniques&lt;/h3&gt;
+&lt;p&gt;&lt;em&gt;Cliquet&lt;/em&gt; implémente le protocole en Python (&lt;em&gt;2.7, 3.4+, pypy&lt;/em&gt;), avec &lt;a class="reference external" href="http://trypyramid.com/"&gt;Pyramid&lt;/a&gt; &lt;a class="footnote-reference" href="#id6" id="id5"&gt;[3]&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pyramid&lt;/strong&gt; est un framework Web qui va prendre en charge tout la partie HTTP,
+et qui s'avère pertinent aussi bien pour des petits projets que des plus
+ambitieux.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Cornice&lt;/strong&gt; est une extension de &lt;em&gt;Pyramid&lt;/em&gt;, écrite en partie par Alexis et Tarek,
+qui permet d'éviter d'écrire tout le code &lt;em&gt;boilerplate&lt;/em&gt; quand on construit une
+API REST avec Pyramid.&lt;/p&gt;
+&lt;p&gt;Avec &lt;em&gt;Cornice&lt;/em&gt;, on évite de réécrire à chaque fois le code qui va
+cabler les verbes HTTP aux méthodes, valider les entêtes, choisir le sérialiseur
+en fonction des entêtes de négociation de contenus, renvoyer les codes HTTP
+rigoureux, gérer les entêtes CORS, fournir la validation JSON à partir de schémas...&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Cliquet&lt;/strong&gt; utilise les deux précédents pour implémenter le protocole et fournir
+des abstractions, mais on a toujours &lt;em&gt;Pyramid&lt;/em&gt; et &lt;em&gt;Cornice&lt;/em&gt; sous la main pour
+aller au delà de ce qui est proposé !&lt;/p&gt;
+&lt;table class="docutils footnote" frame="void" id="id6" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id5"&gt;[3]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Au tout début nous avons commencé une implémentation avec &lt;em&gt;Python-Eve&lt;/em&gt;
+(Flask), mais n'étions pas satisfaits de l'approche pour la configuration
+de l'API. En particulier du côté magique.&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class="section" id="concepts"&gt;
+&lt;h3&gt;Concepts&lt;/h3&gt;
+&lt;p&gt;Bien évidemment, les concepts du toolkit reflètent ceux du protocole mais il y
+a des éléments supplémentaires:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;strong&gt;Les backends&lt;/strong&gt; : abstractions pour le stockage, le cache et les permissions
+(&lt;em&gt;ex. PostgreSQL, Redis, en-mémoire, ...&lt;/em&gt;)&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;La supervision&lt;/strong&gt; : logging JSON et indicateurs temps-réel (&lt;em&gt;StatsD&lt;/em&gt;) pour suivre les
+performances et la santé du service.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;La configuration&lt;/strong&gt; : chargement de la configuration depuis les variables
+d'environnement et le fichier &lt;tt class="docutils literal"&gt;.ini&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;La flexibilité&lt;/strong&gt; : dés/activation ou substitution de la majorité des composants
+depuis la configuration.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Le profiling&lt;/strong&gt; : utilitaires de développement pour trouver les &lt;a class="reference external" href="https://fr.wiktionary.org/wiki/goulet_d%E2%80%99%C3%A9tranglement"&gt;goulets
+d'étranglement&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img alt="Cliquet concepts" class="align-center" src="http://www.servicedenuages.fr/images/cliquet-concepts.png" style="width: 500px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;Proportionnellement, l'implémentation du protocole pour les resources REST est
+la plus volumineuse dans le code source de &lt;em&gt;Cliquet&lt;/em&gt;.
+Cependant, comme nous l'avons décrit plus haut, &lt;em&gt;Cliquet&lt;/em&gt; fournit tout un
+ensemble d'outillage et de bonnes pratiques, et reste
+donc tout à fait pertinent pour n'importe quel type d'API, même sans
+manipulation de données !&lt;/p&gt;
+&lt;p&gt;L'objectif de la boîte à outils est de faire en sorte qu'un développeur puisse constuire
+une application simplement, en étant sûr qu'elle réponde aux exigeances de la
+mise en production, tout en ayant la possibilité de remplacer certaines parties
+au fur et à mesure que ses besoins se précisent.&lt;/p&gt;
+&lt;p&gt;Par exemple, la persistence fournie par défault est &lt;em&gt;schemaless&lt;/em&gt; (e.g &lt;em&gt;JSONB&lt;/em&gt;),
+mais rien n'empêcherait d'implémenter le stockage dans un modèle relationnel.&lt;/p&gt;
+&lt;p&gt;Comme les composants peuvent être remplacés depuis la configuration, il est
+tout à fait possible d'étendre &lt;em&gt;Cliquet&lt;/em&gt; avec des notions métiers ou des
+technologies exotiques ! Nous avons posé quelques idées dans &lt;a class="reference external" href="http://cliquet.readthedocs.org/en/latest/ecosystem.html"&gt;la documentation
+de l'éco-système&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Dans les prochaines semaines, nous allons introduire la notion d'«évènements» (ou signaux),
+qui permettraient aux extensions de s'interfacer beaucoup plus proprement.&lt;/p&gt;
+&lt;p&gt;Nous attachons beaucoup d'importance à la clareté du code, la pertinence des
+&lt;em&gt;patterns&lt;/em&gt;, des tests et de la documentation. Si vous avez des commentaires,
+des critiques ou des interrogations, n'hésitez pas à &lt;a class="reference external" href="https://github.com/mozilla-services/cliquet/issues"&gt;nous en faire part&lt;/a&gt; !&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="cliquet-a-l-action"&gt;
+&lt;h2&gt;Cliquet, à l'action.&lt;/h2&gt;
+&lt;p&gt;Nous avons écrit un &lt;a class="reference external" href="http://cliquet.readthedocs.org/en/latest/quickstart.html"&gt;guide de démarrage&lt;/a&gt;,
+qui n'exige pas de connaître &lt;em&gt;Pyramid&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Pour illustrer la simplicité et les concepts, voici quelques extraits !&lt;/p&gt;
+&lt;div class="section" id="etape-1"&gt;
+&lt;h3&gt;Étape 1&lt;/h3&gt;
+&lt;p&gt;Activer &lt;em&gt;Cliquet&lt;/em&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="hll"&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;cliquet&lt;/span&gt;
+&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;pyramid.config&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Configurator&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;global_config&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Configurator&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="hll"&gt;    &lt;span class="n"&gt;cliquet&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;initialize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;'1.0'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;make_wsgi_app&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;À partir de là, la plupart des outils de &lt;em&gt;Cliquet&lt;/em&gt; sont activés et accessibles.&lt;/p&gt;
+&lt;p&gt;Par exemple, les URLs &lt;em&gt;hello&lt;/em&gt; (&lt;tt class="docutils literal"&gt;/v1/&lt;/tt&gt;) ou &lt;em&gt;supervision&lt;/em&gt; (&lt;tt class="docutils literal"&gt;/v1/__heartbeat__&lt;/tt&gt;).
+Mais aussi les backends de stockage, de cache, etc.
+qu'il est possible d'utiliser dans des vues classiques &lt;em&gt;Pyramid&lt;/em&gt; ou &lt;em&gt;Cornice&lt;/em&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="etape-2"&gt;
+&lt;h3&gt;Étape 2&lt;/h3&gt;
+&lt;p&gt;Ajouter des vues:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;global_config&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Configurator&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+    &lt;span class="n"&gt;cliquet&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;initialize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;'1.0'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="hll"&gt;    &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;scan&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"myproject.views"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;make_wsgi_app&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Pour définir des resources CRUD, il faut commencer par définir un schéma,
+avec &lt;em&gt;Colander&lt;/em&gt;, et ensuite déclarer une resource:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;cliquet&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;schema&lt;/span&gt;
+
+&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;BookmarkSchema&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;schema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ResourceSchema&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;schema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;URL&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+&lt;span class="hll"&gt;&lt;span class="nd"&gt;@resource.register&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;span class="hll"&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Bookmark&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;BaseResource&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;span class="hll"&gt;    &lt;span class="n"&gt;mapping&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BookmarkSchema&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Désormais, la resource CRUD est disponible sur &lt;tt class="docutils literal"&gt;/v1/bookmarks&lt;/tt&gt;, avec toutes
+les fonctionnalités de synchronisation, filtrage, tri, pagination, timestamp, etc.
+De base les enregistrements sont privés, par utilisateur.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="err"&gt;http&lt;/span&gt; &lt;span class="err"&gt;GET&lt;/span&gt; &lt;span class="s2"&gt;"http://localhost:8000/v1/bookmarks"&lt;/span&gt;
+&lt;span class="err"&gt;HTTP/&lt;/span&gt;&lt;span class="mf"&gt;1.1&lt;/span&gt; &lt;span class="mi"&gt;200&lt;/span&gt; &lt;span class="err"&gt;OK&lt;/span&gt;
+&lt;span class="err"&gt;...&lt;/span&gt;
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nt"&gt;"data"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+        &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nt"&gt;"url"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"http://cliquet.readthedocs.org"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="nt"&gt;"id"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"cc103eb5-0c80-40ec-b6f5-dad12e7d975e"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="nt"&gt;"last_modified"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1437034418940&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="etape-3"&gt;
+&lt;h3&gt;Étape 3&lt;/h3&gt;
+&lt;p&gt;Évidemment, il est possible choisir les URLS, les verbes HTTP supportés, de modifier
+des champs avant l'enregistrement, etc.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="hll"&gt;&lt;span class="nd"&gt;@resource.register&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;collection_path&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;'/user/bookmarks'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class="hll"&gt;                   &lt;span class="n"&gt;record_path&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;'/user/bookmarks/{{id}}'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;span class="hll"&gt;                   &lt;span class="n"&gt;collection_methods&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;'GET'&lt;/span&gt;&lt;span class="p"&gt;,))&lt;/span&gt;
+&lt;/span&gt;&lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Bookmark&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;BaseResource&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;mapping&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BookmarkSchema&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+
+&lt;span class="hll"&gt;    &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;process_record&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;old&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;span class="hll"&gt;        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;old&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;'device'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;old&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;'device'&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt;
+&lt;/span&gt;&lt;span class="hll"&gt;            &lt;span class="n"&gt;device&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;'User-Agent'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;span class="hll"&gt;            &lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;'device'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;device&lt;/span&gt;
+&lt;/span&gt;&lt;span class="hll"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt;
+&lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://cliquet.readthedocs.org/en/latest/reference/resource.html"&gt;Plus d'infos dans la documentation dédiée&lt;/a&gt; !&lt;/p&gt;
+&lt;div class="note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p class="last"&gt;Il est possible de définir des resources sans validation de schema.
+&lt;a class="reference external" href="https://github.com/mozilla-services/kinto/blob/master/kinto/views/records.py"&gt;Voir le code source de Kinto&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="etape-4-optionelle"&gt;
+&lt;h3&gt;Étape 4 (optionelle)&lt;/h3&gt;
+&lt;p&gt;Utiliser les abstractions de &lt;em&gt;Cliquet&lt;/em&gt; dans une vue &lt;em&gt;Cornice&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Par exemple, une vue qui utilise le backend de stockage:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;cliquet&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Service&lt;/span&gt;
+
+&lt;span class="n"&gt;score&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Service&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"score"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;'/score/{game}'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                &lt;span class="n"&gt;description&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"Store game score"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+
+&lt;span class="nd"&gt;@score.post&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;schema&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;ScoreSchema&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;post_score&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;collection_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;'scores-'&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;match_dict&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;'game'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="n"&gt;user_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;authenticated_userid&lt;/span&gt;
+    &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;validated&lt;/span&gt;  &lt;span class="c"&gt;# c.f. Cornice.&lt;/span&gt;
+
+&lt;span class="hll"&gt;    &lt;span class="n"&gt;storage&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;registry&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;storage&lt;/span&gt;
+&lt;/span&gt;&lt;span class="hll"&gt;    &lt;span class="n"&gt;record&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;storage&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;create&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;collection_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;user_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/span&gt;    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;record&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="vos-retours"&gt;
+&lt;h2&gt;Vos retours&lt;/h2&gt;
+&lt;p&gt;N'hésitez pas à nous faire part de vos retours ! Cela vous a donné envie
+d'essayer ? Vous connaissez un outil similaire ?
+Y-a-t-il des points qui ne sont pas clairs ? Manque de cas d'utilisation concrets ?
+Certains aspects mal pensés ? Trop contraignants ? Trop de magie ? Overkill ?&lt;/p&gt;
+&lt;p&gt;Nous prenons tout.&lt;/p&gt;
+&lt;div class="section" id="points-faibles"&gt;
+&lt;h3&gt;Points faibles&lt;/h3&gt;
+&lt;p&gt;Nous sommes très fiers de ce que nous avons construit, en relativement peu
+de temps. Et comme nous l'exposions dans &lt;a class="reference external" href="{filename/2015.07.whistler-use-cases.rst}"&gt;l'article précédent&lt;/a&gt;, il y a du potentiel !&lt;/p&gt;
+&lt;p&gt;Cependant, nous sommes conscients d'un certain nombre de points
+qui peuvent être vus comme des faiblesses.&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;strong&gt;La documentation d'API&lt;/strong&gt; : actuellement, nous n'avons pas de solution pour qu'un
+projet qui utilise &lt;em&gt;Cliquet&lt;/em&gt; puisse intégrer facilement toute
+&lt;a class="reference external" href="http://cliquet.readthedocs.org/en/latest/api/index.html"&gt;la documentation de l'API&lt;/a&gt;
+obtenue.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;La documentation&lt;/strong&gt; : il est très difficile d'organiser la documentation, surtout
+quand le public visé est aussi bien débutant qu'expérimenté. Nous sommes probablement
+victimes du «&lt;a class="reference external" href="https://en.wikipedia.org/wiki/Curse_of_knowledge"&gt;curse of knowledge&lt;/a&gt;».&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Le protocole&lt;/strong&gt; : on sent bien qu'on va devoir versionner le protocole. Au
+moins pour le désolidariser des versions de &lt;em&gt;Cliquet&lt;/em&gt;, si on veut aller au
+bout de la philosophie et de l'éco-système.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Le conservatisme&lt;/strong&gt; : Nous aimons la stabilité et la robustesse. Mais surtout
+nous ne sommes pas tout seuls et devons nous plier aux contraintes de la mise
+en production ! Cependant, nous avons très envie de faire de l'async avec Python 3 !&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Publication de versions&lt;/strong&gt; : le revers de la médaille de la factorisation. Il
+arrive qu'on préfère faire évoluer le toolkit (e.g. ajouter une option) pour
+un point précis d'un projet. En conséquence, on doit souvent releaser les
+projets en cascade.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="quelques-questions-courantes"&gt;
+&lt;h3&gt;Quelques questions courantes&lt;/h3&gt;
+&lt;p&gt;Pourquoi Python ?&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;On prend beaucoup de plaisir à écrire du Python, et le calendrier annoncé
+initialement était très serré: pas question de tituber avec une technologie
+mal maitrisée !&lt;/p&gt;
+&lt;p&gt;Et puis, après avoir passé près d'un an sur un projet Node.js, l'équipe avait
+bien envie de refaire du Python.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Pourquoi pas Django ?&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;On y a pensé, surtout parce qu'il y a plusieurs fans de &lt;em&gt;Django REST Framework&lt;/em&gt;
+dans l'équipe.&lt;/p&gt;
+&lt;p&gt;On l'a écarté principalement au profit de la légèreté et la modularité de
+&lt;em&gt;Pyramid&lt;/em&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Pourquoi pas avec un framework asynchrone en Python 3+ ?&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Pour l'instant nos administrateurs système nous imposent des déploiements en
+Python 2.7, à notre grand désarroi /o\&lt;/p&gt;
+&lt;p&gt;Pour &lt;em&gt;Reading List&lt;/em&gt;, nous &lt;a class="reference external" href="https://github.com/mozilla-services/readinglist/blob/1.7.0/readinglist/__init__.py#L19-L26"&gt;avions activé&lt;/a&gt;
+&lt;em&gt;gevent&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Puisque l'approche consiste à implémenter un protocole bien déterminé, nous n'excluons
+pas un jour d'écrire un &lt;em&gt;Cliquet&lt;/em&gt; en &lt;em&gt;aiohttp&lt;/em&gt; ou &lt;em&gt;Go&lt;/em&gt; si cela s'avèrerait pertinent.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Pourquoi pas JSON-API ?&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Comme nous l'expliquions &lt;a class="reference external" href="http://www.servicedenuages.fr/apidays-barcelona-retours"&gt;au retour des APIdays&lt;/a&gt;,
+JSON-API est une spécification qui rejoint plusieurs de nos intentions.&lt;/p&gt;
+&lt;p&gt;Quand nous avons commencé le protocole, nous ne connaissions pas JSON-API.
+Pour l'instant, comme notre proposition est beaucoup plus minimaliste, le
+rapprochement n'a &lt;a class="reference external" href="https://github.com/mozilla-services/cliquet/issues/254"&gt;pas dépassé le stade de la discussion&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Est-ce que Cliquet est un framework REST pour Pyramid ?&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Non.&lt;/p&gt;
+&lt;p&gt;Au delà des classes de resources CRUD de Cliquet, qui implémentent un
+protocole bien précis, il faut utiliser Cornice ou Pyramid directement.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Est-ce que Cliquet est suffisamment générique pour des projets hors Mozilla ?&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Premièrement, nous faisons en sorte que tout soit contrôlable depuis la
+configuration &lt;tt class="docutils literal"&gt;.ini&lt;/tt&gt; pour permettre la dés/activation ou substitution des
+composants.&lt;/p&gt;
+&lt;p&gt;Si le protocole HTTP/JSON des resources CRUD vous satisfait,
+alors Cliquet est probablement le plus court chemin pour construire une
+application qui tient la route.&lt;/p&gt;
+&lt;p&gt;Mais l'utilisation des resources CRUD est facultative, donc Cliquet reste pertinent
+si les bonnes pratiques en terme de mise en production ou les abstractions fournies
+vous paraissent valables !&lt;/p&gt;
+&lt;p&gt;Cliquet reste un moyen simple d'aller très vite pour mettre sur pied
+une application Pyramid/Cornice.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Est-ce que les resources JSON supporte les modèles relationnels complexes ?&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;La couche de persistence fournie est très simple, et devrait
+répondre à la majorité des cas d'utilisation où les données n'ont pas de
+relations.&lt;/p&gt;
+&lt;p&gt;En revanche, il est tout à fait possible de bénéficier de tous les aspects
+du protocole en utilisant une classe &lt;tt class="docutils literal"&gt;Collection&lt;/tt&gt; maison, qui se chargerait
+elle de manipuler les relations.&lt;/p&gt;
+&lt;p&gt;Le besoin de relations pourrait être un bon prétexte pour implémenter le
+protocole avec Django REST Framework :)&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Est-il possible de faire ci ou ça avec Cliquet ?&lt;/p&gt;
+&lt;blockquote&gt;
+Nous aimerions collecter des besoins pour écrire un ensemble de «recettes/tutoriels». Mais
+pour ne pas travailler dans le vide, nous aimerions &lt;a class="reference external" href="https://github.com/mozilla-services/cliquet/issues"&gt;connaitre vos idées&lt;/a&gt; !
+(&lt;em&gt;ex. brancher l'authentification Github, changer le format du logging JSON, stocker des
+données cartographiques, ...&lt;/em&gt;)&lt;/blockquote&gt;
+&lt;p&gt;Est-ce que Cliquet peut manipuler des fichiers ?&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://github.com/mozilla-services/cliquet/issues/236"&gt;Nous l'envisageons&lt;/a&gt;,
+mais pour l'instant nous attendons que le besoin survienne en interne pour se
+lancer.&lt;/p&gt;
+&lt;p&gt;Si c'est le cas, le protocole utilisé sera &lt;a class="reference external" href="http://remotestorage.io/"&gt;Remote Storage&lt;/a&gt;,
+afin notamment de s'intégrer dans l'éco-système grandissant.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Est-ce que la fonctionnalité X va être implémentée ?&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;em&gt;Cliquet&lt;/em&gt; est déjà bien garni. Plutôt qu'implémenter la fonctionnalité X,
+il y a de grandes chances que nous agissions pour s'assurer que les abstractions
+et les mécanismes d'extension fournis permettent de l'implémenter sous forme
+d'extension.&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</summary></entry><entry><title>Perspectives pour l'été</title><link href="http://www.servicedenuages.fr/perspectives-pour-lete" rel="alternate"></link><updated>2015-07-07T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-07-07:perspectives-pour-lete</id><summary type="html">&lt;p&gt;Mozilla a pour coutume d'organiser régulièrement des semaines de travail où tous les employés
 sont réunis physiquement. Pour cette dernière édition, nous avons pu retrouver
 nos collègues du monde entier à &lt;a class="reference external" href="http://www.openstreetmap.org/node/268148288#map=4/50.12/-122.95"&gt;Whistler, en Colombie Britannique au Canada&lt;/a&gt; !&lt;/p&gt;
 &lt;img alt="«All Hands» talk about Lego, by @davidcrob - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-talks.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
@@ -10,34 +417,33 @@ notre solution &lt;a class="reference external" href="https://kinto.readthedocs.
 les prochains mois.&lt;/p&gt;
 &lt;div class="section" id="ateliers-et-promotion"&gt;
 &lt;h2&gt;Ateliers et promotion&lt;/h2&gt;
-&lt;img alt="Kinto.js workshop - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-workshop.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Nicolas a présenté &lt;a class="reference external" href="https://github.com/mozilla-services/kinto.js"&gt;Kinto.js&lt;/a&gt; dans un atelier dédié, avec comme support de
 présentation le &lt;a class="reference external" href="http://kintojs.readthedocs.org/en/latest/tutorial/"&gt;tutorial d'introduction&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;L'application résultante, pourtant toute simple, permet d'appréhender les
 concepts de synchronisation de Kinto. Le tout sans installation prélable,
 puisque Rémy a mis en place un &lt;a class="reference external" href="https://kinto.dev.mozaws.net/v1/"&gt;serveur de dev effacé tous les jours&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Nous avions un point d'honneur à faire du Vanilla.JS, déjà pour éviter les
+&lt;p&gt;Nous avions mis un point d'honneur à faire du Vanilla.JS, déjà pour éviter les
 combats de clochers autour des frameworks, mais aussi pour mettre en évidence qu'avec
-HTML5 et ES6, on n'était plus aussi démuni qu'il y a quelques années.&lt;/p&gt;
+HTML5 et ES6, on n'était plus aussi démunis qu'il y a quelques années.&lt;/p&gt;
 &lt;p&gt;Ce petit atelier nous a permis de nous rendre compte qu'on avait encore de
 grosses lacunes en terme de documentation, surtout en ce qui concerne
 l'éco-système et la vision globale des projets (Kinto, Kinto.js, Cliquet, ...).
 Nous allons donc faire de notre mieux pour combler ce manque.&lt;/p&gt;
+&lt;img alt="Kinto.js workshop - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-workshop.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;div class="section" id="mozilla-payments"&gt;
 &lt;h2&gt;Mozilla Payments&lt;/h2&gt;
-&lt;img alt="Whistler Alta Lake - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-lake.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Comme &lt;a class="reference external" href="http://www.servicedenuages.fr/la-gestion-des-permissions"&gt;décrit précédemment&lt;/a&gt;, nous avons mis en place un système de permissions pour répondre aux besoins de suivi des paiements et abonnements.&lt;/p&gt;
 &lt;p&gt;Pour ce projet, Kinto sera utilisé depuis une application Django, via un client Python.&lt;/p&gt;
 &lt;p&gt;Maintenant que les développements ont été livrés, il faut transformer l'essai, réussir l'intégration, l'hébergement et la montée en puissance. La solution doit être livrée à la fin de l'année.&lt;/p&gt;
 &lt;div class="section" id="a-venir"&gt;
 &lt;h3&gt;À venir&lt;/h3&gt;
 &lt;p&gt;Nous aimerions en profiter pour implémenter une fonctionnalité qui nous tient à coeur : la construction de la liste des enregistrements accessibles en lecture sur une collection partagée.&lt;/p&gt;
+&lt;img alt="Whistler Alta Lake - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-lake.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="firefox-os-et-stockage"&gt;
 &lt;h2&gt;Firefox OS et stockage&lt;/h2&gt;
-&lt;img alt="Firefox OS Cloud Storage Presentation - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-cloud-storage.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Nous avons eu beaucoup d'échanges avec l'équipe de Firefox OS, avec qui nous avions
 déjà eu l'occasion de collaborer, pour le &lt;a class="reference external" href="https://github.com/mozilla-services/msisdn-gateway"&gt;serveur d'identification BrowserID par SMS&lt;/a&gt; et pour &lt;a class="reference external" href="https://github.com/mozilla-services/loop-server"&gt;Firefox Hello&lt;/a&gt;.&lt;/p&gt;
 &lt;div class="section" id="in-app-sync"&gt;
@@ -46,25 +452,26 @@ déjà eu l'occasion de collaborer, pour le &lt;a class="reference external" hre
 Firefox OS ? La classe ! C'est ce qu'on avait en tête depuis longtemps, déjà à
 l'époque avec &lt;a class="reference external" href="http://daybed.readthedocs.org/"&gt;Daybed&lt;/a&gt;. Voici donc une belle opportunité à saisir !&lt;/p&gt;
 &lt;p&gt;Il va falloir expliciter les limitations et hypothèses simplificatrices de notre
-solution, surtout en terme de gestion de la concurrence. Nous sommes persuadés
+solution, surtout en termes de gestion de la concurrence. Nous sommes persuadés
 que ça colle avec la plupart des besoins, mais il ne faudrait pas décevoir :)&lt;/p&gt;
-&lt;p&gt;Le fait que &lt;a class="reference external" href="https://github.com/daleharvey"&gt;Dale&lt;/a&gt;, un des auteurs de &lt;a class="reference external" href="http://pouchdb.com/"&gt;PouchDB&lt;/a&gt; et &lt;a class="reference external" href="https://github.com/michielbdejong"&gt;Michel de Jong&lt;/a&gt;, un des auteurs de &lt;a class="reference external" href="http://remotestorage.io/"&gt;Remote Storage&lt;/a&gt;, nous aient encouragés sur nos premiers pas nous a bien motivé !&lt;/p&gt;
+&lt;p&gt;Le fait que &lt;a class="reference external" href="https://github.com/daleharvey"&gt;Dale&lt;/a&gt;, un des auteurs de &lt;a class="reference external" href="http://pouchdb.com/"&gt;PouchDB&lt;/a&gt; et &lt;a class="reference external" href="https://github.com/michielbdejong"&gt;Michiel de Jong&lt;/a&gt;, un des auteurs de &lt;a class="reference external" href="http://remotestorage.io/"&gt;Remote Storage&lt;/a&gt;, nous aient encouragés sur nos premiers pas nous a bien motivé !&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="cut-the-rope"&gt;
 &lt;h3&gt;Cut the Rope&lt;/h3&gt;
 &lt;p&gt;Kinto devrait être mis à profit pour synchroniser les paramètres et les scores
-du &lt;a class="reference external" href="https://marketplace.firefox.com/app/cut-the-rope/"&gt;jeu&lt;/a&gt;. Un premier exercice et une première vitrine sympa !&lt;/p&gt;
+du &lt;a class="reference external" href="http://mozilla.cuttherope.net/"&gt;jeu&lt;/a&gt;. Un premier exercice et une première vitrine sympas !&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="syncto"&gt;
 &lt;h3&gt;« SyncTo »&lt;/h3&gt;
 &lt;p&gt;&lt;a class="reference external" href="https://docs.services.mozilla.com/storage/apis-1.5.html"&gt;Firefox Sync&lt;/a&gt; est la solution qui permet de synchroniser les données de Firefox (favoris, extensions, historique, complétion des formulaires, mots de passe, ...) entre plusieurs périphériques, de manière chiffrée.&lt;/p&gt;
 &lt;p&gt;L'implémentation du client en JavaScript est relativement complexe et date un peu maintenant.
-La réécriture n'a jamais été vraiment menée à bout.&lt;/p&gt;
+Le code existant n'est pas vraiment portable dans &lt;em&gt;Firefox OS&lt;/em&gt; et les tentatives de réécriture
+n'ont pas abouti.&lt;/p&gt;
 &lt;p&gt;Nous souhaitons implémenter un pont entre &lt;em&gt;Kinto&lt;/em&gt; et &lt;em&gt;Firefox Sync&lt;/em&gt;, de manière
 à pouvoir utiliser le client &lt;em&gt;Kinto.js&lt;/em&gt;, plus simple et plus moderne, pour récupérer
 les contenus et les stocker dans IndexedDB. Le delta à implémenter côté serveur est faible car nous nous étions
 inspirés du protocole déjà éprouvé de Sync. Côté client, il s'agira surtout de
-cabler l'authentification BrowserId et la Crypto.&lt;/p&gt;
+câbler l'authentification BrowserId et la Crypto.&lt;/p&gt;
 &lt;p&gt;Alexis a sauté sur l'occasion pour commencer l'écriture d'&lt;a class="reference external" href="https://github.com/mozilla-services/syncclient"&gt;un client python pour Firefox Sync&lt;/a&gt;, qui servira de brique de base pour l'écriture du service.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="cloud-storage"&gt;
@@ -79,18 +486,18 @@ mais pour l'instant les cas d'utilisations ne se sont pas encore présentés off
 &lt;/div&gt;
 &lt;div class="section" id="id2"&gt;
 &lt;h3&gt;À venir&lt;/h3&gt;
-&lt;p&gt;Nous serons probablement amenés à introduire la gestion de la concurence dans
+&lt;p&gt;Nous serons probablement amenés à introduire la gestion de la concurrence dans
 le client JS, en complément de ce qui a été fait sur le serveur, pour permettre
 les écritures simultanées et synchronisation en tâche de fond.&lt;/p&gt;
 &lt;p&gt;Nous sommes par ailleurs perpétuellement preneurs de vos retours — et bien
 entendu de vos contributions — tant sur le code &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/"&gt;serveur&lt;/a&gt;
 que &lt;a class="reference external" href="https://github.com/mozilla-services/kinto.js/"&gt;client&lt;/a&gt;  !&lt;/p&gt;
+&lt;img alt="Firefox OS Cloud Storage Presentation - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-cloud-storage.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="contenus-applicatifs-de-firefox"&gt;
 &lt;h2&gt;Contenus applicatifs de Firefox&lt;/h2&gt;
-&lt;img alt="Landscape - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-landscape.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
-&lt;p&gt;Aujourd'hui Firefox a un cycle de release de six mois. Un des objectifs
+&lt;p&gt;Aujourd'hui Firefox a un cycle de release de six semaines. Un des objectifs
 consiste à désolidariser certains contenus applicatifs de ces cycles
 relativement longs (ex. &lt;em&gt;règles de securité, dictionnaires, traductions, ...&lt;/em&gt;) &lt;a class="footnote-reference" href="#id4" id="id3"&gt;[1]&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Il s'agit de données JSON et binaire qui doivent être versionnées et synchronisées par
@@ -103,16 +510,16 @@ ce genre de besoins internes, &lt;em&gt;Kinto&lt;/em&gt; est tout aussi pertinen
 &lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id3"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;La bonne nouvelle c'est que toutes les fonctionnalités &lt;em&gt;third-party&lt;/em&gt; qui ont
-été intégrées récemment vont redevenir des &lt;em&gt;add-ons&lt;/em&gt; o/.&lt;/td&gt;&lt;/tr&gt;
+été intégrées récemment vont redevenir des &lt;em&gt;add-ons&lt;/em&gt; \o/.&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+&lt;img alt="Landscape - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-landscape.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;div class="section" id="awesome-bar"&gt;
 &lt;h2&gt;Awesome bar&lt;/h2&gt;
-&lt;img alt="Firefox Labs Meeting - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-labs.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;L'équipe &lt;em&gt;Firefox Labs&lt;/em&gt;, le laboratoire qui élève des pandas roux en éprouvette,
 serait vraiment intéressé par notre solution, notamment pour abreuver en données
-la future &lt;em&gt;Awesome bar&lt;/em&gt;, qui fusionnerait URL, historique et recherche.&lt;/p&gt;
+un prototype pour améliorer &lt;em&gt;Awesome bar&lt;/em&gt;, qui fusionnerait URL, historique et recherche.&lt;/p&gt;
 &lt;p&gt;Nous ne pouvons pas en dire beaucoup plus pour l'instant, mais les fonctionnalités
 de collections d'enregistrements partagées entre utilisateurs de &lt;em&gt;Kinto&lt;/em&gt;
 correspondent parfaitement à ce qui est envisagé pour le futur du navigateur :)&lt;/p&gt;
@@ -122,11 +529,11 @@ correspondent parfaitement à ce qui est envisagé pour le futur du navigateur :
 fonctionnalités d'indexation et de recherche &lt;em&gt;full-text&lt;/em&gt; (comprendre &lt;em&gt;ElasticSearch&lt;/em&gt;).
 Cela rejoint nos plans précédents, puisque c'est quelque chose que nous avions dans
 &lt;em&gt;Daybed&lt;/em&gt;, et qui figurait sur notre feuille de route !&lt;/p&gt;
+&lt;img alt="Firefox Labs Meeting - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-labs.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="browser-html"&gt;
 &lt;h2&gt;Browser.html&lt;/h2&gt;
-&lt;img alt="Roadmap - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-roadmap.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;L'équipe &lt;em&gt;Recherche&lt;/em&gt; explore les notions de plateforme, et travaille notamment
 sur l'implémentation d'un navigateur en JS/HTML avec &lt;em&gt;React&lt;/em&gt;:
 &lt;a class="reference external" href="https://github.com/mozilla/browser.html"&gt;browser.html&lt;/a&gt;&lt;/p&gt;
@@ -147,11 +554,11 @@ sujet passionant, et &lt;a class="reference external" href="http://www.w3.org/TR
 changements, l'introduction des &lt;a class="reference external" href="https://w3c.github.io/push-api/"&gt;*push notifications*&lt;/a&gt; semble assez naturelle.
 Il s'agirait alors de la dernière pierre qui manque à l'édifice pour obtenir
 un «&lt;em&gt;Mobile/Web backend as a service&lt;/em&gt;» complet.&lt;/p&gt;
+&lt;img alt="Roadmap - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-roadmap.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="conclusion"&gt;
 &lt;h2&gt;Conclusion&lt;/h2&gt;
-&lt;img alt="Friday Night Party - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-top-roof.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Nous sommes dans une situation idéale, puisque ce que nous avions imaginé
 sur &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/wiki/Roadmap"&gt;notre feuille de route&lt;/a&gt; correspond à ce qui nous est demandé par les
 différentes équipes.&lt;/p&gt;
@@ -160,6 +567,7 @@ tenir la charge, continuer à améliorer et à faire la promotion du produit, se
 sur les prochaines étapes et embarquer quelques contributeurs à nos cotés pour
 construire une solution libre, générique, simple et auto-hébergeable pour le stockage
 de données sur le Web :)&lt;/p&gt;
+&lt;img alt="Friday Night Party - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-top-roof.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 </summary></entry><entry><title>Achievement unlocked</title><link href="http://www.servicedenuages.fr/kinto-1.0" rel="alternate"></link><updated>2015-06-17T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-06-17:kinto-1.0</id><summary type="html">&lt;p&gt;Aujourd'hui, c'est jour de fête : nous venons de publier Cliquet &lt;strong&gt;2.0&lt;/strong&gt;
 &lt;a class="footnote-reference" href="#id5" id="id1"&gt;[1]&lt;/a&gt; et Kinto &lt;strong&gt;1.0&lt;/strong&gt; &lt;a class="footnote-reference" href="#id6" id="id2"&gt;[2]&lt;/a&gt;.&lt;/p&gt;
