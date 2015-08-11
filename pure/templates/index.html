@@ -14,10 +14,14 @@
                 {% endif %}
                 <h1 class="content-subhead">
                     {% block pagetitle %}
-                        {% if not articles_page.has_previous() %}
-                            Derniers articles
+                        {% if DEFAULT_LANG == 'fr' %}
+                            {% if not articles_page.has_previous() %}
+                                Derniers articles
+                            {% else %}
+                                Articles
+                            {% endif %}
                         {% else %}
-                            Articles
+                            Articles which have been translated into English.
                         {% endif %}
                     {% endblock pagetitle %}
                     {% if articles_page.has_previous() %}
