@@ -425,101 +425,101 @@ qui peuvent être vus comme des faiblesses.
 Quelques questions courantes
 ----------------------------
 
-Pourquoi Python ?
+    Pourquoi Python ?
 
-    On prend beaucoup de plaisir à écrire du Python, et le calendrier annoncé
-    initialement était très serré: pas question de tituber avec une technologie
-    mal maitrisée !
+On prend beaucoup de plaisir à écrire du Python, et le calendrier annoncé
+initialement était très serré: pas question de tituber avec une technologie
+mal maitrisée !
 
-    Et puis, après avoir passé près d'un an sur un projet Node.js, l'équipe avait
-    bien envie de refaire du Python.
+Et puis, après avoir passé près d'un an sur un projet Node.js, l'équipe avait
+bien envie de refaire du Python.
 
-Pourquoi pas Django ?
+    Pourquoi pas Django ?
 
-    On y a pensé, surtout parce qu'il y a plusieurs fans de *Django REST Framework*
-    dans l'équipe.
+On y a pensé, surtout parce qu'il y a plusieurs fans de *Django REST Framework*
+dans l'équipe.
 
-    On l'a écarté principalement au profit de la légèreté et la modularité de
-    *Pyramid*.
+On l'a écarté principalement au profit de la légèreté et la modularité de
+*Pyramid*.
 
-Pourquoi pas avec un framework asynchrone en Python 3+ ?
+    Pourquoi pas avec un framework asynchrone en Python 3+ ?
 
-    Pour l'instant nos administrateurs système nous imposent des déploiements en
-    Python 2.7, à notre grand désarroi /o\\
+Pour l'instant nos administrateurs système nous imposent des déploiements en
+Python 2.7, à notre grand désarroi /o\\
 
-    Pour *Reading List*, nous `avions activé
-    <https://github.com/mozilla-services/readinglist/blob/1.7.0/readinglist/__init__.py#L19-L26>`_
-    *gevent*.
+Pour *Reading List*, nous `avions activé
+<https://github.com/mozilla-services/readinglist/blob/1.7.0/readinglist/__init__.py#L19-L26>`_
+*gevent*.
 
-    Puisque l'approche consiste à implémenter un protocole bien déterminé, nous n'excluons
-    pas un jour d'écrire un *Cliquet* en *aiohttp* ou *Go* si cela s'avèrerait pertinent.
+Puisque l'approche consiste à implémenter un protocole bien déterminé, nous n'excluons
+pas un jour d'écrire un *Cliquet* en *aiohttp* ou *Go* si cela s'avèrerait pertinent.
 
-Pourquoi pas JSON-API ?
+    Pourquoi pas JSON-API ?
 
-    Comme nous l'expliquions `au retour des APIdays <{filename}/2015.05.retour-apidays.rst>`_,
-    JSON-API est une spécification qui rejoint plusieurs de nos intentions.
+Comme nous l'expliquions `au retour des APIdays <{filename}/2015.05.retour-apidays.rst>`_,
+JSON-API est une spécification qui rejoint plusieurs de nos intentions.
 
-    Quand nous avons commencé le protocole, nous ne connaissions pas JSON-API.
-    Pour l'instant, comme notre proposition est beaucoup plus minimaliste, le
-    rapprochement n'a `pas dépassé le stade de la discussion <https://github.com/mozilla-services/cliquet/issues/254>`_.
+Quand nous avons commencé le protocole, nous ne connaissions pas JSON-API.
+Pour l'instant, comme notre proposition est beaucoup plus minimaliste, le
+rapprochement n'a `pas dépassé le stade de la discussion <https://github.com/mozilla-services/cliquet/issues/254>`_.
 
-Est-ce que Cliquet est un framework REST pour Pyramid ?
+    Est-ce que Cliquet est un framework REST pour Pyramid ?
 
-    Non.
+Non.
 
-    Au delà des classes de resources CRUD de Cliquet, qui implémentent un
-    protocole bien précis, il faut utiliser Cornice ou Pyramid directement.
+Au delà des classes de resources CRUD de Cliquet, qui implémentent un
+protocole bien précis, il faut utiliser Cornice ou Pyramid directement.
 
-Est-ce que Cliquet est suffisamment générique pour des projets hors Mozilla ?
+    Est-ce que Cliquet est suffisamment générique pour des projets hors Mozilla ?
 
-    Premièrement, nous faisons en sorte que tout soit contrôlable depuis la
-    configuration ``.ini`` pour permettre la dés/activation ou substitution des
-    composants.
+Premièrement, nous faisons en sorte que tout soit contrôlable depuis la
+configuration ``.ini`` pour permettre la dés/activation ou substitution des
+composants.
 
-    Si le protocole HTTP/JSON des resources CRUD vous satisfait,
-    alors Cliquet est probablement le plus court chemin pour construire une
-    application qui tient la route.
+Si le protocole HTTP/JSON des resources CRUD vous satisfait,
+alors Cliquet est probablement le plus court chemin pour construire une
+application qui tient la route.
 
-    Mais l'utilisation des resources CRUD est facultative, donc Cliquet reste pertinent
-    si les bonnes pratiques en terme de mise en production ou les abstractions fournies
-    vous paraissent valables !
+Mais l'utilisation des resources CRUD est facultative, donc Cliquet reste pertinent
+si les bonnes pratiques en terme de mise en production ou les abstractions fournies
+vous paraissent valables !
 
-    Cliquet reste un moyen simple d'aller très vite pour mettre sur pied
-    une application Pyramid/Cornice.
+Cliquet reste un moyen simple d'aller très vite pour mettre sur pied
+une application Pyramid/Cornice.
 
-Est-ce que les resources JSON supporte les modèles relationnels complexes ?
+    Est-ce que les resources JSON supporte les modèles relationnels complexes ?
 
-    La couche de persistence fournie est très simple, et devrait
-    répondre à la majorité des cas d'utilisation où les données n'ont pas de
-    relations.
+La couche de persistence fournie est très simple, et devrait
+répondre à la majorité des cas d'utilisation où les données n'ont pas de
+relations.
 
-    En revanche, il est tout à fait possible de bénéficier de tous les aspects
-    du protocole en utilisant une classe ``Collection`` maison, qui se chargerait
-    elle de manipuler les relations.
+En revanche, il est tout à fait possible de bénéficier de tous les aspects
+du protocole en utilisant une classe ``Collection`` maison, qui se chargerait
+elle de manipuler les relations.
 
-    Le besoin de relations pourrait être un bon prétexte pour implémenter le
-    protocole avec Django REST Framework :)
+Le besoin de relations pourrait être un bon prétexte pour implémenter le
+protocole avec Django REST Framework :)
 
-Est-il possible de faire ci ou ça avec Cliquet ?
+    Est-il possible de faire ci ou ça avec Cliquet ?
 
-    Nous aimerions collecter des besoins pour écrire un ensemble de «recettes/tutoriels». Mais
-    pour ne pas travailler dans le vide, nous aimerions `connaitre vos idées
-    <https://github.com/mozilla-services/cliquet/issues>`_ !
-    (*ex. brancher l'authentification Github, changer le format du logging JSON, stocker des
-    données cartographiques, ...*)
+Nous aimerions collecter des besoins pour écrire un ensemble de «recettes/tutoriels». Mais
+pour ne pas travailler dans le vide, nous aimerions `connaitre vos idées
+<https://github.com/mozilla-services/cliquet/issues>`_ !
+(*ex. brancher l'authentification Github, changer le format du logging JSON, stocker des
+données cartographiques, ...*)
 
-Est-ce que Cliquet peut manipuler des fichiers ?
+    Est-ce que Cliquet peut manipuler des fichiers ?
 
-    `Nous l'envisageons <https://github.com/mozilla-services/cliquet/issues/236>`_,
-    mais pour l'instant nous attendons que le besoin survienne en interne pour se
-    lancer.
+`Nous l'envisageons <https://github.com/mozilla-services/cliquet/issues/236>`_,
+mais pour l'instant nous attendons que le besoin survienne en interne pour se
+lancer.
 
-    Si c'est le cas, le protocole utilisé sera `Remote Storage <http://remotestorage.io/>`_,
-    afin notamment de s'intégrer dans l'éco-système grandissant.
+Si c'est le cas, le protocole utilisé sera `Remote Storage <http://remotestorage.io/>`_,
+afin notamment de s'intégrer dans l'éco-système grandissant.
 
-Est-ce que la fonctionnalité X va être implémentée ?
+    Est-ce que la fonctionnalité X va être implémentée ?
 
-    *Cliquet* est déjà bien garni. Plutôt qu'implémenter la fonctionnalité X,
-    il y a de grandes chances que nous agissions pour s'assurer que les abstractions
-    et les mécanismes d'extension fournis permettent de l'implémenter sous forme
-    d'extension.
+*Cliquet* est déjà bien garni. Plutôt qu'implémenter la fonctionnalité X,
+il y a de grandes chances que nous agissions pour s'assurer que les abstractions
+et les mécanismes d'extension fournis permettent de l'implémenter sous forme
+d'extension.
