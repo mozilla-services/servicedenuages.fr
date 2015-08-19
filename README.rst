@@ -18,3 +18,10 @@ and to publish it::
 Publish to gh-pages::
 
     make github
+
+Dependencies
+------------
+
+Most of the dependencies are pure Python and are thus handled by ``pip``
+directly; however, in order to build graphs dynamically, the ``dot`` binary
+from `Graphviz <http://graphviz.org/Download..php>`_ is required.
