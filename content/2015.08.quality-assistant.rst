@@ -61,7 +61,8 @@ pourrait être quelque chose comme ça:
   automatique;
 - Améliorer l'outil de montée en charge que nous utilisons quotidiennement.
 
-Nous sommes a la recherche de quelqu'un qui sait coder, pour améliorer les outils au fur et a mesure. Il faut:
+Nous sommes a la recherche de quelqu'un qui sait coder, pour améliorer les
+outils au fur et a mesure. Il faut:
 
 - Avoir de très bonnes aptitudes relationnelles et communicationnelles;
 - Être capable de designer et d'implémenter des tests "end to end"
@@ -74,4 +75,7 @@ Nous sommes a la recherche de quelqu'un qui sait coder, pour améliorer les outi
 
 Si vous vous reconnaissez dans cette description, contactez nous ! Le meilleur
 moyen étant bien sur IRC, `#storage` sur le réseau `irc.mozilla.org`.
+
+Pour plus d'information sur le poste, vous pouvez `consulter la fiche de poste
+<https://careers.mozilla.org/en-US/position/oWHv1fwT>`_.
 
