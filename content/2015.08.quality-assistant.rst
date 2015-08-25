@@ -9,21 +9,21 @@ A la recherche d'un assistant en qualité
 
 Derrière ce titre issu d'une traduction tout à fait questionnable de "Quality
 Assistant", nous souhaitons vous faire part d'une annonce tout a fait
-remarquable: nous sommes a la recherche de quelqu'un pour venir nous aider à
+remarquable : nous souhaitons recruter une personne pour nous aider à
 tester et valider nos services et autres bouts de code.
 
 Quelqu'un pour remplir la mission de *Quality Assistant*. Il faut être capable
 de suivre de front plusieurs projets différents, et de les tester dans leurs
-moindres recoins. Faire de la montée et charge, de la validation de serveurs de
-*stage*, et de veiller à la qualité du code, de sa bonne couverture de tests.
+moindres recoins. Faire de la montée en charge, de la validation de serveurs de
+*stage*, de veiller à la qualité du code et de sa bonne couverture de tests.
 
 Il s'agit d'un poste courant dans les boites américaines, mais beaucoup moins
-en France. Or on souhaiterait vraiment avoir quelqu'un sur notre tranche
+en France. Or on souhaiterait vraiment avoir quelqu'un sur notre fuseau
 horaire, puisque cela facilite énormement la communication, d'où ce billet.
 
 De notre coté, on est déjà bien branchés qualité: on utilise à fond TravisCI,
 on écrit des tests de montée en charge, on cherche toujours a garder une
-couverture de tests de 100%, mais quand même, au moment ou les QA commencent a
+couverture de tests de 100%, mais quand même, au moment où les QA commencent à
 déployer en préproduction et matraquer le service, on fait pas les malins :) 
 
 On passe toujours à coté de détails (importants!) et on va rarement aussi loin
@@ -39,29 +39,30 @@ kisscool : ce qui est remonté peut être amélioré, et pour ce qui ne l'est pa
 on peut se féliciter.
 
 Toutes les personnes de l'équipe QA ont quelque chose en commun, ce sont des
-crèmes. Et quand on voit la pression qu'ils doivent encaisser, ce n'est
-probablement pas un hasard !
+crèmes. Bien que nous faisons le maximum pour leur éviter la pression, ils sont
+en premières lignes et une de leur grosse utilité est justement de faire
+diminuer la pression sur tous les membres de l'équipe (devs, ops, etc).
 
 Si vous vous demandez à quoi ressemble une journée type pour un *QA*, ça
 pourrait être quelque chose comme ça:
 
-- Faire un point avec Rémy et Alexis qui travaillent sur Firefox Hello: le
+- Faire un point avec Rémy et Alexis qui travaillent sur Firefox Hello : le
   nombre de requêtes par secondes (RPS) est vraiment bas sur staging d'après les
   derniers tests. Peut-être que quelque chose à évolué dans l'API ? Peut être
-  s'agit il d'un problème ?;
-- Vérifier les changements sur Kinto, une nouvelle version à été tagguée par
-  Mathieu hier soir, essayons de l'installer pour voir si rien ne manque et tout
-  fonctionne correctement;
+  s'agit-il d'un problème ?;
+- Vérifier les changements sur Kinto, une nouvelle version a été tagguée par
+  Mathieu hier soir, essayons de l'installer pour voir si rien ne manque et si
+  tout fonctionne correctement;
 - Travailler ses connaissances de Jenkins pour aider les *Ops* a déployer en
   stage et débugger les problèmes potentiels;
-- Faire le pont entre les devs, les admin système et les différents clients a
+- Faire le pont entre les devs, les admins système et les différents clients à
   propos des *deadlines*, pour que personne ne soit surpris;
 - Écrire des tests *end to end* sur Kinto pour permettre leur lancement
   automatique;
 - Améliorer l'outil de montée en charge que nous utilisons quotidiennement.
 
-Nous sommes a la recherche de quelqu'un qui sait coder, pour améliorer les
-outils au fur et a mesure. Il faut:
+Nous sommes à la recherche de quelqu'un qui sait coder, pour améliorer les
+outils au fur et à mesure. Il faut :
 
 - Avoir de très bonnes aptitudes relationnelles et communicationnelles;
 - Être capable de designer et d'implémenter des tests "end to end"
