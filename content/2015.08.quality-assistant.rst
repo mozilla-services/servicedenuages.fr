@@ -8,7 +8,7 @@ A la recherche d'un assistant en qualité
 :url: wanted-quality-assistant
 
 Derrière ce titre issu d'une traduction tout à fait questionnable de "Quality
-Assistant", nous souhaitons vous faire part d'une annonce tout a fait
+Assistant", nous souhaitons vous faire part d'une annonce tout à fait
 remarquable : nous souhaitons recruter une personne pour nous aider à
 tester et valider nos services et autres bouts de code.
 
@@ -21,8 +21,8 @@ Il s'agit d'un poste courant dans les boites américaines, mais beaucoup moins
 en France. Or on souhaiterait vraiment avoir quelqu'un sur notre fuseau
 horaire, puisque cela facilite énormement la communication, d'où ce billet.
 
-De notre coté, on est déjà bien branchés qualité: on utilise à fond TravisCI,
-on écrit des tests de montée en charge, on cherche toujours a garder une
+De notre coté, on est déjà bien branchés qualité : on utilise à fond TravisCI,
+on écrit des tests de montée en charge, on cherche toujours à garder une
 couverture de tests de 100%, mais quand même, au moment où les QA commencent à
 déployer en préproduction et matraquer le service, on fait pas les malins :) 
 
@@ -39,37 +39,37 @@ kisscool : ce qui est remonté peut être amélioré, et pour ce qui ne l'est pa
 on peut se féliciter.
 
 Toutes les personnes de l'équipe QA ont quelque chose en commun, ce sont des
-crèmes. Bien que nous faisons le maximum pour leur éviter la pression, ils sont
+crèmes. Bien que nous fassions le maximum pour leur éviter la pression, ils sont
 en premières lignes et une de leur grosse utilité est justement de faire
 diminuer la pression sur tous les membres de l'équipe (devs, ops, etc).
 
 Si vous vous demandez à quoi ressemble une journée type pour un *QA*, ça
-pourrait être quelque chose comme ça:
+pourrait être quelque chose comme ça :
 
 - Faire un point avec Rémy et Alexis qui travaillent sur Firefox Hello : le
   nombre de requêtes par secondes (RPS) est vraiment bas sur staging d'après les
   derniers tests. Peut-être que quelque chose à évolué dans l'API ? Peut être
-  s'agit-il d'un problème ?;
+  s'agit-il d'un problème ?
 - Vérifier les changements sur Kinto, une nouvelle version a été tagguée par
   Mathieu hier soir, essayons de l'installer pour voir si rien ne manque et si
-  tout fonctionne correctement;
+  tout fonctionne correctement ;
 - Travailler ses connaissances de Jenkins pour aider les *Ops* a déployer en
-  stage et débugger les problèmes potentiels;
+  stage et débugger les problèmes potentiels ;
 - Faire le pont entre les devs, les admins système et les différents clients à
-  propos des *deadlines*, pour que personne ne soit surpris;
+  propos des *deadlines*, pour que personne ne soit surpris ;
 - Écrire des tests *end to end* sur Kinto pour permettre leur lancement
-  automatique;
+  automatique ;
 - Améliorer l'outil de montée en charge que nous utilisons quotidiennement.
 
 Nous sommes à la recherche de quelqu'un qui sait coder, pour améliorer les
 outils au fur et à mesure. Il faut :
 
-- Avoir de très bonnes aptitudes relationnelles et communicationnelles;
+- Avoir de très bonnes aptitudes relationnelles et communicationnelles ;
 - Être capable de designer et d'implémenter des tests "end to end"
-  fonctionnels, afin de détecter de potentielles régressions;
-- Avoir des connaissances en python et javascript;
+  fonctionnels, afin de détecter de potentielles régressions ;
+- Avoir des connaissances en python et javascript ;
 - Être bien organisé pour pouvoir suivre de front la validation de plusieurs
-  projets;
+  projets ;
 - Être capable de supporter les blagues de Tarek, Alexis et Niko (et c'est pas
   une mince affaire)
 
