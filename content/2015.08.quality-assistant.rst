@@ -12,15 +12,14 @@ Assistant", nous souhaitons vous faire part d'une annonce tout a fait
 remarquable: nous sommes a la recherche de quelqu'un pour venir nous aider à
 tester et valider nos services et autres bouts de code.
 
-Nous sommes à la recherche de quelqu'un pour remplir la mission de *Quality
-Assistant*. Il s'agit de quelqu'un capable de suivre de front plusieurs projets
-différents, et de les tester dans leurs moindres recoins. Faire de la montée et
-charge, de la validation de serveurs de *stage*, et de veiller à la qualité du
-code, de sa bonne couverture de tests.
+Quelqu'un pour remplir la mission de *Quality Assistant*. Il faut être capable
+de suivre de front plusieurs projets différents, et de les tester dans leurs
+moindres recoins. Faire de la montée et charge, de la validation de serveurs de
+*stage*, et de veiller à la qualité du code, de sa bonne couverture de tests.
 
 Il s'agit d'un poste courant dans les boites américaines, mais beaucoup moins
 en France. Or on souhaiterait vraiment avoir quelqu'un sur notre tranche
-horaire, d'où ce billet.
+horaire, puisque cela facilite énormement la communication, d'où ce billet.
 
 De notre coté, on est déjà bien branchés qualité: on utilise à fond TravisCI,
 on écrit des tests de montée en charge, on cherche toujours a garder une
