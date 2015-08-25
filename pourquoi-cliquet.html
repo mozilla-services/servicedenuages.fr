@@ -95,7 +95,7 @@ de resource REST et de backend de stockage.</p>
 depuis le fichier <tt class="docutils literal">.ini</tt> de l'application. Ainsi tous les projets qui utilisent
 le toolkit se déploieront de la même manière : seuls quelques éléments de configuration
 les distingueront.</p>
-<img alt="Une réunion à Paris..." class="align-center" src="http://www.servicedenuages.fr/images/cliquet-notes-whiteboard.jpg" style="width: 1600px; height: auto; max-width: 100%;"/>
+<img alt="Une réunion à Paris..." class="align-center" src="http://www.servicedenuages.fr/images/cliquet-notes-whiteboard.jpg" style="width: 500px; height: auto; max-width: 100%;"/>
 </div>
 </div>
 <div class="section" id="le-protocole">
@@ -365,46 +365,41 @@ projets en cascade.</li>
 </div>
 <div class="section" id="quelques-questions-courantes">
 <h3>Quelques questions courantes</h3>
-<p>Pourquoi Python ?</p>
 <blockquote>
+Pourquoi Python ?</blockquote>
 <p>On prend beaucoup de plaisir à écrire du Python, et le calendrier annoncé
 initialement était très serré: pas question de tituber avec une technologie
 mal maitrisée !</p>
 <p>Et puis, après avoir passé près d'un an sur un projet Node.js, l'équipe avait
 bien envie de refaire du Python.</p>
-</blockquote>
-<p>Pourquoi pas Django ?</p>
 <blockquote>
+Pourquoi pas Django ?</blockquote>
 <p>On y a pensé, surtout parce qu'il y a plusieurs fans de <em>Django REST Framework</em>
 dans l'équipe.</p>
 <p>On l'a écarté principalement au profit de la légèreté et la modularité de
 <em>Pyramid</em>.</p>
-</blockquote>
-<p>Pourquoi pas avec un framework asynchrone en Python 3+ ?</p>
 <blockquote>
+Pourquoi pas avec un framework asynchrone en Python 3+ ?</blockquote>
 <p>Pour l'instant nos administrateurs système nous imposent des déploiements en
 Python 2.7, à notre grand désarroi /o\</p>
 <p>Pour <em>Reading List</em>, nous <a class="reference external" href="https://github.com/mozilla-services/readinglist/blob/1.7.0/readinglist/__init__.py#L19-L26">avions activé</a>
 <em>gevent</em>.</p>
 <p>Puisque l'approche consiste à implémenter un protocole bien déterminé, nous n'excluons
 pas un jour d'écrire un <em>Cliquet</em> en <em>aiohttp</em> ou <em>Go</em> si cela s'avèrerait pertinent.</p>
-</blockquote>
-<p>Pourquoi pas JSON-API ?</p>
 <blockquote>
+Pourquoi pas JSON-API ?</blockquote>
 <p>Comme nous l'expliquions <a class="reference external" href="http://www.servicedenuages.fr/apidays-barcelona-retours">au retour des APIdays</a>,
 JSON-API est une spécification qui rejoint plusieurs de nos intentions.</p>
 <p>Quand nous avons commencé le protocole, nous ne connaissions pas JSON-API.
 Pour l'instant, comme notre proposition est beaucoup plus minimaliste, le
 rapprochement n'a <a class="reference external" href="https://github.com/mozilla-services/cliquet/issues/254">pas dépassé le stade de la discussion</a>.</p>
-</blockquote>
-<p>Est-ce que Cliquet est un framework REST pour Pyramid ?</p>
 <blockquote>
+Est-ce que Cliquet est un framework REST pour Pyramid ?</blockquote>
 <p>Non.</p>
 <p>Au delà des classes de resources CRUD de Cliquet, qui implémentent un
 protocole bien précis, il faut utiliser Cornice ou Pyramid directement.</p>
-</blockquote>
-<p>Est-ce que Cliquet est suffisamment générique pour des projets hors Mozilla ?</p>
 <blockquote>
+Est-ce que Cliquet est suffisamment générique pour des projets hors Mozilla ?</blockquote>
 <p>Premièrement, nous faisons en sorte que tout soit contrôlable depuis la
 configuration <tt class="docutils literal">.ini</tt> pour permettre la dés/activation ou substitution des
 composants.</p>
@@ -416,9 +411,8 @@ si les bonnes pratiques en terme de mise en production ou les abstractions fourn
 vous paraissent valables !</p>
 <p>Cliquet reste un moyen simple d'aller très vite pour mettre sur pied
 une application Pyramid/Cornice.</p>
-</blockquote>
-<p>Est-ce que les resources JSON supporte les modèles relationnels complexes ?</p>
 <blockquote>
+Est-ce que les resources JSON supporte les modèles relationnels complexes ?</blockquote>
 <p>La couche de persistence fournie est très simple, et devrait
 répondre à la majorité des cas d'utilisation où les données n'ont pas de
 relations.</p>
@@ -427,27 +421,25 @@ du protocole en utilisant une classe <tt class="docutils literal">Collection</tt
 elle de manipuler les relations.</p>
 <p>Le besoin de relations pourrait être un bon prétexte pour implémenter le
 protocole avec Django REST Framework :)</p>
-</blockquote>
-<p>Est-il possible de faire ci ou ça avec Cliquet ?</p>
 <blockquote>
-Nous aimerions collecter des besoins pour écrire un ensemble de «recettes/tutoriels». Mais
+Est-il possible de faire ci ou ça avec Cliquet ?</blockquote>
+<p>Nous aimerions collecter des besoins pour écrire un ensemble de «recettes/tutoriels». Mais
 pour ne pas travailler dans le vide, nous aimerions <a class="reference external" href="https://github.com/mozilla-services/cliquet/issues">connaitre vos idées</a> !
 (<em>ex. brancher l'authentification Github, changer le format du logging JSON, stocker des
-données cartographiques, ...</em>)</blockquote>
-<p>Est-ce que Cliquet peut manipuler des fichiers ?</p>
+données cartographiques, ...</em>)</p>
 <blockquote>
+Est-ce que Cliquet peut manipuler des fichiers ?</blockquote>
 <p><a class="reference external" href="https://github.com/mozilla-services/cliquet/issues/236">Nous l'envisageons</a>,
 mais pour l'instant nous attendons que le besoin survienne en interne pour se
 lancer.</p>
 <p>Si c'est le cas, le protocole utilisé sera <a class="reference external" href="http://remotestorage.io/">Remote Storage</a>,
 afin notamment de s'intégrer dans l'éco-système grandissant.</p>
-</blockquote>
-<p>Est-ce que la fonctionnalité X va être implémentée ?</p>
 <blockquote>
-<em>Cliquet</em> est déjà bien garni. Plutôt qu'implémenter la fonctionnalité X,
+Est-ce que la fonctionnalité X va être implémentée ?</blockquote>
+<p><em>Cliquet</em> est déjà bien garni. Plutôt qu'implémenter la fonctionnalité X,
 il y a de grandes chances que nous agissions pour s'assurer que les abstractions
 et les mécanismes d'extension fournis permettent de l'implémenter sous forme
-d'extension.</blockquote>
+d'extension.</p>
 </div>
 </div>
 

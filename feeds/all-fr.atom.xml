@@ -1,5 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-fr.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-07-14T00:00:00+02:00</updated><entry><title>Pourquoi avons-nous fait Cliquet ?</title><link href="http://www.servicedenuages.fr/pourquoi-cliquet" rel="alternate"></link><updated>2015-07-14T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-07-14:pourquoi-cliquet</id><summary type="html">&lt;p&gt;&lt;strong&gt;tldr; Cliquet est un toolkit Python pour construire des APIs, qui implémente
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-fr.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-08-25T00:00:00+02:00</updated><entry><title>A la recherche d'un assistant en qualité</title><link href="http://www.servicedenuages.fr/wanted-quality-assistant" rel="alternate"></link><updated>2015-08-25T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-08-25:wanted-quality-assistant</id><summary type="html">&lt;p&gt;Derrière ce titre issu d'une traduction tout à fait questionnable de "Quality
+Assistant", nous souhaitons vous faire part d'une annonce tout à fait
+remarquable : nous souhaitons recruter une personne pour nous aider à
+tester et valider nos services et autres bouts de code.&lt;/p&gt;
+&lt;p&gt;Quelqu'un pour remplir la mission de &lt;em&gt;Quality Assistant&lt;/em&gt;. Il faut être capable
+de suivre de front plusieurs projets différents, et de les tester dans leurs
+moindres recoins. Faire de la montée en charge, de la validation de serveurs de
+&lt;em&gt;stage&lt;/em&gt;, de veiller à la qualité du code et de sa bonne couverture de tests.&lt;/p&gt;
+&lt;p&gt;Il s'agit d'un poste courant dans les boites américaines, mais beaucoup moins
+en France. Or on souhaiterait vraiment avoir quelqu'un sur notre fuseau
+horaire, puisque cela facilite énormement la communication, d'où ce billet.&lt;/p&gt;
+&lt;p&gt;De notre coté, on est déjà bien branchés qualité : on utilise à fond TravisCI,
+on écrit des tests de montée en charge, on cherche toujours à garder une
+couverture de tests de 100%, mais quand même, au moment où les QA commencent à
+déployer en préproduction et matraquer le service, on fait pas les malins :)&lt;/p&gt;
+&lt;p&gt;On passe toujours à coté de détails (importants!) et on va rarement aussi loin
+que les QA qui ont vraiment le sens du détail et de la qualité. Ils sont les
+gardiens du temple, qui bloquent les passages en production tant que tous leurs
+indicateurs ne sont pas au vert. Alors que nous on aurait tendance à plutôt
+être optimistes !&lt;/p&gt;
+&lt;p&gt;Sur &lt;em&gt;readinglist&lt;/em&gt;, on a travaillé ensemble pour améliorer les perfs qui
+s'écroulaient lors des montées en charge de plusieurs heures, et pour peaufiner
+les paramètres de conf qui n'étaient pas super intuitifs. C'est le double effet
+kisscool : ce qui est remonté peut être amélioré, et pour ce qui ne l'est pas,
+on peut se féliciter.&lt;/p&gt;
+&lt;p&gt;Toutes les personnes de l'équipe QA ont quelque chose en commun, ce sont des
+crèmes. Bien que nous fassions le maximum pour leur éviter la pression, ils sont
+en premières lignes et une de leur grosse utilité est justement de faire
+diminuer la pression sur tous les membres de l'équipe (devs, ops, etc).&lt;/p&gt;
+&lt;p&gt;Si vous vous demandez à quoi ressemble une journée type pour un &lt;em&gt;QA&lt;/em&gt;, ça
+pourrait être quelque chose comme ça :&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Faire un point avec Rémy et Alexis qui travaillent sur Firefox Hello : le
+nombre de requêtes par secondes (RPS) est vraiment bas sur staging d'après les
+derniers tests. Peut-être que quelque chose à évolué dans l'API ? Peut être
+s'agit-il d'un problème ?&lt;/li&gt;
+&lt;li&gt;Vérifier les changements sur Kinto, une nouvelle version a été tagguée par
+Mathieu hier soir, essayons de l'installer pour voir si rien ne manque et si
+tout fonctionne correctement ;&lt;/li&gt;
+&lt;li&gt;Travailler ses connaissances de Jenkins pour aider les &lt;em&gt;Ops&lt;/em&gt; a déployer en
+stage et débugger les problèmes potentiels ;&lt;/li&gt;
+&lt;li&gt;Faire le pont entre les devs, les admins système et les différents clients à
+propos des &lt;em&gt;deadlines&lt;/em&gt;, pour que personne ne soit surpris ;&lt;/li&gt;
+&lt;li&gt;Écrire des tests &lt;em&gt;end to end&lt;/em&gt; sur Kinto pour permettre leur lancement
+automatique ;&lt;/li&gt;
+&lt;li&gt;Améliorer l'outil de montée en charge que nous utilisons quotidiennement.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Nous sommes à la recherche de quelqu'un qui sait coder, pour améliorer les
+outils au fur et à mesure. Il faut :&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Avoir de très bonnes aptitudes relationnelles et communicationnelles ;&lt;/li&gt;
+&lt;li&gt;Être capable de designer et d'implémenter des tests "end to end"
+fonctionnels, afin de détecter de potentielles régressions ;&lt;/li&gt;
+&lt;li&gt;Avoir des connaissances en python et javascript ;&lt;/li&gt;
+&lt;li&gt;Être bien organisé pour pouvoir suivre de front la validation de plusieurs
+projets ;&lt;/li&gt;
+&lt;li&gt;Être capable de supporter les blagues de Tarek, Alexis et Niko (et c'est pas
+une mince affaire)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Si vous vous reconnaissez dans cette description, contactez nous ! Le meilleur
+moyen étant bien sur IRC, &lt;cite&gt;#storage&lt;/cite&gt; sur le réseau &lt;cite&gt;irc.mozilla.org&lt;/cite&gt;.&lt;/p&gt;
+&lt;p&gt;Pour plus d'information sur le poste, vous pouvez &lt;a class="reference external" href="https://careers.mozilla.org/en-US/position/oWHv1fwT"&gt;consulter la fiche de poste&lt;/a&gt;.&lt;/p&gt;
+</summary></entry><entry><title>Pourquoi avons-nous fait Cliquet ?</title><link href="http://www.servicedenuages.fr/pourquoi-cliquet" rel="alternate"></link><updated>2015-07-14T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-07-14:pourquoi-cliquet</id><summary type="html">&lt;p&gt;&lt;strong&gt;tldr; Cliquet est un toolkit Python pour construire des APIs, qui implémente
 les bonnes pratiques en terme de mise en production et de protocole HTTP.&lt;/strong&gt;&lt;/p&gt;
 &lt;div class="section" id="les-origines"&gt;
 &lt;h2&gt;Les origines&lt;/h2&gt;
@@ -51,7 +113,7 @@ de resource REST et de backend de stockage.&lt;/p&gt;
 depuis le fichier &lt;tt class="docutils literal"&gt;.ini&lt;/tt&gt; de l'application. Ainsi tous les projets qui utilisent
 le toolkit se déploieront de la même manière : seuls quelques éléments de configuration
 les distingueront.&lt;/p&gt;
-&lt;img alt="Une réunion à Paris..." class="align-center" src="http://www.servicedenuages.fr/images/cliquet-notes-whiteboard.jpg" style="width: 1600px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Une réunion à Paris..." class="align-center" src="http://www.servicedenuages.fr/images/cliquet-notes-whiteboard.jpg" style="width: 500px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="le-protocole"&gt;
@@ -321,46 +383,41 @@ projets en cascade.&lt;/li&gt;
 &lt;/div&gt;
 &lt;div class="section" id="quelques-questions-courantes"&gt;
 &lt;h3&gt;Quelques questions courantes&lt;/h3&gt;
-&lt;p&gt;Pourquoi Python ?&lt;/p&gt;
 &lt;blockquote&gt;
+Pourquoi Python ?&lt;/blockquote&gt;
 &lt;p&gt;On prend beaucoup de plaisir à écrire du Python, et le calendrier annoncé
 initialement était très serré: pas question de tituber avec une technologie
 mal maitrisée !&lt;/p&gt;
 &lt;p&gt;Et puis, après avoir passé près d'un an sur un projet Node.js, l'équipe avait
 bien envie de refaire du Python.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Pourquoi pas Django ?&lt;/p&gt;
 &lt;blockquote&gt;
+Pourquoi pas Django ?&lt;/blockquote&gt;
 &lt;p&gt;On y a pensé, surtout parce qu'il y a plusieurs fans de &lt;em&gt;Django REST Framework&lt;/em&gt;
 dans l'équipe.&lt;/p&gt;
 &lt;p&gt;On l'a écarté principalement au profit de la légèreté et la modularité de
 &lt;em&gt;Pyramid&lt;/em&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Pourquoi pas avec un framework asynchrone en Python 3+ ?&lt;/p&gt;
 &lt;blockquote&gt;
+Pourquoi pas avec un framework asynchrone en Python 3+ ?&lt;/blockquote&gt;
 &lt;p&gt;Pour l'instant nos administrateurs système nous imposent des déploiements en
 Python 2.7, à notre grand désarroi /o\&lt;/p&gt;
 &lt;p&gt;Pour &lt;em&gt;Reading List&lt;/em&gt;, nous &lt;a class="reference external" href="https://github.com/mozilla-services/readinglist/blob/1.7.0/readinglist/__init__.py#L19-L26"&gt;avions activé&lt;/a&gt;
 &lt;em&gt;gevent&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;Puisque l'approche consiste à implémenter un protocole bien déterminé, nous n'excluons
 pas un jour d'écrire un &lt;em&gt;Cliquet&lt;/em&gt; en &lt;em&gt;aiohttp&lt;/em&gt; ou &lt;em&gt;Go&lt;/em&gt; si cela s'avèrerait pertinent.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Pourquoi pas JSON-API ?&lt;/p&gt;
 &lt;blockquote&gt;
+Pourquoi pas JSON-API ?&lt;/blockquote&gt;
 &lt;p&gt;Comme nous l'expliquions &lt;a class="reference external" href="http://www.servicedenuages.fr/apidays-barcelona-retours"&gt;au retour des APIdays&lt;/a&gt;,
 JSON-API est une spécification qui rejoint plusieurs de nos intentions.&lt;/p&gt;
 &lt;p&gt;Quand nous avons commencé le protocole, nous ne connaissions pas JSON-API.
 Pour l'instant, comme notre proposition est beaucoup plus minimaliste, le
 rapprochement n'a &lt;a class="reference external" href="https://github.com/mozilla-services/cliquet/issues/254"&gt;pas dépassé le stade de la discussion&lt;/a&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Est-ce que Cliquet est un framework REST pour Pyramid ?&lt;/p&gt;
 &lt;blockquote&gt;
+Est-ce que Cliquet est un framework REST pour Pyramid ?&lt;/blockquote&gt;
 &lt;p&gt;Non.&lt;/p&gt;
 &lt;p&gt;Au delà des classes de resources CRUD de Cliquet, qui implémentent un
 protocole bien précis, il faut utiliser Cornice ou Pyramid directement.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Est-ce que Cliquet est suffisamment générique pour des projets hors Mozilla ?&lt;/p&gt;
 &lt;blockquote&gt;
+Est-ce que Cliquet est suffisamment générique pour des projets hors Mozilla ?&lt;/blockquote&gt;
 &lt;p&gt;Premièrement, nous faisons en sorte que tout soit contrôlable depuis la
 configuration &lt;tt class="docutils literal"&gt;.ini&lt;/tt&gt; pour permettre la dés/activation ou substitution des
 composants.&lt;/p&gt;
@@ -372,9 +429,8 @@ si les bonnes pratiques en terme de mise en production ou les abstractions fourn
 vous paraissent valables !&lt;/p&gt;
 &lt;p&gt;Cliquet reste un moyen simple d'aller très vite pour mettre sur pied
 une application Pyramid/Cornice.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Est-ce que les resources JSON supporte les modèles relationnels complexes ?&lt;/p&gt;
 &lt;blockquote&gt;
+Est-ce que les resources JSON supporte les modèles relationnels complexes ?&lt;/blockquote&gt;
 &lt;p&gt;La couche de persistence fournie est très simple, et devrait
 répondre à la majorité des cas d'utilisation où les données n'ont pas de
 relations.&lt;/p&gt;
@@ -383,27 +439,25 @@ du protocole en utilisant une classe &lt;tt class="docutils literal"&gt;Collecti
 elle de manipuler les relations.&lt;/p&gt;
 &lt;p&gt;Le besoin de relations pourrait être un bon prétexte pour implémenter le
 protocole avec Django REST Framework :)&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Est-il possible de faire ci ou ça avec Cliquet ?&lt;/p&gt;
 &lt;blockquote&gt;
-Nous aimerions collecter des besoins pour écrire un ensemble de «recettes/tutoriels». Mais
+Est-il possible de faire ci ou ça avec Cliquet ?&lt;/blockquote&gt;
+&lt;p&gt;Nous aimerions collecter des besoins pour écrire un ensemble de «recettes/tutoriels». Mais
 pour ne pas travailler dans le vide, nous aimerions &lt;a class="reference external" href="https://github.com/mozilla-services/cliquet/issues"&gt;connaitre vos idées&lt;/a&gt; !
 (&lt;em&gt;ex. brancher l'authentification Github, changer le format du logging JSON, stocker des
-données cartographiques, ...&lt;/em&gt;)&lt;/blockquote&gt;
-&lt;p&gt;Est-ce que Cliquet peut manipuler des fichiers ?&lt;/p&gt;
+données cartographiques, ...&lt;/em&gt;)&lt;/p&gt;
 &lt;blockquote&gt;
+Est-ce que Cliquet peut manipuler des fichiers ?&lt;/blockquote&gt;
 &lt;p&gt;&lt;a class="reference external" href="https://github.com/mozilla-services/cliquet/issues/236"&gt;Nous l'envisageons&lt;/a&gt;,
 mais pour l'instant nous attendons que le besoin survienne en interne pour se
 lancer.&lt;/p&gt;
 &lt;p&gt;Si c'est le cas, le protocole utilisé sera &lt;a class="reference external" href="http://remotestorage.io/"&gt;Remote Storage&lt;/a&gt;,
 afin notamment de s'intégrer dans l'éco-système grandissant.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Est-ce que la fonctionnalité X va être implémentée ?&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;em&gt;Cliquet&lt;/em&gt; est déjà bien garni. Plutôt qu'implémenter la fonctionnalité X,
+Est-ce que la fonctionnalité X va être implémentée ?&lt;/blockquote&gt;
+&lt;p&gt;&lt;em&gt;Cliquet&lt;/em&gt; est déjà bien garni. Plutôt qu'implémenter la fonctionnalité X,
 il y a de grandes chances que nous agissions pour s'assurer que les abstractions
 et les mécanismes d'extension fournis permettent de l'implémenter sous forme
-d'extension.&lt;/blockquote&gt;
+d'extension.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </summary></entry><entry><title>Perspectives pour l'été</title><link href="http://www.servicedenuages.fr/perspectives-pour-lete" rel="alternate"></link><updated>2015-07-07T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-07-07:perspectives-pour-lete</id><summary type="html">&lt;p&gt;Mozilla a pour coutume d'organiser régulièrement des semaines de travail où tous les employés
