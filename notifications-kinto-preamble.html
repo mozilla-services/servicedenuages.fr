@@ -1,0 +1,418 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>Les notifications dans Kinto (Préambule) // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Publié</h5>
+                <p title="~1908 mots">~8mn de lecture 🕑</p>
+                <p>jeu. 13 août 2015</p>
+                <a href="/">&larr;Liste des articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Les notifications dans Kinto (Préambule)</h1>
+                </header>
+            </section>
+                        <p><a href="http://www.servicedenuages.fr/en/notifications-kinto-preamble">Read the English version</a></p>
+            <p>Lors de notre dernière <em>workweek</em> dans l'adorable ville de
+<a href="https://www.qwant.com/?q=Douarnenez&amp;t=images">Douarnenez</a> nous avons
+défini les fondations de la prochaine fonctionnalité de
+<a href="https://kinto.readthedocs.org">Kinto</a> : <em>les notifications !</em></p>
+<p><img alt="Coucher de soleil sur Douarnenez (@phrawzty)" src="http://www.servicedenuages.fr/images/notifications-douarnenez.jpg" style="width: 800px; height: auto; max-width: 100%;"/></p>
+<h1>tl;dr</h1>
+<p>Pour les pressés, un petit résumé : Nous allons ajouter
+un système de "notifications" à Kinto, sans perdre de vue la
+simplicité et la flexibilité. Notre objectif est de
+proposer un protocole qui permette à d'autres systèmes de se brancher
+très simplement sur les notifications d'événements de Kinto.</p>
+<h1>Pourquoi ?</h1>
+<p>La réponse la plus simple est que nous en avons besoin. Nous
+avons une plateforme appelée <a href="https://wiki.mozilla.org/Balrog">Balrog</a>
+qui fait partie du système de mise à jour utilisé par Firefox et par
+d'autres produits Mozilla.</p>
+<p>Dans l'idée d'améliorer et d'étendre le processus de mise à jour (sous
+la houlette du projet "<a href="https://wiki.mozilla.org/Firefox/Go_Faster">Go Faster</a>"),
+nous avons besoin de stocker et de transmettre de petits blocs d'information à
+la fois entre des systèmes internes mais aussi avec l'ensemble de nos
+utilisateurs.</p>
+<p>Kinto répond parfaitement au besoin, mis à part en ce qui concerne la
+notification des utilisateurs lors d'une mise à jour.</p>
+<p>Aucun problème. Il ne reste plus qu'à ajouter la fonctionnalité.</p>
+<h2>Mais attention à ne pas oublier une petite chose !</h2>
+<p>Bien sûr, Kinto est un projet Mozilla - mais il a été conçu comme une
+solution générique, ce qui veut dire que tout ce que nous ajoutons
+doit rester raisonnablement générique.</p>
+<p>C'est pourquoi nous avons souhaité proposer une solution réutilisable
+dans différents contextes ; nous sommes une organisation qui construit
+avec et pour le web c'est pourquoi la solution que nous proposons est
+avant tout orientée web.</p>
+<p>En faisant le tour des paramètrages qu'une solution raisonnablement
+générique devrait proposer, nous avons défini les exigences suivantes
+pour notre système de notifications :</p>
+<ul>
+<li>S'efforcer d'être agnostique autant que possible, c'est-à-dire ne
+  pas forcer les développeurs à utiliser une solution
+  spécifique. (service, backend voire même langage de programmation)</li>
+<li>Puisque nous sommes orienté web, utiliser le protocole HTTP dès que possible.</li>
+<li>Le système de notification doit être capable de passer à l'échelle
+  facilement ; cela s'applique à tous les éventuels systèmes de
+  queuing, workers, etc.</li>
+<li>Pour finir ce doit être un système robuste, nous ne souhaitons pas perdre de messages.</li>
+</ul>
+<h1>Qu'est-ce que nous essayons de faire ?</h1>
+<p>Avant de rentrer dans les menus détails, prenons un moment pour
+décrire ce que nous essayons de faire - sur le papier, au moins, c'est
+assez simple :</p>
+<p>{% graphviz
+    dot {
+        digraph terminology {
+            rankdir=LR;
+            subgraph cluster_event {
+            label="Event";
+                subgraph cluster_notification {
+                    label="Notification";
+                    style=filled;
+                    color=lightgrey;
+                    node [style=filled, color=white];
+                    msg_in [shape=box];
+                    action [shape=box];
+                    msg_in -&gt; action [label=1];
+                }
+            resultat [shape=box];
+            action -&gt; resultat [label=2];
+            msg_out [shape=box];
+            resultat -&gt; msg_out [label=3];
+            }
+        }
+    }
+%}</p>
+<ul>
+<li>Un <em>message</em> est un morceau d'information qui est envoyé d'un
+  endroit à l'autre - par exemple, une requête HTTP. Les messages
+  peuvent venir d'autre part, comme par exemple d'un service externe,
+  ou être générés en interne.</li>
+<li>Une <em>action</em> est un processus qui est déclenché en fonction du
+  message. Ça peut être aussi simple qu'incrémenter un compteur en
+  mémoire. Ça peut aussi être quelque chose de plus complexe comme par
+  exemple déclencher une suite de tests. Ça peut aussi être exécuter
+  une fonctionnalité de Kinto, un programme local, une fonctionnalité
+  ajoutée par un plugin ou tout autre chose.</li>
+<li>Un <em>résultat</em>, comme son nom l'indique, est ce qui résulte de
+  l'<em>action</em>. Un exemple simple pourrait être la valeur du compteur,
+  dont nous avons parlé tout à l'heure, sous la forme d'un entier dans
+  un paquet JSON. Mais ça peut également être le résultat de la suite
+  de tests (les possibilités sont sans limites).</li>
+<li>Pris dans leur ensemble, les <em>évènements</em> peuvent être vus comme un
+  cycle : un message est reçu, une action a lieu qui génère un nouveau
+  message.</li>
+</ul>
+<blockquote>
+<p>Une notification est donc la combinaison d'un message et d'une
+  action déclenchée suite à un évènement. Le résultat, bien que
+  directement lié à l'action ne fait pas partie de la notification.</p>
+</blockquote>
+<p>Cette petite distinction nécessite une explication. L'instigateur du
+message n'est pas forcément concerné par ce que Kinto va faire avec.</p>
+<p>En général, il est suffisant de savoir que Kinto a reçu un message et
+qu'il sera traité. Cela permet de bien découpler les différents
+éléments du système.</p>
+<p>Nous allons continuer à explorer le sens des termes par la suite. Pour
+le moment, continuons.</p>
+<h1>Comment ?</h1>
+<p>Il y autant de manière de faire qu'il y a de grains de sables sur la
+plage (ceci dit, nous ne l'avons pas vérifié de manière
+scientifique). Le meilleur moyen de déterminer l'approche gagnante
+reste le duel (à la Mad Max). Malheureusement notre manager a mis son
+véto sur ce moyen pour des questions de responsabilité, à la place
+nous avons préféré faire des dessins sur un tableau blanc...</p>
+<p><img alt="Whiteboard (@leplatrem)" src="http://www.servicedenuages.fr/images/notifications-whiteboard.jpg" style="width: 675px; height: auto; max-width: 100%;"/></p>
+<p>Dans un esprit de transparence, voici quelques unes des solutions étudiées :</p>
+<h2>L'approche simple</h2>
+<p>La première approche et de pousser chacune des notifications dans une
+file d'attente (dans Redis ou RabbitMQ par exemple) et c'est tout.</p>
+<p>{% graphviz
+    dot {
+        digraph simple {
+            rankdir=LR;
+            Kinto [shape=box];
+            Queue [shape=box];
+            Consumer [shape=box];
+            Kinto -&gt; Queue;
+            Queue -&gt; Consumer [style=dotted];
+            Consumer -&gt; Queue [style=dotted];
+        }
+    }
+%}</p>
+<p>Avantages:</p>
+<ul>
+<li>Ce modèle impacte peu Kinto, Kinto passe simplement le message à la
+  queue et l'oublie immédiatement.</li>
+<li>La quantité de code est assez faible - il ne nécessite que le code
+  nécessaire pour parler au système de queue.</li>
+<li>Si la communauté Kinto est active il serait possible d'étendre
+  rapidement le support à un nombre raisonnable de service externes de
+  files d'attente.</li>
+</ul>
+<p>Inconvénients:</p>
+<ul>
+<li>Chaque service de queue nécessirait un module spécifique à coder et
+  qui devrait être maintenu par la communauté.</li>
+<li>L'utilisateur final (destinataire, destination ou autre) du message
+  serait responsable de l'intégration avec le protocole du système de
+  queue.  Autrement dit, si Kinto est configuré pour utiliser
+  RabbitMQ, il faudra que le consommateur des messages parle RabbitMQ
+  également.</li>
+<li>Kinto n'a aucun contrôle ni compréhension de ce qui arrive au
+  message une fois qu'il a été passé au système de queuing.</li>
+</ul>
+<p>La simplicité du modèle, bien qu'attractive, possède des défauts
+importants. Notamment, il va à l'encontre des règles que nous nous
+sommes fixées du point de vue d'être agnostique techniquement
+puisqu'il impose une technologie au consommateur des messages.</p>
+<p>C'est un modèle un peu dangereux car il n'y a aucune garantie que les
+messages arrivent à leur destinataire (bien que tous les systèmes de
+queue ne soient pas tous logés à la même enseigne à ce sujet).</p>
+<h2>L'approche intégrée</h2>
+<p>L'approche opposée est d'intégrer le système de queue directement dans
+Kinto et de proposer une interface sur laquelle le consommateur puisse
+s'enregistrer.</p>
+<p>{% graphviz
+    dot {
+        digraph integrated {
+            rankdir=LR;
+            subgraph cluster_internal {
+                style=filled;
+                color=lightgrey;
+                node [style=filled, color=white];
+                Kinto [shape=box];
+                Kinto -&gt; internal_queue [label=1, dir=both];
+                internal_queue -&gt; worker [label=3];
+            }
+            Queue [shape=box];
+            internal_queue -&gt; Queue [label=2, dir=both];
+            Consumer [shape=box];
+            worker -&gt; Consumer [label=4, dir=both];
+        }
+    }
+%}</p>
+<p>Avantages :</p>
+<ul>
+<li>
+<p>Kinto serait livré comme une solution clé en main et bien qu'on
+  utilise un système de queuing
+  (<a href="http://www.celeryproject.org/">Celery</a>, par exemple), ce serait
+  complètement transparent pour l'utilisateur.</p>
+</li>
+<li>
+<p>Avec ce système complètement intégré, Kinto aurait une visibilité
+  complète du processus et pourrait vérifier que les messages arrivent
+  bien à destination.</p>
+</li>
+<li>À l'exception du service de queue, il n'y aurait aucun autre service à déployer.</li>
+</ul>
+<p>Inconvénient :</p>
+<ul>
+<li>Cela ferait considérablement augmenter la portée, la complexité et
+  la taille de Kinto.</li>
+<li>Le fait que le système soit intégré directement dans Kinto nécessite
+  de redéployer Kinto si le système de notification change.</li>
+<li>De la même manière, passer à l'échelle le système de notification
+  voudrait dire passer Kinto à l'échelle.</li>
+</ul>
+<p>Ce modèle a certains avantages ; cependant, la quantité de code
+nécessaire est une raison suffisante pour se poser deux fois la
+question (le véritable problème étant de ne pas transformer Kinto en
+une <a href="https://fr.wikipedia.org/wiki/D%C3%A9rive_des_objectifs">usine à gaz</a>).
+Comme pour la solution précédente, nous lions l'utilisateur à un
+système de queues sans respecter notre règle d'agnosticisme technique.
+Enfin, le passage à l'échelle n'apparait pas extrêmement flexible
+(bien que ça reste de la théorie) - il semble dommage d'augmenter deux
+ressources quand une pourrait suffire.</p>
+<h2>Le courtier (Broker)</h2>
+<p>L'approche finale est en fait un mélange des deux précédentes, nous
+implémentons un "courtier" (broker) supporté par l'écosystème Kinto,
+mais qui est facilement interchangeable et qui est externe au service
+Kinto.</p>
+<p>Ce broker peut être écrit en quelques lignes de Python et intégré
+comme le font les jolies <em>stacks</em> basées sur des <em>micro-services</em>.</p>
+<p>Cela permet de découpler le système de queues de Kinto tout en
+garantissant l'interoperabilité et le contrôle des messages.</p>
+<p>{% graphviz
+    dot {
+        digraph broker {
+            rankdir=LR;
+            Kinto [shape=box];
+            subgraph cluster_broker {
+                style=filled;
+                color=lightgrey;
+                node [style=filled, color=white];
+                Broker [shape=box];
+                worker -&gt; Broker [label="2. subscribe"];
+                Broker -&gt; worker [label="3. async"];
+            }
+            Kinto -&gt; Broker [label="1. POST; sync"];
+            Broker -&gt; Kinto [label="feedback loop", style=dotted, dir=both];
+            Consumer [shape=box];
+            worker -&gt; Consumer [label=4, dir=both];
+        }
+    }
+%}</p>
+<p>Avantages :</p>
+<ul>
+<li>
+<p>Proposer une solution propre et qui expose simplement la répartition
+  des responsabilités.</p>
+</li>
+<li>
+<p>Libère à la fois Kinto et le consommateur de toute dépendances
+  puisque le transport entre tous les composants se fait en HTTP.</p>
+</li>
+<li>Permet de passer à l'échelle le Broker indépendamment de Kinto.</li>
+<li>Ne nécessite que très peu de code du côté de Kinto.</li>
+<li>Permet un ensemble de solutions très flexibles qui permettent de
+  connecter à peu près n'importe quel consommateur.</li>
+</ul>
+<p>Inconvénients:</p>
+<ul>
+<li>
+<p>Le courtier (broker) doit parler HTTP et implémenter un protocole de
+  notre choix.</p>
+</li>
+<li>
+<p>Cette solution nécessite de déployer et de maintenir deux services
+  (difficulté qui varie en fonction de la complexité du broker).</p>
+</li>
+</ul>
+<p>Nous aimons particulièrement ce modèle car il respecte les règles que
+nous nous sommes fixées (sans concessions). Pour être tout-à-fait
+honnête, le côté "robuste" est un peu approximatif dans ce cas car
+nous passons la responsabilité à un autre service.  Cependant grâce au
+côté interopérable de la solution nous pouvons avoir un certain degré
+de confiance dans le processus.</p>
+<p>Un autre aspect intéressant de cette solution, qui découple le broker
+de Kinto, est de permettre à n'importe qui d'y implémenter des règles
+métiers alors que ce serait inapproprié de les implémenter dans Kinto.</p>
+<p>Un exemple notable est la gestion des erreurs. La manière dont nous
+traitons les erreurs de notification Balrog n'est pas forcément
+universelle et aurait peu de sens hors du cadre de notre cas
+d'utilisation.</p>
+<p>Pour finir, ça vaut le coup de mentionner ici que le broker
+pourrait être directement consommateur (s'il est assez rapide pour ne
+pas ralentir Kinto), on a déjà des cas d'utilisations à Mozilla.</p>
+<h1>Feuille de route</h1>
+<p>Comme vous vous en doutez, nous avons opté pour la troisième solution
+(Le courtier). Notre feuille de route pour passer de l'idée à la
+réalisation, en commençant par un prototype, puis par un
+<a href="https://en.wikipedia.org/wiki/Minimum_viable_product">MVP</a> et pour
+finir en améliorant par itération jusqu'à arriver à une solution
+utilisable par la communauté.</p>
+<p>Concrètement le prototype nécessite :</p>
+<ul>
+<li>De définir les types d'évènements, s'il faut que l'évènement soit
+  déclenché avant ou après ainsi que la structure des informations
+  envoyées lors d'un évènement.</li>
+<li>D'activer des évènements Python synchrones en utilisant <a href="http://docs.pylonsproject.org/projects/pyramid//en/latest/narr/events.html">le système
+  d'évènements de
+  Pyramid</a>
+  (ce que nous avions déjà fait <a href="https://github.com/spiral-project/daybed/blob/master/daybed/events.py">dans
+  Daybed</a>).</li>
+<li>D'implémenter un backend de notifications dans Kinto permettant de
+  s'enregistrer sur ces évènements.</li>
+</ul>
+<p>Ensuite, pour la partie MVP, nous ajouterons :</p>
+<ul>
+<li>Réaliser un service HTTP minimaliste (basé sur une ioloop) qui
+  recevra les notifications via un <code>POST</code> HTTP, qui réalisera une
+  action et enverra le résultat directement à Balrog.</li>
+</ul>
+<p>Une fois le modèle validé on continuera à l'améliorer de manière
+itérative, probablement sous la forme d'un "broker standard"
+configurable qui sera maintenu comme partie de l'écosystème.</p>
+<p>Nous aimons bien l'idée d'avoir des consommateurs qui viendraient
+s'enregistrer seuls directement sur le broker comme des webhooks, mais
+ce sera l'objet d'une discussion future.</p>
+<h1>Impressions</h1>
+<p>Comme toujours, nous souhaitons avoir vos retours.</p>
+<p>Nous écrivons avant tous ces articles pour échanger avec vous, alors
+n'hésitez surtout pas à poster vos questions, remarques,
+interrogations via les commentaires par exemple.</p>
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+</body>
+</html>

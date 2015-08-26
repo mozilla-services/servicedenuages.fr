@@ -61,7 +61,328 @@ une mince affaire)&lt;/li&gt;
 &lt;p&gt;Si vous vous reconnaissez dans cette description, contactez nous ! Le meilleur
 moyen étant bien sur IRC, &lt;cite&gt;#storage&lt;/cite&gt; sur le réseau &lt;cite&gt;irc.mozilla.org&lt;/cite&gt;.&lt;/p&gt;
 &lt;p&gt;Pour plus d'information sur le poste, vous pouvez &lt;a class="reference external" href="https://careers.mozilla.org/en-US/position/oWHv1fwT"&gt;consulter la fiche de poste&lt;/a&gt;.&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 25 Aug 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-08-25:wanted-quality-assistant</guid></item><item><title>Pourquoi avons-nous fait Cliquet ?</title><link>http://www.servicedenuages.fr/pourquoi-cliquet</link><description>&lt;p&gt;&lt;strong&gt;tldr; Cliquet est un toolkit Python pour construire des APIs, qui implémente
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 25 Aug 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-08-25:wanted-quality-assistant</guid></item><item><title>Les notifications dans Kinto (Préambule)</title><link>http://www.servicedenuages.fr/notifications-kinto-preamble</link><description>&lt;p&gt;Lors de notre dernière &lt;em&gt;workweek&lt;/em&gt; dans l'adorable ville de
+&lt;a href="https://www.qwant.com/?q=Douarnenez&amp;amp;t=images"&gt;Douarnenez&lt;/a&gt; nous avons
+défini les fondations de la prochaine fonctionnalité de
+&lt;a href="https://kinto.readthedocs.org"&gt;Kinto&lt;/a&gt; : &lt;em&gt;les notifications !&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Coucher de soleil sur Douarnenez (@phrawzty)" src="http://www.servicedenuages.fr/images/notifications-douarnenez.jpg" style="width: 800px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
+&lt;h1&gt;tl;dr&lt;/h1&gt;
+&lt;p&gt;Pour les pressés, un petit résumé : Nous allons ajouter
+un système de "notifications" à Kinto, sans perdre de vue la
+simplicité et la flexibilité. Notre objectif est de
+proposer un protocole qui permette à d'autres systèmes de se brancher
+très simplement sur les notifications d'événements de Kinto.&lt;/p&gt;
+&lt;h1&gt;Pourquoi ?&lt;/h1&gt;
+&lt;p&gt;La réponse la plus simple est que nous en avons besoin. Nous
+avons une plateforme appelée &lt;a href="https://wiki.mozilla.org/Balrog"&gt;Balrog&lt;/a&gt;
+qui fait partie du système de mise à jour utilisé par Firefox et par
+d'autres produits Mozilla.&lt;/p&gt;
+&lt;p&gt;Dans l'idée d'améliorer et d'étendre le processus de mise à jour (sous
+la houlette du projet "&lt;a href="https://wiki.mozilla.org/Firefox/Go_Faster"&gt;Go Faster&lt;/a&gt;"),
+nous avons besoin de stocker et de transmettre de petits blocs d'information à
+la fois entre des systèmes internes mais aussi avec l'ensemble de nos
+utilisateurs.&lt;/p&gt;
+&lt;p&gt;Kinto répond parfaitement au besoin, mis à part en ce qui concerne la
+notification des utilisateurs lors d'une mise à jour.&lt;/p&gt;
+&lt;p&gt;Aucun problème. Il ne reste plus qu'à ajouter la fonctionnalité.&lt;/p&gt;
+&lt;h2&gt;Mais attention à ne pas oublier une petite chose !&lt;/h2&gt;
+&lt;p&gt;Bien sûr, Kinto est un projet Mozilla - mais il a été conçu comme une
+solution générique, ce qui veut dire que tout ce que nous ajoutons
+doit rester raisonnablement générique.&lt;/p&gt;
+&lt;p&gt;C'est pourquoi nous avons souhaité proposer une solution réutilisable
+dans différents contextes ; nous sommes une organisation qui construit
+avec et pour le web c'est pourquoi la solution que nous proposons est
+avant tout orientée web.&lt;/p&gt;
+&lt;p&gt;En faisant le tour des paramètrages qu'une solution raisonnablement
+générique devrait proposer, nous avons défini les exigences suivantes
+pour notre système de notifications :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;S'efforcer d'être agnostique autant que possible, c'est-à-dire ne
+  pas forcer les développeurs à utiliser une solution
+  spécifique. (service, backend voire même langage de programmation)&lt;/li&gt;
+&lt;li&gt;Puisque nous sommes orienté web, utiliser le protocole HTTP dès que possible.&lt;/li&gt;
+&lt;li&gt;Le système de notification doit être capable de passer à l'échelle
+  facilement ; cela s'applique à tous les éventuels systèmes de
+  queuing, workers, etc.&lt;/li&gt;
+&lt;li&gt;Pour finir ce doit être un système robuste, nous ne souhaitons pas perdre de messages.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1&gt;Qu'est-ce que nous essayons de faire ?&lt;/h1&gt;
+&lt;p&gt;Avant de rentrer dans les menus détails, prenons un moment pour
+décrire ce que nous essayons de faire - sur le papier, au moins, c'est
+assez simple :&lt;/p&gt;
+&lt;p&gt;{% graphviz
+    dot {
+        digraph terminology {
+            rankdir=LR;
+            subgraph cluster_event {
+            label="Event";
+                subgraph cluster_notification {
+                    label="Notification";
+                    style=filled;
+                    color=lightgrey;
+                    node [style=filled, color=white];
+                    msg_in [shape=box];
+                    action [shape=box];
+                    msg_in -&amp;gt; action [label=1];
+                }
+            resultat [shape=box];
+            action -&amp;gt; resultat [label=2];
+            msg_out [shape=box];
+            resultat -&amp;gt; msg_out [label=3];
+            }
+        }
+    }
+%}&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Un &lt;em&gt;message&lt;/em&gt; est un morceau d'information qui est envoyé d'un
+  endroit à l'autre - par exemple, une requête HTTP. Les messages
+  peuvent venir d'autre part, comme par exemple d'un service externe,
+  ou être générés en interne.&lt;/li&gt;
+&lt;li&gt;Une &lt;em&gt;action&lt;/em&gt; est un processus qui est déclenché en fonction du
+  message. Ça peut être aussi simple qu'incrémenter un compteur en
+  mémoire. Ça peut aussi être quelque chose de plus complexe comme par
+  exemple déclencher une suite de tests. Ça peut aussi être exécuter
+  une fonctionnalité de Kinto, un programme local, une fonctionnalité
+  ajoutée par un plugin ou tout autre chose.&lt;/li&gt;
+&lt;li&gt;Un &lt;em&gt;résultat&lt;/em&gt;, comme son nom l'indique, est ce qui résulte de
+  l'&lt;em&gt;action&lt;/em&gt;. Un exemple simple pourrait être la valeur du compteur,
+  dont nous avons parlé tout à l'heure, sous la forme d'un entier dans
+  un paquet JSON. Mais ça peut également être le résultat de la suite
+  de tests (les possibilités sont sans limites).&lt;/li&gt;
+&lt;li&gt;Pris dans leur ensemble, les &lt;em&gt;évènements&lt;/em&gt; peuvent être vus comme un
+  cycle : un message est reçu, une action a lieu qui génère un nouveau
+  message.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Une notification est donc la combinaison d'un message et d'une
+  action déclenchée suite à un évènement. Le résultat, bien que
+  directement lié à l'action ne fait pas partie de la notification.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Cette petite distinction nécessite une explication. L'instigateur du
+message n'est pas forcément concerné par ce que Kinto va faire avec.&lt;/p&gt;
+&lt;p&gt;En général, il est suffisant de savoir que Kinto a reçu un message et
+qu'il sera traité. Cela permet de bien découpler les différents
+éléments du système.&lt;/p&gt;
+&lt;p&gt;Nous allons continuer à explorer le sens des termes par la suite. Pour
+le moment, continuons.&lt;/p&gt;
+&lt;h1&gt;Comment ?&lt;/h1&gt;
+&lt;p&gt;Il y autant de manière de faire qu'il y a de grains de sables sur la
+plage (ceci dit, nous ne l'avons pas vérifié de manière
+scientifique). Le meilleur moyen de déterminer l'approche gagnante
+reste le duel (à la Mad Max). Malheureusement notre manager a mis son
+véto sur ce moyen pour des questions de responsabilité, à la place
+nous avons préféré faire des dessins sur un tableau blanc...&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Whiteboard (@leplatrem)" src="http://www.servicedenuages.fr/images/notifications-whiteboard.jpg" style="width: 675px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
+&lt;p&gt;Dans un esprit de transparence, voici quelques unes des solutions étudiées :&lt;/p&gt;
+&lt;h2&gt;L'approche simple&lt;/h2&gt;
+&lt;p&gt;La première approche et de pousser chacune des notifications dans une
+file d'attente (dans Redis ou RabbitMQ par exemple) et c'est tout.&lt;/p&gt;
+&lt;p&gt;{% graphviz
+    dot {
+        digraph simple {
+            rankdir=LR;
+            Kinto [shape=box];
+            Queue [shape=box];
+            Consumer [shape=box];
+            Kinto -&amp;gt; Queue;
+            Queue -&amp;gt; Consumer [style=dotted];
+            Consumer -&amp;gt; Queue [style=dotted];
+        }
+    }
+%}&lt;/p&gt;
+&lt;p&gt;Avantages:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Ce modèle impacte peu Kinto, Kinto passe simplement le message à la
+  queue et l'oublie immédiatement.&lt;/li&gt;
+&lt;li&gt;La quantité de code est assez faible - il ne nécessite que le code
+  nécessaire pour parler au système de queue.&lt;/li&gt;
+&lt;li&gt;Si la communauté Kinto est active il serait possible d'étendre
+  rapidement le support à un nombre raisonnable de service externes de
+  files d'attente.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Inconvénients:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Chaque service de queue nécessirait un module spécifique à coder et
+  qui devrait être maintenu par la communauté.&lt;/li&gt;
+&lt;li&gt;L'utilisateur final (destinataire, destination ou autre) du message
+  serait responsable de l'intégration avec le protocole du système de
+  queue.  Autrement dit, si Kinto est configuré pour utiliser
+  RabbitMQ, il faudra que le consommateur des messages parle RabbitMQ
+  également.&lt;/li&gt;
+&lt;li&gt;Kinto n'a aucun contrôle ni compréhension de ce qui arrive au
+  message une fois qu'il a été passé au système de queuing.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;La simplicité du modèle, bien qu'attractive, possède des défauts
+importants. Notamment, il va à l'encontre des règles que nous nous
+sommes fixées du point de vue d'être agnostique techniquement
+puisqu'il impose une technologie au consommateur des messages.&lt;/p&gt;
+&lt;p&gt;C'est un modèle un peu dangereux car il n'y a aucune garantie que les
+messages arrivent à leur destinataire (bien que tous les systèmes de
+queue ne soient pas tous logés à la même enseigne à ce sujet).&lt;/p&gt;
+&lt;h2&gt;L'approche intégrée&lt;/h2&gt;
+&lt;p&gt;L'approche opposée est d'intégrer le système de queue directement dans
+Kinto et de proposer une interface sur laquelle le consommateur puisse
+s'enregistrer.&lt;/p&gt;
+&lt;p&gt;{% graphviz
+    dot {
+        digraph integrated {
+            rankdir=LR;
+            subgraph cluster_internal {
+                style=filled;
+                color=lightgrey;
+                node [style=filled, color=white];
+                Kinto [shape=box];
+                Kinto -&amp;gt; internal_queue [label=1, dir=both];
+                internal_queue -&amp;gt; worker [label=3];
+            }
+            Queue [shape=box];
+            internal_queue -&amp;gt; Queue [label=2, dir=both];
+            Consumer [shape=box];
+            worker -&amp;gt; Consumer [label=4, dir=both];
+        }
+    }
+%}&lt;/p&gt;
+&lt;p&gt;Avantages :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Kinto serait livré comme une solution clé en main et bien qu'on
+  utilise un système de queuing
+  (&lt;a href="http://www.celeryproject.org/"&gt;Celery&lt;/a&gt;, par exemple), ce serait
+  complètement transparent pour l'utilisateur.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Avec ce système complètement intégré, Kinto aurait une visibilité
+  complète du processus et pourrait vérifier que les messages arrivent
+  bien à destination.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;À l'exception du service de queue, il n'y aurait aucun autre service à déployer.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Inconvénient :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Cela ferait considérablement augmenter la portée, la complexité et
+  la taille de Kinto.&lt;/li&gt;
+&lt;li&gt;Le fait que le système soit intégré directement dans Kinto nécessite
+  de redéployer Kinto si le système de notification change.&lt;/li&gt;
+&lt;li&gt;De la même manière, passer à l'échelle le système de notification
+  voudrait dire passer Kinto à l'échelle.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ce modèle a certains avantages ; cependant, la quantité de code
+nécessaire est une raison suffisante pour se poser deux fois la
+question (le véritable problème étant de ne pas transformer Kinto en
+une &lt;a href="https://fr.wikipedia.org/wiki/D%C3%A9rive_des_objectifs"&gt;usine à gaz&lt;/a&gt;).
+Comme pour la solution précédente, nous lions l'utilisateur à un
+système de queues sans respecter notre règle d'agnosticisme technique.
+Enfin, le passage à l'échelle n'apparait pas extrêmement flexible
+(bien que ça reste de la théorie) - il semble dommage d'augmenter deux
+ressources quand une pourrait suffire.&lt;/p&gt;
+&lt;h2&gt;Le courtier (Broker)&lt;/h2&gt;
+&lt;p&gt;L'approche finale est en fait un mélange des deux précédentes, nous
+implémentons un "courtier" (broker) supporté par l'écosystème Kinto,
+mais qui est facilement interchangeable et qui est externe au service
+Kinto.&lt;/p&gt;
+&lt;p&gt;Ce broker peut être écrit en quelques lignes de Python et intégré
+comme le font les jolies &lt;em&gt;stacks&lt;/em&gt; basées sur des &lt;em&gt;micro-services&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Cela permet de découpler le système de queues de Kinto tout en
+garantissant l'interoperabilité et le contrôle des messages.&lt;/p&gt;
+&lt;p&gt;{% graphviz
+    dot {
+        digraph broker {
+            rankdir=LR;
+            Kinto [shape=box];
+            subgraph cluster_broker {
+                style=filled;
+                color=lightgrey;
+                node [style=filled, color=white];
+                Broker [shape=box];
+                worker -&amp;gt; Broker [label="2. subscribe"];
+                Broker -&amp;gt; worker [label="3. async"];
+            }
+            Kinto -&amp;gt; Broker [label="1. POST; sync"];
+            Broker -&amp;gt; Kinto [label="feedback loop", style=dotted, dir=both];
+            Consumer [shape=box];
+            worker -&amp;gt; Consumer [label=4, dir=both];
+        }
+    }
+%}&lt;/p&gt;
+&lt;p&gt;Avantages :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Proposer une solution propre et qui expose simplement la répartition
+  des responsabilités.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Libère à la fois Kinto et le consommateur de toute dépendances
+  puisque le transport entre tous les composants se fait en HTTP.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;Permet de passer à l'échelle le Broker indépendamment de Kinto.&lt;/li&gt;
+&lt;li&gt;Ne nécessite que très peu de code du côté de Kinto.&lt;/li&gt;
+&lt;li&gt;Permet un ensemble de solutions très flexibles qui permettent de
+  connecter à peu près n'importe quel consommateur.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Inconvénients:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Le courtier (broker) doit parler HTTP et implémenter un protocole de
+  notre choix.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Cette solution nécessite de déployer et de maintenir deux services
+  (difficulté qui varie en fonction de la complexité du broker).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Nous aimons particulièrement ce modèle car il respecte les règles que
+nous nous sommes fixées (sans concessions). Pour être tout-à-fait
+honnête, le côté "robuste" est un peu approximatif dans ce cas car
+nous passons la responsabilité à un autre service.  Cependant grâce au
+côté interopérable de la solution nous pouvons avoir un certain degré
+de confiance dans le processus.&lt;/p&gt;
+&lt;p&gt;Un autre aspect intéressant de cette solution, qui découple le broker
+de Kinto, est de permettre à n'importe qui d'y implémenter des règles
+métiers alors que ce serait inapproprié de les implémenter dans Kinto.&lt;/p&gt;
+&lt;p&gt;Un exemple notable est la gestion des erreurs. La manière dont nous
+traitons les erreurs de notification Balrog n'est pas forcément
+universelle et aurait peu de sens hors du cadre de notre cas
+d'utilisation.&lt;/p&gt;
+&lt;p&gt;Pour finir, ça vaut le coup de mentionner ici que le broker
+pourrait être directement consommateur (s'il est assez rapide pour ne
+pas ralentir Kinto), on a déjà des cas d'utilisations à Mozilla.&lt;/p&gt;
+&lt;h1&gt;Feuille de route&lt;/h1&gt;
+&lt;p&gt;Comme vous vous en doutez, nous avons opté pour la troisième solution
+(Le courtier). Notre feuille de route pour passer de l'idée à la
+réalisation, en commençant par un prototype, puis par un
+&lt;a href="https://en.wikipedia.org/wiki/Minimum_viable_product"&gt;MVP&lt;/a&gt; et pour
+finir en améliorant par itération jusqu'à arriver à une solution
+utilisable par la communauté.&lt;/p&gt;
+&lt;p&gt;Concrètement le prototype nécessite :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;De définir les types d'évènements, s'il faut que l'évènement soit
+  déclenché avant ou après ainsi que la structure des informations
+  envoyées lors d'un évènement.&lt;/li&gt;
+&lt;li&gt;D'activer des évènements Python synchrones en utilisant &lt;a href="http://docs.pylonsproject.org/projects/pyramid//en/latest/narr/events.html"&gt;le système
+  d'évènements de
+  Pyramid&lt;/a&gt;
+  (ce que nous avions déjà fait &lt;a href="https://github.com/spiral-project/daybed/blob/master/daybed/events.py"&gt;dans
+  Daybed&lt;/a&gt;).&lt;/li&gt;
+&lt;li&gt;D'implémenter un backend de notifications dans Kinto permettant de
+  s'enregistrer sur ces évènements.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Ensuite, pour la partie MVP, nous ajouterons :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Réaliser un service HTTP minimaliste (basé sur une ioloop) qui
+  recevra les notifications via un &lt;code&gt;POST&lt;/code&gt; HTTP, qui réalisera une
+  action et enverra le résultat directement à Balrog.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Une fois le modèle validé on continuera à l'améliorer de manière
+itérative, probablement sous la forme d'un "broker standard"
+configurable qui sera maintenu comme partie de l'écosystème.&lt;/p&gt;
+&lt;p&gt;Nous aimons bien l'idée d'avoir des consommateurs qui viendraient
+s'enregistrer seuls directement sur le broker comme des webhooks, mais
+ce sera l'objet d'une discussion future.&lt;/p&gt;
+&lt;h1&gt;Impressions&lt;/h1&gt;
+&lt;p&gt;Comme toujours, nous souhaitons avoir vos retours.&lt;/p&gt;
+&lt;p&gt;Nous écrivons avant tous ces articles pour échanger avec vous, alors
+n'hésitez surtout pas à poster vos questions, remarques,
+interrogations via les commentaires par exemple.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 13 Aug 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-08-13:notifications-kinto-preamble</guid></item><item><title>Pourquoi avons-nous fait Cliquet ?</title><link>http://www.servicedenuages.fr/pourquoi-cliquet</link><description>&lt;p&gt;&lt;strong&gt;tldr; Cliquet est un toolkit Python pour construire des APIs, qui implémente
 les bonnes pratiques en terme de mise en production et de protocole HTTP.&lt;/strong&gt;&lt;/p&gt;
 &lt;div class="section" id="les-origines"&gt;
 &lt;h2&gt;Les origines&lt;/h2&gt;
