@@ -98,7 +98,10 @@
 &lt;/ul&gt;
 &lt;p&gt;Once the model is validated we'll begin the iterative improvement process. This will likely take the form of a "standard broker" which we create and maintain as part of the formal ecosystem. We also like the idea of subscribers registering themselves to the broker using an endpoint (such as webhooks), but that's a discussion for future time.&lt;/p&gt;
 &lt;h1&gt;Feedback&lt;/h1&gt;
-&lt;p&gt;As always, we're interested in feedback from the community - feel free to use the Disqus form below to join the conversation!&lt;/p&gt;</summary></entry><entry><title>Les notifications dans Kinto (Préambule)</title><link href="http://www.servicedenuages.fr/en/../notifications-kinto-preamble" rel="alternate"></link><updated>2015-08-13T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-08-13:en/../notifications-kinto-preamble</id><summary type="html">&lt;p&gt;Lors de notre dernière &lt;em&gt;workweek&lt;/em&gt; dans l'adorable ville de
+&lt;p&gt;As always, we're interested in feedback from the community - feel free to use the Disqus form below to join the conversation!&lt;/p&gt;</summary></entry><entry><title>Les notifications dans Kinto (Préambule)</title><link href="http://www.servicedenuages.fr/en/../notifications-kinto-preamble" rel="alternate"></link><updated>2015-08-13T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-08-13:en/../notifications-kinto-preamble</id><summary type="html">&lt;blockquote&gt;
+&lt;p&gt;Traduit de l'anglais par &lt;a href="https://twitter.com/Natim"&gt;Rémy Hubscher&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Lors de notre dernière &lt;em&gt;workweek&lt;/em&gt; dans l'adorable ville de
 &lt;a href="https://www.qwant.com/?q=Douarnenez&amp;amp;t=images"&gt;Douarnenez&lt;/a&gt; nous avons
 défini les fondations de la prochaine fonctionnalité de
 &lt;a href="https://kinto.readthedocs.org"&gt;Kinto&lt;/a&gt; : &lt;em&gt;les notifications !&lt;/em&gt;&lt;/p&gt;

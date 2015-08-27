@@ -61,7 +61,10 @@ une mince affaire)&lt;/li&gt;
 &lt;p&gt;Si vous vous reconnaissez dans cette description, contactez nous ! Le meilleur
 moyen étant bien sur IRC, &lt;cite&gt;#storage&lt;/cite&gt; sur le réseau &lt;cite&gt;irc.mozilla.org&lt;/cite&gt;.&lt;/p&gt;
 &lt;p&gt;Pour plus d'information sur le poste, vous pouvez &lt;a class="reference external" href="https://careers.mozilla.org/en-US/position/oWHv1fwT"&gt;consulter la fiche de poste&lt;/a&gt;.&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 25 Aug 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-08-25:wanted-quality-assistant</guid></item><item><title>Les notifications dans Kinto (Préambule)</title><link>http://www.servicedenuages.fr/notifications-kinto-preamble</link><description>&lt;p&gt;Lors de notre dernière &lt;em&gt;workweek&lt;/em&gt; dans l'adorable ville de
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 25 Aug 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-08-25:wanted-quality-assistant</guid></item><item><title>Les notifications dans Kinto (Préambule)</title><link>http://www.servicedenuages.fr/notifications-kinto-preamble</link><description>&lt;blockquote&gt;
+&lt;p&gt;Traduit de l'anglais par &lt;a href="https://twitter.com/Natim"&gt;Rémy Hubscher&lt;/a&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Lors de notre dernière &lt;em&gt;workweek&lt;/em&gt; dans l'adorable ville de
 &lt;a href="https://www.qwant.com/?q=Douarnenez&amp;amp;t=images"&gt;Douarnenez&lt;/a&gt; nous avons
 défini les fondations de la prochaine fonctionnalité de
 &lt;a href="https://kinto.readthedocs.org"&gt;Kinto&lt;/a&gt; : &lt;em&gt;les notifications !&lt;/em&gt;&lt;/p&gt;
