@@ -309,7 +309,7 @@ s'enregistrer seuls directement sur le broker comme des webhooks, mais
 ce sera l'objet d'une discussion future.&lt;/p&gt;
 &lt;h1&gt;Impressions&lt;/h1&gt;
 &lt;p&gt;Comme toujours, nous souhaitons avoir vos retours.&lt;/p&gt;
-&lt;p&gt;Nous écrivons avant tous ces articles pour échanger avec vous, alors
+&lt;p&gt;Nous écrivons avant tout ces articles pour échanger avec vous, alors
 n'hésitez surtout pas à poster vos questions, remarques,
 interrogations via les commentaires par exemple.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 13 Aug 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-08-13:notifications-kinto-preamble</guid></item><item><title>Pourquoi avons-nous fait Cliquet ?</title><link>http://www.servicedenuages.fr/pourquoi-cliquet</link><description>&lt;p&gt;&lt;strong&gt;tldr; Cliquet est un toolkit Python pour construire des APIs, qui implémente
 les bonnes pratiques en terme de mise en production et de protocole HTTP.&lt;/strong&gt;&lt;/p&gt;

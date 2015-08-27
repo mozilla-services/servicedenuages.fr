@@ -309,7 +309,7 @@ s'enregistrer seuls directement sur le broker comme des webhooks, mais
 ce sera l'objet d'une discussion future.&lt;/p&gt;
 &lt;h1&gt;Impressions&lt;/h1&gt;
 &lt;p&gt;Comme toujours, nous souhaitons avoir vos retours.&lt;/p&gt;
-&lt;p&gt;Nous écrivons avant tous ces articles pour échanger avec vous, alors
+&lt;p&gt;Nous écrivons avant tout ces articles pour échanger avec vous, alors
 n'hésitez surtout pas à poster vos questions, remarques,
 interrogations via les commentaires par exemple.&lt;/p&gt;</summary></entry><entry><title>Pourquoi avons-nous fait Cliquet ?</title><link href="http://www.servicedenuages.fr/pourquoi-cliquet" rel="alternate"></link><updated>2015-07-14T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-07-14:pourquoi-cliquet</id><summary type="html">&lt;p&gt;&lt;strong&gt;tldr; Cliquet est un toolkit Python pour construire des APIs, qui implémente
 les bonnes pratiques en terme de mise en production et de protocole HTTP.&lt;/strong&gt;&lt;/p&gt;
