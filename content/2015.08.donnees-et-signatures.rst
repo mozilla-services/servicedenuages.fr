@@ -31,29 +31,30 @@ Nous souhaitons utiliser `Kinto
 <https://kinto.readthedocs.org>`_ afin de distribuer ces jeux de données. Par
 contre, nous ne souhaitons pas que les clients lui fassent confiance
 aveuglément. Effectivement, un attaquant avec la main sur le serveur *Kinto*
-pourrait alors envoyer les mises à jour qu'il souhaite a l'ensemble des
-clients. Imaginez le carnage !
+pourrait alors envoyer les mises à jour qu'il souhaite à l'ensemble des
+clients ou supprimer des certificats révoqués. Imaginez le carnage !
 
 Afin de résoudre ce problème, considérons les conditions suivantes:
 
-- La personne qui à le pouvoir de mettre à jour les CRL (*L'updater*) a un
-  certificat qui lui permet de signer la collection;
-- Le pendant public de ce certificat est stocké et distribué dans Firefox;
-- Le *hashing* et la *signature* sont faites coté client pour éviter certains
-  vecteurs d'attaque (si un attaquant à la main sur le serveur Kinto par
+- La personne qui a le pouvoir de mettre à jour les CRL (*l'updater*) possède un
+  certificat privé qui lui permet de signer la collection ;
+- Le pendant public de ce certificat est stocké et distribué dans le client (ici Firefox) ;
+- Le *hashing* et la *signature* sont faites côté client pour éviter certains
+  vecteurs d'attaques (si un attaquant à la main sur le serveur Kinto par
   exemple).
 
 Le chiffrement à sens unique, aussi appellé *hashing* est un moyen de toujours
-obtenir le même resultat à partir de la même entrée.
+obtenir le même résultat à partir de la même entrée.
+
 
 Premier envoi de données sur Kinto
 ==================================
 
-L'ensemble des données est récupéré depuis une source *sécure* puis mis dans
-une collection JSON. Chaque élément contiens un identifiant unique généré sur
+L'ensemble des données est récupéré depuis une source *sécurisé* puis mis dans
+une collection JSON. Chaque élément contient un identifiant unique généré sur
 le client.
   
-Par exemple, un enregistrement peut ressembler à:
+Par exemple, un enregistrement peut ressembler à :
 
 .. code-block:: javascript
 
@@ -66,17 +67,19 @@ Le *hash* de la collection est ensuite calculé, signé puis envoyé au serveur
 La signature est déportée sur un service qui ne s'occupe que de ça, puisque la
 sécurité du certificat qui s'occupe des signatures est extrêmement importante.
 
+
 Comment vérifier l'intégrité des données ?
 ==========================================
 
 Premièrement, il faut récupérer l'ensemble des enregistrements présents sur
 le serveur, ainsi que le *hash* et la signature associée.
 
-Ensuite, vérifier la signature du *hash*, pour s'assurer que celui ci provient
+Ensuite, vérifier la signature du *hash*, pour s'assurer que celui-ci provient
 bien d'un tiers de confiance.
 
-Finalement, recalculer le *hash* localement, et valider qu'il correspond bien a
+Finalement, recalculer le *hash* localement et valider qu'il correspond bien à
 celui qui à été signé.
+
 
 Ajouter de nouvelles données
 ============================
@@ -88,12 +91,13 @@ d'autre.
 Une fois ces données validées, il suffit de procéder comme la première fois, et
 d'envoyer à nouveau le *hash* de la collection au serveur.
 
+
 Comment calculer ce hash ?
 ==========================
 
-Pour calculer le *hash* de la collection, il est nécessaire de :
+Pour calculer le *hash* de la collection, il est nécessaire :
 
-1. Ordonner l'ensemble des éléments de la collection (par leur id) ;
+1. D'ordonner l'ensemble des éléments de la collection (par leur id) ;
 2. Pour chaque élément, sérialiser les champs qui nous intéressent (les
    concaténer clé + valeur)
 3. Calculer le *hash* depuis la sérialisation.
@@ -103,4 +107,3 @@ Un schéma pour résumer !
 
 .. image:: {filename}/images/kinto-signing.jpg
     :align: center
-
