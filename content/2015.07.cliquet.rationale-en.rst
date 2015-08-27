@@ -1,5 +1,5 @@
-Why did we make Cliquet?
-########################
+Making the case for Cliquet?
+############################
 
 :lang: en
 :url: why-cliquet
@@ -23,7 +23,7 @@ The objective for the first trimester of 2015 was to build a service for
 storage and the `synchronisation of a reading list
 <{filename}2015.04.service-de-nuages.rst>`_. At the outset of the project we
 tried assembling all of the best practices and recommendations from different
-teams and currently deploy projects. Also, we wanted to take advantage of the
+teams and currently deployed projects. Also, we wanted to take advantage of the
 *Firefox Sync* protocol for offline sync since it's robust and proven.
 
 Rather than write `yet another <http://blog.octo.com/en/design-a-rest-api/>`_
@@ -90,7 +90,7 @@ can't) - Cliquet is no different. *Everything is configurable* right from the
 deployed in exactly the same way - only the *configuration* is different.
 
 .. image:: {filename}/images/cliquet-notes-whiteboard.jpg
-    :alt: Une réunion à Paris...
+    :alt: A meeting in Paris...
     :align: center
 
 The Protocol
@@ -328,7 +328,7 @@ even modifying the fields before they're saved.
                 new['device'] = device
             return new
 
-For more information, see the `resource docmentation
+For more information, see the `resource documentation
 <http://cliquet.readthedocs.org/en/latest/reference/resource.html>`_ .
 
 Step 4 (optional)
