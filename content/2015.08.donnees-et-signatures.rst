@@ -2,7 +2,8 @@ Signature et validation de mises à jour
 #######################################
 
 :date: 2015-08-26
-:summary: 
+:summary: Comment s'assurer de la bonne distribution des données en utilisant
+          les signatures.
 :slug: data-signature
 :lang: fr
 :url: donnees-et-signatures
