@@ -27,3 +27,5 @@ SOCIAL = (
 # Following items are often useful when publishing
 
 DISQUS_SITENAME = "servicedenuages"
+PIWIK_SERVER_URL = "//piwik.notmyidea.org/"
+PIWIK_SITE_ID = 1
