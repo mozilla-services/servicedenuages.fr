@@ -23,8 +23,8 @@ certificats alors qu'ils sont valides, et que l'ensemble des mises à jour sont
 bel et bien récupérées sur le client.
 
 La signature garantie qu'une mise a jour a tous les enregistrements, mais il
-est toujours possible de bloquer l'acces au service (china great firewall, par
-exemple).
+est toujours possible de bloquer l'acces au service (par exemple avec le *china
+great firewall*).
 
 Ce mécanisme fonctionne pour les listes de certificats à révoquer, mais pas
 uniquement. Nous comptons réutiliser ce même fonctionnement dans le futur pour
