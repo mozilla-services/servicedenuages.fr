@@ -108,7 +108,10 @@ Pour calculer le *hash* de la collection, il est nécessaire :
    concaténer clé + valeur)
 3. Calculer le *hash* depuis la sérialisation.
 
-Une implementation naïve en python pourrait ressembler à ceci:
+Nous sommes encore incertain de comment le hash va être calculé. Les `JSON Web Signature
+<https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41>`_ semblent
+une piste interessante. En attendant, une implementation naïve en python
+pourrait ressembler à ceci :
 
 .. code-block:: python
 
