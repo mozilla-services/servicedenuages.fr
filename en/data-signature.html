@@ -7,7 +7,7 @@
 
         <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
 
-        <title>Garantir l'intégrité des données via des signatures // Service de nuages // </title>
+        <title>Sign collection to ensure data integrity // Service de nuages // </title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
@@ -30,7 +30,7 @@
         <header class="header-article">
             <hgroup>
                 <h5>Publié</h5>
-                <p title="~626 mots">~3mn de lecture 🕑</p>
+                <p title="~676 mots">~3mn de lecture 🕑</p>
                 <p>mer. 26 août 2015</p>
                 <a href="/">&larr;Liste des articles</a>
             </hgroup>
@@ -40,86 +40,93 @@
         <div class="content">
             <section class="post">
                 <header class="post-header">
-                    <h1>Garantir l'intégrité des données via des signatures</h1>
+                    <h1>Sign collection to ensure data integrity</h1>
                 </header>
             </section>
-            <p>Dans le cadre du projet <a class="reference external" href="https://wiki.mozilla.org/Firefox/Go_Faster">Go Faster</a>, nous souhaitons distribuer des
-mises à jour de parties de <em>Firefox</em> de manière séparée des mises à jour majeures
-(qui ont lieu toutes les 6 semaines).</p>
-<p>Les données que nous souhaitons mettre à jour sur les clients sont multiples.
-Entre autres, nous souhaitons gérer <a class="reference external" href="https://blog.mozilla.org/security/2015/03/03/revoking-intermediate-certificates-introducing-onecrl/">la mise à jour des listes de révocation
-(CRL) de certificats SSL</a>.</p>
-<p>Il est évidemment nécessaire de s'assurer que les données qui sont téléchargées
-sur les client sont légitimes: que personne ne tente d'invalider des
-certificats alors qu'ils sont valides, et que l'ensemble des mises à jour sont
-bel et bien récupérées sur le client.</p>
-<p>La signature garantie qu'une mise a jour a tous les enregistrements, mais il
-est toujours possible de bloquer l'acces au service (par exemple avec le <em>china
-great firewall</em>).</p>
-<p>Ce mécanisme fonctionne pour les listes de certificats à révoquer, mais pas
-uniquement. Nous comptons réutiliser ce même fonctionnement dans le futur pour
-la mise à jour d'autres parties de Firefox, et vous pouvez également en tirer
-parti pour d'autres cas d'utilisation.</p>
-<p>Nous souhaitons utiliser <a class="reference external" href="https://kinto.readthedocs.org">Kinto</a> afin de distribuer ces jeux de données. Par
-contre, nous ne souhaitons pas que les clients lui fassent confiance
-aveuglément. Effectivement, un attaquant avec la main sur le serveur <em>Kinto</em>
-pourrait alors envoyer les mises à jour qu'il souhaite à l'ensemble des
-clients ou supprimer des certificats révoqués. Imaginez le carnage !</p>
-<p>Afin de résoudre ce problème, considérons les conditions suivantes:</p>
+                        <p><a href="http://www.servicedenuages.fr/en/../donnees-et-signatures">Lire la version française</a></p>
+            <div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Translated from the French by <a class="reference external" href="https://twitter.com/Natim">Rémy Hubscher</a>.</p>
+</div>
+<p>Within the scope of the <a class="reference external" href="https://wiki.mozilla.org/Firefox/Go_Faster">Go Faster</a>
+project, we want to distribute Firefox updates more often than
+just with major updates (which happens once every six weeks).</p>
+<p>There are multiple kind of data that we will need to update on the client.
+Among others, we would like to <a class="reference external" href="https://blog.mozilla.org/security/2015/03/03/revoking-intermediate-certificates-introducing-onecrl/">update the SSL Control Revocation List (named OneCRL)</a>.</p>
+<p>In that specific case, it is obviously very important to make sure
+that all the fetched data are coming from Mozilla and that no records
+are missing. Then, we can be absolutely confident that nobody added
+a valide certificate to the CRL or remove a revocated one.</p>
+<p>A cryptographic signature can give us the guarantee that all the
+records where fetched but it is still possible to prevent users to
+completely access the service (<em>Chinese Great Firewall</em> for instance.)</p>
+<p>This mecanism works in our specific use-cases of the OneCRL update
+project, but it can also be useful to any future project that needs to
+make sure that all records on a collection have been correctly synced.
+We will probably need to re-use it to update other part of Firefox or
+Fennec but you may also want to use it for your use-cases.</p>
+<p>In order to distribute the data or meta-data associated with the files
+that needs to be updated, we plan to use <a class="reference external" href="https://kinto.readthedocs.org">Kinto</a>. Kinto is a good fit because it can
+easily be cached behind a CDN.</p>
+<p>Also we don't want our user to trust either the CDN or the Kinto
+server itself without checking. Somebody can attack the CDN or the
+Kinto server and may add or remove records and update the CRL. If you
+think about it is a horrible scenario.</p>
+<p>Consider the following workflow:</p>
 <ul class="simple">
-<li>La personne qui à le pouvoir de mettre à jour les CRL (<em>l'updater</em>)
-a acces a une cle de signature (ou mieux, <a class="reference external" href="https://fr.wikipedia.org/wiki/Hardware_Security_Module">un HSM</a>) qui lui permet de
-signer la collection;</li>
-<li>Le pendant public de ce certificat est stocké et distribué dans Firefox;</li>
-<li>Le <em>hashing</em> et la <em>signature</em> sont faites coté client pour éviter certains
-vecteurs d'attaque (si un attaquant à la main sur le serveur Kinto par
-exemple).</li>
+<li>The person responsible to update the CRL, <em>the updater</em>, has got a
+private key (or even better <a class="reference external" href="https://en.wikipedia.org/wiki/Hardware_Security_Module">a HSM</a>) which
+will enable her to sign a hash of the collection records;</li>
+<li>The corresponding public key ships with the client (Firefox or Fennec);</li>
+<li><em>Hashing</em> and <em>signature</em> are done on client side to prevent some
+attacks vectors (if somebody can access the Kinto server for
+instance.)</li>
 </ul>
-<p>Le chiffrement à sens unique, aussi appellé <em>hashing</em> est un moyen de toujours
-obtenir le même résultat à partir de la même entrée.</p>
-<div class="section" id="premier-envoi-de-donnees-sur-kinto">
-<h2>Premier envoi de données sur Kinto</h2>
-<p>L'ensemble des données est récupéré depuis une source <em>sécurisé</em> puis mis dans
-une collection JSON. Chaque élément contient un identifiant unique généré sur
-le client.</p>
-<p>Par exemple, un enregistrement peut ressembler à :</p>
+<p>The <em>hashing</em> is a one-way operation that guarantee the same result or
+the same input.</p>
+<div class="section" id="first-data-issuance-on-kinto">
+<h2>First data issuance on Kinto</h2>
+<p>All the data are fetched from a <em>secured</em> source and converted into a
+JSON collection. Each record is assigned a unique ID generated on client side.</p>
+<p>For instance, we could have the following record:</p>
 <div class="highlight"><pre><span class="p">{</span><span class="s2">"id"</span><span class="o">:</span> <span class="s2">"b7dded96-8df0-8af8-449a-8bc47f71b4c4"</span><span class="p">,</span>
  <span class="s2">"fingerprint"</span><span class="o">:</span> <span class="s2">"11:D5:D2:0A:9A:F8:D9:FC:23:6E:5C:5C:30:EC:AF:68:F5:68:FB:A3"</span><span class="p">}</span>
 </pre></div>
-<p>Le <em>hash</em> de la collection est ensuite calculé, signé puis envoyé au serveur
-(voir plus bas pour les détails).</p>
-<p>La signature est déportée sur un service qui ne s'occupe que de ça, puisque la
-sécurité du certificat qui s'occupe des signatures est extrêmement importante.</p>
+<p>Then the collection <em>hash</em> is computed, signed and then sent to the Kinto server.
+(See below for details)</p>
+<p>The signature process is deported to a specific service in a sandbox
+that ensures the certificate security which is crucial in the process.</p>
 </div>
-<div class="section" id="comment-verifier-l-integrite-des-donnees">
-<h2>Comment vérifier l'intégrité des données ?</h2>
-<p>Premièrement, il faut récupérer l'ensemble des enregistrements présents sur
-le serveur, ainsi que le <em>hash</em> et la signature associée.</p>
-<p>Ensuite, vérifier la signature du <em>hash</em>, pour s'assurer que celui-ci provient
-bien d'un tiers de confiance.</p>
-<p>Finalement, recalculer le <em>hash</em> localement et valider qu'il correspond bien à
-celui qui à été signé.</p>
+<div class="section" id="how-to-validate-data-integrity">
+<h2>How to validate data integrity?</h2>
+<p>First, we need to fetch the collection records as well as the hash and
+the signature.</p>
+<p>Then, we can validate that the hash signature is valid to make sure it
+has been generated by a trusted source.</p>
+<p>Finally we can serialize our local collection and compute its hash to
+make sure it matches the signed one.</p>
 </div>
-<div class="section" id="ajouter-de-nouvelles-donnees">
-<h2>Ajouter de nouvelles données</h2>
-<p>Pour l'ajout de nouvelles données, il est nécessaire de s'assurer que les
-données que l'on a localement sont valides avant de faire quoi que ce soit
-d'autre.</p>
-<p>Une fois ces données validées, il suffit de procéder comme la première fois, et
-d'envoyer à nouveau le <em>hash</em> de la collection au serveur.</p>
+<div class="section" id="update-the-collection-data">
+<h2>Update the collection data</h2>
+<p>When you need to <a class="reference external" href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete">create, read, update or delete</a>
+records of the collection, the client need to make sure that the local
+collection records matches the remove server ones and are valid.</p>
+<p>Once we are confident that the collection update is valid, the client
+can compute the new collection hash and sign it.</p>
 </div>
-<div class="section" id="comment-calculer-ce-hash">
-<h2>Comment calculer ce hash ?</h2>
-<p>Pour calculer le <em>hash</em> de la collection, il est nécessaire :</p>
+<div class="section" id="how-to-compute-the-collection-hash">
+<h2>How to compute the collection hash?</h2>
+<p>To compute the collection <em>hash</em>, you need a reproductible algorithm.</p>
+<p>For instance one could be:</p>
 <ol class="arabic simple">
-<li>D'ordonner l'ensemble des éléments de la collection (par leur id) ;</li>
-<li>Pour chaque élément, sérialiser les champs qui nous intéressent (les
-concaténer clé + valeur)</li>
-<li>Calculer le <em>hash</em> depuis la sérialisation.</li>
+<li>Sort records by their ids;</li>
+<li>Serialize fields giving the value of each keys sorted by key;</li>
+<li>Compute the <em>hash</em> of the records list serialization.</li>
 </ol>
-<p>Nous sommes encore incertain de comment le hash va être calculé. Les <a class="reference external" href="https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41">JSON Web Signature</a> semblent
-une piste interessante. En attendant, une implementation naïve en python
-pourrait ressembler à ceci :</p>
+<p>We do not know yet the exact algorithm that we will be using.</p>
+<p>An interesting candidate could be the <a class="reference external" href="https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41">JSON Web Signature</a>
+standard. Meanwhile, a naive Pythom implementation could look like
+this:</p>
 <div class="highlight"><pre><span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">import</span> <span class="nn">hashlib</span>
 
@@ -133,8 +140,8 @@ pourrait ressembler à ceci :</p>
 <span class="n">m</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
 <span class="n">collection_hash</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
 </pre></div>
-<p>Enfin, un schéma pour résumer !</p>
-<img alt="" class="align-center" src="http://www.servicedenuages.fr/en/../images/kinto-signing.jpg" style="width: 600px; height: auto; max-width: 100%;width: 600px; height: auto; max-width: 100%;"/>
+<p>Here is a little sketch to summarize:</p>
+<img alt="" class="align-center" src="http://www.servicedenuages.fr/en/../images/kinto-signing.jpg" style="width: 600px; height: auto; max-width: 100%;"/>
 </div>
 
             <div class="hr"></div>

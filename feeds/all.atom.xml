@@ -16,11 +16,14 @@ great firewall&lt;/em&gt;).&lt;/p&gt;
 uniquement. Nous comptons réutiliser ce même fonctionnement dans le futur pour
 la mise à jour d'autres parties de Firefox, et vous pouvez également en tirer
 parti pour d'autres cas d'utilisation.&lt;/p&gt;
-&lt;p&gt;Nous souhaitons utiliser &lt;a class="reference external" href="https://kinto.readthedocs.org"&gt;Kinto&lt;/a&gt; afin de distribuer ces jeux de données. Par
-contre, nous ne souhaitons pas que les clients lui fassent confiance
-aveuglément. Effectivement, un attaquant avec la main sur le serveur &lt;em&gt;Kinto&lt;/em&gt;
-pourrait alors envoyer les mises à jour qu'il souhaite à l'ensemble des
-clients ou supprimer des certificats révoqués. Imaginez le carnage !&lt;/p&gt;
+&lt;p&gt;Nous souhaitons utiliser &lt;a class="reference external" href="https://kinto.readthedocs.org"&gt;Kinto&lt;/a&gt; afin
+de distribuer ces jeux de données. Un des avantages c'est qu'on peut
+facilement &lt;em&gt;cacher&lt;/em&gt; les collections derrière un CDN.&lt;/p&gt;
+&lt;p&gt;Par contre, nous ne souhaitons pas que les clients fassent
+confiance aveuglément, ni au serveur Kinto, ni au CDN.&lt;/p&gt;
+&lt;p&gt;Effectivement, un attaquant, contrôlant l'un ou l'autre, pourrait
+alors envoyer les mises à jour qu'il souhaite à l'ensemble des clients
+ou supprimer des certificats révoqués. Imaginez le carnage !&lt;/p&gt;
 &lt;p&gt;Afin de résoudre ce problème, considérons les conditions suivantes:&lt;/p&gt;
 &lt;ul class="simple"&gt;
 &lt;li&gt;La personne qui à le pouvoir de mettre à jour les CRL (&lt;em&gt;l'updater&lt;/em&gt;)
@@ -90,6 +93,105 @@ pourrait ressembler à ceci :&lt;/p&gt;
 &lt;span class="n"&gt;collection_hash&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hexdigest&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Enfin, un schéma pour résumer !&lt;/p&gt;
+&lt;img alt="" class="align-center" src="http://www.servicedenuages.fr/images/kinto-signing.jpg" style="width: 600px; height: auto; max-width: 100%;"/&gt;
+&lt;/div&gt;
+</summary></entry><entry><title>Sign collection to ensure data integrity</title><link href="http://www.servicedenuages.fr/en/data-signature" rel="alternate"></link><updated>2015-08-26T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-08-26:en/data-signature</id><summary type="html">&lt;div class="note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p class="last"&gt;Translated from the French by &lt;a class="reference external" href="https://twitter.com/Natim"&gt;Rémy Hubscher&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;Within the scope of the &lt;a class="reference external" href="https://wiki.mozilla.org/Firefox/Go_Faster"&gt;Go Faster&lt;/a&gt;
+project, we want to distribute Firefox updates more often than
+just with major updates (which happens once every six weeks).&lt;/p&gt;
+&lt;p&gt;There are multiple kind of data that we will need to update on the client.
+Among others, we would like to &lt;a class="reference external" href="https://blog.mozilla.org/security/2015/03/03/revoking-intermediate-certificates-introducing-onecrl/"&gt;update the SSL Control Revocation List (named OneCRL)&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;In that specific case, it is obviously very important to make sure
+that all the fetched data are coming from Mozilla and that no records
+are missing. Then, we can be absolutely confident that nobody added
+a valide certificate to the CRL or remove a revocated one.&lt;/p&gt;
+&lt;p&gt;A cryptographic signature can give us the guarantee that all the
+records where fetched but it is still possible to prevent users to
+completely access the service (&lt;em&gt;Chinese Great Firewall&lt;/em&gt; for instance.)&lt;/p&gt;
+&lt;p&gt;This mecanism works in our specific use-cases of the OneCRL update
+project, but it can also be useful to any future project that needs to
+make sure that all records on a collection have been correctly synced.
+We will probably need to re-use it to update other part of Firefox or
+Fennec but you may also want to use it for your use-cases.&lt;/p&gt;
+&lt;p&gt;In order to distribute the data or meta-data associated with the files
+that needs to be updated, we plan to use &lt;a class="reference external" href="https://kinto.readthedocs.org"&gt;Kinto&lt;/a&gt;. Kinto is a good fit because it can
+easily be cached behind a CDN.&lt;/p&gt;
+&lt;p&gt;Also we don't want our user to trust either the CDN or the Kinto
+server itself without checking. Somebody can attack the CDN or the
+Kinto server and may add or remove records and update the CRL. If you
+think about it is a horrible scenario.&lt;/p&gt;
+&lt;p&gt;Consider the following workflow:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;The person responsible to update the CRL, &lt;em&gt;the updater&lt;/em&gt;, has got a
+private key (or even better &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Hardware_Security_Module"&gt;a HSM&lt;/a&gt;) which
+will enable her to sign a hash of the collection records;&lt;/li&gt;
+&lt;li&gt;The corresponding public key ships with the client (Firefox or Fennec);&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Hashing&lt;/em&gt; and &lt;em&gt;signature&lt;/em&gt; are done on client side to prevent some
+attacks vectors (if somebody can access the Kinto server for
+instance.)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The &lt;em&gt;hashing&lt;/em&gt; is a one-way operation that guarantee the same result or
+the same input.&lt;/p&gt;
+&lt;div class="section" id="first-data-issuance-on-kinto"&gt;
+&lt;h2&gt;First data issuance on Kinto&lt;/h2&gt;
+&lt;p&gt;All the data are fetched from a &lt;em&gt;secured&lt;/em&gt; source and converted into a
+JSON collection. Each record is assigned a unique ID generated on client side.&lt;/p&gt;
+&lt;p&gt;For instance, we could have the following record:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;"id"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"b7dded96-8df0-8af8-449a-8bc47f71b4c4"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+ &lt;span class="s2"&gt;"fingerprint"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"11:D5:D2:0A:9A:F8:D9:FC:23:6E:5C:5C:30:EC:AF:68:F5:68:FB:A3"&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Then the collection &lt;em&gt;hash&lt;/em&gt; is computed, signed and then sent to the Kinto server.
+(See below for details)&lt;/p&gt;
+&lt;p&gt;The signature process is deported to a specific service in a sandbox
+that ensures the certificate security which is crucial in the process.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="how-to-validate-data-integrity"&gt;
+&lt;h2&gt;How to validate data integrity?&lt;/h2&gt;
+&lt;p&gt;First, we need to fetch the collection records as well as the hash and
+the signature.&lt;/p&gt;
+&lt;p&gt;Then, we can validate that the hash signature is valid to make sure it
+has been generated by a trusted source.&lt;/p&gt;
+&lt;p&gt;Finally we can serialize our local collection and compute its hash to
+make sure it matches the signed one.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="update-the-collection-data"&gt;
+&lt;h2&gt;Update the collection data&lt;/h2&gt;
+&lt;p&gt;When you need to &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Create,_read,_update_and_delete"&gt;create, read, update or delete&lt;/a&gt;
+records of the collection, the client need to make sure that the local
+collection records matches the remove server ones and are valid.&lt;/p&gt;
+&lt;p&gt;Once we are confident that the collection update is valid, the client
+can compute the new collection hash and sign it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="how-to-compute-the-collection-hash"&gt;
+&lt;h2&gt;How to compute the collection hash?&lt;/h2&gt;
+&lt;p&gt;To compute the collection &lt;em&gt;hash&lt;/em&gt;, you need a reproductible algorithm.&lt;/p&gt;
+&lt;p&gt;For instance one could be:&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;Sort records by their ids;&lt;/li&gt;
+&lt;li&gt;Serialize fields giving the value of each keys sorted by key;&lt;/li&gt;
+&lt;li&gt;Compute the &lt;em&gt;hash&lt;/em&gt; of the records list serialization.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;We do not know yet the exact algorithm that we will be using.&lt;/p&gt;
+&lt;p&gt;An interesting candidate could be the &lt;a class="reference external" href="https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41"&gt;JSON Web Signature&lt;/a&gt;
+standard. Meanwhile, a naive Pythom implementation could look like
+this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;json&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;hashlib&lt;/span&gt;
+
+&lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+   &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s"&gt;"id"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;"b7dded96-8df0-8af8-449a-8bc47f71b4c4"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;"fingerprint"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;"11:D5:D2:0A:9A:F8:D9:FC:23:6E:5C:5C:30:EC:AF:68:F5:68:FB:A3"&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
+   &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s"&gt;"id"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;"dded96b7-8f0d-8f8a-49a4-7f771b4c4bc4"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;"fingerprint"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;"33:6E:5C:5C:30:EC:AF:68:F5:68:FB:A3:11:D5:D2:0A:9A:F8:D9:FC"&lt;/span&gt;&lt;span class="p"&gt;}]&lt;/span&gt;
+
+&lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;hashlib&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sha256&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dumps&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sort_keys&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;span class="n"&gt;collection_hash&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hexdigest&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Here is a little sketch to summarize:&lt;/p&gt;
 &lt;img alt="" class="align-center" src="http://www.servicedenuages.fr/images/kinto-signing.jpg" style="width: 600px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 </summary></entry><entry><title>A la recherche d'un assistant en qualité</title><link href="http://www.servicedenuages.fr/wanted-quality-assistant" rel="alternate"></link><updated>2015-08-25T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-08-25:wanted-quality-assistant</id><summary type="html">&lt;p&gt;Derrière ce titre issu d'une traduction tout à fait questionnable de "Quality

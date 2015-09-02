@@ -30,7 +30,7 @@
         <header class="header-article">
             <hgroup>
                 <h5>Publié</h5>
-                <p title="~626 mots">~3mn de lecture 🕑</p>
+                <p title="~642 mots">~3mn de lecture 🕑</p>
                 <p>mer. 26 août 2015</p>
                 <a href="/">&larr;Liste des articles</a>
             </hgroup>
@@ -43,6 +43,7 @@
                     <h1>Garantir l'intégrité des données via des signatures</h1>
                 </header>
             </section>
+                        <p><a href="http://www.servicedenuages.fr/en/data-signature">Read the English version</a></p>
             <p>Dans le cadre du projet <a class="reference external" href="https://wiki.mozilla.org/Firefox/Go_Faster">Go Faster</a>, nous souhaitons distribuer des
 mises à jour de parties de <em>Firefox</em> de manière séparée des mises à jour majeures
 (qui ont lieu toutes les 6 semaines).</p>
@@ -60,11 +61,14 @@ great firewall</em>).</p>
 uniquement. Nous comptons réutiliser ce même fonctionnement dans le futur pour
 la mise à jour d'autres parties de Firefox, et vous pouvez également en tirer
 parti pour d'autres cas d'utilisation.</p>
-<p>Nous souhaitons utiliser <a class="reference external" href="https://kinto.readthedocs.org">Kinto</a> afin de distribuer ces jeux de données. Par
-contre, nous ne souhaitons pas que les clients lui fassent confiance
-aveuglément. Effectivement, un attaquant avec la main sur le serveur <em>Kinto</em>
-pourrait alors envoyer les mises à jour qu'il souhaite à l'ensemble des
-clients ou supprimer des certificats révoqués. Imaginez le carnage !</p>
+<p>Nous souhaitons utiliser <a class="reference external" href="https://kinto.readthedocs.org">Kinto</a> afin
+de distribuer ces jeux de données. Un des avantages c'est qu'on peut
+facilement <em>cacher</em> les collections derrière un CDN.</p>
+<p>Par contre, nous ne souhaitons pas que les clients fassent
+confiance aveuglément, ni au serveur Kinto, ni au CDN.</p>
+<p>Effectivement, un attaquant, contrôlant l'un ou l'autre, pourrait
+alors envoyer les mises à jour qu'il souhaite à l'ensemble des clients
+ou supprimer des certificats révoqués. Imaginez le carnage !</p>
 <p>Afin de résoudre ce problème, considérons les conditions suivantes:</p>
 <ul class="simple">
 <li>La personne qui à le pouvoir de mettre à jour les CRL (<em>l'updater</em>)
