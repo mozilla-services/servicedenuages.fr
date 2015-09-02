@@ -31,12 +31,16 @@ uniquement. Nous comptons réutiliser ce même fonctionnement dans le futur pour
 la mise à jour d'autres parties de Firefox, et vous pouvez également en tirer
 parti pour d'autres cas d'utilisation.
 
-Nous souhaitons utiliser `Kinto
-<https://kinto.readthedocs.org>`_ afin de distribuer ces jeux de données. Par
-contre, nous ne souhaitons pas que les clients lui fassent confiance
-aveuglément. Effectivement, un attaquant avec la main sur le serveur *Kinto*
-pourrait alors envoyer les mises à jour qu'il souhaite à l'ensemble des
-clients ou supprimer des certificats révoqués. Imaginez le carnage !
+Nous souhaitons utiliser `Kinto <https://kinto.readthedocs.org>`_ afin
+de distribuer ces jeux de données. Un des avantages c'est qu'on peut
+facilement *cacher* les collections derrière un CDN.
+
+Par contre, nous ne souhaitons pas que les clients fassent
+confiance aveuglément, ni au serveur Kinto, ni au CDN.
+
+Effectivement, un attaquant, contrôlant l'un ou l'autre, pourrait
+alors envoyer les mises à jour qu'il souhaite à l'ensemble des clients
+ou supprimer des certificats révoqués. Imaginez le carnage !
 
 Afin de résoudre ce problème, considérons les conditions suivantes:
 
