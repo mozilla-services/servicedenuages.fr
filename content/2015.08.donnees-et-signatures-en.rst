@@ -1,5 +1,5 @@
-Sign collection to ensure data integrity
-#########################################
+Signing collection to ensure data integrity
+###########################################
 
 :date: 2015-08-26
 :summary: How to ensure data integrity to Kinto users using collection hash signature.
