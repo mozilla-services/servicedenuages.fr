@@ -18,12 +18,12 @@ Entre autres, nous souhaitons gérer `la mise à jour des listes de révocation
 <https://blog.mozilla.org/security/2015/03/03/revoking-intermediate-certificates-introducing-onecrl/>`_.
 
 Il est évidemment nécessaire de s'assurer que les données qui sont téléchargées
-sur les client sont légitimes: que personne ne tente d'invalider des
+sur les client sont légitimes : que personne ne tente d'invalider des
 certificats alors qu'ils sont valides, et que l'ensemble des mises à jour sont
 bel et bien récupérées sur le client.
 
-La signature garantie qu'une mise a jour a tous les enregistrements, mais il
-est toujours possible de bloquer l'acces au service (par exemple avec le *china
+La signature garantit qu'une mise à jour contient tous les enregistrements, mais il
+est toujours possible de bloquer l'accès au service (par exemple avec le *china
 great firewall*).
 
 Ce mécanisme fonctionne pour les listes de certificats à révoquer, mais pas
@@ -32,7 +32,7 @@ la mise à jour d'autres parties de Firefox, et vous pouvez également en tirer
 parti pour d'autres cas d'utilisation.
 
 Nous souhaitons utiliser `Kinto <https://kinto.readthedocs.org>`_ afin
-de distribuer ces jeux de données. Un des avantages c'est qu'on peut
+de distribuer ces jeux de données. Un des avantages est que l'on peut
 facilement *cacher* les collections derrière un CDN.
 
 Par contre, nous ne souhaitons pas que les clients fassent
@@ -44,13 +44,13 @@ ou supprimer des certificats révoqués. Imaginez le carnage !
 
 Afin de résoudre ce problème, considérons les conditions suivantes:
 
-- La personne qui à le pouvoir de mettre à jour les CRL (*l'updater*)
-  a acces a une cle de signature (ou mieux, `un HSM
+- La personne qui a le pouvoir de mettre à jour les CRL (*l'updater*)
+  a accès à une cle de signature (ou mieux, `un HSM
   <https://fr.wikipedia.org/wiki/Hardware_Security_Module>`_) qui lui permet de
   signer la collection;
 - Le pendant public de ce certificat est stocké et distribué dans Firefox;
-- Le *hashing* et la *signature* sont faites coté client pour éviter certains
-  vecteurs d'attaque (si un attaquant à la main sur le serveur Kinto par
+- Le *hashing* et la *signature* sont faits côté client pour éviter certains
+  vecteurs d'attaque (si un attaquant a la main sur le serveur Kinto par
   exemple).
 
 Le chiffrement à sens unique, aussi appellé *hashing* est un moyen de toujours
@@ -60,7 +60,7 @@ obtenir le même résultat à partir de la même entrée.
 Premier envoi de données sur Kinto
 ==================================
 
-L'ensemble des données est récupéré depuis une source *sécurisé* puis mis dans
+L'ensemble des données est récupéré depuis une source *sécurisée* puis mis dans
 une collection JSON. Chaque élément contient un identifiant unique généré sur
 le client.
   
@@ -88,7 +88,7 @@ Ensuite, vérifier la signature du *hash*, pour s'assurer que celui-ci provient
 bien d'un tiers de confiance.
 
 Finalement, recalculer le *hash* localement et valider qu'il correspond bien à
-celui qui à été signé.
+celui qui a été signé.
 
 
 Ajouter de nouvelles données
@@ -112,9 +112,9 @@ Pour calculer le *hash* de la collection, il est nécessaire :
    concaténer clé + valeur)
 3. Calculer le *hash* depuis la sérialisation.
 
-Nous sommes encore incertain de comment le hash va être calculé. Les `JSON Web Signature
+Nous sommes encore incertains de la manière dont le hash va être calculé. Les `JSON Web Signature
 <https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41>`_ semblent
-une piste interessante. En attendant, une implementation naïve en python
+une piste intéressante. En attendant, une implementation naïve en python
 pourrait ressembler à ceci :
 
 .. code-block:: python
