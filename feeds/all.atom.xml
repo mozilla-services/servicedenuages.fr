@@ -6,18 +6,18 @@ mises à jour de parties de &lt;em&gt;Firefox&lt;/em&gt; de manière séparée d
 Entre autres, nous souhaitons gérer &lt;a class="reference external" href="https://blog.mozilla.org/security/2015/03/03/revoking-intermediate-certificates-introducing-onecrl/"&gt;la mise à jour des listes de révocation
 (CRL) de certificats SSL&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Il est évidemment nécessaire de s'assurer que les données qui sont téléchargées
-sur les client sont légitimes: que personne ne tente d'invalider des
+sur les client sont légitimes : que personne ne tente d'invalider des
 certificats alors qu'ils sont valides, et que l'ensemble des mises à jour sont
 bel et bien récupérées sur le client.&lt;/p&gt;
-&lt;p&gt;La signature garantie qu'une mise a jour a tous les enregistrements, mais il
-est toujours possible de bloquer l'acces au service (par exemple avec le &lt;em&gt;china
+&lt;p&gt;La signature garantit qu'une mise à jour contient tous les enregistrements, mais il
+est toujours possible de bloquer l'accès au service (par exemple avec le &lt;em&gt;china
 great firewall&lt;/em&gt;).&lt;/p&gt;
 &lt;p&gt;Ce mécanisme fonctionne pour les listes de certificats à révoquer, mais pas
 uniquement. Nous comptons réutiliser ce même fonctionnement dans le futur pour
 la mise à jour d'autres parties de Firefox, et vous pouvez également en tirer
 parti pour d'autres cas d'utilisation.&lt;/p&gt;
 &lt;p&gt;Nous souhaitons utiliser &lt;a class="reference external" href="https://kinto.readthedocs.org"&gt;Kinto&lt;/a&gt; afin
-de distribuer ces jeux de données. Un des avantages c'est qu'on peut
+de distribuer ces jeux de données. Un des avantages est que l'on peut
 facilement &lt;em&gt;cacher&lt;/em&gt; les collections derrière un CDN.&lt;/p&gt;
 &lt;p&gt;Par contre, nous ne souhaitons pas que les clients fassent
 confiance aveuglément, ni au serveur Kinto, ni au CDN.&lt;/p&gt;
@@ -26,19 +26,19 @@ alors envoyer les mises à jour qu'il souhaite à l'ensemble des clients
 ou supprimer des certificats révoqués. Imaginez le carnage !&lt;/p&gt;
 &lt;p&gt;Afin de résoudre ce problème, considérons les conditions suivantes:&lt;/p&gt;
 &lt;ul class="simple"&gt;
-&lt;li&gt;La personne qui à le pouvoir de mettre à jour les CRL (&lt;em&gt;l'updater&lt;/em&gt;)
-a acces a une cle de signature (ou mieux, &lt;a class="reference external" href="https://fr.wikipedia.org/wiki/Hardware_Security_Module"&gt;un HSM&lt;/a&gt;) qui lui permet de
+&lt;li&gt;La personne qui a le pouvoir de mettre à jour les CRL (&lt;em&gt;l'updater&lt;/em&gt;)
+a accès à une cle de signature (ou mieux, &lt;a class="reference external" href="https://fr.wikipedia.org/wiki/Hardware_Security_Module"&gt;un HSM&lt;/a&gt;) qui lui permet de
 signer la collection;&lt;/li&gt;
 &lt;li&gt;Le pendant public de ce certificat est stocké et distribué dans Firefox;&lt;/li&gt;
-&lt;li&gt;Le &lt;em&gt;hashing&lt;/em&gt; et la &lt;em&gt;signature&lt;/em&gt; sont faites coté client pour éviter certains
-vecteurs d'attaque (si un attaquant à la main sur le serveur Kinto par
+&lt;li&gt;Le &lt;em&gt;hashing&lt;/em&gt; et la &lt;em&gt;signature&lt;/em&gt; sont faits côté client pour éviter certains
+vecteurs d'attaque (si un attaquant a la main sur le serveur Kinto par
 exemple).&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Le chiffrement à sens unique, aussi appellé &lt;em&gt;hashing&lt;/em&gt; est un moyen de toujours
 obtenir le même résultat à partir de la même entrée.&lt;/p&gt;
 &lt;div class="section" id="premier-envoi-de-donnees-sur-kinto"&gt;
 &lt;h2&gt;Premier envoi de données sur Kinto&lt;/h2&gt;
-&lt;p&gt;L'ensemble des données est récupéré depuis une source &lt;em&gt;sécurisé&lt;/em&gt; puis mis dans
+&lt;p&gt;L'ensemble des données est récupéré depuis une source &lt;em&gt;sécurisée&lt;/em&gt; puis mis dans
 une collection JSON. Chaque élément contient un identifiant unique généré sur
 le client.&lt;/p&gt;
 &lt;p&gt;Par exemple, un enregistrement peut ressembler à :&lt;/p&gt;
@@ -57,7 +57,7 @@ le serveur, ainsi que le &lt;em&gt;hash&lt;/em&gt; et la signature associée.&lt
 &lt;p&gt;Ensuite, vérifier la signature du &lt;em&gt;hash&lt;/em&gt;, pour s'assurer que celui-ci provient
 bien d'un tiers de confiance.&lt;/p&gt;
 &lt;p&gt;Finalement, recalculer le &lt;em&gt;hash&lt;/em&gt; localement et valider qu'il correspond bien à
-celui qui à été signé.&lt;/p&gt;
+celui qui a été signé.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="ajouter-de-nouvelles-donnees"&gt;
 &lt;h2&gt;Ajouter de nouvelles données&lt;/h2&gt;
@@ -76,8 +76,8 @@ d'envoyer à nouveau le &lt;em&gt;hash&lt;/em&gt; de la collection au serveur.&l
 concaténer clé + valeur)&lt;/li&gt;
 &lt;li&gt;Calculer le &lt;em&gt;hash&lt;/em&gt; depuis la sérialisation.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;Nous sommes encore incertain de comment le hash va être calculé. Les &lt;a class="reference external" href="https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41"&gt;JSON Web Signature&lt;/a&gt; semblent
-une piste interessante. En attendant, une implementation naïve en python
+&lt;p&gt;Nous sommes encore incertains de la manière dont le hash va être calculé. Les &lt;a class="reference external" href="https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41"&gt;JSON Web Signature&lt;/a&gt; semblent
+une piste intéressante. En attendant, une implementation naïve en python
 pourrait ressembler à ceci :&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;json&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;hashlib&lt;/span&gt;
