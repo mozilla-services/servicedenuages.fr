@@ -9,7 +9,8 @@ End-to-end encryption using Kinto.js
 
 A guest post this time, by Michiel de Jong from the Firefox OS team! :)
 
-As a first step in the Firefox OS "Data Sync" project, we're working on
+As a first step in the Firefox OS
+"[Data Sync](https://wiki.mozilla.org/Firefox_OS_Data_Sync)" project, we're working on
 integrating Firefox OS with the Firefox Sync service that has already existed
 for years in Firefox Desktop, and which is also supported by Firefox Android
 and Firefox iOS. Adding Firefox OS to this family is an exciting challenge,
@@ -17,24 +18,28 @@ because one of the philosophical goals of Firefox OS is to push the web as a
 platform for mobile apps, and we try to use the web platform wherever we can.
 
 Data Sync is no exception there, and it turns out that with a combination of
-Kinto.js and WebCrypto, we were already able to build a
+[Kinto.js](https://github.com/Kinto/kinto.js) and
+[WebCrypto](http://www.w3.org/TR/WebCryptoAPI/), we were already able to build a
 [working proof-of-concept](https://www.youtube.com/watch?v=BEYgx5chun0)
-at the Next-Generation-Architecture workweek last month.
+at the Next-Generation-Architecture workweek in Paris last month.
 
 To connect with the Firefox Sync Server, we use an in-between translating proxy
 called [Syncto](https://github.com/mozilla-services/syncto), which translates
-between the Kinto protocol in the front, and the SyncStorage protocol in the
-back. The Firefox Accounts credentials are still obtained by Gecko-layer code,
-but we hope to move this part of the code into the web-based Gaia-layer soon too.
+between the [Kinto protocol](http://kinto.readthedocs.org/en/latest/api/index.html)
+in the front, and the
+[SyncStorage protocol](https://docs.services.mozilla.com/storage/apis-1.5.html)
+in the back. The Firefox Accounts credentials are still obtained
+[by Gecko-layer code](https://developer.mozilla.org/en-US/docs/Firefox-Accounts-on-FirefoxOS),
+but we hope to move some of the code into the web-based Gaia-layer soon too.
 
 Data that is retrieved from Firefox Sync is decrypted as soon as it comes in,
 and stored unencrypted inside Kinto.js, for fast access and easy updating. When
-changes are pushed out to the remote server, it is encrypted (again), just
+changes are pushed out to the remote server, it is encrypted again, just
 before it leaves the JavaScript sandbox.
 
 The way we tell Kinto.js that we want to use encryption, and provide our own
 "encode" and "decode" procedures, is quite simple. When creating a Kinto
-collection, we pass a remoteTransformer as a collection-level option:
+collection, we pass a RemoteTransformer as a collection-level option:
 
 .. code-block:: javascript
   let kinto = new Kinto({
@@ -83,8 +88,9 @@ collection, we pass a remoteTransformer as a collection-level option:
 
 The encryption happens in a little piece of code called FxSyncWebCrypto, which
 basically uses WebCrypto to implement encrypting and decrypting Firefox Sync
-records. Its API is not exactly like in the example above but you can see it in
-Gaia,
+records. Its API is not exactly like in the example above, and the Sync app of
+which it forms part is still a work-in-progress, but you can already see it in
+Gaia master,
 [here](https://github.com/mozilla-b2g/gaia/tree/master/apps/sync/js/crypto).
 The calls it uses from WebCrypto's window.crypto.subtle API are:
 
