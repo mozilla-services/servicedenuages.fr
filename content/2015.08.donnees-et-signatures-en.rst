@@ -118,7 +118,7 @@ We do not yet know the exact algorithm that we will be using.
 
 An interesting candidate could be the `JSON Web Signature
 <https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41>`_
-standard. Meanwhile, a naïve Python implementation could look like
+standard. Meanwhile, a naive Python implementation could look like
 this:
 
 .. code-block:: python
