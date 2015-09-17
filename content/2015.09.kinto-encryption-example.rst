@@ -6,6 +6,7 @@ How to encrypt data with Kinto.js
 :slug: kinto-encryption-example
 :lang: en
 :url: kinto-encryption-example
+:scripts: kinto1.0.rc3.min.js, kinto-encryption-example.js
 
 A guest post this time, by
 `Michiel de Jong <https://michielbdejong.com/>`_ from the Firefox OS team! Sorry for

@@ -2,7 +2,7 @@
 {% block title %}{{ article.title|striptags }} // {{ super() }}{% endblock title %}
 
 {% block head_css %}
-    <link rel="stylesheet" href="{{ SITEURL }}/theme/css/pygments.css">
+    <link rel="stylesheet" href="{{ main_siteurl }}/theme/css/pygments.css">
 {% endblock %}
 
 {% block head_js %}
@@ -33,7 +33,7 @@
                     <h1>{{ article.title }}</h1>
                     {% if article.tags %}
                         <p class="post-meta">{% for tag in article.tags %}
-                                <a class="post-category" href="{{ SITEURL }}/{{ tag.url }}">{{ tag }}</a>
+                                <a class="post-category" href="{{ main_siteurl }}/{{ tag.url }}">{{ tag }}</a>
                             {% endfor %}
                         </p>
                     {% endif %}
@@ -58,4 +58,9 @@
         </div>
     </div>
 </div>
+{% if article.scripts %}
+{% for script in article.scripts.split(', ') %}
+  <script src="{{main_siteurl}}/scripts/{{script}}"></script>
+{% endfor %}
+{% endif %}
 {% endblock  %}

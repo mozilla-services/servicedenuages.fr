@@ -39,7 +39,7 @@ MENUITEMS = (
     ('Archives', 'archives.html'),
     (u'À propos', 'pages/a-propos.html'),
 )
-STATIC_PATHS = ['images', 'documents', 'extra/CNAME', 'presentations']
+STATIC_PATHS = ['images', 'documents', 'extra/CNAME', 'presentations', 'scripts']
 EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'}}
 
 ARTICLE_URL = '{url}.html'
