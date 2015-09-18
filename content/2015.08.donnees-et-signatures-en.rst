@@ -140,3 +140,4 @@ Here is a little sketch to summarise:
 
 .. image:: {filename}/images/kinto-signing.jpg
     :align: center
+    :alt: Summary schema of the collection signing flow.

@@ -136,3 +136,4 @@ Enfin, un schéma pour résumer !
 
 .. image:: {filename}/images/kinto-signing.jpg
     :align: center
+    :alt: Schema résumant le processus de signature de la collection.
