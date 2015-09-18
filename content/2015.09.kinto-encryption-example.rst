@@ -8,9 +8,8 @@ How to encrypt data with Kinto.js
 :url: kinto-encryption-example
 :scripts: kinto-61ad959.min.js, kinto-encryption-example.js
 
-A guest post this time, by
-`Michiel de Jong <https://michielbdejong.com/>`_ from the Firefox OS team! Sorry for
-writing in English. :)
+A guest post this time, by `Michiel de Jong <https://michielbdejong.com/>`_
+from the Firefox OS team!
 
 If you want to encrypt data that is uploaded to the cloud by an offline-first app,
 it makes sense to keep the local copy of the data in-the-clear, and encrypt the
@@ -145,8 +144,7 @@ the data that is passed through the ``RemoteTransformer``:
 We create two Kinto instances, so that we can test syncing from one instance
 to the other, via the public Kinto demo instance on AWS. Creating multiple Kinto
 instances within the same origin is now possible with the recently added
-``dbPrefix``
-option:
+``dbPrefix`` option:
 
 .. code-block:: JavaScript
 
