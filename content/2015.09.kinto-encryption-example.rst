@@ -199,9 +199,7 @@ browser console):
 And sync it down from the cloud again using collection 2. Again, the data
 coming in on the wire should be encrypted, but the decrypted results should
 show up in the sync results. And finally, a 'go()' method to put it all together.
-Try calling this method from your browser console on
-`the gh-pages app <http://michielbdejong.github.io/kinto-encryption-example/>`_
-to try it out!
+Try calling this method from your browser console on this page to try it out!
 
 .. code-block:: JavaScript
 
