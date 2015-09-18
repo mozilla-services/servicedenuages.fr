@@ -6,7 +6,7 @@ How to encrypt data with Kinto.js
 :slug: kinto-encryption-example
 :lang: en
 :url: kinto-encryption-example
-:scripts: kinto1.0.rc3.min.js, kinto-encryption-example.js
+:scripts: kinto-61ad959.min.js, kinto-encryption-example.js
 
 A guest post this time, by
 `Michiel de Jong <https://michielbdejong.com/>`_ from the Firefox OS team! Sorry for
@@ -50,7 +50,8 @@ The way we tell Kinto.js that we want to use our custom
 ``encode`` and ``decode`` procedures, is quite simple. When creating a Kinto
 collection, we pass a ``RemoteTransformer`` as a collection-level option. The full
 code example is
-`on github <http://michielbdejong.github.io/kinto-encryption-example/app.js>`_,
+`here </scripts/kinto-encryption-example.js>`_ (note that it only works with
+`latest Kinto.js master </scripts/kinto-61ad959.min.js>`_),
 but let's walk through the code step-by-step.
 
 If you're unfamiliar with ES6, you may be surprised by some of this syntax; so let's
@@ -180,7 +181,8 @@ Now, let's test if we can create an item in collection 1, sync it up (the data
 should be encrypted on the wire, we can check that on the Network tab of the
 browser console):
 
-.. image:: /images/kinto-encryption-example-network-tab.png
+.. image:: {filename}/images/kinto-encryption-example-network-tab.png
+   :alt: Network tab screenshot
 
 .. code-block:: JavaScript
 
@@ -199,7 +201,9 @@ browser console):
 And sync it down from the cloud again using collection 2. Again, the data
 coming in on the wire should be encrypted, but the decrypted results should
 show up in the sync results. And finally, a 'go()' method to put it all together.
-Try calling this method from your browser console on this page to try it out!
+
+The full source code is included in a script tag on this page you're reading right
+now, so go ahead and try opening your browser console on this page to try it out!
 
 .. code-block:: JavaScript
 
@@ -218,11 +222,7 @@ Try calling this method from your browser console on this page to try it out!
         return syncDown();
       }).then(a => console.log('Success', a), b => console.error('Failure', b));
     };
-
-You can see the full source code by clicking 'View source' on
-`the gh-pages app <http://michielbdejong.github.io/kinto-encryption-example/>`_,
-or by checking out
-`the github repo <https://github.com/michielbdejong/kinto-encryption-example>`_.
+    console.log('Type go(); to start!');
 
 Hope you are as excited about Kinto.js as I am, comments below this blogpost
 and github issues on the example code very welcome! :)

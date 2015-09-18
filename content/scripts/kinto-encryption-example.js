@@ -23,7 +23,7 @@ const byteArrayToBase64String = (buffer) => {
 const generateAesKey = () => {
   // See http://www.w3.org/TR/WebCryptoAPI/#examples-symmetric-encryption
   return window.crypto.subtle.generateKey({ name: 'AES-CBC', length: 128 },
-      false, ['encrypt', 'decrypt']);
+       false, ['encrypt', 'decrypt']);
 };
 
 const createTransformer = (aesKey) => {
@@ -53,9 +53,6 @@ const createTransformer = (aesKey) => {
     }, () => {
       record.undecryptable = true;
       return record;
-    }, () => {
-      record.undecryptable = true;
-      return record;
     });
   };
 
@@ -75,7 +72,7 @@ const createCollection = (transformer, testRun, instanceNo) => {
     }
   });
 
-  return kinto.collection(`kinto-encrypter-les-donnees-${testRun}`, {
+  return kinto.collection(`kinto-encryption-example-${testRun}`, {
     remoteTransformers: [ transformer ]
   });
 };
@@ -119,3 +116,4 @@ const go = () => {
     return syncDown();
   }).then(a => console.log('Success', a), b => console.error('Failure', b));
 };
+console.log('Type go(); to start!');
