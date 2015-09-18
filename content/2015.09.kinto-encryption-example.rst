@@ -1,0 +1,226 @@
+How to encrypt data with Kinto.js
+#################################
+
+:date: 2015-09-16
+:summary: How to encrypt data with Kinto.js.
+:slug: kinto-encryption-example
+:lang: en
+:url: kinto-encryption-example
+:scripts: kinto-61ad959.min.js, kinto-encryption-example.js
+
+A guest post this time, by `Michiel de Jong <https://michielbdejong.com/>`_
+from the Firefox OS team!
+
+If you want to encrypt data that is uploaded to the cloud by an offline-first app,
+it makes sense to keep the local copy of the data in-the-clear, and encrypt the
+data only just before it is uploaded. That way, you can easily and efficiently display
+and update the local copy of the data, without the repeated cost of encrypting
+and decrypting everything all the time. Likewise, you only need to decrypt incoming data
+once, when it's downloaded, and your app can then display the data as often as
+needed without extra processing costs.
+
+Syncing data to and from "the cloud" is a science in itself, and
+`Kinto.js <https://github.com/Kinto/kinto.js>`_ is a brilliant tool for this, developed
+by the equally brilliant Mozilla Services team. It's nearing its 1.0 release, and you'll
+hear a lot more about it on this blog in the future.
+
+It so happens that Kinto.js now supports
+`RemoteTransformers <http://kintojs.readthedocs.org/en/latest/api/#transformers>`_,
+which are superhandy for any type of transformation you may want to do on your data
+before it is saved into the locally cached copy (``RemoteTransformer#decode``), and before it is uploaded to the
+remote server (``RemoteTransformer#encode``).
+
+This blogpost shows how to use a ``RemoteTransformer`` for encrypting your data just
+before it's sent to the cloud. It uses WebCrypto for the cryptography.
+
+Note that I am not a security expert and this is just an example I wrote in an afternoon, so
+if you're going to copy-paste this code, please don't use it for anything
+valuable without doing your own proper security review first! :) For instance, it does
+not do any key stretching or signing/verifying, it's just a very basic encrypt/decrypt
+proof-of-concept.
+
+The main idea behind a ``RemoteTransformer`` is that you provide two functions,
+``encode`` and ``decode``, and Kinto.js makes sure to call the encode function on
+each record that gets uploaded, and to call the decode function on each record
+that gets downloaded. You can also read about this
+`in the Kinto.js documentation <http://kintojs.readthedocs.org/en/latest/api/#transformers>`_.
+
+The way we tell Kinto.js that we want to use our custom
+``encode`` and ``decode`` procedures, is quite simple. When creating a Kinto
+collection, we pass a ``RemoteTransformer`` as a collection-level option. The full
+code example is
+`here </scripts/kinto-encryption-example.js>`_ (note that it only works with
+`latest Kinto.js master </scripts/kinto-61ad959.min.js>`_),
+but let's walk through the code step-by-step.
+
+If you're unfamiliar with ES6, you may be surprised by some of this syntax; so let's
+take this opportunity to get used to it! Here's a little translation:
+
+- `() => {} <http://babeljs.io/docs/learn-es2015/#arrows-and-lexical-this>`_ is similar to ``(function() {}).bind(this)``.
+- `const foo = 'bar'; let foo = 'bar'; <http://babeljs.io/docs/learn-es2015/#let-const>`_ are similar to ``var foo = 'bar'``.
+- `{ a, b } <http://babeljs.io/docs/learn-es2015/#enhanced-object-literals>`_ is similar to ``{ a: a, b: b }``.
+- `\`Hello ${foo}\` <http://babeljs.io/docs/learn-es2015/#template-strings>`_ (note the backticks) is similar to ``'Hello ' + foo``.
+
+First, we need a few helper functions, which will be used later on to convert between
+`byte arrays <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays>`_
+and ASCII strings.
+
+.. code-block:: JavaScript
+
+    // Helper functions:
+    const rawStringToByteArray = (str) => {
+      const strLen = str.length;
+      var byteArray = new Uint8Array(strLen);
+      for (var i = 0; i < strLen; i++) {
+        byteArray[i] = str.charCodeAt(i);
+      }
+      return byteArray;
+    };
+    const base64StringToByteArray = (base64) => {
+      return rawStringToByteArray(window.atob(base64));
+    };
+    const byteArrayToBase64String = (buffer) => {
+      var bytes = new Uint8Array(buffer);
+      var binary = '';
+      for (var i=0; i<bytes.byteLength; i++) {
+          binary += String.fromCharCode(bytes[i]);
+      }
+      return window.btoa(binary);
+    };
+
+Next, we need to create a ``RemoteTransformer`` that can encode and decode records. And for
+that, we need to generate an
+`AES <https://en.wikipedia.org/wiki/Advanced_Encryption_Standard>`_ key.
+`WebCrypto <https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto>`_ is a
+fairly new part of `the web platform <https://platform.html5.org/>`_ and it's awesome.
+We will use that key to encrypt and decrypt
+the data that is passed through the ``RemoteTransformer``:
+
+.. code-block:: JavaScript
+
+    // RemoteTransformer:
+    const generateAesKey = () => {
+      // See http://www.w3.org/TR/WebCryptoAPI/#examples-symmetric-encryption
+      return window.crypto.subtle.generateKey({ name: 'AES-CBC', length: 128 },
+           false, ['encrypt', 'decrypt']);
+    };
+
+    const createTransformer = (aesKey) => {
+      const encode = (record) => {
+        const cleartext = rawStringToByteArray(JSON.stringify(record));
+        const IV = window.crypto.getRandomValues(new Uint8Array(16));
+
+        return window.crypto.subtle.encrypt({ name: 'AES-CBC', iv: IV }, aesKey,
+            cleartext).then(ciphertext => {
+          return {
+            id: record.id,
+            ciphertext: byteArrayToBase64String(new Uint8Array(ciphertext)),
+            IV: byteArrayToBase64String(IV)
+          };
+        });
+      };
+
+      const decode = (record) => {
+        const ciphertext = base64StringToByteArray(record.ciphertext);
+        const IV = base64StringToByteArray(record.IV);
+
+        return crypto.subtle.decrypt({ name: 'AES-CBC', iv: IV }, aesKey,
+            ciphertext).then(recordArrayBuffer => {
+
+          return JSON.parse(String.fromCharCode.apply(null,
+              new Uint8Array(recordArrayBuffer)));
+        }, () => {
+          record.undecryptable = true;
+          return record;
+        });
+      };
+
+      return {
+        encode,
+        decode
+      };
+    };
+
+We create two Kinto instances, so that we can test syncing from one instance
+to the other, via the public Kinto demo instance on AWS. Creating multiple Kinto
+instances within the same origin is now possible with the recently added
+``dbPrefix`` option:
+
+.. code-block:: JavaScript
+
+    // Kinto collection:
+    const createCollection = (transformer, testRun, instanceNo) => {
+      const kinto = new Kinto({
+        dbPrefix: `${testRun}-${instanceNo}`,
+        remote: 'https://kinto.dev.mozaws.net/v1/',
+        headers: {
+          Authorization: 'Basic ' + btoa('public-demo:s3cr3t')
+        }
+      });
+
+      return kinto.collection(`kinto-encryption-example-${testRun}`, {
+        remoteTransformers: [ transformer ]
+      });
+    };
+
+    var coll1, coll2;
+    const prepare = () => {
+      return generateAesKey().then(aesKey => {
+        return createTransformer(aesKey);
+      }).then(transformer => {
+        // Create two fresh empty Kinto instances for testing:
+        const testRun = new Date().getTime().toString();
+        coll1 = createCollection(transformer, testRun, 1);
+        coll2 = createCollection(transformer, testRun, 2);
+      });
+    };
+
+Now, let's test if we can create an item in collection 1, sync it up (the data
+should be encrypted on the wire, we can check that on the Network tab of the
+browser console):
+
+.. image:: {filename}/images/kinto-encryption-example-network-tab.png
+   :alt: Network tab screenshot
+
+.. code-block:: JavaScript
+
+    const syncUp = () => {
+      // Use first Kinto instance to demonstrate encryption:
+      return coll1.create({
+        URL: 'http://www.w3.org/TR/WebCryptoAPI/',
+        name: 'Web Cryptography API'
+      }).then(() => {
+        return coll1.sync();
+      }).then(syncResults => {
+        console.log('Sync up', syncResults);
+      });
+    };
+
+And sync it down from the cloud again using collection 2. Again, the data
+coming in on the wire should be encrypted, but the decrypted results should
+show up in the sync results. And finally, a 'go()' method to put it all together.
+
+The full source code is included in a script tag on this page you're reading right
+now, so go ahead and try opening your browser console on this page to try it out!
+
+.. code-block:: JavaScript
+
+    const syncDown = () => {
+      // Use second Kinto instance to demonstrate decryption:
+      return coll2.sync().then(syncResults => {
+        console.log('Sync down', syncResults);
+      });
+    };
+
+    const go = () => {
+      console.log('Watch the Network tab!');
+      return prepare().then(() => {
+        return syncUp();
+      }).then(() => {
+        return syncDown();
+      }).then(a => console.log('Success', a), b => console.error('Failure', b));
+    };
+    console.log('Type go(); to start!');
+
+Hope you are as excited about Kinto.js as I am, comments below this blogpost
+and github issues on the example code very welcome! :)
