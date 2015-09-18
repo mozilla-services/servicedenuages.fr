@@ -36,7 +36,7 @@ before it's sent to the cloud. It uses WebCrypto for the cryptography.
 Note that I am not a security expert and this is just an example I wrote in an afternoon, so
 if you're going to copy-paste this code, please don't use it for anything
 valuable without doing your own proper security review first! :) For instance, it does
-not do any key stretching or signing/verifying, it's just a very basic encrypt/decrypt
+not do any key stretching etcetera, it's just a very basic encrypt/decrypt
 proof-of-concept.
 
 The main idea behind a ``RemoteTransformer`` is that you provide two functions,
@@ -101,7 +101,7 @@ the data that is passed through the ``RemoteTransformer``:
     // RemoteTransformer:
     const generateAesKey = () => {
       // See http://www.w3.org/TR/WebCryptoAPI/#examples-symmetric-encryption
-      return window.crypto.subtle.generateKey({ name: 'AES-CBC', length: 128 },
+      return window.crypto.subtle.generateKey({ name: 'AES-GCM', length: 128 },
            false, ['encrypt', 'decrypt']);
     };
 
@@ -110,7 +110,7 @@ the data that is passed through the ``RemoteTransformer``:
         const cleartext = rawStringToByteArray(JSON.stringify(record));
         const IV = window.crypto.getRandomValues(new Uint8Array(16));
 
-        return window.crypto.subtle.encrypt({ name: 'AES-CBC', iv: IV }, aesKey,
+        return window.crypto.subtle.encrypt({ name: 'AES-GCM', iv: IV }, aesKey,
             cleartext).then(ciphertext => {
           return {
             id: record.id,
@@ -124,7 +124,7 @@ the data that is passed through the ``RemoteTransformer``:
         const ciphertext = base64StringToByteArray(record.ciphertext);
         const IV = base64StringToByteArray(record.IV);
 
-        return crypto.subtle.decrypt({ name: 'AES-CBC', iv: IV }, aesKey,
+        return crypto.subtle.decrypt({ name: 'AES-GCM', iv: IV }, aesKey,
             ciphertext).then(recordArrayBuffer => {
 
           return JSON.parse(String.fromCharCode.apply(null,

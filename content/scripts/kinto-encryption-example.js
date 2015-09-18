@@ -22,7 +22,7 @@ const byteArrayToBase64String = (buffer) => {
 // RemoteTransformer:
 const generateAesKey = () => {
   // See http://www.w3.org/TR/WebCryptoAPI/#examples-symmetric-encryption
-  return window.crypto.subtle.generateKey({ name: 'AES-CBC', length: 128 },
+  return window.crypto.subtle.generateKey({ name: 'AES-GCM', length: 128 },
        false, ['encrypt', 'decrypt']);
 };
 
@@ -31,7 +31,7 @@ const createTransformer = (aesKey) => {
     const cleartext = rawStringToByteArray(JSON.stringify(record));
     const IV = window.crypto.getRandomValues(new Uint8Array(16));
 
-    return window.crypto.subtle.encrypt({ name: 'AES-CBC', iv: IV }, aesKey,
+    return window.crypto.subtle.encrypt({ name: 'AES-GCM', iv: IV }, aesKey,
         cleartext).then(ciphertext => {
       return {
         id: record.id,
@@ -45,7 +45,7 @@ const createTransformer = (aesKey) => {
     const ciphertext = base64StringToByteArray(record.ciphertext);
     const IV = base64StringToByteArray(record.IV);
 
-    return crypto.subtle.decrypt({ name: 'AES-CBC', iv: IV }, aesKey,
+    return crypto.subtle.decrypt({ name: 'AES-GCM', iv: IV }, aesKey,
         ciphertext).then(recordArrayBuffer => {
 
       return JSON.parse(String.fromCharCode.apply(null,
