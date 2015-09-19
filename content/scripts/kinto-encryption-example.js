@@ -111,8 +111,8 @@ const syncDown = () => {
 const go = () => {
   console.log('Watch the Network tab!');
   return prepare()
-      .then(syncUp())
-      .then(syncDown())
+      .then(syncUp)
+      .then(syncDown)
       .then(a => console.log('Success', a),
             b => console.error('Failure', b));
 };

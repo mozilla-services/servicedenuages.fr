@@ -215,8 +215,8 @@ now, so go ahead and try opening your browser console on this page to try it out
     const go = () => {
       console.log('Watch the Network tab!');
       return prepare()
-          .then(syncUp())
-          .then(syncDown())
+          .then(syncUp)
+          .then(syncDown)
           .then(a => console.log('Success', a),
                 b => console.error('Failure', b));
     };
