@@ -1,8 +1,8 @@
 // Helper functions:
 const rawStringToByteArray = (str) => {
   const strLen = str.length;
-  let byteArray = new Uint8Array(strLen);
-  for (let i = 0; i < strLen; i++) {
+  var byteArray = new Uint8Array(strLen);
+  for (var i = 0; i < strLen; i++) {
     byteArray[i] = str.charCodeAt(i);
   }
   return byteArray;
@@ -11,9 +11,9 @@ const base64StringToByteArray = (base64) => {
   return rawStringToByteArray(window.atob(base64));
 };
 const byteArrayToBase64String = (buffer) => {
-  let bytes = new Uint8Array(buffer);
-  let binary = '';
-  for (let i=0; i<bytes.byteLength; i++) {
+  var bytes = new Uint8Array(buffer);
+  var binary = '';
+  for (var i=0; i<bytes.byteLength; i++) {
       binary += String.fromCharCode(bytes[i]);
   }
   return window.btoa(binary);
@@ -77,7 +77,7 @@ const createCollection = (transformer, testRun, instanceNo) => {
   });
 };
 
-let coll1, coll2;
+var coll1, coll2;
 const prepare = () => {
   return generateAesKey().then(aesKey => {
     return createTransformer(aesKey);
