@@ -1,8 +1,8 @@
 // Helper functions:
 const rawStringToByteArray = (str) => {
   const strLen = str.length;
-  var byteArray = new Uint8Array(strLen);
-  for (var i = 0; i < strLen; i++) {
+  let byteArray = new Uint8Array(strLen);
+  for (let i = 0; i < strLen; i++) {
     byteArray[i] = str.charCodeAt(i);
   }
   return byteArray;
@@ -11,9 +11,9 @@ const base64StringToByteArray = (base64) => {
   return rawStringToByteArray(window.atob(base64));
 };
 const byteArrayToBase64String = (buffer) => {
-  var bytes = new Uint8Array(buffer);
-  var binary = '';
-  for (var i=0; i<bytes.byteLength; i++) {
+  let bytes = new Uint8Array(buffer);
+  let binary = '';
+  for (let i=0; i<bytes.byteLength; i++) {
       binary += String.fromCharCode(bytes[i]);
   }
   return window.btoa(binary);
@@ -77,7 +77,7 @@ const createCollection = (transformer, testRun, instanceNo) => {
   });
 };
 
-var coll1, coll2;
+let coll1, coll2;
 const prepare = () => {
   return generateAesKey().then(aesKey => {
     return createTransformer(aesKey);
@@ -110,10 +110,10 @@ const syncDown = () => {
 
 const go = () => {
   console.log('Watch the Network tab!');
-  return prepare().then(() => {
-    return syncUp();
-  }).then(() => {
-    return syncDown();
-  }).then(a => console.log('Success', a), b => console.error('Failure', b));
+  return prepare()
+      .then(syncUp())
+      .then(syncDown())
+      .then(a => console.log('Success', a),
+            b => console.error('Failure', b));
 };
 console.log('Type go(); to start!');
