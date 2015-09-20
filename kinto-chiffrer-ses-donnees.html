@@ -1,0 +1,328 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>Comment chiffrer ses données avec Kinto.js // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Publié</h5>
+                <p title="~1023 mots">~5mn de lecture 🕑</p>
+                <p>mer. 16 septembre 2015</p>
+                <a href="/">&larr;Liste des articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Comment chiffrer ses données avec Kinto.js</h1>
+                </header>
+            </section>
+                        <p><a href="http://www.servicedenuages.fr/en/kinto-encryption-example">Read the English version</a></p>
+            <div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">Traduit de l'anglais par <a class="reference external" href="https://twitter.com/Natim">Rémy Hubscher</a>.</p>
+</div>
+<p>Voici un article rédigé par <a class="reference external" href="https://michielbdejong.com/">Michiel de Jong</a> de l'équipe Firefox OS.</p>
+<p>Lorsqu'on souhaite sauvegarder les données d'une application
+"Offline-first" (qui fonctionne normalement hors connexion) de manière
+chiffrée dans le cloud, il est raisonnable de les garder déchiffrées
+localement et de les chiffrer uniquement avant de les téléverser vers
+un serveur distant.</p>
+<p>Ainsi, il est facile et efficace d'y accéder pour les afficher ou
+mettre à jour la copie locale, sans avoir le coût répété de les
+chiffrer/déchiffrer à chaque opération.</p>
+<p>De la même manière, on peut déchiffrer les données venant du serveur
+une seule fois, tout de suite après les avoir téléchargées et
+l'application peut ensuite afficher les données aussi souvent que
+nécessaire sans coût de calculs supplémentaires.</p>
+<p>Synchroniser les données d'une telle application vers et depuis "le
+cloud" est une science en elle-même et <a class="reference external" href="https://github.com/Kinto/kinto.js">Kinto.js</a> est un outil brillant pour le
+faire, développé par la toute aussi brillante équipe du Service de
+nuages de Mozilla. La release 1.0 ne devrait plus tarder et vous en
+saurez sûrement plus sur ce blog très prochainement.</p>
+<p>Il se trouve que Kinto.js supporte maintenant les <a class="reference external" href="http://kintojs.readthedocs.org/en/latest/api/#transformers">RemoteTransformers</a>, qui
+permettent de manière très simple d'appliquer n'importe quel type de
+transformations que vous souhaitez faire sur les enregistrements d'une
+collection avant qu'ils ne soient stockés dans la base de données
+locale (<tt class="docutils literal">RemoteTransformer#decode</tt>) mais aussi avant qu'ils ne
+soient sauvegardés sur le serveur distant
+(<tt class="docutils literal">RemoteTransformer#encode</tt>).</p>
+<p>Cet article de blog montre comment utiliser un <tt class="docutils literal">RemoteTransformer</tt>
+pour chiffrer vos données juste avant de les envoyer dans les
+nuages. De plus nous utilisons l'API
+<a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto">WebCrypto</a>
+pour la partie cryptographie.</p>
+<p>Notez que je ne suis pas un expert en sécurité et que ce code est
+simplement un exemple écrit en une après-midi. Si vous copiez/collez
+ce code, ne l'utilisez pas pour quoi que ce soit de sensible sans
+avoir fait votre propre revue de sécurité au préalable ! :) Par
+exemple il n'y a aucune dérivation de la clé de chiffrement, etc.,
+c'est uniquement un chiffrement/déchiffrement très basique pour la
+démonstration.</p>
+<p>L'idée derrière un <tt class="docutils literal">RemoteTransformer</tt> c'est d'exposer deux
+fonctions, <tt class="docutils literal">encode</tt> et <tt class="docutils literal">decode</tt>, et Kinto.js s'assure d'appeler la
+fonction <tt class="docutils literal">encode</tt> sur chaque enregistrement qui est téléversé dans
+le cloud et d'appeler <tt class="docutils literal">decode</tt> sur chaque enregistrement
+téléchargé. Vous pouvez en lire plus à ce sujet
+<a class="reference external" href="http://kintojs.readthedocs.org/en/latest/api/#transformers">dans la documentation de Kinto.js</a>.</p>
+<p>La manière dont nous indiquons à Kinto.js d'utiliser nos fonctions
+<tt class="docutils literal">encode</tt> et <tt class="docutils literal">decode</tt> est assez simple. Lorsqu'on créé une
+collection Kinto, on passe en paramètre un <tt class="docutils literal">RemoteTransformer</tt>. Le
+code d'exemple complet se trouve <a class="reference external" href="http://www.servicedenuages.fr/scripts/kinto-encryption-example.js">ici</a>
+(notez qu'il ne fonctionne pour l'instant qu'avec
+<a class="reference external" href="http://www.servicedenuages.fr/scripts/kinto-61ad959.min.js">la dernière version de Kinto.js master</a>),
+mais regardons le code étape par étape.</p>
+<p>Si vous n'êtes pas familier avec ES6, vous pouvez être un peu surpris par sa syntaxe ; utilisons cette opportunité pour nous y habituer ! Voici une petite table de correspondance :</p>
+<ul class="simple">
+<li><a class="reference external" href="http://babeljs.io/docs/learn-es2015/#arrows-and-lexical-this">() =&gt; {}</a> correspond à <tt class="docutils literal">(function() <span class="pre">{}).bind(this)</span></tt>.</li>
+<li><a class="reference external" href="http://babeljs.io/docs/learn-es2015/#let-const">const foo = 'bar'; let foo = 'bar';</a> correspondent à <tt class="docutils literal">var foo = 'bar'</tt>.</li>
+<li><a class="reference external" href="http://babeljs.io/docs/learn-es2015/#enhanced-object-literals">{ a, b }</a> correspond à <tt class="docutils literal">{ a: a, b: b }</tt>.</li>
+<li><a class="reference external" href="http://babeljs.io/docs/learn-es2015/#template-strings">`Hello ${foo}`</a> (notez les backticks) correspond à <tt class="docutils literal">'Hello ' + foo</tt>.</li>
+</ul>
+<p>Pour commencer, nous avons besoin de quelques fonctions utilitaires
+que nous utiliserons plus tard pour convertir des <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays">byte arrays</a>
+en chaînes de caractères ASCII et inversemment.</p>
+<div class="highlight"><pre><span class="c1">// Helper functions:</span>
+<span class="kr">const</span> <span class="nx">rawStringToByteArray</span> <span class="o">=</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">strLen</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">byteArray</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Uint8Array</span><span class="p">(</span><span class="nx">strLen</span><span class="p">);</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">strLen</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">byteArray</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nx">byteArray</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="kr">const</span> <span class="nx">base64StringToByteArray</span> <span class="o">=</span> <span class="p">(</span><span class="nx">base64</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">rawStringToByteArray</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">atob</span><span class="p">(</span><span class="nx">base64</span><span class="p">));</span>
+<span class="p">};</span>
+<span class="kr">const</span> <span class="nx">byteArrayToBase64String</span> <span class="o">=</span> <span class="p">(</span><span class="nx">buffer</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">bytes</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Uint8Array</span><span class="p">(</span><span class="nx">buffer</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">binary</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">byteLength</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">binary</span> <span class="o">+=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">bytes</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+  <span class="p">}</span>
+  <span class="k">return</span> <span class="nb">window</span><span class="p">.</span><span class="nx">btoa</span><span class="p">(</span><span class="nx">binary</span><span class="p">);</span>
+<span class="p">};</span>
+</pre></div>
+<p>Ensuite, nous devons créer un <tt class="docutils literal">RemoteTransformer</tt> qui peut chiffrer et déchiffrer nos enregistrements. Et pour cela, nous avons besoin de générer une clé de chiffrement symétrique
+<a class="reference external" href="https://en.wikipedia.org/wiki/Advanced_Encryption_Standard">AES</a>.</p>
+<p><a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/SubtleCrypto">WebCrypto</a> est
+une API vraiment géniale et assez récente de
+<a class="reference external" href="https://platform.html5.org/">la plateforme web</a>  !
+Nous allons utiliser cette clé de chiffrement pour
+chiffrer et déchiffrer les données qui vont passer dans notre
+<tt class="docutils literal">RemoteTransformer</tt>:</p>
+<div class="highlight"><pre><span class="c1">// RemoteTransformer:</span>
+<span class="kr">const</span> <span class="nx">generateAesKey</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// See http://www.w3.org/TR/WebCryptoAPI/#examples-symmetric-encryption</span>
+  <span class="k">return</span> <span class="nb">window</span><span class="p">.</span><span class="nx">crypto</span><span class="p">.</span><span class="nx">subtle</span><span class="p">.</span><span class="nx">generateKey</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">'AES-GCM'</span><span class="p">,</span> <span class="nx">length</span><span class="o">:</span> <span class="mi">128</span> <span class="p">},</span>
+       <span class="kc">false</span><span class="p">,</span> <span class="p">[</span><span class="s1">'encrypt'</span><span class="p">,</span> <span class="s1">'decrypt'</span><span class="p">]);</span>
+<span class="p">};</span>
+
+<span class="kr">const</span> <span class="nx">createTransformer</span> <span class="o">=</span> <span class="p">(</span><span class="nx">aesKey</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">encode</span> <span class="o">=</span> <span class="p">(</span><span class="nx">record</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">cleartext</span> <span class="o">=</span> <span class="nx">rawStringToByteArray</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">record</span><span class="p">));</span>
+    <span class="kr">const</span> <span class="nx">IV</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">crypto</span><span class="p">.</span><span class="nx">getRandomValues</span><span class="p">(</span><span class="k">new</span> <span class="nx">Uint8Array</span><span class="p">(</span><span class="mi">16</span><span class="p">));</span>
+
+    <span class="k">return</span> <span class="nb">window</span><span class="p">.</span><span class="nx">crypto</span><span class="p">.</span><span class="nx">subtle</span><span class="p">.</span><span class="nx">encrypt</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">'AES-GCM'</span><span class="p">,</span> <span class="nx">iv</span><span class="o">:</span> <span class="nx">IV</span> <span class="p">},</span> <span class="nx">aesKey</span><span class="p">,</span>
+        <span class="nx">cleartext</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">ciphertext</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="nx">record</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
+        <span class="nx">ciphertext</span><span class="o">:</span> <span class="nx">byteArrayToBase64String</span><span class="p">(</span><span class="k">new</span> <span class="nx">Uint8Array</span><span class="p">(</span><span class="nx">ciphertext</span><span class="p">)),</span>
+        <span class="nx">IV</span><span class="o">:</span> <span class="nx">byteArrayToBase64String</span><span class="p">(</span><span class="nx">IV</span><span class="p">)</span>
+      <span class="p">};</span>
+    <span class="p">});</span>
+  <span class="p">};</span>
+
+  <span class="kr">const</span> <span class="nx">decode</span> <span class="o">=</span> <span class="p">(</span><span class="nx">record</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="kr">const</span> <span class="nx">ciphertext</span> <span class="o">=</span> <span class="nx">base64StringToByteArray</span><span class="p">(</span><span class="nx">record</span><span class="p">.</span><span class="nx">ciphertext</span><span class="p">);</span>
+    <span class="kr">const</span> <span class="nx">IV</span> <span class="o">=</span> <span class="nx">base64StringToByteArray</span><span class="p">(</span><span class="nx">record</span><span class="p">.</span><span class="nx">IV</span><span class="p">);</span>
+
+    <span class="k">return</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">subtle</span><span class="p">.</span><span class="nx">decrypt</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">'AES-GCM'</span><span class="p">,</span> <span class="nx">iv</span><span class="o">:</span> <span class="nx">IV</span> <span class="p">},</span> <span class="nx">aesKey</span><span class="p">,</span>
+        <span class="nx">ciphertext</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">recordArrayBuffer</span> <span class="o">=&gt;</span> <span class="p">{</span>
+
+      <span class="k">return</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span>
+          <span class="k">new</span> <span class="nx">Uint8Array</span><span class="p">(</span><span class="nx">recordArrayBuffer</span><span class="p">)));</span>
+    <span class="p">},</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+      <span class="nx">record</span><span class="p">.</span><span class="nx">undecryptable</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+      <span class="k">return</span> <span class="nx">record</span><span class="p">;</span>
+    <span class="p">});</span>
+  <span class="p">};</span>
+
+  <span class="k">return</span> <span class="p">{</span>
+    <span class="nx">encode</span><span class="p">,</span>
+    <span class="nx">decode</span>
+  <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+<p>Nous créons deux instances Kinto, afin de pouvoir faire des tests de
+synchronisation d'une instance à l'autre à l'aide du serveur de démo
+de Kinto. Créer plusieurs instances Kinto depuis la même origine est
+possible à l'aide de la toute récente option <tt class="docutils literal">dbPrefix</tt>:</p>
+<div class="highlight"><pre><span class="c1">// Kinto collection:</span>
+<span class="kr">const</span> <span class="nx">createCollection</span> <span class="o">=</span> <span class="p">(</span><span class="nx">transformer</span><span class="p">,</span> <span class="nx">testRun</span><span class="p">,</span> <span class="nx">instanceNo</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="kr">const</span> <span class="nx">kinto</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Kinto</span><span class="p">({</span>
+    <span class="nx">dbPrefix</span><span class="o">:</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">testRun</span><span class="p">}</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="nx">instanceNo</span><span class="p">}</span><span class="err">`</span><span class="p">,</span>
+    <span class="nx">remote</span><span class="o">:</span> <span class="s1">'https://kinto.dev.mozaws.net/v1/'</span><span class="p">,</span>
+    <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
+      <span class="nx">Authorization</span><span class="o">:</span> <span class="s1">'Basic '</span> <span class="o">+</span> <span class="nx">btoa</span><span class="p">(</span><span class="s1">'public-demo:s3cr3t'</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="k">return</span> <span class="nx">kinto</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="err">`</span><span class="nx">kinto</span><span class="o">-</span><span class="nx">encryption</span><span class="o">-</span><span class="nx">example</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="nx">testRun</span><span class="p">}</span><span class="err">`</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">remoteTransformers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">transformer</span> <span class="p">]</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">coll1</span><span class="p">,</span> <span class="nx">coll2</span><span class="p">;</span>
+<span class="kr">const</span> <span class="nx">prepare</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">generateAesKey</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">aesKey</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">createTransformer</span><span class="p">(</span><span class="nx">aesKey</span><span class="p">);</span>
+  <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">transformer</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="c1">// Create two fresh empty Kinto instances for testing:</span>
+    <span class="kr">const</span> <span class="nx">testRun</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTime</span><span class="p">().</span><span class="nx">toString</span><span class="p">();</span>
+    <span class="nx">coll1</span> <span class="o">=</span> <span class="nx">createCollection</span><span class="p">(</span><span class="nx">transformer</span><span class="p">,</span> <span class="nx">testRun</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="nx">coll2</span> <span class="o">=</span> <span class="nx">createCollection</span><span class="p">(</span><span class="nx">transformer</span><span class="p">,</span> <span class="nx">testRun</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+</pre></div>
+<p>Maintenant, testons que nous puissions créer un nouvel enregistrement
+dans la collection 1, synchronisons-le (les données envoyées au
+serveur doivent être chiffrées, ce qu'on peut vérifier avec l'onglet
+Réseau de la console du navigateur):</p>
+<img alt="Onglet Réseau de la console Firefox" src="http://www.servicedenuages.fr/images/kinto-encryption-example-network-tab.png" style="width: 2560px; height: auto; max-width: 100%;"/>
+<div class="highlight"><pre><span class="kr">const</span> <span class="nx">syncUp</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// Use first Kinto instance to demonstrate encryption:</span>
+  <span class="k">return</span> <span class="nx">coll1</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
+    <span class="nx">URL</span><span class="o">:</span> <span class="s1">'http://www.w3.org/TR/WebCryptoAPI/'</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">'Web Cryptography API'</span>
+  <span class="p">}).</span><span class="nx">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">coll1</span><span class="p">.</span><span class="nx">sync</span><span class="p">();</span>
+  <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">syncResults</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Sync up'</span><span class="p">,</span> <span class="nx">syncResults</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+</pre></div>
+<p>Puis synchronisons la collection 2 depuis le serveur Kinto. Là encore,
+les données téléchargées doivent être chiffrées mais les données
+déchiffrées doivent être stockées dans la base IndexDB et affichées
+dans le résultat de la synchronisation. Finalement, la fonction
+<tt class="docutils literal">go()</tt> permet de lancer tout le processus de test.</p>
+<p>Le code source complet est inclus dans la page que vous êtes
+actuellement en train de lire, alors n'hésitez-pas, ouvrez la console
+du navigateur et essayez en lançant la fonction <tt class="docutils literal">go()</tt>!</p>
+<div class="highlight"><pre><span class="kr">const</span> <span class="nx">syncDown</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="c1">// Use second Kinto instance to demonstrate decryption:</span>
+  <span class="k">return</span> <span class="nx">coll2</span><span class="p">.</span><span class="nx">sync</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">syncResults</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Sync down'</span><span class="p">,</span> <span class="nx">syncResults</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+
+<span class="kr">const</span> <span class="nx">go</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Watch the Network tab!'</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">prepare</span><span class="p">()</span>
+      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">syncUp</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">syncDown</span><span class="p">)</span>
+      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">a</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Success'</span><span class="p">,</span> <span class="nx">a</span><span class="p">),</span> <span class="nx">b</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">'Failure'</span><span class="p">,</span> <span class="nx">b</span><span class="p">));</span>
+<span class="p">};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Type go(); to start!'</span><span class="p">);</span>
+</pre></div>
+<p>J'espère que vous êtes autant enthousiastes au sujet de Kinto.js que je le
+suis, les commentaires sur cet article ainsi que
+<a class="reference external" href="https://github.com/michielbdejong/kinto-encryption-example/">les tickets Github sur le dépôt de l'exemple</a>
+sont les bienvenus ! :)</p>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+  <script src="http://www.servicedenuages.fr/scripts/kinto-61ad959.min.js"></script>
+  <script src="http://www.servicedenuages.fr/scripts/kinto-encryption-example.js"></script>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.notmyidea.org/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>
