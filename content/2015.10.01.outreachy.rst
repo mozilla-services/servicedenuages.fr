@@ -38,8 +38,8 @@ Making Kinto instances discoverable
 The `Kinto project <https://kinto.readthedocs.org>`_ aims to bring storage
 instances to everyone, attached to their
 `Firefox Accounts <https://accounts.firefox.com>`_ (Well, it actually supports
-multiple authentication schemes, but FxA is integrated with it, and that is
-part of the solution we want to deliver).
+multiple authentication schemes, but we want to promote Firefox Accounts as a
+first step).
 
 Currently, Kinto is thought as a centralized server: there is one instance, and
 everyone authenticates on this instance. Items are shared between users of a
@@ -57,30 +57,26 @@ There are different use cases:
   application that stores its data inside a Kinto instance. As such, Routina
   needs a way to discover where it should store its data, and send the requests
   to this server;
-* Bob and Alice want to collaborate on a set of data (think about a shared
-  expenses webapp). There should be a way for Alice to host everything and
-  grant access to Bob to her data. The webapp should be able to use the
-  correct server.
+* Bob and Alice want to collaborate on a set of data (think about a webapp to
+  manage their shared expenses). There should be a way for Alice to host
+  everything and grant access to Bob on her data. The webapp should be able to
+  use the correct server.
 
 Here are the different steps that could allow these scenarios:
 
 * At the moment they authenticate, the client detects the email address used,
   and relies on the domain part to do a
   `Web Finger <https://tools.ietf.org/html/rfc7033>`_ request on the domain
-  (*) and for the specified user.
+  [#]_ and for the specified user.
 * In case the identified server doesn't support WebFinger, it uses a central
   repository to lookup where the Kinto server is located.
 * Once the Kinto server located, all requests should be issued against this
   server.
 
-(*) It is also possible to use the same mechanism to discover the FxA endpoints.
-But as FxA isn't a federated protocol, users from one FxA realm would need to
-be explicitely accepted by the Kinto server, in its configuration.
-
 In terms of code changes, here is what it looks like (rough step by step). The
 details are still to be fleshed out, this is a rough first version:
 
-* Update the `Kinto.js client <https://github.com/kinto/kinto.js>`_ to find the
+* Update the `Kinto.js client <https://github.com/Kinto/kinto.js>`_ to find the
   server location. It should first rely on WebFinger;
 * Create a central repository of server locations. This could be contained in
   the FxA profile server or in a central Kinto collection;
@@ -117,4 +113,8 @@ documentation <https://kinto.readthedocs.org>`_, especially
 `the tutorials <http://kinto.readthedocs.org/en/latest/tutorials/first-steps.html>`_
 and then reach out to us by joining the
 `Kinto development mailing list <https://mail.mozilla.org/listinfo/kinto>`_ and
-the #storage channel on irc.mozilla.org.
+the `#storage` channel on irc.mozilla.org.
+
+.. [#] It is also possible to use the same mechanism to discover the FxA endpoints.
+But as FxA isn't a federated protocol, users from one FxA realm would need to
+be explicitely accepted by the Kinto server, in its configuration.
