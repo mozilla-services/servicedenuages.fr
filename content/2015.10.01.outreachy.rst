@@ -1,0 +1,120 @@
+Looking for an outreachy intern this winter
+###########################################
+
+:slug: outreachy-2016
+:date: 2015-10-01
+:lang: en
+:url: outreach-kinto-2016
+:summary:
+    This year, we are participating to the Gnome outreachy program with our
+    Kinto project, in order to make instances discoverable. Please, join in!
+
+.. epigraph::
+
+  By having a program targeted specifically towards women, we found that we
+  reached talented and passionate participants, who were uncertain about how to
+  start otherwise.
+
+  We are now expanding the program to people from more groups underrepresented
+  in FOSS. We hope this effort will help many people learn how exciting, varied
+  and valuable work on FOSS projects can be and how inclusive the community
+  really is.
+
+  -- `The Gnome outreachy program wiki <https://wiki.gnome.org/Outreachy>`_
+
+In our team, and at Mozilla in general, we thrive to build an inclusive
+community. And we believe being more inclusive starts by reaching to the people
+who are often under-represented in tech.
+
+That's why we are participating in the gnome Outreachy program this year by
+proposing an internship around Kinto and making instances discoverable.
+
+Check out the eligibility details at the end of the article if you're
+interested!
+
+Making Kinto instances discoverable
+===================================
+
+The `Kinto project <https://kinto.readthedocs.org>`_ aims to bring storage
+instances to everyone, attached to their
+`Firefox Accounts <https://accounts.firefox.com>`_ (Well, it actually supports
+multiple authentication schemes, but FxA is integrated with it, and that is
+part of the solution we want to deliver).
+
+Currently, Kinto is thought as a centralized server: there is one instance, and
+everyone authenticates on this instance. Items are shared between users of a
+same instance.
+
+This doesn't resonates well with multiple goals we have: scalability is harder
+when there is one endpoint, and it's also not interoperable.
+
+For instance, imagine Alice and Bob. Bob is using Mozilla's servers to store
+his data, whereas Alice deployed her own Kinto instance.
+
+There are different use cases:
+
+* Alice wants to use `Routina <https://github.com/leplatrem/routina>`_, an
+  application that stores its data inside a Kinto instance. As such, Routina
+  needs a way to discover where it should store its data, and send the requests
+  to this server;
+* Bob and Alice want to collaborate on a set of data (think about a shared
+  expenses webapp). There should be a way for Alice to host everything and
+  grant access to Bob to her data. The webapp should be able to use the
+  correct server.
+
+Here are the different steps that could allow these scenarios:
+
+* At the moment they authenticate, the client detects the email address used,
+  and relies on the domain part to do a
+  `Web Finger <https://tools.ietf.org/html/rfc7033>`_ request on the domain
+  (*) and for the specified user.
+* In case the identified server doesn't support WebFinger, it uses a central
+  repository to lookup where the Kinto server is located.
+* Once the Kinto server located, all requests should be issued against this
+  server.
+
+(*) It is also possible to use the same mechanism to discover the FxA endpoints.
+But as FxA isn't a federated protocol, users from one FxA realm would need to
+be explicitely accepted by the Kinto server, in its configuration.
+
+In terms of code changes, here is what it looks like (rough step by step). The
+details are still to be fleshed out, this is a rough first version:
+
+* Update the `Kinto.js client <https://github.com/kinto/kinto.js>`_ to find the
+  server location. It should first rely on WebFinger;
+* Create a central repository of server locations. This could be contained in
+  the FxA profile server or in a central Kinto collection;
+* Update the Kinto.js client to fall-back to this central repository in case no
+  Web Finger exists;
+* Investigate on ways to store this information directly in the web browser.
+  It could also be configurable by the JavaScript client (with
+  an UX that looks like `what Remote Storage proposes <https://remotestorage.io/>`_).
+* Work on the first user experience: how can client learn they can chose which
+  server to use?
+* Ship it!
+
+Want to join?
+=============
+
+So, if you think that this project is exciting and you would like to join,
+please check that you:
+
+- Identify as a woman (cis or trans), a trans man, or genderqueer person or you
+  are a resident or national of the United States of any gender who is
+  Black/African American, Hispanic/Latin@, American Indian, Alaska Native,
+  Native Hawaiian, or Pacific Islander;
+- Are or will be 18 years of age or older by December 7, 2015;
+- Are available for a full-time, 40 hours a week internship between
+  December and March.
+- Think that open source software makes a difference, and would like to work
+  with us on going further with making a kick-ass Kinto ecosystem;
+
+Check the eligibility details `on the section of the gnome wiki
+<https://wiki.gnome.org/Outreachy#Program_Details>`_ and get it touch with us!
+
+If you are not sure how to get started, the best way is to start reading `the
+documentation <https://kinto.readthedocs.org>`_, especially
+`the tutorials <http://kinto.readthedocs.org/en/latest/tutorials/first-steps.html>`_
+and then reach out to us by joining the
+`Kinto development mailing list <https://mail.mozilla.org/listinfo/kinto>`_ and
+the #storage channel on irc.mozilla.org.
