@@ -6,7 +6,7 @@ Looking for an outreachy intern this winter
 :lang: en
 :url: outreach-kinto-2016
 :summary:
-    This year, we are participating to the Gnome outreachy program with our
+    This year, we are participating to the GNOME outreachy program with our
     Kinto project, in order to make instances discoverable. Please, join in!
 
 .. epigraph::
@@ -20,13 +20,13 @@ Looking for an outreachy intern this winter
   and valuable work on FOSS projects can be and how inclusive the community
   really is.
 
-  -- `The Gnome outreachy program wiki <https://wiki.gnome.org/Outreachy>`_
+  -- `The GNOME outreachy program wiki <https://wiki.gnome.org/Outreachy>`_
 
 In our team, and at Mozilla in general, we thrive to build an inclusive
 community. And we believe being more inclusive starts by reaching to the people
-who are often under-represented in tech.
+who are often underrepresented in tech.
 
-That's why we are participating in the gnome Outreachy program this year by
+That's why we are participating in the GNOME Outreachy program this year by
 proposing an internship around Kinto and making instances discoverable.
 
 Check out the eligibility details at the end of the article if you're
@@ -109,7 +109,7 @@ please check that you:
 - Think that open source software makes a difference, and would like to work
   with us on going further with making a kick-ass Kinto ecosystem;
 
-Check the eligibility details `on the section of the gnome wiki
+Check the eligibility details `on the section of the GNOME wiki
 <https://wiki.gnome.org/Outreachy#Program_Details>`_ and get it touch with us!
 
 If you are not sure how to get started, the best way is to start reading `the
