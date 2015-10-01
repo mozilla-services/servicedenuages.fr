@@ -115,6 +115,7 @@ and then reach out to us by joining the
 `Kinto development mailing list <https://mail.mozilla.org/listinfo/kinto>`_ and
 the `#storage` channel on irc.mozilla.org.
 
-.. [#] It is also possible to use the same mechanism to discover the FxA endpoints.
-But as FxA isn't a federated protocol, users from one FxA realm would need to
-be explicitely accepted by the Kinto server, in its configuration.
+.. [#] It is also possible to use the same mechanism to discover the FxA
+       endpoints. But as FxA isn't a federated protocol, users from one FxA
+       realm would need to be explicitely accepted by the Kinto server, in its
+       configuration.
