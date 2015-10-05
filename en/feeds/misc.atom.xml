@@ -56,11 +56,11 @@ server.&lt;/li&gt;
 details are still to be fleshed out - this is a rough first version:&lt;/p&gt;
 &lt;ul class="simple"&gt;
 &lt;li&gt;Update the &lt;a class="reference external" href="https://github.com/Kinto/kinto.js"&gt;Kinto.js client&lt;/a&gt; to find the
-server location. It should first rely on WebFinger;&lt;/li&gt;
+server location. It should first rely on WebFinger.&lt;/li&gt;
 &lt;li&gt;Create a central repository of server locations. This could be contained in
-the FxA profile server or in a central Kinto collection;&lt;/li&gt;
+the FxA profile server or in a central Kinto collection.&lt;/li&gt;
 &lt;li&gt;Update the Kinto.js client to fall-back to this central repository in case no
-Web Finger exists;&lt;/li&gt;
+Web Finger exists.&lt;/li&gt;
 &lt;li&gt;Investigate on ways to store this information directly in the web browser.
 It could also be configurable by the JavaScript client (with
 an UX that looks like &lt;a class="reference external" href="https://remotestorage.io/"&gt;what Remote Storage proposes&lt;/a&gt;).&lt;/li&gt;
