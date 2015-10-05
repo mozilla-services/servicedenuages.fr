@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>Looking for an Outreachy intern this winter // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Publié</h5>
+                <p title="~759 mots">~4mn de lecture 🕑</p>
+                <p>jeu. 01 octobre 2015</p>
+                <a href="/">&larr;Liste des articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Looking for an Outreachy intern this winter</h1>
+                </header>
+            </section>
+            <blockquote class="epigraph">
+<p>By having a program targeted specifically towards women, we found that we
+reached talented and passionate participants, who were uncertain about how to
+start otherwise.</p>
+<p>We are now expanding the program to people from more groups underrepresented
+in FOSS. We hope this effort will help many people learn how exciting, varied
+and valuable work on FOSS projects can be and how inclusive the community
+really is.</p>
+<p class="attribution">—<a class="reference external" href="https://wiki.gnome.org/Outreachy">The GNOME Outreachy program wiki</a></p>
+</blockquote>
+<p>In our team, and at Mozilla in general, we thrive to build an inclusive
+community. And we believe being more inclusive starts by reaching to the people
+who are often underrepresented in tech.</p>
+<p>That's why we are participating in the GNOME Outreachy program this year by
+proposing an internship around Kinto and making instances discoverable.</p>
+<p>Check out the eligibility details at the end of the article if you're
+interested!</p>
+<div class="section" id="making-kinto-instances-discoverable">
+<h2>Making Kinto instances discoverable</h2>
+<p>The <a class="reference external" href="https://kinto.readthedocs.org">Kinto project</a> aims to bring storage
+instances to everyone, attached to their
+<a class="reference external" href="https://accounts.firefox.com">Firefox Accounts</a> (Well, it actually supports
+multiple authentication schemes, but we want to promote Firefox Accounts as a
+first step).</p>
+<p>Currently, Kinto is thought of as a centralised server: there is one instance, and
+everyone authenticates on this instance. Items are shared between users of a
+same instance.</p>
+<p>This doesn't resonate well with many of our goals: scalability is harder
+when there is one endpoint, and it's also not interoperable.</p>
+<p>For instance, imagine Alice and Bob. Bob is using Mozilla's servers to store
+his data, whereas Alice deployed her own Kinto instance.</p>
+<p>There are different use cases:</p>
+<ul class="simple">
+<li>Alice wants to use <a class="reference external" href="https://github.com/leplatrem/routina">Routina</a>, an
+application that stores its data inside a Kinto instance. As such, Routina
+needs a way to discover where it should store its data, and send the requests
+to this server.</li>
+<li>Bob and Alice want to collaborate on a set of data (think about a webapp to
+manage their shared expenses). There should be a way for Alice to host
+everything and grant access to Bob on her data. The webapp should be able to
+use the correct server.</li>
+</ul>
+<p>Here are the different steps that could allow these scenarios:</p>
+<ul class="simple">
+<li>At the moment they authenticate, the client detects the email address used,
+and relies on the domain part to do a
+<a class="reference external" href="https://tools.ietf.org/html/rfc7033">Web Finger</a> request on the domain
+<a class="footnote-reference" href="#id2" id="id1">[1]</a> and for the specified user.</li>
+<li>In case the identified server doesn't support WebFinger, it uses a central
+repository to lookup where the Kinto server is located.</li>
+<li>Once the Kinto server is located, all requests should be issued against this
+server.</li>
+</ul>
+<p>In terms of code changes, here is what it looks like (rough step by step). The
+details are still to be fleshed out - this is a rough first version:</p>
+<ul class="simple">
+<li>Update the <a class="reference external" href="https://github.com/Kinto/kinto.js">Kinto.js client</a> to find the
+server location. It should first rely on WebFinger;</li>
+<li>Create a central repository of server locations. This could be contained in
+the FxA profile server or in a central Kinto collection;</li>
+<li>Update the Kinto.js client to fall-back to this central repository in case no
+Web Finger exists;</li>
+<li>Investigate on ways to store this information directly in the web browser.
+It could also be configurable by the JavaScript client (with
+an UX that looks like <a class="reference external" href="https://remotestorage.io/">what Remote Storage proposes</a>).</li>
+<li>Work on the first user experience: how can client learn they can chose which
+server to use?</li>
+<li>Ship it!</li>
+</ul>
+</div>
+<div class="section" id="want-to-join">
+<h2>Want to join?</h2>
+<p>So, if you think that this project is exciting and you would like to join,
+please check that you:</p>
+<ul class="simple">
+<li>Identify as a woman (cis or trans), a trans man, or genderqueer person or you
+are a resident or national of the United States of any gender who is
+Black/African American, Hispanic/Latin@, American Indian, Alaska Native,
+Native Hawaiian, or Pacific Islander;</li>
+<li>Are or will be 18 years of age or older by December 7, 2015;</li>
+<li>Are available for a full-time, 40 hours a week internship between
+December and March.</li>
+<li>Think that open source software makes a difference, and would like to work
+with us on going further with making a kick-ass Kinto ecosystem;</li>
+</ul>
+<p>Check the eligibility details <a class="reference external" href="https://wiki.gnome.org/Outreachy#Program_Details">on the section of the GNOME wiki</a> and get it touch with us!</p>
+<p>If you are not sure how to get started, the best way is to start reading <a class="reference external" href="https://kinto.readthedocs.org">the
+documentation</a>, especially
+<a class="reference external" href="http://kinto.readthedocs.org/en/latest/tutorials/first-steps.html">the tutorials</a>
+and then reach out to us by joining the
+<a class="reference external" href="https://mail.mozilla.org/listinfo/kinto">Kinto development mailing list</a> and
+the <cite>#storage</cite> channel on irc.mozilla.org.</p>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label"></col><col></col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>It is also possible to use the same mechanism to discover the FxA
+endpoints. But as FxA isn't a federated protocol, users from one FxA
+realm would need to be explicitely accepted by the Kinto server, in its
+configuration.</td></tr>
+</tbody>
+</table>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.notmyidea.org/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>
