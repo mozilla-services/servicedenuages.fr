@@ -77,11 +77,11 @@ In terms of code changes, here is what it looks like (rough step by step). The
 details are still to be fleshed out - this is a rough first version:
 
 * Update the `Kinto.js client <https://github.com/Kinto/kinto.js>`_ to find the
-  server location. It should first rely on WebFinger;
+  server location. It should first rely on WebFinger.
 * Create a central repository of server locations. This could be contained in
-  the FxA profile server or in a central Kinto collection;
+  the FxA profile server or in a central Kinto collection.
 * Update the Kinto.js client to fall-back to this central repository in case no
-  Web Finger exists;
+  Web Finger exists.
 * Investigate on ways to store this information directly in the web browser.
   It could also be configurable by the JavaScript client (with
   an UX that looks like `what Remote Storage proposes <https://remotestorage.io/>`_).
