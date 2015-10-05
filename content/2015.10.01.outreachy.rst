@@ -1,4 +1,4 @@
-Looking for an outreachy intern this winter
+Looking for an Outreachy intern this winter
 ###########################################
 
 :slug: outreachy-2016
@@ -6,7 +6,7 @@ Looking for an outreachy intern this winter
 :lang: en
 :url: outreach-kinto-2016
 :summary:
-    This year, we are participating to the GNOME outreachy program with our
+    This year we are participating to the GNOME Outreachy program with our
     Kinto project, in order to make instances discoverable. Please, join in!
 
 .. epigraph::
@@ -20,7 +20,7 @@ Looking for an outreachy intern this winter
   and valuable work on FOSS projects can be and how inclusive the community
   really is.
 
-  -- `The GNOME outreachy program wiki <https://wiki.gnome.org/Outreachy>`_
+  -- `The GNOME Outreachy program wiki <https://wiki.gnome.org/Outreachy>`_
 
 In our team, and at Mozilla in general, we thrive to build an inclusive
 community. And we believe being more inclusive starts by reaching to the people
@@ -41,11 +41,11 @@ instances to everyone, attached to their
 multiple authentication schemes, but we want to promote Firefox Accounts as a
 first step).
 
-Currently, Kinto is thought as a centralized server: there is one instance, and
+Currently, Kinto is thought of as a centralised server: there is one instance, and
 everyone authenticates on this instance. Items are shared between users of a
 same instance.
 
-This doesn't resonates well with multiple goals we have: scalability is harder
+This doesn't resonate well with many of our goals: scalability is harder
 when there is one endpoint, and it's also not interoperable.
 
 For instance, imagine Alice and Bob. Bob is using Mozilla's servers to store
@@ -56,7 +56,7 @@ There are different use cases:
 * Alice wants to use `Routina <https://github.com/leplatrem/routina>`_, an
   application that stores its data inside a Kinto instance. As such, Routina
   needs a way to discover where it should store its data, and send the requests
-  to this server;
+  to this server.
 * Bob and Alice want to collaborate on a set of data (think about a webapp to
   manage their shared expenses). There should be a way for Alice to host
   everything and grant access to Bob on her data. The webapp should be able to
@@ -70,11 +70,11 @@ Here are the different steps that could allow these scenarios:
   [#]_ and for the specified user.
 * In case the identified server doesn't support WebFinger, it uses a central
   repository to lookup where the Kinto server is located.
-* Once the Kinto server located, all requests should be issued against this
+* Once the Kinto server is located, all requests should be issued against this
   server.
 
 In terms of code changes, here is what it looks like (rough step by step). The
-details are still to be fleshed out, this is a rough first version:
+details are still to be fleshed out - this is a rough first version:
 
 * Update the `Kinto.js client <https://github.com/Kinto/kinto.js>`_ to find the
   server location. It should first rely on WebFinger;
