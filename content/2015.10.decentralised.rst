@@ -1,80 +1,56 @@
-Décentralisé versus Distribué
-#############################
+Auto-hebergement et hébergement communautaire
+#############################################
 
 :author: Alexis Métaireau
 :date: 2015-10-05
-:slug: decentraliser-ou-distribuer
+:slug: auto-hebergement-communautaire
 :lang: fr
-:url: decentraliser-ou-distribuer
+:url: auto-hebergement-communautaire
 :summary: Où il est question de deploiement et de decentralisation.
 
-Au détour de quelques conversations, j'ai fini par me rendre compte que la
-vision que j'ai de Kinto est celle d'un stockage décentralisé plutôt que celle
-d'un ensemble de serveurs distribués. Explications.
+Au détour de quelques conversations, je me suis rendu compte que la
+vision que j'ai de Kinto est celle d'un hebergement communautaire décentralisé
+plutôt que celle d'un ensemble de petits serveurs personnels. Explications.
 
-Distribué
-=========
-
-Kinto réponds à deux besoins principaux de la plupart des utilisateurs du web:
-stocker des données, et les partager.
-
-Cette solution se veut donc un moyen simple de partager des données entre mes
-appareils et avec des collègues ou des amis.
-
-Dans un monde distribué, chacune des personnes contrôle un serveur ou elle
-stocke ses données. Lors d'une collaboration les serveurs parlent entre eux
-afin de se mettre d'accord et de s'échanger les dernières mises à jour de
-contenu.
-
-Cette approche à un avantage énorme: elle permet à chaque personne de contrôler
-l'emplacement de stockage de ses données.
-
-Elle a aussi un inconvénient:
-
-Lors d'un partage de données les serveurs doient échanger ensemble. Ceux-cis
-doivent donc être disponibles et supporter une charge importante (toute tentative
-de collaboration va générer de la charge sur l'ensemble des serveurs impliqués).
-
-Décentralisé
-============
+Kinto veut répondre à deux besoins principaux de la plupart des utilisateurs du
+Web: stocker des données, et les partager, sans pour autant que ceux-cis
+perdent le contrôle sur ces données.
 
 Si Kinto doit être une "base de données pour le Web", alors il est nécessaire
 que l'ensemble des utilisateurs du Web puissent facilement avoir accès à un
 serveur Kinto.
 
-Or, déployer des serveurs n'est pas actuellement quelque chose d'aisé. Nombre
+La chimère de l'auto-hebergement
+================================
+
+Déployer des serveurs n'est pas actuellement chose aisée. Nombre
 d'initiatives visent à rendre ce déploiement plus simple, mais les défis
 techniques sont encore nombreux avant d'aboutir à une solution "plug and play"
 qui soit aisément maintenable dans le temps.
 
 On le voit bien sur nos systèmes en production: il nous est pour l'instant
-necessaire d'avoir recours à des "administrateurs" dès qu'une défaillance
+nécessaire d'avoir recours à des "administrateurs" dès qu'une défaillance
 survient sur nos serveurs. Si ces interventions étaient facilement
-automatisables, croyez moi elles le seraient déjà !
+automatisables, croyez-moi elles le seraient déjà !
 
 Dans un monde de services auto-hébérgés, les serveurs doivent être maintenus à
 jour (pour éviter les failles de sécurité, qu'ils restent disponibles et
 tiennent la charge).
 
-Un réel travail est donc necessaire afin d'avoir un service de qualité, et je
+Un réel travail est donc nécessaire afin d'avoir un service de qualité, et je
 pense que nous ne sommes malheureusement pas encore arrivés à un état de l'art
-qui permette de s'auto-heberger de manière simple et pérènne.
+qui permette à tout un chacun de s'auto-heberger de manière simple et pérènne.
 
-Sans rejeter l'idée d'un Web distribué, une solution de transition semble
-d'avoir un système *acentré*, qui aurait plusieurs centres.
+Acentré
+=======
 
-Un des sujets sur lequel nous avons beaucoup travaillé est la rapidité et la
-montée en charge de nos services. Puisque nous les déployons pour beaucoup
-d'utilisateur, il est indispensable que les serveurs encaissent et soient
-capables de servir un grand nombre de requetes simultanément.
+Une solution de transition semble alors d'avoir un système *acentré*,
+qui aurait plusieurs centres, donc décentralisé
 
-On pourrait donc imaginer avoir un ou plusieurs serveurs par communauté (Framasoft,
-EFF, Mozilla), factorisant alors les coûts (humains et monétaires) de mise en
-production. Cela permet donc d'administrer un seul serveur pour plusieurs
+On pourrait donc imaginer avoir un ou plusieurs serveurs par communauté (Tetaneutral,
+Framasoft, EFF, LUG de votre ville …), factorisant alors les coûts (humains et monétaires) de
+mise en production. Cela permet donc d'administrer un seul serveur pour plusieurs
 personnes / applications.
-
-Euh, et mes données personelles alors ?
-=======================================
 
 Je vous entends bougonner d'ici: "Il est mignon avec ses serveurs communautaires
 mais mes données personnelles je préfère quand même ne pas les donner à
@@ -87,24 +63,20 @@ doivent rester privées.
 Un de nos objectifs est de rendre le chiffrement des données simplissime.
 En d'autres termes, que personne (sinon vous) ne soit capable de les lire.
 
-Kinto.js le permets d'ailleurs d'ores et déjà, comme Michiel le démontre dans
-un article paru précedemment ici.
+Kinto.js le permet d'ailleurs d'ores et déjà, comme Michiel le démontre `dans
+un article paru précedemment ici`.
 
 Éviter la création d'un nouveau silo
 ====================================
 
-Reste un souci tout de même. Les serveurs Kinto ne communiquant pas entre eux
-pour s'échanger les données, cela ne revient-il pas à la création d'un nouveau
-silo ?
-
-Il est effectivement important d'avoir quelques points de vigilence sur le
-sujet: l'interopérabilité et l'identification.
+Afin d'éviter de participer à la création d'un nouveau silo, il est important
+de lever quelques points de vigilence:
 
 Identité
 --------
 
-Ce qui permet aux silos actuels (Facebook, Twitter) de perdurer, c'est leur
-système d'identification. Vous souhaitez partager des données avec votre
+Ce qui permet aux silos actuels (Facebook, Twitter) de perdurer, c'est en partie
+leur système d'identification. Vous souhaitez partager des données avec votre
 cousine, mais vous n'avez que son "compte Facebook".
 
 C'est très certainement un fait malheureux, mais tentons de résoudre un
@@ -122,39 +94,34 @@ Peu importe la solution de stockage de données que vous choisissez, il est
 indispensable qu'il existe des interfaces, des formats, pour passer de l'une
 à l'autre.
 
-Kinto expose (avant tout) une API REST, ce qui rends son utilisation depuis
-d'autres solutions aisée.
+Kinto expose (avant tout) une API REST qui parle JSON, ce qui rend son
+utilisation depuis d'autres solutions aisée.
 
 Dans un premier temps, cela peut être aussi simple que des fonctionalités
-d'import / export, encore faut-il se mettre d'accord sur un format pour cet
-échange, sans quoi un standard *de facto* emergera, pour le meilleur et pour le
-pire !
+d'import / export d'un système vers un autre, mais il est préférable de se
+mettre d'accord sur un format pour cet échange, sans quoi un standard
+*de facto* emergera, pour le meilleur et pour le pire !
 
 Il est donc primordial d'entammer un travail de collaboration
 avec les autres systèmes de "clouds privés" tels que OwnCloud ou CozyCloud.
 
 Ces derniers ont d'ailleurs mis en place `un groupe de
 travail <https://github.com/Decentralized-Sharing-Working-Group/internet-draft>`_
-sur le sujet, même si nos objectifs divergent quelque peu.
+sur le sujet.
 
 Décentralisation
 ----------------
 
-Puisque vos clients ont connaissance de l'ensemble des données qui les
-concernent, il est tout à fait possible que ceux-cis décident de communiquer
-avec un autre serveur (en cas de défaillance de celui-ci par exemple).
+La mise en place de serveurs communautaires n'empèche bien sur pas l'utilisation
+de serveurs personnels pour les utilisateurs les plus aggueris.
 
-En poussant un brin plus loin, il est possible (mais non pas necessaire, sans
-quoi je contredirait mon premier paragraphe) d'avoir plusieurs serveurs qui se
-parlent entre eux, afin de synchroniser leurs connaissances sur les données.
-
-
-Le meilleur des deux mondes
-===========================
+Dans un tel cas, les serveurs communautaires peuvent alors servir de sauvegarde,
+en cas de défaillance des serveurs personnels (ou vice-versa, les serveurs
+personnels pouvant redonder les serveurs communautaires).
 
 Il est donc tout à fait imaginable d'avoir des petits serveurs Kinto pour
-chaque utilisateur, mais il va falloir défricher le terrain pour qu'il soit
-praticable pour les autres.
+chaque utilisateur, mais il va falloir procéder par étapes et défricher le
+terrain… avant d'avoir un *one click* pour *Tatie Jeannine*.
 
 La clé ici est sans doute l'essaimage: commencez à utiliser le serveur Kinto
 de Framasoft (ou autre) puis migrez vers votre propre serveur, une fois
