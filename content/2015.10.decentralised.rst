@@ -21,7 +21,7 @@ stocker des données, et les partager.
 Cette solution se veut donc un moyen simple de partager des données entre mes
 appareils et avec des collègues ou des amis.
 
-Dans un monde distribué, chacune des personnes controle un serveur ou elle
+Dans un monde distribué, chacune des personnes contrôle un serveur ou elle
 stocke ses données. Lors d'une collaboration les serveurs parlent entre eux
 afin de se mettre d'accord et de s'échanger les dernières mises à jour de
 contenu.
@@ -39,7 +39,7 @@ Décentralisé
 ============
 
 Si Kinto doit être une "base de données pour le Web", alors il est nécessaire
-que l'ensemble des utilisateurs du Web puisse facilement avoir accès à un
+que l'ensemble des utilisateurs du Web puissent facilement avoir accès à un
 serveur Kinto.
 
 Or, déployer des serveurs n'est pas actuellement quelque chose d'aisé. Nombre
@@ -100,7 +100,6 @@ silo ?
 Il est effectivement important d'avoir quelques points de vigilence sur le
 sujet: l'interopérabilité et l'identification.
 
-
 Identité
 --------
 
@@ -138,17 +137,29 @@ Ces derniers ont d'ailleurs mis en place `un groupe de
 travail <https://github.com/Decentralized-Sharing-Working-Group/internet-draft>`_
 sur le sujet, même si nos objectifs divergent quelque peu.
 
+Décentralisation
+----------------
+
+Puisque vos clients ont connaissance de l'ensemble des données qui les
+concernent, il est tout à fait possible que ceux-cis décident de communiquer
+avec un autre serveur (en cas de défaillance de celui-ci par exemple).
+
+En poussant un brin plus loin, il est possible (mais non pas necessaire, sans
+quoi je contredirait mon premier paragraphe) d'avoir plusieurs serveurs qui se
+parlent entre eux, afin de synchroniser leurs connaissances sur les données.
+
+
 Le meilleur des deux mondes
 ===========================
 
-Tout cela étant dit, il est tout à fait imaginable d'avoir des petits
-serveurs Kinto pour chaque utilisateur, et il faut continuer à faire en sorte
-que ce soit le plus simple possible.
+Il est donc tout à fait imaginable d'avoir des petits serveurs Kinto pour
+chaque utilisateur, mais il va falloir défricher le terrain pour qu'il soit
+praticable pour les autres.
 
 La clé ici est sans doute l'essaimage: commencez à utiliser le serveur Kinto
-de Framasoft puis migrez vers votre propre serveur, une fois l'ensemble des
-problèmes techniques évoqués précedemment résolus.
+de Framasoft (ou autre) puis migrez vers votre propre serveur, une fois
+l'ensemble des problèmes techniques évoqués précedemment résolus.
 
 En attendant, une approche reposant sur plusieurs communautées semble être une
 solution pragmatique sur le court/moyen terme, rendant certaines libertés
-aux utilisateurs.
+aux utilisateurs et ouvrant la voie pour le futur.
