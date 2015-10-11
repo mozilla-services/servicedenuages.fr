@@ -31,6 +31,7 @@
             <section class="post">
                 <header class="post-header">
                     <h1>{{ article.title }}</h1>
+                    {% if article.author %}<em class="author">Par {{article.author}}</em>{% endif %}
                     {% if article.tags %}
                         <p class="post-meta">{% for tag in article.tags %}
                                 <a class="post-category" href="{{ main_siteurl }}/{{ tag.url }}">{{ tag }}</a>
