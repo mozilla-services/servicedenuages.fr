@@ -1,19 +1,18 @@
 Auto-hébergement et hébergement communautaire
 #############################################
 
-:author: Alexis Métaireau
 :date: 2015-10-05
 :slug: auto-hebergement-communautaire
 :lang: fr
 :url: auto-hebergement-communautaire
-:summary: Où il est question de deploiement et de décentralisation.
+:summary: Où il est question de déploiement et de décentralisation.
 
-Au détour de quelques conversations, j'ai pu me rendre compte que la
-vision que j'ai de Kinto est celle d'un hebergement communautaire décentralisé
+Au détour de quelques conversations, nous avons pu nous rendre compte que notre
+vision de Kinto est celle d'un hébergement communautaire décentralisé
 plutôt que celle d'un ensemble de petits serveurs personnels. Explications.
 
 Kinto veut répondre à deux besoins principaux de la plupart des utilisateurs du
-Web: stocker et partager des données, sans que ceux-cis perdent le contrôle
+Web : stocker et partager des données, sans que ceux-ci perdent le contrôle
 sur leurs données.
 
 Si Kinto doit être une "base de données pour le Web", alors il est nécessaire
@@ -31,14 +30,14 @@ qui soit aisément maintenable dans le temps.
 Les serveurs doivent être maintenus à jour pour éviter les failles de sécurité
 et qu'ils restent disponibles pour ceux qui en ont besoin.
 
-On le voit bien sur nos systèmes déployés: il nous est nécessaire d'avoir
-recours à des "administrateurs" pour ces taches. Et croyez moi,
+On le voit bien sur nos systèmes déployés : il nous est nécessaire d'avoir
+recours à des "administrateurs" pour ces tâches. Et croyez nous,
 si ces interventions étaient facilement automatisables, elles le seraient
 déjà ! (personne ne souhaite se lever au milieu de la nuit pour résoudre les
 soucis des autres)
 
 Nous ne sommes malheureusement pas arrivés à un état de l'art qui permette à
-tout un chacun de s'auto-heberger de manière simple et pérènne.
+tout un chacun de s'auto-héberger de manière simple et pérenne.
 
 Un réel travail est donc nécessaire afin d'avoir un service de qualité.
 
@@ -59,20 +58,20 @@ communautaires mais mes données personnelles je préfère quand même ne pas le
 donner à n'importe qui !". Et vous auriez raison !
 
 Kinto permet de stocker n'importe quel type de données. Qu'il s'agisse de données
-qui ont vocation à être partagées ou de données qui sont les votres et qui
+qui ont vocation à être partagées ou de données qui sont les votre et qui
 doivent rester privées.
 
-Un de nos objectifs est de rendre le chiffrement des données simplissime afin
+Un de nos objectifs est de rendre le chiffrement des données extrêmement simple afin
 que personne (sinon vous) ne soit capable de les lire.
 
 Kinto.js le permet d'ailleurs d'ores et déjà, comme Michiel le démontre `dans
-un article paru précedemment ici <http://www.servicedenuages.fr/kinto-chiffrer-ses-donnees>`_.
+un article paru précedemment ici <{filename}/kinto-chiffrer-ses-donnnes>`_.
 
 Éviter la création d'un nouveau silo
 ====================================
 
 Afin d'éviter de participer à la création d'un nouveau silo, il est important
-de lever quelques points de vigilence:
+de lever quelques points de vigilance:
 
 Identité
 --------
@@ -100,12 +99,12 @@ indispensable qu'il existe des interfaces, des formats, pour passer de l'une
 Kinto expose (avant tout) une API HTTP (certains diraient RESTful) qui parle
 JSON, ce qui rend son intégration avec d'autres solutions aisée.
 
-Dans un premier temps, cela peut être simplement des fonctionalités
+Dans un premier temps, cela peut être simplement des fonctionnalités
 d'import / export d'une solution vers une autre, mais il est préférable de se
 mettre d'accord sur un format pour cet échange, sans quoi un standard
-*de facto* emergera, pour le meilleur et pour le pire !
+*de facto* émergera, pour le meilleur et pour le pire !
 
-Il est donc primordial d'entammer un travail de collaboration
+Il est donc primordial d'entamer un travail de collaboration
 avec les autres systèmes de "clouds privés" tels que OwnCloud ou CozyCloud.
 
 Ces derniers ont d'ailleurs mis en place `un groupe de
@@ -115,8 +114,8 @@ sur le sujet, qui vise à utilise MicroPub et WebMention comme briques de dépar
 Décentralisation
 ----------------
 
-La mise en place de serveurs communautaires n'empèche bien sur pas l'utilisation
-de serveurs personnels pour les utilisateurs les plus aggueris.
+La mise en place de serveurs communautaires n'empêche bien sur pas l'utilisation
+de serveurs personnels pour les utilisateurs les plus aguerris.
 
 Dans un tel cas, les serveurs communautaires peuvent alors servir de sauvegarde,
 en cas de défaillance des serveurs personnels (ou vice-versa, les serveurs
@@ -128,8 +127,8 @@ terrain avant d'avoir un *one click* pour *Tatie Jeannine*.
 
 La clé ici est sans doute l'essaimage: commencez à utiliser le serveur Kinto
 de Framasoft (ou autre) puis migrez vers votre propre serveur, une fois
-l'ensemble des problèmes techniques (évoqués précedemment) résolus.
+l'ensemble des problèmes techniques (évoqués précédemment) résolus.
 
-En attendant, une approche reposant sur plusieurs communautées semble être une
+En attendant, une approche reposant sur plusieurs communautés semble être une
 solution pragmatique sur le court/moyen terme, rendant certaines libertés
 aux utilisateurs et ouvrant la voie pour le futur.
