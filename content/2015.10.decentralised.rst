@@ -1,11 +1,11 @@
-Auto-hébergement et hébergement communautaire
-#############################################
+La difficile promesse de l'auto-hébergement
+###########################################
 
 :date: 2015-10-05
-:slug: auto-hebergement-communautaire
+:slug: difficile-promesse-autohebergement
 :lang: fr
-:url: auto-hebergement-communautaire
-:summary: Où il est question de déploiement et de décentralisation.
+:url: difficile-promesse-autohebergement
+:summary: Où il est question d'auto-hébergement, de déploiement et de décentralisation.
 
 Au détour de quelques conversations, nous avons pu nous rendre compte que notre
 vision de `Kinto <https://kinto.readthedocs.org>`_ est celle d'un hébergement
@@ -20,8 +20,8 @@ Si Kinto doit être une "base de données pour le Web", alors il est nécessaire
 que l'ensemble des personnes puissent facilement avoir accès à un serveur
 Kinto.
 
-La chimère de l'auto-hebergement
-================================
+Auto-hébergement
+================
 
 .. image:: {filename}/images/autohebergement.jpg
     :alt: Maison de campagne -- House, Automn - CC-BY-ND Gunnar Magnusson https://www.flickr.com/photos/matupplevelser/4644386646
@@ -58,7 +58,7 @@ Framasoft, EFF, LUG de votre ville …), factorisant alors les coûts (humains e
 monétaires) de mise en production. Cela permet donc d'administrer un seul
 serveur pour plusieurs personnes / applications.
 
-Je vous vois, à deux doigts de bougonner: "Il est mignon avec ses serveurs
+Je vous vois, à deux doigts de bougonner : "Il est mignon avec ses serveurs
 communautaires mais mes données personnelles je préfère quand même ne pas les
 donner à n'importe qui !". Et vous auriez raison !
 
