@@ -8,8 +8,9 @@ Auto-hébergement et hébergement communautaire
 :summary: Où il est question de déploiement et de décentralisation.
 
 Au détour de quelques conversations, nous avons pu nous rendre compte que notre
-vision de Kinto est celle d'un hébergement communautaire décentralisé
-plutôt que celle d'un ensemble de petits serveurs personnels. Explications.
+vision de `Kinto <https://kinto.readthedocs.org>`_ est celle d'un hébergement
+communautaire décentralisé plutôt que celle d'un ensemble de petits serveurs
+personnels. Explications.
 
 Kinto veut répondre à deux besoins principaux de la plupart des utilisateurs du
 Web : stocker et partager des données, sans que ceux-ci perdent le contrôle
@@ -21,6 +22,10 @@ Kinto.
 
 La chimère de l'auto-hebergement
 ================================
+
+.. image:: {filename}/images/autohebergement.jpg
+    :alt: Maison de campagne -- House, Automn - CC-BY-ND Gunnar Magnusson https://www.flickr.com/photos/matupplevelser/4644386646
+    :align: center
 
 Déployer des serveurs n'est pas actuellement chose aisée. Nombre
 d'initiatives visent à rendre ce déploiement plus simple, mais les défis
@@ -69,6 +74,10 @@ un article paru précedemment ici <{filename}/kinto-chiffrer-ses-donnnes>`_.
 
 Éviter la création d'un nouveau silo
 ====================================
+
+.. image:: {filename}/images/silo.jpg
+    :alt: Le futur des silos - CC-BY-NC-ND Sunflower Silo in Boulder County Colorado by Bo Insogna — https://www.flickr.com/photos/thelightningman/5494666930
+    :align: center
 
 Afin d'éviter de participer à la création d'un nouveau silo, il est important
 de lever quelques points de vigilance :
