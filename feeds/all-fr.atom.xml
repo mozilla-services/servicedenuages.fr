@@ -1,5 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-fr.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-09-16T00:00:00+02:00</updated><entry><title>Comment chiffrer ses données avec Kinto.js</title><link href="http://www.servicedenuages.fr/kinto-chiffrer-ses-donnees" rel="alternate"></link><updated>2015-09-16T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-09-16:kinto-chiffrer-ses-donnees</id><summary type="html">&lt;div class="note"&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-fr.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-10-05T00:00:00+02:00</updated><entry><title>La difficile promesse de l'auto-hébergement</title><link href="http://www.servicedenuages.fr/difficile-promesse-autohebergement" rel="alternate"></link><updated>2015-10-05T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-10-05:difficile-promesse-autohebergement</id><summary type="html">&lt;p&gt;Au détour de quelques conversations, nous avons pu nous rendre compte que notre
+vision de &lt;a class="reference external" href="https://kinto.readthedocs.org"&gt;Kinto&lt;/a&gt; est celle d'un hébergement
+communautaire décentralisé plutôt que celle d'un ensemble de petits serveurs
+personnels. Explications.&lt;/p&gt;
+&lt;p&gt;Kinto veut répondre à deux besoins principaux de la plupart des utilisateurs du
+Web : stocker et partager des données, sans que ceux-ci perdent le contrôle
+sur leurs données.&lt;/p&gt;
+&lt;p&gt;Si Kinto doit être une "base de données pour le Web", alors il est nécessaire
+que l'ensemble des personnes puissent facilement avoir accès à un serveur
+Kinto.&lt;/p&gt;
+&lt;div class="section" id="auto-hebergement"&gt;
+&lt;h2&gt;Auto-hébergement&lt;/h2&gt;
+&lt;img alt="Maison de campagne -- House, Automn - CC-BY-ND Gunnar Magnusson https://www.flickr.com/photos/matupplevelser/4644386646" class="align-center" src="http://www.servicedenuages.fr/images/autohebergement.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;Déployer des serveurs n'est pas actuellement chose aisée. Nombre
+d'initiatives visent à rendre ce déploiement plus simple, mais les défis
+techniques sont encore nombreux avant d'aboutir à une solution "plug and play"
+qui soit aisément maintenable dans le temps.&lt;/p&gt;
+&lt;p&gt;Les serveurs doivent être maintenus à jour pour éviter les failles de sécurité
+et qu'ils restent disponibles pour ceux qui en ont besoin.&lt;/p&gt;
+&lt;p&gt;On le voit bien sur nos systèmes déployés : il nous est nécessaire d'avoir
+recours à des "administrateurs" pour ces tâches. Et croyez nous,
+si ces interventions étaient facilement automatisables, elles le seraient
+déjà ! (personne ne souhaite se lever au milieu de la nuit pour résoudre les
+soucis des autres)&lt;/p&gt;
+&lt;p&gt;Nous ne sommes malheureusement pas arrivés à un état de l'art qui permette à
+tout un chacun de s'auto-héberger de manière simple et pérenne.&lt;/p&gt;
+&lt;p&gt;Un réel travail est donc nécessaire afin d'avoir un service de qualité.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="acentre"&gt;
+&lt;h2&gt;Acentré&lt;/h2&gt;
+&lt;p&gt;Une solution praticable semble la mise en place d'un système avec plusieurs
+centres, &lt;em&gt;acentré&lt;/em&gt;, donc décentralisé.&lt;/p&gt;
+&lt;p&gt;Plutôt que d'avoir un seul endroit où les données sont stockées, on pourrait
+imaginer avoir un ou plusieurs serveurs par communauté (Tetaneutral,
+Framasoft, EFF, LUG de votre ville …), factorisant alors les coûts (humains et
+monétaires) de mise en production. Cela permet donc d'administrer un seul
+serveur pour plusieurs personnes / applications.&lt;/p&gt;
+&lt;p&gt;Je vous vois, à deux doigts de bougonner : "Il est mignon avec ses serveurs
+communautaires mais mes données personnelles je préfère quand même ne pas les
+donner à n'importe qui !". Et vous auriez raison !&lt;/p&gt;
+&lt;p&gt;Kinto permet de stocker n'importe quel type de données. Qu'il s'agisse de données
+qui ont vocation à être partagées ou de données qui sont les vôtres et qui
+doivent rester privées.&lt;/p&gt;
+&lt;p&gt;Un de nos objectifs est de rendre le chiffrement des données extrêmement simple afin
+que personne (sinon vous) ne soit capable de les lire.&lt;/p&gt;
+&lt;p&gt;Kinto.js le permet d'ailleurs d'ores et déjà, comme Michiel le démontre &lt;a class="reference external" href="{filename}/kinto-chiffrer-ses-donnnes"&gt;dans
+un article paru précedemment ici&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="eviter-la-creation-d-un-nouveau-silo"&gt;
+&lt;h2&gt;Éviter la création d'un nouveau silo&lt;/h2&gt;
+&lt;img alt="Le futur des silos - CC-BY-NC-ND Sunflower Silo in Boulder County Colorado by Bo Insogna — https://www.flickr.com/photos/thelightningman/5494666930" class="align-center" src="http://www.servicedenuages.fr/images/silo.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;Afin d'éviter de participer à la création d'un nouveau silo, il est important
+de lever quelques points de vigilance :&lt;/p&gt;
+&lt;div class="section" id="identite"&gt;
+&lt;h3&gt;Identité&lt;/h3&gt;
+&lt;p&gt;Un des points qui permet aux silos actuels (Facebook, Twitter) de perdurer,
+c'est en partie leur système d'identification. Vous souhaitez partager des
+données avec votre cousine, mais vous n'avez que son "compte Facebook" pour la
+joindre.&lt;/p&gt;
+&lt;p&gt;C'est très certainement un fait malheureux, mais tentons de résoudre un
+problème à la fois (malheureusement, la tentative d'identité décentralisé —
+Mozilla Persona — bât sérieusement de l'aile).&lt;/p&gt;
+&lt;p&gt;Laissons donc les personnes s'authentifier avec la solution de leur choix,
+libre ou non (OpenID, Firefox Accounts, Github, Twitter, Facebook etc.) &lt;em&gt;mais&lt;/em&gt;
+redonnons leur le choix de l'endroit ou leurs données sont, elles, stockées.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="interoperabilite"&gt;
+&lt;h3&gt;Interopérabilité&lt;/h3&gt;
+&lt;p&gt;Peu importe la solution de stockage de données que vous choisissez, il est
+indispensable qu'il existe des interfaces, des formats, pour passer de l'une
+à l'autre.&lt;/p&gt;
+&lt;p&gt;Kinto expose (avant tout) une API HTTP (certains diraient RESTful) qui parle
+JSON, ce qui rend son intégration avec d'autres solutions aisée.&lt;/p&gt;
+&lt;p&gt;Dans un premier temps, cela peut être simplement des fonctionnalités
+d'import / export d'une solution vers une autre, mais il est préférable de se
+mettre d'accord sur un format pour cet échange, sans quoi un standard
+&lt;em&gt;de facto&lt;/em&gt; émergera, pour le meilleur et pour le pire !&lt;/p&gt;
+&lt;p&gt;Il est donc primordial d'entamer un travail de collaboration
+avec les autres systèmes de "clouds privés" tels que OwnCloud ou CozyCloud.&lt;/p&gt;
+&lt;p&gt;Ces derniers ont d'ailleurs mis en place &lt;a class="reference external" href="https://github.com/Decentralized-Sharing-Working-Group/internet-draft"&gt;un groupe de
+travail&lt;/a&gt;
+sur le sujet, qui vise à utiliser MicroPub et WebMention comme briques de départ.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="decentralisation"&gt;
+&lt;h3&gt;Décentralisation&lt;/h3&gt;
+&lt;p&gt;La mise en place de serveurs communautaires n'empêche bien sûr pas l'utilisation
+de serveurs personnels pour les utilisateurs les plus aguerris.&lt;/p&gt;
+&lt;p&gt;Dans un tel cas, les serveurs communautaires peuvent alors servir de sauvegarde,
+en cas de défaillance des serveurs personnels (ou vice-versa, les serveurs
+personnels pouvant redonder les serveurs communautaires).&lt;/p&gt;
+&lt;p&gt;Il est tout à fait imaginable d'avoir des petits serveurs Kinto pour
+chaque utilisateur, mais il va falloir procéder par étapes et défricher le
+terrain avant d'avoir un &lt;em&gt;one click&lt;/em&gt; pour &lt;em&gt;Tatie Jeannine&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;La clé ici est sans doute l'essaimage : commencez à utiliser le serveur Kinto
+de Framasoft (ou autre) puis migrez vers votre propre serveur, une fois
+l'ensemble des problèmes techniques (évoqués précédemment) résolus.&lt;/p&gt;
+&lt;p&gt;En attendant, une approche reposant sur plusieurs communautés semble être une
+solution pragmatique sur le court/moyen terme, rendant certaines libertés
+aux utilisateurs et ouvrant la voie pour le futur.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</summary></entry><entry><title>Comment chiffrer ses données avec Kinto.js</title><link href="http://www.servicedenuages.fr/kinto-chiffrer-ses-donnees" rel="alternate"></link><updated>2015-09-16T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-09-16:kinto-chiffrer-ses-donnees</id><summary type="html">&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;Traduit de l'anglais par &lt;a class="reference external" href="https://twitter.com/Natim"&gt;Rémy Hubscher&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
