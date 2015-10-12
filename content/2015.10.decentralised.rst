@@ -70,7 +70,7 @@ Un de nos objectifs est de rendre le chiffrement des données extrêmement simpl
 que personne (sinon vous) ne soit capable de les lire.
 
 Kinto.js le permet d'ailleurs d'ores et déjà, comme Michiel le démontre `dans
-un article paru précedemment ici <{filename}/kinto-chiffrer-ses-donnnes>`_.
+un article paru précedemment ici <{filename}/2015.09.kinto-encryption-example-fr.rst>`_.
 
 Éviter la création d'un nouveau silo
 ====================================
