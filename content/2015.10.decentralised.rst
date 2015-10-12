@@ -58,7 +58,7 @@ communautaires mais mes données personnelles je préfère quand même ne pas le
 donner à n'importe qui !". Et vous auriez raison !
 
 Kinto permet de stocker n'importe quel type de données. Qu'il s'agisse de données
-qui ont vocation à être partagées ou de données qui sont les votre et qui
+qui ont vocation à être partagées ou de données qui sont les vôtres et qui
 doivent rester privées.
 
 Un de nos objectifs est de rendre le chiffrement des données extrêmement simple afin
@@ -71,7 +71,7 @@ un article paru précedemment ici <{filename}/kinto-chiffrer-ses-donnnes>`_.
 ====================================
 
 Afin d'éviter de participer à la création d'un nouveau silo, il est important
-de lever quelques points de vigilance:
+de lever quelques points de vigilance :
 
 Identité
 --------
@@ -83,7 +83,7 @@ joindre.
 
 C'est très certainement un fait malheureux, mais tentons de résoudre un
 problème à la fois (malheureusement, la tentative d'identité décentralisé —
-Mozilla Persona — bat sérieusement de l'aile).
+Mozilla Persona — bât sérieusement de l'aile).
 
 Laissons donc les personnes s'authentifier avec la solution de leur choix,
 libre ou non (OpenID, Firefox Accounts, Github, Twitter, Facebook etc.) *mais*
@@ -109,12 +109,12 @@ avec les autres systèmes de "clouds privés" tels que OwnCloud ou CozyCloud.
 
 Ces derniers ont d'ailleurs mis en place `un groupe de
 travail <https://github.com/Decentralized-Sharing-Working-Group/internet-draft>`_
-sur le sujet, qui vise à utilise MicroPub et WebMention comme briques de départ.
+sur le sujet, qui vise à utiliser MicroPub et WebMention comme briques de départ.
 
 Décentralisation
 ----------------
 
-La mise en place de serveurs communautaires n'empêche bien sur pas l'utilisation
+La mise en place de serveurs communautaires n'empêche bien sûr pas l'utilisation
 de serveurs personnels pour les utilisateurs les plus aguerris.
 
 Dans un tel cas, les serveurs communautaires peuvent alors servir de sauvegarde,
@@ -125,7 +125,7 @@ Il est tout à fait imaginable d'avoir des petits serveurs Kinto pour
 chaque utilisateur, mais il va falloir procéder par étapes et défricher le
 terrain avant d'avoir un *one click* pour *Tatie Jeannine*.
 
-La clé ici est sans doute l'essaimage: commencez à utiliser le serveur Kinto
+La clé ici est sans doute l'essaimage : commencez à utiliser le serveur Kinto
 de Framasoft (ou autre) puis migrez vers votre propre serveur, une fois
 l'ensemble des problèmes techniques (évoqués précédemment) résolus.
 
