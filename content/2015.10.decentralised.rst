@@ -2,10 +2,10 @@ La difficile promesse de l'auto-hébergement
 ###########################################
 
 :date: 2015-10-05
-:slug: la-promesse-de-l-autohebergement
+:slug: difficile-promesse-autohebergement
 :lang: fr
-:url: la-promesse-de-l-autohebergement
-:summary: Où il est question de déploiement et de décentralisation.
+:url: difficile-promesse-autohebergement
+:summary: Où il est question d'auto-hébergement, de déploiement et de décentralisation.
 
 Au détour de quelques conversations, nous avons pu nous rendre compte que notre
 vision de `Kinto <https://kinto.readthedocs.org>`_ est celle d'un hébergement
