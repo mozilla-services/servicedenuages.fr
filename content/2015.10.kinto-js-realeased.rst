@@ -28,7 +28,7 @@ Local persistence in the browser is achieved using IndexedDB_, and we've tried h
 
 Kinto.js provides basic local CRUD operations for `creating <https://kintojs.readthedocs.org/en/latest/api/#creating-a-record>`_, `updating <https://kintojs.readthedocs.org/en/latest/api/#updating-a-record>`_, `deleting <https://kintojs.readthedocs.org/en/latest/api/#deleting-records>`_, `retrieving <https://kintojs.readthedocs.org/en/latest/api/#retrieving-a-single-record>`_ and `listing <https://kintojs.readthedocs.org/en/latest/api/#listing-records>`_ records from a local collection. Each time you want to reflect its state to a remote server, you only ever have to `call the sync() method <https://kintojs.readthedocs.org/en/latest/api/#fetching-and-publishing-changes>`_!
 
-We've set up a `simple demo application <https://kinto.github.io/kinto.js/>`_ leveraging a public Mozilla test server instance, so you can check how it behaves by yourself if you're interested. The source code of this app is `available on Github <https://github.com/Kinto/kinto.js/blob/66ef077796a8e4a8b0d9a95389a61ea57cbbfde3/demo/demo.js>`_, and is also the base use case for the `Kinto.js tutorial <http://kintojs.readthedocs.org/en/latest/tutorial/>`_ you should probably take if you want to get your feet wet.
+We've set up a `simple demo application <https://kinto.github.io/kinto.js/>`_ using a public Mozilla test server instance, so you can check how it behaves by yourself if you're interested. The source code of this app is `available on Github <https://github.com/Kinto/kinto.js/blob/66ef077796a8e4a8b0d9a95389a61ea57cbbfde3/demo/demo.js>`_, and is also the base use case for the `Kinto.js tutorial <http://kintojs.readthedocs.org/en/latest/tutorial/>`_ you should probably take if you want to get your feet wet.
 
 .. note::
 
@@ -59,6 +59,11 @@ To help addressing these issues, Kinto.js exposes a `Remote Transformers API <ht
 
 This is a perfect hook for supporting end-to-end encryption, which `we already wrote about earlier <{filename}/en/kinto-encryption-example>`_.
 
+Getting started
+---------------
+
+We already mentioned the `Kinto.js tutorial <http://kintojs.readthedocs.org/en/latest/tutorial/>`_, but there's more; we've created a rather opinionated  `Kinto.js + React boilerplate <https://github.com/Kinto/kinto-react-boilerplate>`_, so you can bootstrap your next offline-first Web application in no time ;)
+
 Current limitations
 -------------------
 
@@ -69,7 +74,7 @@ Sure, that's a bunch of work remaining, and you're obviously `invited to contrib
 The future of Kinto.js
 ----------------------
 
-Of course 1.0 is a very first step towards a broader goal; foremost, we absolutely want to support bulk updates leveraging IndexedDB transactions, for performance and consistency purposes.
+Of course 1.0 is a very first step towards a broader goal; foremost, we absolutely want to support bulk updates taking advantage of IndexedDB transactions, for performance and consistency purposes.
 
 So stay tuned for next upcoming releases, and feel free to provide feedback on the `project mailing-list <https://mail.mozilla.org/listinfo/kinto>`_ or by `filing an issue on Github <https://github.com/Kinto/kinto.js/issues/new>`_ :)
 
