@@ -9,7 +9,7 @@ Kinto.js 1.0 released
 
 Kinto.js_ is an offline-first JavaScript client leveraging the `Kinto API <https://kinto.readthedocs.org/>`_ for data synchronization. In a world where connectivity isn't always guaranteed, local persistence in the browser has become an `identified priority <http://offlinefirst.org/>`_ for Web applications, especially on mobile.
 
-The base principle is simple; save your data locally, assuming there's no network connectivity. Then as soon as it's available, retrieve a remote changes and push your local data to a remote server.
+The basic principle is simple; save your data locally, assuming there's no network connectivity. Then as soon as it's available, retrieve remote changes and push your local data to a remote server.
 
 .. code-block:: javascript
 
@@ -53,7 +53,7 @@ The diagram flow below describes pretty much accurately what's happening under t
 A case for encryption
 ---------------------
 
-Remote data storage is certainly a concerns-raising topic when it comes to security and privacy.
+Remote data storage is certainly a topic raising concerns when it comes to security and privacy.
 
 To help addressing these issues, Kinto.js exposes a `Remote Transformers API <http://kintojs.readthedocs.org/en/latest/api/#transformers>`_, which allow processing records before they're sent to the server and after they've been retrieved from it.
 
@@ -74,7 +74,7 @@ Sure, that's a bunch of work remaining, and you're obviously `invited to contrib
 The future of Kinto.js
 ----------------------
 
-Of course 1.0 is a very first step towards a broader goal; foremost, we absolutely want to support bulk updates taking advantage of IndexedDB transactions, for performance and consistency purposes.
+Of course 1.0 is a very first step towards a broader goal; foremost, we absolutely want to support bulk updates by taking advantage of IndexedDB transactions, for performance and consistency purposes.
 
 So stay tuned for next upcoming releases, and feel free to provide feedback on the `project mailing-list <https://mail.mozilla.org/listinfo/kinto>`_ or by `filing an issue on Github <https://github.com/Kinto/kinto.js/issues/new>`_ :)
 
