@@ -71,7 +71,7 @@ The future of Kinto.js
 
 Of course 1.0 is a very first step towards a broader goal; foremost, we absolutely want to support bulk updates leveraging IndexedDB transactions, for performance and consistency purposes.
 
-So stay tuned for next upcoming releases, and feel free to provide any feedback in the meanwhile :)
+So stay tuned for next upcoming releases, and feel free to provide feedback on the `project mailing-list <https://mail.mozilla.org/listinfo/kinto>`_ or by `filing an issue on Github <https://github.com/Kinto/kinto.js/issues/new>`_ :)
 
 .. _IndexedDB: https://www.w3.org/TR/IndexedDB/
 .. _Kinto.js: https://kintojs.readthedocs.org/
