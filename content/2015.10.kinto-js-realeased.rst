@@ -7,9 +7,9 @@ Kinto.js 1.0 released
 :date: 2015-10-27
 :summary: After months of development, we're proud to announce the release of Kinto.js 1.0.0 stable.
 
-Kinto.js_ is an offline-first JavaScript client leveraging the `Kinto API <https://kinto.readthedocs.org/>`_ for data synchronization. In a world where connectivity isn't always guaranteed, the priority given to local persistence in the browser has become a `first-class citizen <http://offlinefirst.org/>`_ for any webapp, especially on mobile.
+Kinto.js_ is an offline-first JavaScript client leveraging the `Kinto API <https://kinto.readthedocs.org/>`_ for data synchronization. In a world where connectivity isn't always guaranteed, local persistence in the browser has become an `identified priority <http://offlinefirst.org/>`_ for Web applications, especially on mobile.
 
-The principle is simple; save your data locally as if there were no connectivity, and when it's available, push your local data to a remote server, retrieve remote changes, and reflect them locally:
+The base principle is simple; save your data locally, assuming there's no network connectivity. Then as soon as it's available, retrieve a remote changes and push your local data to a remote server.
 
 .. code-block:: javascript
 
@@ -24,22 +24,18 @@ The principle is simple; save your data locally as if there were no connectivity
         }
       });
 
-XXX introduce the concept of collection
-
-Kinto.js provides basic local CRUD operations for `creating <https://kintojs.readthedocs.org/en/latest/api/#creating-a-record>`_, `updating <https://kintojs.readthedocs.org/en/latest/api/#updating-a-record>`_, `deleting <https://kintojs.readthedocs.org/en/latest/api/#deleting-records>`_, `retrieving <https://kintojs.readthedocs.org/en/latest/api/#retrieving-a-single-record>`_ and `listing <https://kintojs.readthedocs.org/en/latest/api/#listing-records>`_ records from the local database. Each time you want to reflect its state to a remote server, you only have a `single method <https://kintojs.readthedocs.org/en/latest/api/#fetching-and-publishing-changes>`_ to call: ``sync()``!
+Kinto.js provides basic local CRUD operations for `creating <https://kintojs.readthedocs.org/en/latest/api/#creating-a-record>`_, `updating <https://kintojs.readthedocs.org/en/latest/api/#updating-a-record>`_, `deleting <https://kintojs.readthedocs.org/en/latest/api/#deleting-records>`_, `retrieving <https://kintojs.readthedocs.org/en/latest/api/#retrieving-a-single-record>`_ and `listing <https://kintojs.readthedocs.org/en/latest/api/#listing-records>`_ records from a local collection. Each time you want to reflect its state to a remote server, you only have a `single method <https://kintojs.readthedocs.org/en/latest/api/#fetching-and-publishing-changes>`_ to call: ``sync()``!
 
 We've set up a `simple demo application <https://kinto.github.io/kinto.js/>`_ leveraging a public Mozilla test server instance, so you can check how it behaves by yourself if you're interested. The source code of this app is `available on Github <https://github.com/Kinto/kinto.js/blob/66ef077796a8e4a8b0d9a95389a61ea57cbbfde3/demo/demo.js>`_, and is also the base use case for the `Kinto.js tutorial <http://kintojs.readthedocs.org/en/latest/tutorial/>`_ you should probably take if you want to get your feet wet.
 
 .. note::
 
-   The public Kinto test server instance is flushed every morning at 7AM UTC, so don't rely on it for production use ;)
+   Please note that this public Kinto test server instance is flushed every morning at 7AM UTC, so don't rely on it for production use ;)
 
 Local persistence in the browser is achieved using IndexedDB_, and we've tried hard to hide its inherent low-level usage complexity — mainly due to its fully asynchronous nature — through a simpler yet convenient Promises_ based API.
 
 Synchronizing and reconciling data
 ----------------------------------
-
-kintojs-sync-flow.png
 
 Synchronizing local and remote data is a tough topic, and conflicts may occur quite easily if things are changing often from different sources (think multiple devices updating a same server); Kinto.js supports three distinct *synchronization strategies* to handle such a situation:
 
@@ -49,10 +45,19 @@ Synchronizing local and remote data is a tough topic, and conflicts may occur qu
 
 You can read more about `conflict resolution <https://kintojs.readthedocs.org/en/latest/api/#resolving-conflicts-manually>`_ and `sychronization strategies <http://kintojs.readthedocs.org/en/latest/api/#synchronization-strategies>`_ in the dedicated sections of the project documentation.
 
+The diagram flow below describes pretty much accurately what's happening under the hood when ``sync()`` is called:
+
+.. image:: {filename}/images/kintojs-sync-flow.png
+   :alt: Kinto.js synchronization flow
+
 A case for encryption
 ---------------------
 
-XXX
+Remote data storage is certainly a concerns-raising topic when it comes to security and privacy.
+
+To help addressing these issues, Kinto.js exposes a `Remote Transformers API <http://kintojs.readthedocs.org/en/latest/api/#transformers>`_, which allow processing records before they're sent to the server and after they'be been retrieved from it.
+
+This is a perfect hook for supporting end-to-end encryption, which `we already wrote about earlier </en/kinto-encryption-example>`_.
 
 Current limitations
 -------------------
