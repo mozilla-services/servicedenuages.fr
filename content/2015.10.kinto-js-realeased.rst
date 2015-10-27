@@ -62,7 +62,9 @@ This is a perfect hook for supporting end-to-end encryption, which `we already w
 Current limitations
 -------------------
 
-XXX
+We've listed Kinto.js current limitations — the ones we're aware of — in a `dedicated section of the documentation <http://kintojs.readthedocs.org/en/latest/limitations/>`_.
+
+Sure, that's a bunch of work remaining, and you're obviously `invited to contribute <http://kintojs.readthedocs.org/en/latest/hacking/>`_ if you want to help!
 
 The future of Kinto.js
 ----------------------
