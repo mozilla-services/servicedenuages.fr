@@ -78,6 +78,11 @@ Of course 1.0 is a very first step towards a broader goal; foremost, we absolute
 
 So stay tuned for next upcoming releases, and feel free to provide feedback on the `project mailing-list <https://mail.mozilla.org/listinfo/kinto>`_ or by `filing an issue on Github <https://github.com/Kinto/kinto.js/issues/new>`_ :)
 
+Update
+------
+
+We're not even done polishing this blog post and the `1.1 version is already there <https://github.com/Kinto/kinto.js/releases/tag/v1.1.0>`_! Take it the easy way, that means the project is on steroids ;)
+
 .. _IndexedDB: https://www.w3.org/TR/IndexedDB/
 .. _Kinto.js: https://kintojs.readthedocs.org/
 .. _Promises: https://www.promisejs.org/
