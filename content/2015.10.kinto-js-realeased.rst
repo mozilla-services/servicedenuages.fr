@@ -57,7 +57,7 @@ Remote data storage is certainly a topic raising concerns when it comes to secur
 
 To help addressing these issues, Kinto.js exposes a `Remote Transformers API <http://kintojs.readthedocs.org/en/latest/api/#transformers>`_, which allow processing records before they're sent to the server and after they've been retrieved from it.
 
-This is a perfect hook for supporting end-to-end encryption, which `we already wrote about earlier <{filename}/en/kinto-encryption-example>`_.
+This is a perfect hook for supporting end-to-end encryption, which `we already wrote about earlier <{filename}/2015.09.kinto-encryption-example.rst>`_.
 
 Getting started
 ---------------
