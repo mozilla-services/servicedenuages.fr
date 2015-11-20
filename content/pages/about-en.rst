@@ -11,7 +11,7 @@ We are the "Cloud-services" french team at
 `Mathieu <http://mathieu-leplatre.info>`_, `Tarek <http://ziade.org/>`_,
 `Rémy <https://twitter.com/Natim>`_ and `Alexis <http://notmyidea.org>`_.
 
-After some time spend accumulating experience without writting about
+After some time spend accumulating experience without writing about
 it, we decided to start this blog, where we write in French and in
 English, about our explorations and reflections.
 
