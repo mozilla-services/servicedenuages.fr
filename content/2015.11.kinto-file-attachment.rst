@@ -1,0 +1,174 @@
+Support des fichiers dans Kinto
+###############################
+
+:slug: kinto-file-attachment
+:date: 2015-11-19
+:lang: fr
+:url: kinto-file-attachment
+:summary:
+    La possibilité d'attacher un fichier sur un enregistrement dans Kinto.
+
+
+Le besoin initial
+=================
+
+Le besoin d'ajouter des fichiers dans *Kinto* avait été identifié depuis
+le début du projet. Mais comme nous sommes une toute petite équipe, nous sommes
+un peu forcés d'attendre que des besoins se présentent chez Mozilla pour
+se lancer dans l'implémentation.
+
+Après `les permissions`_, `le chiffrement`_, `les signatures`_ et `les notifications`_,
+nous avons enfin eu une demande pour les fichiers!
+
+Dans `Fennec <https://www.mozilla.org/fr/firefox/partners/#android>`_, la version
+mobile de Firefox, nous souhaitons livrer et mettre à jour les fichiers statiques
+(polices de caractères, icônes, dictionnaires de césures...) sans avoir à repackager
+et redéployer une nouvelle version de l'application.
+
+Pour cela, un *Kinto* accessible publiquement en lecture-seule sera consulté par
+les mobiles pour synchroniser localement des collections d'enregistrements, qui
+eux fourniront les URLs vers le CDN. Les collections ``fonts``, ``assets`` ou
+``hyphenation`` seront mises à jour dès qu'un fichier sera ajouté ou remplacé
+sur un de leurs enregistrements.
+
+Nous reviendrons probablement là-dessus, mais cela ressemble beaucoup à ce que
+nous sommes en train de faire pour les révocations de certificats ou les listes
+noires d'addons dans Firefox.
+
+
+Choix et limitations
+====================
+
+Comme nous avons besoin de cette fonctionnalité assez rapidement et que ce cas
+d'utilisation n'est probablement pas très universel, nous avons décidé d'implémenter
+le support des fichiers dans un plugin *Kinto* [#]_.
+
+Les fonctionnalités principales:
+
+* stockage des fichiers en local sur le serveur ou sur Amazon S3 ;
+* le serveur calcule les métadonnées à la reception (hash, taille, ...) ;
+* l'enregistrement lié est créé si besoin lors de l'envoi du fichier ;
+* les permissions de l'enregistrement sont vérifiées au moment de l'envoi ;
+* des attributs de l'enregistrement lié peuvent être spécifiés lors de l'envoi ;
+* les fichiers sont de simples blobs opaques, qui peuvent être le résultat de
+  compression ou chiffrement ;
+* les fichiers sont supprimés lorsque les enregistrements sont supprimés.
+
+Limitations:
+
+* un seul fichier par enregistrement ;
+* les metadonnées du fichier joint sont stockées dans un attribut ``attachment``
+  parmis les autres attributs métier (`plus de détails`_);
+* dans un premier temps la récupération du fichier ne passera pas par *Kinto*.
+  Pour les fichiers «privés», il faut donc que les URLs générées soient «secrètes».
+
+Pour plus tard (ou bientôt selon les besoins)
+
+* Support de l'`envoi par chunk`_ pour les gros fichiers
+* Ajout d'un endpoint (optionnel) pour servir des fichiers complètement privés
+
+
+.. [#] ça nous permet aussi de `remonter`_ `des`_ `soucis`_ dans notre
+       système de plugins :)
+
+
+HTTP API
+========
+
+Quand le plugin est activé, *Kinto* dispose d'un nouveau *endpoint*: un suffixe
+``/attachment`` à l'URL de l'enregistrement.
+
+Le fichier est posté avec le *Content-Type* ``multipart``. Avec `HTTPie <http://httpie.org>`_,
+ça donne:
+
+.. code-block:: http
+
+    $ http --auth alice: --verbose --form POST \
+         http://localhost:8888/v1/buckets/website/collections/assets/records/c2ce1975-0e52-4b2f-a5db-80166aeca689/attachment \
+         data='{"type": "wallpaper", "theme": "orange"}' \
+         attachment@~/Pictures/background.jpg
+
+    HTTP/1.1 201 Created
+    Access-Control-Expose-Headers: Retry-After, Content-Length, Alert, Backoff
+    Content-Length: 209
+    Content-Type: application/json; charset=UTF-8
+    Date: Wed, 18 Nov 2015 08:22:18 GMT
+    Etag: "1447834938251"
+    Last-Modified: Wed, 18 Nov 2015 08:22:18 GMT
+    Location: http://localhost:8888/v1/buckets/website/collections/assets/c2ce1975-0e52-4b2f-a5db-80166aeca689
+    Server: waitress
+
+    {
+        "filename": "background.jpg",
+        "hash": "hPME6i9avCf/LFaznYr+sHtwQEX7mXYHSu+vgtygpM8=",
+        "location": "/files/MDcxJDAiBgNVBAMTG1JDUyBDZXJ0aWZpY2.jpg",
+        "mimetype": "image/jpeg",
+        "size": 1481798
+    }
+
+
+L'enregistrement lié a été créé, et contient un attribut ``attachment`` avec les
+metadonnées du fichier, ainsi que les attributs extra spécifiés lors de l'envoi:
+
+.. code-block:: http
+
+    $ http --auth alice: GET \
+          http://localhost:8888/v1/buckets/website/collections/assets/records/c2ce1975-0e52-4b2f-a5db-80166aeca689
+
+    HTTP/1.1 200 OK
+    Access-Control-Expose-Headers: Content-Length, Expires, Alert, Retry-After, Last-Modified, ETag, Pragma, Cache-Control, Backoff
+    Cache-Control: no-cache
+    Content-Length: 360
+    Content-Type: application/json; charset=UTF-8
+    Date: Wed, 18 Nov 2015 08:24:15 GMT
+    Etag: "1447834938251"
+    Last-Modified: Wed, 18 Nov 2015 08:22:18 GMT
+    Server: waitress
+
+    {
+        "data": {
+            "id": "c2ce1975-0e52-4b2f-a5db-80166aeca688",
+            "last_modified": 1447834938251,
+            "theme": "orange",
+            "type": "wallpaper",
+            "attachment": {
+                "filename": "background.jpg",
+                "hash": "hPME6i9avCf/LFaznYr+sHtwQEX7mXYHSu+vgtygpM8=",
+                "location": "/files/MDcxJDAiBgNVBAMTG1JDUyBDZXJ0aWZpY2.jpg",
+                "mimetype": "image/jpeg",
+                "size": 1481798
+            }
+        },
+        "permissions": {
+            "write": ["basicauth:6de355038fd943a2dc91405063b91018bb5dd97a08d1beb95713d23c2909748f"]
+        }
+    }
+
+
+Il est également possible de supprimer un attachment en effectuant une requête
+``DELETE`` sur le ``/attachment`` de l'enregistrement.
+
+Si l'attribut ``attachment`` est supprimé de l'enregistrement, le lien avec le
+fichier est tout de même conservé en interne, notamment pour s'assurer de sa suppression
+lors de la suppression de l'enregistrement.
+
+
+Fichiers multiples
+------------------
+
+Il est possible de simuler l'ajout de plusieurs fichiers par enregistrements en
+utilisant une collection séparée, avec un attribut ``record_id`` par exemple:
+``GET /buckets/kept/collections/attachments/records?record_id=<id>``.
+
+En revanche l'intégrité lors de la suppression de l'enregistrement lié devra être
+assurée manuellement (``DELETE /.../attachments/records?record_id=<id>``).
+
+
+Développement
+=============
+
+Si vous avez du feedback sur ces premiers pas, n'hésitez pas à nous en faire
+part !
+
+Une première implémentation a été commencée, en utilisant
+`Pyramid Storage <https://github.com/danjac/pyramid_storage>`_: https://github.com/Kinto/kinto-attachment/
