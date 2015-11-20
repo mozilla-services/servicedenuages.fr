@@ -2,11 +2,13 @@
 ########
 
 :slug: a-propos
+:url: a-propos
 
-Nous sommes l'équipe «Cloud-services» francophone: `n1k0
-<https://nicolas.perriault.net/>`_, `Mathieu <http://mathieu-leplatre.info>`_, `Tarek
-<http://ziade.org/>`_, `Daniel <https://twitter.com/phrawzty>`_, `Rémy <https://twitter.com/Natim>`_ et `Alexis
-<http://notmyidea.org>`_.
+Nous sommes l'équipe «Cloud-services» francophone de
+`Mozilla <https://www.mozilla.com/>`_ :
+`n1k0 <https://nicolas.perriault.net/>`_,
+`Mathieu <http://mathieu-leplatre.info>`_, `Tarek <http://ziade.org/>`_,
+`Rémy <https://twitter.com/Natim>`_ et `Alexis <http://notmyidea.org>`_.
 
 Après quelques temps à accumuler les expériences sans vraiment les
 partager à l'écrit, nous avons décidé d'ouvrir ce blog, où nous nous
