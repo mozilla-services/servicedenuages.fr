@@ -2,6 +2,7 @@
 ########
 
 :slug: a-propos
+:url: a-propos
 
 Nous sommes l'équipe «Cloud-services» francophone de
 `Mozilla <https://www.mozilla.com/>`_ :
