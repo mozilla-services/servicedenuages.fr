@@ -1,0 +1,80 @@
+Discovery of Kinto servers
+###########################
+
+:slug: outreachy-2016
+:date: 2015-11-27
+:lang: en
+:url: shweta-oak-kinto-2016
+:summary:
+    Work on Kinto project - making instances discoverable, during internship.
+
+.. epigraph::
+	
+  By having a program targeted specifically towards women, we found that we
+  reached talented and passionate participants, who were uncertain about how to
+  start otherwise.
+
+  We are now expanding the program to people from more groups underrepresented
+  in FOSS. We hope this effort will help many people learn how exciting, varied
+  and valuable work on FOSS projects can be and how inclusive the community
+  really is.
+
+  -- `The GNOME Outreachy program wiki <https://wiki.gnome.org/Outreachy>`_
+
+While looking for projects to contribute to, I read about Kinto, and found it intriguing.
+
+The differences I observed between Kinto and such existing solutions are:
+
+* ­Decentralized discovery of Kinto instances.
+* It is open source and you can self host a kinto server which is not possible in other existing solutions.
+* Fine grained permissions can be imposed on records, collections and buckets which follow a hierarchy.
+* Kinto provides for Synchronization. Applications can synchronize data on different devices.
+* Multiple clients can access a server in case of a shared resource.
+* If an application makes some change, while offline, these changes will be reflected when connection is established.
+
+Decentralization and Discovery 
+===============================
+
+The Kinto project aims to bring storage instances to everyone, attached to their Firefox Accounts. Currently, Kinto is thought of as a centralized server and everyone authenticates on one instance. Items are shared between users of a same instance. Scalability is harder when there is one endpoint, and it's also not easy to exchange and make use of information.
+For instance, imagine Alice and Bob. Bob is using Mozilla's servers to store his data, whereas Alice deployed her own Kinto instance.
+
+There are different use cases:
+
+* Alice wants to use `Routina <https://github.com/leplatrem/routina>`_, an
+  application that stores its data inside a Kinto instance. As such, Routina
+  needs a way to discover where it should store its data, and send the requests
+  to this server.
+* Bob and Alice want to collaborate on a set of data (think about a webapp to
+  manage their shared expenses). There should be a way for Alice to host
+  everything and grant access to Bob on her data. The webapp should be able to
+  use the correct server.
+
+For discovery of kinto servers, we could use webfinger or hostmeta. 
+
+Webfinger vs host meta
+======================
+
+Webfinger:
+
+WebFinger is used to discover information about entities on the Internet that are identified by a URI using standard HTTP methods over a secure transport. A WebFinger resource returns a JSON object describing the entity that is queried.
+ 
+The advantage of webfinger is that the Kinto server can be discovered from the scratch using just a self-hosted email address.
+   
+
+
+Hostmeta:
+
+Hostmeta is a method for locating host metadata as well as information about individual resources controlled by the host.
+With Host-Meta, the user will specify the location of the server serving the Host-Meta file, which will contain information such as where the Kinto server is, this also has the possibility of adding some other server locations.
+
+In practice it would be easier to use a single account for FxA identity, and it's easier to configure the Kinto server in client/app settings than to have to create an FxA account from a self-hosted mailserver and then a  webfinger host. 
+
+A possible solution
+===================
+
+It would be easier to discover and access a kinto server using Host-meta, the discovery of these servers can be implemented as follows: 
+1. Let the user specify the location of its server on the client side
+2. The client then does a lookup on the server to find the location of the Kinto server, using Host-Meta
+3. It caches the location of the Kinto server and the location of the Host-Meta server until their is a problem connecting with the Kinto instance, in case it retries to get the information from the Host-Meta.
+Creating the Host-Meta site is one of the primary tasks. We can do this by having the Host-Meta file generated statically by a script.
+
