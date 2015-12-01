@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>Support des fichiers dans Kinto // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Publié</h5>
+                <p title="~790 mots">~4mn de lecture 🕑</p>
+                <p>jeu. 19 novembre 2015</p>
+                <a href="/">&larr;Liste des articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Support des fichiers dans Kinto</h1>
+                </header>
+            </section>
+            <div class="section" id="le-besoin-initial">
+<h2>Le besoin initial</h2>
+<p>Le besoin d'ajouter des fichiers dans <em>Kinto</em> avait été identifié depuis
+le début du projet. Mais comme nous sommes une toute petite équipe, nous sommes
+un peu forcés d'attendre que des besoins se présentent en interne (chez Mozilla)
+pour se lancer dans l'implémentation.</p>
+<p>Après <a class="reference external" href="http://www.servicedenuages.fr/la-gestion-des-permissions">les permissions</a>,
+<a class="reference external" href="http://www.servicedenuages.fr/kinto-chiffrer-ses-donnees">le chiffrement</a>,
+<a class="reference external" href="http://www.servicedenuages.fr/donnees-et-signatures">les signatures</a> et
+<a class="reference external" href="http://www.servicedenuages.fr/en/notifications-kinto-preamble">les notifications</a>,
+nous avons enfin eu une demande pour les fichiers !</p>
+<img alt="Fennec logo" class="align-center" src="http://www.servicedenuages.fr/images/logo-fennec.png" style="width: 458px; height: auto; max-width: 100%;"/>
+<p>En effet, dans <a class="reference external" href="https://www.mozilla.org/fr/firefox/partners/#android">Fennec</a>
+— la version mobile de Firefox — nous souhaitons livrer et mettre à jour des fichiers statiques
+(polices de caractères, icônes, dictionnaires de césures...) sans avoir à repackager
+et redéployer une nouvelle version de l'application.</p>
+<p>Pour cela, un <em>Kinto</em> accessible publiquement en lecture-seule sera consulté par
+les mobiles pour synchroniser localement des collections d'enregistrements, qui
+eux fourniront les URLs vers les fichiers (sur un CDN). Les collections <tt class="docutils literal">fonts</tt>,
+<tt class="docutils literal">assets</tt> ou <tt class="docutils literal">hyphenation</tt> seront mises à jour dès qu'un fichier sera ajouté ou remplacé
+sur un de leurs enregistrements.</p>
+<p>Nous reviendrons avec plus de détails dans un autre article, mais cela ressemble beaucoup à ce que
+nous sommes en train de faire pour les révocations de certificats ou les listes
+noires d'addons dans Firefox.</p>
+</div>
+<div class="section" id="la-solution">
+<h2>La solution</h2>
+<p>Comme nous avons besoin de cette fonctionnalité assez rapidement et que ce cas
+d'utilisation n'est probablement pas très universel, nous avons décidé d'implémenter
+une solution sous forme de plugin <em>Kinto</em> <a class="footnote-reference" href="#id2" id="id1">[1]</a>.</p>
+<p>Le support des fichiers sera donc optionnel dans un premier temps.</p>
+<div class="section" id="fonctionnalites-principales">
+<h3>Fonctionnalités principales</h3>
+<ul class="simple">
+<li>stockage des fichiers en local sur le serveur ou sur Amazon S3 ;</li>
+<li>le serveur calcule les métadonnées à la reception (hash, taille, ...) ;</li>
+<li>l'enregistrement lié est créé si besoin lors de l'envoi du fichier ;</li>
+<li>les permissions de l'enregistrement sont vérifiées au moment de l'envoi ;</li>
+<li>des attributs et permissions de l'enregistrement lié peuvent être spécifiés lors de l'envoi ;</li>
+<li>les fichiers sont de simples blobs opaques, qui peuvent être le résultat de
+compression ou chiffrement ;</li>
+<li>les fichiers sont supprimés lorsque les enregistrements sont supprimés.</li>
+</ul>
+</div>
+<div class="section" id="limitations">
+<h3>Limitations</h3>
+<ul class="simple">
+<li>un seul fichier par enregistrement ;</li>
+<li>les metadonnées du fichier joint sont stockées dans un attribut <tt class="docutils literal">attachment</tt>
+parmis les autres attributs métier (<a class="reference external" href="https://github.com/Kinto/kinto/issues/256">plus de détails</a>);</li>
+<li>dans un premier temps la récupération du fichier ne passera pas par <em>Kinto</em>.
+Pour les fichiers «privés», il faut donc que les URLs générées soient «secrètes».</li>
+</ul>
+<p>Pour plus tard (ou bientôt selon les besoins)</p>
+<ul class="simple">
+<li>Support de l'<a class="reference external" href="https://fr.wikipedia.org/wiki/Chunked_transfer_encoding">envoi par chunk</a> pour les gros fichiers</li>
+<li>Ajout d'un endpoint (optionnel) pour servir des fichiers complètement privés</li>
+</ul>
+<table class="docutils footnote" frame="void" id="id2" rules="none">
+<colgroup><col class="label"></col><col></col></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>ça nous permet aussi de <a class="reference external" href="https://github.com/mozilla-services/cliquet/pull/584">remonter</a>
+<a class="reference external" href="https://github.com/Kinto/kinto/issues/277">des</a>
+<a class="reference external" href="https://github.com/Kinto/kinto/issues/309">soucis</a> dans notre système de plugins :)</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="http-api">
+<h2>HTTP API</h2>
+<p>Quand le plugin est activé, <em>Kinto</em> dispose d'un nouveau <em>endpoint</em> : un suffixe
+<tt class="docutils literal">/attachment</tt> à l'URL de l'enregistrement.</p>
+<p>Le fichier est posté avec le <em>Content-Type</em> <tt class="docutils literal">multipart</tt>. Avec <a class="reference external" href="http://httpie.org">HTTPie</a>,
+ça donne :</p>
+<div class="highlight"><pre><span class="err">$ http --auth alice:passwd --verbose --form POST \</span>
+<span class="err">     http://localhost:8888/v1/buckets/website/collections/assets/records/c2ce1975-0e52-4b2f-a5db-80166aeca689/attachment \</span>
+<span class="err">     data='{"type": "wallpaper", "theme": "orange"}' \</span>
+<span class="err">     attachment=@~/Pictures/background.jpg</span>
+
+<span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">201</span> <span class="ne">Created</span>
+<span class="na">Access-Control-Expose-Headers</span><span class="o">:</span> <span class="l">Retry-After, Content-Length, Alert, Backoff</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">209</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json; charset=UTF-8</span>
+<span class="na">Date</span><span class="o">:</span> <span class="l">Wed, 18 Nov 2015 08:22:18 GMT</span>
+<span class="na">Etag</span><span class="o">:</span> <span class="l">"1447834938251"</span>
+<span class="na">Last-Modified</span><span class="o">:</span> <span class="l">Wed, 18 Nov 2015 08:22:18 GMT</span>
+<span class="na">Location</span><span class="o">:</span> <span class="l">http://localhost:8888/v1/buckets/website/collections/assets/c2ce1975-0e52-4b2f-a5db-80166aeca689</span>
+<span class="na">Server</span><span class="o">:</span> <span class="l">waitress</span>
+
+<span class="p">{</span>
+    <span class="nt">"filename"</span><span class="p">:</span> <span class="s2">"background.jpg"</span><span class="p">,</span>
+    <span class="nt">"hash"</span><span class="p">:</span> <span class="s2">"db511d372e98725a61278e90259c7d4c5484fc7a781d7dcc0c93d53b8929e2ba"</span><span class="p">,</span>
+    <span class="nt">"location"</span><span class="p">:</span> <span class="s2">"/files/MDcxJDAiBgNVBAMTG1JDUyBDZXJ0aWZpY2.jpg"</span><span class="p">,</span>
+    <span class="nt">"mimetype"</span><span class="p">:</span> <span class="s2">"image/jpeg"</span><span class="p">,</span>
+    <span class="nt">"size"</span><span class="p">:</span> <span class="mi">1481798</span>
+<span class="p">}</span>
+</pre></div>
+<p>L'enregistrement lié a été créé, et contient un attribut <tt class="docutils literal">attachment</tt> avec les
+metadonnées du fichier, ainsi que les attributs supplémentaires spécifiés lors de l'envoi :</p>
+<div class="highlight"><pre><span class="err">$ http --auth alice: GET \</span>
+<span class="err">      http://localhost:8888/v1/buckets/website/collections/assets/records/c2ce1975-0e52-4b2f-a5db-80166aeca689</span>
+
+<span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Access-Control-Expose-Headers</span><span class="o">:</span> <span class="l">Content-Length, Expires, Alert, Retry-After, Last-Modified, ETag, Pragma, Cache-Control, Backoff</span>
+<span class="na">Cache-Control</span><span class="o">:</span> <span class="l">no-cache</span>
+<span class="na">Content-Length</span><span class="o">:</span> <span class="l">360</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json; charset=UTF-8</span>
+<span class="na">Date</span><span class="o">:</span> <span class="l">Wed, 18 Nov 2015 08:24:15 GMT</span>
+<span class="na">Etag</span><span class="o">:</span> <span class="l">"1447834938251"</span>
+<span class="na">Last-Modified</span><span class="o">:</span> <span class="l">Wed, 18 Nov 2015 08:22:18 GMT</span>
+<span class="na">Server</span><span class="o">:</span> <span class="l">waitress</span>
+
+<span class="p">{</span>
+    <span class="nt">"data"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"c2ce1975-0e52-4b2f-a5db-80166aeca688"</span><span class="p">,</span>
+        <span class="nt">"last_modified"</span><span class="p">:</span> <span class="mi">1447834938251</span><span class="p">,</span>
+        <span class="nt">"theme"</span><span class="p">:</span> <span class="s2">"orange"</span><span class="p">,</span>
+        <span class="nt">"type"</span><span class="p">:</span> <span class="s2">"wallpaper"</span><span class="p">,</span>
+        <span class="nt">"attachment"</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">"filename"</span><span class="p">:</span> <span class="s2">"background.jpg"</span><span class="p">,</span>
+            <span class="nt">"hash"</span><span class="p">:</span> <span class="s2">"db511d372e98725a61278e90259c7d4c5484fc7a781d7dcc0c93d53b8929e2ba"</span><span class="p">,</span>
+            <span class="nt">"location"</span><span class="p">:</span> <span class="s2">"/files/MDcxJDAiBgNVBAMTG1JDUyBDZXJ0aWZpY2.jpg"</span><span class="p">,</span>
+            <span class="nt">"mimetype"</span><span class="p">:</span> <span class="s2">"image/jpeg"</span><span class="p">,</span>
+            <span class="nt">"size"</span><span class="p">:</span> <span class="mi">1481798</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">"permissions"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"write"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"basicauth:6de355038fd943a2dc91405063b91018bb5dd97a08d1beb95713d23c2909748f"</span><span class="p">]</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>Il est également possible de supprimer un attachment en effectuant une requête
+<tt class="docutils literal">DELETE</tt> sur le <tt class="docutils literal">/attachment</tt> de l'enregistrement.</p>
+<p>Si l'attribut <tt class="docutils literal">attachment</tt> est supprimé de l'enregistrement, le lien avec le
+fichier est tout de même conservé en interne, notamment pour s'assurer de sa suppression
+lors de la suppression de l'enregistrement.</p>
+<div class="section" id="fichiers-multiples">
+<h3>Fichiers multiples</h3>
+<p>Il est possible de simuler l'ajout de plusieurs fichiers par enregistrements en
+utilisant une collection séparée, avec un attribut <tt class="docutils literal">record_id</tt> par exemple :
+<tt class="docutils literal">GET <span class="pre">/buckets/kept/collections/attachments/records?record_id=&lt;id&gt;</span></tt>.</p>
+<p>En revanche l'intégrité lors de la suppression de l'enregistrement lié devra être
+assurée manuellement (<tt class="docutils literal">DELETE <span class="pre">/.../attachments/records?record_id=&lt;id&gt;</span></tt>).</p>
+</div>
+</div>
+<div class="section" id="demo">
+<h2>Démo</h2>
+<p>Si vous avez du feedback sur ces premiers pas, n'hésitez pas à nous en faire
+part !</p>
+<p><a class="reference external" href="https://github.com/Kinto/kinto-attachment/">Une première implémentation a été commencée</a>,
+en utilisant <a class="reference external" href="https://github.com/danjac/pyramid_storage">Pyramid Storage</a>.</p>
+<p>Nous avons déjà eu l'occasion de tester l'API en soirée et ce fût un véritable succès!</p>
+<img alt="Kinto-attachment et le bot Telegram en soirée - CC0" class="align-center" src="http://www.servicedenuages.fr/images/kinto-telegram-betahaus.jpg" style="width: 1280px; height: auto; max-width: 100%;"/>
+<p>Dans <a class="reference external" href="https://github.com/leplatrem/kinto-telegram-wall">ce petit projet</a>, un
+bot Telegram reçoit des messages et des contenus multimedia, et les transmet à
+un serveur <em>Kinto</em> sous forme de fichiers joints.</p>
+<p>Une page Web synchronize et affiche les images, videos et sons en direct sur l'écran géant!
+Pendant la soirée, tout le monde a adoré envoyer un petit quelquechose, et il a suffi de faire une archive
+du répertoire de <em>kinto-attachment</em> pour distribuer un paquet de chouettes souvenirs!</p>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.notmyidea.org/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>

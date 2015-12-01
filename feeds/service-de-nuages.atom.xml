@@ -1,5 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/service-de-nuages.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-10-05T00:00:00+02:00</updated><entry><title>La difficile promesse de l'auto-hébergement</title><link href="http://www.servicedenuages.fr/difficile-promesse-autohebergement" rel="alternate"></link><updated>2015-10-05T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-10-05:difficile-promesse-autohebergement</id><summary type="html">&lt;p&gt;Au détour de quelques conversations, nous avons pu nous rendre compte que notre
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/service-de-nuages.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-11-19T00:00:00+01:00</updated><entry><title>Support des fichiers dans Kinto</title><link href="http://www.servicedenuages.fr/kinto-file-attachment" rel="alternate"></link><updated>2015-11-19T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-11-19:kinto-file-attachment</id><summary type="html">&lt;div class="section" id="le-besoin-initial"&gt;
+&lt;h2&gt;Le besoin initial&lt;/h2&gt;
+&lt;p&gt;Le besoin d'ajouter des fichiers dans &lt;em&gt;Kinto&lt;/em&gt; avait été identifié depuis
+le début du projet. Mais comme nous sommes une toute petite équipe, nous sommes
+un peu forcés d'attendre que des besoins se présentent en interne (chez Mozilla)
+pour se lancer dans l'implémentation.&lt;/p&gt;
+&lt;p&gt;Après &lt;a class="reference external" href="http://www.servicedenuages.fr/la-gestion-des-permissions"&gt;les permissions&lt;/a&gt;,
+&lt;a class="reference external" href="http://www.servicedenuages.fr/kinto-chiffrer-ses-donnees"&gt;le chiffrement&lt;/a&gt;,
+&lt;a class="reference external" href="http://www.servicedenuages.fr/donnees-et-signatures"&gt;les signatures&lt;/a&gt; et
+&lt;a class="reference external" href="http://www.servicedenuages.fr/en/notifications-kinto-preamble"&gt;les notifications&lt;/a&gt;,
+nous avons enfin eu une demande pour les fichiers !&lt;/p&gt;
+&lt;img alt="Fennec logo" class="align-center" src="http://www.servicedenuages.fr/images/logo-fennec.png" style="width: 458px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;En effet, dans &lt;a class="reference external" href="https://www.mozilla.org/fr/firefox/partners/#android"&gt;Fennec&lt;/a&gt;
+— la version mobile de Firefox — nous souhaitons livrer et mettre à jour des fichiers statiques
+(polices de caractères, icônes, dictionnaires de césures...) sans avoir à repackager
+et redéployer une nouvelle version de l'application.&lt;/p&gt;
+&lt;p&gt;Pour cela, un &lt;em&gt;Kinto&lt;/em&gt; accessible publiquement en lecture-seule sera consulté par
+les mobiles pour synchroniser localement des collections d'enregistrements, qui
+eux fourniront les URLs vers les fichiers (sur un CDN). Les collections &lt;tt class="docutils literal"&gt;fonts&lt;/tt&gt;,
+&lt;tt class="docutils literal"&gt;assets&lt;/tt&gt; ou &lt;tt class="docutils literal"&gt;hyphenation&lt;/tt&gt; seront mises à jour dès qu'un fichier sera ajouté ou remplacé
+sur un de leurs enregistrements.&lt;/p&gt;
+&lt;p&gt;Nous reviendrons avec plus de détails dans un autre article, mais cela ressemble beaucoup à ce que
+nous sommes en train de faire pour les révocations de certificats ou les listes
+noires d'addons dans Firefox.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="la-solution"&gt;
+&lt;h2&gt;La solution&lt;/h2&gt;
+&lt;p&gt;Comme nous avons besoin de cette fonctionnalité assez rapidement et que ce cas
+d'utilisation n'est probablement pas très universel, nous avons décidé d'implémenter
+une solution sous forme de plugin &lt;em&gt;Kinto&lt;/em&gt; &lt;a class="footnote-reference" href="#id2" id="id1"&gt;[1]&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Le support des fichiers sera donc optionnel dans un premier temps.&lt;/p&gt;
+&lt;div class="section" id="fonctionnalites-principales"&gt;
+&lt;h3&gt;Fonctionnalités principales&lt;/h3&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;stockage des fichiers en local sur le serveur ou sur Amazon S3 ;&lt;/li&gt;
+&lt;li&gt;le serveur calcule les métadonnées à la reception (hash, taille, ...) ;&lt;/li&gt;
+&lt;li&gt;l'enregistrement lié est créé si besoin lors de l'envoi du fichier ;&lt;/li&gt;
+&lt;li&gt;les permissions de l'enregistrement sont vérifiées au moment de l'envoi ;&lt;/li&gt;
+&lt;li&gt;des attributs et permissions de l'enregistrement lié peuvent être spécifiés lors de l'envoi ;&lt;/li&gt;
+&lt;li&gt;les fichiers sont de simples blobs opaques, qui peuvent être le résultat de
+compression ou chiffrement ;&lt;/li&gt;
+&lt;li&gt;les fichiers sont supprimés lorsque les enregistrements sont supprimés.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="limitations"&gt;
+&lt;h3&gt;Limitations&lt;/h3&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;un seul fichier par enregistrement ;&lt;/li&gt;
+&lt;li&gt;les metadonnées du fichier joint sont stockées dans un attribut &lt;tt class="docutils literal"&gt;attachment&lt;/tt&gt;
+parmis les autres attributs métier (&lt;a class="reference external" href="https://github.com/Kinto/kinto/issues/256"&gt;plus de détails&lt;/a&gt;);&lt;/li&gt;
+&lt;li&gt;dans un premier temps la récupération du fichier ne passera pas par &lt;em&gt;Kinto&lt;/em&gt;.
+Pour les fichiers «privés», il faut donc que les URLs générées soient «secrètes».&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Pour plus tard (ou bientôt selon les besoins)&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Support de l'&lt;a class="reference external" href="https://fr.wikipedia.org/wiki/Chunked_transfer_encoding"&gt;envoi par chunk&lt;/a&gt; pour les gros fichiers&lt;/li&gt;
+&lt;li&gt;Ajout d'un endpoint (optionnel) pour servir des fichiers complètement privés&lt;/li&gt;
+&lt;/ul&gt;
+&lt;table class="docutils footnote" frame="void" id="id2" rules="none"&gt;
+&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;tbody valign="top"&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;ça nous permet aussi de &lt;a class="reference external" href="https://github.com/mozilla-services/cliquet/pull/584"&gt;remonter&lt;/a&gt;
+&lt;a class="reference external" href="https://github.com/Kinto/kinto/issues/277"&gt;des&lt;/a&gt;
+&lt;a class="reference external" href="https://github.com/Kinto/kinto/issues/309"&gt;soucis&lt;/a&gt; dans notre système de plugins :)&lt;/td&gt;&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="http-api"&gt;
+&lt;h2&gt;HTTP API&lt;/h2&gt;
+&lt;p&gt;Quand le plugin est activé, &lt;em&gt;Kinto&lt;/em&gt; dispose d'un nouveau &lt;em&gt;endpoint&lt;/em&gt; : un suffixe
+&lt;tt class="docutils literal"&gt;/attachment&lt;/tt&gt; à l'URL de l'enregistrement.&lt;/p&gt;
+&lt;p&gt;Le fichier est posté avec le &lt;em&gt;Content-Type&lt;/em&gt; &lt;tt class="docutils literal"&gt;multipart&lt;/tt&gt;. Avec &lt;a class="reference external" href="http://httpie.org"&gt;HTTPie&lt;/a&gt;,
+ça donne :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$ http --auth alice:passwd --verbose --form POST \&lt;/span&gt;
+&lt;span class="err"&gt;     http://localhost:8888/v1/buckets/website/collections/assets/records/c2ce1975-0e52-4b2f-a5db-80166aeca689/attachment \&lt;/span&gt;
+&lt;span class="err"&gt;     data='{"type": "wallpaper", "theme": "orange"}' \&lt;/span&gt;
+&lt;span class="err"&gt;     attachment=@~/Pictures/background.jpg&lt;/span&gt;
+
+&lt;span class="kr"&gt;HTTP&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1.1&lt;/span&gt; &lt;span class="m"&gt;201&lt;/span&gt; &lt;span class="ne"&gt;Created&lt;/span&gt;
+&lt;span class="na"&gt;Access-Control-Expose-Headers&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;Retry-After, Content-Length, Alert, Backoff&lt;/span&gt;
+&lt;span class="na"&gt;Content-Length&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;209&lt;/span&gt;
+&lt;span class="na"&gt;Content-Type&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;application/json; charset=UTF-8&lt;/span&gt;
+&lt;span class="na"&gt;Date&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;Wed, 18 Nov 2015 08:22:18 GMT&lt;/span&gt;
+&lt;span class="na"&gt;Etag&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;"1447834938251"&lt;/span&gt;
+&lt;span class="na"&gt;Last-Modified&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;Wed, 18 Nov 2015 08:22:18 GMT&lt;/span&gt;
+&lt;span class="na"&gt;Location&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;http://localhost:8888/v1/buckets/website/collections/assets/c2ce1975-0e52-4b2f-a5db-80166aeca689&lt;/span&gt;
+&lt;span class="na"&gt;Server&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;waitress&lt;/span&gt;
+
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nt"&gt;"filename"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"background.jpg"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;"hash"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"db511d372e98725a61278e90259c7d4c5484fc7a781d7dcc0c93d53b8929e2ba"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;"location"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"/files/MDcxJDAiBgNVBAMTG1JDUyBDZXJ0aWZpY2.jpg"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;"mimetype"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"image/jpeg"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;"size"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1481798&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;L'enregistrement lié a été créé, et contient un attribut &lt;tt class="docutils literal"&gt;attachment&lt;/tt&gt; avec les
+metadonnées du fichier, ainsi que les attributs supplémentaires spécifiés lors de l'envoi :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$ http --auth alice: GET \&lt;/span&gt;
+&lt;span class="err"&gt;      http://localhost:8888/v1/buckets/website/collections/assets/records/c2ce1975-0e52-4b2f-a5db-80166aeca689&lt;/span&gt;
+
+&lt;span class="kr"&gt;HTTP&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1.1&lt;/span&gt; &lt;span class="m"&gt;200&lt;/span&gt; &lt;span class="ne"&gt;OK&lt;/span&gt;
+&lt;span class="na"&gt;Access-Control-Expose-Headers&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;Content-Length, Expires, Alert, Retry-After, Last-Modified, ETag, Pragma, Cache-Control, Backoff&lt;/span&gt;
+&lt;span class="na"&gt;Cache-Control&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;no-cache&lt;/span&gt;
+&lt;span class="na"&gt;Content-Length&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;360&lt;/span&gt;
+&lt;span class="na"&gt;Content-Type&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;application/json; charset=UTF-8&lt;/span&gt;
+&lt;span class="na"&gt;Date&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;Wed, 18 Nov 2015 08:24:15 GMT&lt;/span&gt;
+&lt;span class="na"&gt;Etag&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;"1447834938251"&lt;/span&gt;
+&lt;span class="na"&gt;Last-Modified&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;Wed, 18 Nov 2015 08:22:18 GMT&lt;/span&gt;
+&lt;span class="na"&gt;Server&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;waitress&lt;/span&gt;
+
+&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nt"&gt;"data"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nt"&gt;"id"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"c2ce1975-0e52-4b2f-a5db-80166aeca688"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nt"&gt;"last_modified"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1447834938251&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nt"&gt;"theme"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"orange"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nt"&gt;"type"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"wallpaper"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nt"&gt;"attachment"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nt"&gt;"filename"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"background.jpg"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="nt"&gt;"hash"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"db511d372e98725a61278e90259c7d4c5484fc7a781d7dcc0c93d53b8929e2ba"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="nt"&gt;"location"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"/files/MDcxJDAiBgNVBAMTG1JDUyBDZXJ0aWZpY2.jpg"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="nt"&gt;"mimetype"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"image/jpeg"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+            &lt;span class="nt"&gt;"size"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;1481798&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="nt"&gt;"permissions"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nt"&gt;"write"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;"basicauth:6de355038fd943a2dc91405063b91018bb5dd97a08d1beb95713d23c2909748f"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Il est également possible de supprimer un attachment en effectuant une requête
+&lt;tt class="docutils literal"&gt;DELETE&lt;/tt&gt; sur le &lt;tt class="docutils literal"&gt;/attachment&lt;/tt&gt; de l'enregistrement.&lt;/p&gt;
+&lt;p&gt;Si l'attribut &lt;tt class="docutils literal"&gt;attachment&lt;/tt&gt; est supprimé de l'enregistrement, le lien avec le
+fichier est tout de même conservé en interne, notamment pour s'assurer de sa suppression
+lors de la suppression de l'enregistrement.&lt;/p&gt;
+&lt;div class="section" id="fichiers-multiples"&gt;
+&lt;h3&gt;Fichiers multiples&lt;/h3&gt;
+&lt;p&gt;Il est possible de simuler l'ajout de plusieurs fichiers par enregistrements en
+utilisant une collection séparée, avec un attribut &lt;tt class="docutils literal"&gt;record_id&lt;/tt&gt; par exemple :
+&lt;tt class="docutils literal"&gt;GET &lt;span class="pre"&gt;/buckets/kept/collections/attachments/records?record_id=&amp;lt;id&amp;gt;&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;En revanche l'intégrité lors de la suppression de l'enregistrement lié devra être
+assurée manuellement (&lt;tt class="docutils literal"&gt;DELETE &lt;span class="pre"&gt;/.../attachments/records?record_id=&amp;lt;id&amp;gt;&lt;/span&gt;&lt;/tt&gt;).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="demo"&gt;
+&lt;h2&gt;Démo&lt;/h2&gt;
+&lt;p&gt;Si vous avez du feedback sur ces premiers pas, n'hésitez pas à nous en faire
+part !&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://github.com/Kinto/kinto-attachment/"&gt;Une première implémentation a été commencée&lt;/a&gt;,
+en utilisant &lt;a class="reference external" href="https://github.com/danjac/pyramid_storage"&gt;Pyramid Storage&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Nous avons déjà eu l'occasion de tester l'API en soirée et ce fût un véritable succès!&lt;/p&gt;
+&lt;img alt="Kinto-attachment et le bot Telegram en soirée - CC0" class="align-center" src="http://www.servicedenuages.fr/images/kinto-telegram-betahaus.jpg" style="width: 1280px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;Dans &lt;a class="reference external" href="https://github.com/leplatrem/kinto-telegram-wall"&gt;ce petit projet&lt;/a&gt;, un
+bot Telegram reçoit des messages et des contenus multimedia, et les transmet à
+un serveur &lt;em&gt;Kinto&lt;/em&gt; sous forme de fichiers joints.&lt;/p&gt;
+&lt;p&gt;Une page Web synchronize et affiche les images, videos et sons en direct sur l'écran géant!
+Pendant la soirée, tout le monde a adoré envoyer un petit quelquechose, et il a suffi de faire une archive
+du répertoire de &lt;em&gt;kinto-attachment&lt;/em&gt; pour distribuer un paquet de chouettes souvenirs!&lt;/p&gt;
+&lt;/div&gt;
+</summary></entry><entry><title>La difficile promesse de l'auto-hébergement</title><link href="http://www.servicedenuages.fr/difficile-promesse-autohebergement" rel="alternate"></link><updated>2015-10-05T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-10-05:difficile-promesse-autohebergement</id><summary type="html">&lt;p&gt;Au détour de quelques conversations, nous avons pu nous rendre compte que notre
 vision de &lt;a class="reference external" href="https://kinto.readthedocs.org"&gt;Kinto&lt;/a&gt; est celle d'un hébergement
 communautaire décentralisé plutôt que celle d'un ensemble de petits serveurs
 personnels. Explications.&lt;/p&gt;
