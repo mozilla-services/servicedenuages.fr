@@ -17,10 +17,10 @@ le début du projet. Mais comme nous sommes une toute petite équipe, nous somme
 un peu forcés d'attendre que des besoins se présentent en interne (chez Mozilla)
 pour se lancer dans l'implémentation.
 
-Après `les permissions <{filename/2015.05.cliquet-permissions.rst}>`_,
-`le chiffrement <{filename/2015.09.kinto-encryption-example-fr.rst}>`_,
-`les signatures <{filename/2015.08.donnees-et-signatures.rst}>`_ et
-`les notifications <{filename/2015.08.notifications-preamble.rst}>`_,
+Après `les permissions <{filename}/2015.05.cliquet-permissions.rst>`_,
+`le chiffrement <{filename}/2015.09.kinto-encryption-example-fr.rst>`_,
+`les signatures <{filename}/2015.08.donnees-et-signatures.rst>`_ et
+`les notifications <{filename}/2015.08.notifications-preamble.rst>`_,
 nous avons enfin eu une demande pour les fichiers !
 
 
