@@ -1,0 +1,202 @@
+Support des fichiers dans Kinto
+###############################
+
+:slug: kinto-file-attachment
+:date: 2015-11-19
+:lang: fr
+:url: kinto-file-attachment
+:summary:
+    La possibilité d'attacher un fichier sur un enregistrement dans Kinto.
+
+
+Le besoin initial
+=================
+
+Le besoin d'ajouter des fichiers dans *Kinto* avait été identifié depuis
+le début du projet. Mais comme nous sommes une toute petite équipe, nous sommes
+un peu forcés d'attendre que des besoins se présentent en interne (chez Mozilla)
+pour se lancer dans l'implémentation.
+
+Après `les permissions <{filename/2015.05.cliquet-permissions.rst}>`_,
+`le chiffrement <{filename/2015.09.kinto-encryption-example-fr.rst}>`_,
+`les signatures <{filename/2015.08.donnees-et-signatures.rst}>`_ et
+`les notifications <{filename/2015.08.notifications-preamble.rst}>`_,
+nous avons enfin eu une demande pour les fichiers !
+
+
+.. image:: {filename}/images/logo-fennec.png
+    :alt: Fennec logo
+    :align: center
+
+
+En effet, dans `Fennec <https://www.mozilla.org/fr/firefox/partners/#android>`_
+— la version mobile de Firefox — nous souhaitons livrer et mettre à jour des fichiers statiques
+(polices de caractères, icônes, dictionnaires de césures...) sans avoir à repackager
+et redéployer une nouvelle version de l'application.
+
+Pour cela, un *Kinto* accessible publiquement en lecture-seule sera consulté par
+les mobiles pour synchroniser localement des collections d'enregistrements, qui
+eux fourniront les URLs vers les fichiers (sur un CDN). Les collections ``fonts``,
+``assets`` ou ``hyphenation`` seront mises à jour dès qu'un fichier sera ajouté ou remplacé
+sur un de leurs enregistrements.
+
+Nous reviendrons avec plus de détails dans un autre article, mais cela ressemble beaucoup à ce que
+nous sommes en train de faire pour les révocations de certificats ou les listes
+noires d'addons dans Firefox.
+
+
+La solution
+===========
+
+Comme nous avons besoin de cette fonctionnalité assez rapidement et que ce cas
+d'utilisation n'est probablement pas très universel, nous avons décidé d'implémenter
+une solution sous forme de plugin *Kinto* [#]_.
+
+Le support des fichiers sera donc optionnel dans un premier temps.
+
+Fonctionnalités principales
+---------------------------
+
+* stockage des fichiers en local sur le serveur ou sur Amazon S3 ;
+* le serveur calcule les métadonnées à la reception (hash, taille, ...) ;
+* l'enregistrement lié est créé si besoin lors de l'envoi du fichier ;
+* les permissions de l'enregistrement sont vérifiées au moment de l'envoi ;
+* des attributs et permissions de l'enregistrement lié peuvent être spécifiés lors de l'envoi ;
+* les fichiers sont de simples blobs opaques, qui peuvent être le résultat de
+  compression ou chiffrement ;
+* les fichiers sont supprimés lorsque les enregistrements sont supprimés.
+
+Limitations
+-----------
+
+* un seul fichier par enregistrement ;
+* les metadonnées du fichier joint sont stockées dans un attribut ``attachment``
+  parmis les autres attributs métier (`plus de détails <https://github.com/Kinto/kinto/issues/256>`_);
+* dans un premier temps la récupération du fichier ne passera pas par *Kinto*.
+  Pour les fichiers «privés», il faut donc que les URLs générées soient «secrètes».
+
+Pour plus tard (ou bientôt selon les besoins)
+
+* Support de l'`envoi par chunk <https://fr.wikipedia.org/wiki/Chunked_transfer_encoding>`_ pour les gros fichiers
+* Ajout d'un endpoint (optionnel) pour servir des fichiers complètement privés
+
+
+.. [#] ça nous permet aussi de `remonter <https://github.com/mozilla-services/cliquet/pull/584>`_
+       `des <https://github.com/Kinto/kinto/issues/277>`_
+       `soucis <https://github.com/Kinto/kinto/issues/309>`_ dans notre système de plugins :)
+
+
+HTTP API
+========
+
+Quand le plugin est activé, *Kinto* dispose d'un nouveau *endpoint* : un suffixe
+``/attachment`` à l'URL de l'enregistrement.
+
+Le fichier est posté avec le *Content-Type* ``multipart``. Avec `HTTPie <http://httpie.org>`_,
+ça donne :
+
+.. code-block:: http
+
+    $ http --auth alice:passwd --verbose --form POST \
+         http://localhost:8888/v1/buckets/website/collections/assets/records/c2ce1975-0e52-4b2f-a5db-80166aeca689/attachment \
+         data='{"type": "wallpaper", "theme": "orange"}' \
+         attachment=@~/Pictures/background.jpg
+
+    HTTP/1.1 201 Created
+    Access-Control-Expose-Headers: Retry-After, Content-Length, Alert, Backoff
+    Content-Length: 209
+    Content-Type: application/json; charset=UTF-8
+    Date: Wed, 18 Nov 2015 08:22:18 GMT
+    Etag: "1447834938251"
+    Last-Modified: Wed, 18 Nov 2015 08:22:18 GMT
+    Location: http://localhost:8888/v1/buckets/website/collections/assets/c2ce1975-0e52-4b2f-a5db-80166aeca689
+    Server: waitress
+
+    {
+        "filename": "background.jpg",
+        "hash": "db511d372e98725a61278e90259c7d4c5484fc7a781d7dcc0c93d53b8929e2ba",
+        "location": "/files/MDcxJDAiBgNVBAMTG1JDUyBDZXJ0aWZpY2.jpg",
+        "mimetype": "image/jpeg",
+        "size": 1481798
+    }
+
+
+L'enregistrement lié a été créé, et contient un attribut ``attachment`` avec les
+metadonnées du fichier, ainsi que les attributs supplémentaires spécifiés lors de l'envoi :
+
+.. code-block:: http
+
+    $ http --auth alice: GET \
+          http://localhost:8888/v1/buckets/website/collections/assets/records/c2ce1975-0e52-4b2f-a5db-80166aeca689
+
+    HTTP/1.1 200 OK
+    Access-Control-Expose-Headers: Content-Length, Expires, Alert, Retry-After, Last-Modified, ETag, Pragma, Cache-Control, Backoff
+    Cache-Control: no-cache
+    Content-Length: 360
+    Content-Type: application/json; charset=UTF-8
+    Date: Wed, 18 Nov 2015 08:24:15 GMT
+    Etag: "1447834938251"
+    Last-Modified: Wed, 18 Nov 2015 08:22:18 GMT
+    Server: waitress
+
+    {
+        "data": {
+            "id": "c2ce1975-0e52-4b2f-a5db-80166aeca688",
+            "last_modified": 1447834938251,
+            "theme": "orange",
+            "type": "wallpaper",
+            "attachment": {
+                "filename": "background.jpg",
+                "hash": "db511d372e98725a61278e90259c7d4c5484fc7a781d7dcc0c93d53b8929e2ba",
+                "location": "/files/MDcxJDAiBgNVBAMTG1JDUyBDZXJ0aWZpY2.jpg",
+                "mimetype": "image/jpeg",
+                "size": 1481798
+            }
+        },
+        "permissions": {
+            "write": ["basicauth:6de355038fd943a2dc91405063b91018bb5dd97a08d1beb95713d23c2909748f"]
+        }
+    }
+
+
+Il est également possible de supprimer un attachment en effectuant une requête
+``DELETE`` sur le ``/attachment`` de l'enregistrement.
+
+Si l'attribut ``attachment`` est supprimé de l'enregistrement, le lien avec le
+fichier est tout de même conservé en interne, notamment pour s'assurer de sa suppression
+lors de la suppression de l'enregistrement.
+
+
+Fichiers multiples
+------------------
+
+Il est possible de simuler l'ajout de plusieurs fichiers par enregistrements en
+utilisant une collection séparée, avec un attribut ``record_id`` par exemple :
+``GET /buckets/kept/collections/attachments/records?record_id=<id>``.
+
+En revanche l'intégrité lors de la suppression de l'enregistrement lié devra être
+assurée manuellement (``DELETE /.../attachments/records?record_id=<id>``).
+
+
+Démo
+====
+
+Si vous avez du feedback sur ces premiers pas, n'hésitez pas à nous en faire
+part !
+
+`Une première implémentation a été commencée <https://github.com/Kinto/kinto-attachment/>`_,
+en utilisant `Pyramid Storage <https://github.com/danjac/pyramid_storage>`_.
+
+Nous avons déjà eu l'occasion de tester l'API en soirée et ce fût un véritable succès!
+
+.. image:: {filename}/images/kinto-telegram-betahaus.jpg
+    :alt: Kinto-attachment et le bot Telegram en soirée - CC0
+    :align: center
+
+Dans `ce petit projet <https://github.com/leplatrem/kinto-telegram-wall>`_, un
+bot Telegram reçoit des messages et des contenus multimedia, et les transmet à
+un serveur *Kinto* sous forme de fichiers joints.
+
+Une page Web synchronize et affiche les images, videos et sons en direct sur l'écran géant!
+Pendant la soirée, tout le monde a adoré envoyer un petit quelquechose, et il a suffi de faire une archive
+du répertoire de *kinto-attachment* pour distribuer un paquet de chouettes souvenirs!
