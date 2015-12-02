@@ -1,0 +1,214 @@
+Loadtesting a HTTP API which uses OAuth for authentication
+##########################################################
+
+:lang: en
+:date: 2015-12-02
+:url: loadtesting-a-http-api-which-uses-oauth-for-authentication
+:summary: How to loadtest an OAuth service relier?
+
+
+Why would you need to run loadtest?
+===================================
+
+After deploying an HTTP API service architecture you might be
+wondering how many users or requests your deploiement can take and
+what happens after it reaches that number.
+
+This is a great indicator to tell you to start scalling if you see
+that your production server is close to reach that number of requests
+per seconds.
+
+
+Why is it a problem to do so with OAuth?
+========================================
+
+Loadtesting with OAuth means having an OAuth account, often creating
+and validating it and then getting Bearer tokens with the right
+scopes.
+
+This flow will add a number of requests and waiting for the account
+activation email can take a tremendous amount of time in the scope of
+a loadtest which can slow down the all process and return inaccurate
+results.
+
+
+What is the right way to handle this?
+=====================================
+
+Depending on the tools you are using for your loadtest the specifics
+of the answer could be different but basically:
+
+During a loadtest, you should make sure that your are only doing
+requests on the service you are loadtesting.
+
+If you are calling an identity provider or any other service during
+the loadtest phases (either setup, tear down or scenario phase) your
+loadtest performance will be impacted and will return inaccurate
+results.
+
+Basically, you should be able to write your loadtest with simple cURL
+commands toward your service.
+
+
+Configuration over code
+=======================
+
+It means that if your service needs Bearer tokens to be loadtested,
+these Bearer tokens should be provided to your code loadtest and not
+be generated during the loadtest.
+
+This can be done by configuration, either within a file or with
+environment variables.
+
+
+Some code to configure your loadtest
+====================================
+
+With regards to the kind of environment you want to loadtest or
+smoketest on (dev, stage, production), you may want to configure your loadtest differently.
+
+For instance, you may want to create specific account for your
+loadtest on stage and use an existing account for the production smoke
+test.
+
+
+Working with environment variables
+==================================
+
+With ailoads you can define a JSON file that will set the environment
+variables before running the docker instances.
+
+Also when you want to run it without using loadsv2 it can be a problem
+to define all the environment variables.
+
+The idea is to write a Bash file that you will be able to source
+before running your loadtest and that will export all the needed
+environment variables.
+
+.. code-block:: bash
+
+    export OAUTH_BEARER_TOKEN="dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5"
+
+
+Example of how you can do it for Firefox Account
+================================================
+
+Here are some python code showing how it is possible to do so for
+Firefox Account.
+
+It is the exact same principle in case you'd like to do it with Github
+OAuth or Twitter OAuth.
+
+
+Generating a token for an existing account
+------------------------------------------
+
+You could use PyFxA to get a Bearer token for an existing account,
+this is useful to create a token for the production or dev environment.
+
+.. code-block:: python
+
+    from fxa import core
+    from fxa import oauth
+
+
+    def get_bearer_token(email, password, scopes=None, client_id=None,
+                         account_server_url=core.DEFAULT_SERVER_URL,
+                         oauth_server_url=oauth.DEFAULT_SERVER_URL):
+    
+        if scopes is None:
+            scopes = ['profile']
+    
+        client = core.Client(server_url=account_server_url)
+        session = client.login(email, password)
+    
+        url = urlparse(oauth_server_url)
+        audience = "%s://%s/" % (url.scheme, url.netloc)
+    
+        bid_assertion = session.get_identity_assertion(audience)
+        oauth_client = oauth.Client(server_url=oauth_server_url)
+        token = oauth_client.authorize_token(bid_assertion,
+                                             ' '.join(scopes),
+                                             client_id)
+        return token
+
+    EMAIL = 'your.account@email-address.com'
+    PASSWORD = 'Y0UR 4CC0UNT P4SSW0RD'
+	token = get_bearer_token(EMAIL, PASSWORD)
+    print('export OAUTH_BEARER_TOKEN="%s"' % token)
+
+
+Generating a token for a new account
+------------------------------------
+
+You may want to create accounts on the stage environment and generate
+tokens for them.
+
+.. code-block:: python
+
+    from uuid import uuid4
+    from fxa.core import Client
+
+    FXA_SERVER_URL = https://api-accounts.stage.mozaws.net/v1
+    PASSWORD = uuid4()
+	EMAIL = "project-name-%s@restmail.net" % PASSWORD
+
+    # Constants
+    FXA_ERROR_ACCOUNT_EXISTS = 101
+
+    if 'stage' not in FXA_SERVER_URL:
+        raise Exception("Please use the FxA stage server.")
+
+    client = Client(FXA_SERVER_URL)
+
+    try:
+        client.create_account(EMAIL,
+                              password=PASSWORD,
+                              preVerified=True)  # This only works on stage
+    except errors.ClientError as e:
+        if e.errno != FXA_ERROR_ACCOUNT_EXISTS:
+            raise
+
+	token = get_bearer_token(EMAIL, PASSWORD)
+    print('export OAUTH_BEARER_TOKEN="%s"' % token)
+
+
+Working with multiple Bearer Tokens
+===================================
+
+If you need to use multiple user, you can add other environment
+variable.
+
+You can also set multiple users Bearer tokens separated by comma in
+your ENV variable and then split on it to choose one randomly in your
+loadtest:
+
+.. code-block:: bash
+
+    export OAUTH_BEARER_TOKEN="
+        dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5,
+        b6af04a44aa0f5a6b3a3affbaa41c48c4abaaba50e428ce030f9a4cb356aa36e,
+        a44aa0f5a6b3a3affbaa41c1c48c4abaaba50e428ce030f9428ce070f9d4c75b
+        "
+
+You can also create multiple environment variables:
+
+.. code-block:: bash
+
+    export OAUTH_BEARER_TOKEN_SCOPE_PROFILE="dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5"
+    export OAUTH_BEARER_TOKEN_SCOPE_KINTO="
+        b6af04a44aa0f5a6b3a3affbaa41c48c4abaaba50e428ce030f9a4cb356aa36e,
+        a44aa0f5a6b3a3affbaa41c1c48c4abaaba50e428ce030f9428ce070f9d4c75b
+        "
+
+Conclusion
+==========
+
+After thinking this through, it doesn't look so complex to loadtest a
+service which is using an OAuth Bearer Token for auth.
+
+Make sure that:
+
+- You do not create the OAuth Bearer Token in your loadtest code.
+- You can use configuration and for instance environment variables to
+  configure your loadtest Bearer Token.
