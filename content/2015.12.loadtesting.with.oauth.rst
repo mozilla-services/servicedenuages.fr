@@ -1,61 +1,60 @@
-Loadtesting a HTTP API which uses OAuth for authentication
-##########################################################
+How to load-test a OAuth-protected HTTP API?
+############################################
 
 :lang: en
 :date: 2015-12-02
 :url: loadtesting-a-http-api-which-uses-oauth-for-authentication
-:summary: How to loadtest an OAuth service relier?
+:summary: This article explains how to test the performance of an HTTP API when its access depends on an external OAuth service.
 
 
-Why would you need to run loadtest?
-===================================
+Why would you need to run a loadtest?
+=====================================
 
-After deploying an HTTP API service architecture you might be
-wondering how many users or requests your deploiement can take and
-what happens after it reaches that number.
+After deploying an HTTP API you might be wondering how many users or
+requests your deployment can take and what happens after it reaches
+that number.
 
-This is a great indicator to tell you to start scalling if you see
-that your production server is close to reach that number of requests
-per seconds.
+Knowing the maximum load your service can handle is a great thing to
+know!  It tells you when to start scaling up when your production
+server is close to reach that number of requests per seconds.
 
 
-Why is it a problem to do so with OAuth?
-========================================
+So, what's so complicated about Oauth?
+======================================
 
-Loadtesting with OAuth means having an OAuth account, often creating
-and validating it and then getting Bearer tokens with the right
-scopes.
+Loadtesting with `OAuth <https://en.wikipedia.org/wiki/OAuth>`_ means
+having an OAuth account, often creating and validating it and then
+getting `Bearer tokens <http://tools.ietf.org/html/rfc6750>`_ with the
+right scopes.
 
-This flow will add a number of requests and waiting for the account
-activation email can take a tremendous amount of time in the scope of
-a loadtest which can slow down the all process and return inaccurate
-results.
+Doing all this setup, will add a number of requests. Plus it will take
+time to wait for the email with the activation account link.
+
+This can take a tremendous amount of time in the scope of a loadtest
+which can slow down the all process and return inaccurate results.
 
 
 What is the right way to handle this?
 =====================================
 
-Depending on the tools you are using for your loadtest the specifics
-of the answer could be different but basically:
-
-During a loadtest, you should make sure that your are only doing
-requests on the service you are loadtesting.
+During a loadtest, make sure that your are only doing requests on the
+service you are loadtesting.
 
 If you are calling an identity provider or any other service during
 the loadtest phases (either setup, tear down or scenario phase) your
 loadtest performance will be impacted and will return inaccurate
 results.
 
-Basically, you should be able to write your loadtest with simple cURL
-commands toward your service.
+You should be able to write your loadtest with simple cURL commands
+toward your service.
 
 
 Configuration over code
 =======================
 
-It means that if your service needs Bearer tokens to be loadtested,
-these Bearer tokens should be provided to your code loadtest and not
-be generated during the loadtest.
+If your service needs Bearer tokens to be loadtested, these Bearer
+tokens should be provided to your code loadtest and not be generated
+during the loadtest.
 
 This can be done by configuration, either within a file or with
 environment variables.
@@ -65,18 +64,19 @@ Some code to configure your loadtest
 ====================================
 
 With regards to the kind of environment you want to loadtest or
-smoketest on (dev, stage, production), you may want to configure your loadtest differently.
+smoketest on (dev, stage, production), you may want to configure your
+loadtest differently.
 
-For instance, you may want to create specific account for your
-loadtest on stage and use an existing account for the production smoke
-test.
+For instance, you may want to create specific account or use an
+existing one.
 
 
 Working with environment variables
 ==================================
 
-With ailoads you can define a JSON file that will set the environment
-variables before running the docker instances.
+With `ailoads <https://github.com/tarekziade/ailoads>`_ you can define
+a JSON file that will set the environment variables before running the
+docker instances.
 
 Also when you want to run it without using loadsv2 it can be a problem
 to define all the environment variables.
@@ -176,12 +176,12 @@ tokens for them.
 Working with multiple Bearer Tokens
 ===================================
 
-If you need to use multiple user, you can add other environment
-variable.
+If you need to use multiple users, you can add other environment
+variables.
 
-You can also set multiple users Bearer tokens separated by comma in
-your ENV variable and then split on it to choose one randomly in your
-loadtest:
+You can also set multiple users Bearer tokens using a comma-separated
+list in the env variable and then split on it to choose one randomly
+in your loadtest:
 
 .. code-block:: bash
 
@@ -191,7 +191,7 @@ loadtest:
         a44aa0f5a6b3a3affbaa41c1c48c4abaaba50e428ce030f9428ce070f9d4c75b
         "
 
-You can also create multiple environment variables:
+Or you also could create multiple environment variables:
 
 .. code-block:: bash
 
@@ -204,10 +204,10 @@ You can also create multiple environment variables:
 Conclusion
 ==========
 
-After thinking this through, it doesn't look so complex to loadtest a
-service which is using an OAuth Bearer Token for auth.
+I hope that after reading this article, you are not afraid anymore of
+loadtesting OAuth-based services!
 
-Make sure that:
+Take-aways:
 
 - You do not create the OAuth Bearer Token in your loadtest code.
 - You can use configuration and for instance environment variables to
