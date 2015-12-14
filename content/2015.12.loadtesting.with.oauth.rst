@@ -28,7 +28,7 @@ list, once the credentials are correct, the Identity provider will
 redirect the user to the app with the
 `Bearer tokens <http://tools.ietf.org/html/rfc6750>`_ enclosed in the query string.
 
-.. image:: {filename}/images/oauth-flow.png
+.. image:: {filename}/images/oauth2-flow.png
    :alt: OAuth 2.0 Bearer Token creation flow
 
 This Bearer Token will then be used by the app in the HTTP request
@@ -95,7 +95,7 @@ environment variables.
 
 
 Some code to configure your load test
-====================================
+=====================================
 
 With regards to the kind of environment you want to run your load test
 on (dev, stage, production), you may want to configure your load test
