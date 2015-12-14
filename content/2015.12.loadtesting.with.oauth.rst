@@ -1,0 +1,174 @@
+How to load test a OAuth-protected HTTP API? (Part 1)
+#####################################################
+
+:lang: en
+:date: 2015-12-02
+:url: load-testing-a-http-api-which-uses-oauth-for-authentication
+:summary: This is part 1 of a series on loadtesting oauth APIs explaining how to test the performance of an HTTP API when its access depends on an external OAuth service.
+
+This is part 1 of a series on loadtesting oauth APIs.
+
+What is OAuth and how do you use it to authenticate an HTTP API?
+================================================================
+
+`OAuth <https://en.wikipedia.org/wiki/OAuth>`_ is a protocol that
+allows a user delegate some of its permissions to a web service
+through an identity provider.
+
+The user can be confident that the web service will never have their
+user credentials (ID, password), instead it will get a Bearer Token
+that is valid for a list of scopes and for a certain amount of time.
+
+In the app, the user click on a Sign-In button that will redirect it
+to the Identity Provider login page with the list of scopes the app
+needs.
+
+The user will enter her login credentials and validate the permission
+list, once the credentials are correct, the Identity provider will
+redirect the user to the app with the
+`Bearer tokens <http://tools.ietf.org/html/rfc6750>`_ enclosed in the query string.
+
+.. image:: {filename}/images/oauth-flow.png
+   :alt: OAuth 2.0 Bearer Token creation flow
+
+This Bearer Token will then be used by the app in the HTTP request
+Authorization header to authenticate on the web service.
+
+.. code-block:: http
+
+    GET /v1/articles HTTP/1.1
+    Authorization: Bearer e7613cae7a0660dae7a2dd55c216cbaef75f43254e2a8c77f7e9c7adb549bb65
+    Host: readinglist.services.mozilla.com
+
+
+Why would you need to run a load test?
+======================================
+
+After deploying an HTTP API you might be wondering how many users or
+requests your deployment can take and what happens after it reaches
+that number.
+
+Knowing the maximum load your service can handle is a great thing to
+know!  It tells you when to start scaling up when your production
+server is close to reaching that number of requests per second.
+
+
+So, what's so complicated about OAuth?
+======================================
+
+Load testing a service that requires OAuth-based authentication means:
+
+* having an OAuth account (often creating it) 
+* getting a Bearer Token with the right scopes
+
+Doing all this setup, will add a number of requests. Plus it will take
+time to wait for the email with the activation account link.
+
+This can take a tremendous amount of time in the scope of a load test
+which can slow down the all process and return inaccurate results.
+
+
+What is the right way to handle this?
+=====================================
+
+During a load test, make sure that your are only doing requests on the
+service you are load testing.
+
+If you are calling an identity provider or any other service during
+the load test phases (either setup, tear down or scenario phase) your
+load test performance will be impacted and will return inaccurate
+results.
+
+You should be able to write your load test with simple cURL commands
+toward your service.
+
+
+Configuration over code
+=======================
+
+If your service needs Bearer tokens to be load tested, these Bearer
+tokens should be provided to your load test code and not be generated
+during the load test.
+
+This can be done by configuration, either within a file or with
+environment variables.
+
+
+Some code to configure your load test
+====================================
+
+With regards to the kind of environment you want to run your load test
+on (dev, stage, production), you may want to configure your load test
+differently.
+
+For instance, you may want to create a specific account or use an
+existing one.
+
+
+Working with environment variables
+==================================
+
+It can be difficult to configure your load test code before running
+it.
+
+One way to do it is to define environment variables that will be set
+before and that will be read by your code.
+
+In order to define the environment variables you can write a Bash file
+that you will be able to source before running your load test and that
+will export all the needed environment variables.
+
+.. code-block:: bash
+
+    export OAUTH_BEARER_TOKEN="dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5"
+
+There are also utilities that might help you there, for instance,
+`docker <https://docs.docker.com/engine/reference/run/#env-environment-variables>`_
+might set them for you.
+
+.. code-block:: bash
+
+    docker run -e OAUTH_BEARER_TOKEN="abc..." loadtest
+
+
+Working with multiple Bearer Tokens
+===================================
+
+If you need to use multiple users, you can add other environment
+variables.
+
+You can also set multiple users Bearer tokens using a comma-separated
+list in the env variable and then split on it to choose one randomly
+in your load test:
+
+.. code-block:: bash
+
+    export OAUTH_BEARER_TOKEN="
+        dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5,
+        b6af04a44aa0f5a6b3a3affbaa41c48c4abaaba50e428ce030f9a4cb356aa36e,
+        a44aa0f5a6b3a3affbaa41c1c48c4abaaba50e428ce030f9428ce070f9d4c75b
+        "
+
+Or you also could create multiple environment variables:
+
+.. code-block:: bash
+
+    export OAUTH_BEARER_TOKEN_SCOPE_PROFILE="dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5"
+    export OAUTH_BEARER_TOKEN_SCOPE_KINTO="
+        b6af04a44aa0f5a6b3a3affbaa41c48c4abaaba50e428ce030f9a4cb356aa36e,
+        a44aa0f5a6b3a3affbaa41c1c48c4abaaba50e428ce030f9428ce070f9d4c75b
+        "
+
+Conclusion
+==========
+
+I hope that after reading this article, you are not afraid anymore of
+load testing OAuth-based services!
+
+Take-aways:
+
+- You do not create the OAuth Bearer Token in your load test code.
+- You can use configuration and for instance environment variables to
+  configure your load test Bearer Token.
+
+The next article will show some specific tools you can use to do this.
