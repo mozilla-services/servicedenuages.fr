@@ -19,17 +19,20 @@ appropriate to provide some answers here.
 What does this name mean?
 =========================
 
-Kinto-un is the name of the flying nimbus in Dragon ball. It's said that
-"the cloud can only be ridden by someone with a pure heart". Oh, well.
+`Kinto-un <http://dragonball.wikia.com/wiki/Flying_Nimbus>`_ is the name of the
+Flying Nimbus in Dragon ball. It's said that "the cloud can only be ridden by
+someone with a pure heart". Oh, well.
     
-Maintaining a service is hard.
-==============================
+Maintaining a service is hard
+=============================
 
 The main benefit of Firebase and Parse is that you don't have to run them.
 
 That is true. We want to make it very easy to deploy / use. We can even
 imagine to allow developers to run a Kinto instance in one-click on
 DigitalOcean, Heroku or Bitnami.
+We've started `by making the integration easy on Always Data
+<https://github.com/Natim/auto-kinto-alwaysdata>`.
 
 Or if someone runs a public Kinto instance and wants to charge for its usage,
 that's completely fine!
@@ -62,12 +65,14 @@ improvements, like sending diffs only. #babysteps #ftw!
 Also, the current mecanism does not allow to send write operations via
 websockets. Those are sent via the REST API.  
 
-You're missing an administration panel !
-========================================
+You're missing an administration panel!
+=======================================
 
-That is true, but `we're working on it pretty hard
-<https://github.com/Kinto/kinto-admin >`. If you want, you can have a look at
-it now, even though it's fairly new.
+This isn't actually true! One of our current focus is on `this
+<https://github.com/Kinto/kinto-admin >`_.
+
+It's still fairly new but already available and useful.
+
 
 Why not building on top of CouchDB / PouchDB?
 =============================================
@@ -137,7 +142,7 @@ For us, it mainly means that Kinto was a good idea!
       
 We are a team of 5, and we don't pretend to knock down the tech of big
 companies. And our top management is not even aware of this project. We build
-Kinto with some ideals : a simple solution for simple needs that is fully
+Kinto with some ideals: a simple solution for simple needs that is fully
 open-source.
      
 We make our best to be transparent and humble, but there are so many solutions
