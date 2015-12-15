@@ -1,5 +1,259 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Service de nuages</title><link>http://www.servicedenuages.fr/en/</link><description></description><atom:link href="http://www.servicedenuages.fr/feeds/service-de-nuages.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 27 Oct 2015 00:00:00 +0100</lastBuildDate><item><title>Kinto.js 1.0 released</title><link>http://www.servicedenuages.fr/en/kinto-js-1-0-released</link><description>&lt;p&gt;&lt;a class="reference external" href="https://kintojs.readthedocs.org/"&gt;Kinto.js&lt;/a&gt; is an offline-first JavaScript client leveraging the &lt;a class="reference external" href="https://kinto.readthedocs.org/"&gt;Kinto API&lt;/a&gt; for data synchronization. In a world where connectivity isn't always guaranteed, local persistence in the browser has become an &lt;a class="reference external" href="http://offlinefirst.org/"&gt;identified priority&lt;/a&gt; for Web applications, especially on mobile.&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Service de nuages</title><link>http://www.servicedenuages.fr/en/</link><description></description><atom:link href="http://www.servicedenuages.fr/feeds/service-de-nuages.rss.xml" rel="self"></atom:link><lastBuildDate>Tue, 15 Dec 2015 00:00:00 +0100</lastBuildDate><item><title>Hacker News answers</title><link>http://www.servicedenuages.fr/en/hackernews-feedback</link><description>&lt;p&gt;Today, &lt;a class="reference external" href="https://news.ycombinator.com/item?id=10733164"&gt;Kinto was featured on Hackernews&lt;/a&gt;. We take this as a great
+milestone for the project, even if it also comes with some sort of pressure and
+stress :)&lt;/p&gt;
+&lt;p&gt;Since a few questions emerged from the thread there, we thought it'd
+appropriate to provide some answers here.&lt;/p&gt;
+&lt;div class="section" id="what-does-this-name-mean"&gt;
+&lt;h2&gt;What does this name mean?&lt;/h2&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://dragonball.wikia.com/wiki/Flying_Nimbus"&gt;Kinto-un&lt;/a&gt; is the name of the
+Flying Nimbus in Dragon ball. It's said that "the cloud can only be ridden by
+someone with a pure heart". Oh, well.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="maintaining-a-service-is-hard"&gt;
+&lt;h2&gt;Maintaining a service is hard&lt;/h2&gt;
+&lt;p&gt;The main benefit of Firebase and Parse is that you don't have to run them.&lt;/p&gt;
+&lt;p&gt;That is true. We want to make it very easy to deploy / use. We can even
+imagine to allow developers to run a Kinto instance in one-click on
+DigitalOcean, Heroku or Bitnami.
+We've started &lt;cite&gt;by making the integration easy on Always Data
+&amp;lt;https://github.com/Natim/auto-kinto-alwaysdata&amp;gt;&lt;/cite&gt;.&lt;/p&gt;
+&lt;p&gt;Or if someone runs a public Kinto instance and wants to charge for its usage,
+that's completely fine!&lt;/p&gt;
+&lt;p&gt;At Mozilla, we just can't rely on third parties like Firebase or Parse for
+critical data.&lt;/p&gt;
+&lt;p&gt;If you read french, we've written &lt;a class="reference external" href="http://www.servicedenuages.fr/difficile-promesse-autohebergement"&gt;an article about our vision on self-hosting&lt;/a&gt;
+(yes, we need to translate it! Any help would be welcome on this front.)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="are-we-using-this-in-production"&gt;
+&lt;h2&gt;Are we using this in production?&lt;/h2&gt;
+&lt;p&gt;We have different services that are leveraging Kinto:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;The (now dead) reading-list project was using one of the first versions of
+Kinto&lt;/li&gt;
+&lt;li&gt;We have made &lt;a class="reference external" href="https://github.com/mozilla-services/syncto"&gt;Syncto&lt;/a&gt;:
+a service which exposes the API of Kinto and talks with Firefox Sync in the
+background, so that FirefoxOS developers can use the Kinto.js library&lt;/li&gt;
+&lt;li&gt;We are currently doing the distribution of fonts for Fennec Over The Air
+using Kinto.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Also, it's not in production yet, but we will use Kinto for the Certificate
+Revocation Lists in the future.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="offline-first-support"&gt;
+&lt;h2&gt;Offline-first support&lt;/h2&gt;
+&lt;p&gt;One of the core ideas behind &lt;a class="reference external" href="https://github.com/Kinto/kinto.js"&gt;Kinto.js&lt;/a&gt; is
+that it should be offline first: all operations can be done when online or
+offline, and the data are synchronized when the connection goes back to normal.&lt;/p&gt;
+&lt;p&gt;Also, as we ship to these platform, expect to see Android and iOS offline-first
+client coming along.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="how-can-you-communicate-with-us"&gt;
+&lt;h2&gt;How can you communicate with us?&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Our IRC channel &lt;tt class="docutils literal"&gt;#kinto&lt;/tt&gt; on &lt;tt class="docutils literal"&gt;irc.freenode.net&lt;/tt&gt;. You can &lt;a class="reference external" href="https://www.irccloud.com/invite?channel=%23kinto&amp;amp;amp;hostname=irc.freenode.net&amp;amp;amp;port=6697&amp;amp;amp;ssl=1"&gt;click here to start
+a discussion&lt;/a&gt;
+or join using your favorite client.&lt;/li&gt;
+&lt;li&gt;Our team blog &lt;a class="reference external" href="http://www.servicedenuages.fr/"&gt;http://www.servicedenuages.fr/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://mail.mozilla.org/listinfo/kinto"&gt;The Kinto mailing list&lt;/a&gt;.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="realtime-updates-what-about-kinto"&gt;
+&lt;h2&gt;Realtime updates, what about Kinto?&lt;/h2&gt;
+&lt;p&gt;When a record is modified, Kinto sends a notification on a pubsub channel. We
+integrated Pusher.com and WebPush very recently.  Currently, the notification
+payload contains the old and new version of the record. We plan on making
+improvements, like sending diffs only. #babysteps #ftw!&lt;/p&gt;
+&lt;p&gt;Also, the current mecanism does not allow to send write operations via
+websockets. Those are only sent via the REST API. We were recently talking
+about abstracting the protocol into something different, but it's undecided as
+of now.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="you-re-missing-an-administration-panel"&gt;
+&lt;h2&gt;You're missing an administration panel!&lt;/h2&gt;
+&lt;p&gt;This isn't actually true! One of our current focus is on &lt;a class="reference external" href="https://github.com/Kinto/kinto-admin"&gt;an admin panel&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;It's still fairly new but already available and useful.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="why-not-building-on-top-of-couchdb-pouchdb"&gt;
+&lt;h2&gt;Why not building on top of CouchDB / PouchDB?&lt;/h2&gt;
+&lt;p&gt;We do realize CouchDB exists, and even think it's the best solution for a lot
+of use cases. One of the first thing we did when we faced new uses cases was to
+see if CouchDB was a good choice for us, and eventually decided to not go for
+it. You can read more about the rationale on our decision on &lt;a class="reference external" href="http://www.servicedenuages.fr/en/generic-storage-ecosystem"&gt;the article&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;What we are doing with Kinto differs from what Couch/Pouch provide, in a bunch
+of different ways. We don't actually want to step on each other toes, and
+believe that Kinto and Pouch/Couch could actually live and be happy together
+(we were even discussing last week about doing a bridge to Pouch in Kinto.js)&lt;/p&gt;
+&lt;p&gt;Now we need to let you with an explanation of how Kinto and Couch differs!&lt;/p&gt;
+&lt;p&gt;Kinto did the choice to &lt;em&gt;not&lt;/em&gt; store the revisions that can be used for
+master-master replication. One benefit out of it is that you don't need to
+compress your database, resulting in smaller datasets.&lt;/p&gt;
+&lt;p&gt;It also means that we have a harder time dealing with conflicts, since we
+cannot perform three way merges. We decided to let the application developers
+manage conflicts — with user prompts or specific business logic for example —
+and it fits our use cases pretty well.&lt;/p&gt;
+&lt;p&gt;Couch/Pouch also means that we had to deploy, scale and maintain technologies
+that we don't master, and to which we weren't confident to contribute (CouchDB
+is Erlang) whereas one of the original goals of Kinto is to be ops friendly.&lt;/p&gt;
+&lt;p&gt;Couch / Pouch is built on top of the concept of one database per user, and only
+syncs entire databases. This is improving now, though.&lt;/p&gt;
+&lt;p&gt;As Dale Harvey pointed out, Kinto wants to handle fine-grained permissions.
+After looking at how Couch is built and how complex it would have been to
+include these fine-grained permissions in the protocol, we decided it would be
+easier to actually do it from the ground up. We are aware of &lt;a class="reference external" href="https://github.com/thaliproject/node_acl_pouchdb"&gt;the
+implementations of ACLs on top of Couch&lt;/a&gt; and don't think their
+tradeoffs are worth it.&lt;/p&gt;
+&lt;p&gt;There is a comparison with CouchDB (and many other solutions) &lt;a class="reference external" href="http://kinto.readthedocs.org/en/latest/overview.html#comparison"&gt;in our
+documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Since the two solutions are solving slightly different problems, we will make
+our best to guide the users towards the best for their use-case.  &lt;a class="reference external" href="https://github.com/Kinto/kinto/issues/330"&gt;We also plan
+to extend this comparison table&lt;/a&gt;
+to compare products rather than server solutions.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="we-are-also-developing-x-i-wonder-how-it-compares-with-x"&gt;
+&lt;h2&gt;We are also developing X / I wonder how it compares with X&lt;/h2&gt;
+&lt;p&gt;A few years ago, we built &lt;a class="reference external" href="https://github.com/spiral-project/daybed"&gt;Daybed&lt;/a&gt;,
+a similar project which never had the chance to be famous. At the time, the
+page &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Mobile_Backend_as_a_service"&gt;Mobile Backend as a service&lt;/a&gt; did not even
+exist on Wikipedia.  In early 2015, we decided to reboot the idea, based on
+concrete use-cases that we had at Mozilla. It was not especially mobile
+oriented, but each project milestone lead us to an ecosystem that is rich
+enough to be compared with MBAAS.&lt;/p&gt;
+&lt;p&gt;We realize there are many many alternatives in the wild, like &lt;a class="reference external" href="http://gun.js.org"&gt;http://gun.js.org&lt;/a&gt;
+or &lt;a class="reference external" href="http://kuzzle.io"&gt;http://kuzzle.io&lt;/a&gt; just to mention FOSS. Of course, Parse could also be
+released under an open-source license some day.&lt;/p&gt;
+&lt;p&gt;For us, it mainly means that Kinto was a good idea!&lt;/p&gt;
+&lt;p&gt;We are a team of 5, and we don't pretend to knock down the tech of big
+companies. And our top management is not even aware of this project. We build
+Kinto with some ideals: a simple solution for simple needs that is fully
+open-source.&lt;/p&gt;
+&lt;p&gt;We make our best to be transparent and humble, but there are so many solutions
+out there. We probably missed many of them. So please help us guide the users
+to choose the best solution for their use-case in our overview page!&lt;/p&gt;
+&lt;/div&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 15 Dec 2015 00:00:00 +0100</pubDate><guid>tag:www.servicedenuages.fr,2015-12-15:en/hackernews-feedback</guid></item><item><title>How to load test a OAuth-protected HTTP API? (Part 1)</title><link>http://www.servicedenuages.fr/en/load-testing-a-http-api-which-uses-oauth-for-authentication</link><description>&lt;p&gt;This is part 1 of a series on loadtesting oauth APIs.&lt;/p&gt;
+&lt;div class="section" id="what-is-oauth-and-how-do-you-use-it-to-authenticate-an-http-api"&gt;
+&lt;h2&gt;What is OAuth and how do you use it to authenticate an HTTP API?&lt;/h2&gt;
+&lt;p&gt;&lt;a class="reference external" href="https://en.wikipedia.org/wiki/OAuth"&gt;OAuth&lt;/a&gt; is a protocol that
+allows a user delegate some of its permissions to a web service
+through an identity provider.&lt;/p&gt;
+&lt;p&gt;The user can be confident that the web service will never have their
+user credentials (ID, password), instead it will get a Bearer Token
+that is valid for a list of scopes and for a certain amount of time.&lt;/p&gt;
+&lt;p&gt;In the app, the user click on a Sign-In button that will redirect it
+to the Identity Provider login page with the list of scopes the app
+needs.&lt;/p&gt;
+&lt;p&gt;The user will enter her login credentials and validate the permission
+list, once the credentials are correct, the Identity provider will
+redirect the user to the app with the
+&lt;a class="reference external" href="http://tools.ietf.org/html/rfc6750"&gt;Bearer tokens&lt;/a&gt; enclosed in the query string.&lt;/p&gt;
+&lt;img alt="OAuth 2.0 Bearer Token creation flow" src="http://www.servicedenuages.fr/en/../images/oauth2-flow.png" style="width: 654px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;This Bearer Token will then be used by the app in the HTTP request
+Authorization header to authenticate on the web service.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nf"&gt;GET&lt;/span&gt; &lt;span class="nn"&gt;/v1/articles&lt;/span&gt; &lt;span class="kr"&gt;HTTP&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1.1&lt;/span&gt;
+&lt;span class="na"&gt;Authorization&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;Bearer e7613cae7a0660dae7a2dd55c216cbaef75f43254e2a8c77f7e9c7adb549bb65&lt;/span&gt;
+&lt;span class="na"&gt;Host&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;readinglist.services.mozilla.com&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="why-would-you-need-to-run-a-load-test"&gt;
+&lt;h2&gt;Why would you need to run a load test?&lt;/h2&gt;
+&lt;p&gt;After deploying an HTTP API you might be wondering how many users or
+requests your deployment can take and what happens after it reaches
+that number.&lt;/p&gt;
+&lt;p&gt;Knowing the maximum load your service can handle is a great thing to
+know!  It tells you when to start scaling up when your production
+server is close to reaching that number of requests per second.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="so-what-s-so-complicated-about-oauth"&gt;
+&lt;h2&gt;So, what's so complicated about OAuth?&lt;/h2&gt;
+&lt;p&gt;Load testing a service that requires OAuth-based authentication means:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;having an OAuth account (often creating it)&lt;/li&gt;
+&lt;li&gt;getting a Bearer Token with the right scopes&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Doing all this setup, will add a number of requests. Plus it will take
+time to wait for the email with the activation account link.&lt;/p&gt;
+&lt;p&gt;This can take a tremendous amount of time in the scope of a load test
+which can slow down the all process and return inaccurate results.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="what-is-the-right-way-to-handle-this"&gt;
+&lt;h2&gt;What is the right way to handle this?&lt;/h2&gt;
+&lt;p&gt;During a load test, make sure that your are only doing requests on the
+service you are load testing.&lt;/p&gt;
+&lt;p&gt;If you are calling an identity provider or any other service during
+the load test phases (either setup, tear down or scenario phase) your
+load test performance will be impacted and will return inaccurate
+results.&lt;/p&gt;
+&lt;p&gt;You should be able to write your load test with simple cURL commands
+toward your service.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="configuration-over-code"&gt;
+&lt;h2&gt;Configuration over code&lt;/h2&gt;
+&lt;p&gt;If your service needs Bearer tokens to be load tested, these Bearer
+tokens should be provided to your load test code and not be generated
+during the load test.&lt;/p&gt;
+&lt;p&gt;This can be done by configuration, either within a file or with
+environment variables.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="some-code-to-configure-your-load-test"&gt;
+&lt;h2&gt;Some code to configure your load test&lt;/h2&gt;
+&lt;p&gt;With regards to the kind of environment you want to run your load test
+on (dev, stage, production), you may want to configure your load test
+differently.&lt;/p&gt;
+&lt;p&gt;For instance, you may want to create a specific account or use an
+existing one.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="working-with-environment-variables"&gt;
+&lt;h2&gt;Working with environment variables&lt;/h2&gt;
+&lt;p&gt;It can be difficult to configure your load test code before running
+it.&lt;/p&gt;
+&lt;p&gt;One way to do it is to define environment variables that will be set
+before and that will be read by your code.&lt;/p&gt;
+&lt;p&gt;In order to define the environment variables you can write a Bash file
+that you will be able to source before running your load test and that
+will export all the needed environment variables.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;OAUTH_BEARER_TOKEN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5"&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;There are also utilities that might help you there, for instance,
+&lt;a class="reference external" href="https://docs.docker.com/engine/reference/run/#env-environment-variables"&gt;docker&lt;/a&gt;
+might set them for you.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;docker run -e &lt;span class="nv"&gt;OAUTH_BEARER_TOKEN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"abc..."&lt;/span&gt; loadtest
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="working-with-multiple-bearer-tokens"&gt;
+&lt;h2&gt;Working with multiple Bearer Tokens&lt;/h2&gt;
+&lt;p&gt;If you need to use multiple users, you can add other environment
+variables.&lt;/p&gt;
+&lt;p&gt;You can also set multiple users Bearer tokens using a comma-separated
+list in the env variable and then split on it to choose one randomly
+in your load test:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;OAUTH_BEARER_TOKEN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
+&lt;span class="s2"&gt;    dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5,&lt;/span&gt;
+&lt;span class="s2"&gt;    b6af04a44aa0f5a6b3a3affbaa41c48c4abaaba50e428ce030f9a4cb356aa36e,&lt;/span&gt;
+&lt;span class="s2"&gt;    a44aa0f5a6b3a3affbaa41c1c48c4abaaba50e428ce030f9428ce070f9d4c75b&lt;/span&gt;
+&lt;span class="s2"&gt;    "&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Or you also could create multiple environment variables:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;OAUTH_BEARER_TOKEN_SCOPE_PROFILE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5"&lt;/span&gt;
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;OAUTH_BEARER_TOKEN_SCOPE_KINTO&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
+&lt;span class="s2"&gt;    b6af04a44aa0f5a6b3a3affbaa41c48c4abaaba50e428ce030f9a4cb356aa36e,&lt;/span&gt;
+&lt;span class="s2"&gt;    a44aa0f5a6b3a3affbaa41c1c48c4abaaba50e428ce030f9428ce070f9d4c75b&lt;/span&gt;
+&lt;span class="s2"&gt;    "&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="conclusion"&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;I hope that after reading this article, you are not afraid anymore of
+load testing OAuth-based services!&lt;/p&gt;
+&lt;p&gt;Take-aways:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;You do not create the OAuth Bearer Token in your load test code.&lt;/li&gt;
+&lt;li&gt;You can use configuration and for instance environment variables to
+configure your load test Bearer Token.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The next article will show some specific tools you can use to do this.&lt;/p&gt;
+&lt;/div&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 02 Dec 2015 00:00:00 +0100</pubDate><guid>tag:www.servicedenuages.fr,2015-12-02:en/load-testing-a-http-api-which-uses-oauth-for-authentication</guid></item><item><title>Kinto.js 1.0 released</title><link>http://www.servicedenuages.fr/en/kinto-js-1-0-released</link><description>&lt;p&gt;&lt;a class="reference external" href="https://kintojs.readthedocs.org/"&gt;Kinto.js&lt;/a&gt; is an offline-first JavaScript client leveraging the &lt;a class="reference external" href="https://kinto.readthedocs.org/"&gt;Kinto API&lt;/a&gt; for data synchronization. In a world where connectivity isn't always guaranteed, local persistence in the browser has become an &lt;a class="reference external" href="http://offlinefirst.org/"&gt;identified priority&lt;/a&gt; for Web applications, especially on mobile.&lt;/p&gt;
 &lt;p&gt;The basic principle is simple; save your data locally, assuming there's no network connectivity. Then as soon as it's available, retrieve remote changes and push your local data to a remote server.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;kinto&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Kinto&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="nx"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"https://kinto.dev.mozaws.net/v1/"&lt;/span&gt;&lt;span class="p"&gt;});&lt;/span&gt;
 &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;tasks&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;kinto&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;collection&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"tasks"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
