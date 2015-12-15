@@ -13,7 +13,7 @@ Today, `Kinto was featured on Hackernews
 milestone for the project, even if it also comes with some sort of pressure and
 stress :)
 
-Since a few questions emerged from the thread there, we thought it'd
+Since a few questions emerged from the thread there, we thought it'd be
 appropriate to provide some answers here.
 
 What does this name mean?
@@ -34,7 +34,7 @@ DigitalOcean, Heroku or Bitnami.
 We've started `by making the integration easy on Always Data
 <https://github.com/Natim/auto-kinto-alwaysdata>`_.
 
-Or if someone runs a public Kinto instance and wants to charge for its usage,
+By the way, if someone runs a public Kinto instance and wants to charge for its usage,
 that's completely fine!
 
 At Mozilla, we just can't rely on third parties like Firebase or Parse for
@@ -57,8 +57,9 @@ We have different services that are leveraging Kinto:
 - We are currently doing the distribution of fonts for Fennec Over The Air
   using Kinto.
 
-Also, it's not in production yet, but we will use Kinto for the Certificate
-Revocation Lists in the future.
+Also, it's not in production yet, but we will use Kinto for the blocklist of
+addons and Certificate Revocation Lists in the future. Kinto.js `has landed in
+Firefox for that purpose <https://github.com/mozilla/gecko-dev/commit/199296f7448fcfe12a3d84c7e16ca1752b740c0e>`_.
 
 Offline-first support
 =====================
@@ -67,8 +68,8 @@ One of the core ideas behind `Kinto.js <https://github.com/Kinto/kinto.js>`_ is
 that it should be offline first: all operations can be done when online or
 offline, and the data are synchronized when the connection goes back to normal.
 
-Also, as we ship to these platform, expect to see Android and iOS offline-first
-client coming along.
+Also, as we ship to these platforms, expect to see Android and iOS offline-first
+clients coming along.
 
 How can you communicate with us?
 ================================
@@ -85,8 +86,8 @@ Realtime updates, what about Kinto?
 When a record is modified, Kinto sends a notification on a pubsub channel. We
 integrated Pusher.com and WebPush very recently.  Currently, the notification
 payload contains the old and new version of the record. We plan on making
-improvements, like sending diffs only. #babysteps #ftw! 
-      
+improvements, like sending diffs only. #babysteps #ftw!
+
 Also, the current mecanism does not allow to send write operations via
 websockets. Those are only sent via the REST API. We were recently talking
 about abstracting the protocol into something different, but it's undecided as
@@ -105,7 +106,7 @@ Why not building on top of CouchDB / PouchDB?
 =============================================
 
 We do realize CouchDB exists, and even think it's the best solution for a lot
-of use cases. One of the first thing we did when we faced new uses cases was to
+of use cases. One of the first thing we did when we faced our first uses cases was to
 see if CouchDB was a good choice for us, and eventually decided to not go for
 it. You can read more about the rationale on our decision on `the article
 <http://www.servicedenuages.fr/en/generic-storage-ecosystem>`_
@@ -161,17 +162,17 @@ exist on Wikipedia.  In early 2015, we decided to reboot the idea, based on
 concrete use-cases that we had at Mozilla. It was not especially mobile
 oriented, but each project milestone lead us to an ecosystem that is rich
 enough to be compared with MBAAS.
-      
-We realize there are many many alternatives in the wild, like http://gun.js.org
+
+We realize there are many (many) alternatives in the wild, like http://gun.js.org
 or http://kuzzle.io just to mention FOSS. Of course, Parse could also be
 released under an open-source license some day.
 
 For us, it mainly means that Kinto was a good idea!
-      
+
 We are a team of 5, and we don't pretend to knock down the tech of big
 companies. We build Kinto with some ideals: a simple solution for simple needs
 that is fully open-source.
-     
+
 We make our best to be transparent and humble, but there are so many solutions
 out there. We probably missed many of them. So please help us guide the users
 to choose the best solution for their use-case in our overview page!
