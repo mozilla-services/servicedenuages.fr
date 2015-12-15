@@ -42,7 +42,7 @@ critical data.
 
 If you read french, we've written `an article about our vision on self-hosting
 <http://www.servicedenuages.fr/difficile-promesse-autohebergement>`_
-(yes, we need to translate it!)
+(yes, we need to translate it! Any help would be welcome on this front.)
 
 How can you communicate with us?
 ================================
