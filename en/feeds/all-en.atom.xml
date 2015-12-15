@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-en.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2015-12-15T00:00:00+01:00</updated><entry><title>Hacker News answers</title><link href="http://www.servicedenuages.fr/en/hackernews-feedback" rel="alternate"></link><updated>2015-12-15T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-15:en/hackernews-feedback</id><summary type="html">&lt;p&gt;Today, &lt;a class="reference external" href="https://news.ycombinator.com/item?id=10733164"&gt;Kinto was featured on Hackernews&lt;/a&gt;. We take this as a great
 milestone for the project, even if it also comes with some sort of pressure and
 stress :)&lt;/p&gt;
-&lt;p&gt;Since a few questions emerged from the thread there, we thought it'd
+&lt;p&gt;Since a few questions emerged from the thread there, we thought it'd be
 appropriate to provide some answers here.&lt;/p&gt;
 &lt;div class="section" id="what-does-this-name-mean"&gt;
 &lt;h2&gt;What does this name mean?&lt;/h2&gt;
@@ -17,7 +17,7 @@ someone with a pure heart". Oh, well.&lt;/p&gt;
 imagine to allow developers to run a Kinto instance in one-click on
 DigitalOcean, Heroku or Bitnami.
 We've started &lt;a class="reference external" href="https://github.com/Natim/auto-kinto-alwaysdata"&gt;by making the integration easy on Always Data&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;Or if someone runs a public Kinto instance and wants to charge for its usage,
+&lt;p&gt;By the way, if someone runs a public Kinto instance and wants to charge for its usage,
 that's completely fine!&lt;/p&gt;
 &lt;p&gt;At Mozilla, we just can't rely on third parties like Firebase or Parse for
 critical data.&lt;/p&gt;
@@ -36,16 +36,17 @@ background, so that FirefoxOS developers can use the Kinto.js library&lt;/li&gt;
 &lt;li&gt;We are currently doing the distribution of fonts for Fennec Over The Air
 using Kinto.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Also, it's not in production yet, but we will use Kinto for the Certificate
-Revocation Lists in the future.&lt;/p&gt;
+&lt;p&gt;Also, it's not in production yet, but we will use Kinto for the blocklist of
+addons and Certificate Revocation Lists in the future. Kinto.js &lt;a class="reference external" href="https://github.com/mozilla/gecko-dev/commit/199296f7448fcfe12a3d84c7e16ca1752b740c0e"&gt;has landed in
+Firefox for that purpose&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="offline-first-support"&gt;
 &lt;h2&gt;Offline-first support&lt;/h2&gt;
 &lt;p&gt;One of the core ideas behind &lt;a class="reference external" href="https://github.com/Kinto/kinto.js"&gt;Kinto.js&lt;/a&gt; is
 that it should be offline first: all operations can be done when online or
 offline, and the data are synchronized when the connection goes back to normal.&lt;/p&gt;
-&lt;p&gt;Also, as we ship to these platform, expect to see Android and iOS offline-first
-client coming along.&lt;/p&gt;
+&lt;p&gt;Also, as we ship to these platforms, expect to see Android and iOS offline-first
+clients coming along.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="how-can-you-communicate-with-us"&gt;
 &lt;h2&gt;How can you communicate with us?&lt;/h2&gt;
@@ -76,7 +77,7 @@ of now.&lt;/p&gt;
 &lt;div class="section" id="why-not-building-on-top-of-couchdb-pouchdb"&gt;
 &lt;h2&gt;Why not building on top of CouchDB / PouchDB?&lt;/h2&gt;
 &lt;p&gt;We do realize CouchDB exists, and even think it's the best solution for a lot
-of use cases. One of the first thing we did when we faced new uses cases was to
+of use cases. One of the first thing we did when we faced our first uses cases was to
 see if CouchDB was a good choice for us, and eventually decided to not go for
 it. You can read more about the rationale on our decision on &lt;a class="reference external" href="http://www.servicedenuages.fr/en/generic-storage-ecosystem"&gt;the article&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;What we are doing with Kinto differs from what Couch/Pouch provide, in a bunch
@@ -118,7 +119,7 @@ exist on Wikipedia.  In early 2015, we decided to reboot the idea, based on
 concrete use-cases that we had at Mozilla. It was not especially mobile
 oriented, but each project milestone lead us to an ecosystem that is rich
 enough to be compared with MBAAS.&lt;/p&gt;
-&lt;p&gt;We realize there are many many alternatives in the wild, like &lt;a class="reference external" href="http://gun.js.org"&gt;http://gun.js.org&lt;/a&gt;
+&lt;p&gt;We realize there are many (many) alternatives in the wild, like &lt;a class="reference external" href="http://gun.js.org"&gt;http://gun.js.org&lt;/a&gt;
 or &lt;a class="reference external" href="http://kuzzle.io"&gt;http://kuzzle.io&lt;/a&gt; just to mention FOSS. Of course, Parse could also be
 released under an open-source license some day.&lt;/p&gt;
 &lt;p&gt;For us, it mainly means that Kinto was a good idea!&lt;/p&gt;
