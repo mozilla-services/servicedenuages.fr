@@ -63,7 +63,9 @@ payload contains the old and new version of the record. We plan on making
 improvements, like sending diffs only. #babysteps #ftw! 
       
 Also, the current mecanism does not allow to send write operations via
-websockets. Those are sent via the REST API.  
+websockets. Those are only sent via the REST API. We were recently talking
+about abstracting the protocol into something different, but it's undecided as
+of now.
 
 You're missing an administration panel!
 =======================================
