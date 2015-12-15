@@ -32,7 +32,7 @@ That is true. We want to make it very easy to deploy / use. We can even
 imagine to allow developers to run a Kinto instance in one-click on
 DigitalOcean, Heroku or Bitnami.
 We've started `by making the integration easy on Always Data
-<https://github.com/Natim/auto-kinto-alwaysdata>`.
+<https://github.com/Natim/auto-kinto-alwaysdata>`_.
 
 Or if someone runs a public Kinto instance and wants to charge for its usage,
 that's completely fine!
@@ -73,10 +73,9 @@ client coming along.
 How can you communicate with us?
 ================================
 
-* Our IRC channel ``#kinto`` on ``irc.freenode.net``. You can `click here to start
-  a discussion
-  <https://www.irccloud.com/invite?channel=%23kinto&amp;hostname=irc.freenode.net&amp;port=6697&amp;ssl=1>`_
-  or join using your favorite client.
+* Our IRC channel ``#kinto`` on ``irc.freenode.net``.  `Click here to access
+  the web client <https://kiwiirc.com/client/irc.freenode.net/?#kinto>`_ or
+  join using your favorite client.
 * Our team blog http://www.servicedenuages.fr/
 * `The Kinto mailing list <https://mail.mozilla.org/listinfo/kinto>`_.
 
@@ -96,8 +95,8 @@ of now.
 You're missing an administration panel!
 =======================================
 
-This isn't actually true! One of our current focus is on `this
-<https://github.com/Kinto/kinto-admin >`_.
+This isn't actually true! One of our current focus is on `an admin panel
+<https://github.com/Kinto/kinto-admin>`_.
 
 It's still fairly new but already available and useful.
 
