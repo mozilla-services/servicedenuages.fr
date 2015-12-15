@@ -44,6 +44,29 @@ If you read french, we've written `an article about our vision on self-hosting
 <http://www.servicedenuages.fr/difficile-promesse-autohebergement>`_
 (yes, we need to translate it! Any help would be welcome on this front.)
 
+Are we using this in production?
+================================
+
+We have different services that are leveraging Kinto:
+
+- The (now dead) reading-list project was using one of the first versions of
+  Kinto
+- We have made `Syncto <https://github.com/mozilla-services/syncto>`_:
+  a service which exposes the API of Kinto and talks with Firefox Sync in the
+  background, so that FirefoxOS developers can use the Kinto.js library
+- We are currently doing the distribution of fonts for Fennec Over The Air
+  using Kinto.
+
+Also, it's not in production yet, but we will use Kinto for the Certificate
+Revocation Lists in the future.
+
+Offline-first support
+=====================
+
+One of the core ideas behind `Kinto.js <https://github.com/Kinto/kinto.js>`_ is
+that it should be offline first: all operations can be done when online or
+offline, and the data is synchronized when the connection goes back to normal.
+
 How can you communicate with us?
 ================================
 
