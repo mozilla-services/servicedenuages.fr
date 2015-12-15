@@ -16,8 +16,7 @@ someone with a pure heart". Oh, well.&lt;/p&gt;
 &lt;p&gt;That is true. We want to make it very easy to deploy / use. We can even
 imagine to allow developers to run a Kinto instance in one-click on
 DigitalOcean, Heroku or Bitnami.
-We've started &lt;cite&gt;by making the integration easy on Always Data
-&amp;lt;https://github.com/Natim/auto-kinto-alwaysdata&amp;gt;&lt;/cite&gt;.&lt;/p&gt;
+We've started &lt;a class="reference external" href="https://github.com/Natim/auto-kinto-alwaysdata"&gt;by making the integration easy on Always Data&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Or if someone runs a public Kinto instance and wants to charge for its usage,
 that's completely fine!&lt;/p&gt;
 &lt;p&gt;At Mozilla, we just can't rely on third parties like Firebase or Parse for
@@ -51,9 +50,9 @@ client coming along.&lt;/p&gt;
 &lt;div class="section" id="how-can-you-communicate-with-us"&gt;
 &lt;h2&gt;How can you communicate with us?&lt;/h2&gt;
 &lt;ul class="simple"&gt;
-&lt;li&gt;Our IRC channel &lt;tt class="docutils literal"&gt;#kinto&lt;/tt&gt; on &lt;tt class="docutils literal"&gt;irc.freenode.net&lt;/tt&gt;. You can &lt;a class="reference external" href="https://www.irccloud.com/invite?channel=%23kinto&amp;amp;amp;hostname=irc.freenode.net&amp;amp;amp;port=6697&amp;amp;amp;ssl=1"&gt;click here to start
-a discussion&lt;/a&gt;
-or join using your favorite client.&lt;/li&gt;
+&lt;li&gt;Our IRC channel &lt;tt class="docutils literal"&gt;#kinto&lt;/tt&gt; on &lt;tt class="docutils literal"&gt;irc.freenode.net&lt;/tt&gt;.  &lt;a class="reference external" href="https://kiwiirc.com/client/irc.freenode.net/?#kinto"&gt;Click here to access
+the web client&lt;/a&gt; or
+join using your favorite client.&lt;/li&gt;
 &lt;li&gt;Our team blog &lt;a class="reference external" href="http://www.servicedenuages.fr/"&gt;http://www.servicedenuages.fr/&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a class="reference external" href="https://mail.mozilla.org/listinfo/kinto"&gt;The Kinto mailing list&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
