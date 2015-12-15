@@ -65,7 +65,10 @@ Offline-first support
 
 One of the core ideas behind `Kinto.js <https://github.com/Kinto/kinto.js>`_ is
 that it should be offline first: all operations can be done when online or
-offline, and the data is synchronized when the connection goes back to normal.
+offline, and the data are synchronized when the connection goes back to normal.
+
+Also, as we ship to these platform, expect to see Android and iOS offline-first
+client coming along.
 
 How can you communicate with us?
 ================================
