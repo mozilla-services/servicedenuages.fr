@@ -1,0 +1,145 @@
+Hacker News answers
+###################
+
+:date: 2015-12-15
+:slug: hackernews-feedback
+:lang: en
+:url: hackernews-feedback
+:summary: Where we answer a set of questions that arised on a Hacker News
+          thread.
+
+Today, `Kinto was featured on Hackernews
+<https://news.ycombinator.com/item?id=10733164>`_. We take this as a great
+milestone for the project, even if it also comes with some sort of pressure and
+stress :)
+
+Since a few questions emerged from the thread there, we thought it'd
+appropriate to provide some answers here.
+
+What does this name mean?
+=========================
+
+Kinto-un is the name of the flying nimbus in Dragon ball. It's said that
+"the cloud can only be ridden by someone with a pure heart". Oh, well.
+    
+Maintaining a service is hard.
+==============================
+
+The main benefit of Firebase and Parse is that you don't have to run them.
+
+That is true. We want to make it very easy to deploy / use. We can even
+imagine to allow developers to run a Kinto instance in one-click on
+DigitalOcean, Heroku or Bitnami.
+
+Or if someone runs a public Kinto instance and wants to charge for its usage,
+that's completely fine!
+
+At Mozilla, we just can't rely on third parties like Firebase or Parse for
+critical data.
+
+If you read french, we've written `an article about our vision on self-hosting
+<http://www.servicedenuages.fr/difficile-promesse-autohebergement>`_
+(yes, we need to translate it!)
+
+How can you communicate with us?
+================================
+
+* Our IRC channel ``#kinto`` on ``irc.freenode.net``. You can `click here to start
+  a discussion
+  <https://www.irccloud.com/invite?channel=%23kinto&amp;hostname=irc.freenode.net&amp;port=6697&amp;ssl=1>`_
+  or join using your favorite client.
+* Our team blog http://www.servicedenuages.fr/
+* `The Kinto mailing list <https://mail.mozilla.org/listinfo/kinto>`_.
+
+Realtime updates, what about Kinto?
+===================================
+
+When a record is modified, Kinto sends a notification on a pubsub channel. We
+integrated Pusher.com and WebPush very recently.  Currently, the notification
+payload contains the old and new version of the record. We plan on making
+improvements, like sending diffs only. #babysteps #ftw! 
+      
+Also, the current mecanism does not allow to send write operations via
+websockets. Those are sent via the REST API.  
+
+You're missing an administration panel !
+========================================
+
+That is true, but `we're working on it pretty hard
+<https://github.com/Kinto/kinto-admin >`. If you want, you can have a look at
+it now, even though it's fairly new.
+
+Why not building on top of CouchDB / PouchDB?
+=============================================
+
+We do realize CouchDB exists, and even think it's the best solution for a lot
+of use cases. One of the first thing we did when we faced new uses cases was to
+see if CouchDB was a good choice for us, and eventually decided to not go for
+it. You can read more about the rationale on our decision on `the article
+<http://www.servicedenuages.fr/en/generic-storage-ecosystem>`_
+
+What we are doing with Kinto differs from what Couch/Pouch provide, in a bunch
+of different ways. We don't actually want to step on each other toes, and
+believe that Kinto and Pouch/Couch could actually live and be happy together
+(we were even discussing last week about doing a bridge to Pouch in Kinto.js)
+
+Now we need to let you with an explanation of how Kinto and Couch differs!
+
+Kinto did the choice to *not* store the revisions that can be used for
+master-master replication. One benefit out of it is that you don't need to
+compress your database, resulting in smaller datasets.
+
+It also means that we have a harder time dealing with conflicts, since we
+cannot perform three way merges. We decided to let the application developers
+manage conflicts — with user prompts or specific business logic for example —
+and it fits our use cases pretty well.
+
+Couch/Pouch also means that we had to deploy, scale and maintain technologies
+that we don't master, and to which we weren't confident to contribute (CouchDB
+is Erlang) whereas one of the original goals of Kinto is to be ops friendly.
+
+Couch / Pouch is built on top of the concept of one database per user, and only
+syncs entire databases. This is improving now, though.
+
+As Dale Harvey pointed out, Kinto wants to handle fine-grained permissions.
+After looking at how Couch is built and how complex it would have been to
+include these fine-grained permissions in the protocol, we decided it would be
+easier to actually do it from the ground up. We are aware of `the
+implementations of ACLs on top of Couch
+<https://github.com/thaliproject/node_acl_pouchdb>`_ and don't think their
+tradeoffs are worth it.
+
+There is a comparison with CouchDB (and many other solutions) `in our
+documentation
+<http://kinto.readthedocs.org/en/latest/overview.html#comparison>`_.
+
+Since the two solutions are solving slightly different problems, we will make
+our best to guide the users towards the best for their use-case.  `We also plan
+to extend this comparison table <https://github.com/Kinto/kinto/issues/330>`_
+to compare products rather than server solutions.
+
+We are also developing X / I wonder how it compares with X
+==========================================================
+
+A few years ago, we built Daybed, a similar project which never had the chance
+to be famous. At the time, the page `Mobile Backend as a service
+<https://en.wikipedia.org/wiki/Mobile_Backend_as_a_service>`_ did not even
+exist on Wikipedia.  In early 2015, we decided to reboot the idea, based on
+concrete use-cases that we had at Mozilla. It was not especially mobile
+oriented, but each project milestone lead us to an ecosystem that is rich
+enough to be compared with MBAAS.
+      
+We realize there are many many alternatives in the wild, like http://gun.js.org
+or http://kuzzle.io just to mention FOSS. Of course, Parse could also be
+released under an open-source license some day.
+
+For us, it mainly means that Kinto was a good idea!
+      
+We are a team of 5, and we don't pretend to knock down the tech of big
+companies. And our top management is not even aware of this project. We build
+Kinto with some ideals : a simple solution for simple needs that is fully
+open-source.
+     
+We make our best to be transparent and humble, but there are so many solutions
+out there. We probably missed many of them. So please help us guide the users
+to choose the best solution for their use-case in our overview page!
