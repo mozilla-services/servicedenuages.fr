@@ -22,7 +22,7 @@ What does this name mean?
 `Kinto-un <http://dragonball.wikia.com/wiki/Flying_Nimbus>`_ is the name of the
 Flying Nimbus in Dragon ball. It's said that "the cloud can only be ridden by
 someone with a pure heart". Oh, well.
-    
+
 Maintaining a service is hard
 =============================
 
@@ -54,12 +54,13 @@ We have different services that are leveraging Kinto:
 - We have made `Syncto <https://github.com/mozilla-services/syncto>`_:
   a service which exposes the API of Kinto and talks with Firefox Sync in the
   background, so that FirefoxOS developers can use the Kinto.js library
-- We are currently doing the distribution of fonts for Fennec Over The Air
-  using Kinto.
 
-Also, it's not in production yet, but we will use Kinto for the blocklist of
-addons and Certificate Revocation Lists in the future. Kinto.js `has landed in
-Firefox for that purpose <https://github.com/mozilla/gecko-dev/commit/199296f7448fcfe12a3d84c7e16ca1752b740c0e>`_.
+We are currently building (for 2016):
+
+- the distribution of fonts and hyphenation dictionaries for Firefox Mobile (Fennec)
+- the synchronization of addons blocklist and `Certificate Revocation Lists (OneCRL) <https://blog.mozilla.org/security/2015/03/03/revoking-intermediate-certificates-introducing-onecrl/>`_
+
+Kinto.js `has landed in Firefox for that purpose <https://github.com/mozilla/gecko-dev/commit/199296f7448fcfe12a3d84c7e16ca1752b740c0e>`_.
 
 Offline-first support
 =====================
