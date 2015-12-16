@@ -41,7 +41,7 @@ serve: install
 ifdef PORT
 	cd $(OUTPUTDIR) && $(PYTHON) -m pelican.server $(PORT)
 else
-	cd $(OUTPUTDIR) && $(PYTHON) -m pelican.server
+	cd $(OUTPUTDIR) && $(PYTHON) -m pelican.server 8080
 endif
 
 regenerate:
