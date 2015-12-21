@@ -1,0 +1,139 @@
+How to make the Kinto instances discoverable?
+#############################################
+
+:slug: outreachy-discovery-of-kinto-servers
+:date: 2015-12-21
+:lang: en
+:url: discovery-of-kinto-servers
+:summary: What solution can we put together to make Kinto instances discoverable.
+
+
+About Me
+========
+
+Hi! I am Shweta Oak. 
+
+I got the opportunity to be part of Mozilla's Kinto team.
+Here, my work focuses on the discovery of Kinto servers.
+I am passionate about Technology and believe in applying it to enhance the lives of people.
+I like to solve problems. While solving problems, I like exploring and crafting various
+solutions to find the best one. I am enthusiastic about taking up new challenges, learning
+new things and discovering my potential. 
+
+
+How does an application discover the location of a Kinto server?
+================================================================
+
+Unlike Parse or Firebase which are centralized services, Kinto can be ran by anyone
+and anywhere. However, there has to be a way for the user to choose where the data
+are getting stored. In addition to configuring the frontend app for their personal
+server, users can get the  location of the server in the form of a URL which can be
+shared with another user in order to collaborate and share data between multiple
+users on the same Kinto server. 
+
+To solve this problem, the following approach can be taken:
+
+1. Let the user enter the location of its Kinto instance, the first time.
+2. Store this location remotely.
+3. Use this later to discover the service.
+
+.. image:: {filename}/images/KintoDiscovery-1st-time-sync.png
+    :alt: The first time the user set its Kinto server URI
+    :align: center
+
+.. image:: {filename}/images/KintoDiscovery-2nd-time-sync.png
+    :alt: The second time the user discover their Kinto server URI
+    :align: center
+
+
+Let the user enter the location of its Kinto instance, the first time.
+======================================================================
+
+Add a way, on client side, to specify where the server is. For instance, this should
+be done in JavaScript and HTML on  top of the Kinto.js client.
+It is basically a user interface for how to specify the "remote server" to use. The
+user has to enter the location of the server only once, the first time he uses a
+Kinto instance, later on, this location will be discovered.
+
+The best way to start doing this is to do it in a webpage that uses Kinto.js and let
+the user specify the server location. Once we have this, we will need to make this
+project re-usable by others.
+
+Store this location remotely
+============================
+
+Then, it would be good if we were able, for a given authenticated user, to automatically
+discover where is their Kinto instance is located. To do that we will need to find a solution
+to save this location somewhere when the user enters the location of the server for the first
+time and then, the information will be discovered.
+
+We also need to keep in mind that users may have multiple Kinto instances with regards to the
+application they will be using. The discovery of Kinto will be cross application too.
+
+We will now need to store this information remotely. This is where the ideas of a central
+repository and of a Distributed Hash Table (DHT) come into play. Since a DHT is by far more
+complex than a central repository, we will start with the use of a central server.
+
+
+(B1) Central Repository
+-----------------------
+
+A small Javascript helper to lookup the location of the server
+remotely once the user is connected. The flow would then look like
+this:
+
+1. Connect to your account (Github, Twitter, FxA) using OAuth.
+2. The client fetches the location of the Kinto server on a central Kinto collection using the user credentials.
+3. The Kinto.js collection is configured to use this remote.
+
+**Pros of using a central repository:**
+
+- Its really easy to setup and implement.
+- The application searches for the user’s server by looking up the central repository.
+
+**Cons of using a central repository:**
+
+- The user needs to trust a 3rd party as the links to the information of the user is being stored in one place.
+- There is a possibility of leak of information that someone is connected to a Kinto instance, and where this instance is.  
+
+(B2) Distributed Hash Table (DHT)
+---------------------------------
+
+Once we have this mechanism in place, we can expand it in order to
+rely on a DHT rather than on a central repositories. DHT is a
+distributed hash table system that provides a distributed lookup
+service without a single point of failure.
+
+**Pros of using DHT:**
+
+- The user does not have to trust one server only. There are multiple servers that hold pieces of the data.
+- It is possible to add your own server to the DHT.
+
+**Cons of using DHT:**
+
+- It might be complex to deploy.
+- Harder to implement and verify
+- It might be an overkill solution.
+- All the data in a DHT are public so we would necessarily need to encrypt the data there.
+
+
+Eventually at the end we should expand this mechanism to other services locations, using Host-Meta.
+===================================================================================================
+
+In addition to discovering the location of the Kinto server, add the
+possibility to discover other services, such as the identity service
+provider for the remote instance (Firefox Accounts / Github /
+Twitter), using something like Host-Meta.  `Host-Meta is a
+specification <https://tools.ietf.org/html/rfc6415>`_ that is used for
+looking up the metadata of a domain name. It is useful for discovery
+of services associated with the host.
+
+And once we're there, all the Kinto instances will be discoverable!
+
+
+Note to the reader:
+===================
+Thanks for your interest in this article, If you think there is a better approach we can take,
+than the one given above or, if there is anything you would like to share with us regarding
+this article, do comment below. We look forward to exploring more solutions and making the
+project even better through your feedback :)
