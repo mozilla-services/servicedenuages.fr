@@ -52,7 +52,7 @@ Let the user enter the location of her Kinto instance, the first time.
 Add a way, on client side, to specify where the server is. For instance, this should
 be done in JavaScript and HTML on  top of the Kinto.js client.
 It is basically a user interface for how to specify the "remote server" to use. The
-user has to enter the location of the server only once, the first time he uses a
+user has to enter the location of the server only once, the first time she uses a
 Kinto instance, later on, this location will be discovered.
 
 The best way to start doing this is to do it in a webpage that uses Kinto.js and let
@@ -63,7 +63,7 @@ Store this location remotely
 ============================
 
 Then, it would be good if we were able, for a given authenticated user, to automatically
-discover where is their Kinto instance is located. To do that we will need to find a solution
+discover where their Kinto instance is located. To do that we will need to find a solution
 to save this location somewhere when the user enters the location of the server for the first
 time and then, the information will be discovered.
 
@@ -133,7 +133,7 @@ And once we're there, all the Kinto instances will be discoverable!
 
 Note to the reader:
 ===================
-Thanks for your interest in this article, If you think there is a better approach we can take,
+Thanks for your interest in this article. If you think there is a better approach we can take,
 than the one given above or, if there is anything you would like to share with us regarding
 this article, do comment below. We look forward to exploring more solutions and making the
 project even better through your feedback :)
