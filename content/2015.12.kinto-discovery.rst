@@ -33,12 +33,12 @@ users on the same Kinto server.
 
 To solve this problem, the following approach can be taken:
 
-1. Let the user enter the location of its Kinto instance, the first time.
+1. Let the user enter the location of her Kinto instance, the first time.
 2. Store this location remotely.
 3. Use this later to discover the service.
 
 .. image:: {filename}/images/KintoDiscovery-1st-time-sync.png
-    :alt: The first time the user set its Kinto server URI
+    :alt: The first time the user set her Kinto server URI
     :align: center
 
 .. image:: {filename}/images/KintoDiscovery-2nd-time-sync.png
@@ -46,7 +46,7 @@ To solve this problem, the following approach can be taken:
     :align: center
 
 
-Let the user enter the location of its Kinto instance, the first time.
+Let the user enter the location of her Kinto instance, the first time.
 ======================================================================
 
 Add a way, on client side, to specify where the server is. For instance, this should
@@ -88,7 +88,7 @@ this:
 
 **Pros of using a central repository:**
 
-- Its really easy to setup and implement.
+- It is really easy to setup and implement.
 - The application searches for the user’s server by looking up the central repository.
 
 **Cons of using a central repository:**
