@@ -1,10 +1,10 @@
-The hard promess of self-hosting
+The hard promise of self-hosting
 ################################
 
 :date: 2015-12-22
 :slug: difficile-promesse-autohebergement
 :lang: fr
-:url: self-hosting-a-hard-promess
+:url: self-hosting-a-hard-promise
 :summary: Where we talk about self-hosting, deployment, and decentralization.
 
 .. note::
