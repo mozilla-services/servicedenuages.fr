@@ -1,27 +1,27 @@
-the hard promess of self-hosting
+The hard promess of self-hosting
 ################################
 
 :date: 2015-12-22
 :slug: difficile-promesse-autohebergement
 :lang: fr
 :url: self-hosting-a-hard-promess
-:summary: Where we talk about self-hosting, deployment and decentralization.
+:summary: Where we talk about self-hosting, deployment, and decentralization.
 
 .. note::
 
-  This article has been translated by
-  `Alexis Métaireau <https://notmyidea.org>`_, in a train between
-  Rennes and Paris.
+  This article was translated by `Alexis Métaireau <https://notmyidea.org>`_,
+  on a train between Rennes and Paris.
 
-While discussing about `Kinto <https://kinto.readthedocs.org>`_, we discovered
+While discussing about `Kinto <https://kinto.readthedocs.org/>`_, we discovered
 that the future we envision for Kinto is the one of a collectively decentralized
-hosting, rather than having every user having his own individual servers.
+hosting, rather than having every user having their own individual servers.
 
 Kinto wants to answer two basic needs from Web users: storage and sharing of
 data, without letting them losing control over their own data.
 
 If Kinto should be a "database for the Web", then it is a pre-requesite that
 every user of the Web can easily access a server running it.
+
 
 Self-Hosting
 ============
@@ -30,7 +30,7 @@ Self-Hosting
     :alt: Countryside house -- House, Automn - CC-BY-ND Gunnar Magnusson https://www.flickr.com/photos/matupplevelser/4644386646
     :align: center
 
-Deploying servers isn't somethign easy. A lot of people are working hard on
+Deploying servers isn't something easy. A lot of people are working hard on
 solving this problem, but there is still a lot of work to do before having a
 plug and play solution that is easy to maintain over time.
 
@@ -38,7 +38,7 @@ Servers needs to be updated to avoid security issues and to be kept alive for
 the ones who needs them.
 
 We can see it on our deployed software: we are very lucky to have "Ops" handling
-this. Beleive us, if these tasks were easy to automate, they would already be!
+this. Believe us, if these tasks were easy to automate, they would already be!
 (Nobody wants to wake up in the middle of the night to solve other's problems)
 
 Unfortunately, we are not yet at a stage where the state of the art allows
@@ -47,11 +47,11 @@ everyone to self-host in a durable way.
 A real work is needed to propose a service that works well for the users who
 needs it.
 
+
 Un-centralized
 ==============
 
-An answer to this problem seems to be a system with multiple centers.
-Decentralized.
+An answer to this problem seems to be a system with multiple centers: Decentralized.
 
 Rather than having only one place where everything is stored, we could have
 one or multiple servers, handled by communities (EFF, The local linux
@@ -59,7 +59,7 @@ user-group of your city, etc) which would help factorize the costs (both human-w
 and money-wise) of maintaining these services. This allows to host one server
 for many users and applications.
 
-I can see you from here, mumbling: "He's nice with his community-baked servers,
+I can see you from here, mumbling: "He is nice with his community-baked servers,
 but I don't want to give my personal data to anyone!". And you would be right.
 
 Kinto allows to store any kind of data. It could be data meant to be shared
@@ -70,6 +70,7 @@ One of our goals is to help making encryption dead simple so that nobody
 
 Kinto.js actually handles this pretty well, as `Michiel showed in a previous
 article. <{filename}/2015.09.kinto-encryption-example.rst>`_.
+
 
 Avoiding the creation of a new silo
 ===================================
@@ -85,12 +86,12 @@ Identity
 --------
 
 One of the mechanisms allowing current silos (Facebook, Twitter) to continue
-is their identity system. You want to share data with your consin but you only
+is their identity system. You want to share data with your cousin but you only
 have her "Facebook account" to connect with her.
 
 For sure, this is a bad situation, but let's try to solve one problem at a time
-(unfortunately, Mozilla Persona, the decentralized identity service is end of
-life).
+(unfortunately, Mozilla Persona, the decentralized identity service is End of
+Life).
 
 Let's allow people to authenticate with their best-choice solution, being it
 open or not (OpenID, Firefox Accounts, Github, Twiter, Facebook, etc.) *but*
@@ -106,19 +107,20 @@ Kinto exposes (before all the rest) an HTTP API (some would say RESTful) which
 speaks JSON, which make it very easy to integrate with other solutions.
 
 As a first step, it could only be import / export features from one solution
-to the other, but it is better to chose a format to be used for this data
+to the other, but it is better to choose a format to be used for this data
 exchange. Without what a de-facto standard will emerge, for the best and worst.
 
 We should start the collaboration with other "private cloud" providers, like
 OwnCloud or CozyCloud.
 
-The latter started the creation of a `working group <https://github.com/Decentralized-Sharing-Working-Group/internet-draft>`_
+The latter started the creation of a
+`working group <https://github.com/Decentralized-Sharing-Working-Group/internet-draft>`_
 on the matter, which wants to use MicroPub and WebMention as starting points.
 
 Decentralized
 -------------
 
-The creation of community servers shouldn't block the users to use their
+The creation of community servers should not block the users to use their
 personnal server for the tech savvy.
 
 In which case the community servers could serve as a backup, in case of a
