@@ -32,6 +32,7 @@ $(PYTHON):
 
 html: install
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
+	cp self-hosting-a-hard-promess.html $(OUTPUTDIR)/en/
 
 clean:
 	[ ! -d $(OUTPUTDIR) ] || rm -rf $(OUTPUTDIR)
@@ -47,10 +48,12 @@ endif
 regenerate:
 	cd $(OUTPUTDIR) && $(PYTHON) -m pelican.server &
 	$(PELICAN) -r $(INPUTDIR) -o $(OUTPUTDIR) -s $(CONFFILE) $(PELICANOPTS)
+	cp self-hosting-a-hard-promess.html $(OUTPUTDIR)/en/
 
 publish: install
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
 	echo "www.servicedenuages.fr" > $(OUTPUTDIR)/CNAME
+	cp self-hosting-a-hard-promess.html $(OUTPUTDIR)/en/
 
 github: publish
 	$(VENV)/bin/ghp-import -b $(GITHUB_PAGES_BRANCH) $(OUTPUTDIR)
