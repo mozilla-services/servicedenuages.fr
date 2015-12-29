@@ -53,5 +53,6 @@ I18N_SUBSITES = {'en': {}, }  # Override any default settings.
 RESPONSIVE_IMAGES = True
 
 DATE_FORMATS = {
-    'en': '%a, %d %b %Y',
+    'en': ('en_GB.utf8', '%a, %d %B %Y'),
+    'fr': ('fr_FR.utf8', '%a %d %B %Y'),
 }
