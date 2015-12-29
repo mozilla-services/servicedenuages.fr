@@ -35,7 +35,7 @@ Some examples
 #############
 
 Let's take some examples. A few weeks ago we prepared a bunch of demos
-showcasing what Kinto can do and how easy it is. In order to do that, we
+showcasing what can Kinto do and how easy it is. In order to do that, we
 decided to take a few applications we liked that are usually not doing
 synchronisation and sharing. There are many out there, and we chose just a few of
 them:
@@ -49,7 +49,7 @@ And then we decided to make them collaborative apps, using Kinto. The goal here
 was to spend the least time possible plugging in Kinto, in order to see what was
 the real potential of it.
 
-We ended-up with a few cool demos. Not all of them are using the same features
+We ended up with a few cool demos. Not all of them are using the same features
 of Kinto (for instance some take advantage of the push notifications while some
 others don't), but overall that was pretty exciting.
 
@@ -63,8 +63,8 @@ Here are some links if you want to try out the demos yourself:
 * `Kinto.js + fullCalendar <http://leplatrem.github.io/kinto-demo-calendar/>`_
   with realtime multi device synchronisation using Pusher and Firefox Account integration.
 * `Kinto.js + Telegram Bot + Pusher <http://leplatrem.github.io/kinto-telegram-wall/>`_
-  a realtime wall. That receive message from a Telegram bot and automatically update the
-  slideshow in realtime to add new content to the slideshow.
+  a realtime wall that receive messages from a Telegram bot and automatically updates the
+  slideshow in realtime and add the new content as soon as it arrives.
 
 
 Hmm, and what about my use-case?
@@ -76,7 +76,7 @@ on the `Kinto.js <https://kintojs.readthedocs.org>`_ client but ultimately you d
 need it. It's just here to make it really easy for you to integrate with the
 HTTP APIs exposed by Kinto.
 
-So, what Kinto can do for you?
+So, what can Kinto do for you?
 
 
 Synchronise
