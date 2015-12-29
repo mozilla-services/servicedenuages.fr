@@ -18,12 +18,21 @@
 <div class="pure-g-r" id="layout">
     <div class="sidebar sidebar-article pure-u">
         <header class="header-article">
+            {% if article.lang == 'fr' %}
             <hgroup>
                 <h5>Publié</h5>
                 <p title="~{{ article.stats['wc'] }} mots">~{{ article.stats['read_mins'] }}mn de lecture 🕑</p>
                 <p>{{ article.locale_date }}</p>
                 <a href="/">&larr; Liste des articles</a>
             </hgroup>
+            {% else %}
+            <hgroup>
+                <h5>Published</h5>
+                <p title="~{{ article.stats['wc'] }} words">~{{ article.stats['read_mins'] }} minutes reading 🕑</p>
+                <p>{{ article.locale_date }}</p>
+                <a href="/en/">&larr; Back to articles</a>
+            </hgroup>
+            {% endif %}
         </header>
     </div>
     <div class="pure-u">
