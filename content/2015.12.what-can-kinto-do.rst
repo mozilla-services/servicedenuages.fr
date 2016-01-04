@@ -5,6 +5,7 @@ What can Kinto do for me?
 :date: 2015-12-29
 :slug: what-can-kinto-do-for-you
 :lang: en
+:status: draft
 :url: what-can-kinto-do-for-you
 :summary: Kinto, the project we are working on, can do a bunch of different
           things, but it's sometimes hard to see what it is really good at,
