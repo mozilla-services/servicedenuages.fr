@@ -1,0 +1,264 @@
+How to load test a OAuth-protected HTTP API? (Part 2)
+#####################################################
+
+:lang: en
+:date: 2016-01-05
+:url: load-testing-a-http-api-which-uses-oauth-for-authentication-part-2
+:summary: This is part 2 of a series on loadtesting oauth APIs explaining how to test the performance of an HTTP API when its access depends on an external OAuth service.
+
+This is part 2 of a series on loadtesting oauth APIs.
+
+Introduction
+============
+
+`In the previous article </en/load-testing-a-http-api-which-uses-oauth-for-authentication>`_
+we have seen that:
+
+- We would create the OAuth Bearer Token before the load-test start.
+- We can use environment variables to use the token in the load-test.
+
+In this article we will have a closer look at how we can generate
+tokens for Firefox Account and pass them to the load-test.
+
+
+PyFxA: the Python Firefox Account client
+========================================
+
+`PyFxA <https://github.com/mozilla/PyFxA>`_ is a Python library that
+aims providing helpers to interact with the Firefox Account ecosystem.
+
+
+Using PyFxA with httpie
+-----------------------
+
+A while ago we added support for 
+`Requests Authentication <http://docs.python-requests.org/en/latest/user/authentication/>`_
+to ease the use of Firefox Account Bearer Token with
+`requests <http://docs.python-requests.org/en/latest/>`_ and 
+`httpie <http://httpie.org>`_.
+
+With this plugin, we can basically provide our user credentials and
+the plugin will build a valid Bearer Token for our request:
+
+.. code-block:: bash
+
+    http https://profile.accounts.firefox.com/v1/profile \
+        --auth-type fxa-bearer \
+        --auth "email@domain.tld:password"
+
+
+Using fxa-client to generate Bearer Tokens
+------------------------------------------
+
+The code we wrote at the time was quite similar to what we were trying
+to do for the load-test setup: Generating a Bearer Token for a
+given user.
+
+We ended-up building a CLI tool called ``fxa-client`` that is able to
+generate a BASH file that export some environment variables:
+
+.. code-block:: bash
+
+    USAGE: fxa-client [-h] [--bearer] [--create] [--auth AUTH]
+                      [--out OUTPUT_FILE] [--verbose] [--user-salt FXA_USER_SALT]
+                      [--prefix PREFIX] [--account-server ACCOUNT_SERVER_URL]
+                      [--oauth-server OAUTH_SERVER_URL] [--client-id CLIENT_ID]
+                      [--scopes SCOPES]
+
+With this client, instead of building a Bearer Token for the request,
+we can just ask the ``fxa-client`` to build one for our load-test:
+
+.. code-block:: bash
+
+    fxa-client --auth email@domain.tld --bearer --scopes "profile"
+
+    Please enter a password for email@domain.tld: 
+    # ---- BEARER TOKEN INFO ----
+    # User: email@domain.tld
+    # Scopes: profile
+    # Account: https://api-accounts.stage.mozaws.net/v1
+    # Oauth: https://oauth.stage.mozaws.net/v1
+    # Client ID: 5882386c6d801776
+    # ---------------------------
+    export OAUTH_BEARER_TOKEN="b1d4babc01502fa8d9fc0139757168bf5908f33abc66f46253d4c69468e39373"
+
+Then we can use this Bearer Token for our request:
+
+.. code-block:: bash
+
+    http https://profile.stage.mozaws.net/v1/profile \
+        Authorization:"Bearer b1d4babc01502fa8d9fc0139757168bf5908f33abc66f46253d4c69468e39373"
+
+
+Using fxa-client to create new test accounts
+--------------------------------------------
+
+We can also create a random user (on the stage environment only) and
+generate a Bearer Token for it:
+
+.. code-block:: bash
+
+    fxa-client --create --bearer --prefix my-app
+
+    # ---- BEARER TOKEN INFO ----
+    # User: my-app-6318a65dde1efc2f4c3f7b4e6cb33188@restmail.net
+    # Scopes: profile
+    # Account: https://api-accounts.stage.mozaws.net/v1
+    # Oauth: https://oauth.stage.mozaws.net/v1
+    # Client ID: 5882386c6d801776
+    # ---------------------------
+    export OAUTH_BEARER_TOKEN="90abc87ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc"
+
+If we want to reuse the same account multiple time and create it only
+if needed, we can provide the user-salt (as a valid base64 string):
+
+.. code-block:: bash
+
+    fxa-client --create --bearer --prefix my-app --user-salt MySalt==
+
+
+Using fxa-client to work with BrowserID assertion
+-------------------------------------------------
+
+Even if we tend to switch from BrowserID assertion to Bearer Tokens
+for our new services, if we need to work with Firefox Sync or Firefox
+Hello we may need to provide a BrowserID assertion to log into these
+services.
+
+In that case ``fxa-client`` provides few specific attributes:
+
+.. code-block:: bash
+
+    optional arguments:
+      --browserid, --bid    Generate a BrowserID assertion
+      --audience AUDIENCE   Firefox BrowserID assertion audience.
+      --duration DURATION   Firefox BrowserID assertion duration.
+
+It works just like before with Bearer Tokens but generate a BrowserID
+assertion instead:
+
+.. code-block:: bash
+
+    fxa-client --create --browserid --prefix my-app --user-salt MySalt== \
+        --audience https://loop.stage.mozaws.net
+
+    # ---- BROWSER ID ASSERTION INFO ----
+    # User: my-app-b82d4afaf57cb856ccc04a58a07ce80f@restmail.net
+    # Audience: https://loop.stage.mozaws.net
+    # Account: https://api-accounts.stage.mozaws.net/v1
+    # ------------------------------------
+    export FXA_BROWSERID_ASSERTION="eyJhbGciOiJSUzI1NiJ9...hIQ9vrkqA"
+    export FXA_CLIENT_STATE="828aef3bc68ac0bde10f3d4b93303088"
+
+And then the assertion could be used like that:
+
+.. code-block:: bash
+
+    http POST https://loop.stage.mozaws.net/v0/registration \
+        Authorization:"BrowserID eyJhbGciOiJSUzI1NiJ9...hIQ9vrkqA"
+
+
+Using fxa-client to configure a loadtest
+========================================
+
+Now that we have a quite simple way to generate Bearer Tokens, how can
+we plug that with our load-tests?
+
+I could not find a better way than creating a bash file that export
+the environment variable and then loading it in the shell that will
+run the loadtest.
+
+Something like:
+
+.. code-block:: bash
+
+    fxa-client --create --bearer --user-salt MySalt== --out loadtest-fxa-config.sh
+    source loadtest-fxa-config.sh
+    docker run -e OAUTH_BEARER_TOKEN="${OAUTH_BEARER_TOKEN}" loadtest
+
+After we have sourced the ``loadtest-fxa-config.sh`` file the env
+variables are exposed so that we can read them from any program
+regardless of the language.
+
+
+How to install fxa-client?
+==========================
+
+Right now ``fxa-client`` is still a work in progress and didn't land yet
+in the last release of PyFxA. It doesn't mean we cannot use it
+already.
+
+To do so, just install the ``loadtest-tools`` branch of PyFxA:
+
+.. code-block:: bash
+
+    pip install https://github.com/mozilla/PyFxA/archive/loadtest-tools.zip
+
+
+What's next?
+============
+
+Multiple account loadtest
+-------------------------
+
+We can already run the script twice to generate a Bearer token per
+user, but it would be nice to be able to do so directly with
+``fxa-client``.
+
+I was thinking of implementing the following output:
+
+.. code-block:: bash
+
+    fxa-client --create --bearer --user-salt MySalt== -n 2
+
+    # ---- BEARER TOKEN INFO ----
+    # User1: my-app-1318a65dde1efc2f4c3f7b4e6cb33188@restmail.net
+    # User2: my-app-2318a65dde1efc2f4c3f7b4e6cb33188@restmail.net
+    # Scopes: profile
+    # Account: https://api-accounts.stage.mozaws.net/v1
+    # Oauth: https://oauth.stage.mozaws.net/v1
+    # Client ID: 5882386c6d801776
+    # ---------------------------
+    export OAUTH_BEARER_TOKEN="90abc87ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc,abc9087ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc"
+
+
+Ease Firefox Account environment management
+-------------------------------------------
+
+If we want to generate tokens for other Firefox Account environment,
+we would need to provide ``--account-server`` and ``--oauth-server``
+which default to the stage environment.
+
+We can find `all the available environment here <https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Firefox_Accounts/Introduction#Firefox_Accounts_deployments>`_.
+
+Also it could be good to add a table of the servers configuration
+related to certains environments.
+
+Writing:
+
+.. code-block:: bash
+
+    fxa-client --bearer --auth email@domain.tld --production
+
+Rather than:
+
+.. code-block:: bash
+
+    fxa-client --bearer --auth email@domain.tld \
+        --account-server https://api.accounts.firefox.com/v1 \
+        --oauth-server https://oauth.accounts.firefox.com/v1
+
+
+Conclusion
+==========
+
+That's about it. I hope that after reading this article, you are not
+afraid anymore of load testing Firefox Account OAuth-based services!
+
+Take aways:
+
+- ``fxa-client`` let us generate a bash script with our user credentials.
+- This bash script can be loaded before running our load-test to expose
+  user credentials to a load-test script.
+
+Do not hesitate to reach to us if you have any questions or suggestions.
