@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>The hard promise of self-hosting // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Published</h5>
+                <p title="~803 words">~4 minutes reading 🕑</p>
+                <p>Tue, 22 December 2015</p>
+                <a href="/en/">&larr; Back to articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>The hard promise of self-hosting</h1>
+                </header>
+            </section>
+                        <p><a href="http://www.servicedenuages.fr/en/../difficile-promesse-autohebergement">Lire la version française</a></p>
+            <div class="note">
+<p class="first admonition-title">Note</p>
+<p class="last">This article was translated by <a class="reference external" href="https://notmyidea.org">Alexis Métaireau</a>,
+on a train between Rennes and Paris.</p>
+</div>
+<p>While discussing about <a class="reference external" href="https://kinto.readthedocs.org/">Kinto</a>, we discovered
+that the future we envision for Kinto is the one of a collectively decentralized
+hosting, rather than having every user having their own individual servers.</p>
+<p>Kinto wants to answer two basic needs from Web users: storage and sharing of
+data, without letting them losing control over their own data.</p>
+<p>If Kinto should be a "database for the Web", then it is a pre-requesite that
+every user of the Web can easily access a server running it.</p>
+<div class="section" id="self-hosting">
+<h2>Self-Hosting</h2>
+<img alt="Countryside house -- House, Automn - CC-BY-ND Gunnar Magnusson https://www.flickr.com/photos/matupplevelser/4644386646" class="align-center" src="http://www.servicedenuages.fr/en/../images/autohebergement.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
+<p>Deploying servers isn't something easy. A lot of people are working hard on
+solving this problem, but there is still a lot of work to do before having a
+plug and play solution that is easy to maintain over time.</p>
+<p>Servers needs to be updated to avoid security issues and to be kept alive for
+the ones who needs them.</p>
+<p>We can see it on our deployed software: we are very lucky to have "Ops" handling
+this. Believe us, if these tasks were easy to automate, they would already be!
+(Nobody wants to wake up in the middle of the night to solve other's problems)</p>
+<p>Unfortunately, we are not yet at a stage where the state of the art allows
+everyone to self-host in a durable way.</p>
+<p>A real work is needed to propose a service that works well for the users who
+needs it.</p>
+</div>
+<div class="section" id="un-centralized">
+<h2>Un-centralized</h2>
+<p>An answer to this problem seems to be a system with multiple centers: Decentralized.</p>
+<p>Rather than having only one place where everything is stored, we could have
+one or multiple servers, handled by communities (EFF, The local linux
+user-group of your city, etc) which would help factorize the costs (both human-wise
+and money-wise) of maintaining these services. This allows to host one server
+for many users and applications.</p>
+<p>I can see you from here, mumbling: "He is nice with his community-baked servers,
+but I don't want to give my personal data to anyone!". And you would be right.</p>
+<p>Kinto allows to store any kind of data. It could be data meant to be shared
+or data that are yours and should remain private.</p>
+<p>One of our goals is to help making encryption dead simple so that nobody
+(except you) can read your data.</p>
+<p>Kinto.js actually handles this pretty well, as <a class="reference external" href="http://www.servicedenuages.fr/en/kinto-encryption-example">Michiel showed in a previous
+article.</a>.</p>
+</div>
+<div class="section" id="avoiding-the-creation-of-a-new-silo">
+<h2>Avoiding the creation of a new silo</h2>
+<img alt="The future of silos - CC-BY-NC-ND Sunflower Silo in Boulder County Colorado by Bo Insogna — https://www.flickr.com/photos/thelightningman/5494666930" class="align-center" src="http://www.servicedenuages.fr/en/../images/silo.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
+<p>In order to avoid participating in the creation of new silo, it is important
+to take care of a few things:</p>
+<div class="section" id="identity">
+<h3>Identity</h3>
+<p>One of the mechanisms allowing current silos (Facebook, Twitter) to continue
+is their identity system. You want to share data with your cousin but you only
+have her "Facebook account" to connect with her.</p>
+<p>For sure, this is a bad situation, but let's try to solve one problem at a time
+(unfortunately, Mozilla Persona, the decentralized identity service is End of
+Life).</p>
+<p>Let's allow people to authenticate with their best-choice solution, being it
+open or not (OpenID, Firefox Accounts, Github, Twiter, Facebook, etc.) <em>but</em>
+let's give them back the choice of where their data is stored.</p>
+</div>
+<div class="section" id="interoperability">
+<h3>Interoperability</h3>
+<p>It should matter which storage solution you chose. It is crucial that
+interfaces exist to go from one to the other.</p>
+<p>Kinto exposes (before all the rest) an HTTP API (some would say RESTful) which
+speaks JSON, which make it very easy to integrate with other solutions.</p>
+<p>As a first step, it could only be import / export features from one solution
+to the other, but it is better to choose a format to be used for this data
+exchange. Without what a de-facto standard will emerge, for the best and worst.</p>
+<p>We should start the collaboration with other "private cloud" providers, like
+OwnCloud or CozyCloud.</p>
+<p>The latter started the creation of a
+<a class="reference external" href="https://github.com/Decentralized-Sharing-Working-Group/internet-draft">working group</a>
+on the matter, which wants to use MicroPub and WebMention as starting points.</p>
+</div>
+<div class="section" id="decentralized">
+<h3>Decentralized</h3>
+<p>The creation of community servers should not block the users to use their
+personnal server for the tech savvy.</p>
+<p>In which case the community servers could serve as a backup, in case of a
+failure of the personnal servers (or in the other direction, the personal
+servers could backup community ones).</p>
+<p>We can foresee a future where each user could have her own Kinto server, but
+we need to go there step by step, and prepare the field before being ready for
+a <em>one click</em> solution for <em>Aunt Jeannine</em>.</p>
+<p>Having an easy start seem to be key here: start by using a community server and
+migrate later to a personnal server once all the technical problems
+(previously mentionned) have been solved.</p>
+<p>In the meantime, an approach based on top of multiple communities seems to be
+a pragmatic solution in the short/mid term, bringing back some freedom to the
+users.</p>
+</div>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.notmyidea.org/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>

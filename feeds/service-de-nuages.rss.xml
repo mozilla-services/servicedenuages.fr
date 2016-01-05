@@ -1,5 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Service de nuages</title><link>http://www.servicedenuages.fr/</link><description></description><atom:link href="http://www.servicedenuages.fr/feeds/service-de-nuages.rss.xml" rel="self"></atom:link><lastBuildDate>Thu, 19 Nov 2015 00:00:00 +0100</lastBuildDate><item><title>Support des fichiers dans Kinto</title><link>http://www.servicedenuages.fr/kinto-file-attachment</link><description>&lt;div class="section" id="le-besoin-initial"&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Service de nuages</title><link>http://www.servicedenuages.fr/</link><description></description><atom:link href="http://www.servicedenuages.fr/feeds/service-de-nuages.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 16 Dec 2015 00:00:00 +0100</lastBuildDate><item><title>Configurer un certificat SSL avec Let's Encrypt</title><link>http://www.servicedenuages.fr/configurer-un-certificat-ssl-lets-encrypt</link><description>&lt;p&gt;Fini les certificats non sécurisés et très coûteux !&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Let's encrypt — a new Certificate Authority:  free, automated, and open." src="http://www.servicedenuages.fr/images/letsencrypt-logo-horizontal.png" style="width: 1025px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
+&lt;p&gt;Avec Let's Encrypt vous n'avez plus d'excuse car il vous est
+maintenant possible d'obtenir un certificat SSL valide, sur tous les
+navigateurs, gratuitement et sans avoir besoin d'être un expert en
+cryptographie.&lt;/p&gt;
+&lt;h1&gt;Téléchargez le client sur votre ordinateur&lt;/h1&gt;
+&lt;p&gt;Pour commencer il vous faut installer le client letsencrypt qui va
+gérer pour vous la génération de la CSR, la vérification auprès de
+letsencrypt et l'installation du certificat.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://letsencrypt.org/howitworks/#installing-lets-encrypt"&gt;Comme expliqué sur le site de letsencrypt :&lt;/a&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git clone https://github.com/letsencrypt/letsencrypt
+&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;letsencrypt
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;Serveur dédié&lt;/h1&gt;
+&lt;p&gt;Si vous avez la chance d'avoir un serveur dédié, c'est complètement
+automatique et il vous suffit de lancer le script avec les bonnes options:&lt;/p&gt;
+&lt;p&gt;Avec Apache c'est automatique :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;./letsencrypt-auto --apache -d example.com -d www.example.com
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Pour les autres, la génération du certificat peut se faire comme cela :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;./letsencrypt-auto certonly --webroot -w /var/www/example -d example.com -d www.example.com
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Où &lt;code&gt;/var/www/example&lt;/code&gt; est le répertoire servant les fichiers sur le domaine &lt;code&gt;example.com&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Il faudra ensuite consulter la documentation de votre serveur HTTP
+pour configurer votre certificat SSL.&lt;/p&gt;
+&lt;h1&gt;Serveur mutualisé&lt;/h1&gt;
+&lt;p&gt;Comme &lt;code&gt;letsencrypt-auto&lt;/code&gt; nécessite d'avoir les droits root, sur un
+serveur mutualisé c'est un peu moins automatique.&lt;/p&gt;
+&lt;p&gt;La solution proposée ici est de générer le certifiat localement en
+mode manuel puis de configurer le serveur mutualisé dans un deuxième
+temps.&lt;/p&gt;
+&lt;p&gt;Pour valider de manière automatique un certificat, letsencrypt
+télécharge une preuve via le nom de domaine pour lequel on demande un
+certificat.&lt;/p&gt;
+&lt;p&gt;On va donc :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Lancer le script localement ;&lt;/li&gt;
+&lt;li&gt;Héberger la preuve du nom de domaine sur le serveur ;&lt;/li&gt;
+&lt;li&gt;Puis générer et configurer notre certificat SSL.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Lancer le script localement&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;./letsencrypt-auto certonly --manual -d mondomaine.fr -d www.mondomaine.fr
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Mettre en ligne la preuve de possession du nom de domaine&lt;/h2&gt;
+&lt;p&gt;En utilisant votre client FTP vous pouvez:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Créez le répertoire : &lt;code&gt;www/.well-known/acme-challenge/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Créez le fichier dont le nom et le contenu vous est donné.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Par exemple:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;mkdir .well-known/acme-challenge/
+&lt;span class="nv"&gt;$ &lt;/span&gt;cat &amp;gt; .well-known/acme-challenge/1ni92R95ooeCPOcRhVXYSF1HXVfdS61uWMlMjQXOQns
+1ni92R95ooeCPOcRhVXYSF1HXVfdS61uWMlMjQXOQns.MJvFiRCK_M0WiBPW19A7VQekVtY5sSojwa44TFcaUAw
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Vérifiez que vous pouvez bien accéder au lien qui vous est donné :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;https://www.mondomaine.com/.well-known/acme-challenge/1ni92R95ooeCPOcRhVXYSF1HXVfdS61uWMlMjQXOQns
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Ensuite appuyez sur &lt;em&gt;Entrée&lt;/em&gt;&lt;/p&gt;
+&lt;h2&gt;Mettrez en ligne votre certificat&lt;/h2&gt;
+&lt;p&gt;Vous devez ensuite vous rendre dans l'interface de votre hébergeur et
+renseigner le contenu des fichiers, &lt;code&gt;privkey.pem&lt;/code&gt;, &lt;code&gt;cert.pem&lt;/code&gt; et
+&lt;code&gt;fullchain.pem&lt;/code&gt; dans le champ de formulaire respectifs &lt;code&gt;Clé privé&lt;/code&gt;,
+&lt;code&gt;Certificat&lt;/code&gt;, &lt;code&gt;Certificats intermédiaires&lt;/code&gt;, qui ont été créé pour vous
+dans le répertoire : &lt;code&gt;/etc/letsencrypt/live/mondomaine.com&lt;/code&gt;&lt;/p&gt;
+&lt;h2&gt;Que faire ensuite ?&lt;/h2&gt;
+&lt;p&gt;Votre certificat est valable pour 3 mois n'oubliez pas de vous mettre
+un rappel quelques jours avant sa date d'expiration pour relancer
+votre script et mettre à jour le certificat.&lt;/p&gt;
+&lt;p&gt;Les fichiers &lt;code&gt;fullchain.pem&lt;/code&gt; et &lt;code&gt;privkey.pem&lt;/code&gt; resteront inchangés mais
+le fichier &lt;code&gt;cert.pem&lt;/code&gt; doit être mis à jour.&lt;/p&gt;
+&lt;p&gt;Pour se faire relancer la commande sur le même ordinateur:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;./letsencrypt-auto certonly --manual -d mondomaine.fr -d www.mondomaine.fr
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Un écran s'affiche vous proposant de renouveler le certificat.&lt;/p&gt;
+&lt;p&gt;Suivez la procédure et mettez à jour le certificat dans l'interface de
+votre hébergeur.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Let's Encrypt facilite vraiment la vie, plus besoin de générer un CSR,
+plus besoin de payer, plus besoin de se creuser la tête pour chaque
+certificat, vous pouvez mettre autant de sous domaines que vous le
+souhaitez et régénerer votre certificat jusqu'à 5 fois par semaines si
+nécessaire.&lt;/p&gt;
+&lt;p&gt;La seule chose à faire c'est de mettre à jour son certificat SSL tous
+les 3 mois en relançant la commande.&lt;/p&gt;
+&lt;p&gt;La procédure de mise en place étant disponible et le client étant Open
+Source il y a fort à parier que les hébergeurs vont simplifier la
+procédure et la rendre spécifique à leur interface d'administration.&lt;/p&gt;
+&lt;p&gt;Des serveurs HTTP tels que &lt;code&gt;caddy&lt;/code&gt; ont déjà
+&lt;a href="https://www.youtube.com/watch?v=nk4EWHvvZtI"&gt;intégré la génération du certificat&lt;/a&gt;
+dans la procédure d'installation de leur serveur.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 16 Dec 2015 00:00:00 +0100</pubDate><guid>tag:www.servicedenuages.fr,2015-12-16:configurer-un-certificat-ssl-lets-encrypt</guid></item><item><title>Support des fichiers dans Kinto</title><link>http://www.servicedenuages.fr/kinto-file-attachment</link><description>&lt;div class="section" id="le-besoin-initial"&gt;
 &lt;h2&gt;Le besoin initial&lt;/h2&gt;
 &lt;p&gt;Le besoin d'ajouter des fichiers dans &lt;em&gt;Kinto&lt;/em&gt; avait été identifié depuis
 le début du projet. Mais comme nous sommes une toute petite équipe, nous sommes

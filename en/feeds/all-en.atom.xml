@@ -1,5 +1,208 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-en.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2015-12-15T00:00:00+01:00</updated><entry><title>Hacker News answers</title><link href="http://www.servicedenuages.fr/en/hackernews-feedback" rel="alternate"></link><updated>2015-12-15T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-15:en/hackernews-feedback</id><summary type="html">&lt;p&gt;Today, &lt;a class="reference external" href="https://news.ycombinator.com/item?id=10733164"&gt;Kinto was featured on Hackernews&lt;/a&gt;. We take this as a great
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-en.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2015-12-22T00:00:00+01:00</updated><entry><title>The hard promise of self-hosting</title><link href="http://www.servicedenuages.fr/en/self-hosting-a-hard-promise" rel="alternate"></link><updated>2015-12-22T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-22:en/self-hosting-a-hard-promise</id><summary type="html">&lt;div class="note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p class="last"&gt;This article was translated by &lt;a class="reference external" href="https://notmyidea.org"&gt;Alexis Métaireau&lt;/a&gt;,
+on a train between Rennes and Paris.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;While discussing about &lt;a class="reference external" href="https://kinto.readthedocs.org/"&gt;Kinto&lt;/a&gt;, we discovered
+that the future we envision for Kinto is the one of a collectively decentralized
+hosting, rather than having every user having their own individual servers.&lt;/p&gt;
+&lt;p&gt;Kinto wants to answer two basic needs from Web users: storage and sharing of
+data, without letting them losing control over their own data.&lt;/p&gt;
+&lt;p&gt;If Kinto should be a "database for the Web", then it is a pre-requesite that
+every user of the Web can easily access a server running it.&lt;/p&gt;
+&lt;div class="section" id="self-hosting"&gt;
+&lt;h2&gt;Self-Hosting&lt;/h2&gt;
+&lt;img alt="Countryside house -- House, Automn - CC-BY-ND Gunnar Magnusson https://www.flickr.com/photos/matupplevelser/4644386646" class="align-center" src="http://www.servicedenuages.fr/en/../images/autohebergement.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;Deploying servers isn't something easy. A lot of people are working hard on
+solving this problem, but there is still a lot of work to do before having a
+plug and play solution that is easy to maintain over time.&lt;/p&gt;
+&lt;p&gt;Servers needs to be updated to avoid security issues and to be kept alive for
+the ones who needs them.&lt;/p&gt;
+&lt;p&gt;We can see it on our deployed software: we are very lucky to have "Ops" handling
+this. Believe us, if these tasks were easy to automate, they would already be!
+(Nobody wants to wake up in the middle of the night to solve other's problems)&lt;/p&gt;
+&lt;p&gt;Unfortunately, we are not yet at a stage where the state of the art allows
+everyone to self-host in a durable way.&lt;/p&gt;
+&lt;p&gt;A real work is needed to propose a service that works well for the users who
+needs it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="un-centralized"&gt;
+&lt;h2&gt;Un-centralized&lt;/h2&gt;
+&lt;p&gt;An answer to this problem seems to be a system with multiple centers: Decentralized.&lt;/p&gt;
+&lt;p&gt;Rather than having only one place where everything is stored, we could have
+one or multiple servers, handled by communities (EFF, The local linux
+user-group of your city, etc) which would help factorize the costs (both human-wise
+and money-wise) of maintaining these services. This allows to host one server
+for many users and applications.&lt;/p&gt;
+&lt;p&gt;I can see you from here, mumbling: "He is nice with his community-baked servers,
+but I don't want to give my personal data to anyone!". And you would be right.&lt;/p&gt;
+&lt;p&gt;Kinto allows to store any kind of data. It could be data meant to be shared
+or data that are yours and should remain private.&lt;/p&gt;
+&lt;p&gt;One of our goals is to help making encryption dead simple so that nobody
+(except you) can read your data.&lt;/p&gt;
+&lt;p&gt;Kinto.js actually handles this pretty well, as &lt;a class="reference external" href="http://www.servicedenuages.fr/en/kinto-encryption-example"&gt;Michiel showed in a previous
+article.&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="avoiding-the-creation-of-a-new-silo"&gt;
+&lt;h2&gt;Avoiding the creation of a new silo&lt;/h2&gt;
+&lt;img alt="The future of silos - CC-BY-NC-ND Sunflower Silo in Boulder County Colorado by Bo Insogna — https://www.flickr.com/photos/thelightningman/5494666930" class="align-center" src="http://www.servicedenuages.fr/en/../images/silo.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;In order to avoid participating in the creation of new silo, it is important
+to take care of a few things:&lt;/p&gt;
+&lt;div class="section" id="identity"&gt;
+&lt;h3&gt;Identity&lt;/h3&gt;
+&lt;p&gt;One of the mechanisms allowing current silos (Facebook, Twitter) to continue
+is their identity system. You want to share data with your cousin but you only
+have her "Facebook account" to connect with her.&lt;/p&gt;
+&lt;p&gt;For sure, this is a bad situation, but let's try to solve one problem at a time
+(unfortunately, Mozilla Persona, the decentralized identity service is End of
+Life).&lt;/p&gt;
+&lt;p&gt;Let's allow people to authenticate with their best-choice solution, being it
+open or not (OpenID, Firefox Accounts, Github, Twiter, Facebook, etc.) &lt;em&gt;but&lt;/em&gt;
+let's give them back the choice of where their data is stored.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="interoperability"&gt;
+&lt;h3&gt;Interoperability&lt;/h3&gt;
+&lt;p&gt;It should matter which storage solution you chose. It is crucial that
+interfaces exist to go from one to the other.&lt;/p&gt;
+&lt;p&gt;Kinto exposes (before all the rest) an HTTP API (some would say RESTful) which
+speaks JSON, which make it very easy to integrate with other solutions.&lt;/p&gt;
+&lt;p&gt;As a first step, it could only be import / export features from one solution
+to the other, but it is better to choose a format to be used for this data
+exchange. Without what a de-facto standard will emerge, for the best and worst.&lt;/p&gt;
+&lt;p&gt;We should start the collaboration with other "private cloud" providers, like
+OwnCloud or CozyCloud.&lt;/p&gt;
+&lt;p&gt;The latter started the creation of a
+&lt;a class="reference external" href="https://github.com/Decentralized-Sharing-Working-Group/internet-draft"&gt;working group&lt;/a&gt;
+on the matter, which wants to use MicroPub and WebMention as starting points.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="decentralized"&gt;
+&lt;h3&gt;Decentralized&lt;/h3&gt;
+&lt;p&gt;The creation of community servers should not block the users to use their
+personnal server for the tech savvy.&lt;/p&gt;
+&lt;p&gt;In which case the community servers could serve as a backup, in case of a
+failure of the personnal servers (or in the other direction, the personal
+servers could backup community ones).&lt;/p&gt;
+&lt;p&gt;We can foresee a future where each user could have her own Kinto server, but
+we need to go there step by step, and prepare the field before being ready for
+a &lt;em&gt;one click&lt;/em&gt; solution for &lt;em&gt;Aunt Jeannine&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Having an easy start seem to be key here: start by using a community server and
+migrate later to a personnal server once all the technical problems
+(previously mentionned) have been solved.&lt;/p&gt;
+&lt;p&gt;In the meantime, an approach based on top of multiple communities seems to be
+a pragmatic solution in the short/mid term, bringing back some freedom to the
+users.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</summary></entry><entry><title>How to make the Kinto instances discoverable?</title><link href="http://www.servicedenuages.fr/en/discovery-of-kinto-servers" rel="alternate"></link><updated>2015-12-21T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-21:en/discovery-of-kinto-servers</id><summary type="html">&lt;div class="section" id="about-me"&gt;
+&lt;h2&gt;About Me&lt;/h2&gt;
+&lt;p&gt;Hi! I am Shweta Oak.&lt;/p&gt;
+&lt;p&gt;I got the opportunity to be part of Mozilla's Kinto team.
+Here, my work focuses on the discovery of Kinto servers.
+I am passionate about Technology and believe in applying it to enhance the lives of people.
+I like to solve problems. While solving problems, I like exploring and crafting various
+solutions to find the best one. I am enthusiastic about taking up new challenges, learning
+new things and discovering my potential.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="how-does-an-application-discover-the-location-of-a-kinto-server"&gt;
+&lt;h2&gt;How does an application discover the location of a Kinto server?&lt;/h2&gt;
+&lt;p&gt;Unlike Parse or Firebase which are centralized services, Kinto can be ran by anyone
+and anywhere. However, there has to be a way for the user to choose where the data
+are getting stored. In addition to configuring the frontend app for their personal
+server, users can get the  location of the server in the form of a URL which can be
+shared with another user in order to collaborate and share data between multiple
+users on the same Kinto server.&lt;/p&gt;
+&lt;p&gt;To solve this problem, the following approach can be taken:&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;Let the user enter the location of her Kinto instance, the first time.&lt;/li&gt;
+&lt;li&gt;Store this location remotely.&lt;/li&gt;
+&lt;li&gt;Use this later to discover the service.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;img alt="The first time the user set her Kinto server URI" class="align-center" src="http://www.servicedenuages.fr/en/../images/KintoDiscovery-1st-time-sync.png" style="width: 1092px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="The second time the user discover their Kinto server URI" class="align-center" src="http://www.servicedenuages.fr/en/../images/KintoDiscovery-2nd-time-sync.png" style="width: 1092px; height: auto; max-width: 100%;"/&gt;
+&lt;/div&gt;
+&lt;div class="section" id="let-the-user-enter-the-location-of-her-kinto-instance-the-first-time"&gt;
+&lt;h2&gt;Let the user enter the location of her Kinto instance, the first time.&lt;/h2&gt;
+&lt;p&gt;Add a way, on client side, to specify where the server is. For instance, this should
+be done in JavaScript and HTML on  top of the Kinto.js client.
+It is basically a user interface for how to specify the "remote server" to use. The
+user has to enter the location of the server only once, the first time she uses a
+Kinto instance, later on, this location will be discovered.&lt;/p&gt;
+&lt;p&gt;The best way to start doing this is to do it in a webpage that uses Kinto.js and let
+the user specify the server location. Once we have this, we will need to make this
+project re-usable by others.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="store-this-location-remotely"&gt;
+&lt;h2&gt;Store this location remotely&lt;/h2&gt;
+&lt;p&gt;Then, it would be good if we were able, for a given authenticated user, to automatically
+discover where their Kinto instance is located. To do that we will need to find a solution
+to save this location somewhere when the user enters the location of the server for the first
+time and then, the information will be discovered.&lt;/p&gt;
+&lt;p&gt;We also need to keep in mind that users may have multiple Kinto instances with regards to the
+application they will be using. The discovery of Kinto will be cross application too.&lt;/p&gt;
+&lt;p&gt;We will now need to store this information remotely. This is where the ideas of a central
+repository and of a Distributed Hash Table (DHT) come into play. Since a DHT is by far more
+complex than a central repository, we will start with the use of a central server.&lt;/p&gt;
+&lt;div class="section" id="b1-central-repository"&gt;
+&lt;h3&gt;(B1) Central Repository&lt;/h3&gt;
+&lt;p&gt;A small Javascript helper to lookup the location of the server
+remotely once the user is connected. The flow would then look like
+this:&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;Connect to your account (Github, Twitter, FxA) using OAuth.&lt;/li&gt;
+&lt;li&gt;The client fetches the location of the Kinto server on a central Kinto collection using the user credentials.&lt;/li&gt;
+&lt;li&gt;The Kinto.js collection is configured to use this remote.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;Pros of using a central repository:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;It is really easy to setup and implement.&lt;/li&gt;
+&lt;li&gt;The application searches for the user’s server by looking up the central repository.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Cons of using a central repository:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;The user needs to trust a 3rd party as the links to the information of the user is being stored in one place.&lt;/li&gt;
+&lt;li&gt;There is a possibility of leak of information that someone is connected to a Kinto instance, and where this instance is.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="b2-distributed-hash-table-dht"&gt;
+&lt;h3&gt;(B2) Distributed Hash Table (DHT)&lt;/h3&gt;
+&lt;p&gt;Once we have this mechanism in place, we can expand it in order to
+rely on a DHT rather than on a central repositories. DHT is a
+distributed hash table system that provides a distributed lookup
+service without a single point of failure.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pros of using DHT:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;The user does not have to trust one server only. There are multiple servers that hold pieces of the data.&lt;/li&gt;
+&lt;li&gt;It is possible to add your own server to the DHT.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Cons of using DHT:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;It might be complex to deploy.&lt;/li&gt;
+&lt;li&gt;Harder to implement and verify&lt;/li&gt;
+&lt;li&gt;It might be an overkill solution.&lt;/li&gt;
+&lt;li&gt;All the data in a DHT are public so we would necessarily need to encrypt the data there.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="eventually-at-the-end-we-should-expand-this-mechanism-to-other-services-locations-using-host-meta"&gt;
+&lt;h2&gt;Eventually at the end we should expand this mechanism to other services locations, using Host-Meta.&lt;/h2&gt;
+&lt;p&gt;In addition to discovering the location of the Kinto server, add the
+possibility to discover other services, such as the identity service
+provider for the remote instance (Firefox Accounts / Github /
+Twitter), using something like Host-Meta.  &lt;a class="reference external" href="https://tools.ietf.org/html/rfc6415"&gt;Host-Meta is a
+specification&lt;/a&gt; that is used for
+looking up the metadata of a domain name. It is useful for discovery
+of services associated with the host.&lt;/p&gt;
+&lt;p&gt;And once we're there, all the Kinto instances will be discoverable!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="note-to-the-reader"&gt;
+&lt;h2&gt;Note to the reader:&lt;/h2&gt;
+&lt;p&gt;Thanks for your interest in this article. If you think there is a better approach we can take,
+than the one given above or, if there is anything you would like to share with us regarding
+this article, do comment below. We look forward to exploring more solutions and making the
+project even better through your feedback :)&lt;/p&gt;
+&lt;/div&gt;
+</summary></entry><entry><title>Hacker News answers</title><link href="http://www.servicedenuages.fr/en/hackernews-feedback" rel="alternate"></link><updated>2015-12-15T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-15:en/hackernews-feedback</id><summary type="html">&lt;p&gt;Today, &lt;a class="reference external" href="https://news.ycombinator.com/item?id=10733164"&gt;Kinto was featured on Hackernews&lt;/a&gt;. We take this as a great
 milestone for the project, even if it also comes with some sort of pressure and
 stress :)&lt;/p&gt;
 &lt;p&gt;Since a few questions emerged from the thread there, we thought it'd be
@@ -33,12 +236,13 @@ Kinto&lt;/li&gt;
 &lt;li&gt;We have made &lt;a class="reference external" href="https://github.com/mozilla-services/syncto"&gt;Syncto&lt;/a&gt;:
 a service which exposes the API of Kinto and talks with Firefox Sync in the
 background, so that FirefoxOS developers can use the Kinto.js library&lt;/li&gt;
-&lt;li&gt;We are currently doing the distribution of fonts for Fennec Over The Air
-using Kinto.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Also, it's not in production yet, but we will use Kinto for the blocklist of
-addons and Certificate Revocation Lists in the future. Kinto.js &lt;a class="reference external" href="https://github.com/mozilla/gecko-dev/commit/199296f7448fcfe12a3d84c7e16ca1752b740c0e"&gt;has landed in
-Firefox for that purpose&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We are currently building (for 2016):&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;the distribution of fonts and hyphenation dictionaries for Firefox Mobile (Fennec)&lt;/li&gt;
+&lt;li&gt;the synchronization of addons blocklist and &lt;a class="reference external" href="https://blog.mozilla.org/security/2015/03/03/revoking-intermediate-certificates-introducing-onecrl/"&gt;Certificate Revocation Lists (OneCRL)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Kinto.js &lt;a class="reference external" href="https://github.com/mozilla/gecko-dev/commit/199296f7448fcfe12a3d84c7e16ca1752b740c0e"&gt;has landed in Firefox for that purpose&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="offline-first-support"&gt;
 &lt;h2&gt;Offline-first support&lt;/h2&gt;

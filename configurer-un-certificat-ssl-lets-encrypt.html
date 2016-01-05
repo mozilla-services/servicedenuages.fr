@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>Configurer un certificat SSL avec Let's Encrypt // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Publié</h5>
+                <p title="~587 mots">~3mn de lecture 🕑</p>
+                <p>mer. 16 décembre 2015</p>
+                <a href="/">&larr; Liste des articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Configurer un certificat SSL avec Let's Encrypt</h1>
+                </header>
+            </section>
+            <p>Fini les certificats non sécurisés et très coûteux !</p>
+<p><img alt="Let's encrypt — a new Certificate Authority:  free, automated, and open." src="http://www.servicedenuages.fr/images/letsencrypt-logo-horizontal.png" style="width: 1025px; height: auto; max-width: 100%;"/></p>
+<p>Avec Let's Encrypt vous n'avez plus d'excuse car il vous est
+maintenant possible d'obtenir un certificat SSL valide, sur tous les
+navigateurs, gratuitement et sans avoir besoin d'être un expert en
+cryptographie.</p>
+<h1>Téléchargez le client sur votre ordinateur</h1>
+<p>Pour commencer il vous faut installer le client letsencrypt qui va
+gérer pour vous la génération de la CSR, la vérification auprès de
+letsencrypt et l'installation du certificat.</p>
+<p><a href="https://letsencrypt.org/howitworks/#installing-lets-encrypt">Comme expliqué sur le site de letsencrypt :</a></p>
+<div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/letsencrypt/letsencrypt
+<span class="nv">$ </span><span class="nb">cd </span>letsencrypt
+</pre></div>
+<h1>Serveur dédié</h1>
+<p>Si vous avez la chance d'avoir un serveur dédié, c'est complètement
+automatique et il vous suffit de lancer le script avec les bonnes options:</p>
+<p>Avec Apache c'est automatique :</p>
+<div class="highlight"><pre><span class="nv">$ </span>./letsencrypt-auto --apache -d example.com -d www.example.com
+</pre></div>
+<p>Pour les autres, la génération du certificat peut se faire comme cela :</p>
+<div class="highlight"><pre><span class="nv">$ </span>./letsencrypt-auto certonly --webroot -w /var/www/example -d example.com -d www.example.com
+</pre></div>
+<p>Où <code>/var/www/example</code> est le répertoire servant les fichiers sur le domaine <code>example.com</code>.</p>
+<p>Il faudra ensuite consulter la documentation de votre serveur HTTP
+pour configurer votre certificat SSL.</p>
+<h1>Serveur mutualisé</h1>
+<p>Comme <code>letsencrypt-auto</code> nécessite d'avoir les droits root, sur un
+serveur mutualisé c'est un peu moins automatique.</p>
+<p>La solution proposée ici est de générer le certifiat localement en
+mode manuel puis de configurer le serveur mutualisé dans un deuxième
+temps.</p>
+<p>Pour valider de manière automatique un certificat, letsencrypt
+télécharge une preuve via le nom de domaine pour lequel on demande un
+certificat.</p>
+<p>On va donc :</p>
+<ul>
+<li>Lancer le script localement ;</li>
+<li>Héberger la preuve du nom de domaine sur le serveur ;</li>
+<li>Puis générer et configurer notre certificat SSL.</li>
+</ul>
+<h2>Lancer le script localement</h2>
+<div class="highlight"><pre><span class="nv">$ </span>./letsencrypt-auto certonly --manual -d mondomaine.fr -d www.mondomaine.fr
+</pre></div>
+<h2>Mettre en ligne la preuve de possession du nom de domaine</h2>
+<p>En utilisant votre client FTP vous pouvez:</p>
+<ul>
+<li>Créez le répertoire : <code>www/.well-known/acme-challenge/</code></li>
+<li>Créez le fichier dont le nom et le contenu vous est donné.</li>
+</ul>
+<p>Par exemple:</p>
+<div class="highlight"><pre><span class="nv">$ </span>mkdir .well-known/acme-challenge/
+<span class="nv">$ </span>cat &gt; .well-known/acme-challenge/1ni92R95ooeCPOcRhVXYSF1HXVfdS61uWMlMjQXOQns
+1ni92R95ooeCPOcRhVXYSF1HXVfdS61uWMlMjQXOQns.MJvFiRCK_M0WiBPW19A7VQekVtY5sSojwa44TFcaUAw
+</pre></div>
+<p>Vérifiez que vous pouvez bien accéder au lien qui vous est donné :</p>
+<div class="highlight"><pre>https://www.mondomaine.com/.well-known/acme-challenge/1ni92R95ooeCPOcRhVXYSF1HXVfdS61uWMlMjQXOQns
+</pre></div>
+<p>Ensuite appuyez sur <em>Entrée</em></p>
+<h2>Mettrez en ligne votre certificat</h2>
+<p>Vous devez ensuite vous rendre dans l'interface de votre hébergeur et
+renseigner le contenu des fichiers, <code>privkey.pem</code>, <code>cert.pem</code> et
+<code>fullchain.pem</code> dans le champ de formulaire respectifs <code>Clé privé</code>,
+<code>Certificat</code>, <code>Certificats intermédiaires</code>, qui ont été créé pour vous
+dans le répertoire : <code>/etc/letsencrypt/live/mondomaine.com</code></p>
+<h2>Que faire ensuite ?</h2>
+<p>Votre certificat est valable pour 3 mois n'oubliez pas de vous mettre
+un rappel quelques jours avant sa date d'expiration pour relancer
+votre script et mettre à jour le certificat.</p>
+<p>Les fichiers <code>fullchain.pem</code> et <code>privkey.pem</code> resteront inchangés mais
+le fichier <code>cert.pem</code> doit être mis à jour.</p>
+<p>Pour se faire relancer la commande sur le même ordinateur:</p>
+<div class="highlight"><pre><span class="nv">$ </span>./letsencrypt-auto certonly --manual -d mondomaine.fr -d www.mondomaine.fr
+</pre></div>
+<p>Un écran s'affiche vous proposant de renouveler le certificat.</p>
+<p>Suivez la procédure et mettez à jour le certificat dans l'interface de
+votre hébergeur.</p>
+<h2>Conclusion</h2>
+<p>Let's Encrypt facilite vraiment la vie, plus besoin de générer un CSR,
+plus besoin de payer, plus besoin de se creuser la tête pour chaque
+certificat, vous pouvez mettre autant de sous domaines que vous le
+souhaitez et régénerer votre certificat jusqu'à 5 fois par semaines si
+nécessaire.</p>
+<p>La seule chose à faire c'est de mettre à jour son certificat SSL tous
+les 3 mois en relançant la commande.</p>
+<p>La procédure de mise en place étant disponible et le client étant Open
+Source il y a fort à parier que les hébergeurs vont simplifier la
+procédure et la rendre spécifique à leur interface d'administration.</p>
+<p>Des serveurs HTTP tels que <code>caddy</code> ont déjà
+<a href="https://www.youtube.com/watch?v=nk4EWHvvZtI">intégré la génération du certificat</a>
+dans la procédure d'installation de leur serveur.</p>
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.notmyidea.org/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>

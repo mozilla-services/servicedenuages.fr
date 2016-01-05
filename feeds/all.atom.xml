@@ -1,5 +1,190 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-11-19T00:00:00+01:00</updated><entry><title>Support des fichiers dans Kinto</title><link href="http://www.servicedenuages.fr/kinto-file-attachment" rel="alternate"></link><updated>2015-11-19T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-11-19:kinto-file-attachment</id><summary type="html">&lt;div class="section" id="le-besoin-initial"&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-12-22T00:00:00+01:00</updated><entry><title>The hard promise of self-hosting</title><link href="http://www.servicedenuages.fr/en/self-hosting-a-hard-promise" rel="alternate"></link><updated>2015-12-22T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-22:en/self-hosting-a-hard-promise</id><summary type="html">&lt;div class="note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p class="last"&gt;This article was translated by &lt;a class="reference external" href="https://notmyidea.org"&gt;Alexis Métaireau&lt;/a&gt;,
+on a train between Rennes and Paris.&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;While discussing about &lt;a class="reference external" href="https://kinto.readthedocs.org/"&gt;Kinto&lt;/a&gt;, we discovered
+that the future we envision for Kinto is the one of a collectively decentralized
+hosting, rather than having every user having their own individual servers.&lt;/p&gt;
+&lt;p&gt;Kinto wants to answer two basic needs from Web users: storage and sharing of
+data, without letting them losing control over their own data.&lt;/p&gt;
+&lt;p&gt;If Kinto should be a "database for the Web", then it is a pre-requesite that
+every user of the Web can easily access a server running it.&lt;/p&gt;
+&lt;div class="section" id="self-hosting"&gt;
+&lt;h2&gt;Self-Hosting&lt;/h2&gt;
+&lt;img alt="Countryside house -- House, Automn - CC-BY-ND Gunnar Magnusson https://www.flickr.com/photos/matupplevelser/4644386646" class="align-center" src="http://www.servicedenuages.fr/images/autohebergement.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;Deploying servers isn't something easy. A lot of people are working hard on
+solving this problem, but there is still a lot of work to do before having a
+plug and play solution that is easy to maintain over time.&lt;/p&gt;
+&lt;p&gt;Servers needs to be updated to avoid security issues and to be kept alive for
+the ones who needs them.&lt;/p&gt;
+&lt;p&gt;We can see it on our deployed software: we are very lucky to have "Ops" handling
+this. Believe us, if these tasks were easy to automate, they would already be!
+(Nobody wants to wake up in the middle of the night to solve other's problems)&lt;/p&gt;
+&lt;p&gt;Unfortunately, we are not yet at a stage where the state of the art allows
+everyone to self-host in a durable way.&lt;/p&gt;
+&lt;p&gt;A real work is needed to propose a service that works well for the users who
+needs it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="un-centralized"&gt;
+&lt;h2&gt;Un-centralized&lt;/h2&gt;
+&lt;p&gt;An answer to this problem seems to be a system with multiple centers: Decentralized.&lt;/p&gt;
+&lt;p&gt;Rather than having only one place where everything is stored, we could have
+one or multiple servers, handled by communities (EFF, The local linux
+user-group of your city, etc) which would help factorize the costs (both human-wise
+and money-wise) of maintaining these services. This allows to host one server
+for many users and applications.&lt;/p&gt;
+&lt;p&gt;I can see you from here, mumbling: "He is nice with his community-baked servers,
+but I don't want to give my personal data to anyone!". And you would be right.&lt;/p&gt;
+&lt;p&gt;Kinto allows to store any kind of data. It could be data meant to be shared
+or data that are yours and should remain private.&lt;/p&gt;
+&lt;p&gt;One of our goals is to help making encryption dead simple so that nobody
+(except you) can read your data.&lt;/p&gt;
+&lt;p&gt;Kinto.js actually handles this pretty well, as &lt;a class="reference external" href="http://www.servicedenuages.fr/en/kinto-encryption-example"&gt;Michiel showed in a previous
+article.&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="avoiding-the-creation-of-a-new-silo"&gt;
+&lt;h2&gt;Avoiding the creation of a new silo&lt;/h2&gt;
+&lt;img alt="The future of silos - CC-BY-NC-ND Sunflower Silo in Boulder County Colorado by Bo Insogna — https://www.flickr.com/photos/thelightningman/5494666930" class="align-center" src="http://www.servicedenuages.fr/images/silo.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;In order to avoid participating in the creation of new silo, it is important
+to take care of a few things:&lt;/p&gt;
+&lt;div class="section" id="identity"&gt;
+&lt;h3&gt;Identity&lt;/h3&gt;
+&lt;p&gt;One of the mechanisms allowing current silos (Facebook, Twitter) to continue
+is their identity system. You want to share data with your cousin but you only
+have her "Facebook account" to connect with her.&lt;/p&gt;
+&lt;p&gt;For sure, this is a bad situation, but let's try to solve one problem at a time
+(unfortunately, Mozilla Persona, the decentralized identity service is End of
+Life).&lt;/p&gt;
+&lt;p&gt;Let's allow people to authenticate with their best-choice solution, being it
+open or not (OpenID, Firefox Accounts, Github, Twiter, Facebook, etc.) &lt;em&gt;but&lt;/em&gt;
+let's give them back the choice of where their data is stored.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="interoperability"&gt;
+&lt;h3&gt;Interoperability&lt;/h3&gt;
+&lt;p&gt;It should matter which storage solution you chose. It is crucial that
+interfaces exist to go from one to the other.&lt;/p&gt;
+&lt;p&gt;Kinto exposes (before all the rest) an HTTP API (some would say RESTful) which
+speaks JSON, which make it very easy to integrate with other solutions.&lt;/p&gt;
+&lt;p&gt;As a first step, it could only be import / export features from one solution
+to the other, but it is better to choose a format to be used for this data
+exchange. Without what a de-facto standard will emerge, for the best and worst.&lt;/p&gt;
+&lt;p&gt;We should start the collaboration with other "private cloud" providers, like
+OwnCloud or CozyCloud.&lt;/p&gt;
+&lt;p&gt;The latter started the creation of a
+&lt;a class="reference external" href="https://github.com/Decentralized-Sharing-Working-Group/internet-draft"&gt;working group&lt;/a&gt;
+on the matter, which wants to use MicroPub and WebMention as starting points.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="decentralized"&gt;
+&lt;h3&gt;Decentralized&lt;/h3&gt;
+&lt;p&gt;The creation of community servers should not block the users to use their
+personnal server for the tech savvy.&lt;/p&gt;
+&lt;p&gt;In which case the community servers could serve as a backup, in case of a
+failure of the personnal servers (or in the other direction, the personal
+servers could backup community ones).&lt;/p&gt;
+&lt;p&gt;We can foresee a future where each user could have her own Kinto server, but
+we need to go there step by step, and prepare the field before being ready for
+a &lt;em&gt;one click&lt;/em&gt; solution for &lt;em&gt;Aunt Jeannine&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Having an easy start seem to be key here: start by using a community server and
+migrate later to a personnal server once all the technical problems
+(previously mentionned) have been solved.&lt;/p&gt;
+&lt;p&gt;In the meantime, an approach based on top of multiple communities seems to be
+a pragmatic solution in the short/mid term, bringing back some freedom to the
+users.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</summary></entry><entry><title>Configurer un certificat SSL avec Let's Encrypt</title><link href="http://www.servicedenuages.fr/configurer-un-certificat-ssl-lets-encrypt" rel="alternate"></link><updated>2015-12-16T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-16:configurer-un-certificat-ssl-lets-encrypt</id><summary type="html">&lt;p&gt;Fini les certificats non sécurisés et très coûteux !&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Let's encrypt — a new Certificate Authority:  free, automated, and open." src="http://www.servicedenuages.fr/images/letsencrypt-logo-horizontal.png" style="width: 1025px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
+&lt;p&gt;Avec Let's Encrypt vous n'avez plus d'excuse car il vous est
+maintenant possible d'obtenir un certificat SSL valide, sur tous les
+navigateurs, gratuitement et sans avoir besoin d'être un expert en
+cryptographie.&lt;/p&gt;
+&lt;h1&gt;Téléchargez le client sur votre ordinateur&lt;/h1&gt;
+&lt;p&gt;Pour commencer il vous faut installer le client letsencrypt qui va
+gérer pour vous la génération de la CSR, la vérification auprès de
+letsencrypt et l'installation du certificat.&lt;/p&gt;
+&lt;p&gt;&lt;a href="https://letsencrypt.org/howitworks/#installing-lets-encrypt"&gt;Comme expliqué sur le site de letsencrypt :&lt;/a&gt;&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;git clone https://github.com/letsencrypt/letsencrypt
+&lt;span class="nv"&gt;$ &lt;/span&gt;&lt;span class="nb"&gt;cd &lt;/span&gt;letsencrypt
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;Serveur dédié&lt;/h1&gt;
+&lt;p&gt;Si vous avez la chance d'avoir un serveur dédié, c'est complètement
+automatique et il vous suffit de lancer le script avec les bonnes options:&lt;/p&gt;
+&lt;p&gt;Avec Apache c'est automatique :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;./letsencrypt-auto --apache -d example.com -d www.example.com
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Pour les autres, la génération du certificat peut se faire comme cela :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;./letsencrypt-auto certonly --webroot -w /var/www/example -d example.com -d www.example.com
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Où &lt;code&gt;/var/www/example&lt;/code&gt; est le répertoire servant les fichiers sur le domaine &lt;code&gt;example.com&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Il faudra ensuite consulter la documentation de votre serveur HTTP
+pour configurer votre certificat SSL.&lt;/p&gt;
+&lt;h1&gt;Serveur mutualisé&lt;/h1&gt;
+&lt;p&gt;Comme &lt;code&gt;letsencrypt-auto&lt;/code&gt; nécessite d'avoir les droits root, sur un
+serveur mutualisé c'est un peu moins automatique.&lt;/p&gt;
+&lt;p&gt;La solution proposée ici est de générer le certifiat localement en
+mode manuel puis de configurer le serveur mutualisé dans un deuxième
+temps.&lt;/p&gt;
+&lt;p&gt;Pour valider de manière automatique un certificat, letsencrypt
+télécharge une preuve via le nom de domaine pour lequel on demande un
+certificat.&lt;/p&gt;
+&lt;p&gt;On va donc :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Lancer le script localement ;&lt;/li&gt;
+&lt;li&gt;Héberger la preuve du nom de domaine sur le serveur ;&lt;/li&gt;
+&lt;li&gt;Puis générer et configurer notre certificat SSL.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Lancer le script localement&lt;/h2&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;./letsencrypt-auto certonly --manual -d mondomaine.fr -d www.mondomaine.fr
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Mettre en ligne la preuve de possession du nom de domaine&lt;/h2&gt;
+&lt;p&gt;En utilisant votre client FTP vous pouvez:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Créez le répertoire : &lt;code&gt;www/.well-known/acme-challenge/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Créez le fichier dont le nom et le contenu vous est donné.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Par exemple:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;mkdir .well-known/acme-challenge/
+&lt;span class="nv"&gt;$ &lt;/span&gt;cat &amp;gt; .well-known/acme-challenge/1ni92R95ooeCPOcRhVXYSF1HXVfdS61uWMlMjQXOQns
+1ni92R95ooeCPOcRhVXYSF1HXVfdS61uWMlMjQXOQns.MJvFiRCK_M0WiBPW19A7VQekVtY5sSojwa44TFcaUAw
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Vérifiez que vous pouvez bien accéder au lien qui vous est donné :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;https://www.mondomaine.com/.well-known/acme-challenge/1ni92R95ooeCPOcRhVXYSF1HXVfdS61uWMlMjQXOQns
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Ensuite appuyez sur &lt;em&gt;Entrée&lt;/em&gt;&lt;/p&gt;
+&lt;h2&gt;Mettrez en ligne votre certificat&lt;/h2&gt;
+&lt;p&gt;Vous devez ensuite vous rendre dans l'interface de votre hébergeur et
+renseigner le contenu des fichiers, &lt;code&gt;privkey.pem&lt;/code&gt;, &lt;code&gt;cert.pem&lt;/code&gt; et
+&lt;code&gt;fullchain.pem&lt;/code&gt; dans le champ de formulaire respectifs &lt;code&gt;Clé privé&lt;/code&gt;,
+&lt;code&gt;Certificat&lt;/code&gt;, &lt;code&gt;Certificats intermédiaires&lt;/code&gt;, qui ont été créé pour vous
+dans le répertoire : &lt;code&gt;/etc/letsencrypt/live/mondomaine.com&lt;/code&gt;&lt;/p&gt;
+&lt;h2&gt;Que faire ensuite ?&lt;/h2&gt;
+&lt;p&gt;Votre certificat est valable pour 3 mois n'oubliez pas de vous mettre
+un rappel quelques jours avant sa date d'expiration pour relancer
+votre script et mettre à jour le certificat.&lt;/p&gt;
+&lt;p&gt;Les fichiers &lt;code&gt;fullchain.pem&lt;/code&gt; et &lt;code&gt;privkey.pem&lt;/code&gt; resteront inchangés mais
+le fichier &lt;code&gt;cert.pem&lt;/code&gt; doit être mis à jour.&lt;/p&gt;
+&lt;p&gt;Pour se faire relancer la commande sur le même ordinateur:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;./letsencrypt-auto certonly --manual -d mondomaine.fr -d www.mondomaine.fr
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Un écran s'affiche vous proposant de renouveler le certificat.&lt;/p&gt;
+&lt;p&gt;Suivez la procédure et mettez à jour le certificat dans l'interface de
+votre hébergeur.&lt;/p&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Let's Encrypt facilite vraiment la vie, plus besoin de générer un CSR,
+plus besoin de payer, plus besoin de se creuser la tête pour chaque
+certificat, vous pouvez mettre autant de sous domaines que vous le
+souhaitez et régénerer votre certificat jusqu'à 5 fois par semaines si
+nécessaire.&lt;/p&gt;
+&lt;p&gt;La seule chose à faire c'est de mettre à jour son certificat SSL tous
+les 3 mois en relançant la commande.&lt;/p&gt;
+&lt;p&gt;La procédure de mise en place étant disponible et le client étant Open
+Source il y a fort à parier que les hébergeurs vont simplifier la
+procédure et la rendre spécifique à leur interface d'administration.&lt;/p&gt;
+&lt;p&gt;Des serveurs HTTP tels que &lt;code&gt;caddy&lt;/code&gt; ont déjà
+&lt;a href="https://www.youtube.com/watch?v=nk4EWHvvZtI"&gt;intégré la génération du certificat&lt;/a&gt;
+dans la procédure d'installation de leur serveur.&lt;/p&gt;</summary></entry><entry><title>Support des fichiers dans Kinto</title><link href="http://www.servicedenuages.fr/kinto-file-attachment" rel="alternate"></link><updated>2015-11-19T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-11-19:kinto-file-attachment</id><summary type="html">&lt;div class="section" id="le-besoin-initial"&gt;
 &lt;h2&gt;Le besoin initial&lt;/h2&gt;
 &lt;p&gt;Le besoin d'ajouter des fichiers dans &lt;em&gt;Kinto&lt;/em&gt; avait été identifié depuis
 le début du projet. Mais comme nous sommes une toute petite équipe, nous sommes

@@ -1,0 +1,221 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>How to make the Kinto instances discoverable? // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Published</h5>
+                <p title="~882 words">~4 minutes reading 🕑</p>
+                <p>Mon, 21 December 2015</p>
+                <a href="/en/">&larr; Back to articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>How to make the Kinto instances discoverable?</h1>
+                </header>
+            </section>
+            <div class="section" id="about-me">
+<h2>About Me</h2>
+<p>Hi! I am Shweta Oak.</p>
+<p>I got the opportunity to be part of Mozilla's Kinto team.
+Here, my work focuses on the discovery of Kinto servers.
+I am passionate about Technology and believe in applying it to enhance the lives of people.
+I like to solve problems. While solving problems, I like exploring and crafting various
+solutions to find the best one. I am enthusiastic about taking up new challenges, learning
+new things and discovering my potential.</p>
+</div>
+<div class="section" id="how-does-an-application-discover-the-location-of-a-kinto-server">
+<h2>How does an application discover the location of a Kinto server?</h2>
+<p>Unlike Parse or Firebase which are centralized services, Kinto can be ran by anyone
+and anywhere. However, there has to be a way for the user to choose where the data
+are getting stored. In addition to configuring the frontend app for their personal
+server, users can get the  location of the server in the form of a URL which can be
+shared with another user in order to collaborate and share data between multiple
+users on the same Kinto server.</p>
+<p>To solve this problem, the following approach can be taken:</p>
+<ol class="arabic simple">
+<li>Let the user enter the location of her Kinto instance, the first time.</li>
+<li>Store this location remotely.</li>
+<li>Use this later to discover the service.</li>
+</ol>
+<img alt="The first time the user set her Kinto server URI" class="align-center" src="http://www.servicedenuages.fr/en/../images/KintoDiscovery-1st-time-sync.png" style="width: 1092px; height: auto; max-width: 100%;"/>
+<img alt="The second time the user discover their Kinto server URI" class="align-center" src="http://www.servicedenuages.fr/en/../images/KintoDiscovery-2nd-time-sync.png" style="width: 1092px; height: auto; max-width: 100%;"/>
+</div>
+<div class="section" id="let-the-user-enter-the-location-of-her-kinto-instance-the-first-time">
+<h2>Let the user enter the location of her Kinto instance, the first time.</h2>
+<p>Add a way, on client side, to specify where the server is. For instance, this should
+be done in JavaScript and HTML on  top of the Kinto.js client.
+It is basically a user interface for how to specify the "remote server" to use. The
+user has to enter the location of the server only once, the first time she uses a
+Kinto instance, later on, this location will be discovered.</p>
+<p>The best way to start doing this is to do it in a webpage that uses Kinto.js and let
+the user specify the server location. Once we have this, we will need to make this
+project re-usable by others.</p>
+</div>
+<div class="section" id="store-this-location-remotely">
+<h2>Store this location remotely</h2>
+<p>Then, it would be good if we were able, for a given authenticated user, to automatically
+discover where their Kinto instance is located. To do that we will need to find a solution
+to save this location somewhere when the user enters the location of the server for the first
+time and then, the information will be discovered.</p>
+<p>We also need to keep in mind that users may have multiple Kinto instances with regards to the
+application they will be using. The discovery of Kinto will be cross application too.</p>
+<p>We will now need to store this information remotely. This is where the ideas of a central
+repository and of a Distributed Hash Table (DHT) come into play. Since a DHT is by far more
+complex than a central repository, we will start with the use of a central server.</p>
+<div class="section" id="b1-central-repository">
+<h3>(B1) Central Repository</h3>
+<p>A small Javascript helper to lookup the location of the server
+remotely once the user is connected. The flow would then look like
+this:</p>
+<ol class="arabic simple">
+<li>Connect to your account (Github, Twitter, FxA) using OAuth.</li>
+<li>The client fetches the location of the Kinto server on a central Kinto collection using the user credentials.</li>
+<li>The Kinto.js collection is configured to use this remote.</li>
+</ol>
+<p><strong>Pros of using a central repository:</strong></p>
+<ul class="simple">
+<li>It is really easy to setup and implement.</li>
+<li>The application searches for the user’s server by looking up the central repository.</li>
+</ul>
+<p><strong>Cons of using a central repository:</strong></p>
+<ul class="simple">
+<li>The user needs to trust a 3rd party as the links to the information of the user is being stored in one place.</li>
+<li>There is a possibility of leak of information that someone is connected to a Kinto instance, and where this instance is.</li>
+</ul>
+</div>
+<div class="section" id="b2-distributed-hash-table-dht">
+<h3>(B2) Distributed Hash Table (DHT)</h3>
+<p>Once we have this mechanism in place, we can expand it in order to
+rely on a DHT rather than on a central repositories. DHT is a
+distributed hash table system that provides a distributed lookup
+service without a single point of failure.</p>
+<p><strong>Pros of using DHT:</strong></p>
+<ul class="simple">
+<li>The user does not have to trust one server only. There are multiple servers that hold pieces of the data.</li>
+<li>It is possible to add your own server to the DHT.</li>
+</ul>
+<p><strong>Cons of using DHT:</strong></p>
+<ul class="simple">
+<li>It might be complex to deploy.</li>
+<li>Harder to implement and verify</li>
+<li>It might be an overkill solution.</li>
+<li>All the data in a DHT are public so we would necessarily need to encrypt the data there.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="eventually-at-the-end-we-should-expand-this-mechanism-to-other-services-locations-using-host-meta">
+<h2>Eventually at the end we should expand this mechanism to other services locations, using Host-Meta.</h2>
+<p>In addition to discovering the location of the Kinto server, add the
+possibility to discover other services, such as the identity service
+provider for the remote instance (Firefox Accounts / Github /
+Twitter), using something like Host-Meta.  <a class="reference external" href="https://tools.ietf.org/html/rfc6415">Host-Meta is a
+specification</a> that is used for
+looking up the metadata of a domain name. It is useful for discovery
+of services associated with the host.</p>
+<p>And once we're there, all the Kinto instances will be discoverable!</p>
+</div>
+<div class="section" id="note-to-the-reader">
+<h2>Note to the reader:</h2>
+<p>Thanks for your interest in this article. If you think there is a better approach we can take,
+than the one given above or, if there is anything you would like to share with us regarding
+this article, do comment below. We look forward to exploring more solutions and making the
+project even better through your feedback :)</p>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.notmyidea.org/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>
