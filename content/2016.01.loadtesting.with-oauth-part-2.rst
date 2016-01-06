@@ -3,8 +3,9 @@ How to load test a OAuth-protected HTTP API? (Part 2)
 
 :lang: en
 :date: 2016-01-05
+:status: draft
 :url: load-testing-a-http-api-which-uses-oauth-for-authentication-part-2
-:summary: This is part 2 of a series on loadtesting oauth APIs explaining how to test the performance of an HTTP API when its access depends on an external OAuth service.
+:summary: How to loadtest OAuth APIs, part 2: how to generate Firefox Accounts tokens.
 
 This is part 2 of a series on loadtesting OAuth APIs.
 
