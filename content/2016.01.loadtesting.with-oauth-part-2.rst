@@ -191,15 +191,15 @@ needed.
 How to install fxa-client?
 ==========================
 
-Right now ``fxa-client`` is still a work in progress and didn't land yet
-in the last release of PyFxA. It doesn't mean we cannot use it
-already.
+``fxa-client`` have been released in the last release of PyFxA 0.1.0.
 
-To do so, just install the ``loadtest-tools`` branch of PyFxA repository:
+So just install the `PyFxA <https://pypi.python.org/pypi/PyFxA>`_ 
+python package using pip:
 
 .. code-block:: bash
 
-    pip install https://github.com/mozilla/PyFxA/archive/loadtest-tools.zip
+    pip install -U PyFxA
+
 
 Management Firefox Accounts environments
 ----------------------------------------
