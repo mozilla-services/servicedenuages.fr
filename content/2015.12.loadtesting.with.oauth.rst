@@ -171,4 +171,5 @@ Take-aways:
 - You can use configuration and for instance environment variables to
   configure your load test Bearer Token.
 
-The next article will show some specific tools you can use to do this.
+`The next article </en/load-testing-a-http-api-which-uses-oauth-for-authentication-part-2>`_
+will show some specific tools you can use to do this.
