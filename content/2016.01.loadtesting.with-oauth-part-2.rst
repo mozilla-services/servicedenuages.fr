@@ -3,7 +3,6 @@ How to load test a OAuth-protected HTTP API? (Part 2)
 
 :lang: en
 :date: 2016-01-05
-:status: draft
 :url: load-testing-a-http-api-which-uses-oauth-for-authentication-part-2
 :summary: How to loadtest OAuth APIs, part 2: how to generate Firefox Accounts tokens.
 
@@ -15,11 +14,11 @@ Introduction
 `In the previous article </en/load-testing-a-http-api-which-uses-oauth-for-authentication>`_
 we have seen that:
 
-- We would create the OAuth Bearer Token before the load-test start.
-- We can use environment variables to specify the token to use in the load-test.
+- We should create the OAuth Bearer Token before the load test start.
+- We can use environment variables to specify the token to use in the load test.
 
 In this article we will have a closer look at how to generate tokens
-for Firefox Accounts and pass them to the load-test.
+for Firefox Accounts and pass them to the load test.
 
 
 PyFxA: The Python Firefox Accounts client
@@ -36,7 +35,7 @@ To ease the use of Firefox Accounts Bearer Tokens, we have created, a
 while ago, an
 `authentication policy <https://github.com/mozilla/PyFxA/blob/master/fxa/plugins/requests.py#L115-L158>`_
 for the `requests library <http://docs.python-requests.org/en/latest/>`_, which
-can all be used with the `httpie <http://httpie.org>`_ client.
+can also be used with the `httpie <http://httpie.org>`_ client.
 
 With this plugin, we can provide our user credentials and a valid
 Bearer Token will be built for our request.
@@ -54,7 +53,7 @@ Using fxa-client to generate Bearer Tokens
 ------------------------------------------
 
 The code we wrote at the time was quite similar to what we were trying
-to do for the load-test setup: Generating a Bearer Token for a
+to do for the load test setup: generating a Bearer Token for a
 given user.
 
 We ended-up building a CLI tool called ``fxa-client`` that is able to
@@ -70,7 +69,7 @@ generate a BASH file that exports some environment variables:
                       [--scopes SCOPES]
 
 With this client, instead of building a Bearer Token for the request,
-we can just ask the ``fxa-client`` to build one for our load-test:
+we can just ask the ``fxa-client`` to build one for our load test:
 
 .. code-block:: bash
 
@@ -114,7 +113,7 @@ generate a Bearer Token for it:
     export OAUTH_BEARER_TOKEN="90abc87ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc"
 
 To avoid creating extraneous user accounts, it is possible to specify
-a user-salt (as a base64 string) that will always generate the same
+a user salt (as a base64 string) that will always generate the same
 user credentials and recreate the account if needed:
 
 .. code-block:: bash
@@ -170,7 +169,7 @@ Using fxa-client to configure a loadtest
 ========================================
 
 Now that we have a quite simple way to generate Bearer Tokens, how can
-we plug that with our load-tests?
+we plug that with our load tests?
 
 I could not find a better way than creating a bash file that exports
 the environment variables and then sourcing it in the shell that will
@@ -211,7 +210,7 @@ which default to the stage environment.
 
 We can find `all the available environment here <https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Firefox_Accounts/Introduction#Firefox_Accounts_deployments>`_.
 
-However to ease the switch from on to the other we added a ``--env``
+However to ease the switch from one to the other we added a ``--env``
 parameter that let you write:
 
 .. code-block:: bash
@@ -260,10 +259,10 @@ Conclusion
 That's about it. I hope that after reading this article, you are not
 afraid anymore of load testing Firefox Accounts OAuth-based services!
 
-Take aways:
+Take-aways:
 
 - ``fxa-client`` let us generate a bash script with our user credentials.
-- This bash script can be loaded before running our load-test to expose
-  user credentials to a load-test script.
+- This bash script can be loaded before running our load test to expose
+  user credentials to a load test script.
 
 Do not hesitate to reach us if you have any questions or suggestions.
