@@ -14,7 +14,7 @@ What can Kinto do for me?
 Kinto — the project we are working on since quite some time now — can do a bunch
 of different things for you and be useful in many different situations.
 
-Howevern, we found out that it is really hard to understand at a glance what it
+However, we found out that it is really hard to understand at a glance what it
 can do, and where it could help you build your projects in a better way.
 
 Here is an attempt to fix this.
@@ -24,12 +24,12 @@ Kinto is not a framework
 ########################
 
 First and foremost, Kinto is not a framework. It doesn't try to provide a way
-to structure your projects for yoi. It is meant to replace the
+to structure your projects for you. It is meant to replace the
 storage layer of your application, or more accurately, the synchronisation
 abilities of your applications.
 
 Said differentely, you store your data locally for your application and **Kinto
-will make this data available to different devices**.
+will make this data available to different devices (or users)**.
 
 That means that you can use Kinto with React, Angular, JQuery (in the
 JavaScript world) or any framework (or no framework at all) in any language.
@@ -44,14 +44,14 @@ efforts using the tooling we have put together. You can leverage the
 with Kinto really easily, but ultimately you don't need it. It's just here to
 make it really easy for you to integrate with the HTTP APIs exposed by Kinto.
 
-Synchronize your data
+Synchronise your data
 =====================
 
 If there is one thing to take way with you, that would be this: if you need to 
 **synchronise** your data between different devices, there are chances that
 Kinto is a good fit.
 
-That's useful if you want to synchronize data between devices, and also between
+That's useful if you want to synchronise data between devices, and also between
 users. You have the data on one location, and you want it in a different one.
 
 With Kinto.js, this is as simple as calling `.sync()` on the Kinto instance.
@@ -68,11 +68,11 @@ With Kinto.js, this is as simple as calling `.sync()` on the Kinto instance.
 Storage
 =======
 
-You're not only syncing your data between different locations, you're actually
-storing it somewhere, on a location you chosed.
+Okay, I lied. You are not only syncing your data between different locations,
+you're actually storing it somewhere, on a location of your choice.
 
-You can access this data later on when you need. The cool thing here is
-that you can access this data using an HTTP API that speaks JSON.
+You can access this data later on when you need it. The cool thing here is that
+you can access this data using the HTTP API (that speaks JSON).
 
 We tried very hard to make the protocol as easy as possible, and are pretty
 happy with our current design, but if you have ideas on how to make it evolve,
@@ -109,12 +109,12 @@ Here's an example of how to retrieve your data using the `HTTPie
 Permissions
 ===========
 
-Sometimes, you want your data to remain yours, and some other times you want to
+Sometimes you want your data to remain yours, and some other times you want to
 share it with friends. It really depends what the data is.
 
 One of the reasons we built Kinto was to control who has access to what on a
 per record level. Without getting too much in the details, the data stored in
-kinto is organised into three concepts: Buckets contains collections wich in
+Kinto is organised into three concepts: Buckets contains collections wich in
 turn contain records.
 
 It's then possible to apply permissions to each container, and all children
@@ -131,16 +131,17 @@ Real-time Notifications
 
 What happens when the data evolves? Let's say you are on one device doing
 geo-mapping and someone else is doing the same thing on their own device. You
-want to have these two devices in Sync, and as such they need to know when new
-data was issued by any other device.
+want to have these two devices in sync, and as such they need to know when new
+data is issued by any other device.
 
 That's when real-time notifications are useful. Kinto itself doesn't decide for
 you which notification system you should use, but it can integrate easily with
 any notification system.
 
-We tried to ease this integration by providing some solutions to `integrate
+We tried to ease your life by providing some solutions to `integrate
 with pusher <https://github.com/leplatrem/cliquet-pusher>`_ and `with WebPush
-<https://github.com/Kinto/kinto-webpush>`_.
+<https://github.com/Kinto/kinto-webpush>`_, but you're free to use your own
+notification system.
 
 Some examples
 #############
