@@ -48,7 +48,8 @@ ARTICLE_SAVE_AS = '{url}.html'
 
 PLUGIN_PATHS = ['plugins']
 PLUGINS = ['post_stats', 'better_figures_and_images', 'i18n_subsites',
-           'liquid_tags.graphviz']
+           'liquid_tags.graphviz', 'liquid_tags.video']
+
 I18N_SUBSITES = {'en': {}, }  # Override any default settings.
 RESPONSIVE_IMAGES = True
 
