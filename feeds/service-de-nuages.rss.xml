@@ -89,7 +89,7 @@ Source il y a fort à parier que les hébergeurs vont simplifier la
 procédure et la rendre spécifique à leur interface d'administration.&lt;/p&gt;
 &lt;p&gt;Des serveurs HTTP tels que &lt;code&gt;caddy&lt;/code&gt; ont déjà
 &lt;a href="https://www.youtube.com/watch?v=nk4EWHvvZtI"&gt;intégré la génération du certificat&lt;/a&gt;
-dans la procédure d'installation de leur serveur.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 16 Dec 2015 00:00:00 +0100</pubDate><guid>tag:www.servicedenuages.fr,2015-12-16:configurer-un-certificat-ssl-lets-encrypt</guid></item><item><title>Support des fichiers dans Kinto</title><link>http://www.servicedenuages.fr/kinto-file-attachment</link><description>&lt;div class="section" id="le-besoin-initial"&gt;
+dans la procédure d'installation de leur serveur.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 16 Dec 2015 00:00:00 +0100</pubDate><guid>tag:www.servicedenuages.fr,2015-12-16:configurer-un-certificat-ssl-lets-encrypt</guid><category>mozilla</category></item><item><title>Support des fichiers dans Kinto</title><link>http://www.servicedenuages.fr/kinto-file-attachment</link><description>&lt;div class="section" id="le-besoin-initial"&gt;
 &lt;h2&gt;Le besoin initial&lt;/h2&gt;
 &lt;p&gt;Le besoin d'ajouter des fichiers dans &lt;em&gt;Kinto&lt;/em&gt; avait été identifié depuis
 le début du projet. Mais comme nous sommes une toute petite équipe, nous sommes
@@ -249,7 +249,7 @@ un serveur &lt;em&gt;Kinto&lt;/em&gt; sous forme de fichiers joints.&lt;/p&gt;
 Pendant la soirée, tout le monde a adoré envoyer un petit quelquechose, et il a suffi de faire une archive
 du répertoire de &lt;em&gt;kinto-attachment&lt;/em&gt; pour distribuer un paquet de chouettes souvenirs!&lt;/p&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 19 Nov 2015 00:00:00 +0100</pubDate><guid>tag:www.servicedenuages.fr,2015-11-19:kinto-file-attachment</guid></item><item><title>La difficile promesse de l'auto-hébergement</title><link>http://www.servicedenuages.fr/difficile-promesse-autohebergement</link><description>&lt;p&gt;Au détour de quelques conversations, nous avons pu nous rendre compte que notre
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 19 Nov 2015 00:00:00 +0100</pubDate><guid>tag:www.servicedenuages.fr,2015-11-19:kinto-file-attachment</guid><category>mozilla</category></item><item><title>La difficile promesse de l'auto-hébergement</title><link>http://www.servicedenuages.fr/difficile-promesse-autohebergement</link><description>&lt;p&gt;Au détour de quelques conversations, nous avons pu nous rendre compte que notre
 vision de &lt;a class="reference external" href="https://kinto.readthedocs.org"&gt;Kinto&lt;/a&gt; est celle d'un hébergement
 communautaire décentralisé plutôt que celle d'un ensemble de petits serveurs
 personnels. Explications.&lt;/p&gt;
@@ -350,7 +350,7 @@ solution pragmatique sur le court/moyen terme, rendant certaines libertés
 aux utilisateurs et ouvrant la voie pour le futur.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Mon, 05 Oct 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-10-05:difficile-promesse-autohebergement</guid></item><item><title>Comment chiffrer ses données avec Kinto.js</title><link>http://www.servicedenuages.fr/kinto-chiffrer-ses-donnees</link><description>&lt;div class="note"&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Mon, 05 Oct 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-10-05:difficile-promesse-autohebergement</guid><category>mozilla</category></item><item><title>Comment chiffrer ses données avec Kinto.js</title><link>http://www.servicedenuages.fr/kinto-chiffrer-ses-donnees</link><description>&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;Traduit de l'anglais par &lt;a class="reference external" href="https://twitter.com/Natim"&gt;Rémy Hubscher&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -562,7 +562,7 @@ du navigateur et essayez en lançant la fonction &lt;tt class="docutils literal"
 suis, les commentaires sur cet article ainsi que
 &lt;a class="reference external" href="https://github.com/michielbdejong/kinto-encryption-example/"&gt;les tickets Github sur le dépôt de l'exemple&lt;/a&gt;
 sont les bienvenus ! :)&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 16 Sep 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-09-16:kinto-chiffrer-ses-donnees</guid></item><item><title>Garantir l'intégrité des données via des signatures</title><link>http://www.servicedenuages.fr/donnees-et-signatures</link><description>&lt;p&gt;Dans le cadre du projet &lt;a class="reference external" href="https://wiki.mozilla.org/Firefox/Go_Faster"&gt;Go Faster&lt;/a&gt;, nous souhaitons distribuer des
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 16 Sep 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-09-16:kinto-chiffrer-ses-donnees</guid><category>mozilla</category></item><item><title>Garantir l'intégrité des données via des signatures</title><link>http://www.servicedenuages.fr/donnees-et-signatures</link><description>&lt;p&gt;Dans le cadre du projet &lt;a class="reference external" href="https://wiki.mozilla.org/Firefox/Go_Faster"&gt;Go Faster&lt;/a&gt;, nous souhaitons distribuer des
 mises à jour de parties de &lt;em&gt;Firefox&lt;/em&gt; de manière séparée des mises à jour majeures
 (qui ont lieu toutes les 6 semaines).&lt;/p&gt;
 &lt;p&gt;Les données que nous souhaitons mettre à jour sur les clients sont multiples.
@@ -658,7 +658,7 @@ pourrait ressembler à ceci :&lt;/p&gt;
 &lt;p&gt;Enfin, un schéma pour résumer !&lt;/p&gt;
 &lt;img alt="Schema résumant le processus de signature de la collection." class="align-center" src="http://www.servicedenuages.fr/images/kinto-signing.jpg" style="width: 600px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 26 Aug 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-08-26:donnees-et-signatures</guid></item><item><title>A la recherche d'un assistant en qualité</title><link>http://www.servicedenuages.fr/wanted-quality-assistant</link><description>&lt;p&gt;Derrière ce titre issu d'une traduction tout à fait questionnable de "Quality
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 26 Aug 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-08-26:donnees-et-signatures</guid><category>mozilla</category></item><item><title>A la recherche d'un assistant en qualité</title><link>http://www.servicedenuages.fr/wanted-quality-assistant</link><description>&lt;p&gt;Derrière ce titre issu d'une traduction tout à fait questionnable de "Quality
 Assistant", nous souhaitons vous faire part d'une annonce tout à fait
 remarquable : nous souhaitons recruter une personne pour nous aider à
 tester et valider nos services et autres bouts de code.&lt;/p&gt;
@@ -720,7 +720,7 @@ une mince affaire)&lt;/li&gt;
 &lt;p&gt;Si vous vous reconnaissez dans cette description, contactez nous ! Le meilleur
 moyen étant bien sur IRC, &lt;cite&gt;#storage&lt;/cite&gt; sur le réseau &lt;cite&gt;irc.mozilla.org&lt;/cite&gt;.&lt;/p&gt;
 &lt;p&gt;Pour plus d'information sur le poste, vous pouvez &lt;a class="reference external" href="https://careers.mozilla.org/en-US/position/oWHv1fwT"&gt;consulter la fiche de poste&lt;/a&gt;.&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 25 Aug 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-08-25:wanted-quality-assistant</guid></item><item><title>Les notifications dans Kinto (Préambule)</title><link>http://www.servicedenuages.fr/notifications-kinto-preamble</link><description>&lt;blockquote&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 25 Aug 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-08-25:wanted-quality-assistant</guid><category>mozilla</category></item><item><title>Les notifications dans Kinto (Préambule)</title><link>http://www.servicedenuages.fr/notifications-kinto-preamble</link><description>&lt;blockquote&gt;
 &lt;p&gt;Traduit de l'anglais par &lt;a href="https://twitter.com/Natim"&gt;Rémy Hubscher&lt;/a&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Lors de notre dernière &lt;em&gt;workweek&lt;/em&gt; dans l'adorable ville de
@@ -973,7 +973,7 @@ ce sera l'objet d'une discussion future.&lt;/p&gt;
 &lt;p&gt;Comme toujours, nous souhaitons avoir vos retours.&lt;/p&gt;
 &lt;p&gt;Nous écrivons avant tout ces articles pour échanger avec vous, alors
 n'hésitez surtout pas à poster vos questions, remarques,
-interrogations via les commentaires par exemple.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 13 Aug 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-08-13:notifications-kinto-preamble</guid></item><item><title>Pourquoi avons-nous fait Cliquet ?</title><link>http://www.servicedenuages.fr/pourquoi-cliquet</link><description>&lt;p&gt;&lt;strong&gt;tldr; Cliquet est un toolkit Python pour construire des APIs, qui implémente
+interrogations via les commentaires par exemple.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 13 Aug 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-08-13:notifications-kinto-preamble</guid><category>mozilla</category></item><item><title>Pourquoi avons-nous fait Cliquet ?</title><link>http://www.servicedenuages.fr/pourquoi-cliquet</link><description>&lt;p&gt;&lt;strong&gt;tldr; Cliquet est un toolkit Python pour construire des APIs, qui implémente
 les bonnes pratiques en terme de mise en production et de protocole HTTP.&lt;/strong&gt;&lt;/p&gt;
 &lt;div class="section" id="les-origines"&gt;
 &lt;h2&gt;Les origines&lt;/h2&gt;
@@ -1372,7 +1372,7 @@ et les mécanismes d'extension fournis permettent de l'implémenter sous forme
 d'extension.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 14 Jul 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-07-14:pourquoi-cliquet</guid></item><item><title>Perspectives pour l'été</title><link>http://www.servicedenuages.fr/perspectives-pour-lete</link><description>&lt;p&gt;Mozilla a pour coutume d'organiser régulièrement des semaines de travail où tous les employés
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 14 Jul 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-07-14:pourquoi-cliquet</guid><category>mozilla</category></item><item><title>Perspectives pour l'été</title><link>http://www.servicedenuages.fr/perspectives-pour-lete</link><description>&lt;p&gt;Mozilla a pour coutume d'organiser régulièrement des semaines de travail où tous les employés
 sont réunis physiquement. Pour cette dernière édition, nous avons pu retrouver
 nos collègues du monde entier à &lt;a class="reference external" href="http://www.openstreetmap.org/node/268148288#map=4/50.12/-122.95"&gt;Whistler, en Colombie Britannique au Canada&lt;/a&gt; !&lt;/p&gt;
 &lt;img alt="«All Hands» talk about Lego, by @davidcrob - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-talks.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
@@ -1535,7 +1535,7 @@ construire une solution libre, générique, simple et auto-hébergeable pour le 
 de données sur le Web :)&lt;/p&gt;
 &lt;img alt="Friday Night Party - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-top-roof.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 07 Jul 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-07-07:perspectives-pour-lete</guid></item><item><title>Achievement unlocked</title><link>http://www.servicedenuages.fr/kinto-1.0</link><description>&lt;p&gt;Aujourd'hui, c'est jour de fête : nous venons de publier Cliquet &lt;strong&gt;2.0&lt;/strong&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 07 Jul 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-07-07:perspectives-pour-lete</guid><category>mozilla</category></item><item><title>Achievement unlocked</title><link>http://www.servicedenuages.fr/kinto-1.0</link><description>&lt;p&gt;Aujourd'hui, c'est jour de fête : nous venons de publier Cliquet &lt;strong&gt;2.0&lt;/strong&gt;
 &lt;a class="footnote-reference" href="#id5" id="id1"&gt;[1]&lt;/a&gt; et Kinto &lt;strong&gt;1.0&lt;/strong&gt; &lt;a class="footnote-reference" href="#id6" id="id2"&gt;[2]&lt;/a&gt;.&lt;/p&gt;
 &lt;blockquote class="epigraph"&gt;
 &lt;p&gt;L'aboutissement de 3 années de R&amp;amp;D !&lt;/p&gt;
@@ -1597,7 +1597,7 @@ est &lt;em&gt;pluggable&lt;/em&gt;).&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id4"&gt;[4]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;La feuille de route de Kinto: &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/wiki/roadmap"&gt;https://github.com/mozilla-services/kinto/wiki/roadmap&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 17 Jun 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-06-17:kinto-1.0</guid></item><item><title>Stocker et interroger les permissions avec Kinto</title><link>http://www.servicedenuages.fr/stocker-et-interroger-les-permissions</link><description>&lt;p&gt;&lt;strong&gt;tl;dr: On a maintenant un super système de permission mais comment faire pour stocker et interroger ces permissions de manière efficace ?&lt;/strong&gt;&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 17 Jun 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-06-17:kinto-1.0</guid><category>mozilla</category></item><item><title>Stocker et interroger les permissions avec Kinto</title><link>http://www.servicedenuages.fr/stocker-et-interroger-les-permissions</link><description>&lt;p&gt;&lt;strong&gt;tl;dr: On a maintenant un super système de permission mais comment faire pour stocker et interroger ces permissions de manière efficace ?&lt;/strong&gt;&lt;/p&gt;
 &lt;div class="section" id="la-problematique"&gt;
 &lt;h2&gt;La problématique&lt;/h2&gt;
 &lt;p&gt;Maintenant que nous avons défini un modèle de gestion des permissions
@@ -1883,7 +1883,7 @@ un objet et également de pouvoir récupérer tous les objets d'une
 collection pour un utilisateur si celui-ci n'a pas accès à tous les
 records de la collection, ou toutes les collections du bucket.&lt;/p&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 26 May 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-05-26:stocker-et-interroger-les-permissions</guid></item><item><title>La gestion des permissions</title><link>http://www.servicedenuages.fr/la-gestion-des-permissions</link><description>&lt;p&gt;Dans le cadre de la création d'un service de stockage de données personnelles
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 26 May 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-05-26:stocker-et-interroger-les-permissions</guid><category>mozilla</category></item><item><title>La gestion des permissions</title><link>http://www.servicedenuages.fr/la-gestion-des-permissions</link><description>&lt;p&gt;Dans le cadre de la création d'un service de stockage de données personnelles
 (Kinto), la gestion des permissions est un des gros challenges : qui doit avoir
 accès à quoi, et comment le définir ?&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;tl;dr: Quelques retours sur le vocabulaire des systèmes de permission et sur nos idées pour l'implementation des permissions dans un stockage générique.&lt;/strong&gt;&lt;/p&gt;
@@ -2488,7 +2488,7 @@ donner aux applications qui agissent en son nom.&lt;/p&gt;
 réflexions, n'hésitez pas à nous interrompre pendant qu'il est encore temps !&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 12 May 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-05-12:la-gestion-des-permissions</guid></item><item><title>Retours des APIdays Barcelona</title><link>http://www.servicedenuages.fr/apidays-barcelona-retours</link><description>&lt;p&gt;Cette journée aux APIDays Barcelona a été d'une rare richesse ! Pour commencer, bravo à toute l'équipe et
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 12 May 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-05-12:la-gestion-des-permissions</guid><category>mozilla</category></item><item><title>Retours des APIdays Barcelona</title><link>http://www.servicedenuages.fr/apidays-barcelona-retours</link><description>&lt;p&gt;Cette journée aux APIDays Barcelona a été d'une rare richesse ! Pour commencer, bravo à toute l'équipe et
 tous les participants !&lt;/p&gt;
 &lt;div class="figure align-center" style="width: 1024px; height: auto; max-width: 100%;"&gt;
 &lt;img alt="@thetonyblank — https://twitter.com/thetonyblank/status/595860394561921025" src="http://www.servicedenuages.fr/images/apidays-room.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
@@ -2690,7 +2690,7 @@ de cet évènement fédérateur.&lt;/p&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Mon, 11 May 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-05-11:apidays-barcelona-retours</guid></item><item><title>Utiliser les continuation tokens pour sa pagination</title><link>http://www.servicedenuages.fr/pagination-continuation-token</link><description>&lt;p&gt;Si vous êtes là, c'est que quelqu'un a dû vous le dire : Paginer sur des
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Mon, 11 May 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-05-11:apidays-barcelona-retours</guid><category>mozilla</category></item><item><title>Utiliser les continuation tokens pour sa pagination</title><link>http://www.servicedenuages.fr/pagination-continuation-token</link><description>&lt;p&gt;Si vous êtes là, c'est que quelqu'un a dû vous le dire : Paginer sur des
 grosses tables avec LIMIT et OFFSET ne monte pas en charge : plus
 on avance dans les pages, plus c'est lent.&lt;/p&gt;
 &lt;p&gt;C'est dommage parce que c'était facile à appréhender ! La limite donne
@@ -3100,7 +3100,7 @@ sur des champs prédéfinis ?&lt;/p&gt;
 &lt;p&gt;Si votre condition de pagination est fixe, vous allez pouvoir créer
 les index nécessaires et optimiser au maximum vos requêtes de pagination.&lt;/p&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Mon, 04 May 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-05-04:pagination-continuation-token</guid></item><item><title>Eco-système et stockage générique</title><link>http://www.servicedenuages.fr/stockage-generique-ecosysteme</link><description>&lt;p&gt;&lt;strong&gt;tl;dr Nous devons construire un service de suivi de paiements, et nous
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Mon, 04 May 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-05-04:pagination-continuation-token</guid><category>mozilla</category></item><item><title>Eco-système et stockage générique</title><link>http://www.servicedenuages.fr/stockage-generique-ecosysteme</link><description>&lt;p&gt;&lt;strong&gt;tl;dr Nous devons construire un service de suivi de paiements, et nous
 hésitons à continuer à nous entêter avec notre propre solution de
 stockage/synchronisation.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Comme nous l'écrivions &lt;a class="reference external" href="http://www.servicedenuages.fr/service-de-nuages"&gt;dans l'article précédent&lt;/a&gt;, nous souhaitons construire une
@@ -3394,7 +3394,7 @@ permet de partager publiquement des ressources de son &lt;em&gt;remote Storage&l
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 30 Apr 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-04-30:stockage-generique-ecosysteme</guid></item><item><title>Service de nuages !</title><link>http://www.servicedenuages.fr/service-de-nuages</link><description>&lt;p&gt;Pas mal de changements depuis le début de l'année pour l'équipe
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 30 Apr 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-04-30:stockage-generique-ecosysteme</guid><category>mozilla</category></item><item><title>Service de nuages !</title><link>http://www.servicedenuages.fr/service-de-nuages</link><description>&lt;p&gt;Pas mal de changements depuis le début de l'année pour l'équipe
 «cloud-services» francophone!&lt;/p&gt;
 &lt;p&gt;Tout d'abord, nouvelle importante, l'équipe s'étoffe avec des profils assez
 complémentaires: &lt;a class="reference external" href="https://nicolas.perriault.net/"&gt;n1k0&lt;/a&gt; et &lt;a class="reference external" href="http://mathieu-leplatre.info"&gt;Mathieu&lt;/a&gt; sont venus prêter main forte à &lt;a class="reference external" href="http://ziade.org/"&gt;Tarek&lt;/a&gt;, &lt;a class="reference external" href="http://natim.ionyse.com"&gt;Rémy&lt;/a&gt; et &lt;a class="reference external" href="http://notmyidea.org"&gt;Alexis&lt;/a&gt;.&lt;/p&gt;
@@ -3463,7 +3463,7 @@ rassemblées dans le protocole (ou &lt;em&gt;Cliquet&lt;/em&gt;), certains point
 et de vous présenter notre vision via des exemples et tutoriaux.&lt;/p&gt;
 &lt;p&gt;À bientôt, donc !&lt;/p&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 16 Apr 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-04-16:service-de-nuages</guid></item><item><title>Le printemps</title><link>http://www.servicedenuages.fr/printemps</link><description>&lt;p&gt;C'est le printemps et n'en déplaise à certains, il est temps de faire
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 16 Apr 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-04-16:service-de-nuages</guid><category>mozilla</category></item><item><title>Le printemps</title><link>http://www.servicedenuages.fr/printemps</link><description>&lt;p&gt;C'est le printemps et n'en déplaise à certains, il est temps de faire
 un peu de ménage.&lt;/p&gt;
 &lt;p&gt;Voilà quelques temps que nous accumulons les expériences et que nous
 ne les partagions plus tellement par écrit.&lt;/p&gt;
@@ -3476,4 +3476,4 @@ esprits et que nous vous proposons un ensemble d'articles en français
 sur ce que nous faisons dans notre petite équipe du Service de Nuages
 de Mozilla.&lt;/p&gt;
 &lt;img alt="Logo du service des nuages" src="http://www.servicedenuages.fr/images/service_de_nuages.png" style="width: 2268px; height: auto; max-width: 100%;"/&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 15 Apr 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-04-15:printemps</guid></item></channel></rss>
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 15 Apr 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-04-15:printemps</guid><category>mozilla</category></item></channel></rss>

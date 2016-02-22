@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>How to load test a OAuth-protected HTTP API? (Part 2) // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Published</h5>
+                <p title="~857 words">~4 minutes reading 🕑</p>
+                <p>Tue, 05 January 2016</p>
+                <a href="/en/">&larr; Back to articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>How to load test a OAuth-protected HTTP API? (Part 2)</h1>
+                        <p class="post-meta">                                <a class="post-category" href="http://www.servicedenuages.fr/">mozilla</a>
+                        </p>
+                </header>
+            </section>
+            <p>This is part 2 of a series on loadtesting OAuth APIs.</p>
+<div class="section" id="introduction">
+<h2>Introduction</h2>
+<p><a class="reference external" href="/en/load-testing-a-http-api-which-uses-oauth-for-authentication">In the previous article</a>
+we have seen that:</p>
+<ul class="simple">
+<li>We should create the OAuth Bearer Token before the load test start.</li>
+<li>We can use environment variables to specify the token to use in the load test.</li>
+</ul>
+<p>In this article we will have a closer look at how to generate tokens
+for Firefox Accounts and pass them to the load test.</p>
+</div>
+<div class="section" id="pyfxa-the-python-firefox-accounts-client">
+<h2>PyFxA: The Python Firefox Accounts client</h2>
+<p><a class="reference external" href="https://github.com/mozilla/PyFxA">PyFxA</a> is a Python library
+providing helpers to interact with the Firefox Accounts ecosystem.</p>
+<div class="section" id="using-pyfxa-with-httpie">
+<h3>Using PyFxA with httpie</h3>
+<p>To ease the use of Firefox Accounts Bearer Tokens, we have created, a
+while ago, an
+<a class="reference external" href="https://github.com/mozilla/PyFxA/blob/master/fxa/plugins/requests.py#L115-L158">authentication policy</a>
+for the <a class="reference external" href="http://docs.python-requests.org/en/latest/">requests library</a>, which
+can also be used with the <a class="reference external" href="http://httpie.org">httpie</a> client.</p>
+<p>With this plugin, we can provide our user credentials and a valid
+Bearer Token will be built for our request.</p>
+<p>Here is what it looks like with HTTPie.</p>
+<div class="highlight"><pre>http https://profile.accounts.firefox.com/v1/profile <span class="se">\</span>
+    --auth-type fxa-bearer <span class="se">\</span>
+    --auth <span class="s2">"email@domain.tld:password"</span>
+</pre></div>
+</div>
+<div class="section" id="using-fxa-client-to-generate-bearer-tokens">
+<h3>Using fxa-client to generate Bearer Tokens</h3>
+<p>The code we wrote at the time was quite similar to what we were trying
+to do for the load test setup: generating a Bearer Token for a
+given user.</p>
+<p>We ended-up building a CLI tool called <tt class="docutils literal"><span class="pre">fxa-client</span></tt> that is able to
+generate a BASH file that exports some environment variables:</p>
+<div class="highlight"><pre>USAGE: fxa-client <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--bearer<span class="o">]</span> <span class="o">[</span>--create-user<span class="o">]</span> <span class="o">[</span>--auth AUTH<span class="o">]</span>
+                  <span class="o">[</span>--out OUTPUT_FILE<span class="o">]</span> <span class="o">[</span>--verbose<span class="o">]</span> <span class="o">[</span>--user-salt FXA_USER_SALT<span class="o">]</span>
+                  <span class="o">[</span>--env <span class="o">{</span>stable,stage,production<span class="o">}]</span>
+                  <span class="o">[</span>--user-email-prefix PREFIX<span class="o">]</span> <span class="o">[</span>--account-server ACCOUNT_SERVER_URL<span class="o">]</span>
+                  <span class="o">[</span>--oauth-server OAUTH_SERVER_URL<span class="o">]</span> <span class="o">[</span>--client-id CLIENT_ID<span class="o">]</span>
+                  <span class="o">[</span>--scopes SCOPES<span class="o">]</span>
+</pre></div>
+<p>With this client, instead of building a Bearer Token for the request,
+we can just ask the <tt class="docutils literal"><span class="pre">fxa-client</span></tt> to build one for our load test:</p>
+<div class="highlight"><pre>fxa-client --auth email@domain.tld --bearer --scopes <span class="s2">"profile"</span>
+
+Please enter a password <span class="k">for</span> email@domain.tld:
+<span class="c"># ---- BEARER TOKEN INFO ----</span>
+<span class="c"># User: email@domain.tld</span>
+<span class="c"># Scopes: profile</span>
+<span class="c"># Account: https://api-accounts.stage.mozaws.net/v1</span>
+<span class="c"># Oauth: https://oauth.stage.mozaws.net/v1</span>
+<span class="c"># Client ID: 5882386c6d801776</span>
+<span class="c"># ---------------------------</span>
+<span class="nb">export </span><span class="nv">OAUTH_BEARER_TOKEN</span><span class="o">=</span><span class="s2">"b1d4babc01502fa8d9fc0139757168bf5908f33abc66f46253d4c69468e39373"</span>
+</pre></div>
+<p>Then we can use this Bearer Token for our request:</p>
+<div class="highlight"><pre>http https://profile.stage.mozaws.net/v1/profile <span class="se">\</span>
+    Authorization:<span class="s2">"Bearer b1d4babc01502fa8d9fc0139757168bf5908f33abc66f46253d4c69468e39373"</span>
+</pre></div>
+</div>
+<div class="section" id="using-fxa-client-to-create-new-test-accounts">
+<h3>Using fxa-client to create new test accounts</h3>
+<p>We can also create a random user (on the stage environment only) and
+generate a Bearer Token for it:</p>
+<div class="highlight"><pre>fxa-client --create-user --bearer --user-email-prefix my-app
+
+<span class="c"># ---- BEARER TOKEN INFO ----</span>
+<span class="c"># User: my-app-6318a65dde1efc2f4c3f7b4e6cb33188@restmail.net</span>
+<span class="c"># Scopes: profile</span>
+<span class="c"># Account: https://api-accounts.stage.mozaws.net/v1</span>
+<span class="c"># Oauth: https://oauth.stage.mozaws.net/v1</span>
+<span class="c"># Client ID: 5882386c6d801776</span>
+<span class="c"># ---------------------------</span>
+<span class="nb">export </span><span class="nv">OAUTH_BEARER_TOKEN</span><span class="o">=</span><span class="s2">"90abc87ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc"</span>
+</pre></div>
+<p>To avoid creating extraneous user accounts, it is possible to specify
+a user salt (as a base64 string) that will always generate the same
+user credentials and recreate the account if needed:</p>
+<div class="highlight"><pre>fxa-client --create-user --bearer --user-email-prefix my-app --user-salt <span class="nv">MySalt</span><span class="o">==</span>
+</pre></div>
+</div>
+<div class="section" id="using-fxa-client-to-work-with-browserid-assertions">
+<h3>Using fxa-client to work with BrowserID assertions</h3>
+<p>We are currently relying on OAuth2 Bearer Tokens for our new services.</p>
+<p>However, some of the old services (Firefox Sync, Firefox Hello) still
+rely on BrowserID assertions for authentication.</p>
+<p>Hopefully <tt class="docutils literal"><span class="pre">fxa-client</span></tt> is able to generate BrowserID assertions too.</p>
+<p>In that case <tt class="docutils literal"><span class="pre">fxa-client</span></tt> provides few specific attributes:</p>
+<div class="highlight"><pre>optional arguments:
+  --browserid, --bid    Generate a BrowserID assertion
+  --audience AUDIENCE   Firefox BrowserID assertion audience.
+  --duration DURATION   Firefox BrowserID assertion duration.
+</pre></div>
+<p>The script works exactly in the same way than the one for Bearer
+Tokens, except it generates a BrowserID assertion instead:</p>
+<div class="highlight"><pre>fxa-client --create-user --browserid --user-email-prefix my-app <span class="se">\</span>
+    --user-salt <span class="nv">MySalt</span><span class="o">==</span> <span class="se">\</span>
+    --audience https://loop.stage.mozaws.net
+
+<span class="c"># ---- BROWSER ID ASSERTION INFO ----</span>
+<span class="c"># User: my-app-b82d4afaf57cb856ccc04a58a07ce80f@restmail.net</span>
+<span class="c"># Audience: https://loop.stage.mozaws.net</span>
+<span class="c"># Account: https://api-accounts.stage.mozaws.net/v1</span>
+<span class="c"># ------------------------------------</span>
+<span class="nb">export </span><span class="nv">FXA_BROWSERID_ASSERTION</span><span class="o">=</span><span class="s2">"eyJhbGciOiJSUzI1NiJ9...hIQ9vrkqA"</span>
+<span class="nb">export </span><span class="nv">FXA_CLIENT_STATE</span><span class="o">=</span><span class="s2">"828aef3bc68ac0bde10f3d4b93303088"</span>
+</pre></div>
+<p>And then the assertion can be used in the Authorization header of the request:</p>
+<div class="highlight"><pre>http POST https://loop.stage.mozaws.net/v0/registration <span class="se">\</span>
+    Authorization:<span class="s2">"BrowserID eyJhbGciOiJSUzI1NiJ9...hIQ9vrkqA"</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="using-fxa-client-to-configure-a-loadtest">
+<h2>Using fxa-client to configure a loadtest</h2>
+<p>Now that we have a quite simple way to generate Bearer Tokens, how can
+we plug that with our load tests?</p>
+<p>I could not find a better way than creating a bash file that exports
+the environment variables and then sourcing it in the shell that will
+run the loadtest.</p>
+<p>Something like:</p>
+<div class="highlight"><pre>fxa-client --create-user --bearer --user-salt <span class="nv">MySalt</span><span class="o">==</span> --out loadtest-fxa-config.sh
+<span class="nb">source </span>loadtest-fxa-config.sh
+docker run -e <span class="nv">OAUTH_BEARER_TOKEN</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">OAUTH_BEARER_TOKEN</span><span class="si">}</span><span class="s2">"</span> loadtest
+</pre></div>
+<p>After sourcing the <tt class="docutils literal"><span class="pre">loadtest-fxa-config.sh</span></tt> file, the env variables
+are exposed. Any program (regardless of the language) can read them if
+needed.</p>
+</div>
+<div class="section" id="how-to-install-fxa-client">
+<h2>How to install fxa-client?</h2>
+<p><tt class="docutils literal"><span class="pre">fxa-client</span></tt> have been released in the last release of PyFxA 0.1.0.</p>
+<p>So just install the <a class="reference external" href="https://pypi.python.org/pypi/PyFxA">PyFxA python package</a>
+using pip:</p>
+<div class="highlight"><pre>pip install -U PyFxA
+</pre></div>
+<div class="section" id="management-firefox-accounts-environments">
+<h3>Management Firefox Accounts environments</h3>
+<p>If we want to generate tokens for other Firefox Accounts environment,
+we would need to provide <tt class="docutils literal"><span class="pre">--account-server</span></tt> and <tt class="docutils literal"><span class="pre">--oauth-server</span></tt>
+which default to the stage environment.</p>
+<p>We can find <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Firefox_Accounts/Introduction#Firefox_Accounts_deployments">all the available environment here</a>.</p>
+<p>However to ease the switch from one to the other we added a <tt class="docutils literal"><span class="pre">--env</span></tt>
+parameter that let you write:</p>
+<div class="highlight"><pre>fxa-client --bearer --auth email@domain.tld --env production
+</pre></div>
+<p>Rather than:</p>
+<div class="highlight"><pre>fxa-client --bearer --auth email@domain.tld <span class="se">\</span>
+    --account-server https://api.accounts.firefox.com/v1 <span class="se">\</span>
+    --oauth-server https://oauth.accounts.firefox.com/v1
+</pre></div>
+</div>
+</div>
+<div class="section" id="what-s-next">
+<h2>What's next?</h2>
+<div class="section" id="multiple-accounts-loadtest">
+<h3>Multiple accounts loadtest</h3>
+<p>We can already run the script twice to generate a Bearer Token per
+user, but it would be nice to be able to do so directly with
+<tt class="docutils literal"><span class="pre">fxa-client</span></tt>.</p>
+<p>I was thinking of implementing the following output:</p>
+<div class="highlight"><pre>fxa-client --create-user --bearer --user-salt <span class="nv">MySalt</span><span class="o">==</span> -n 2
+
+<span class="c"># ---- BEARER TOKEN INFO ----</span>
+<span class="c"># User1: my-app-1318a65dde1efc2f4c3f7b4e6cb33188@restmail.net</span>
+<span class="c"># User2: my-app-2318a65dde1efc2f4c3f7b4e6cb33188@restmail.net</span>
+<span class="c"># Scopes: profile</span>
+<span class="c"># Account: https://api-accounts.stage.mozaws.net/v1</span>
+<span class="c"># Oauth: https://oauth.stage.mozaws.net/v1</span>
+<span class="c"># Client ID: 5882386c6d801776</span>
+<span class="c"># ---------------------------</span>
+<span class="nb">export </span><span class="nv">OAUTH_BEARER_TOKEN</span><span class="o">=</span><span class="s2">"90abc87ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc,abc9087ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc"</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion</h2>
+<p>That's about it. I hope that after reading this article, you are not
+afraid anymore of load testing Firefox Accounts OAuth-based services!</p>
+<p>Take-aways:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">fxa-client</span></tt> let us generate a bash script with our user credentials.</li>
+<li>This bash script can be loaded before running our load test to expose
+user credentials to a load test script.</li>
+</ul>
+<p>Do not hesitate to reach us if you have any questions or suggestions.</p>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.notmyidea.org/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>
