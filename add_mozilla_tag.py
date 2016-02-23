@@ -1,11 +1,11 @@
 from pelican import signals
+from pelican.contents import Tag
 
 def add_category(generator):
+    tag = Tag('mozilla', generator.settings)
     for article in generator.articles:
-        if hasattr(article, 'tags'):
-            article.tags.append('mozilla')
-        else:
-            setattr(article, 'tags', ['mozilla'])
+        if not hasattr(article, 'tags'):
+            setattr(article, 'tags', [tag,])
 
 def register():
-    signals.article_generator_finalized.connect(add_category)
+    signals.article_generator_pretaxonomy.connect(add_category)
