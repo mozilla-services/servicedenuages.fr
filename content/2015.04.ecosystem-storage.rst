@@ -63,7 +63,7 @@ to build a custom server.
     :alt: Remote Storage widget
 
 The `remoteStorage.js client <https://github.com/remotestorage/remotestorage.js/>`_
-makes possible the integration of this solution in Web apps. This client is in charge of the "local store",
+allows us to integrate this solution into Web apps. This client is in charge of the "local store",
 caching, syncing and gives users a widget so that they can choose the server
 which will receive the data (using Webfinger).
 
