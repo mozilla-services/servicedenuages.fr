@@ -328,7 +328,7 @@ If we based our service on Cliquet, like we did with `Kinto
 completely reusable.
 
 As said before, if we go with another totally new stack, we will have to start
-again from scratch, including lapping, profiling, optimizing, all of which has
+again from scratch, including productionalizing, profiling, optimizing, all of which has
 already been done during the first quarter of this year for Reading List.
 
 
