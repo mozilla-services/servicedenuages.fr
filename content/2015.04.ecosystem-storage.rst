@@ -322,7 +322,7 @@ We will also have to guarantee a minimum 5 years lifetime regarding the data. Wi
 This wouldn't be the case with a LevelDown adapter that handles revisions split
 in a key-value scheme.
 
-If we based our service on Cliquet, like we did with `Kinto
+If we base our service on Cliquet, like we did with `Kinto
 <http://kinto.readthedocs.org>`_, all the automation work of deploying
 (*monitoring, RPM builds, Puppet...*) that was done for *Reading List* will be
 completely reusable.
