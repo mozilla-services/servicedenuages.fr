@@ -20,7 +20,7 @@ Ecosystem & generic storage
 to go on with our own solution for storage and synchronization.**
 
 As we wrote in `the previous article (FR) <{filename}/2015.04.service-de-nuages.rst>`_,
-we want to build a solution for generic data storage. We reboot `Daybed <http://daybed.readthedocs.org>`_
+we want to build a solution for generic data storage. We're rebooting `Daybed <http://daybed.readthedocs.org>`_
 at Mozilla!
 
 Our goal is simple: allow developers, whether they are from Mozilla or from the whole world,
