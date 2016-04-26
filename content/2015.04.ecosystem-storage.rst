@@ -253,10 +253,10 @@ Tradeoffs
 Of course, we don't intend to compete with *CouchDB* and are making some
 concessions:
 
-* Per default, record collections are isolated by user;
+* By default, record collections are isolated by user;
 * There is no history of revisions;
 * There is no diff between each revision;
-* Per default, there is no automatic conflict resolution;
+* By default, there is no automatic conflict resolution;
 * There is no stream synchronization.
 
 If we are not mistaken, these tradeoffs exclude the possibility of
