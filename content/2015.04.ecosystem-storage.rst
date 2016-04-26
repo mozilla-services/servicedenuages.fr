@@ -225,9 +225,9 @@ This doesn't seem appropriate: most of the time, there are only few
 payments/subscriptions for a given user. Should we have hundreds of thousands of
 databases, each of which will have less than 5 records?
 
-Moreover, the server side of "Payment" is implemented with Python, using a
+Moreover, the server side of "Payment" is implemented with Python. Using a
 JavaScript wrapper (as `python-pouchdb
-<https://pythonhosted.org/Python-PouchDB/>`_) is not something we thrive for.
+<https://pythonhosted.org/Python-PouchDB/>`_) would not thrill us.
 
 
 A new ecosystem?
