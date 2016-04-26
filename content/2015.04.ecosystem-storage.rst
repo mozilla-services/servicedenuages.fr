@@ -124,8 +124,8 @@ records locally and synchronize them to a distant database.
 
 The project is seeing some traction and benefits from a lot of contributors. The
 ecosystem is rich and adoption by projects `such as Hoodie
-<https://github.com/hoodiehq/wip-hoodie-store-on-pouchdb>`_ confirms the tool
-pertinence for frontend developers.
+<https://github.com/hoodiehq/wip-hoodie-store-on-pouchdb>`_ confirms the tool's
+relevance for frontend developers.
 
 *PouchDB* handles a local "store" whose persistence
 `is built on top <http://pouchdb.com/2014/07/25/pouchdb-levels-up.html>`_
