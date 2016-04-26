@@ -36,8 +36,8 @@ Here are the aspects of the architecture that seem essential to us:
 * Authentication must be pluggable or decentralized (OAuth2, FxA, Persona);
 * The server should be able to validate records;
 * An authorization/permissions system must allow collection protection or
-  fine-grained records sharing;
-* Conflicts resolution could happen server-side;
+  fine-grained record sharing;
+* Conflict resolution could happen server-side;
 * Clients should be "*offline-first*";
 * Clients should be able to easily merge/reconciliate data;
 * Clients should be usable in the browser *and* server-side;
@@ -253,7 +253,7 @@ Tradeoffs
 Of course, we don't intend to compete with *CouchDB* and are making some
 concessions:
 
-* Per default, records collections are isolated by user;
+* Per default, record collections are isolated by user;
 * There is no history of revisions;
 * There is no diff between each revision;
 * Per default, there is no automatic conflict resolution;
