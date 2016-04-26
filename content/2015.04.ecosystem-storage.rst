@@ -85,7 +85,7 @@ At first glance, the specification seemed to fit with what we want to do:
 
 However, regarding data manipulation, there are several differences with what we want to do:
 
-* The API seems "files" oriented (folders and documents) and not "data" (collections and records);
+* The API seems oriented around "files" (folders and documents) and not "data" (collections and records);
 * There is no record validation following some schema (though `some implementations
   <https://remotestorage.io/doc/code/files/baseclient/types-js.html>`_ of the protocol are actually doing this);
 * There is no option to sort/filter records with regards to their attributes;
