@@ -122,7 +122,7 @@ records locally and synchronize them to a distant database.
     db.replicate.to('http://example.com/mydb');
 
 
-The project sees some traction and benefits from a lot of contributors. The
+The project is seeing some traction and benefits from a lot of contributors. The
 ecosystem is rich and adoption by projects `such as Hoodie
 <https://github.com/hoodiehq/wip-hoodie-store-on-pouchdb>`_ confirms the tool
 pertinence for frontend developers.
