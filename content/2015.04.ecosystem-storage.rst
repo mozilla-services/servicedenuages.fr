@@ -77,7 +77,7 @@ like *Google Drive* or *Dropbox*.
 At first glance, the specification seemed to fit with what we want to do:
 
 * The philosophy of the protocol is sound;
-* The ecosystem is well-thought;
+* The ecosystem is well thought out;
 * The political vision fits: give back the control of the data to the users
   (see `unhosted <http://unhosted.org/>`_);
 * Technical choices are compatible with what we've already started (CORS, REST, OAuth2);
