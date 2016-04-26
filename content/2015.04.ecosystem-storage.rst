@@ -39,9 +39,9 @@ Here are the aspects of the architecture that seem essential to us:
   fine-grained record sharing;
 * Conflict resolution could happen server-side;
 * Clients should be "*offline-first*";
-* Clients should be able to easily merge/reconciliate data;
+* Clients should be able to easily merge/reconcile data;
 * Clients should be usable in the browser *and* server-side;
-* Every component should be simple and easily substituable.
+* Every component should be simple and easily substitutable.
 
 The first question we were asked was: "*Why don't you rather use PouchDB or Remote Storage?*"
 
@@ -55,7 +55,7 @@ is based on existing and proven standards: Webfinger, OAuth2, CORS and REST.
 The API is pretty simple and `prestigious projects are using it
 <http://blog.cozycloud.cc/news/2014/08/12/when-unhosted-meets-cozy-cloud/>`_.
 There exist several `server implementations <https://github.com/jcoglan/restore>`_
-and there is even a `Node squeleton <https://www.npmjs.com/package/remotestorage-server>`_
+and there is even a `Node skeleton <https://www.npmjs.com/package/remotestorage-server>`_
 to build a custom server.
 
 .. image:: {filename}/images/remotestorage-widget.png
@@ -152,7 +152,7 @@ the server will end up being synchronised with the client. It is possible to fil
 synchronized collections but `its purpose is not to secure data access
 <http://pouchdb.com/2015/04/05/filtered-replication.html>`_.
 
-In order to do so, it is recommanded to create `a database per user
+In order to do so, it is recommended to create `a database per user
 <https://github.com/nolanlawson/pouchdb-authentication#some-people-can-read-some-docs-some-people-can-write-those-same-docs>`_.
 
 This isn't necessarily a problem since CouchDB `can handle hundreds of thousands
@@ -176,9 +176,9 @@ The requirements are simple:
 * The "Payment" application tracks payments and subscriptions of a user
   for a given application;
 * The "Data" application requests the service to check if a user paid or
-  has suscribed;
+  has subscribed;
 * The user requests the service to get a list of all payments/subscriptions
-  reltated to her.
+  related to her.
 
 Only the "Payment" application should have the right to create/modify/delete
 records. The two others can only have read-only access to these records.
