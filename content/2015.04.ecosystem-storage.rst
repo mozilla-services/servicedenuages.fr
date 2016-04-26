@@ -74,7 +74,7 @@ in either a *Remote Storage* server, an *ownCloud* server, or even on the bad gu
 like *Google Drive* or *Dropbox*.
 
 
-At first sight, the specification seemed to fit with what we want to do:
+At first glance, the specification seemed to fit with what we want to do:
 
 * The philosophy of the protocol is sound;
 * The ecosystem is well-thought;
