@@ -127,7 +127,7 @@ ecosystem is rich and adoption by projects `such as Hoodie
 <https://github.com/hoodiehq/wip-hoodie-store-on-pouchdb>`_ confirms the tool
 pertinence for frontend developers.
 
-*PouchDB* handles a local "store" which persistence is abstract and
+*PouchDB* handles a local "store" whose persistence
 `is built on top <http://pouchdb.com/2014/07/25/pouchdb-levels-up.html>`_
 of the `LevelDown API <https://github.com/level/levelup#relationship-to-leveldown>`_
 to persist data in `any backend <https://github.com/Level/levelup/wiki/Modules#storage-back-ends>`_.
