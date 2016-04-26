@@ -175,9 +175,9 @@ The requirements are simple:
 
 * The "Payment" application tracks payments and subscriptions of a user
   for a given application;
-* The "Data" application requests the service to check if a user paid or
+* The "Data" application consults the service to check if a user paid or
   has subscribed;
-* The user requests the service to get a list of all payments/subscriptions
+* The user consults the service to get a list of all payments/subscriptions
   related to her.
 
 Only the "Payment" application should have the right to create/modify/delete
