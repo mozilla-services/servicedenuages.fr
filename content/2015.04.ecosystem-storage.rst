@@ -286,7 +286,7 @@ And we are complying with `the specs we drew at the beginning of the article
 Philosophical arguments
 '''''''''''''''''''''''
 
-It's `illusionary to think that we can achieve everything with a single tool
+It's `unrealistic to think that we can achieve everything with a single tool
 <http://en.wikipedia.org/wiki/Law_of_the_instrument>`_.
 
 We have other use cases that seem to fit with *PouchDB* (*no concept of
