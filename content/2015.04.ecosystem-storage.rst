@@ -43,7 +43,7 @@ Here are the aspects of the architecture that seem essential to us:
 * Clients should be usable in the browser *and* server-side;
 * Every component should be simple and easily substitutable.
 
-The first question we were asked was: "*Why don't you rather use PouchDB or Remote Storage?*"
+The first question we were asked was: "*Why aren't you just using PouchDB or Remote Storage?*"
 
 
 Remote Storage
