@@ -313,7 +313,7 @@ Practical arguments
 '''''''''''''''''''
 
 Before being willingly to deploy a *CouchDB* solution, Mozilla *ops* will ask us
-to precisely prove that it's not currently doable with experienced stacks (e.g.
+to precisely prove that it's not doable with stacks we already have running internally (e.g.
 MySQL, Redis, PostgreSQL).
 
 We will also have to guarantee a minimum 5 years lifetime regarding the data. With
