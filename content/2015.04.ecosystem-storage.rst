@@ -180,7 +180,7 @@ The requirements are simple:
 * The user requests the service to get a list of all payments/subscriptions
   reltated to her.
 
-The "Payment" application only should have the right to create/modify/delete
+Only the "Payment" application should have the right to create/modify/delete
 records. The two others can only have read-only access to these records.
 
 A given application cannot access to some other application payments and a given user cannot access to some other user's payments.
