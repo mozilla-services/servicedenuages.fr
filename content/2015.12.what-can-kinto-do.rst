@@ -14,7 +14,7 @@ What can Kinto do for me?
 Kinto — the project we are working on since quite some time now — can do a bunch
 of different things for you and be useful in many different situations.
 
-However we found out that it is really hard to understand at a glance what it
+However, we found out that it is really hard to understand at a glance what it
 can do, and where it could help you build your projects in a better way.
 
 Here is an attempt to fix this.
@@ -23,14 +23,125 @@ Here is an attempt to fix this.
 Kinto is not a framework
 ########################
 
-First and foremost, Kinto is not a framework. Kinto is meant to replace the
+First and foremost, Kinto is not a framework. It doesn't try to provide a way
+to structure your projects for you. It is meant to replace the
 storage layer of your application, or more accurately, the synchronisation
 abilities of your applications.
 
-Said differentely, you store your data locally for your application and Kinto
-will make this data available to different devices. That means that you can use
-Kinto with React, Angular, JQuery (in the JavaScript world) or any framework in
-any language. Kinto abstracts the synchronisation of the application's data.
+Said differentely, you store your data locally for your application and **Kinto
+will make this data available to different devices (or users)**.
+
+That means that you can use Kinto with React, Angular, JQuery (in the
+JavaScript world) or any framework (or no framework at all) in any language.
+**Kinto abstracts away the synchronisation of the application's data**.
+
+Hmm, and what about my use-case?
+################################
+
+The idea here is mainly to show you what is already possible with very little
+efforts using the tooling we have put together. You can leverage the
+`Kinto.js <https://kintojs.readthedocs.org>`_ client, as it allows you to work
+with Kinto really easily, but ultimately you don't need it. It's just here to
+make it really easy for you to integrate with the HTTP APIs exposed by Kinto.
+
+Synchronise your data
+=====================
+
+If there is one thing to take way with you, that would be this: if you need to 
+**synchronise** your data between different devices, there are chances that
+Kinto is a good fit.
+
+That's useful if you want to synchronise data between devices, and also between
+users. You have the data on one location, and you want it in a different one.
+
+With Kinto.js, this is as simple as calling `.sync()` on the Kinto instance.
+
+.. code-block:: js
+
+   const tasks = new Kinto({
+       remote: "https://kinto.dev.mozaws.net/v1"
+   }).collection("tasks");
+
+   XXX
+
+
+Storage
+=======
+
+Okay, I lied. You are not only syncing your data between different locations,
+you're actually storing it somewhere, on a location of your choice.
+
+You can access this data later on when you need it. The cool thing here is that
+you can access this data using the HTTP API (that speaks JSON).
+
+We tried very hard to make the protocol as easy as possible, and are pretty
+happy with our current design, but if you have ideas on how to make it evolve,
+`we would be really happy to hear them
+<https://kiwiirc.com/client/irc.freenode.net/?#kinto>`_!
+
+Here's an example of how to retrieve your data using the `HTTPie
+<https://github.com/jkbrzt/httpie>`_ client.
+
+.. code-block:: bash
+
+    $ http get https://kinto.dev.mozaws.net/v1/buckets/default/collections/kinto_demo_calendar/records --auth="null:notsecret"
+
+    {
+        "data": [
+            {
+                "end": "2016-01-07T09:30:00", 
+                "id": "1f5d1390-2647-442d-8bc4-5ecc6a4f8beb", 
+                "last_modified": 1451997254315, 
+                "start": "2016-01-07T09:00:00", 
+                "title": "Visite maison"
+            }, 
+            {
+                "end": "2016-01-06", 
+                "id": "0dadb484-259b-482d-8cb8-0e94d743d1c6", 
+                "last_modified": 1451997234471, 
+                "start": "2016-01-05", 
+                "title": "RDV Osthéo"
+            }
+        ]
+    }
+
+
+Permissions
+===========
+
+Sometimes you want your data to remain yours, and some other times you want to
+share it with friends. It really depends what the data is.
+
+One of the reasons we built Kinto was to control who has access to what on a
+per record level. Without getting too much in the details, the data stored in
+Kinto is organised into three concepts: Buckets contains collections wich in
+turn contain records.
+
+It's then possible to apply permissions to each container, and all children
+will be impacted.
+
+.. image:: http://kinto.readthedocs.org/en/latest/_images/concepts-permissions.png
+
+You can `read more on our documentation
+<http://kinto.readthedocs.org/en/latest/concepts.html>`_ about this if you want.
+
+
+Real-time Notifications
+=======================
+
+What happens when the data evolves? Let's say you are on one device doing
+geo-mapping and someone else is doing the same thing on their own device. You
+want to have these two devices in sync, and as such they need to know when new
+data is issued by any other device.
+
+That's when real-time notifications are useful. Kinto itself doesn't decide for
+you which notification system you should use, but it can integrate easily with
+any notification system.
+
+We tried to ease your life by providing some solutions to `integrate
+with pusher <https://github.com/leplatrem/cliquet-pusher>`_ and `with WebPush
+<https://github.com/Kinto/kinto-webpush>`_, but you're free to use your own
+notification system.
 
 Some examples
 #############
@@ -68,53 +179,6 @@ Here are some links if you want to try out the demos yourself:
   slideshow in realtime and add the new content as soon as it arrives.
 
 
-Hmm, and what about my use-case?
-################################
-
-The idea here is mainly to show you what is already possible with very little
-efforts using the tooling we have put together. These examples are all relying
-on the `Kinto.js <https://kintojs.readthedocs.org>`_ client but ultimately you don't
-need it. It's just here to make it really easy for you to integrate with the
-HTTP APIs exposed by Kinto.
-
-So, what can Kinto do for you?
-
-
-Synchronise
-===========
-
-If there was one only thing to choose, that would be this one. Kinto can
-**synchronise** your data between different devices. You have the data on one
-location, and you want it in a different one.
-
-
-Storage
-=======
-
-As a bonus, you get this data stored somewhere so you can access it later on.
-
-The cool thing with this is that you can access this data using an HTTP (REST)
-API, that speaks JSON. We tried very hard to make the protocol as easy as
-possible, and to be honest we're pretty happy with our current design.
-
-
-Permissions
-===========
-
-Sometimes, you want your data to remain yours, and some other times you want to
-share it with friends. It really depends what the data is. One of the reasons we
-built Kinto was to control who has access to what on a per record level.
-
-
-Real-time Notifications
-=======================
-
-So, what happens when the data evolves? Let's say you are on one device doing
-geo-mapping and someone else is doing the same thing on their own device. You
-want to have these two devices in Sync, and as such they need to know when new
-data was issued by any other device.
-
-
 Going further
 #############
 
@@ -128,4 +192,5 @@ and `get in touch <https://kiwiirc.com/client/irc.freenode.net/?#kinto>`_
 with us, we would be very happy to discuss what your needs are and how to make
 it as easy as possible for you.
 
-Don't be shy, we are really here to help.
+Don't be shy, we are really here to help, and we want to know about your
+use-cases!
