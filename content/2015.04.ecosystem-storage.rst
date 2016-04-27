@@ -20,8 +20,8 @@ Ecosystem & generic storage
 to go on with our own solution for storage and synchronization.**
 
 As we wrote in `the previous article (FR) <{filename}/2015.04.service-de-nuages.rst>`_,
-we want to build a solution for generic data storage. We reboot `Daybed <http://daybed.readthedocs.org>`_
-at Mozilla !
+we want to build a solution for generic data storage. We're rebooting `Daybed <http://daybed.readthedocs.org>`_
+at Mozilla!
 
 Our goal is simple: allow developers, whether they are from Mozilla or from the whole world,
 to easily synchronize and save data associated to a user.
@@ -36,14 +36,14 @@ Here are the aspects of the architecture that seem essential to us:
 * Authentication must be pluggable or decentralized (OAuth2, FxA, Persona);
 * The server should be able to validate records;
 * An authorization/permissions system must allow collection protection or
-  fine-grained records sharing;
-* Conflicts resolution could happen server-side;
-* Clients should be «*offline-first*»;
-* Clients should be able to easily merge/reconciliate data;
+  fine-grained record sharing;
+* Conflict resolution could happen server-side;
+* Clients should be "*offline-first*";
+* Clients should be able to easily merge/reconcile data;
 * Clients should be usable in the browser *and* server-side;
-* Every component should be simple and easily substituable.
+* Every component should be simple and easily substitutable.
 
-The first question we were asked was: «*Why don't you rather use PouchDB or Remote Storage?*»
+The first question we were asked was: "*Why aren't you just using PouchDB or Remote Storage?*"
 
 
 Remote Storage
@@ -55,7 +55,7 @@ is based on existing and proven standards: Webfinger, OAuth2, CORS and REST.
 The API is pretty simple and `prestigious projects are using it
 <http://blog.cozycloud.cc/news/2014/08/12/when-unhosted-meets-cozy-cloud/>`_.
 There exist several `server implementations <https://github.com/jcoglan/restore>`_
-and there is even a `Node squeleton <https://www.npmjs.com/package/remotestorage-server>`_
+and there is even a `Node skeleton <https://www.npmjs.com/package/remotestorage-server>`_
 to build a custom server.
 
 .. image:: {filename}/images/remotestorage-widget.png
@@ -63,8 +63,8 @@ to build a custom server.
     :alt: Remote Storage widget
 
 The `remoteStorage.js client <https://github.com/remotestorage/remotestorage.js/>`_
-makes possible the integration of this solution in Web apps. This client is in charge of the «local store»,
-caching, syncing and gives users a widget so that they can choose the server
+allows us to integrate this solution into Web apps. This client is in charge of the "local store",
+caching, syncing and providing users a widget so that they can choose the server
 which will receive the data (using Webfinger).
 
 `ludbud <https://github.com/michielbdejong/ludbud>`_, a refined version of
@@ -74,10 +74,10 @@ in either a *Remote Storage* server, an *ownCloud* server, or even on the bad gu
 like *Google Drive* or *Dropbox*.
 
 
-At first sight, the specification seemed to fit with what we want to do:
+At first glance, the specification seemed to fit with what we want to do:
 
-* The philosophy of the protocol is sound;
-* The ecosystem is well-thought;
+* The approach taken by the protocol is sound;
+* The ecosystem is well thought out;
 * The political vision fits: give back the control of the data to the users
   (see `unhosted <http://unhosted.org/>`_);
 * Technical choices are compatible with what we've already started (CORS, REST, OAuth2);
@@ -85,7 +85,7 @@ At first sight, the specification seemed to fit with what we want to do:
 
 However, regarding data manipulation, there are several differences with what we want to do:
 
-* The API seems «files» oriented (folders and documents) and not «data» (collections and records);
+* The API seems oriented around "files" (folders and documents) and not "data" (collections and records);
 * There is no record validation following some schema (though `some implementations
   <https://remotestorage.io/doc/code/files/baseclient/types-js.html>`_ of the protocol are actually doing this);
 * There is no option to sort/filter records with regards to their attributes;
@@ -98,7 +98,7 @@ However, regarding data manipulation, there are several differences with what we
 To summarize, it would seem that what we want to achieve with the storage of
 records is complementary to *Remote Storage*.
 
-If there are some needs about «file oriented» persistence, it would be dull to
+If there are some needs about "file oriented" persistence, it would be dull to
 reinvent this solution. So there is a great chance that we will integrate
 *Remote Storage* some day and that it will become a facet of our solution.
 
@@ -122,17 +122,17 @@ records locally and synchronize them to a distant database.
     db.replicate.to('http://example.com/mydb');
 
 
-The project sees some traction and benefits from a lot of contributors. The
+The project is seeing some traction and benefits from a lot of contributors. The
 ecosystem is rich and adoption by projects `such as Hoodie
-<https://github.com/hoodiehq/wip-hoodie-store-on-pouchdb>`_ confirms the tool
-pertinence for frontend developers.
+<https://github.com/hoodiehq/wip-hoodie-store-on-pouchdb>`_ confirms the tool's
+relevance for frontend developers.
 
-*PouchDB* handles a local « store » which persistence is abstract and
+*PouchDB* handles a local "store" whose persistence
 `is built on top <http://pouchdb.com/2014/07/25/pouchdb-levels-up.html>`_
 of the `LevelDown API <https://github.com/level/levelup#relationship-to-leveldown>`_
 to persist data in `any backend <https://github.com/Level/levelup/wiki/Modules#storage-back-ends>`_.
 
-Even if *PouchDB* is mainly done for «*offline-first*» applications, it
+Even if *PouchDB* is mainly done for "*offline-first*" applications, it
 can be used inside browsers and on the server side, via Node.
 
 
@@ -152,7 +152,7 @@ the server will end up being synchronised with the client. It is possible to fil
 synchronized collections but `its purpose is not to secure data access
 <http://pouchdb.com/2015/04/05/filtered-replication.html>`_.
 
-In order to do so, it is recommanded to create `a database per user
+In order to do so, it is recommended to create `a database per user
 <https://github.com/nolanlawson/pouchdb-authentication#some-people-can-read-some-docs-some-people-can-write-those-same-docs>`_.
 
 This isn't necessarily a problem since CouchDB `can handle hundreds of thousands
@@ -162,7 +162,7 @@ However, depending on use cases, clustering and isolation (by role, application,
 collection, ...) might not be dealt with easily.
 
 
-The « Payments » use case
+The "Payments" use case
 --------------------------
 
 .. image:: {filename}/images/put-payments.jpg
@@ -173,14 +173,14 @@ of a user's payments and subscriptions.
 
 The requirements are simple:
 
-* The « Payment » application tracks payments and subscriptions of a user
+* The "Payment" application tracks payments and subscriptions of a user
   for a given application;
-* The « Data » application requests the service to check if a user paid or
-  has suscribed;
-* The user requests the service to get a list of all payments/subscriptions
-  reltated to her.
+* The "Data" application consults the service to check if a user paid or
+  has subscribed;
+* The user consults the service to get a list of all payments/subscriptions
+  related to her.
 
-The « Payment » application only should have the right to create/modify/delete
+Only the "Payment" application should have the right to create/modify/delete
 records. The two others can only have read-only access to these records.
 
 A given application cannot access to some other application payments and a given user cannot access to some other user's payments.
@@ -197,7 +197,7 @@ With RemoteStorage
 The idea of *Remote Storage* is to separate the application from the data that
 the user created with the application.
 
-In our use case, the « Payment » app is dealing with the data concerning a user.
+In our use case, the "Payment" app is dealing with the data concerning a user.
 However, this data does not directly belong to the user. A user should be able
 to delete some records but he/she cannot create or edit some existing payments!
 
@@ -208,7 +208,7 @@ With PouchDB
 ''''''''''''
 
 It will be necessary to create a *database* per user in order to separate the
-records in a secure way. Only the « Payment » app will be granted full rights
+records in a secure way. Only the "Payment" app will be granted full rights
 on the different databases.
 
 But this won't be enough.
@@ -225,9 +225,9 @@ This doesn't seem appropriate: most of the time, there are only few
 payments/subscriptions for a given user. Should we have hundreds of thousands of
 databases, each of which will have less than 5 records?
 
-Moreover, the server side of « Payment » is implemented with Python, using a
+Moreover, the server side of "Payment" is implemented with Python. Using a
 JavaScript wrapper (as `python-pouchdb
-<https://pythonhosted.org/Python-PouchDB/>`_) is not something we thrive for.
+<https://pythonhosted.org/Python-PouchDB/>`_) would not thrill us.
 
 
 A new ecosystem?
@@ -243,7 +243,7 @@ When we created the *Reading List* server, we built it with
 `Firefox Sync <http://en.wikipedia.org/wiki/Firefox_Sync>`_, to sync records.
 
 The reason clients for *Reading List* were implemented in few weeks, whether in
-JavaScript, Java (Android) or ASM (Firefox addon), is that the «*offline first*»
+JavaScript, Java (Android) or ASM (Firefox addon), is that the "*offline first*"
 principle of the service is trivial.
 
 
@@ -253,10 +253,10 @@ Tradeoffs
 Of course, we don't intend to compete with *CouchDB* and are making some
 concessions:
 
-* Per default, records collections are isolated by user;
+* By default, record collections are isolated by user;
 * There is no history of revisions;
 * There is no diff between each revision;
-* Per default, there is no automatic conflict resolution;
+* By default, there is no automatic conflict resolution;
 * There is no stream synchronization.
 
 If we are not mistaken, these tradeoffs exclude the possibility of
@@ -286,7 +286,7 @@ And we are complying with `the specs we drew at the beginning of the article
 Philosophical arguments
 '''''''''''''''''''''''
 
-It's `illusionary to think that we can achieve everything with a single tool
+It's `unrealistic to think that we can achieve everything with a single tool
 <http://en.wikipedia.org/wiki/Law_of_the_instrument>`_.
 
 We have other use cases that seem to fit with *PouchDB* (*no concept of
@@ -313,7 +313,7 @@ Practical arguments
 '''''''''''''''''''
 
 Before being willingly to deploy a *CouchDB* solution, Mozilla *ops* will ask us
-to precisely prove that it's not currently doable with experienced stacks (e.g.
+to precisely prove that it's not doable with stacks we already have running internally (e.g.
 MySQL, Redis, PostgreSQL).
 
 We will also have to guarantee a minimum 5 years lifetime regarding the data. With
@@ -322,13 +322,13 @@ We will also have to guarantee a minimum 5 years lifetime regarding the data. Wi
 This wouldn't be the case with a LevelDown adapter that handles revisions split
 in a key-value scheme.
 
-If we based our service on Cliquet, like we did with `Kinto
+If we base our service on Cliquet, like we did with `Kinto
 <http://kinto.readthedocs.org>`_, all the automation work of deploying
 (*monitoring, RPM builds, Puppet...*) that was done for *Reading List* will be
 completely reusable.
 
 As said before, if we go with another totally new stack, we will have to start
-again from scratch, including lapping, profiling, optimizing, all of which has
+again from scratch, including productionalizing, profiling, optimizing, all of which has
 already been done during the first quarter of this year for Reading List.
 
 
@@ -351,7 +351,7 @@ regarding the synchronisation protocol...
 .. image:: {filename}/images/standards.png
     :alt: XKCD — Standards https://xkcd.com/927/
 
-Using this new ecosystem for the « Payments » project will allow us to setup a
+Using this new ecosystem for the "Payments" project will allow us to setup a
 suitable permission system (*probably built on OAuth scopes*). We are also
 looking forward to `capitalizing on our Daybed experience for this project
 <http://blog.daybed.io/daybed-revival.html>`_.
