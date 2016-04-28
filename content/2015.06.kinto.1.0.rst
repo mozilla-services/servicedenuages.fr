@@ -9,10 +9,10 @@ Achievement unlocked
 
 Today we released Cliquet 2.0 [#]_ and Kinto 1.0 [#]_ (a.k.a Cloud Storage).
 
-`Kinto <https://kinto.readthedocs.org/en/latest/>`_ is a service to
+`Kinto <https://kinto.readthedocs.io/en/latest/>`_ is a service to
 store, synchronize and share arbitrary data attached to a Firefox Account.
 
-`Cliquet <https://cliquet.readthedocs.org/en/latest/>`_ is a toolkit to
+`Cliquet <https://cliquet.readthedocs.io/en/latest/>`_ is a toolkit to
 ease the implementation of HTTP micro-services, such as data-driven REST APIs
 with synchronization needs.
 
@@ -40,10 +40,10 @@ And, this is just the beginning! Future plans are described in our road
 map [#]_.
 
 .. [#] Cliquet is a toolkit to ease the implementation of HTTP
-       microservices, such as data-driven REST APIs —  https://cliquet.readthedocs.org
+       microservices, such as data-driven REST APIs —  https://cliquet.readthedocs.io
 
 .. [#] Kinto is a server allowing you to store and synchronize arbitrary data,
-       attached to your Firefox account. — https://kinto.readthedocs.org
+       attached to your Firefox account. — https://kinto.readthedocs.io
 
 .. [#] Cliquetis, the javascript library to consume the Kinto HTTP API —
        https://github.com/mozilla-services/cliquetis

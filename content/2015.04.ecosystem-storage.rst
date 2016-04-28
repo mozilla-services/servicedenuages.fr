@@ -20,7 +20,7 @@ Ecosystem & generic storage
 to go on with our own solution for storage and synchronization.**
 
 As we wrote in `the previous article (FR) <{filename}/2015.04.service-de-nuages.rst>`_,
-we want to build a solution for generic data storage. We're rebooting `Daybed <http://daybed.readthedocs.org>`_
+we want to build a solution for generic data storage. We're rebooting `Daybed <http://daybed.readthedocs.io>`_
 at Mozilla!
 
 Our goal is simple: allow developers, whether they are from Mozilla or from the whole world,
@@ -239,7 +239,7 @@ A new ecosystem?
 It is obvious that *PouchDB* and *Remote Storage* are rich projects with dynamic communities. Therefore, it's reasonable to wonder if one should develop another solution.
 
 When we created the *Reading List* server, we built it with
-`Cliquet <http://cliquet.readthedocs.org/>`_. We had a chance to setup `a very simple protocol <http://cliquet.readthedocs.org/en/latest/api/>`_, strongly inspired by
+`Cliquet <http://cliquet.readthedocs.io/>`_. We had a chance to setup `a very simple protocol <http://cliquet.readthedocs.io/en/latest/api/>`_, strongly inspired by
 `Firefox Sync <http://en.wikipedia.org/wiki/Firefox_Sync>`_, to sync records.
 
 The reason clients for *Reading List* were implemented in few weeks, whether in
@@ -302,7 +302,7 @@ handled by *PouchDB*. It should be:
 * Without magic (*explicit and easy to reimplement from scratch*);
 
 `The philosophy and the features of our Python toolkit, Cliquet
-<http://cliquet.readthedocs.org/en/latest/rationale.html>`_, will of course be honoured :)
+<http://cliquet.readthedocs.io/en/latest/rationale.html>`_, will of course be honoured :)
 
 As for *Remote Storage*, whenever we face the need, we will proud to join
 this initiative. However, as for now, it seems risky to start by bending the
@@ -323,7 +323,7 @@ This wouldn't be the case with a LevelDown adapter that handles revisions split
 in a key-value scheme.
 
 If we base our service on Cliquet, like we did with `Kinto
-<http://kinto.readthedocs.org>`_, all the automation work of deploying
+<http://kinto.readthedocs.io>`_, all the automation work of deploying
 (*monitoring, RPM builds, Puppet...*) that was done for *Reading List* will be
 completely reusable.
 

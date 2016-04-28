@@ -35,7 +35,7 @@ interested!
 Making Kinto instances discoverable
 ===================================
 
-The `Kinto project <https://kinto.readthedocs.org>`_ aims to bring storage
+The `Kinto project <https://kinto.readthedocs.io>`_ aims to bring storage
 instances to everyone, attached to their
 `Firefox Accounts <https://accounts.firefox.com>`_ (Well, it actually supports
 multiple authentication schemes, but we want to promote Firefox Accounts as a
@@ -109,8 +109,8 @@ Check the eligibility details `on the section of the GNOME wiki
 <https://wiki.gnome.org/Outreachy#Program_Details>`_ and get it touch with us!
 
 If you are not sure how to get started, the best way is to start reading `the
-documentation <https://kinto.readthedocs.org>`_, especially
-`the tutorials <http://kinto.readthedocs.org/en/latest/tutorials/first-steps.html>`_
+documentation <https://kinto.readthedocs.io>`_, especially
+`the tutorials <http://kinto.readthedocs.io/en/latest/tutorials/first-steps.html>`_
 and then reach out to us by joining the
 `Kinto development mailing list <https://mail.mozilla.org/listinfo/kinto>`_ and
 the `#storage` channel on irc.mozilla.org.

@@ -73,7 +73,7 @@ Hmm, and what about my use-case?
 
 The idea here is mainly to show you what is already possible with very little
 efforts using the tooling we have put together. These examples are all relying
-on the `Kinto.js <https://kintojs.readthedocs.org>`_ client but ultimately you don't
+on the `Kinto.js <https://kintojs.readthedocs.io>`_ client but ultimately you don't
 need it. It's just here to make it really easy for you to integrate with the
 HTTP APIs exposed by Kinto.
 
@@ -122,8 +122,8 @@ Our vision with Kinto is really to propose a simple tool for simple needs, and
 to do these simple things the best way we can.
 
 If you are interested by what Kinto has to propose, don't hesitate to
-`have a look at the documentation <https://kinto.readthedocs.org>`_,
-try `the Kinto.js tutorial <http://kintojs.readthedocs.org/en/latest/tutorial/>`_
+`have a look at the documentation <https://kinto.readthedocs.io>`_,
+try `the Kinto.js tutorial <http://kintojs.readthedocs.io/en/latest/tutorial/>`_
 and `get in touch <https://kiwiirc.com/client/irc.freenode.net/?#kinto>`_
 with us, we would be very happy to discuss what your needs are and how to make
 it as easy as possible for you.

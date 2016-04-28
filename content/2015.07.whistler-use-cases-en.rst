@@ -17,12 +17,12 @@ Mozilla has a tradition of "work weeks" whereby the members of our many distribu
     :alt: "All Hands" talk about Lego, by @davidcrob - CC0
     :align: center
 
-It was a great opportunity for our team to come together, to share our vision and ideas concerning data storage, and to collect use-cases for `Kinto <https://kinto.readthedocs.org>`_.
+It was a great opportunity for our team to come together, to share our vision and ideas concerning data storage, and to collect use-cases for `Kinto <https://kinto.readthedocs.io>`_.
 
 Workshops and Self-Promotion
 ============================
 
-Nicolas presented `Kinto.js <https://github.com/mozilla-services/kinto.js>`_ at a dedicated workshop in Whistler, the content of which now forms a `introductory tutorial <http://kintojs.readthedocs.org/en/latest/tutorial/>`_. The resulting application, simple though it appears, is a great way to learn the basic concepts behind synchronisation in Kinto. Furthermore, we didn't even need to set up a server - Rémy set one up that `resets itself every day <https://kinto.dev.mozaws.net/v1/>`_!
+Nicolas presented `Kinto.js <https://github.com/mozilla-services/kinto.js>`_ at a dedicated workshop in Whistler, the content of which now forms a `introductory tutorial <http://kintojs.readthedocs.io/en/latest/tutorial/>`_. The resulting application, simple though it appears, is a great way to learn the basic concepts behind synchronisation in Kinto. Furthermore, we didn't even need to set up a server - Rémy set one up that `resets itself every day <https://kinto.dev.mozaws.net/v1/>`_!
 
 As an aside, we chose to use Vanilla-JS for two reasons: firstly because it allowed us to avoid the framework wars, but also because it proves that we can do so much more with HTML5 and ES6 than was possible a few years ago.
 
@@ -60,7 +60,7 @@ We've collaborated frequently with the Firefox OS team over the years, notably r
 In-App Sync
 -----------
 
-Kinto as a simple solution for synchronising data in Firefox OS? Nice! We've had this partnership in mind for some time (remember `Daybed <http://daybed.readthedocs.org/>`_?), and now we've got a great opportunity at our fingertips.
+Kinto as a simple solution for synchronising data in Firefox OS? Nice! We've had this partnership in mind for some time (remember `Daybed <http://daybed.readthedocs.io/>`_?), and now we've got a great opportunity at our fingertips.
 
 We'll need to clearly and plainly lay out the limitations and simplistic models inherent in our solution (notably regarding concurrency management), but we believe that it fits the use-case fairly well, so it should not disapoint. :)
 

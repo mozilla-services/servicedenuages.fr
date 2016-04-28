@@ -18,7 +18,7 @@ nos collègues du monde entier à `Whistler, en Colombie Britannique au Canada
 
 Ce fût l'occasion pour notre équipe de se retrouver, et surtout de partager notre
 vision et nos idées dans le domaine du stockage, afin de collecter des cas d'utilisation pour
-notre solution `Kinto <https://kinto.readthedocs.org>`_.
+notre solution `Kinto <https://kinto.readthedocs.io>`_.
 
 Dans cet article, nous passons en revue les pistes que nous avons pour
 les prochains mois.
@@ -28,7 +28,7 @@ Ateliers et promotion
 =====================
 
 Nicolas a présenté `Kinto.js <https://github.com/mozilla-services/kinto.js>`_ dans un atelier dédié, avec comme support de
-présentation le `tutorial d'introduction <http://kintojs.readthedocs.org/en/latest/tutorial/>`_.
+présentation le `tutorial d'introduction <http://kintojs.readthedocs.io/en/latest/tutorial/>`_.
 
 L'application résultante, pourtant toute simple, permet d'appréhender les
 concepts de synchronisation de Kinto. Le tout sans installation prélable,
@@ -78,7 +78,7 @@ In-App sync
 
 Kinto, la solution simple promue pour la synchronisation de données dans les applications
 Firefox OS ? La classe ! C'est ce qu'on avait en tête depuis longtemps, déjà à
-l'époque avec `Daybed <http://daybed.readthedocs.org/>`_. Voici donc une belle opportunité à saisir !
+l'époque avec `Daybed <http://daybed.readthedocs.io/>`_. Voici donc une belle opportunité à saisir !
 
 Il va falloir expliciter les limitations et hypothèses simplificatrices de notre
 solution, surtout en termes de gestion de la concurrence. Nous sommes persuadés

@@ -25,7 +25,7 @@ by the equally brilliant Mozilla Services team. It's nearing its 1.0 release, an
 hear a lot more about it on this blog in the future.
 
 It so happens that Kinto.js now supports
-`RemoteTransformers <http://kintojs.readthedocs.org/en/latest/api/#transformers>`_,
+`RemoteTransformers <http://kintojs.readthedocs.io/en/latest/api/#transformers>`_,
 which are superhandy for any type of transformation you may want to do on your data
 before it is saved into the locally cached copy (``RemoteTransformer#decode``), and before it is uploaded to the
 remote server (``RemoteTransformer#encode``).
@@ -43,7 +43,7 @@ The main idea behind a ``RemoteTransformer`` is that you provide two functions,
 ``encode`` and ``decode``, and Kinto.js makes sure to call the encode function on
 each record that gets uploaded, and to call the decode function on each record
 that gets downloaded. You can also read about this
-`in the Kinto.js documentation <http://kintojs.readthedocs.org/en/latest/api/#transformers>`_.
+`in the Kinto.js documentation <http://kintojs.readthedocs.io/en/latest/api/#transformers>`_.
 
 The way we tell Kinto.js that we want to use our custom
 ``encode`` and ``decode`` procedures, is quite simple. When creating a Kinto

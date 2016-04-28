@@ -8,7 +8,7 @@ La difficile promesse de l'auto-hébergement
 :summary: Où il est question d'auto-hébergement, de déploiement et de décentralisation.
 
 Au détour de quelques conversations, nous avons pu nous rendre compte que notre
-vision de `Kinto <https://kinto.readthedocs.org>`_ est celle d'un hébergement
+vision de `Kinto <https://kinto.readthedocs.io>`_ est celle d'un hébergement
 communautaire décentralisé plutôt que celle d'un ensemble de petits serveurs
 personnels. Explications.
 

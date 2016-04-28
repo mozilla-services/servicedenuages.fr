@@ -16,7 +16,7 @@ stockage/synchronisation.**
 
 Comme nous l'écrivions `dans l'article précédent
 <{filename}/2015.04.service-de-nuages.rst>`_, nous souhaitons construire une
-solution de stockage générique. On refait `Daybed <http://daybed.readthedocs.org>`_
+solution de stockage générique. On refait `Daybed <http://daybed.readthedocs.io>`_
 chez Mozilla !
 
 Notre objectif est simple: permettre aux développeurs d'application, internes
@@ -257,9 +257,9 @@ et la dynamique de ces communautés, il est légitime d'hésiter avant de
 développer une solution alternative.
 
 Quand nous avons créé le serveur *Reading List*, nous l'avons construit avec
-`Cliquet <http://cliquet.readthedocs.org/>`_, ce fût l'occasion de mettre au
+`Cliquet <http://cliquet.readthedocs.io/>`_, ce fût l'occasion de mettre au
 point `un protocole très simple
-<http://cliquet.readthedocs.org/en/latest/api/>`_, fortement inspiré de
+<http://cliquet.readthedocs.io/en/latest/api/>`_, fortement inspiré de
 `Firefox Sync <http://en.wikipedia.org/wiki/Firefox_Sync>`_, pour faire de la
 synchronisation d'enregistrements.
 
@@ -321,7 +321,7 @@ qui sont mal adressés par *PouchDB*. Il se voudra:
 * Sans magie (*explicite et facile à réimplémenter from scratch*) ;
 
 `La philosophie et les fonctionnalités du toolkit python Cliquet
-<http://cliquet.readthedocs.org/en/latest/rationale.html>`_ seront bien entendu
+<http://cliquet.readthedocs.io/en/latest/rationale.html>`_ seront bien entendu
 à l'honneur :)
 
 Quant à *Remote Storage*, dès que le besoin se présentera, nous serons très fier
@@ -342,7 +342,7 @@ Avec *Cliquet*, en utilisant le backend PostgreSQL, les données sont persistée
 Ce qui ne sera pas le cas d'un adapteur LevelDown qui va manipuler des notions
 de révisions éclatées dans un schéma clé-valeur.
 
-Si nous basons le service sur *Cliquet*, comme c'est le cas avec `Kinto <http://kinto.readthedocs.org>`_,
+Si nous basons le service sur *Cliquet*, comme c'est le cas avec `Kinto <http://kinto.readthedocs.io>`_,
 tout le travail d'automatisation de la mise en production (*monitoring,
 builds RPM, Puppet...*) que nous avons fait pour *Reading List* est
 complètement réutilisable.
