@@ -38,7 +38,7 @@ nuages de Mozilla. La release 1.0 ne devrait plus tarder et vous en
 saurez sûrement plus sur ce blog très prochainement.
 
 Il se trouve que Kinto.js supporte maintenant les `RemoteTransformers
-<http://kintojs.readthedocs.org/en/latest/api/#transformers>`_, qui
+<http://kintojs.readthedocs.io/en/latest/api/#transformers>`_, qui
 permettent de manière très simple d'appliquer n'importe quel type de
 transformations que vous souhaitez faire sur les enregistrements d'une
 collection avant qu'ils ne soient stockés dans la base de données
@@ -65,7 +65,7 @@ fonctions, ``encode`` et ``decode``, et Kinto.js s'assure d'appeler la
 fonction ``encode`` sur chaque enregistrement qui est téléversé dans
 le cloud et d'appeler ``decode`` sur chaque enregistrement
 téléchargé. Vous pouvez en lire plus à ce sujet
-`dans la documentation de Kinto.js <http://kintojs.readthedocs.org/en/latest/api/#transformers>`_.
+`dans la documentation de Kinto.js <http://kintojs.readthedocs.io/en/latest/api/#transformers>`_.
 
 La manière dont nous indiquons à Kinto.js d'utiliser nos fonctions
 ``encode`` et ``decode`` est assez simple. Lorsqu'on créé une

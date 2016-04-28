@@ -35,7 +35,7 @@ records on a collection have been correctly synced. We will probably need to
 re-use it to update other parts of Firefox (or Fennec), but you may also want
 to use it for your projects.
 
-We plan to use `Kinto <https://kinto.readthedocs.org>`_ in order to distribute
+We plan to use `Kinto <https://kinto.readthedocs.io>`_ in order to distribute
 the data (or meta-data) associated with the files that need to be updated. It's
 a good fit because it can be cached easily behind a CDN.
 

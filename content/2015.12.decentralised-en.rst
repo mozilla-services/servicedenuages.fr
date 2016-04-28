@@ -12,7 +12,7 @@ The hard promise of self-hosting
   This article was translated by `Alexis Métaireau <https://notmyidea.org>`_,
   on a train between Rennes and Paris.
 
-While discussing about `Kinto <https://kinto.readthedocs.org/>`_, we discovered
+While discussing about `Kinto <https://kinto.readthedocs.io/>`_, we discovered
 that the future we envision for Kinto is the one of a collectively decentralized
 hosting, rather than having every user having their own individual servers.
 

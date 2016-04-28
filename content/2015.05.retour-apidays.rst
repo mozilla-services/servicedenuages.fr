@@ -109,7 +109,7 @@ les concepts de sémantique mais simplement d'économiser aux développeurs de d
 Par la même occasion, l'idée est de faciliter l'implémentation des clients, et `le composant data Ember.js <https://github.com/emberjs/data>`_
 supportera la spec dans la prochaine release.
 
-Nos intentions pour `Cliquet <http://cliquet.readthedocs.org/en/latest/rationale.html#philosophy>`_ sont exactement celles-ci. Nous
+Nos intentions pour `Cliquet <http://cliquet.readthedocs.io/en/latest/rationale.html#philosophy>`_ sont exactement celles-ci. Nous
 allons donc `probablement converger <https://github.com/mozilla-services/cliquet/issues/254>`_. D'autant
 que les specs sont très proches.
 
@@ -263,7 +263,7 @@ Je vous conseille de guetter les futures dates dans les différentes villes du m
 http://www.apidays.io
 
 
-.. _Kinto: http://kinto.readthedocs.org/
+.. _Kinto: http://kinto.readthedocs.io/
 .. _Swagger: http://swagger.io/
 .. _Slate: https://github.com/tripit/slate
 

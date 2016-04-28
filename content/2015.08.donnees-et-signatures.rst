@@ -31,7 +31,7 @@ uniquement. Nous comptons réutiliser ce même fonctionnement dans le futur pour
 la mise à jour d'autres parties de Firefox, et vous pouvez également en tirer
 parti pour d'autres cas d'utilisation.
 
-Nous souhaitons utiliser `Kinto <https://kinto.readthedocs.org>`_ afin
+Nous souhaitons utiliser `Kinto <https://kinto.readthedocs.io>`_ afin
 de distribuer ces jeux de données. Un des avantages est que l'on peut
 facilement *cacher* les collections derrière un CDN.
 

@@ -140,7 +140,7 @@ des conseils des administrateurs système dont c'est le métier de mettre à dis
 pour des millions d'utilisateurs et des retours d'expérience de l'équipe
 de *Firefox Sync* pour la gestion de la concurrence et de l'«offline-first».
 
-Il est `documenté en détail <http://cliquet.readthedocs.org/en/latest/api/index.html>`_.
+Il est `documenté en détail <http://cliquet.readthedocs.io/en/latest/api/index.html>`_.
 
 Dans un monde idéal, ce protocole serait versionné, et formalisé dans une RFC.
 En rêve, il existerait même plusieurs implémentations avec des technologies différentes
@@ -222,7 +222,7 @@ mais rien n'empêcherait d'implémenter le stockage dans un modèle relationnel.
 Comme les composants peuvent être remplacés depuis la configuration, il est
 tout à fait possible d'étendre *Cliquet* avec des notions métiers ou des
 technologies exotiques ! Nous avons posé quelques idées dans `la documentation
-de l'éco-système <http://cliquet.readthedocs.org/en/latest/ecosystem.html>`_.
+de l'éco-système <http://cliquet.readthedocs.io/en/latest/ecosystem.html>`_.
 
 Dans les prochaines semaines, nous allons introduire la notion d'«évènements» (ou signaux),
 qui permettraient aux extensions de s'interfacer beaucoup plus proprement.
@@ -236,7 +236,7 @@ des critiques ou des interrogations, n'hésitez pas à `nous en faire part
 Cliquet, à l'action.
 ====================
 
-Nous avons écrit un `guide de démarrage <http://cliquet.readthedocs.org/en/latest/quickstart.html>`_,
+Nous avons écrit un `guide de démarrage <http://cliquet.readthedocs.io/en/latest/quickstart.html>`_,
 qui n'exige pas de connaître *Pyramid*.
 
 Pour illustrer la simplicité et les concepts, voici quelques extraits !
@@ -310,7 +310,7 @@ De base les enregistrements sont privés, par utilisateur.
     {
         "data": [
             {
-                "url": "http://cliquet.readthedocs.org",
+                "url": "http://cliquet.readthedocs.io",
                 "id": "cc103eb5-0c80-40ec-b6f5-dad12e7d975e",
                 "last_modified": 1437034418940,
             }
@@ -341,7 +341,7 @@ des champs avant l'enregistrement, etc.
 
 
 `Plus d'infos dans la documentation dédiée
-<http://cliquet.readthedocs.org/en/latest/reference/resource.html>`_ !
+<http://cliquet.readthedocs.io/en/latest/reference/resource.html>`_ !
 
 .. note::
 
@@ -400,7 +400,7 @@ qui peuvent être vus comme des faiblesses.
 
 * **La documentation d'API** : actuellement, nous n'avons pas de solution pour qu'un
   projet qui utilise *Cliquet* puisse intégrer facilement toute
-  `la documentation de l'API <http://cliquet.readthedocs.org/en/latest/api/index.html>`_
+  `la documentation de l'API <http://cliquet.readthedocs.io/en/latest/api/index.html>`_
   obtenue.
 
 * **La documentation** : il est très difficile d'organiser la documentation, surtout

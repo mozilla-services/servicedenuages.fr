@@ -26,7 +26,7 @@ Un serveur de listes de lecture
 -------------------------------
 
 En parallèle, un projet de `synchronisation de liste de lecture
-<https://readinglist.readthedocs.org>`_ (*Reading List*) a vu le jour.  L'idée
+<https://readinglist.readthedocs.io>`_ (*Reading List*) a vu le jour.  L'idée
 étant de pouvoir marquer des pages "à lire pour plus tard" et de continuer la
 lecture sur n'importe quel périphérique synchronisé (Firefox pour Android ou
 Firefox Desktop). Un équivalent libre à `Pocket`_ en quelque sorte, qu'il est
@@ -43,7 +43,7 @@ Mais seulement, *Sync* n'a pas été pensé pour garantir la pérennité des don
 et la marche était trop haute pour changer ça en profondeur.
 
 .. _Firefox Sync: https://github.com/mozilla-services/server-syncstorage
-.. _Cornice: http://cornice.readthedocs.org/
+.. _Cornice: http://cornice.readthedocs.io/
 
 Nous aurions pu aussi nous contenter de faire une énième application qui expose
 une API et persiste des données dans une base de données.
@@ -81,7 +81,7 @@ Le mécanisme qui force à aller de l'avant
 -----------------------------------------
 
 Comme première pierre à l'édifice, nous avons donné naissance au projet
-`Cliquet <https://cliquet.readthedocs.org>`_, dont l'idée principale est de
+`Cliquet <https://cliquet.readthedocs.io>`_, dont l'idée principale est de
 fournir une implémentation de ce protocole en python, tout en factorisant
 l'ensemble de nos bonnes pratiques (pour la prod notamment).
 
@@ -99,7 +99,7 @@ champs sur certains appels. Cela réduit ce projet à quelques dizaines de ligne
 de code.
 
 Quant au futur service de stockage générique, `le projet
-<http://kinto.readthedocs.org>`_ en est encore à ses balbutiements mais c'est
+<http://kinto.readthedocs.io>`_ en est encore à ses balbutiements mais c'est
 bel et bien en route ! Il permet déjà d'être branché comme backend de stockage
 dans une application *Cliquet*, et ça `implémenté en 20 lignes de code
 <https://github.com/mozilla-services/kinto/blob/0.2.1/kinto/views/collection.py>`_!
