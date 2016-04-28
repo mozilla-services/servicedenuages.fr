@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="./en/" rel="alternate"></link><link href="./feeds/misc.atom.xml" rel="self"></link><id>./en/</id><updated>2016-01-05T00:00:00+01:00</updated><entry><title>How to load test a OAuth-protected HTTP API? (Part 2)</title><link href="./en/load-testing-a-http-api-which-uses-oauth-for-authentication-part-2" rel="alternate"></link><updated>2016-01-05T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:,2016-01-05:./en/load-testing-a-http-api-which-uses-oauth-for-authentication-part-2</id><summary type="html">&lt;p&gt;This is part 2 of a series on loadtesting OAuth APIs.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/misc.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2016-01-05T00:00:00+01:00</updated><entry><title>How to load test a OAuth-protected HTTP API? (Part 2)</title><link href="http://www.servicedenuages.fr/en/load-testing-a-http-api-which-uses-oauth-for-authentication-part-2" rel="alternate"></link><updated>2016-01-05T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-01-05:en/load-testing-a-http-api-which-uses-oauth-for-authentication-part-2</id><summary type="html">&lt;p&gt;This is part 2 of a series on loadtesting OAuth APIs.&lt;/p&gt;
 &lt;div class="section" id="introduction"&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;&lt;a class="reference external" href="/en/load-testing-a-http-api-which-uses-oauth-for-authentication"&gt;In the previous article&lt;/a&gt;
@@ -190,7 +190,7 @@ user credentials to a load test script.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Do not hesitate to reach us if you have any questions or suggestions.&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>The hard promise of self-hosting</title><link href="./en/self-hosting-a-hard-promise" rel="alternate"></link><updated>2015-12-22T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:,2015-12-22:./en/self-hosting-a-hard-promise</id><summary type="html">&lt;div class="note"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>The hard promise of self-hosting</title><link href="http://www.servicedenuages.fr/en/self-hosting-a-hard-promise" rel="alternate"></link><updated>2015-12-22T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-22:en/self-hosting-a-hard-promise</id><summary type="html">&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;This article was translated by &lt;a class="reference external" href="https://notmyidea.org"&gt;Alexis Métaireau&lt;/a&gt;,
 on a train between Rennes and Paris.&lt;/p&gt;
@@ -204,7 +204,7 @@ data, without letting them losing control over their own data.&lt;/p&gt;
 every user of the Web can easily access a server running it.&lt;/p&gt;
 &lt;div class="section" id="self-hosting"&gt;
 &lt;h2&gt;Self-Hosting&lt;/h2&gt;
-&lt;img alt="Countryside house -- House, Automn - CC-BY-ND Gunnar Magnusson https://www.flickr.com/photos/matupplevelser/4644386646" class="align-center" src="./en/../images/autohebergement.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Countryside house -- House, Automn - CC-BY-ND Gunnar Magnusson https://www.flickr.com/photos/matupplevelser/4644386646" class="align-center" src="http://www.servicedenuages.fr/en/../images/autohebergement.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Deploying servers isn't something easy. A lot of people are working hard on
 solving this problem, but there is still a lot of work to do before having a
 plug and play solution that is easy to maintain over time.&lt;/p&gt;
@@ -232,12 +232,12 @@ but I don't want to give my personal data to anyone!". And you would be right.&l
 or data that are yours and should remain private.&lt;/p&gt;
 &lt;p&gt;One of our goals is to help making encryption dead simple so that nobody
 (except you) can read your data.&lt;/p&gt;
-&lt;p&gt;Kinto.js actually handles this pretty well, as &lt;a class="reference external" href="./en/kinto-encryption-example"&gt;Michiel showed in a previous
+&lt;p&gt;Kinto.js actually handles this pretty well, as &lt;a class="reference external" href="http://www.servicedenuages.fr/en/kinto-encryption-example"&gt;Michiel showed in a previous
 article.&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="avoiding-the-creation-of-a-new-silo"&gt;
 &lt;h2&gt;Avoiding the creation of a new silo&lt;/h2&gt;
-&lt;img alt="The future of silos - CC-BY-NC-ND Sunflower Silo in Boulder County Colorado by Bo Insogna — https://www.flickr.com/photos/thelightningman/5494666930" class="align-center" src="./en/../images/silo.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="The future of silos - CC-BY-NC-ND Sunflower Silo in Boulder County Colorado by Bo Insogna — https://www.flickr.com/photos/thelightningman/5494666930" class="align-center" src="http://www.servicedenuages.fr/en/../images/silo.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;In order to avoid participating in the creation of new silo, it is important
 to take care of a few things:&lt;/p&gt;
 &lt;div class="section" id="identity"&gt;
@@ -285,7 +285,7 @@ a pragmatic solution in the short/mid term, bringing back some freedom to the
 users.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>How to make the Kinto instances discoverable?</title><link href="./en/discovery-of-kinto-servers" rel="alternate"></link><updated>2015-12-21T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:,2015-12-21:./en/discovery-of-kinto-servers</id><summary type="html">&lt;div class="section" id="about-me"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>How to make the Kinto instances discoverable?</title><link href="http://www.servicedenuages.fr/en/discovery-of-kinto-servers" rel="alternate"></link><updated>2015-12-21T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-21:en/discovery-of-kinto-servers</id><summary type="html">&lt;div class="section" id="about-me"&gt;
 &lt;h2&gt;About Me&lt;/h2&gt;
 &lt;p&gt;Hi! I am Shweta Oak.&lt;/p&gt;
 &lt;p&gt;I got the opportunity to be part of Mozilla's Kinto team.
@@ -309,8 +309,8 @@ users on the same Kinto server.&lt;/p&gt;
 &lt;li&gt;Store this location remotely.&lt;/li&gt;
 &lt;li&gt;Use this later to discover the service.&lt;/li&gt;
 &lt;/ol&gt;
-&lt;img alt="The first time the user set her Kinto server URI" class="align-center" src="./en/../images/KintoDiscovery-1st-time-sync.png" style="width: 1092px; height: auto; max-width: 100%;"/&gt;
-&lt;img alt="The second time the user discover their Kinto server URI" class="align-center" src="./en/../images/KintoDiscovery-2nd-time-sync.png" style="width: 1092px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="The first time the user set her Kinto server URI" class="align-center" src="http://www.servicedenuages.fr/en/../images/KintoDiscovery-1st-time-sync.png" style="width: 1092px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="The second time the user discover their Kinto server URI" class="align-center" src="http://www.servicedenuages.fr/en/../images/KintoDiscovery-2nd-time-sync.png" style="width: 1092px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;div class="section" id="let-the-user-enter-the-location-of-her-kinto-instance-the-first-time"&gt;
 &lt;h2&gt;Let the user enter the location of her Kinto instance, the first time.&lt;/h2&gt;
@@ -393,7 +393,7 @@ than the one given above or, if there is anything you would like to share with u
 this article, do comment below. We look forward to exploring more solutions and making the
 project even better through your feedback :)&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Hacker News answers</title><link href="./en/hackernews-feedback" rel="alternate"></link><updated>2015-12-15T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:,2015-12-15:./en/hackernews-feedback</id><summary type="html">&lt;p&gt;Today, &lt;a class="reference external" href="https://news.ycombinator.com/item?id=10733164"&gt;Kinto was featured on Hackernews&lt;/a&gt;. We take this as a great
+</summary><category term="mozilla"></category></entry><entry><title>Hacker News answers</title><link href="http://www.servicedenuages.fr/en/hackernews-feedback" rel="alternate"></link><updated>2015-12-15T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-15:en/hackernews-feedback</id><summary type="html">&lt;p&gt;Today, &lt;a class="reference external" href="https://news.ycombinator.com/item?id=10733164"&gt;Kinto was featured on Hackernews&lt;/a&gt;. We take this as a great
 milestone for the project, even if it also comes with some sort of pressure and
 stress :)&lt;/p&gt;
 &lt;p&gt;Since a few questions emerged from the thread there, we thought it'd be
@@ -525,7 +525,7 @@ that is fully open-source.&lt;/p&gt;
 out there. We probably missed many of them. So please help us guide the users
 to choose the best solution for their use-case in our overview page!&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>How to load test a OAuth-protected HTTP API? (Part 1)</title><link href="./en/load-testing-a-http-api-which-uses-oauth-for-authentication" rel="alternate"></link><updated>2015-12-02T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:,2015-12-02:./en/load-testing-a-http-api-which-uses-oauth-for-authentication</id><summary type="html">&lt;p&gt;This is part 1 of a series on loadtesting oauth APIs.&lt;/p&gt;
+</summary><category term="mozilla"></category></entry><entry><title>How to load test a OAuth-protected HTTP API? (Part 1)</title><link href="http://www.servicedenuages.fr/en/load-testing-a-http-api-which-uses-oauth-for-authentication" rel="alternate"></link><updated>2015-12-02T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-02:en/load-testing-a-http-api-which-uses-oauth-for-authentication</id><summary type="html">&lt;p&gt;This is part 1 of a series on loadtesting oauth APIs.&lt;/p&gt;
 &lt;div class="section" id="what-is-oauth-and-how-do-you-use-it-to-authenticate-an-http-api"&gt;
 &lt;h2&gt;What is OAuth and how do you use it to authenticate an HTTP API?&lt;/h2&gt;
 &lt;p&gt;&lt;a class="reference external" href="https://en.wikipedia.org/wiki/OAuth"&gt;OAuth&lt;/a&gt; is a protocol that
@@ -541,7 +541,7 @@ needs.&lt;/p&gt;
 list, once the credentials are correct, the Identity provider will
 redirect the user to the app with the
 &lt;a class="reference external" href="http://tools.ietf.org/html/rfc6750"&gt;Bearer tokens&lt;/a&gt; enclosed in the query string.&lt;/p&gt;
-&lt;img alt="OAuth 2.0 Bearer Token creation flow" src="./en/../images/oauth2-flow.png" style="width: 654px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="OAuth 2.0 Bearer Token creation flow" src="http://www.servicedenuages.fr/en/../images/oauth2-flow.png" style="width: 654px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;This Bearer Token will then be used by the app in the HTTP request
 Authorization header to authenticate on the web service.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nf"&gt;GET&lt;/span&gt; &lt;span class="nn"&gt;/v1/articles&lt;/span&gt; &lt;span class="kr"&gt;HTTP&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1.1&lt;/span&gt;
@@ -648,7 +648,7 @@ configure your load test Bearer Token.&lt;/li&gt;
 &lt;p&gt;&lt;a class="reference external" href="/en/load-testing-a-http-api-which-uses-oauth-for-authentication-part-2"&gt;The next article&lt;/a&gt;
 will show some specific tools you can use to do this.&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Kinto.js 1.0 released</title><link href="./en/kinto-js-1-0-released" rel="alternate"></link><updated>2015-10-27T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:,2015-10-27:./en/kinto-js-1-0-released</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="https://kintojs.readthedocs.org/"&gt;Kinto.js&lt;/a&gt; is an offline-first JavaScript client leveraging the &lt;a class="reference external" href="https://kinto.readthedocs.org/"&gt;Kinto API&lt;/a&gt; for data synchronization. In a world where connectivity isn't always guaranteed, local persistence in the browser has become an &lt;a class="reference external" href="http://offlinefirst.org/"&gt;identified priority&lt;/a&gt; for Web applications, especially on mobile.&lt;/p&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Kinto.js 1.0 released</title><link href="http://www.servicedenuages.fr/en/kinto-js-1-0-released" rel="alternate"></link><updated>2015-10-27T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-10-27:en/kinto-js-1-0-released</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="https://kintojs.readthedocs.org/"&gt;Kinto.js&lt;/a&gt; is an offline-first JavaScript client leveraging the &lt;a class="reference external" href="https://kinto.readthedocs.org/"&gt;Kinto API&lt;/a&gt; for data synchronization. In a world where connectivity isn't always guaranteed, local persistence in the browser has become an &lt;a class="reference external" href="http://offlinefirst.org/"&gt;identified priority&lt;/a&gt; for Web applications, especially on mobile.&lt;/p&gt;
 &lt;p&gt;The basic principle is simple; save your data locally, assuming there's no network connectivity. Then as soon as it's available, retrieve remote changes and push your local data to a remote server.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;kinto&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Kinto&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="nx"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"https://kinto.dev.mozaws.net/v1/"&lt;/span&gt;&lt;span class="p"&gt;});&lt;/span&gt;
 &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;tasks&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;kinto&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;collection&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"tasks"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
@@ -678,13 +678,13 @@ will show some specific tools you can use to do this.&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;You can read more about &lt;a class="reference external" href="https://kintojs.readthedocs.org/en/latest/api/#resolving-conflicts-manually"&gt;conflict resolution&lt;/a&gt; and &lt;a class="reference external" href="http://kintojs.readthedocs.org/en/latest/api/#synchronization-strategies"&gt;sychronization strategies&lt;/a&gt; in the dedicated sections of the project documentation.&lt;/p&gt;
 &lt;p&gt;The diagram flow below describes pretty much accurately what's happening under the hood when &lt;tt class="docutils literal"&gt;sync()&lt;/tt&gt; is called:&lt;/p&gt;
-&lt;img alt="Kinto.js synchronization flow" src="./en/../images/kintojs-sync-flow.png" style="width: 654px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Kinto.js synchronization flow" src="http://www.servicedenuages.fr/en/../images/kintojs-sync-flow.png" style="width: 654px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;div class="section" id="a-case-for-encryption"&gt;
 &lt;h2&gt;A case for encryption&lt;/h2&gt;
 &lt;p&gt;Remote data storage is certainly a topic raising concerns when it comes to security and privacy.&lt;/p&gt;
 &lt;p&gt;To help addressing these issues, Kinto.js exposes a &lt;a class="reference external" href="http://kintojs.readthedocs.org/en/latest/api/#transformers"&gt;Remote Transformers API&lt;/a&gt;, which allow processing records before they're sent to the server and after they've been retrieved from it.&lt;/p&gt;
-&lt;p&gt;This is a perfect hook for supporting end-to-end encryption, which &lt;a class="reference external" href="./en/kinto-encryption-example"&gt;we already wrote about earlier&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;This is a perfect hook for supporting end-to-end encryption, which &lt;a class="reference external" href="http://www.servicedenuages.fr/en/kinto-encryption-example"&gt;we already wrote about earlier&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="getting-started"&gt;
 &lt;h2&gt;Getting started&lt;/h2&gt;
@@ -704,7 +704,7 @@ will show some specific tools you can use to do this.&lt;/p&gt;
 &lt;h2&gt;Update&lt;/h2&gt;
 &lt;p&gt;We're not even done polishing this blog post and the &lt;a class="reference external" href="https://github.com/Kinto/kinto.js/releases/tag/v1.1.0"&gt;1.1 version is already there&lt;/a&gt;! Take it the easy way, that means the project is on steroids ;)&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Looking for an Outreachy intern this winter</title><link href="./en/outreach-kinto-2016" rel="alternate"></link><updated>2015-10-01T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:,2015-10-01:./en/outreach-kinto-2016</id><summary type="html">&lt;blockquote class="epigraph"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Looking for an Outreachy intern this winter</title><link href="http://www.servicedenuages.fr/en/outreach-kinto-2016" rel="alternate"></link><updated>2015-10-01T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-10-01:en/outreach-kinto-2016</id><summary type="html">&lt;blockquote class="epigraph"&gt;
 &lt;p&gt;By having a program targeted specifically towards women, we found that we
 reached talented and passionate participants, who were uncertain about how to
 start otherwise.&lt;/p&gt;
@@ -806,7 +806,7 @@ configuration.&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>How to encrypt data with Kinto.js</title><link href="./en/kinto-encryption-example" rel="alternate"></link><updated>2015-09-16T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:,2015-09-16:./en/kinto-encryption-example</id><summary type="html">&lt;p&gt;A guest post this time, by &lt;a class="reference external" href="https://michielbdejong.com/"&gt;Michiel de Jong&lt;/a&gt;
+</summary><category term="mozilla"></category></entry><entry><title>How to encrypt data with Kinto.js</title><link href="http://www.servicedenuages.fr/en/kinto-encryption-example" rel="alternate"></link><updated>2015-09-16T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-09-16:en/kinto-encryption-example</id><summary type="html">&lt;p&gt;A guest post this time, by &lt;a class="reference external" href="https://michielbdejong.com/"&gt;Michiel de Jong&lt;/a&gt;
 from the Firefox OS team!&lt;/p&gt;
 &lt;p&gt;If you want to encrypt data that is uploaded to the cloud by an offline-first app,
 it makes sense to keep the local copy of the data in-the-clear, and encrypt the
@@ -959,7 +959,7 @@ instances within the same origin is now possible with the recently added
 &lt;p&gt;Now, let's test if we can create an item in collection 1, sync it up (the data
 should be encrypted on the wire, we can check that on the Network tab of the
 browser console):&lt;/p&gt;
-&lt;img alt="Network tab screenshot" src="./en/../images/kinto-encryption-example-network-tab.png" style="width: 2560px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Network tab screenshot" src="http://www.servicedenuages.fr/en/../images/kinto-encryption-example-network-tab.png" style="width: 2560px; height: auto; max-width: 100%;"/&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;syncUp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="c1"&gt;// Use first Kinto instance to demonstrate encryption:&lt;/span&gt;
   &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;coll1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;create&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
@@ -996,7 +996,7 @@ now, so go ahead and try opening your browser console on this page to try it out
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Hope you are as excited about Kinto.js as I am, comments below this blogpost
 and github issues on the example code very welcome! :)&lt;/p&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Signing collection to ensure data integrity</title><link href="./en/data-signature" rel="alternate"></link><updated>2015-08-26T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:,2015-08-26:./en/data-signature</id><summary type="html">&lt;div class="note"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Signing collection to ensure data integrity</title><link href="http://www.servicedenuages.fr/en/data-signature" rel="alternate"></link><updated>2015-08-26T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-08-26:en/data-signature</id><summary type="html">&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;Translated from the French by &lt;a class="reference external" href="https://twitter.com/Natim"&gt;Rémy Hubscher&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -1093,10 +1093,10 @@ this:&lt;/p&gt;
 &lt;span class="n"&gt;collection_hash&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hexdigest&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Here is a little sketch to summarise:&lt;/p&gt;
-&lt;img alt="Summary schema of the collection signing flow." class="align-center" src="./en/../images/kinto-signing.jpg" style="width: 600px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Summary schema of the collection signing flow." class="align-center" src="http://www.servicedenuages.fr/en/../images/kinto-signing.jpg" style="width: 600px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Notifications in Kinto (Preamble)</title><link href="./en/notifications-kinto-preamble" rel="alternate"></link><updated>2015-08-13T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:,2015-08-13:./en/notifications-kinto-preamble</id><summary type="html">&lt;p&gt;At a recent work week in the lovely French town of &lt;a href="https://www.qwant.com/?q=Douarnenez&amp;amp;t=images"&gt;Douarnenez&lt;/a&gt; we laid the groundwork for an upcoming feature in &lt;a href="https://kinto.readthedocs.org"&gt;Kinto&lt;/a&gt;: &lt;em&gt;Notifications!&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Sunset over Douarnenez (@phrawzty)" src="./en/../images/notifications-douarnenez.jpg" style="width: 800px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Notifications in Kinto (Preamble)</title><link href="http://www.servicedenuages.fr/en/notifications-kinto-preamble" rel="alternate"></link><updated>2015-08-13T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-08-13:en/notifications-kinto-preamble</id><summary type="html">&lt;p&gt;At a recent work week in the lovely French town of &lt;a href="https://www.qwant.com/?q=Douarnenez&amp;amp;t=images"&gt;Douarnenez&lt;/a&gt; we laid the groundwork for an upcoming feature in &lt;a href="https://kinto.readthedocs.org"&gt;Kinto&lt;/a&gt;: &lt;em&gt;Notifications!&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Sunset over Douarnenez (@phrawzty)" src="http://www.servicedenuages.fr/en/../images/notifications-douarnenez.jpg" style="width: 800px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
 &lt;h1&gt;tl;dr&lt;/h1&gt;
 &lt;p&gt;For those that are in a hurry, here's the gist: We're going to be integrating a "notifications" system into Kinto with an eye towards simplicity, modernity, and flexibility. Our goal is to provide a solid framework that will allow other systems to take advantage of this new feature without having to jump through too many hoops. If that sounds interesting to you - read on.&lt;/p&gt;
 &lt;h1&gt;Why?&lt;/h1&gt;
@@ -1127,7 +1127,7 @@ this:&lt;/p&gt;
 &lt;p&gt;In any case, we'll explore some more terminology later - but for now let's move along.&lt;/p&gt;
 &lt;h1&gt;How?&lt;/h1&gt;
 &lt;p&gt;There are about as many ways to go about solving the problem as there are grains of sand on a beach (warning: previous statement may not be scientifically valid). The best way to determine the winning approach is simple: through single combat, &lt;a href="https://duckduckgo.com/?q=beyond+thunderdome&amp;amp;ia=about"&gt;Thunderdome-style&lt;/a&gt;. Unfortunately our manager put the kibosh on that plan for liability reasons, so instead we did the next best thing: we drew on a whiteboard.&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Whiteboard (@leplatrem)" src="./en/../images/notifications-whiteboard.jpg" style="width: 675px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Whiteboard (@leplatrem)" src="http://www.servicedenuages.fr/en/../images/notifications-whiteboard.jpg" style="width: 675px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
 &lt;p&gt;In the interest of absolutely transparency, here are some of the models that we worked through and our general observations on each.&lt;/p&gt;
 &lt;h2&gt;The Simple&lt;/h2&gt;
 &lt;p&gt;One approach is to be as &lt;a href="https://i.imgur.com/xZQitlj.gi"&gt;hands-off&lt;/a&gt; as possible. The premise here is straightforward enough: Kinto drops notifications into a queue (like Redis or RabbitMQ). That's basically it.&lt;/p&gt;
@@ -1194,7 +1194,7 @@ this:&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;Once the model is validated we'll begin the iterative improvement process. This will likely take the form of a "standard broker" which we create and maintain as part of the formal ecosystem. We also like the idea of subscribers registering themselves to the broker using an endpoint (such as webhooks), but that's a discussion for future time.&lt;/p&gt;
 &lt;h1&gt;Feedback&lt;/h1&gt;
-&lt;p&gt;As always, we're interested in feedback from the community - feel free to use the Disqus form below to join the conversation!&lt;/p&gt;</summary><category term="mozilla"></category></entry><entry><title>Making the case for Cliquet?</title><link href="./en/why-cliquet" rel="alternate"></link><updated>2015-07-14T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:,2015-07-14:./en/why-cliquet</id><summary type="html">&lt;div class="note"&gt;
+&lt;p&gt;As always, we're interested in feedback from the community - feel free to use the Disqus form below to join the conversation!&lt;/p&gt;</summary><category term="mozilla"></category></entry><entry><title>Making the case for Cliquet?</title><link href="http://www.servicedenuages.fr/en/why-cliquet" rel="alternate"></link><updated>2015-07-14T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-07-14:en/why-cliquet</id><summary type="html">&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;Translated from the French by &lt;a class="reference external" href="https://twitter.com/phrawzty"&gt;Dan Phrawzty&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -1203,7 +1203,7 @@ practices in terms of production use and the HTTP protocol.&lt;/strong&gt;&lt;/p
 &lt;div class="section" id="the-origins"&gt;
 &lt;h2&gt;The Origins&lt;/h2&gt;
 &lt;p&gt;The objective for the first trimester of 2015 was to build a service for
-storage and the &lt;a class="reference external" href="./en/../service-de-nuages"&gt;synchronisation of a reading list&lt;/a&gt;. At the outset of the project we
+storage and the &lt;a class="reference external" href="http://www.servicedenuages.fr/en/../service-de-nuages"&gt;synchronisation of a reading list&lt;/a&gt;. At the outset of the project we
 tried assembling all of the best practices and recommendations from different
 teams and currently deployed projects. Also, we wanted to take advantage of the
 &lt;em&gt;Firefox Sync&lt;/em&gt; protocol for offline sync since it's robust and proven.&lt;/p&gt;
@@ -1215,7 +1215,7 @@ protocol.&lt;/p&gt;
 same rules, so we decided go with a common implementation of these best
 practices (and resulting protocol) in the form of a re-usable toolkit.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Cliquet&lt;/em&gt; was born.&lt;/p&gt;
-&lt;img alt="Cliquet logo" class="align-center" src="./en/../images/cliquet-logo.png" style="width: 300px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Cliquet logo" class="align-center" src="http://www.servicedenuages.fr/en/../images/cliquet-logo.png" style="width: 300px; height: auto; max-width: 100%;"/&gt;
 &lt;div class="section" id="the-intentions"&gt;
 &lt;h3&gt;The Intentions&lt;/h3&gt;
 &lt;blockquote class="epigraph"&gt;
@@ -1253,7 +1253,7 @@ that we try to make things optional where we can (and malleable where we
 can't) - Cliquet is no different. &lt;em&gt;Everything is configurable&lt;/em&gt; right from the
 &lt;tt class="docutils literal"&gt;.ini&lt;/tt&gt; file! What's more, all of the projects that use the toolkit are
 deployed in exactly the same way - only the &lt;em&gt;configuration&lt;/em&gt; is different.&lt;/p&gt;
-&lt;img alt="A meeting in Paris..." class="align-center" src="./en/../images/cliquet-notes-whiteboard.jpg" style="width: 500px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="A meeting in Paris..." class="align-center" src="http://www.servicedenuages.fr/en/../images/cliquet-notes-whiteboard.jpg" style="width: 500px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="the-protocol"&gt;
@@ -1272,7 +1272,7 @@ and authorisation, and how to interpret HTTP status codes...&lt;/p&gt;
 &lt;ul class="simple"&gt;
 &lt;li&gt;&lt;strong&gt;REST resources&lt;/strong&gt;: The two URLs of a resource (one each for collections and
 records) accept verbs and precise headers.&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;Formats&lt;/strong&gt;: The structure of the JSON responses, as well as the &lt;a class="reference external" href="./en/pagination-continuation-token"&gt;pagination
+&lt;li&gt;&lt;strong&gt;Formats&lt;/strong&gt;: The structure of the JSON responses, as well as the &lt;a class="reference external" href="http://www.servicedenuages.fr/en/pagination-continuation-token"&gt;pagination
 of lists&lt;/a&gt;, or the syntax for
 filtering and sorting of resources via the
 &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Query_string"&gt;querystring&lt;/a&gt;.&lt;/li&gt;
@@ -1312,7 +1312,7 @@ Perhaps there would even be several implementations in different languages.
 &lt;table class="docutils footnote" frame="void" id="id3" rules="none"&gt;
 &lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
-&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;See our dedicated article on &lt;a class="reference external" href="./en/handling-permissions"&gt;permissions in Cliquet&lt;/a&gt;.&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;See our dedicated article on &lt;a class="reference external" href="http://www.servicedenuages.fr/en/handling-permissions"&gt;permissions in Cliquet&lt;/a&gt;.&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table class="docutils footnote" frame="void" id="id4" rules="none"&gt;
@@ -1363,7 +1363,7 @@ variables or the &lt;tt class="docutils literal"&gt;.ini&lt;/tt&gt; file - or a 
 substituted completely) via the configuration alone.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Profiling&lt;/strong&gt;: Built-in development utilities to help find &lt;a class="reference external" href="https://en.wiktionary.org/wiki/bottleneck"&gt;bottlenecks&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img alt="Cliquet concepts" class="align-center" src="./en/../images/cliquet-concepts.png" style="width: 500px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Cliquet concepts" class="align-center" src="http://www.servicedenuages.fr/en/../images/cliquet-concepts.png" style="width: 500px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;By proportion, the number of lines of code that are necessary to support REST
 outweighs that of any other component in Cliquet. This is a feature; Cliquet
 provides a wide range of functionality and can therefore be used in any
@@ -1539,7 +1539,7 @@ some day write Cliquet in &lt;em&gt;aiohttp&lt;/em&gt; or &lt;em&gt;Go&lt;/em&gt
 &lt;/div&gt;
 &lt;div class="section" id="why-not-json-api"&gt;
 &lt;h4&gt;Why not JSON-API?&lt;/h4&gt;
-&lt;p&gt;Like we mentioned in a &lt;a class="reference external" href="./en/apidays-barcelona-retours"&gt;previous post (fr)&lt;/a&gt;, JSON-API is a specification that
+&lt;p&gt;Like we mentioned in a &lt;a class="reference external" href="http://www.servicedenuages.fr/en/apidays-barcelona-retours"&gt;previous post (fr)&lt;/a&gt;, JSON-API is a specification that
 touches on a lot of what we wanted - we didn't know about it when we started
 with our own protocol. Since our proposition is pretty minimalist in
 comparison, the idea of integrating JSON-API hasn't progressed beyond the
@@ -1601,19 +1601,19 @@ plugin-style ecosystem.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Summer Perspectives</title><link href="./en/summer-perspectives" rel="alternate"></link><updated>2015-07-07T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:,2015-07-07:./en/summer-perspectives</id><summary type="html">&lt;div class="note"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Summer Perspectives</title><link href="http://www.servicedenuages.fr/en/summer-perspectives" rel="alternate"></link><updated>2015-07-07T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-07-07:en/summer-perspectives</id><summary type="html">&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;Translated from the French by &lt;a class="reference external" href="https://dark.ca/"&gt;Dan Phrawzty&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;p&gt;Mozilla has a tradition of "work weeks" whereby the members of our many distributed teams get together in a single physical location a few times per year; occasionally these work weeks involve the entire company, as was the case most recently in &lt;a class="reference external" href="http://www.openstreetmap.org/node/268148288#map=4/50.12/-122.95"&gt;Whistler, BC, Canada&lt;/a&gt;.&lt;/p&gt;
-&lt;img alt='"All Hands" talk about Lego, by @davidcrob - CC0' class="align-center" src="./en/../images/whistler-talks.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt='"All Hands" talk about Lego, by @davidcrob - CC0' class="align-center" src="http://www.servicedenuages.fr/en/../images/whistler-talks.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;It was a great opportunity for our team to come together, to share our vision and ideas concerning data storage, and to collect use-cases for &lt;a class="reference external" href="https://kinto.readthedocs.org"&gt;Kinto&lt;/a&gt;.&lt;/p&gt;
 &lt;div class="section" id="workshops-and-self-promotion"&gt;
 &lt;h2&gt;Workshops and Self-Promotion&lt;/h2&gt;
 &lt;p&gt;Nicolas presented &lt;a class="reference external" href="https://github.com/mozilla-services/kinto.js"&gt;Kinto.js&lt;/a&gt; at a dedicated workshop in Whistler, the content of which now forms a &lt;a class="reference external" href="http://kintojs.readthedocs.org/en/latest/tutorial/"&gt;introductory tutorial&lt;/a&gt;. The resulting application, simple though it appears, is a great way to learn the basic concepts behind synchronisation in Kinto. Furthermore, we didn't even need to set up a server - Rémy set one up that &lt;a class="reference external" href="https://kinto.dev.mozaws.net/v1/"&gt;resets itself every day&lt;/a&gt;!&lt;/p&gt;
 &lt;p&gt;As an aside, we chose to use Vanilla-JS for two reasons: firstly because it allowed us to avoid the framework wars, but also because it proves that we can do so much more with HTML5 and ES6 than was possible a few years ago.&lt;/p&gt;
 &lt;p&gt;Furthermore, this small workshop helped us to realise that we still have large gaps in our documentation, particularly as regards the eco-system and the long-term, global vision for our family of projects. This is an area where we have resolved to do better.&lt;/p&gt;
-&lt;img alt="Kinto.js workshop - CC0" class="align-center" src="./en/../images/whistler-workshop.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Kinto.js workshop - CC0" class="align-center" src="http://www.servicedenuages.fr/en/../images/whistler-workshop.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;div class="section" id="mozilla-payments"&gt;
 &lt;h2&gt;Mozilla Payments&lt;/h2&gt;
@@ -1623,7 +1623,7 @@ plugin-style ecosystem.&lt;/p&gt;
 &lt;div class="section" id="coming-soon"&gt;
 &lt;h3&gt;Coming Soon&lt;/h3&gt;
 &lt;p&gt;Following the recent successful implementation of a permissions model, we'd like to take some time out to implement a feature that is important to us: allowing read access to &lt;em&gt;shared&lt;/em&gt; records in a collection. If this is interesting to you, feel free to follow &lt;a class="reference external" href="https://github.com/mozilla-services/cliquet/issues/354"&gt;the issue&lt;/a&gt; or (better yet) contribute a patch!&lt;/p&gt;
-&lt;img alt="Whistler Alta Lake - CC0" class="align-center" src="./en/../images/whistler-lake.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Whistler Alta Lake - CC0" class="align-center" src="http://www.servicedenuages.fr/en/../images/whistler-lake.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="firefox-os-and-storage"&gt;
@@ -1654,7 +1654,7 @@ plugin-style ecosystem.&lt;/p&gt;
 &lt;h3&gt;Coming Soon&lt;/h3&gt;
 &lt;p&gt;In addition to the work that we've already done on the server side, we're going to have to deal with concurrency management in our Javascript client in order to allow simultaneous writes and background synchronisation.&lt;/p&gt;
 &lt;p&gt;We are always looking for feedback - and, of course, code contributions - on both the &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/"&gt;server&lt;/a&gt; and &lt;a class="reference external" href="https://github.com/mozilla-services/kinto.js/"&gt;client&lt;/a&gt;!&lt;/p&gt;
-&lt;img alt="Firefox OS Cloud Storage Presentation - CC0" class="align-center" src="./en/../images/whistler-cloud-storage.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Firefox OS Cloud Storage Presentation - CC0" class="align-center" src="http://www.servicedenuages.fr/en/../images/whistler-cloud-storage.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="firefox-application-content"&gt;
@@ -1668,7 +1668,7 @@ plugin-style ecosystem.&lt;/p&gt;
 revived in the form of add-ons.&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;img alt="Landscape - CC0" class="align-center" src="./en/../images/whistler-landscape.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Landscape - CC0" class="align-center" src="http://www.servicedenuages.fr/en/../images/whistler-landscape.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;div class="section" id="awesome-bar"&gt;
 &lt;h2&gt;Awesome Bar&lt;/h2&gt;
@@ -1677,7 +1677,7 @@ revived in the form of add-ons.&lt;/td&gt;&lt;/tr&gt;
 &lt;div class="section" id="id6"&gt;
 &lt;h3&gt;Coming Soon&lt;/h3&gt;
 &lt;p&gt;In all likelihood we will need to implement indexing and full-text searching (read: Elasticsearch) before the end of the year. This fits nicely into our roadmap since it's something that we had in Daybed already.&lt;/p&gt;
-&lt;img alt="Firefox Labs Meeting - CC0" class="align-center" src="./en/../images/whistler-labs.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Firefox Labs Meeting - CC0" class="align-center" src="http://www.servicedenuages.fr/en/../images/whistler-labs.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="browser-html"&gt;
@@ -1689,7 +1689,7 @@ revived in the form of add-ons.&lt;/td&gt;&lt;/tr&gt;
 &lt;h3&gt;Coming Soon&lt;/h3&gt;
 &lt;p&gt;If Browser.html must store navigation data, we believe that it should do so using strong encryption directly in the Javascript client. Luckily we're not the only ones thinking about this, and there are already &lt;a class="reference external" href="http://www.w3.org/TR/WebCryptoAPI/"&gt;several possible standards&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;To avoid pinging the server at regular intervals in order to synchronise the changes (effectively DDoS'ing ourselves!), the introduction of &lt;a class="reference external" href="https://w3c.github.io/push-api/"&gt;push notifications&lt;/a&gt; seems like a natural choice. This would be the final building block in our quest to build a complete "Mobile / Web backed as a service".&lt;/p&gt;
-&lt;img alt="Roadmap - CC0" class="align-center" src="./en/../images/whistler-roadmap.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Roadmap - CC0" class="align-center" src="http://www.servicedenuages.fr/en/../images/whistler-roadmap.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="conclusion"&gt;
@@ -1704,9 +1704,9 @@ revived in the form of add-ons.&lt;/td&gt;&lt;/tr&gt;
 &lt;li&gt;Focus on quick wins that move us forward.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Finally, we will work to encourage meaningful community contributions to help us build a free, generic, simple, and self-hostable solution for storing data on the web.&lt;/p&gt;
-&lt;img alt="Friday Night Party - CC0" class="align-center" src="./en/../images/whistler-top-roof.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Friday Night Party - CC0" class="align-center" src="http://www.servicedenuages.fr/en/../images/whistler-top-roof.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Achievement unlocked</title><link href="./en/kinto-1.0" rel="alternate"></link><updated>2015-06-17T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:,2015-06-17:./en/kinto-1.0</id><summary type="html">&lt;p&gt;Today we released Cliquet 2.0 &lt;a class="footnote-reference" href="#id5" id="id1"&gt;[1]&lt;/a&gt; and Kinto 1.0 &lt;a class="footnote-reference" href="#id6" id="id2"&gt;[2]&lt;/a&gt; (a.k.a Cloud Storage).&lt;/p&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Achievement unlocked</title><link href="http://www.servicedenuages.fr/en/kinto-1.0" rel="alternate"></link><updated>2015-06-17T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-06-17:en/kinto-1.0</id><summary type="html">&lt;p&gt;Today we released Cliquet 2.0 &lt;a class="footnote-reference" href="#id5" id="id1"&gt;[1]&lt;/a&gt; and Kinto 1.0 &lt;a class="footnote-reference" href="#id6" id="id2"&gt;[2]&lt;/a&gt; (a.k.a Cloud Storage).&lt;/p&gt;
 &lt;p&gt;&lt;a class="reference external" href="https://kinto.readthedocs.org/en/latest/"&gt;Kinto&lt;/a&gt; is a service to
 store, synchronize and share arbitrary data attached to a Firefox Account.&lt;/p&gt;
 &lt;p&gt;&lt;a class="reference external" href="https://cliquet.readthedocs.org/en/latest/"&gt;Cliquet&lt;/a&gt; is a toolkit to
@@ -1756,7 +1756,7 @@ attached to your Firefox account. — &lt;a class="reference external" href="htt
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id4"&gt;[4]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Kinto roadmap: &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/wiki/roadmap"&gt;https://github.com/mozilla-services/kinto/wiki/roadmap&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Handling permissions</title><link href="./en/handling-permissions" rel="alternate"></link><updated>2015-05-12T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:,2015-05-12:./en/handling-permissions</id><summary type="html">&lt;p&gt;When creating a generic data storage (Kinto), permissions handling is one of
+</summary><category term="mozilla"></category></entry><entry><title>Handling permissions</title><link href="http://www.servicedenuages.fr/en/handling-permissions" rel="alternate"></link><updated>2015-05-12T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-12:en/handling-permissions</id><summary type="html">&lt;p&gt;When creating a generic data storage (Kinto), permissions handling is one of
 the big challenges: who should get access to what, and how should we define
 these rules?&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;tl;dr: Some feedback about the permissions vocabulary and our ideas about how
@@ -2349,7 +2349,7 @@ applications acting on her behalf.&lt;/p&gt;
 interrupt us while it's still possible!&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Ecosystem &amp; generic storage</title><link href="./en/generic-storage-ecosystem" rel="alternate"></link><updated>2015-04-30T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:,2015-04-30:./en/generic-storage-ecosystem</id><summary type="html">&lt;div class="note"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Ecosystem &amp; generic storage</title><link href="http://www.servicedenuages.fr/en/generic-storage-ecosystem" rel="alternate"></link><updated>2015-04-30T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-30:en/generic-storage-ecosystem</id><summary type="html">&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;This article was translated from French by Julien/Sphinx. We thank him a lot
 for this effort! Note, that at the beginning of this year,
@@ -2358,7 +2358,7 @@ for this effort! Note, that at the beginning of this year,
 &lt;/div&gt;
 &lt;p&gt;&lt;strong&gt;tl;dr We have to build a service to track payments, and we're hesitant
 to go on with our own solution for storage and synchronization.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;As we wrote in &lt;a class="reference external" href="./en/../service-de-nuages"&gt;the previous article (FR)&lt;/a&gt;,
+&lt;p&gt;As we wrote in &lt;a class="reference external" href="http://www.servicedenuages.fr/en/../service-de-nuages"&gt;the previous article (FR)&lt;/a&gt;,
 we want to build a solution for generic data storage. We're rebooting &lt;a class="reference external" href="http://daybed.readthedocs.org"&gt;Daybed&lt;/a&gt;
 at Mozilla!&lt;/p&gt;
 &lt;p&gt;Our goal is simple: allow developers, whether they are from Mozilla or from the whole world,
@@ -2386,7 +2386,7 @@ is based on existing and proven standards: Webfinger, OAuth2, CORS and REST.&lt;
 There exist several &lt;a class="reference external" href="https://github.com/jcoglan/restore"&gt;server implementations&lt;/a&gt;
 and there is even a &lt;a class="reference external" href="https://www.npmjs.com/package/remotestorage-server"&gt;Node skeleton&lt;/a&gt;
 to build a custom server.&lt;/p&gt;
-&lt;img alt="Remote Storage widget" class="align-left" src="./en/../images/remotestorage-widget.png" style="width: 243px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Remote Storage widget" class="align-left" src="http://www.servicedenuages.fr/en/../images/remotestorage-widget.png" style="width: 243px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;The &lt;a class="reference external" href="https://github.com/remotestorage/remotestorage.js/"&gt;remoteStorage.js client&lt;/a&gt;
 allows us to integrate this solution into Web apps. This client is in charge of the "local store",
 caching, syncing and providing users a widget so that they can choose the server
@@ -2461,7 +2461,7 @@ collection, ...) might not be dealt with easily.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="the-payments-use-case"&gt;
 &lt;h2&gt;The "Payments" use case&lt;/h2&gt;
-&lt;img alt="Put Payments Here  -- Before the Internet - CC-NC-SA Katy Silberger https://www.flickr.com/photos/katysilbs/11163812186" src="./en/../images/put-payments.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Put Payments Here  -- Before the Internet - CC-NC-SA Katy Silberger https://www.flickr.com/photos/katysilbs/11163812186" src="http://www.servicedenuages.fr/en/../images/put-payments.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;During the next weeks, we will have to setup a prototype that keeps an history
 of a user's payments and subscriptions.&lt;/p&gt;
 &lt;p&gt;The requirements are simple:&lt;/p&gt;
@@ -2478,7 +2478,7 @@ records. The two others can only have read-only access to these records.&lt;/p&g
 &lt;p&gt;A given application cannot access to some other application payments and a given user cannot access to some other user's payments.&lt;/p&gt;
 &lt;div class="section" id="with-remotestorage"&gt;
 &lt;h3&gt;With RemoteStorage&lt;/h3&gt;
-&lt;img alt="Remote Love - CC-BY-NC Julie https://www.flickr.com/photos/mamajulie2008/2609549461" class="align-center" src="./en/../images/remote-love.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Remote Love - CC-BY-NC Julie https://www.flickr.com/photos/mamajulie2008/2609549461" class="align-center" src="http://www.servicedenuages.fr/en/../images/remote-love.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;The idea of &lt;em&gt;Remote Storage&lt;/em&gt; is to separate the application from the data that
 the user created with the application.&lt;/p&gt;
 &lt;p&gt;In our use case, the "Payment" app is dealing with the data concerning a user.
@@ -2507,7 +2507,7 @@ JavaScript wrapper (as &lt;a class="reference external" href="https://pythonhost
 &lt;/div&gt;
 &lt;div class="section" id="a-new-ecosystem"&gt;
 &lt;h2&gt;A new ecosystem?&lt;/h2&gt;
-&lt;img alt="Wagon wheel - CC-BY-NC-SA arbyreed https://www.flickr.com/photos/19779889@N00/16161808220" src="./en/../images/wagon-wheel.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Wagon wheel - CC-BY-NC-SA arbyreed https://www.flickr.com/photos/19779889@N00/16161808220" src="http://www.servicedenuages.fr/en/../images/wagon-wheel.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;It is obvious that &lt;em&gt;PouchDB&lt;/em&gt; and &lt;em&gt;Remote Storage&lt;/em&gt; are rich projects with dynamic communities. Therefore, it's reasonable to wonder if one should develop another solution.&lt;/p&gt;
 &lt;p&gt;When we created the &lt;em&gt;Reading List&lt;/em&gt; server, we built it with
 &lt;a class="reference external" href="http://cliquet.readthedocs.org/"&gt;Cliquet&lt;/a&gt;. We had a chance to setup &lt;a class="reference external" href="http://cliquet.readthedocs.org/en/latest/api/"&gt;a very simple protocol&lt;/a&gt;, strongly inspired by
@@ -2595,7 +2595,7 @@ It's always a difficult decision to make... &lt;tt class="docutils literal"&gt;&
 This first step might lead us to converge in the end! Maybe our service will end
 up being compatible with Remote Storage, maybe PouchDB will become more agnostic
 regarding the synchronisation protocol...&lt;/p&gt;
-&lt;img alt="XKCD — Standards https://xkcd.com/927/" src="./en/../images/standards.png" style="width: 500px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="XKCD — Standards https://xkcd.com/927/" src="http://www.servicedenuages.fr/en/../images/standards.png" style="width: 500px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Using this new ecosystem for the "Payments" project will allow us to setup a
 suitable permission system (&lt;em&gt;probably built on OAuth scopes&lt;/em&gt;). We are also
 looking forward to &lt;a class="reference external" href="http://blog.daybed.io/daybed-revival.html"&gt;capitalizing on our Daybed experience for this project&lt;/a&gt;.&lt;/p&gt;
@@ -2623,7 +2623,7 @@ public sharing of one's resources from one's &lt;em&gt;Remote Storage&lt;/em&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Service de nuages !</title><link href="./en/service-de-nuages" rel="alternate"></link><updated>2015-04-16T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:,2015-04-16:./en/service-de-nuages</id><summary type="html">&lt;p&gt;A bunch of changes since the beginning of the year for the "cloud-services"
+</summary><category term="mozilla"></category></entry><entry><title>Service de nuages !</title><link href="http://www.servicedenuages.fr/en/service-de-nuages" rel="alternate"></link><updated>2015-04-16T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-16:en/service-de-nuages</id><summary type="html">&lt;p&gt;A bunch of changes since the beginning of the year for the "cloud-services"
 frenchies!&lt;/p&gt;
 &lt;p&gt;First of all, two new recruits are here to complement the team:
 &lt;a class="reference external" href="https://nicolas.perriault.net/"&gt;n1k0&lt;/a&gt; and &lt;a class="reference external" href="http://mathieu-leplatre.info"&gt;Mathieu&lt;/a&gt; are now helping out &lt;a class="reference external" href="http://ziade.org/"&gt;Tarek&lt;/a&gt;, &lt;a class="reference external" href="http://natim.ionyse.com"&gt;Rémy&lt;/a&gt; and &lt;a class="reference external" href="http://notmyidea.org"&gt;Alexis&lt;/a&gt;.&lt;/p&gt;
@@ -2637,7 +2637,7 @@ The idea is to be able to bookmark pages to "read for later" and continue the
 reading on any synchronized device (Firefox for Android or Firefox Desktop). An
 open source counterpart to &lt;a class="reference external" href="http://getpocket.com"&gt;Pocket&lt;/a&gt;, in some regards, which is possible to host
 yourself.&lt;/p&gt;
-&lt;img alt="Capture of Firefox nightly with the readinglist." src="./en/../images/readinglist-screenshot.png" style="width: 953px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Capture of Firefox nightly with the readinglist." src="http://www.servicedenuages.fr/en/../images/readinglist-screenshot.png" style="width: 953px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;To build this service, we could have reused &lt;a class="reference external" href="https://github.com/mozilla-services/server-syncstorage"&gt;Firefox sync&lt;/a&gt; , after all it's
 a robust synchronisation service, built on top of &lt;a class="reference external" href="http://cornice.readthedocs.org/"&gt;Cornice&lt;/a&gt;. But &lt;em&gt;Sync&lt;/em&gt; hasn't
 been thought to guarantee strong data integrity and it was too complex to change that
@@ -2672,7 +2672,7 @@ dissociate it from the readinglist project.&lt;/p&gt;
 &lt;p&gt;As a first stone to build the cathedral, we created &lt;a class="reference external" href="https://cliquet.readthedocs.org"&gt;Cliquet&lt;/a&gt;, which main idea is to have an
 implementation of this protocol in Python, while factorizing all our good
 practices (notably for putting everything in production).&lt;/p&gt;
-&lt;img alt="Cliquet's logo" class="align-right" src="./en/../images/cliquet-logo.png" style="width: 300px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Cliquet's logo" class="align-right" src="http://www.servicedenuages.fr/en/../images/cliquet-logo.png" style="width: 300px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;The good thing with protocols (as opposed to monoliths) is that if you prefer
 Asyncio, io.js or Go, we will encourage you to publish your alternative
 implementation!&lt;/p&gt;
@@ -2689,7 +2689,7 @@ the protocol (or &lt;em&gt;Cliquet&lt;/em&gt;), certain specific technical point
 vision with examples and tutorials.&lt;/p&gt;
 &lt;p&gt;See you soon, then!&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Le printemps</title><link href="./en/spring" rel="alternate"></link><updated>2015-04-15T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:,2015-04-15:./en/spring</id><summary type="html">&lt;p&gt;It's spring already, and a good time to tidy-up a bit our minds!&lt;/p&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Le printemps</title><link href="http://www.servicedenuages.fr/en/spring" rel="alternate"></link><updated>2015-04-15T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-15:en/spring</id><summary type="html">&lt;p&gt;It's spring already, and a good time to tidy-up a bit our minds!&lt;/p&gt;
 &lt;p&gt;We've been stacking interesting experiences without really sharing them in
 writings, so now's the time.&lt;/p&gt;
 &lt;p&gt;There were a francophone conference about Hawk the past year, and some articles
@@ -2698,5 +2698,5 @@ us express ourselves in a compelling way.&lt;/p&gt;
 &lt;p&gt;That's why, in this beginning of spring 2015, we propose a set of articles
 written in French and translated in English whenever we can, about what we do in
 our little &lt;em&gt;Service des nuages&lt;/em&gt; team at Mozilla.&lt;/p&gt;
-&lt;img alt="Our very own logo" src="./en/../images/service_de_nuages.png" style="width: 2268px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Our very own logo" src="http://www.servicedenuages.fr/en/../images/service_de_nuages.png" style="width: 2268px; height: auto; max-width: 100%;"/&gt;
 </summary><category term="mozilla"></category></entry></feed>

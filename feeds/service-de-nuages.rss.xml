@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Service de nuages</title><link>./</link><description></description><atom:link href="./feeds/service-de-nuages.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 16 Dec 2015 00:00:00 +0100</lastBuildDate><item><title>Configurer un certificat SSL avec Let's Encrypt</title><link>./configurer-un-certificat-ssl-lets-encrypt</link><description>&lt;p&gt;Fini les certificats non sécurisés et très coûteux !&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Let's encrypt — a new Certificate Authority:  free, automated, and open." src="./images/letsencrypt-logo-horizontal.png" style="width: 1025px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Service de nuages</title><link>http://www.servicedenuages.fr/</link><description></description><atom:link href="http://www.servicedenuages.fr/feeds/service-de-nuages.rss.xml" rel="self"></atom:link><lastBuildDate>Wed, 16 Dec 2015 00:00:00 +0100</lastBuildDate><item><title>Configurer un certificat SSL avec Let's Encrypt</title><link>http://www.servicedenuages.fr/configurer-un-certificat-ssl-lets-encrypt</link><description>&lt;p&gt;Fini les certificats non sécurisés et très coûteux !&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Let's encrypt — a new Certificate Authority:  free, automated, and open." src="http://www.servicedenuages.fr/images/letsencrypt-logo-horizontal.png" style="width: 1025px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
 &lt;p&gt;Avec Let's Encrypt vous n'avez plus d'excuse car il vous est
 maintenant possible d'obtenir un certificat SSL valide, sur tous les
 navigateurs, gratuitement et sans avoir besoin d'être un expert en
@@ -89,18 +89,18 @@ Source il y a fort à parier que les hébergeurs vont simplifier la
 procédure et la rendre spécifique à leur interface d'administration.&lt;/p&gt;
 &lt;p&gt;Des serveurs HTTP tels que &lt;code&gt;caddy&lt;/code&gt; ont déjà
 &lt;a href="https://www.youtube.com/watch?v=nk4EWHvvZtI"&gt;intégré la génération du certificat&lt;/a&gt;
-dans la procédure d'installation de leur serveur.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 16 Dec 2015 00:00:00 +0100</pubDate><guid>tag:,2015-12-16:./configurer-un-certificat-ssl-lets-encrypt</guid><category>mozilla</category></item><item><title>Support des fichiers dans Kinto</title><link>./kinto-file-attachment</link><description>&lt;div class="section" id="le-besoin-initial"&gt;
+dans la procédure d'installation de leur serveur.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 16 Dec 2015 00:00:00 +0100</pubDate><guid>tag:www.servicedenuages.fr,2015-12-16:configurer-un-certificat-ssl-lets-encrypt</guid><category>mozilla</category></item><item><title>Support des fichiers dans Kinto</title><link>http://www.servicedenuages.fr/kinto-file-attachment</link><description>&lt;div class="section" id="le-besoin-initial"&gt;
 &lt;h2&gt;Le besoin initial&lt;/h2&gt;
 &lt;p&gt;Le besoin d'ajouter des fichiers dans &lt;em&gt;Kinto&lt;/em&gt; avait été identifié depuis
 le début du projet. Mais comme nous sommes une toute petite équipe, nous sommes
 un peu forcés d'attendre que des besoins se présentent en interne (chez Mozilla)
 pour se lancer dans l'implémentation.&lt;/p&gt;
-&lt;p&gt;Après &lt;a class="reference external" href="./la-gestion-des-permissions"&gt;les permissions&lt;/a&gt;,
-&lt;a class="reference external" href="./kinto-chiffrer-ses-donnees"&gt;le chiffrement&lt;/a&gt;,
-&lt;a class="reference external" href="./donnees-et-signatures"&gt;les signatures&lt;/a&gt; et
-&lt;a class="reference external" href="./en/notifications-kinto-preamble"&gt;les notifications&lt;/a&gt;,
+&lt;p&gt;Après &lt;a class="reference external" href="http://www.servicedenuages.fr/la-gestion-des-permissions"&gt;les permissions&lt;/a&gt;,
+&lt;a class="reference external" href="http://www.servicedenuages.fr/kinto-chiffrer-ses-donnees"&gt;le chiffrement&lt;/a&gt;,
+&lt;a class="reference external" href="http://www.servicedenuages.fr/donnees-et-signatures"&gt;les signatures&lt;/a&gt; et
+&lt;a class="reference external" href="http://www.servicedenuages.fr/en/notifications-kinto-preamble"&gt;les notifications&lt;/a&gt;,
 nous avons enfin eu une demande pour les fichiers !&lt;/p&gt;
-&lt;img alt="Fennec logo" class="align-center" src="./images/logo-fennec.png" style="width: 458px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Fennec logo" class="align-center" src="http://www.servicedenuages.fr/images/logo-fennec.png" style="width: 458px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;En effet, dans &lt;a class="reference external" href="https://www.mozilla.org/fr/firefox/partners/#android"&gt;Fennec&lt;/a&gt;
 — la version mobile de Firefox — nous souhaitons livrer et mettre à jour des fichiers statiques
 (polices de caractères, icônes, dictionnaires de césures...) sans avoir à repackager
@@ -241,7 +241,7 @@ part !&lt;/p&gt;
 &lt;p&gt;&lt;a class="reference external" href="https://github.com/Kinto/kinto-attachment/"&gt;Une première implémentation a été commencée&lt;/a&gt;,
 en utilisant &lt;a class="reference external" href="https://github.com/danjac/pyramid_storage"&gt;Pyramid Storage&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Nous avons déjà eu l'occasion de tester l'API en soirée et ce fût un véritable succès!&lt;/p&gt;
-&lt;img alt="Kinto-attachment et le bot Telegram en soirée - CC0" class="align-center" src="./images/kinto-telegram-betahaus.jpg" style="width: 1280px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Kinto-attachment et le bot Telegram en soirée - CC0" class="align-center" src="http://www.servicedenuages.fr/images/kinto-telegram-betahaus.jpg" style="width: 1280px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Dans &lt;a class="reference external" href="https://github.com/leplatrem/kinto-telegram-wall"&gt;ce petit projet&lt;/a&gt;, un
 bot Telegram reçoit des messages et des contenus multimedia, et les transmet à
 un serveur &lt;em&gt;Kinto&lt;/em&gt; sous forme de fichiers joints.&lt;/p&gt;
@@ -249,7 +249,7 @@ un serveur &lt;em&gt;Kinto&lt;/em&gt; sous forme de fichiers joints.&lt;/p&gt;
 Pendant la soirée, tout le monde a adoré envoyer un petit quelquechose, et il a suffi de faire une archive
 du répertoire de &lt;em&gt;kinto-attachment&lt;/em&gt; pour distribuer un paquet de chouettes souvenirs!&lt;/p&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 19 Nov 2015 00:00:00 +0100</pubDate><guid>tag:,2015-11-19:./kinto-file-attachment</guid><category>mozilla</category></item><item><title>La difficile promesse de l'auto-hébergement</title><link>./difficile-promesse-autohebergement</link><description>&lt;p&gt;Au détour de quelques conversations, nous avons pu nous rendre compte que notre
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 19 Nov 2015 00:00:00 +0100</pubDate><guid>tag:www.servicedenuages.fr,2015-11-19:kinto-file-attachment</guid><category>mozilla</category></item><item><title>La difficile promesse de l'auto-hébergement</title><link>http://www.servicedenuages.fr/difficile-promesse-autohebergement</link><description>&lt;p&gt;Au détour de quelques conversations, nous avons pu nous rendre compte que notre
 vision de &lt;a class="reference external" href="https://kinto.readthedocs.org"&gt;Kinto&lt;/a&gt; est celle d'un hébergement
 communautaire décentralisé plutôt que celle d'un ensemble de petits serveurs
 personnels. Explications.&lt;/p&gt;
@@ -261,7 +261,7 @@ que l'ensemble des personnes puissent facilement avoir accès à un serveur
 Kinto.&lt;/p&gt;
 &lt;div class="section" id="auto-hebergement"&gt;
 &lt;h2&gt;Auto-hébergement&lt;/h2&gt;
-&lt;img alt="Maison de campagne -- House, Automn - CC-BY-ND Gunnar Magnusson https://www.flickr.com/photos/matupplevelser/4644386646" class="align-center" src="./images/autohebergement.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Maison de campagne -- House, Automn - CC-BY-ND Gunnar Magnusson https://www.flickr.com/photos/matupplevelser/4644386646" class="align-center" src="http://www.servicedenuages.fr/images/autohebergement.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Déployer des serveurs n'est pas actuellement chose aisée. Nombre
 d'initiatives visent à rendre ce déploiement plus simple, mais les défis
 techniques sont encore nombreux avant d'aboutir à une solution "plug and play"
@@ -294,12 +294,12 @@ qui ont vocation à être partagées ou de données qui sont les vôtres et qui
 doivent rester privées.&lt;/p&gt;
 &lt;p&gt;Un de nos objectifs est de rendre le chiffrement des données extrêmement simple afin
 que personne (sinon vous) ne soit capable de les lire.&lt;/p&gt;
-&lt;p&gt;Kinto.js le permet d'ailleurs d'ores et déjà, comme Michiel le démontre &lt;a class="reference external" href="./kinto-chiffrer-ses-donnees"&gt;dans
+&lt;p&gt;Kinto.js le permet d'ailleurs d'ores et déjà, comme Michiel le démontre &lt;a class="reference external" href="http://www.servicedenuages.fr/kinto-chiffrer-ses-donnees"&gt;dans
 un article paru précedemment ici&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="eviter-la-creation-d-un-nouveau-silo"&gt;
 &lt;h2&gt;Éviter la création d'un nouveau silo&lt;/h2&gt;
-&lt;img alt="Le futur des silos - CC-BY-NC-ND Sunflower Silo in Boulder County Colorado by Bo Insogna — https://www.flickr.com/photos/thelightningman/5494666930" class="align-center" src="./images/silo.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Le futur des silos - CC-BY-NC-ND Sunflower Silo in Boulder County Colorado by Bo Insogna — https://www.flickr.com/photos/thelightningman/5494666930" class="align-center" src="http://www.servicedenuages.fr/images/silo.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Afin d'éviter de participer à la création d'un nouveau silo, il est important
 de lever quelques points de vigilance :&lt;/p&gt;
 &lt;div class="section" id="identite"&gt;
@@ -350,7 +350,7 @@ solution pragmatique sur le court/moyen terme, rendant certaines libertés
 aux utilisateurs et ouvrant la voie pour le futur.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Mon, 05 Oct 2015 00:00:00 +0200</pubDate><guid>tag:,2015-10-05:./difficile-promesse-autohebergement</guid><category>mozilla</category></item><item><title>Comment chiffrer ses données avec Kinto.js</title><link>./kinto-chiffrer-ses-donnees</link><description>&lt;div class="note"&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Mon, 05 Oct 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-10-05:difficile-promesse-autohebergement</guid><category>mozilla</category></item><item><title>Comment chiffrer ses données avec Kinto.js</title><link>http://www.servicedenuages.fr/kinto-chiffrer-ses-donnees</link><description>&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;Traduit de l'anglais par &lt;a class="reference external" href="https://twitter.com/Natim"&gt;Rémy Hubscher&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -400,9 +400,9 @@ téléchargé. Vous pouvez en lire plus à ce sujet
 &lt;p&gt;La manière dont nous indiquons à Kinto.js d'utiliser nos fonctions
 &lt;tt class="docutils literal"&gt;encode&lt;/tt&gt; et &lt;tt class="docutils literal"&gt;decode&lt;/tt&gt; est assez simple. Lorsqu'on créé une
 collection Kinto, on passe en paramètre un &lt;tt class="docutils literal"&gt;RemoteTransformer&lt;/tt&gt;. Le
-code d'exemple complet se trouve &lt;a class="reference external" href="./scripts/kinto-encryption-example.js"&gt;ici&lt;/a&gt;
+code d'exemple complet se trouve &lt;a class="reference external" href="http://www.servicedenuages.fr/scripts/kinto-encryption-example.js"&gt;ici&lt;/a&gt;
 (notez qu'il ne fonctionne pour l'instant qu'avec
-&lt;a class="reference external" href="./scripts/kinto-61ad959.min.js"&gt;la dernière version de Kinto.js master&lt;/a&gt;),
+&lt;a class="reference external" href="http://www.servicedenuages.fr/scripts/kinto-61ad959.min.js"&gt;la dernière version de Kinto.js master&lt;/a&gt;),
 mais regardons le code étape par étape.&lt;/p&gt;
 &lt;p&gt;Si vous n'êtes pas familier avec ES6, vous pouvez être un peu surpris par sa syntaxe ; utilisons cette opportunité pour nous y habituer ! Voici une petite table de correspondance :&lt;/p&gt;
 &lt;ul class="simple"&gt;
@@ -521,7 +521,7 @@ possible à l'aide de la toute récente option &lt;tt class="docutils literal"&g
 dans la collection 1, synchronisons-le (les données envoyées au
 serveur doivent être chiffrées, ce qu'on peut vérifier avec l'onglet
 Réseau de la console du navigateur):&lt;/p&gt;
-&lt;img alt="Onglet Réseau de la console Firefox" src="./images/kinto-encryption-example-network-tab.png" style="width: 2560px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Onglet Réseau de la console Firefox" src="http://www.servicedenuages.fr/images/kinto-encryption-example-network-tab.png" style="width: 2560px; height: auto; max-width: 100%;"/&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;syncUp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="c1"&gt;// Use first Kinto instance to demonstrate encryption:&lt;/span&gt;
   &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;coll1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;create&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
@@ -562,7 +562,7 @@ du navigateur et essayez en lançant la fonction &lt;tt class="docutils literal"
 suis, les commentaires sur cet article ainsi que
 &lt;a class="reference external" href="https://github.com/michielbdejong/kinto-encryption-example/"&gt;les tickets Github sur le dépôt de l'exemple&lt;/a&gt;
 sont les bienvenus ! :)&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 16 Sep 2015 00:00:00 +0200</pubDate><guid>tag:,2015-09-16:./kinto-chiffrer-ses-donnees</guid><category>mozilla</category></item><item><title>Garantir l'intégrité des données via des signatures</title><link>./donnees-et-signatures</link><description>&lt;p&gt;Dans le cadre du projet &lt;a class="reference external" href="https://wiki.mozilla.org/Firefox/Go_Faster"&gt;Go Faster&lt;/a&gt;, nous souhaitons distribuer des
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 16 Sep 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-09-16:kinto-chiffrer-ses-donnees</guid><category>mozilla</category></item><item><title>Garantir l'intégrité des données via des signatures</title><link>http://www.servicedenuages.fr/donnees-et-signatures</link><description>&lt;p&gt;Dans le cadre du projet &lt;a class="reference external" href="https://wiki.mozilla.org/Firefox/Go_Faster"&gt;Go Faster&lt;/a&gt;, nous souhaitons distribuer des
 mises à jour de parties de &lt;em&gt;Firefox&lt;/em&gt; de manière séparée des mises à jour majeures
 (qui ont lieu toutes les 6 semaines).&lt;/p&gt;
 &lt;p&gt;Les données que nous souhaitons mettre à jour sur les clients sont multiples.
@@ -656,9 +656,9 @@ pourrait ressembler à ceci :&lt;/p&gt;
 &lt;span class="n"&gt;collection_hash&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;hexdigest&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Enfin, un schéma pour résumer !&lt;/p&gt;
-&lt;img alt="Schema résumant le processus de signature de la collection." class="align-center" src="./images/kinto-signing.jpg" style="width: 600px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Schema résumant le processus de signature de la collection." class="align-center" src="http://www.servicedenuages.fr/images/kinto-signing.jpg" style="width: 600px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 26 Aug 2015 00:00:00 +0200</pubDate><guid>tag:,2015-08-26:./donnees-et-signatures</guid><category>mozilla</category></item><item><title>A la recherche d'un assistant en qualité</title><link>./wanted-quality-assistant</link><description>&lt;p&gt;Derrière ce titre issu d'une traduction tout à fait questionnable de "Quality
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 26 Aug 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-08-26:donnees-et-signatures</guid><category>mozilla</category></item><item><title>A la recherche d'un assistant en qualité</title><link>http://www.servicedenuages.fr/wanted-quality-assistant</link><description>&lt;p&gt;Derrière ce titre issu d'une traduction tout à fait questionnable de "Quality
 Assistant", nous souhaitons vous faire part d'une annonce tout à fait
 remarquable : nous souhaitons recruter une personne pour nous aider à
 tester et valider nos services et autres bouts de code.&lt;/p&gt;
@@ -720,14 +720,14 @@ une mince affaire)&lt;/li&gt;
 &lt;p&gt;Si vous vous reconnaissez dans cette description, contactez nous ! Le meilleur
 moyen étant bien sur IRC, &lt;cite&gt;#storage&lt;/cite&gt; sur le réseau &lt;cite&gt;irc.mozilla.org&lt;/cite&gt;.&lt;/p&gt;
 &lt;p&gt;Pour plus d'information sur le poste, vous pouvez &lt;a class="reference external" href="https://careers.mozilla.org/en-US/position/oWHv1fwT"&gt;consulter la fiche de poste&lt;/a&gt;.&lt;/p&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 25 Aug 2015 00:00:00 +0200</pubDate><guid>tag:,2015-08-25:./wanted-quality-assistant</guid><category>mozilla</category></item><item><title>Les notifications dans Kinto (Préambule)</title><link>./notifications-kinto-preamble</link><description>&lt;blockquote&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 25 Aug 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-08-25:wanted-quality-assistant</guid><category>mozilla</category></item><item><title>Les notifications dans Kinto (Préambule)</title><link>http://www.servicedenuages.fr/notifications-kinto-preamble</link><description>&lt;blockquote&gt;
 &lt;p&gt;Traduit de l'anglais par &lt;a href="https://twitter.com/Natim"&gt;Rémy Hubscher&lt;/a&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;Lors de notre dernière &lt;em&gt;workweek&lt;/em&gt; dans l'adorable ville de
 &lt;a href="https://www.qwant.com/?q=Douarnenez&amp;amp;t=images"&gt;Douarnenez&lt;/a&gt; nous avons
 défini les fondations de la prochaine fonctionnalité de
 &lt;a href="https://kinto.readthedocs.org"&gt;Kinto&lt;/a&gt; : &lt;em&gt;les notifications !&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Coucher de soleil sur Douarnenez (@phrawzty)" src="./images/notifications-douarnenez.jpg" style="width: 800px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Coucher de soleil sur Douarnenez (@phrawzty)" src="http://www.servicedenuages.fr/images/notifications-douarnenez.jpg" style="width: 800px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
 &lt;h1&gt;tl;dr&lt;/h1&gt;
 &lt;p&gt;Pour les pressés, un petit résumé : Nous allons ajouter
 un système de "notifications" à Kinto, sans perdre de vue la
@@ -812,7 +812,7 @@ scientifique). Le meilleur moyen de déterminer l'approche gagnante
 reste le duel (à la Mad Max). Malheureusement notre manager a mis son
 véto sur ce moyen pour des questions de responsabilité, à la place
 nous avons préféré faire des dessins sur un tableau blanc...&lt;/p&gt;
-&lt;p&gt;&lt;img alt="Whiteboard (@leplatrem)" src="./images/notifications-whiteboard.jpg" style="width: 675px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt="Whiteboard (@leplatrem)" src="http://www.servicedenuages.fr/images/notifications-whiteboard.jpg" style="width: 675px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
 &lt;p&gt;Dans un esprit de transparence, voici quelques unes des solutions étudiées :&lt;/p&gt;
 &lt;h2&gt;L'approche simple&lt;/h2&gt;
 &lt;p&gt;La première approche et de pousser chacune des notifications dans une
@@ -973,12 +973,12 @@ ce sera l'objet d'une discussion future.&lt;/p&gt;
 &lt;p&gt;Comme toujours, nous souhaitons avoir vos retours.&lt;/p&gt;
 &lt;p&gt;Nous écrivons avant tout ces articles pour échanger avec vous, alors
 n'hésitez surtout pas à poster vos questions, remarques,
-interrogations via les commentaires par exemple.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 13 Aug 2015 00:00:00 +0200</pubDate><guid>tag:,2015-08-13:./notifications-kinto-preamble</guid><category>mozilla</category></item><item><title>Pourquoi avons-nous fait Cliquet ?</title><link>./pourquoi-cliquet</link><description>&lt;p&gt;&lt;strong&gt;tldr; Cliquet est un toolkit Python pour construire des APIs, qui implémente
+interrogations via les commentaires par exemple.&lt;/p&gt;</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 13 Aug 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-08-13:notifications-kinto-preamble</guid><category>mozilla</category></item><item><title>Pourquoi avons-nous fait Cliquet ?</title><link>http://www.servicedenuages.fr/pourquoi-cliquet</link><description>&lt;p&gt;&lt;strong&gt;tldr; Cliquet est un toolkit Python pour construire des APIs, qui implémente
 les bonnes pratiques en terme de mise en production et de protocole HTTP.&lt;/strong&gt;&lt;/p&gt;
 &lt;div class="section" id="les-origines"&gt;
 &lt;h2&gt;Les origines&lt;/h2&gt;
 &lt;p&gt;L'objectif pour le premier trimestre 2015 était de construire un service de
-stockage et de &lt;a class="reference external" href="./service-de-nuages"&gt;synchronisation de listes de lecture&lt;/a&gt;.&lt;/p&gt;
+stockage et de &lt;a class="reference external" href="http://www.servicedenuages.fr/service-de-nuages"&gt;synchronisation de listes de lecture&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Au démarrage du projet, nous avons tenté de rassembler toutes les bonnes pratiques
 et recommandations, venant de différentes équipes et surtout des derniers projets déployés.&lt;/p&gt;
 &lt;p&gt;De même, nous voulions tirer parti du protocole de &lt;em&gt;Firefox Sync&lt;/em&gt;, robuste et éprouvé,
@@ -991,7 +991,7 @@ devaient obéir globalement à ces mêmes règles, nous avons décidé de mettre
 commun l'implémentation de ce protocole et de ces bonnes pratiques dans un
 «toolkit».&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;Cliquet&lt;/em&gt; est né.&lt;/p&gt;
-&lt;img alt="Cliquet logo" class="align-center" src="./images/cliquet-logo.png" style="width: 300px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Cliquet logo" class="align-center" src="http://www.servicedenuages.fr/images/cliquet-logo.png" style="width: 300px; height: auto; max-width: 100%;"/&gt;
 &lt;div class="section" id="les-intentions"&gt;
 &lt;h3&gt;Les intentions&lt;/h3&gt;
 &lt;blockquote class="epigraph"&gt;
@@ -1025,7 +1025,7 @@ de resource REST et de backend de stockage.&lt;/p&gt;
 depuis le fichier &lt;tt class="docutils literal"&gt;.ini&lt;/tt&gt; de l'application. Ainsi tous les projets qui utilisent
 le toolkit se déploieront de la même manière : seuls quelques éléments de configuration
 les distingueront.&lt;/p&gt;
-&lt;img alt="Une réunion à Paris..." class="align-center" src="./images/cliquet-notes-whiteboard.jpg" style="width: 500px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Une réunion à Paris..." class="align-center" src="http://www.servicedenuages.fr/images/cliquet-notes-whiteboard.jpg" style="width: 500px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="le-protocole"&gt;
@@ -1045,7 +1045,7 @@ authentification et autorisation, la cohérence des code status...&lt;/p&gt;
 &lt;li&gt;&lt;strong&gt;Les resources REST&lt;/strong&gt; : Les deux URLs d'une resource (pour la collection
 et les enregistrements) acceptent des verbes et des headers précis.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Les formats&lt;/strong&gt; : le format et la structure JSON des réponses est imposé, ainsi
-que la &lt;a class="reference external" href="./pagination-continuation-token"&gt;pagination des listes&lt;/a&gt;
+que la &lt;a class="reference external" href="http://www.servicedenuages.fr/pagination-continuation-token"&gt;pagination des listes&lt;/a&gt;
 ou la syntaxe pour filtrer/trier les resources via la &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Query_string"&gt;querystring&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Les timestamps&lt;/strong&gt; : un numéro de révision qui s'incrémente à chaque opération
 d'écriture sur une collection d'enregistrements.&lt;/li&gt;
@@ -1078,7 +1078,7 @@ En rêve, il existerait même plusieurs implémentations avec des technologies d
 &lt;table class="docutils footnote" frame="void" id="id3" rules="none"&gt;
 &lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
-&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Voir notre &lt;a class="reference external" href="./la-gestion-des-permissions"&gt;article dédié sur les permissions&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
+&lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Voir notre &lt;a class="reference external" href="http://www.servicedenuages.fr/la-gestion-des-permissions"&gt;article dédié sur les permissions&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table class="docutils footnote" frame="void" id="id4" rules="none"&gt;
@@ -1131,7 +1131,7 @@ depuis la configuration.&lt;/li&gt;
 &lt;li&gt;&lt;strong&gt;Le profiling&lt;/strong&gt; : utilitaires de développement pour trouver les &lt;a class="reference external" href="https://fr.wiktionary.org/wiki/goulet_d%E2%80%99%C3%A9tranglement"&gt;goulets
 d'étranglement&lt;/a&gt;.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;img alt="Cliquet concepts" class="align-center" src="./images/cliquet-concepts.png" style="width: 500px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Cliquet concepts" class="align-center" src="http://www.servicedenuages.fr/images/cliquet-concepts.png" style="width: 500px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Proportionnellement, l'implémentation du protocole pour les resources REST est
 la plus volumineuse dans le code source de &lt;em&gt;Cliquet&lt;/em&gt;.
 Cependant, comme nous l'avons décrit plus haut, &lt;em&gt;Cliquet&lt;/em&gt; fournit tout un
@@ -1318,7 +1318,7 @@ Python 2.7, à notre grand désarroi /o\&lt;/p&gt;
 pas un jour d'écrire un &lt;em&gt;Cliquet&lt;/em&gt; en &lt;em&gt;aiohttp&lt;/em&gt; ou &lt;em&gt;Go&lt;/em&gt; si cela s'avèrerait pertinent.&lt;/p&gt;
 &lt;blockquote&gt;
 Pourquoi pas JSON-API ?&lt;/blockquote&gt;
-&lt;p&gt;Comme nous l'expliquions &lt;a class="reference external" href="./apidays-barcelona-retours"&gt;au retour des APIdays&lt;/a&gt;,
+&lt;p&gt;Comme nous l'expliquions &lt;a class="reference external" href="http://www.servicedenuages.fr/apidays-barcelona-retours"&gt;au retour des APIdays&lt;/a&gt;,
 JSON-API est une spécification qui rejoint plusieurs de nos intentions.&lt;/p&gt;
 &lt;p&gt;Quand nous avons commencé le protocole, nous ne connaissions pas JSON-API.
 Pour l'instant, comme notre proposition est beaucoup plus minimaliste, le
@@ -1372,10 +1372,10 @@ et les mécanismes d'extension fournis permettent de l'implémenter sous forme
 d'extension.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 14 Jul 2015 00:00:00 +0200</pubDate><guid>tag:,2015-07-14:./pourquoi-cliquet</guid><category>mozilla</category></item><item><title>Perspectives pour l'été</title><link>./perspectives-pour-lete</link><description>&lt;p&gt;Mozilla a pour coutume d'organiser régulièrement des semaines de travail où tous les employés
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 14 Jul 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-07-14:pourquoi-cliquet</guid><category>mozilla</category></item><item><title>Perspectives pour l'été</title><link>http://www.servicedenuages.fr/perspectives-pour-lete</link><description>&lt;p&gt;Mozilla a pour coutume d'organiser régulièrement des semaines de travail où tous les employés
 sont réunis physiquement. Pour cette dernière édition, nous avons pu retrouver
 nos collègues du monde entier à &lt;a class="reference external" href="http://www.openstreetmap.org/node/268148288#map=4/50.12/-122.95"&gt;Whistler, en Colombie Britannique au Canada&lt;/a&gt; !&lt;/p&gt;
-&lt;img alt="«All Hands» talk about Lego, by @davidcrob - CC0" class="align-center" src="./images/whistler-talks.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="«All Hands» talk about Lego, by @davidcrob - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-talks.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Ce fût l'occasion pour notre équipe de se retrouver, et surtout de partager notre
 vision et nos idées dans le domaine du stockage, afin de collecter des cas d'utilisation pour
 notre solution &lt;a class="reference external" href="https://kinto.readthedocs.org"&gt;Kinto&lt;/a&gt;.&lt;/p&gt;
@@ -1395,7 +1395,7 @@ HTML5 et ES6, on n'était plus aussi démunis qu'il y a quelques années.&lt;/p&
 grosses lacunes en terme de documentation, surtout en ce qui concerne
 l'éco-système et la vision globale des projets (Kinto, Kinto.js, Cliquet, ...).
 Nous allons donc faire de notre mieux pour combler ce manque.&lt;/p&gt;
-&lt;img alt="Kinto.js workshop - CC0" class="align-center" src="./images/whistler-workshop.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Kinto.js workshop - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-workshop.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;div class="section" id="mozilla-payments"&gt;
 &lt;h2&gt;Mozilla Payments&lt;/h2&gt;
@@ -1405,7 +1405,7 @@ Nous allons donc faire de notre mieux pour combler ce manque.&lt;/p&gt;
 &lt;div class="section" id="a-venir"&gt;
 &lt;h3&gt;À venir&lt;/h3&gt;
 &lt;p&gt;Nous aimerions en profiter pour implémenter une fonctionnalité qui nous tient à coeur : la construction de la liste des enregistrements accessibles en lecture sur une collection partagée.&lt;/p&gt;
-&lt;img alt="Whistler Alta Lake - CC0" class="align-center" src="./images/whistler-lake.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Whistler Alta Lake - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-lake.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="firefox-os-et-stockage"&gt;
@@ -1458,7 +1458,7 @@ les écritures simultanées et synchronisation en tâche de fond.&lt;/p&gt;
 &lt;p&gt;Nous sommes par ailleurs perpétuellement preneurs de vos retours — et bien
 entendu de vos contributions — tant sur le code &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/"&gt;serveur&lt;/a&gt;
 que &lt;a class="reference external" href="https://github.com/mozilla-services/kinto.js/"&gt;client&lt;/a&gt;  !&lt;/p&gt;
-&lt;img alt="Firefox OS Cloud Storage Presentation - CC0" class="align-center" src="./images/whistler-cloud-storage.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Firefox OS Cloud Storage Presentation - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-cloud-storage.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="contenus-applicatifs-de-firefox"&gt;
@@ -1479,7 +1479,7 @@ ce genre de besoins internes, &lt;em&gt;Kinto&lt;/em&gt; est tout aussi pertinen
 été intégrées récemment vont redevenir des &lt;em&gt;add-ons&lt;/em&gt; \o/.&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-&lt;img alt="Landscape - CC0" class="align-center" src="./images/whistler-landscape.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Landscape - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-landscape.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;div class="section" id="awesome-bar"&gt;
 &lt;h2&gt;Awesome bar&lt;/h2&gt;
@@ -1495,7 +1495,7 @@ correspondent parfaitement à ce qui est envisagé pour le futur du navigateur :
 fonctionnalités d'indexation et de recherche &lt;em&gt;full-text&lt;/em&gt; (comprendre &lt;em&gt;ElasticSearch&lt;/em&gt;).
 Cela rejoint nos plans précédents, puisque c'est quelque chose que nous avions dans
 &lt;em&gt;Daybed&lt;/em&gt;, et qui figurait sur notre feuille de route !&lt;/p&gt;
-&lt;img alt="Firefox Labs Meeting - CC0" class="align-center" src="./images/whistler-labs.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Firefox Labs Meeting - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-labs.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="browser-html"&gt;
@@ -1520,7 +1520,7 @@ sujet passionant, et &lt;a class="reference external" href="http://www.w3.org/TR
 changements, l'introduction des &lt;a class="reference external" href="https://w3c.github.io/push-api/"&gt;*push notifications*&lt;/a&gt; semble assez naturelle.
 Il s'agirait alors de la dernière pierre qui manque à l'édifice pour obtenir
 un «&lt;em&gt;Mobile/Web backend as a service&lt;/em&gt;» complet.&lt;/p&gt;
-&lt;img alt="Roadmap - CC0" class="align-center" src="./images/whistler-roadmap.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Roadmap - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-roadmap.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="conclusion"&gt;
@@ -1533,9 +1533,9 @@ tenir la charge, continuer à améliorer et à faire la promotion du produit, se
 sur les prochaines étapes et embarquer quelques contributeurs à nos cotés pour
 construire une solution libre, générique, simple et auto-hébergeable pour le stockage
 de données sur le Web :)&lt;/p&gt;
-&lt;img alt="Friday Night Party - CC0" class="align-center" src="./images/whistler-top-roof.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Friday Night Party - CC0" class="align-center" src="http://www.servicedenuages.fr/images/whistler-top-roof.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 07 Jul 2015 00:00:00 +0200</pubDate><guid>tag:,2015-07-07:./perspectives-pour-lete</guid><category>mozilla</category></item><item><title>Achievement unlocked</title><link>./kinto-1.0</link><description>&lt;p&gt;Aujourd'hui, c'est jour de fête : nous venons de publier Cliquet &lt;strong&gt;2.0&lt;/strong&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 07 Jul 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-07-07:perspectives-pour-lete</guid><category>mozilla</category></item><item><title>Achievement unlocked</title><link>http://www.servicedenuages.fr/kinto-1.0</link><description>&lt;p&gt;Aujourd'hui, c'est jour de fête : nous venons de publier Cliquet &lt;strong&gt;2.0&lt;/strong&gt;
 &lt;a class="footnote-reference" href="#id5" id="id1"&gt;[1]&lt;/a&gt; et Kinto &lt;strong&gt;1.0&lt;/strong&gt; &lt;a class="footnote-reference" href="#id6" id="id2"&gt;[2]&lt;/a&gt;.&lt;/p&gt;
 &lt;blockquote class="epigraph"&gt;
 &lt;p&gt;L'aboutissement de 3 années de R&amp;amp;D !&lt;/p&gt;
@@ -1597,7 +1597,7 @@ est &lt;em&gt;pluggable&lt;/em&gt;).&lt;/td&gt;&lt;/tr&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id4"&gt;[4]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;La feuille de route de Kinto: &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/wiki/roadmap"&gt;https://github.com/mozilla-services/kinto/wiki/roadmap&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 17 Jun 2015 00:00:00 +0200</pubDate><guid>tag:,2015-06-17:./kinto-1.0</guid><category>mozilla</category></item><item><title>Stocker et interroger les permissions avec Kinto</title><link>./stocker-et-interroger-les-permissions</link><description>&lt;p&gt;&lt;strong&gt;tl;dr: On a maintenant un super système de permission mais comment faire pour stocker et interroger ces permissions de manière efficace ?&lt;/strong&gt;&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 17 Jun 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-06-17:kinto-1.0</guid><category>mozilla</category></item><item><title>Stocker et interroger les permissions avec Kinto</title><link>http://www.servicedenuages.fr/stocker-et-interroger-les-permissions</link><description>&lt;p&gt;&lt;strong&gt;tl;dr: On a maintenant un super système de permission mais comment faire pour stocker et interroger ces permissions de manière efficace ?&lt;/strong&gt;&lt;/p&gt;
 &lt;div class="section" id="la-problematique"&gt;
 &lt;h2&gt;La problématique&lt;/h2&gt;
 &lt;p&gt;Maintenant que nous avons défini un modèle de gestion des permissions
@@ -1636,7 +1636,7 @@ les &lt;em&gt;buckets&lt;/em&gt;.&lt;/p&gt;
 &lt;blockquote&gt;
 Rappel, un "ACE" est un &lt;em&gt;Access Control Entry&lt;/em&gt;, un des éléments
 d'une ACL (e.g. &lt;em&gt;modifier un enregistrement&lt;/em&gt;).&lt;/blockquote&gt;
-&lt;p&gt;Avec le &lt;a class="reference external" href="./la-gestion-des-permissions"&gt;système de permissions choisi&lt;/a&gt;, les permissions d'un
+&lt;p&gt;Avec le &lt;a class="reference external" href="http://www.servicedenuages.fr/la-gestion-des-permissions"&gt;système de permissions choisi&lt;/a&gt;, les permissions d'un
 objet héritent de celle de l'objet parent.&lt;/p&gt;
 &lt;p&gt;Par exemple, avoir le droit d'écriture sur un &lt;em&gt;bucket&lt;/em&gt; permet la
 création des permissions et la modification de tous ses records.&lt;/p&gt;
@@ -1883,7 +1883,7 @@ un objet et également de pouvoir récupérer tous les objets d'une
 collection pour un utilisateur si celui-ci n'a pas accès à tous les
 records de la collection, ou toutes les collections du bucket.&lt;/p&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 26 May 2015 00:00:00 +0200</pubDate><guid>tag:,2015-05-26:./stocker-et-interroger-les-permissions</guid><category>mozilla</category></item><item><title>La gestion des permissions</title><link>./la-gestion-des-permissions</link><description>&lt;p&gt;Dans le cadre de la création d'un service de stockage de données personnelles
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 26 May 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-05-26:stocker-et-interroger-les-permissions</guid><category>mozilla</category></item><item><title>La gestion des permissions</title><link>http://www.servicedenuages.fr/la-gestion-des-permissions</link><description>&lt;p&gt;Dans le cadre de la création d'un service de stockage de données personnelles
 (Kinto), la gestion des permissions est un des gros challenges : qui doit avoir
 accès à quoi, et comment le définir ?&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;tl;dr: Quelques retours sur le vocabulaire des systèmes de permission et sur nos idées pour l'implementation des permissions dans un stockage générique.&lt;/strong&gt;&lt;/p&gt;
@@ -2488,10 +2488,10 @@ donner aux applications qui agissent en son nom.&lt;/p&gt;
 réflexions, n'hésitez pas à nous interrompre pendant qu'il est encore temps !&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 12 May 2015 00:00:00 +0200</pubDate><guid>tag:,2015-05-12:./la-gestion-des-permissions</guid><category>mozilla</category></item><item><title>Retours des APIdays Barcelona</title><link>./apidays-barcelona-retours</link><description>&lt;p&gt;Cette journée aux APIDays Barcelona a été d'une rare richesse ! Pour commencer, bravo à toute l'équipe et
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Tue, 12 May 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-05-12:la-gestion-des-permissions</guid><category>mozilla</category></item><item><title>Retours des APIdays Barcelona</title><link>http://www.servicedenuages.fr/apidays-barcelona-retours</link><description>&lt;p&gt;Cette journée aux APIDays Barcelona a été d'une rare richesse ! Pour commencer, bravo à toute l'équipe et
 tous les participants !&lt;/p&gt;
 &lt;div class="figure align-center" style="width: 1024px; height: auto; max-width: 100%;"&gt;
-&lt;img alt="@thetonyblank — https://twitter.com/thetonyblank/status/595860394561921025" src="./images/apidays-room.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="@thetonyblank — https://twitter.com/thetonyblank/status/595860394561921025" src="http://www.servicedenuages.fr/images/apidays-room.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;p&gt;Je vais tenter de faire un retour le plus complet possible, en restant un minimum concis :) S'il y a
 des points obscurs, «&lt;em&gt;lache tes coms&lt;/em&gt;» &lt;a class="footnote-reference" href="#id3" id="id1"&gt;[1]&lt;/a&gt;  !&lt;/p&gt;
@@ -2542,7 +2542,7 @@ conventions simples.&lt;/p&gt;
 &lt;p&gt;&lt;a class="reference external" href="https://twitter.com/steveklabnik"&gt;Steve Klabnik&lt;/a&gt; qui a une culture Ruby a fait le parallèle
 avec les frameworks Web et l'approche «&lt;em&gt;Convention over configuration&lt;/em&gt;».&lt;/p&gt;
 &lt;div class="figure align-center" style="width: 1023px; height: auto; max-width: 100%;"&gt;
-&lt;img alt="https://twitter.com/apidaysMedit/status/595883679500623872" src="./images/apidays-steve-klabnik.jpg" style="width: 1023px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="https://twitter.com/apidaysMedit/status/595883679500623872" src="http://www.servicedenuages.fr/images/apidays-steve-klabnik.jpg" style="width: 1023px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
 &lt;p&gt;C'est le cas de la &lt;a class="reference external" href="http://jsonapi.org/"&gt;spécification JSON-API&lt;/a&gt;, qui ne cherche pas à aborder
 les concepts de sémantique mais simplement d'économiser aux développeurs de débattre des
@@ -2672,7 +2672,7 @@ vers nous :)&lt;/p&gt;
 &lt;h2&gt;Conclusion&lt;/h2&gt;
 &lt;p&gt;Les APIs sont partout. Toutes les entreprises ont des APIs. Les APIs sont les
 blocs avec lesquels les développeurs construiront les applications du futur.&lt;/p&gt;
-&lt;img alt="@paulsbruce — https://twitter.com/paulsbruce/status/596347015283548161" src="./images/apidays-thanks-staff.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="@paulsbruce — https://twitter.com/paulsbruce/status/596347015283548161" src="http://www.servicedenuages.fr/images/apidays-thanks-staff.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Merci à toutes et tous ceux qui ont participé de près ou de loin à l'organisation
 de cet évènement fédérateur.&lt;/p&gt;
 &lt;p&gt;Je vous conseille de guetter les futures dates dans les différentes villes du monde !&lt;/p&gt;
@@ -2690,7 +2690,7 @@ de cet évènement fédérateur.&lt;/p&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Mon, 11 May 2015 00:00:00 +0200</pubDate><guid>tag:,2015-05-11:./apidays-barcelona-retours</guid><category>mozilla</category></item><item><title>Utiliser les continuation tokens pour sa pagination</title><link>./pagination-continuation-token</link><description>&lt;p&gt;Si vous êtes là, c'est que quelqu'un a dû vous le dire : Paginer sur des
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Mon, 11 May 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-05-11:apidays-barcelona-retours</guid><category>mozilla</category></item><item><title>Utiliser les continuation tokens pour sa pagination</title><link>http://www.servicedenuages.fr/pagination-continuation-token</link><description>&lt;p&gt;Si vous êtes là, c'est que quelqu'un a dû vous le dire : Paginer sur des
 grosses tables avec LIMIT et OFFSET ne monte pas en charge : plus
 on avance dans les pages, plus c'est lent.&lt;/p&gt;
 &lt;p&gt;C'est dommage parce que c'était facile à appréhender ! La limite donne
@@ -3100,10 +3100,10 @@ sur des champs prédéfinis ?&lt;/p&gt;
 &lt;p&gt;Si votre condition de pagination est fixe, vous allez pouvoir créer
 les index nécessaires et optimiser au maximum vos requêtes de pagination.&lt;/p&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Mon, 04 May 2015 00:00:00 +0200</pubDate><guid>tag:,2015-05-04:./pagination-continuation-token</guid><category>mozilla</category></item><item><title>Eco-système et stockage générique</title><link>./stockage-generique-ecosysteme</link><description>&lt;p&gt;&lt;strong&gt;tl;dr Nous devons construire un service de suivi de paiements, et nous
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Mon, 04 May 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-05-04:pagination-continuation-token</guid><category>mozilla</category></item><item><title>Eco-système et stockage générique</title><link>http://www.servicedenuages.fr/stockage-generique-ecosysteme</link><description>&lt;p&gt;&lt;strong&gt;tl;dr Nous devons construire un service de suivi de paiements, et nous
 hésitons à continuer à nous entêter avec notre propre solution de
 stockage/synchronisation.&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;Comme nous l'écrivions &lt;a class="reference external" href="./service-de-nuages"&gt;dans l'article précédent&lt;/a&gt;, nous souhaitons construire une
+&lt;p&gt;Comme nous l'écrivions &lt;a class="reference external" href="http://www.servicedenuages.fr/service-de-nuages"&gt;dans l'article précédent&lt;/a&gt;, nous souhaitons construire une
 solution de stockage générique. On refait &lt;a class="reference external" href="http://daybed.readthedocs.org"&gt;Daybed&lt;/a&gt;
 chez Mozilla !&lt;/p&gt;
 &lt;p&gt;Notre objectif est simple: permettre aux développeurs d'application, internes
@@ -3138,7 +3138,7 @@ REST.&lt;/p&gt;
 Il y a plusieurs &lt;a class="reference external" href="https://github.com/jcoglan/restore"&gt;implémentations&lt;/a&gt; du
 serveur, et il existe &lt;a class="reference external" href="https://www.npmjs.com/package/remotestorage-server"&gt;un squelette Node&lt;/a&gt; pour construire un
 serveur sur mesure.&lt;/p&gt;
-&lt;img alt="Remote Storage widget" class="align-left" src="./images/remotestorage-widget.png" style="width: 243px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Remote Storage widget" class="align-left" src="http://www.servicedenuages.fr/images/remotestorage-widget.png" style="width: 243px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Le client &lt;a class="reference external" href="https://github.com/remotestorage/remotestorage.js/"&gt;remoteStorage.js&lt;/a&gt; permet d'intégrer la
 solution dans les applications Web.  Il se charge du «store local», du cache,
 de la synchronization, et fournit un widget qui permet aux utilisateurs des
@@ -3220,7 +3220,7 @@ Mais selon les cas d'utilisation, le cloisement n'est pas toujours facile
 &lt;/div&gt;
 &lt;div class="section" id="le-cas-d-utilisation-payments"&gt;
 &lt;h2&gt;Le cas d'utilisation « Payments »&lt;/h2&gt;
-&lt;img alt="Put Payments Here  -- Before the Internet - CC-NC-SA Katy Silberger https://www.flickr.com/photos/katysilbs/11163812186" src="./images/put-payments.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Put Payments Here  -- Before the Internet - CC-NC-SA Katy Silberger https://www.flickr.com/photos/katysilbs/11163812186" src="http://www.servicedenuages.fr/images/put-payments.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Dans les prochaines semaines, nous devrons mettre sur pied un prototype pour
 tracer l'historique des paiements et abonnements d'un utilisateur.&lt;/p&gt;
 &lt;p&gt;Le besoin est simple:&lt;/p&gt;
@@ -3239,7 +3239,7 @@ applications, et un utilisateur ne peut pas accéder aux paiements des autres
 utilisateurs.&lt;/p&gt;
 &lt;div class="section" id="avec-remotestorage"&gt;
 &lt;h3&gt;Avec RemoteStorage&lt;/h3&gt;
-&lt;img alt="Remote Love - CC-BY-NC Julie https://www.flickr.com/photos/mamajulie2008/2609549461" class="align-center" src="./images/remote-love.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Remote Love - CC-BY-NC Julie https://www.flickr.com/photos/mamajulie2008/2609549461" class="align-center" src="http://www.servicedenuages.fr/images/remote-love.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Clairement, l'idée de &lt;em&gt;RemoteStorage&lt;/em&gt; est de dissocier l'application executée,
 et les données créées par l'utilisateur avec celle-ci.&lt;/p&gt;
 &lt;p&gt;Dans notre cas, c'est l'application « Payment » qui manipule des données
@@ -3272,7 +3272,7 @@ Python. Utiliser un wrapper JavaScript comme le fait &lt;a class="reference exte
 &lt;/div&gt;
 &lt;div class="section" id="un-nouvel-eco-systeme"&gt;
 &lt;h2&gt;Un nouvel éco-système ?&lt;/h2&gt;
-&lt;img alt="Wagon wheel - CC-BY-NC-SA arbyreed https://www.flickr.com/photos/19779889@N00/16161808220" src="./images/wagon-wheel.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Wagon wheel - CC-BY-NC-SA arbyreed https://www.flickr.com/photos/19779889@N00/16161808220" src="http://www.servicedenuages.fr/images/wagon-wheel.jpg" style="width: 640px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Évidemment, quand on voit la richesse des projets &lt;em&gt;PouchDB&lt;/em&gt; et &lt;em&gt;Remote Storage&lt;/em&gt;
 et la dynamique de ces communautés, il est légitime d'hésiter avant de
 développer une solution alternative.&lt;/p&gt;
@@ -3367,7 +3367,7 @@ maximum de retours !  C'est toujours une décision difficile à prendre...
 à terme ! Peut-être que nous allons finir par rendre notre service compatible
 avec &lt;em&gt;Remote Storage&lt;/em&gt;, et peut-être que &lt;em&gt;PouchDB&lt;/em&gt; deviendra plus agnostique
 quand au protocole de synchronisation...&lt;/p&gt;
-&lt;img alt="XKCD — Standards https://xkcd.com/927/" src="./images/standards.png" style="width: 500px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="XKCD — Standards https://xkcd.com/927/" src="http://www.servicedenuages.fr/images/standards.png" style="width: 500px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Utiliser ce nouvel écosystème pour le projet « Payments » va nous permettre de
 mettre au point un système de permissions (&lt;em&gt;probablement basé sur les scopes OAuth&lt;/em&gt;) qui
 correspond au besoin exprimé. Et nous avons bien l'intention de puiser dans
@@ -3394,7 +3394,7 @@ permet de partager publiquement des ressources de son &lt;em&gt;remote Storage&l
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 30 Apr 2015 00:00:00 +0200</pubDate><guid>tag:,2015-04-30:./stockage-generique-ecosysteme</guid><category>mozilla</category></item><item><title>Service de nuages !</title><link>./service-de-nuages</link><description>&lt;p&gt;Pas mal de changements depuis le début de l'année pour l'équipe
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 30 Apr 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-04-30:stockage-generique-ecosysteme</guid><category>mozilla</category></item><item><title>Service de nuages !</title><link>http://www.servicedenuages.fr/service-de-nuages</link><description>&lt;p&gt;Pas mal de changements depuis le début de l'année pour l'équipe
 «cloud-services» francophone!&lt;/p&gt;
 &lt;p&gt;Tout d'abord, nouvelle importante, l'équipe s'étoffe avec des profils assez
 complémentaires: &lt;a class="reference external" href="https://nicolas.perriault.net/"&gt;n1k0&lt;/a&gt; et &lt;a class="reference external" href="http://mathieu-leplatre.info"&gt;Mathieu&lt;/a&gt; sont venus prêter main forte à &lt;a class="reference external" href="http://ziade.org/"&gt;Tarek&lt;/a&gt;, &lt;a class="reference external" href="http://natim.ionyse.com"&gt;Rémy&lt;/a&gt; et &lt;a class="reference external" href="http://notmyidea.org"&gt;Alexis&lt;/a&gt;.&lt;/p&gt;
@@ -3408,7 +3408,7 @@ complémentaires: &lt;a class="reference external" href="https://nicolas.perriau
 lecture sur n'importe quel périphérique synchronisé (Firefox pour Android ou
 Firefox Desktop). Un équivalent libre à &lt;a class="reference external" href="http://getpocket.com"&gt;Pocket&lt;/a&gt; en quelque sorte, qu'il est
 possible d'héberger soit-même.&lt;/p&gt;
-&lt;img alt="Capture d'écran de Firefox nightly avec readinglist." src="./images/readinglist-screenshot.png" style="width: 953px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Capture d'écran de Firefox nightly avec readinglist." src="http://www.servicedenuages.fr/images/readinglist-screenshot.png" style="width: 953px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Pour le construire, nous aurions pu réutiliser &lt;a class="reference external" href="https://github.com/mozilla-services/server-syncstorage"&gt;Firefox Sync&lt;/a&gt;, après tout
 c'est un service de synchronisation de données très robuste, construit avec &lt;a class="reference external" href="http://cornice.readthedocs.org/"&gt;Cornice&lt;/a&gt;.
 Mais seulement, &lt;em&gt;Sync&lt;/em&gt; n'a pas été pensé pour garantir la pérennité des données,
@@ -3444,7 +3444,7 @@ de l'étendre légèrement et surtout de le dissocier du projet de listes de lec
 &lt;a class="reference external" href="https://cliquet.readthedocs.org"&gt;Cliquet&lt;/a&gt;, dont l'idée principale est de
 fournir une implémentation de ce protocole en python, tout en factorisant
 l'ensemble de nos bonnes pratiques (pour la prod notamment).&lt;/p&gt;
-&lt;img alt="Logo du projet Cliquet" class="align-right" src="./images/cliquet-logo.png" style="width: 300px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="Logo du projet Cliquet" class="align-right" src="http://www.servicedenuages.fr/images/cliquet-logo.png" style="width: 300px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;L'avantage d'avoir un protocole plutôt qu'un monolithe, c'est que si vous
 préférez Asyncio, io.js ou Go, on vous encouragera à publier votre
 implémentation alternative !&lt;/p&gt;
@@ -3463,7 +3463,7 @@ rassemblées dans le protocole (ou &lt;em&gt;Cliquet&lt;/em&gt;), certains point
 et de vous présenter notre vision via des exemples et tutoriaux.&lt;/p&gt;
 &lt;p&gt;À bientôt, donc !&lt;/p&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 16 Apr 2015 00:00:00 +0200</pubDate><guid>tag:,2015-04-16:./service-de-nuages</guid><category>mozilla</category></item><item><title>Le printemps</title><link>./printemps</link><description>&lt;p&gt;C'est le printemps et n'en déplaise à certains, il est temps de faire
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 16 Apr 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-04-16:service-de-nuages</guid><category>mozilla</category></item><item><title>Le printemps</title><link>http://www.servicedenuages.fr/printemps</link><description>&lt;p&gt;C'est le printemps et n'en déplaise à certains, il est temps de faire
 un peu de ménage.&lt;/p&gt;
 &lt;p&gt;Voilà quelques temps que nous accumulons les expériences et que nous
 ne les partagions plus tellement par écrit.&lt;/p&gt;
@@ -3475,5 +3475,5 @@ satisfaction sur ces retours d'expérience.&lt;/p&gt;
 esprits et que nous vous proposons un ensemble d'articles en français
 sur ce que nous faisons dans notre petite équipe du Service de Nuages
 de Mozilla.&lt;/p&gt;
-&lt;img alt="Logo du service des nuages" src="./images/service_de_nuages.png" style="width: 2268px; height: auto; max-width: 100%;"/&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 15 Apr 2015 00:00:00 +0200</pubDate><guid>tag:,2015-04-15:./printemps</guid><category>mozilla</category></item></channel></rss>
+&lt;img alt="Logo du service des nuages" src="http://www.servicedenuages.fr/images/service_de_nuages.png" style="width: 2268px; height: auto; max-width: 100%;"/&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Wed, 15 Apr 2015 00:00:00 +0200</pubDate><guid>tag:www.servicedenuages.fr,2015-04-15:printemps</guid><category>mozilla</category></item></channel></rss>

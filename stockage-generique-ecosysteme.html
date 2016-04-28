@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Service de nuages, ">
 
-        <link rel="alternate"  href="./feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
 
         <title>Eco-système et stockage générique // Service de nuages // </title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="./theme/css/pure.css">
-    <link rel="stylesheet" href="./theme/css/pygments.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
@@ -41,15 +41,15 @@
             <section class="post">
                 <header class="post-header">
                     <h1>Eco-système et stockage générique</h1>
-                        <p class="post-meta">                                <a class="post-category" href="./tag/mozilla.html">mozilla</a>
+                        <p class="post-meta">                                <a class="post-category" href="http://www.servicedenuages.fr/tag/mozilla.html">mozilla</a>
                         </p>
                 </header>
             </section>
-                        <p><a href="./en/generic-storage-ecosystem">Read the English version</a></p>
+                        <p><a href="http://www.servicedenuages.fr/en/generic-storage-ecosystem">Read the English version</a></p>
             <p><strong>tl;dr Nous devons construire un service de suivi de paiements, et nous
 hésitons à continuer à nous entêter avec notre propre solution de
 stockage/synchronisation.</strong></p>
-<p>Comme nous l'écrivions <a class="reference external" href="./service-de-nuages">dans l'article précédent</a>, nous souhaitons construire une
+<p>Comme nous l'écrivions <a class="reference external" href="http://www.servicedenuages.fr/service-de-nuages">dans l'article précédent</a>, nous souhaitons construire une
 solution de stockage générique. On refait <a class="reference external" href="http://daybed.readthedocs.org">Daybed</a>
 chez Mozilla !</p>
 <p>Notre objectif est simple: permettre aux développeurs d'application, internes
@@ -84,7 +84,7 @@ REST.</p>
 Il y a plusieurs <a class="reference external" href="https://github.com/jcoglan/restore">implémentations</a> du
 serveur, et il existe <a class="reference external" href="https://www.npmjs.com/package/remotestorage-server">un squelette Node</a> pour construire un
 serveur sur mesure.</p>
-<img alt="Remote Storage widget" class="align-left" src="./images/remotestorage-widget.png" style="width: 243px; height: auto; max-width: 100%;"/>
+<img alt="Remote Storage widget" class="align-left" src="http://www.servicedenuages.fr/images/remotestorage-widget.png" style="width: 243px; height: auto; max-width: 100%;"/>
 <p>Le client <a class="reference external" href="https://github.com/remotestorage/remotestorage.js/">remoteStorage.js</a> permet d'intégrer la
 solution dans les applications Web.  Il se charge du «store local», du cache,
 de la synchronization, et fournit un widget qui permet aux utilisateurs des
@@ -166,7 +166,7 @@ Mais selon les cas d'utilisation, le cloisement n'est pas toujours facile
 </div>
 <div class="section" id="le-cas-d-utilisation-payments">
 <h2>Le cas d'utilisation « Payments »</h2>
-<img alt="Put Payments Here  -- Before the Internet - CC-NC-SA Katy Silberger https://www.flickr.com/photos/katysilbs/11163812186" src="./images/put-payments.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
+<img alt="Put Payments Here  -- Before the Internet - CC-NC-SA Katy Silberger https://www.flickr.com/photos/katysilbs/11163812186" src="http://www.servicedenuages.fr/images/put-payments.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
 <p>Dans les prochaines semaines, nous devrons mettre sur pied un prototype pour
 tracer l'historique des paiements et abonnements d'un utilisateur.</p>
 <p>Le besoin est simple:</p>
@@ -185,7 +185,7 @@ applications, et un utilisateur ne peut pas accéder aux paiements des autres
 utilisateurs.</p>
 <div class="section" id="avec-remotestorage">
 <h3>Avec RemoteStorage</h3>
-<img alt="Remote Love - CC-BY-NC Julie https://www.flickr.com/photos/mamajulie2008/2609549461" class="align-center" src="./images/remote-love.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
+<img alt="Remote Love - CC-BY-NC Julie https://www.flickr.com/photos/mamajulie2008/2609549461" class="align-center" src="http://www.servicedenuages.fr/images/remote-love.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
 <p>Clairement, l'idée de <em>RemoteStorage</em> est de dissocier l'application executée,
 et les données créées par l'utilisateur avec celle-ci.</p>
 <p>Dans notre cas, c'est l'application « Payment » qui manipule des données
@@ -218,7 +218,7 @@ Python. Utiliser un wrapper JavaScript comme le fait <a class="reference externa
 </div>
 <div class="section" id="un-nouvel-eco-systeme">
 <h2>Un nouvel éco-système ?</h2>
-<img alt="Wagon wheel - CC-BY-NC-SA arbyreed https://www.flickr.com/photos/19779889@N00/16161808220" src="./images/wagon-wheel.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
+<img alt="Wagon wheel - CC-BY-NC-SA arbyreed https://www.flickr.com/photos/19779889@N00/16161808220" src="http://www.servicedenuages.fr/images/wagon-wheel.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
 <p>Évidemment, quand on voit la richesse des projets <em>PouchDB</em> et <em>Remote Storage</em>
 et la dynamique de ces communautés, il est légitime d'hésiter avant de
 développer une solution alternative.</p>
@@ -313,7 +313,7 @@ maximum de retours !  C'est toujours une décision difficile à prendre...
 à terme ! Peut-être que nous allons finir par rendre notre service compatible
 avec <em>Remote Storage</em>, et peut-être que <em>PouchDB</em> deviendra plus agnostique
 quand au protocole de synchronisation...</p>
-<img alt="XKCD — Standards https://xkcd.com/927/" src="./images/standards.png" style="width: 500px; height: auto; max-width: 100%;"/>
+<img alt="XKCD — Standards https://xkcd.com/927/" src="http://www.servicedenuages.fr/images/standards.png" style="width: 500px; height: auto; max-width: 100%;"/>
 <p>Utiliser ce nouvel écosystème pour le projet « Payments » va nous permettre de
 mettre au point un système de permissions (<em>probablement basé sur les scopes OAuth</em>) qui
 correspond au besoin exprimé. Et nous avons bien l'intention de puiser dans
@@ -404,7 +404,7 @@ permet de partager publiquement des ressources de son <em>remote Storage</em>.</
 </script>
 <noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
 <!-- End Piwik Code -->
-  <script src="./theme/js/instantclick.min.js" data-no-instant></script>
+  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
   <script data-no-instant>InstantClick.init();</script>
 </body>
 </html>
