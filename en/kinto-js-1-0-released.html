@@ -45,9 +45,9 @@
                         </p>
                 </header>
             </section>
-            <p><a class="reference external" href="https://kintojs.readthedocs.org/">Kinto.js</a> is an offline-first JavaScript client leveraging the <a class="reference external" href="https://kinto.readthedocs.org/">Kinto API</a> for data synchronization. In a world where connectivity isn't always guaranteed, local persistence in the browser has become an <a class="reference external" href="http://offlinefirst.org/">identified priority</a> for Web applications, especially on mobile.</p>
+            <p><a class="reference external" href="https://kintojs.readthedocs.io/">Kinto.js</a> is an offline-first JavaScript client leveraging the <a class="reference external" href="https://kinto.readthedocs.io/">Kinto API</a> for data synchronization. In a world where connectivity isn't always guaranteed, local persistence in the browser has become an <a class="reference external" href="http://offlinefirst.org/">identified priority</a> for Web applications, especially on mobile.</p>
 <p>The basic principle is simple; save your data locally, assuming there's no network connectivity. Then as soon as it's available, retrieve remote changes and push your local data to a remote server.</p>
-<div class="highlight"><pre><span class="kr">const</span> <span class="nx">kinto</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Kinto</span><span class="p">({</span><span class="nx">remote</span><span class="o">:</span> <span class="s2">"https://kinto.dev.mozaws.net/v1/"</span><span class="p">});</span>
+<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">kinto</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Kinto</span><span class="p">({</span><span class="nx">remote</span><span class="o">:</span> <span class="s2">"https://kinto.dev.mozaws.net/v1/"</span><span class="p">});</span>
 <span class="kr">const</span> <span class="nx">tasks</span> <span class="o">=</span> <span class="nx">kinto</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="s2">"tasks"</span><span class="p">);</span>
 
 <span class="nx">tasks</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="nx">label</span><span class="o">:</span> <span class="s2">"Test kinto.js"</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">false</span><span class="p">})</span>
@@ -59,8 +59,8 @@
   <span class="p">});</span>
 </pre></div>
 <p>Local persistence in the browser is achieved using <a class="reference external" href="https://www.w3.org/TR/IndexedDB/">IndexedDB</a>, and we've tried hard to hide its inherent low-level usage complexity — mainly due to its fully asynchronous nature — through a simpler yet convenient <a class="reference external" href="https://www.promisejs.org/">Promises</a> based API.</p>
-<p>Kinto.js provides basic local CRUD operations for <a class="reference external" href="https://kintojs.readthedocs.org/en/latest/api/#creating-a-record">creating</a>, <a class="reference external" href="https://kintojs.readthedocs.org/en/latest/api/#updating-a-record">updating</a>, <a class="reference external" href="https://kintojs.readthedocs.org/en/latest/api/#deleting-records">deleting</a>, <a class="reference external" href="https://kintojs.readthedocs.org/en/latest/api/#retrieving-a-single-record">retrieving</a> and <a class="reference external" href="https://kintojs.readthedocs.org/en/latest/api/#listing-records">listing</a> records from a local collection. Each time you want to reflect its state to a remote server, you only ever have to <a class="reference external" href="https://kintojs.readthedocs.org/en/latest/api/#fetching-and-publishing-changes">call the sync() method</a>!</p>
-<p>We've set up a <a class="reference external" href="https://kinto.github.io/kinto.js/">simple demo application</a> using a public Mozilla test server instance, so you can check how it behaves by yourself if you're interested. The source code of this app is <a class="reference external" href="https://github.com/Kinto/kinto.js/blob/66ef077796a8e4a8b0d9a95389a61ea57cbbfde3/demo/demo.js">available on Github</a>, and is also the base use case for the <a class="reference external" href="http://kintojs.readthedocs.org/en/latest/tutorial/">Kinto.js tutorial</a> you should probably take if you want to get your feet wet.</p>
+<p>Kinto.js provides basic local CRUD operations for <a class="reference external" href="https://kintojs.readthedocs.io/en/latest/api/#creating-a-record">creating</a>, <a class="reference external" href="https://kintojs.readthedocs.io/en/latest/api/#updating-a-record">updating</a>, <a class="reference external" href="https://kintojs.readthedocs.io/en/latest/api/#deleting-records">deleting</a>, <a class="reference external" href="https://kintojs.readthedocs.io/en/latest/api/#retrieving-a-single-record">retrieving</a> and <a class="reference external" href="https://kintojs.readthedocs.io/en/latest/api/#listing-records">listing</a> records from a local collection. Each time you want to reflect its state to a remote server, you only ever have to <a class="reference external" href="https://kintojs.readthedocs.io/en/latest/api/#fetching-and-publishing-changes">call the sync() method</a>!</p>
+<p>We've set up a <a class="reference external" href="https://kinto.github.io/kinto.js/">simple demo application</a> using a public Mozilla test server instance, so you can check how it behaves by yourself if you're interested. The source code of this app is <a class="reference external" href="https://github.com/Kinto/kinto.js/blob/66ef077796a8e4a8b0d9a95389a61ea57cbbfde3/demo/demo.js">available on Github</a>, and is also the base use case for the <a class="reference external" href="http://kintojs.readthedocs.io/en/latest/tutorial/">Kinto.js tutorial</a> you should probably take if you want to get your feet wet.</p>
 <div class="note">
 <p class="first admonition-title">Note</p>
 <p class="last">Please note that this public Kinto test server instance is flushed every morning at 7AM UTC, so don't rely on it for production use ;)</p>
@@ -73,24 +73,24 @@
 <li>The client is authoritative: all conflicting records are resolved using their local versions, and force-pushed to the server;</li>
 <li>No party is authoritative: the synchronization flow is halted, and all conflicting records are explicitely exposed, so developers can then decide how they want resolve each of them individually.</li>
 </ul>
-<p>You can read more about <a class="reference external" href="https://kintojs.readthedocs.org/en/latest/api/#resolving-conflicts-manually">conflict resolution</a> and <a class="reference external" href="http://kintojs.readthedocs.org/en/latest/api/#synchronization-strategies">sychronization strategies</a> in the dedicated sections of the project documentation.</p>
+<p>You can read more about <a class="reference external" href="https://kintojs.readthedocs.io/en/latest/api/#resolving-conflicts-manually">conflict resolution</a> and <a class="reference external" href="http://kintojs.readthedocs.io/en/latest/api/#synchronization-strategies">sychronization strategies</a> in the dedicated sections of the project documentation.</p>
 <p>The diagram flow below describes pretty much accurately what's happening under the hood when <tt class="docutils literal">sync()</tt> is called:</p>
 <img alt="Kinto.js synchronization flow" src="http://www.servicedenuages.fr/en/../images/kintojs-sync-flow.png" style="width: 654px; height: auto; max-width: 100%;"/>
 </div>
 <div class="section" id="a-case-for-encryption">
 <h2>A case for encryption</h2>
 <p>Remote data storage is certainly a topic raising concerns when it comes to security and privacy.</p>
-<p>To help addressing these issues, Kinto.js exposes a <a class="reference external" href="http://kintojs.readthedocs.org/en/latest/api/#transformers">Remote Transformers API</a>, which allow processing records before they're sent to the server and after they've been retrieved from it.</p>
+<p>To help addressing these issues, Kinto.js exposes a <a class="reference external" href="http://kintojs.readthedocs.io/en/latest/api/#transformers">Remote Transformers API</a>, which allow processing records before they're sent to the server and after they've been retrieved from it.</p>
 <p>This is a perfect hook for supporting end-to-end encryption, which <a class="reference external" href="http://www.servicedenuages.fr/en/kinto-encryption-example">we already wrote about earlier</a>.</p>
 </div>
 <div class="section" id="getting-started">
 <h2>Getting started</h2>
-<p>We already mentioned the <a class="reference external" href="http://kintojs.readthedocs.org/en/latest/tutorial/">Kinto.js tutorial</a>, but there's more; we've created a rather opinionated  <a class="reference external" href="https://github.com/Kinto/kinto-react-boilerplate">Kinto.js + React boilerplate</a>, so you can bootstrap your next offline-first Web application in no time ;)</p>
+<p>We already mentioned the <a class="reference external" href="http://kintojs.readthedocs.io/en/latest/tutorial/">Kinto.js tutorial</a>, but there's more; we've created a rather opinionated  <a class="reference external" href="https://github.com/Kinto/kinto-react-boilerplate">Kinto.js + React boilerplate</a>, so you can bootstrap your next offline-first Web application in no time ;)</p>
 </div>
 <div class="section" id="current-limitations">
 <h2>Current limitations</h2>
-<p>We've listed Kinto.js current limitations — the ones we're aware of — in a <a class="reference external" href="http://kintojs.readthedocs.org/en/latest/limitations/">dedicated section of the documentation</a>.</p>
-<p>Sure, that's a bunch of work remaining, and you're obviously <a class="reference external" href="http://kintojs.readthedocs.org/en/latest/hacking/">invited to contribute</a> if you want to help!</p>
+<p>We've listed Kinto.js current limitations — the ones we're aware of — in a <a class="reference external" href="http://kintojs.readthedocs.io/en/latest/limitations/">dedicated section of the documentation</a>.</p>
+<p>Sure, that's a bunch of work remaining, and you're obviously <a class="reference external" href="http://kintojs.readthedocs.io/en/latest/hacking/">invited to contribute</a> if you want to help!</p>
 </div>
 <div class="section" id="the-future-of-kinto-js">
 <h2>The future of Kinto.js</h2>

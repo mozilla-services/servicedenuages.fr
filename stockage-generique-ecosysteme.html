@@ -50,7 +50,7 @@
 hésitons à continuer à nous entêter avec notre propre solution de
 stockage/synchronisation.</strong></p>
 <p>Comme nous l'écrivions <a class="reference external" href="http://www.servicedenuages.fr/service-de-nuages">dans l'article précédent</a>, nous souhaitons construire une
-solution de stockage générique. On refait <a class="reference external" href="http://daybed.readthedocs.org">Daybed</a>
+solution de stockage générique. On refait <a class="reference external" href="http://daybed.readthedocs.io">Daybed</a>
 chez Mozilla !</p>
 <p>Notre objectif est simple: permettre aux développeurs d'application, internes
 à Mozilla ou du monde entier, de faire persister et synchroniser facilement des
@@ -125,7 +125,7 @@ de notre solution.</p>
 <h2>PouchDB</h2>
 <p><a class="reference external" href="http://pouchdb.com/">PouchDB</a> est une bibliothèque JavaScript qui permet
 de manipuler des enregistrements en local et de les synchroniser vers une base distante.</p>
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PouchDB</span><span class="p">(</span><span class="s1">'dbname'</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PouchDB</span><span class="p">(</span><span class="s1">'dbname'</span><span class="p">);</span>
 
 <span class="nx">db</span><span class="p">.</span><span class="nx">put</span><span class="p">({</span>
  <span class="nx">_id</span><span class="o">:</span> <span class="s1">'dave@gmail.com'</span><span class="p">,</span>
@@ -223,8 +223,8 @@ Python. Utiliser un wrapper JavaScript comme le fait <a class="reference externa
 et la dynamique de ces communautés, il est légitime d'hésiter avant de
 développer une solution alternative.</p>
 <p>Quand nous avons créé le serveur <em>Reading List</em>, nous l'avons construit avec
-<a class="reference external" href="http://cliquet.readthedocs.org/">Cliquet</a>, ce fût l'occasion de mettre au
-point <a class="reference external" href="http://cliquet.readthedocs.org/en/latest/api/">un protocole très simple</a>, fortement inspiré de
+<a class="reference external" href="http://cliquet.readthedocs.io/">Cliquet</a>, ce fût l'occasion de mettre au
+point <a class="reference external" href="http://cliquet.readthedocs.io/en/latest/api/">un protocole très simple</a>, fortement inspiré de
 <a class="reference external" href="http://en.wikipedia.org/wiki/Firefox_Sync">Firefox Sync</a>, pour faire de la
 synchronisation d'enregistrements.</p>
 <p>Et si les clients <em>Reading List</em> ont pu être implémentés en quelques semaines,
@@ -273,7 +273,7 @@ qui sont mal adressés par <em>PouchDB</em>. Il se voudra:</p>
 <li>Naïf (<em>pas de rocket science</em>) ;</li>
 <li>Sans magie (<em>explicite et facile à réimplémenter from scratch</em>) ;</li>
 </ul>
-<p><a class="reference external" href="http://cliquet.readthedocs.org/en/latest/rationale.html">La philosophie et les fonctionnalités du toolkit python Cliquet</a> seront bien entendu
+<p><a class="reference external" href="http://cliquet.readthedocs.io/en/latest/rationale.html">La philosophie et les fonctionnalités du toolkit python Cliquet</a> seront bien entendu
 à l'honneur :)</p>
 <p>Quant à <em>Remote Storage</em>, dès que le besoin se présentera, nous serons très fier
 de rejoindre l'initiative, mais pour l'instant cela nous paraît risqué de démarrer
@@ -289,7 +289,7 @@ Avec <em>Cliquet</em>, en utilisant le backend PostgreSQL, les données sont per
 à plat dans un <a class="reference external" href="https://github.com/mozilla-services/cliquet/blob/40aa33/cliquet/storage/postgresql/schema.sql#L14-L28">schéma PostgreSQL tout bête</a>.
 Ce qui ne sera pas le cas d'un adapteur LevelDown qui va manipuler des notions
 de révisions éclatées dans un schéma clé-valeur.</p>
-<p>Si nous basons le service sur <em>Cliquet</em>, comme c'est le cas avec <a class="reference external" href="http://kinto.readthedocs.org">Kinto</a>,
+<p>Si nous basons le service sur <em>Cliquet</em>, comme c'est le cas avec <a class="reference external" href="http://kinto.readthedocs.io">Kinto</a>,
 tout le travail d'automatisation de la mise en production (<em>monitoring,
 builds RPM, Puppet...</em>) que nous avons fait pour <em>Reading List</em> est
 complètement réutilisable.</p>

@@ -80,7 +80,7 @@ trace du dernier <tt class="docutils literal">id</tt> de la page précédente.</
 <p>Prenons comme exemple la table de salariés suivante.
 Pour les besoins de l'exercice la date de recrutement est unique.
 Les données sont inexactes mais plausibles.</p>
-<div class="highlight"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span> <span class="p">(</span>
+<div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span> <span class="p">(</span>
   <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
   <span class="o">`</span><span class="n">nom</span><span class="o">`</span> <span class="nb">text</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
   <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="nb">text</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
@@ -89,7 +89,7 @@ Les données sont inexactes mais plausibles.</p>
   <span class="k">UNIQUE</span> <span class="k">KEY</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span> <span class="p">(</span><span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span><span class="p">)</span>
 <span class="p">)</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span> <span class="p">;</span>
 </pre></div>
-<div class="highlight"><pre><span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<div class="highlight"><pre><span></span><span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
 <span class="o">|</span> <span class="n">ID</span> <span class="o">|</span> <span class="n">Nom</span>      <span class="o">|</span> <span class="n">Soci</span><span class="err">é</span><span class="n">t</span><span class="err">é</span>  <span class="o">|</span> <span class="nb">Date</span> <span class="n">de</span> <span class="n">recrutement</span> <span class="o">|</span>
 <span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
 <span class="o">|</span> <span class="mi">1</span>  <span class="o">|</span> <span class="n">Rodolphe</span> <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">03</span>          <span class="o">|</span>
@@ -115,7 +115,7 @@ Les données sont inexactes mais plausibles.</p>
 résultats par deux.</p>
 <div class="section" id="voici-les-requetes-que-nous-ferions-en-utilisant-offset-et-limit">
 <h3>Voici les requêtes que nous ferions en utilisant OFFSET et LIMIT</h3>
-<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span>
 <span class="k">LIMIT</span> <span class="mi">2</span>
 
@@ -139,7 +139,7 @@ résultats par deux.</p>
 </div>
 <div class="section" id="comment-peut-on-obtenir-le-meme-resultat-sans-utiliser-offset">
 <h3>Comment peut-on obtenir le même résultat sans utiliser OFFSET ?</h3>
-<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span>
 <span class="k">LIMIT</span> <span class="mi">2</span>
 
@@ -164,7 +164,7 @@ résultats par deux.</p>
 on se rend compte que l'on peut sauvegarder la valeur du dernier
 élément de la liste et l'utiliser pour faire une condition where.</p>
 <p>Faisons maintenant le tri sur la date d'embauche :</p>
-<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span>
 <span class="k">LIMIT</span> <span class="mi">2</span>
 
@@ -203,7 +203,7 @@ on se rend compte que l'on peut sauvegarder la valeur du dernier
 ruser en inversant l'ordre de tri puis en selectionnant les résultats
 supérieurs au premier élément de la page courante et en affichant les
 résultats dans l'ordre inverse :</p>
-<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
 <span class="k">WHERE</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span> <span class="o">&lt;</span> <span class="s1">'2013-08-05'</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span> <span class="k">DESC</span>
 <span class="k">LIMIT</span> <span class="mi">2</span>
@@ -215,7 +215,7 @@ résultats dans l'ordre inverse :</p>
 <span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
 </pre></div>
 <p>Qu'il faut afficher à l'utilisateur comme cela :</p>
-<div class="highlight"><pre><span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<div class="highlight"><pre><span></span><span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
 <span class="o">|</span> <span class="mi">4</span>  <span class="o">|</span> <span class="n">Alexis</span>   <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2012</span><span class="o">-</span><span class="mi">09</span><span class="o">-</span><span class="mi">24</span>          <span class="o">|</span>
 <span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
 <span class="o">|</span> <span class="mi">5</span>  <span class="o">|</span> <span class="n">Bruno</span>    <span class="o">|</span> <span class="n">Novapost</span> <span class="o">|</span> <span class="mi">2013</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">14</span>          <span class="o">|</span>
@@ -230,7 +230,7 @@ résultats dans l'ordre inverse :</p>
 requête qui permet d'identifier de manière unique la ligne à partir de
 laquelle continuer.</p>
 <p>Prenons la requête suivante :</p>
-<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span>
 
 <span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
@@ -257,7 +257,7 @@ laquelle continuer.</p>
 </pre></div>
 <p>Si on souhaite obtenir la deuxième page en utilisant <tt class="docutils literal">id</tt> on se rend
 compte qu'il y a un souci.</p>
-<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
 <span class="k">WHERE</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">7</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span>
 
@@ -268,7 +268,7 @@ compte qu'il y a un souci.</p>
 <span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
 </pre></div>
 <p>Or la seconde page attendue est :</p>
-<div class="highlight"><pre><span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<div class="highlight"><pre><span></span><span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
 <span class="o">|</span> <span class="mi">9</span>  <span class="o">|</span> <span class="n">Nicolas</span>  <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">02</span><span class="o">-</span><span class="mi">27</span>          <span class="o">|</span>
 <span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
 <span class="o">|</span> <span class="mi">6</span>  <span class="o">|</span> <span class="n">R</span><span class="err">é</span><span class="n">my</span>     <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2014</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">11</span>          <span class="o">|</span>
@@ -277,7 +277,7 @@ compte qu'il y a un souci.</p>
 <div class="section" id="tri-avec-une-seule-cle-non-unique">
 <h3>Tri avec une seule clé non unique</h3>
 <p>Commençons avec un tri sur une seule colonne non unique <tt class="docutils literal">societe</tt>:</p>
-<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span>
 
 <span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
@@ -303,7 +303,7 @@ compte qu'il y a un souci.</p>
 <span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
 </pre></div>
 <p>On se rend compte qu'il s'agit en fait de cette requête :</p>
-<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span>
 </pre></div>
 <p>Notre requête pour la page deux est donc :</p>
@@ -313,7 +313,7 @@ compte qu'il y a un souci.</p>
 <li>Les salariés de Mozilla qui ont un id supérieur à 4</li>
 </ul>
 </blockquote>
-<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
 <span class="k">WHERE</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'Mozilla'</span>
 <span class="k">OR</span> <span class="p">(</span><span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mozilla'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">)</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span>
@@ -326,7 +326,7 @@ compte qu'il y a un souci.</p>
 <span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
 </pre></div>
 <p>On peut vérifier que le cas limite fonctionne aussi:</p>
-<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
 <span class="k">WHERE</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'Mozilla'</span>
 <span class="k">OR</span> <span class="p">(</span><span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mozilla'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">7</span><span class="p">)</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span>
@@ -350,7 +350,7 @@ compte qu'il y a un souci.</p>
 <li>Les salariés dont le nom de société est supérieur à <tt class="docutils literal">Mozilla</tt></li>
 </ul>
 </blockquote>
-<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
 <span class="k">WHERE</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mozilla'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mathieu'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">7</span>
 <span class="k">OR</span> <span class="p">(</span><span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mozilla'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'Mathieu'</span><span class="p">)</span>
 <span class="k">OR</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'Mozilla'</span>
@@ -364,12 +364,12 @@ compte qu'il y a un souci.</p>
 <span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
 </pre></div>
 <p>On peut tester notre cas limite en ajoutant</p>
-<div class="highlight"><pre><span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
+<div class="highlight"><pre><span></span><span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
 <span class="o">|</span> <span class="mi">10</span> <span class="o">|</span> <span class="n">Mathieu</span>  <span class="o">|</span> <span class="n">Mozilla</span>  <span class="o">|</span> <span class="mi">2015</span><span class="o">-</span><span class="mi">03</span><span class="o">-</span><span class="mi">22</span>          <span class="o">|</span>
 <span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
 </pre></div>
 <p>Et on a bien :</p>
-<div class="highlight"><pre><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
 <span class="k">WHERE</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mozilla'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mathieu'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">7</span>
 <span class="k">OR</span> <span class="p">(</span><span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mozilla'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'Mathieu'</span><span class="p">)</span>
 <span class="k">OR</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'Mozilla'</span>
@@ -394,7 +394,7 @@ choisir sa requête de tri est de générer le jeton à partir du dernier
 <p>Ensuite je génère une fonction récursive qui prend la liste des
 champs de tri et la dernière entrée de la page précédente et me
 retourne une liste de conditions de tri.</p>
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">get_continuation_token_conditions</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">sorting</span><span class="p">,</span> <span class="n">results</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_continuation_token_conditions</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">sorting</span><span class="p">,</span> <span class="n">results</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
     <span class="sd">"""Return the list of conditions for a given record and sorting attributes.</span>
 
 <span class="sd">    &gt;&gt;&gt; get_continuation_token_conditions(</span>
@@ -417,12 +417,12 @@ retourne une liste de conditions de tri.</p>
 
     <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">sorting</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-        <span class="n">field_name</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s">'-'</span><span class="p">)</span>
-        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">field_name</span><span class="p">,</span> <span class="s">'='</span><span class="p">,</span> <span class="n">record</span><span class="p">[</span><span class="n">field_name</span><span class="p">]))</span>
+        <span class="n">field_name</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">'-'</span><span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">field_name</span><span class="p">,</span> <span class="s1">'='</span><span class="p">,</span> <span class="n">record</span><span class="p">[</span><span class="n">field_name</span><span class="p">]))</span>
 
     <span class="n">field</span> <span class="o">=</span> <span class="n">sorting</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">field_name</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s">'-'</span><span class="p">)</span>
-    <span class="n">direction</span> <span class="o">=</span> <span class="s">'&lt;'</span> <span class="k">if</span> <span class="p">(</span><span class="n">field</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s">'-'</span><span class="p">)</span> <span class="k">else</span> <span class="s">'&gt;'</span>
+    <span class="n">field_name</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">'-'</span><span class="p">)</span>
+    <span class="n">direction</span> <span class="o">=</span> <span class="s1">'&lt;'</span> <span class="k">if</span> <span class="p">(</span><span class="n">field</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'-'</span><span class="p">)</span> <span class="k">else</span> <span class="s1">'&gt;'</span>
     <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">field_name</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">record</span><span class="p">[</span><span class="n">field_name</span><span class="p">]))</span>
 
     <span class="k">if</span> <span class="n">results</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>

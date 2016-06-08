@@ -55,14 +55,14 @@ frenchies!</p>
 written in Node.js®.</p>
 <div class="section" id="a-readinglist-server">
 <h2>A readinglist server</h2>
-<p>In parallel, a project about <a class="reference external" href="https://readinglist.readthedocs.org">synchronizing reading lists</a> (<em>Reading List</em>) started.
+<p>In parallel, a project about <a class="reference external" href="https://readinglist.readthedocs.io">synchronizing reading lists</a> (<em>Reading List</em>) started.
 The idea is to be able to bookmark pages to "read for later" and continue the
 reading on any synchronized device (Firefox for Android or Firefox Desktop). An
 open source counterpart to <a class="reference external" href="http://getpocket.com">Pocket</a>, in some regards, which is possible to host
 yourself.</p>
 <img alt="Capture of Firefox nightly with the readinglist." src="http://www.servicedenuages.fr/en/../images/readinglist-screenshot.png" style="width: 953px; height: auto; max-width: 100%;"/>
 <p>To build this service, we could have reused <a class="reference external" href="https://github.com/mozilla-services/server-syncstorage">Firefox sync</a> , after all it's
-a robust synchronisation service, built on top of <a class="reference external" href="http://cornice.readthedocs.org/">Cornice</a>. But <em>Sync</em> hasn't
+a robust synchronisation service, built on top of <a class="reference external" href="http://cornice.readthedocs.io/">Cornice</a>. But <em>Sync</em> hasn't
 been thought to guarantee strong data integrity and it was too complex to change that
 deeply.</p>
 <p>We could also have created yet another application to expose an API and
@@ -92,7 +92,7 @@ dissociate it from the readinglist project.</p>
 </div>
 <div class="section" id="the-one-way-mechanism">
 <h2>The one-way mechanism</h2>
-<p>As a first stone to build the cathedral, we created <a class="reference external" href="https://cliquet.readthedocs.org">Cliquet</a>, which main idea is to have an
+<p>As a first stone to build the cathedral, we created <a class="reference external" href="https://cliquet.readthedocs.io">Cliquet</a>, which main idea is to have an
 implementation of this protocol in Python, while factorizing all our good
 practices (notably for putting everything in production).</p>
 <img alt="Cliquet's logo" class="align-right" src="http://www.servicedenuages.fr/en/../images/cliquet-logo.png" style="width: 300px; height: auto; max-width: 100%;"/>
@@ -102,7 +102,7 @@ implementation!</p>
 <p>With <em>Cliquet</em>, the code of the readinglist service consists into defining
 a schema for the records and force some field values on certain calls. The size
 of the project is dramatically reduced to a dozen lines of code.</p>
-<p>As to the future generic data storage service, <a class="reference external" href="http://kinto.readthedocs.org">the project</a> just started but it really is!
+<p>As to the future generic data storage service, <a class="reference external" href="http://kinto.readthedocs.io">the project</a> just started but it really is!
 It can already be used as a storage backend in a <em>Cliquet</em> application, and
 this was <a class="reference external" href="https://github.com/mozilla-services/kinto/blob/0.2.1/kinto/views/collection.py">implemented in only 20 lines of code</a>.</p>
 <p>Oh, and this time we will build features only from real use cases which are

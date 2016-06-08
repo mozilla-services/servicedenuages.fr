@@ -55,14 +55,14 @@ complémentaires: <a class="reference external" href="https://nicolas.perriault.
 écrit en Node.js®, pour l'occasion.</p>
 <div class="section" id="un-serveur-de-listes-de-lecture">
 <h2>Un serveur de listes de lecture</h2>
-<p>En parallèle, un projet de <a class="reference external" href="https://readinglist.readthedocs.org">synchronisation de liste de lecture</a> (<em>Reading List</em>) a vu le jour.  L'idée
+<p>En parallèle, un projet de <a class="reference external" href="https://readinglist.readthedocs.io">synchronisation de liste de lecture</a> (<em>Reading List</em>) a vu le jour.  L'idée
 étant de pouvoir marquer des pages "à lire pour plus tard" et de continuer la
 lecture sur n'importe quel périphérique synchronisé (Firefox pour Android ou
 Firefox Desktop). Un équivalent libre à <a class="reference external" href="http://getpocket.com">Pocket</a> en quelque sorte, qu'il est
 possible d'héberger soit-même.</p>
 <img alt="Capture d'écran de Firefox nightly avec readinglist." src="http://www.servicedenuages.fr/images/readinglist-screenshot.png" style="width: 953px; height: auto; max-width: 100%;"/>
 <p>Pour le construire, nous aurions pu réutiliser <a class="reference external" href="https://github.com/mozilla-services/server-syncstorage">Firefox Sync</a>, après tout
-c'est un service de synchronisation de données très robuste, construit avec <a class="reference external" href="http://cornice.readthedocs.org/">Cornice</a>.
+c'est un service de synchronisation de données très robuste, construit avec <a class="reference external" href="http://cornice.readthedocs.io/">Cornice</a>.
 Mais seulement, <em>Sync</em> n'a pas été pensé pour garantir la pérennité des données,
 et la marche était trop haute pour changer ça en profondeur.</p>
 <p>Nous aurions pu aussi nous contenter de faire une énième application qui expose
@@ -93,7 +93,7 @@ de l'étendre légèrement et surtout de le dissocier du projet de listes de lec
 <div class="section" id="le-mecanisme-qui-force-a-aller-de-l-avant">
 <h2>Le mécanisme qui force à aller de l'avant</h2>
 <p>Comme première pierre à l'édifice, nous avons donné naissance au projet
-<a class="reference external" href="https://cliquet.readthedocs.org">Cliquet</a>, dont l'idée principale est de
+<a class="reference external" href="https://cliquet.readthedocs.io">Cliquet</a>, dont l'idée principale est de
 fournir une implémentation de ce protocole en python, tout en factorisant
 l'ensemble de nos bonnes pratiques (pour la prod notamment).</p>
 <img alt="Logo du projet Cliquet" class="align-right" src="http://www.servicedenuages.fr/images/cliquet-logo.png" style="width: 300px; height: auto; max-width: 100%;"/>
@@ -104,7 +104,7 @@ implémentation alternative !</p>
 à définir un schéma pour les enregistrements, puis à forcer des valeurs de
 champs sur certains appels. Cela réduit ce projet à quelques dizaines de lignes
 de code.</p>
-<p>Quant au futur service de stockage générique, <a class="reference external" href="http://kinto.readthedocs.org">le projet</a> en est encore à ses balbutiements mais c'est
+<p>Quant au futur service de stockage générique, <a class="reference external" href="http://kinto.readthedocs.io">le projet</a> en est encore à ses balbutiements mais c'est
 bel et bien en route ! Il permet déjà d'être branché comme backend de stockage
 dans une application <em>Cliquet</em>, et ça <a class="reference external" href="https://github.com/mozilla-services/kinto/blob/0.2.1/kinto/views/collection.py">implémenté en 20 lignes de code</a>!</p>
 <p>Ah, et cette fois, nous ne construirons les fonctionnalités qu'à partir des

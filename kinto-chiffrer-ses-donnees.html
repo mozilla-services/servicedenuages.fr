@@ -68,7 +68,7 @@ cloud" est une science en elle-même et <a class="reference external" href="http
 faire, développé par la toute aussi brillante équipe du Service de
 nuages de Mozilla. La release 1.0 ne devrait plus tarder et vous en
 saurez sûrement plus sur ce blog très prochainement.</p>
-<p>Il se trouve que Kinto.js supporte maintenant les <a class="reference external" href="http://kintojs.readthedocs.org/en/latest/api/#transformers">RemoteTransformers</a>, qui
+<p>Il se trouve que Kinto.js supporte maintenant les <a class="reference external" href="http://kintojs.readthedocs.io/en/latest/api/#transformers">RemoteTransformers</a>, qui
 permettent de manière très simple d'appliquer n'importe quel type de
 transformations que vous souhaitez faire sur les enregistrements d'une
 collection avant qu'ils ne soient stockés dans la base de données
@@ -92,7 +92,7 @@ fonctions, <tt class="docutils literal">encode</tt> et <tt class="docutils liter
 fonction <tt class="docutils literal">encode</tt> sur chaque enregistrement qui est téléversé dans
 le cloud et d'appeler <tt class="docutils literal">decode</tt> sur chaque enregistrement
 téléchargé. Vous pouvez en lire plus à ce sujet
-<a class="reference external" href="http://kintojs.readthedocs.org/en/latest/api/#transformers">dans la documentation de Kinto.js</a>.</p>
+<a class="reference external" href="http://kintojs.readthedocs.io/en/latest/api/#transformers">dans la documentation de Kinto.js</a>.</p>
 <p>La manière dont nous indiquons à Kinto.js d'utiliser nos fonctions
 <tt class="docutils literal">encode</tt> et <tt class="docutils literal">decode</tt> est assez simple. Lorsqu'on créé une
 collection Kinto, on passe en paramètre un <tt class="docutils literal">RemoteTransformer</tt>. Le
@@ -110,7 +110,7 @@ mais regardons le code étape par étape.</p>
 <p>Pour commencer, nous avons besoin de quelques fonctions utilitaires
 que nous utiliserons plus tard pour convertir des <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays">byte arrays</a>
 en chaînes de caractères ASCII et inversemment.</p>
-<div class="highlight"><pre><span class="c1">// Helper functions:</span>
+<div class="highlight"><pre><span></span><span class="c1">// Helper functions:</span>
 <span class="kr">const</span> <span class="nx">rawStringToByteArray</span> <span class="o">=</span> <span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="kr">const</span> <span class="nx">strLen</span> <span class="o">=</span> <span class="nx">str</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
   <span class="kd">var</span> <span class="nx">byteArray</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Uint8Array</span><span class="p">(</span><span class="nx">strLen</span><span class="p">);</span>
@@ -139,7 +139,7 @@ une API vraiment géniale et assez récente de
 Nous allons utiliser cette clé de chiffrement pour
 chiffrer et déchiffrer les données qui vont passer dans notre
 <tt class="docutils literal">RemoteTransformer</tt>:</p>
-<div class="highlight"><pre><span class="c1">// RemoteTransformer:</span>
+<div class="highlight"><pre><span></span><span class="c1">// RemoteTransformer:</span>
 <span class="kr">const</span> <span class="nx">generateAesKey</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="c1">// See http://www.w3.org/TR/WebCryptoAPI/#examples-symmetric-encryption</span>
   <span class="k">return</span> <span class="nb">window</span><span class="p">.</span><span class="nx">crypto</span><span class="p">.</span><span class="nx">subtle</span><span class="p">.</span><span class="nx">generateKey</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">'AES-GCM'</span><span class="p">,</span> <span class="nx">length</span><span class="o">:</span> <span class="mi">128</span> <span class="p">},</span>
@@ -186,17 +186,17 @@ chiffrer et déchiffrer les données qui vont passer dans notre
 synchronisation d'une instance à l'autre à l'aide du serveur de démo
 de Kinto. Créer plusieurs instances Kinto depuis la même origine est
 possible à l'aide de la toute récente option <tt class="docutils literal">dbPrefix</tt>:</p>
-<div class="highlight"><pre><span class="c1">// Kinto collection:</span>
+<div class="highlight"><pre><span></span><span class="c1">// Kinto collection:</span>
 <span class="kr">const</span> <span class="nx">createCollection</span> <span class="o">=</span> <span class="p">(</span><span class="nx">transformer</span><span class="p">,</span> <span class="nx">testRun</span><span class="p">,</span> <span class="nx">instanceNo</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="kr">const</span> <span class="nx">kinto</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Kinto</span><span class="p">({</span>
-    <span class="nx">dbPrefix</span><span class="o">:</span> <span class="err">`</span><span class="nx">$</span><span class="p">{</span><span class="nx">testRun</span><span class="p">}</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="nx">instanceNo</span><span class="p">}</span><span class="err">`</span><span class="p">,</span>
+    <span class="nx">dbPrefix</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">testRun</span><span class="si">}</span><span class="sb">-</span><span class="si">${</span><span class="nx">instanceNo</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
     <span class="nx">remote</span><span class="o">:</span> <span class="s1">'https://kinto.dev.mozaws.net/v1/'</span><span class="p">,</span>
     <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
       <span class="nx">Authorization</span><span class="o">:</span> <span class="s1">'Basic '</span> <span class="o">+</span> <span class="nx">btoa</span><span class="p">(</span><span class="s1">'public-demo:s3cr3t'</span><span class="p">)</span>
     <span class="p">}</span>
   <span class="p">});</span>
 
-  <span class="k">return</span> <span class="nx">kinto</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="err">`</span><span class="nx">kinto</span><span class="o">-</span><span class="nx">encryption</span><span class="o">-</span><span class="nx">example</span><span class="o">-</span><span class="nx">$</span><span class="p">{</span><span class="nx">testRun</span><span class="p">}</span><span class="err">`</span><span class="p">,</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">kinto</span><span class="p">.</span><span class="nx">collection</span><span class="p">(</span><span class="sb">`kinto-encryption-example-</span><span class="si">${</span><span class="nx">testRun</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span> <span class="p">{</span>
     <span class="nx">remoteTransformers</span><span class="o">:</span> <span class="p">[</span> <span class="nx">transformer</span> <span class="p">]</span>
   <span class="p">});</span>
 <span class="p">};</span>
@@ -218,7 +218,7 @@ dans la collection 1, synchronisons-le (les données envoyées au
 serveur doivent être chiffrées, ce qu'on peut vérifier avec l'onglet
 Réseau de la console du navigateur):</p>
 <img alt="Onglet Réseau de la console Firefox" src="http://www.servicedenuages.fr/images/kinto-encryption-example-network-tab.png" style="width: 2560px; height: auto; max-width: 100%;"/>
-<div class="highlight"><pre><span class="kr">const</span> <span class="nx">syncUp</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">syncUp</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="c1">// Use first Kinto instance to demonstrate encryption:</span>
   <span class="k">return</span> <span class="nx">coll1</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
     <span class="nx">URL</span><span class="o">:</span> <span class="s1">'http://www.w3.org/TR/WebCryptoAPI/'</span><span class="p">,</span>
@@ -238,7 +238,7 @@ dans le résultat de la synchronisation. Finalement, la fonction
 <p>Le code source complet est inclus dans la page que vous êtes
 actuellement en train de lire, alors n'hésitez-pas, ouvrez la console
 du navigateur et essayez en lançant la fonction <tt class="docutils literal">go()</tt>!</p>
-<div class="highlight"><pre><span class="kr">const</span> <span class="nx">syncDown</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">syncDown</span> <span class="o">=</span> <span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
   <span class="c1">// Use second Kinto instance to demonstrate decryption:</span>
   <span class="k">return</span> <span class="nx">coll2</span><span class="p">.</span><span class="nx">sync</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">syncResults</span> <span class="o">=&gt;</span> <span class="p">{</span>
     <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Sync down'</span><span class="p">,</span> <span class="nx">syncResults</span><span class="p">);</span>

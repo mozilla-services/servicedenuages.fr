@@ -157,7 +157,7 @@ services for the many millions of Firefox users;</li>
 <li>Feedback from the <em>Firefox Sync</em> team regarding concurrency management and
 "offline-first" design.</li>
 </ul>
-<p>Want to know more? No problem since it's <a class="reference external" href="http://cliquet.readthedocs.org/en/latest/api/index.html">documented in great detail</a>.</p>
+<p>Want to know more? No problem since it's <a class="reference external" href="http://cliquet.readthedocs.io/en/latest/api/index.html">documented in great detail</a>.</p>
 <p>In an ideal world this protocol would be versioned and formalised in an RFC.
 Perhaps there would even be several implementations in different languages.
 <a class="footnote-reference" href="#id4" id="id2">[2]</a></p>
@@ -227,7 +227,7 @@ every component is guaranteed to be production-ready.</p>
 but there's no reason a relational storage model couldn't be implemented. Since
 all of the moving parts can be replaced directly via the configuration, it's
 entirely feasible to extend Cliquet with business logic or other exotic
-elements. We've got even more ideas in the "ecosystem" portion of <a class="reference external" href="http://cliquet.readthedocs.org/en/latest/ecosystem.html">our
+elements. We've got even more ideas in the "ecosystem" portion of <a class="reference external" href="http://cliquet.readthedocs.io/en/latest/ecosystem.html">our
 documentation</a>.</p>
 <p>In a few weeks well be introducing the idea of "events" (or "signals")
 which will allow plugins to interface in a much cleaner way.</p>
@@ -238,19 +238,19 @@ accolades, or criticisms, don't hesitate to <a class="reference external" href="
 </div>
 <div class="section" id="cliquet-in-action">
 <h2>Cliquet in Action!</h2>
-<p>We wrote a <a class="reference external" href="http://cliquet.readthedocs.org/en/latest/quickstart.html">quickstart guide</a> that requires
+<p>We wrote a <a class="reference external" href="http://cliquet.readthedocs.io/en/latest/quickstart.html">quickstart guide</a> that requires
 no knowledge of <em>Pyramid</em>.</p>
 <p>Here are some examples to illustrate how straightforward Cliquet can be!</p>
 <div class="section" id="step-1">
 <h3>Step 1</h3>
 <p>Activate Cliquet:</p>
-<div class="highlight"><pre><span class="kn">import</span> <span class="nn">cliquet</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">cliquet</span>
 <span class="kn">from</span> <span class="nn">pyramid.config</span> <span class="kn">import</span> <span class="n">Configurator</span>
 
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">global_config</span><span class="p">,</span> <span class="o">**</span><span class="n">settings</span><span class="p">):</span>
     <span class="n">config</span> <span class="o">=</span> <span class="n">Configurator</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">settings</span><span class="p">)</span>
 
-    <span class="n">cliquet</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s">'1.0'</span><span class="p">)</span>
+    <span class="n">cliquet</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s1">'1.0'</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">make_wsgi_app</span><span class="p">()</span>
 </pre></div>
 <p>From here, most of the features of Cliquet are active and ready to be used.</p>
@@ -261,16 +261,16 @@ views in either Pyramid or Cornice.</p>
 <div class="section" id="step-2">
 <h3>Step 2</h3>
 <p>Add some views:</p>
-<div class="highlight"><pre><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">global_config</span><span class="p">,</span> <span class="o">**</span><span class="n">settings</span><span class="p">):</span>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">global_config</span><span class="p">,</span> <span class="o">**</span><span class="n">settings</span><span class="p">):</span>
     <span class="n">config</span> <span class="o">=</span> <span class="n">Configurator</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">settings</span><span class="p">)</span>
 
-    <span class="n">cliquet</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s">'1.0'</span><span class="p">)</span>
-    <span class="n">config</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s">"myproject.views"</span><span class="p">)</span>
+    <span class="n">cliquet</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s1">'1.0'</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s2">"myproject.views"</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">make_wsgi_app</span><span class="p">()</span>
 </pre></div>
 <p>The first step in defining a CRUD resource is to define the schema with
 Colander:</p>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">cliquet</span> <span class="kn">import</span> <span class="n">resource</span><span class="p">,</span> <span class="n">schema</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cliquet</span> <span class="kn">import</span> <span class="n">resource</span><span class="p">,</span> <span class="n">schema</span>
 
 <span class="k">class</span> <span class="nc">BookmarkSchema</span><span class="p">(</span><span class="n">schema</span><span class="o">.</span><span class="n">ResourceSchema</span><span class="p">):</span>
     <span class="n">url</span> <span class="o">=</span> <span class="n">schema</span><span class="o">.</span><span class="n">URL</span><span class="p">()</span>
@@ -282,13 +282,13 @@ Colander:</p>
 <p>From here, the CRUD resource is available at <tt class="docutils literal">/v1/bookmarks</tt> with all the
 synchronisation, filtering, sorting, paging, and timestamp features ready to
 go. By default the records are private (per user).</p>
-<div class="highlight"><pre><span class="err">$</span> <span class="err">http</span> <span class="err">GET</span> <span class="s2">"http://localhost:8000/v1/bookmarks"</span>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="err">http</span> <span class="err">GET</span> <span class="s2">"http://localhost:8000/v1/bookmarks"</span>
 <span class="err">HTTP/</span><span class="mf">1.1</span> <span class="mi">200</span> <span class="err">OK</span>
 <span class="err">...</span>
 <span class="p">{</span>
     <span class="nt">"data"</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
-            <span class="nt">"url"</span><span class="p">:</span> <span class="s2">"http://cliquet.readthedocs.org"</span><span class="p">,</span>
+            <span class="nt">"url"</span><span class="p">:</span> <span class="s2">"http://cliquet.readthedocs.io"</span><span class="p">,</span>
             <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"cc103eb5-0c80-40ec-b6f5-dad12e7d975e"</span><span class="p">,</span>
             <span class="nt">"last_modified"</span><span class="p">:</span> <span class="mi">1437034418940</span><span class="p">,</span>
         <span class="p">}</span>
@@ -300,34 +300,34 @@ go. By default the records are private (per user).</p>
 <h3>Step 3</h3>
 <p>There's lots of room to change things up, such as the URLs and HTTP verbs, or
 even modifying the fields before they're saved.</p>
-<div class="highlight"><pre><span class="nd">@resource.register</span><span class="p">(</span><span class="n">collection_path</span><span class="o">=</span><span class="s">'/user/bookmarks'</span><span class="p">,</span>
-                   <span class="n">record_path</span><span class="o">=</span><span class="s">'/user/bookmarks/{{id}}'</span><span class="p">,</span>
-                   <span class="n">collection_methods</span><span class="o">=</span><span class="p">(</span><span class="s">'GET'</span><span class="p">,))</span>
+<div class="highlight"><pre><span></span><span class="nd">@resource.register</span><span class="p">(</span><span class="n">collection_path</span><span class="o">=</span><span class="s1">'/user/bookmarks'</span><span class="p">,</span>
+                   <span class="n">record_path</span><span class="o">=</span><span class="s1">'/user/bookmarks/{{id}}'</span><span class="p">,</span>
+                   <span class="n">collection_methods</span><span class="o">=</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,))</span>
 <span class="k">class</span> <span class="nc">Bookmark</span><span class="p">(</span><span class="n">resource</span><span class="o">.</span><span class="n">BaseResource</span><span class="p">):</span>
     <span class="n">mapping</span> <span class="o">=</span> <span class="n">BookmarkSchema</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">process_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new</span><span class="p">,</span> <span class="n">old</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">old</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">new</span><span class="p">[</span><span class="s">'device'</span><span class="p">]</span> <span class="o">!=</span> <span class="n">old</span><span class="p">[</span><span class="s">'device'</span><span class="p">]:</span>
-            <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">'User-Agent'</span><span class="p">)</span>
-            <span class="n">new</span><span class="p">[</span><span class="s">'device'</span><span class="p">]</span> <span class="o">=</span> <span class="n">device</span>
+        <span class="k">if</span> <span class="n">old</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">new</span><span class="p">[</span><span class="s1">'device'</span><span class="p">]</span> <span class="o">!=</span> <span class="n">old</span><span class="p">[</span><span class="s1">'device'</span><span class="p">]:</span>
+            <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'User-Agent'</span><span class="p">)</span>
+            <span class="n">new</span><span class="p">[</span><span class="s1">'device'</span><span class="p">]</span> <span class="o">=</span> <span class="n">device</span>
         <span class="k">return</span> <span class="n">new</span>
 </pre></div>
-<p>For more information, see the <a class="reference external" href="http://cliquet.readthedocs.org/en/latest/reference/resource.html">resource documentation</a> .</p>
+<p>For more information, see the <a class="reference external" href="http://cliquet.readthedocs.io/en/latest/reference/resource.html">resource documentation</a> .</p>
 </div>
 <div class="section" id="step-4-optional">
 <h3>Step 4 (optional)</h3>
 <p>Let's try using Cliquet <em>abstractions</em> in a Cornice <em>view</em>:</p>
-<div class="highlight"><pre><span class="kn">from</span> <span class="nn">cliquet</span> <span class="kn">import</span> <span class="n">Service</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cliquet</span> <span class="kn">import</span> <span class="n">Service</span>
 
-<span class="n">score</span> <span class="o">=</span> <span class="n">Service</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">"score"</span><span class="p">,</span>
-                <span class="n">path</span><span class="o">=</span><span class="s">'/score/{game}'</span><span class="p">,</span>
-                <span class="n">description</span><span class="o">=</span><span class="s">"Store game score"</span><span class="p">)</span>
+<span class="n">score</span> <span class="o">=</span> <span class="n">Service</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"score"</span><span class="p">,</span>
+                <span class="n">path</span><span class="o">=</span><span class="s1">'/score/{game}'</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">"Store game score"</span><span class="p">)</span>
 
 <span class="nd">@score.post</span><span class="p">(</span><span class="n">schema</span><span class="o">=</span><span class="n">ScoreSchema</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">post_score</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="n">collection_id</span> <span class="o">=</span> <span class="s">'scores-'</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="n">match_dict</span><span class="p">[</span><span class="s">'game'</span><span class="p">]</span>
+    <span class="n">collection_id</span> <span class="o">=</span> <span class="s1">'scores-'</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="n">match_dict</span><span class="p">[</span><span class="s1">'game'</span><span class="p">]</span>
     <span class="n">user_id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">authenticated_userid</span>
-    <span class="n">value</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">validated</span>  <span class="c"># c.f. Cornice.</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">validated</span>  <span class="c1"># c.f. Cornice.</span>
 
     <span class="n">storage</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">registry</span><span class="o">.</span><span class="n">storage</span>
     <span class="n">record</span> <span class="o">=</span> <span class="n">storage</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">collection_id</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>

@@ -56,7 +56,7 @@ for this effort! Note, that at the beginning of this year,
 <p><strong>tl;dr We have to build a service to track payments, and we're hesitant
 to go on with our own solution for storage and synchronization.</strong></p>
 <p>As we wrote in <a class="reference external" href="http://www.servicedenuages.fr/en/../service-de-nuages">the previous article (FR)</a>,
-we want to build a solution for generic data storage. We're rebooting <a class="reference external" href="http://daybed.readthedocs.org">Daybed</a>
+we want to build a solution for generic data storage. We're rebooting <a class="reference external" href="http://daybed.readthedocs.io">Daybed</a>
 at Mozilla!</p>
 <p>Our goal is simple: allow developers, whether they are from Mozilla or from the whole world,
 to easily synchronize and save data associated to a user.</p>
@@ -119,7 +119,7 @@ reinvent this solution. So there is a great chance that we will integrate
 <h2>PouchDB</h2>
 <p><a class="reference external" href="http://pouchdb.com/">PouchDB</a> is a Javascript library allowing to manipulate
 records locally and synchronize them to a distant database.</p>
-<div class="highlight"><pre><span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PouchDB</span><span class="p">(</span><span class="s1">'dbname'</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PouchDB</span><span class="p">(</span><span class="s1">'dbname'</span><span class="p">);</span>
 
 <span class="nx">db</span><span class="p">.</span><span class="nx">put</span><span class="p">({</span>
  <span class="nx">_id</span><span class="o">:</span> <span class="s1">'dave@gmail.com'</span><span class="p">,</span>
@@ -207,7 +207,7 @@ JavaScript wrapper (as <a class="reference external" href="https://pythonhosted.
 <img alt="Wagon wheel - CC-BY-NC-SA arbyreed https://www.flickr.com/photos/19779889@N00/16161808220" src="http://www.servicedenuages.fr/en/../images/wagon-wheel.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
 <p>It is obvious that <em>PouchDB</em> and <em>Remote Storage</em> are rich projects with dynamic communities. Therefore, it's reasonable to wonder if one should develop another solution.</p>
 <p>When we created the <em>Reading List</em> server, we built it with
-<a class="reference external" href="http://cliquet.readthedocs.org/">Cliquet</a>. We had a chance to setup <a class="reference external" href="http://cliquet.readthedocs.org/en/latest/api/">a very simple protocol</a>, strongly inspired by
+<a class="reference external" href="http://cliquet.readthedocs.io/">Cliquet</a>. We had a chance to setup <a class="reference external" href="http://cliquet.readthedocs.io/en/latest/api/">a very simple protocol</a>, strongly inspired by
 <a class="reference external" href="http://en.wikipedia.org/wiki/Firefox_Sync">Firefox Sync</a>, to sync records.</p>
 <p>The reason clients for <em>Reading List</em> were implemented in few weeks, whether in
 JavaScript, Java (Android) or ASM (Firefox addon), is that the "<em>offline first</em>"
@@ -256,7 +256,7 @@ handled by <em>PouchDB</em>. It should be:</p>
 <li>Naive (<em>no rocket-science</em>);</li>
 <li>Without magic (<em>explicit and easy to reimplement from scratch</em>);</li>
 </ul>
-<p><a class="reference external" href="http://cliquet.readthedocs.org/en/latest/rationale.html">The philosophy and the features of our Python toolkit, Cliquet</a>, will of course be honoured :)</p>
+<p><a class="reference external" href="http://cliquet.readthedocs.io/en/latest/rationale.html">The philosophy and the features of our Python toolkit, Cliquet</a>, will of course be honoured :)</p>
 <p>As for <em>Remote Storage</em>, whenever we face the need, we will proud to join
 this initiative. However, as for now, it seems risky to start by bending the
 solution to our own needs.</p>
@@ -270,7 +270,7 @@ MySQL, Redis, PostgreSQL).</p>
 <em>Cliquet</em>, using the PostgreSQL backend, our data is persisted in <a class="reference external" href="https://github.com/mozilla-services/cliquet/blob/40aa33/cliquet/storage/postgresql/schema.sql#L14-L28">a flat PostgreSQL schema</a>.</p>
 <p>This wouldn't be the case with a LevelDown adapter that handles revisions split
 in a key-value scheme.</p>
-<p>If we base our service on Cliquet, like we did with <a class="reference external" href="http://kinto.readthedocs.org">Kinto</a>, all the automation work of deploying
+<p>If we base our service on Cliquet, like we did with <a class="reference external" href="http://kinto.readthedocs.io">Kinto</a>, all the automation work of deploying
 (<em>monitoring, RPM builds, Puppet...</em>) that was done for <em>Reading List</em> will be
 completely reusable.</p>
 <p>As said before, if we go with another totally new stack, we will have to start

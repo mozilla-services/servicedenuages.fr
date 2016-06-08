@@ -119,7 +119,7 @@ Pour les fichiers «privés», il faut donc que les URLs générées soient «se
 <tt class="docutils literal">/attachment</tt> à l'URL de l'enregistrement.</p>
 <p>Le fichier est posté avec le <em>Content-Type</em> <tt class="docutils literal">multipart</tt>. Avec <a class="reference external" href="http://httpie.org">HTTPie</a>,
 ça donne :</p>
-<div class="highlight"><pre><span class="err">$ http --auth alice:passwd --verbose --form POST \</span>
+<div class="highlight"><pre><span></span><span class="err">$ http --auth alice:passwd --verbose --form POST \</span>
 <span class="err">     http://localhost:8888/v1/buckets/website/collections/assets/records/c2ce1975-0e52-4b2f-a5db-80166aeca689/attachment \</span>
 <span class="err">     data='{"type": "wallpaper", "theme": "orange"}' \</span>
 <span class="err">     attachment=@~/Pictures/background.jpg</span>
@@ -144,7 +144,7 @@ Pour les fichiers «privés», il faut donc que les URLs générées soient «se
 </pre></div>
 <p>L'enregistrement lié a été créé, et contient un attribut <tt class="docutils literal">attachment</tt> avec les
 metadonnées du fichier, ainsi que les attributs supplémentaires spécifiés lors de l'envoi :</p>
-<div class="highlight"><pre><span class="err">$ http --auth alice: GET \</span>
+<div class="highlight"><pre><span></span><span class="err">$ http --auth alice: GET \</span>
 <span class="err">      http://localhost:8888/v1/buckets/website/collections/assets/records/c2ce1975-0e52-4b2f-a5db-80166aeca689</span>
 
 <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
