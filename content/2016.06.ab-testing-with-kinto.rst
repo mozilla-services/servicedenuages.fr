@@ -2,7 +2,7 @@ How to use Kinto to A/B test a web application?
 ###############################################
 
 :lang: en
-:date: 2016-06-05
+:date: 2016-06-09
 :url: ab-testing-with-kinto
 :slug: ab-testing-with-kinto
 :summary: A/B testing is a form of statistical hypothesis testing. Its
@@ -21,16 +21,16 @@ targets Mobile app feature switching and A/B testing.
 For the Fennec team, the update of experiments data is a bit
 cumbersome, the data is stored on a github repository and the
 switchboard server needs to be updated and reloaded with newer data on
-every changes.
+every change.
 
 They eventually saw the `kinto-admin`_ for another project and,
 because the swichboard logic can be done on client-side, they decided
 to try to switch `from Switchboard to Kinto`_ to handle the experiments
 data.
 
-It is `a work in progress`_ in the Fennec code base but we decided to
-explore how we could use a similar approach to use Kinto for A/B
-testing the web.
+It is `a work in progress`_ in the Fennec code base but we have
+decided to explore how we could use a similar approach to use Kinto to
+A/B test the web.
 
 .. _`Switchboard from KeepSafe`: https://github.com/KeepSafe/Switchboard
 .. _`a work in progress`: https://bugzilla.mozilla.org/show_bug.cgi?id=1271860
