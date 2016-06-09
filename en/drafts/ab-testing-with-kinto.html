@@ -108,7 +108,7 @@ from this device ID.</p>
 <span class="c1">// userBucket = 68</span>
 </pre></div>
 <p>With <a class="reference external" href="https://github.com/Valve/fingerprintjs2">fingerprint.js</a> specifically, it looks like that:</p>
-<div class="highlight"><pre><span></span><span class="k">new</span> <span class="nx">Fingerprint2</span><span class="p">().</span><span class="nx">get</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">deviceID</span><span class="p">)</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><span class="k">new</span> <span class="nx">Fingerprint2</span><span class="p">().</span><span class="nx">get</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">deviceIDString</span><span class="p">)</span> <span class="p">{</span>
 
   <span class="c1">// Convert the device ID hex string into an integer</span>
   <span class="kr">const</span> <span class="nx">deviceID</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">deviceIDString</span><span class="p">,</span> <span class="mi">16</span><span class="p">);</span>
