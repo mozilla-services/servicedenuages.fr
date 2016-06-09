@@ -30,7 +30,7 @@
         <header class="header-article">
             <hgroup>
                 <h5>Published</h5>
-                <p title="~870 words">~4 minutes reading 🕑</p>
+                <p title="~871 words">~4 minutes reading 🕑</p>
                 <p>Sun, 05 June 2016</p>
                 <a href="/en/">&larr; Back to articles</a>
             </hgroup>
@@ -81,7 +81,7 @@ UX solutions in order to decide which one is most usable for your users.</p>
 base and select the best option.</p>
 <p>There are two technical parts on this:</p>
 <ol class="arabic simple">
-<li>You need to display a different version of your button to your users,
+<li>You need to display a different version of your banner to your users,
 probably with the same code.</li>
 <li>You need to be able to get the conversion rate for each solution to
 be able to compare them.</li>
@@ -96,10 +96,10 @@ be able to compare them.</li>
 matching rules and a buckets range.</p>
 <p>For the web, in my proof of concept, matching rules can be defined as
 regexp on the user languages, country or user-agent.</p>
-<p>Because it is easier to think in peRCENTAGES, we split users in 100
-buckets with a bucketID from 0 to 99.</p>
+<p>Because it is easier to think in percentages, we split users in 100
+buckets with a bucket ID from 0 to 99.</p>
 <p>In our experiment we can decide to include a range of buckets using
-the min and max buckets attributes.</p>
+the <tt class="docutils literal">min</tt> and <tt class="docutils literal">max</tt> buckets attributes.</p>
 <p>Using <a class="reference external" href="https://github.com/Valve/fingerprintjs2">fingerprint.js</a>, it is possible to calculate the user bucket
 and see if they are within the experiment buckets range.</p>
 <div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">deviceID</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">fingerprint</span><span class="p">.</span><span class="nx">deviceID</span><span class="p">,</span> <span class="mi">16</span><span class="p">);</span>
@@ -126,15 +126,15 @@ and see if they are within the experiment buckets range.</p>
 information that we need to track:</p>
 <ul class="simple">
 <li><strong>user matches</strong>: Is the user matching the experiment?</li>
-<li><strong>user in buckets</strong>: Is the user in one of the targeted bucket?</li>
+<li><strong>user in buckets</strong>: Is the user in one of the targeted buckets?</li>
 </ul>
 <p>These two information will be used for the metrics part to decide if we
 should use the new solution rather than the previous one.</p>
 <p>If you are currently in France, you can <a class="reference external" href="https://mozilla-services.github.io/switchboard-experiments-kinto/">try this experiment</a>.</p>
 <p>The good news is that you will be able to change the experiment settings after the release using the <a class="reference external" href="https://github.com/Kinto/kinto-admin">kinto-admin</a>.</p>
 <p>If you want to start with the feature off for everyone, you can just
-set the same buckets configuration value for both <cite>min</cite> and <cite>max</cite> and
-it will turn it off.</p>
+set the same buckets configuration value for both <tt class="docutils literal">min</tt> and <tt class="docutils literal">max</tt>
+and it will turn it off.</p>
 </div>
 <div class="section" id="how-to-use-kinto-to-store-the-experiment-metrics">
 <h2>How to use Kinto to store the experiment metrics?</h2>
@@ -142,12 +142,11 @@ it will turn it off.</p>
 trigger metrics.</p>
 <p>In the case of the previous example, the metric could be to monitor
 the number of clicks on the banner when it is written in French or when
-it is written in English for people for people in France.</p>
+it is written in English for people in France.</p>
 <p>Using the power of Kinto permissions, we can create a collection where
 people will be able to create new records in it but not change them.</p>
 <p>Using <a class="reference external" href="https://httpie.org">HTTPie</a> we can do it like that:</p>
-<div class="highlight"><pre><span></span>http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard <span class="se">\</span>
-    --auth admin:switchboard
+<div class="highlight"><pre><span></span>http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard --auth admin:switchboard
 
 <span class="nb">echo</span> <span class="s1">'{"permissions": {"record:create": ["system.Everyone"]}}'</span> <span class="p">|</span> <span class="se">\</span>
     http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics <span class="se">\</span>
@@ -160,9 +159,9 @@ people will be able to create new records in it but not change them.</p>
       <span class="s2">"Content-Type"</span><span class="o">:</span> <span class="s2">"application/json"</span>
   <span class="p">},</span>
   <span class="nx">body</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s2">"experiment-name"</span><span class="p">,</span>
-    <span class="nx">matches</span><span class="o">:</span> <span class="nx">matches</span><span class="p">,</span>
-    <span class="nx">inBucket</span><span class="o">:</span> <span class="nx">inBucket</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">"french-banner"</span><span class="p">,</span>
+    <span class="nx">matches</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">inBucket</span><span class="o">:</span> <span class="kc">false</span>
   <span class="p">}})</span>
 <span class="p">});</span>
 </pre></div>
@@ -179,7 +178,7 @@ Total-Records: 20
 <div class="section" id="in-conclusion">
 <h2>In conclusion</h2>
 <p>Because we can calculate the user bucket on client side, we do not
-have to actually have a server side bucket repartition algorithm.</p>
+have to actually run the bucket repartition algorithm on the server side.</p>
 <p>We could even use Kinto to store the number of time the banner have
 been displayed to make sure of the bucket repartition.</p>
 <p>The <a class="reference external" href="https://github.com/Kinto/kinto-admin">kinto-admin</a> makes it really easy to handle experiment
