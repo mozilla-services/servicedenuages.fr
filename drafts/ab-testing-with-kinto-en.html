@@ -30,7 +30,7 @@
         <header class="header-article">
             <hgroup>
                 <h5>Published</h5>
-                <p title="~872 words">~4 minutes reading 🕑</p>
+                <p title="~1030 words">~5 minutes reading 🕑</p>
                 <p>Thu, 09 June 2016</p>
                 <a href="/en/">&larr; Back to articles</a>
             </hgroup>
@@ -87,6 +87,38 @@ probably with the same code.</li>
 be able to compare them.</li>
 </ol>
 </div>
+<div class="section" id="a-word-about-the-repartition-algorithm">
+<h2>A word about the repartition algorithm</h2>
+<p>The reason why we can use Kinto for this, is that we can run the
+bucket repartition algorithm on client side.</p>
+<p>Because it is easier to think in terms of percentages, we chose to
+split users in 100 buckets with a bucket ID from 0 to 99.</p>
+<p>We then need a way to get a bucket ID for our user device with a
+homogeneous distribution on the bucket space.</p>
+<p>One way to do that is to generate a random UUID and to store it on the
+device. But storing that value can be a bit cumbersome.</p>
+<p>To make this user bucket stateless, on mobile we can use the device ID
+and on the web we can use the <a class="reference external" href="https://github.com/Valve/fingerprintjs2">fingerprint.js</a> project that aims to
+generate a unique user id from the browser configuration.</p>
+<p>We can then use the modulo function to calculate the user bucket ID
+from this device ID.</p>
+<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">fingerprint</span> <span class="o">=</span> <span class="p">{</span><span class="nx">deviceID</span><span class="o">:</span> <span class="s2">"1433179b5711413ba3c404075a629376"</span><span class="p">};</span>
+<span class="kr">const</span> <span class="nx">deviceID</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">fingerprint</span><span class="p">.</span><span class="nx">deviceID</span><span class="p">,</span> <span class="mi">16</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">userBucket</span> <span class="o">=</span> <span class="nx">deviceID</span> <span class="o">%</span> <span class="mi">100</span><span class="p">;</span>
+<span class="c1">// userBucket = 68</span>
+</pre></div>
+<p>With <a class="reference external" href="https://github.com/Valve/fingerprintjs2">fingerprint.js</a> specifically, it looks like that:</p>
+<div class="highlight"><pre><span></span><span class="k">new</span> <span class="nx">Fingerprint2</span><span class="p">().</span><span class="nx">get</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">deviceID</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="c1">// Convert the device ID hex string into an integer</span>
+  <span class="kr">const</span> <span class="nx">deviceID</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">deviceIDString</span><span class="p">,</span> <span class="mi">16</span><span class="p">);</span>
+
+  <span class="c1">// Use a modulo on the device ID value to calculate the user bucket</span>
+  <span class="kr">const</span> <span class="nx">userBucket</span> <span class="o">=</span> <span class="nx">deviceID</span> <span class="o">%</span> <span class="mi">100</span><span class="p">;</span>
+
+<span class="p">});</span>
+</pre></div>
+</div>
 <div class="section" id="how-to-use-kinto-to-know-in-which-test-your-user-is">
 <h2>How to use Kinto to know in which test your user is?</h2>
 <p>The benefit of using <a class="reference external" href="http://www.kinto-storage.org/">Kinto</a> is that you will be able to use the
@@ -96,15 +128,8 @@ be able to compare them.</li>
 matching rules and a buckets range.</p>
 <p>For the web, in my proof of concept, matching rules can be defined as
 regexp on the user languages, country or user-agent.</p>
-<p>Because it is easier to think in percentages, we split users in 100
-buckets with a bucket ID from 0 to 99.</p>
-<p>In our experiment we can decide to include a range of buckets using
-the <tt class="docutils literal">min</tt> and <tt class="docutils literal">max</tt> buckets attributes.</p>
-<p>Using <a class="reference external" href="https://github.com/Valve/fingerprintjs2">fingerprint.js</a>, it is possible to calculate the user bucket
-and see if they are within the experiment buckets range.</p>
-<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">deviceID</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">fingerprint</span><span class="p">.</span><span class="nx">deviceID</span><span class="p">,</span> <span class="mi">16</span><span class="p">);</span>
-<span class="kr">const</span> <span class="nx">userBucket</span> <span class="o">=</span> <span class="nx">deviceID</span> <span class="o">%</span> <span class="mi">100</span><span class="p">;</span>
-</pre></div>
+<p>While defining an experiment we can decide to include a range of
+buckets using the <tt class="docutils literal">min</tt> and <tt class="docutils literal">max</tt> buckets attributes.</p>
 <p>An experiment is then stored in kinto like this:</p>
 <div class="highlight"><pre><span></span><span class="p">{</span>
     <span class="nt">"name"</span><span class="p">:</span> <span class="s2">"french-banner"</span><span class="p">,</span>
@@ -131,7 +156,8 @@ information that we need to track:</p>
 <p>These two information will be used for the metrics part to decide if we
 should use the new solution rather than the previous one.</p>
 <p>If you are currently in France, you can <a class="reference external" href="https://mozilla-services.github.io/switchboard-experiments-kinto/">try this experiment</a>.</p>
-<p>The good news is that you will be able to change the experiment settings after the release using the <a class="reference external" href="https://github.com/Kinto/kinto-admin">kinto-admin</a>.</p>
+<p>The good news is that you will be able to change the experiment
+settings after the release using the <a class="reference external" href="https://github.com/Kinto/kinto-admin">kinto-admin</a>.</p>
 <p>If you want to start with the feature off for everyone, you can just
 set the same buckets configuration value for both <tt class="docutils literal">min</tt> and <tt class="docutils literal">max</tt>
 and it will turn it off.</p>
@@ -175,8 +201,8 @@ $ http HEAD <span class="s1">'https://kinto.dev.mozaws.net/v1/buckets/switchboar
 Total-Records: 20
 </pre></div>
 </div>
-<div class="section" id="in-conclusion">
-<h2>In conclusion</h2>
+<div class="section" id="conclusion">
+<h2>Conclusion</h2>
 <p>Because we can calculate the user bucket on client side, we do not
 have to actually run the bucket repartition algorithm on the server side.</p>
 <p>We could even use Kinto to store the number of time the banner have
