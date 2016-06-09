@@ -1,5 +1,175 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>Service de nuages</title><link>http://www.servicedenuages.fr/en/</link><description></description><lastBuildDate>Tue, 05 Jan 2016 00:00:00 +0100</lastBuildDate><item><title>How to load test a OAuth-protected HTTP API? (Part 2)</title><link>http://www.servicedenuages.fr/en/load-testing-a-http-api-which-uses-oauth-for-authentication-part-2</link><description>&lt;p&gt;This is part 2 of a series on loadtesting OAuth APIs.&lt;/p&gt;
+<rss version="2.0"><channel><title>Service de nuages</title><link>http://www.servicedenuages.fr/en/</link><description></description><lastBuildDate>Thu, 09 Jun 2016 00:00:00 +0200</lastBuildDate><item><title>How to use Kinto to A/B test a web application?</title><link>http://www.servicedenuages.fr/en/ab-testing-with-kinto</link><description>&lt;div class="section" id="background"&gt;
+&lt;h2&gt;Background&lt;/h2&gt;
+&lt;p&gt;The Fennec team, building Firefox for Android, is using
+&lt;a class="reference external" href="https://github.com/KeepSafe/Switchboard"&gt;Switchboard from KeepSafe&lt;/a&gt;, which is an open source project that
+targets Mobile app feature switching and A/B testing.&lt;/p&gt;
+&lt;p&gt;For the Fennec team, the update of experiments data is a bit
+cumbersome, the data is stored on a github repository and the
+switchboard server needs to be updated and reloaded with newer data on
+every change.&lt;/p&gt;
+&lt;p&gt;They eventually saw the &lt;a class="reference external" href="https://github.com/Kinto/kinto-admin"&gt;kinto-admin&lt;/a&gt; for another project and,
+because the swichboard logic can be done on client-side, they decided
+to try to switch &lt;a class="reference external" href="https://github.com/mozilla-services/switchboard-experiments/"&gt;from Switchboard to Kinto&lt;/a&gt; to handle the experiments
+data.&lt;/p&gt;
+&lt;p&gt;It is &lt;a class="reference external" href="https://bugzilla.mozilla.org/show_bug.cgi?id=1271860"&gt;a work in progress&lt;/a&gt; in the Fennec code base but we have
+decided to explore how we could use a similar approach to use Kinto to
+A/B test the web.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="introduction"&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;I am not a big fan of A/B testing because I think, most of the time,
+&lt;a class="reference external" href="http://stevehanov.ca/blog/index.php?id=132"&gt;we can do better&lt;/a&gt; however in &lt;a class="reference external" href="https://vwo.com/blog/multi-armed-bandit-algorithm/"&gt;certain circumstances&lt;/a&gt; A/B testing is
+still a really good idea to test a feature.&lt;/p&gt;
+&lt;img alt="The Kinto Logo" src="http://www.servicedenuages.fr/en/../images/kinto-logo.png" style="width: 1700px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;In an other hand, I am a big fan of the philosophy behind &lt;a class="reference external" href="http://www.kinto-storage.org/"&gt;Kinto&lt;/a&gt; which
+as you may know is a database for the web.&lt;/p&gt;
+&lt;p&gt;In this article, I will take you through a little experiment I did
+lately to extend the &lt;a class="reference external" href="https://github.com/mozilla-services/switchboard-experiments/"&gt;work that has been done&lt;/a&gt; to activate a feature
+for some users in Firefox for Android.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="how-does-a-b-testing-works"&gt;
+&lt;h2&gt;How does A/B testing works?&lt;/h2&gt;
+&lt;p&gt;You just created a really nice feature and you want to test multiple
+UX solutions in order to decide which one is most usable for your users.&lt;/p&gt;
+&lt;p&gt;For instance, what is the best wording for the French banner?&lt;/p&gt;
+&lt;p&gt;You can use A/B testing to test different variations on your user
+base and select the best option.&lt;/p&gt;
+&lt;p&gt;There are two technical parts on this:&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;You need to display a different version of your banner to your users,
+probably with the same code.&lt;/li&gt;
+&lt;li&gt;You need to be able to get the conversion rate for each solution to
+be able to compare them.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class="section" id="a-word-about-the-repartition-algorithm"&gt;
+&lt;h2&gt;A word about the repartition algorithm&lt;/h2&gt;
+&lt;p&gt;The reason why we can use Kinto for this, is that we can run the
+bucket repartition algorithm on client side.&lt;/p&gt;
+&lt;p&gt;Because it is easier to think in terms of percentages, we chose to
+split users in 100 buckets with a bucket ID from 0 to 99.&lt;/p&gt;
+&lt;p&gt;We then need a way to get a bucket ID for our user device with a
+homogeneous distribution on the bucket space.&lt;/p&gt;
+&lt;p&gt;One way to do that is to generate a random UUID and to store it on the
+device. But storing that value can be a bit cumbersome.&lt;/p&gt;
+&lt;p&gt;To make this user bucket stateless, on mobile we can use the device ID
+and on the web we can use the &lt;a class="reference external" href="https://github.com/Valve/fingerprintjs2"&gt;fingerprint.js&lt;/a&gt; project that aims to
+generate a unique user id from the browser configuration.&lt;/p&gt;
+&lt;p&gt;We can then use the modulo function to calculate the user bucket ID
+from this device ID.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;fingerprint&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;deviceID&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"1433179b5711413ba3c404075a629376"&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;deviceID&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;parseInt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;fingerprint&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;deviceID&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;userBucket&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;deviceID&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;span class="c1"&gt;// userBucket = 68&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;With &lt;a class="reference external" href="https://github.com/Valve/fingerprintjs2"&gt;fingerprint.js&lt;/a&gt; specifically, it looks like that:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Fingerprint2&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;deviceIDString&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// Convert the device ID hex string into an integer&lt;/span&gt;
+  &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;deviceID&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;parseInt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;deviceIDString&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+
+  &lt;span class="c1"&gt;// Use a modulo on the device ID value to calculate the user bucket&lt;/span&gt;
+  &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;userBucket&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;deviceID&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="how-to-use-kinto-to-know-in-which-test-your-user-is"&gt;
+&lt;h2&gt;How to use Kinto to know in which test your user is?&lt;/h2&gt;
+&lt;p&gt;Apart from being a web service whose API is based on the simple and
+universal JSON format, one of the benefits of using &lt;a class="reference external" href="http://www.kinto-storage.org/"&gt;Kinto&lt;/a&gt; is that you
+will be able to use the &lt;a class="reference external" href="https://github.com/Kinto/kinto-admin"&gt;kinto-admin&lt;/a&gt; to configure your experiments.&lt;/p&gt;
+&lt;img alt="Adding an experiment with the kinto-admin." src="http://www.servicedenuages.fr/en/../images/kinto-admin-screenshot.png" style="width: 1832px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;An experiment has got a &lt;tt class="docutils literal"&gt;name&lt;/tt&gt; and a &lt;tt class="docutils literal"&gt;description&lt;/tt&gt; as well as some
+&lt;tt class="docutils literal"&gt;match&lt;/tt&gt; rules and a &lt;tt class="docutils literal"&gt;buckets&lt;/tt&gt; range.&lt;/p&gt;
+&lt;p&gt;For the web, in my proof of concept, matching rules can be defined as
+regexp on the user languages, country or user-agent.&lt;/p&gt;
+&lt;p&gt;While defining an experiment we can decide to include a range of
+buckets using the &lt;tt class="docutils literal"&gt;min&lt;/tt&gt; and &lt;tt class="docutils literal"&gt;max&lt;/tt&gt; buckets attributes.&lt;/p&gt;
+&lt;p&gt;An experiment is then stored in Kinto like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nt"&gt;"name"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"french-banner"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;"description"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"Try the new French banner"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nt"&gt;"match"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nt"&gt;"country"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"FR"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nt"&gt;"lang"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"fr"&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="nt"&gt;"buckets"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nt"&gt;"min"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"0"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nt"&gt;"max"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"50"&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="nt"&gt;"values"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nt"&gt;"url"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"https://firefoxos.mozfr.org/dotclear/public/Firefox_OS/.Gerez_votre_vie_privee_intelligemment_Mozilla_m.png"&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;From this experiment description we can extract two crutial pieces of
+information that we need to track:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;strong&gt;user matches&lt;/strong&gt;: Is the user matching the experiment?&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;user in buckets&lt;/strong&gt;: Is the user in one of the targeted buckets?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;These two information will be used for the metrics part to decide if we
+should use the new solution rather than the previous one.&lt;/p&gt;
+&lt;p&gt;If you are currently in France, you can &lt;a class="reference external" href="https://mozilla-services.github.io/switchboard-experiments-kinto/"&gt;try this experiment&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The good news is that you will be able to change the experiment
+settings after the release using the &lt;a class="reference external" href="https://github.com/Kinto/kinto-admin"&gt;kinto-admin&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you want to start with the feature off for everyone, you can just
+set the same buckets configuration value for both &lt;tt class="docutils literal"&gt;min&lt;/tt&gt; and &lt;tt class="docutils literal"&gt;max&lt;/tt&gt;
+and it will turn it off.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="how-to-use-kinto-to-store-the-experiment-metrics"&gt;
+&lt;h2&gt;How to use Kinto to store the experiment metrics?&lt;/h2&gt;
+&lt;p&gt;First with regards to the experiment you want to do, you need a way to
+trigger metrics.&lt;/p&gt;
+&lt;p&gt;In the case of the previous example, the metric could be to monitor
+the number of clicks on the banner when it is written in French or when
+it is written in English for people in France.&lt;/p&gt;
+&lt;p&gt;Using the power of Kinto permissions, we can create a collection where
+people will be able to create new records in it but not change them.&lt;/p&gt;
+&lt;p&gt;Using &lt;a class="reference external" href="https://httpie.org"&gt;HTTPie&lt;/a&gt; we can do it like that:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard --auth admin:switchboard
+
+&lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;'{"permissions": {"record:create": ["system.Everyone"]}}'&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
+    http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics &lt;span class="se"&gt;\&lt;/span&gt;
+        --auth admin:switchboard
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Then when people match, we record our metrics:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nx"&gt;fetch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nx"&gt;method&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"POST"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="nx"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="s2"&gt;"Content-Type"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"application/json"&lt;/span&gt;
+  &lt;span class="p"&gt;},&lt;/span&gt;
+  &lt;span class="nx"&gt;body&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;JSON&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;stringify&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nx"&gt;name&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"french-banner"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nx"&gt;matches&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nx"&gt;inBucket&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;
+  &lt;span class="p"&gt;}})&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You can then count the number of calls with or without the banner:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ http HEAD &lt;span class="s1"&gt;'https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records?matches=true&amp;amp;inBucket=true'&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
+    --auth admin:switchboard &lt;span class="p"&gt;|&lt;/span&gt; grep Total-Records:
+Total-Records: 300
+
+$ http HEAD &lt;span class="s1"&gt;'https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records?matches=true&amp;amp;inBucket=false'&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
+    --auth admin:switchboard --print&lt;span class="o"&gt;=&lt;/span&gt;h &lt;span class="p"&gt;|&lt;/span&gt; grep Total-Records:
+Total-Records: 20
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="conclusion"&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;Because we can calculate the user bucket on client side, we do not
+have to actually run the bucket repartition algorithm on the server side.&lt;/p&gt;
+&lt;p&gt;We could even use Kinto to store the number of time the banner have
+been displayed to make sure of the bucket repartition.&lt;/p&gt;
+&lt;p&gt;The &lt;a class="reference external" href="https://github.com/Kinto/kinto-admin"&gt;kinto-admin&lt;/a&gt; makes it really easy to handle experiment
+configuration variables.&lt;/p&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://kinto.readthedocs.io/en/latest/tutorials/install.html#deploying-on-cloud-providers"&gt;Deploy a Kinto&lt;/a&gt; now for free on Heroku, Scalingo or your own server
+and add A/B testing in your website for free.&lt;/p&gt;
+&lt;/div&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Thu, 09 Jun 2016 00:00:00 +0200</pubDate><guid isPermaLink="false">tag:www.servicedenuages.fr,2016-06-09:en/ab-testing-with-kinto</guid><category>mozilla</category></item><item><title>How to load test a OAuth-protected HTTP API? (Part 2)</title><link>http://www.servicedenuages.fr/en/load-testing-a-http-api-which-uses-oauth-for-authentication-part-2</link><description>&lt;p&gt;This is part 2 of a series on loadtesting OAuth APIs.&lt;/p&gt;
 &lt;div class="section" id="introduction"&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;&lt;a class="reference external" href="/en/load-testing-a-http-api-which-uses-oauth-for-authentication"&gt;In the previous article&lt;/a&gt;
