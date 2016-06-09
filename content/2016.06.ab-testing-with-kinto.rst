@@ -79,6 +79,51 @@ There are two technical parts on this:
    be able to compare them.
 
 
+A word about the repartition algorithm
+======================================
+
+The reason why we can use Kinto for this, is that we can run the
+bucket repartition algorithm on client side.
+
+Because it is easier to think in terms of percentages, we chose to
+split users in 100 buckets with a bucket ID from 0 to 99.
+
+We then need a way to get a bucket ID for our user device with a
+homogeneous distribution on the bucket space.
+
+One way to do that is to generate a random UUID and to store it on the
+device. But storing that value can be a bit cumbersome.
+
+To make this user bucket stateless, on mobile we can use the device ID
+and on the web we can use the `fingerprint.js`_ project that aims to
+generate a unique user id from the browser configuration.
+
+We can then use the modulo function to calculate the user bucket ID
+from this device ID.
+
+.. code-block:: javascript
+
+    const fingerprint = {deviceID: "1433179b5711413ba3c404075a629376"};
+    const deviceID = parseInt(fingerprint.deviceID, 16);
+    const userBucket = deviceID % 100;
+    // userBucket = 68
+
+
+With `fingerprint.js`_ specifically, it looks like that:
+
+.. code-block:: javascript
+
+    new Fingerprint2().get(function(deviceIDString) {
+
+      // Convert the device ID hex string into an integer
+      const deviceID = parseInt(deviceIDString, 16);
+
+      // Use a modulo on the device ID value to calculate the user bucket
+      const userBucket = deviceID % 100;
+
+    });
+
+
 How to use Kinto to know in which test your user is?
 ====================================================
 
@@ -88,25 +133,14 @@ The benefit of using Kinto_ is that you will be able to use the
 .. image:: {filename}/images/kinto-admin-screenshot.png
     :alt: Adding an experiment with the kinto-admin.
 
-An experiment has got a name and a description as well as some
-matching rules and a buckets range.
+An experiment has got a ``name`` and a ``description`` as well as some
+``match`` rules and a ``buckets`` range.
 
 For the web, in my proof of concept, matching rules can be defined as
 regexp on the user languages, country or user-agent.
 
-Because it is easier to think in percentages, we split users in 100
-buckets with a bucket ID from 0 to 99.
-
-In our experiment we can decide to include a range of buckets using
-the ``min`` and ``max`` buckets attributes.
-
-Using `fingerprint.js`_, it is possible to calculate the user bucket
-and see if they are within the experiment buckets range.
-
-.. code-block:: javascript
-
-     const deviceID = parseInt(fingerprint.deviceID, 16);
-     const userBucket = deviceID % 100;
+While defining an experiment we can decide to include a range of
+buckets using the ``min`` and ``max`` buckets attributes.
 
 An experiment is then stored in kinto like this:
 
@@ -140,7 +174,8 @@ should use the new solution rather than the previous one.
 
 If you are currently in France, you can `try this experiment`_.
 
-The good news is that you will be able to change the experiment settings after the release using the `kinto-admin`_.
+The good news is that you will be able to change the experiment
+settings after the release using the `kinto-admin`_.
 
 If you want to start with the feature off for everyone, you can just
 set the same buckets configuration value for both ``min`` and ``max``
@@ -208,8 +243,8 @@ You can then count the number of calls with or without the banner:
     Total-Records: 20
 
 
-In conclusion
-=============
+Conclusion
+==========
 
 Because we can calculate the user bucket on client side, we do not
 have to actually run the bucket repartition algorithm on the server side.
