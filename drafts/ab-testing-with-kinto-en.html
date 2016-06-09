@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>How to use Kinto to A/B test a web application? // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Published</h5>
+                <p title="~1030 words">~5 minutes reading 🕑</p>
+                <p>Thu, 09 June 2016</p>
+                <a href="/en/">&larr; Back to articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>How to use Kinto to A/B test a web application?</h1>
+                </header>
+            </section>
+            <div class="section" id="background">
+<h2>Background</h2>
+<p>The Fennec team, building Firefox for Android, is using
+<a class="reference external" href="https://github.com/KeepSafe/Switchboard">Switchboard from KeepSafe</a>, which is an open source project that
+targets Mobile app feature switching and A/B testing.</p>
+<p>For the Fennec team, the update of experiments data is a bit
+cumbersome, the data is stored on a github repository and the
+switchboard server needs to be updated and reloaded with newer data on
+every change.</p>
+<p>They eventually saw the <a class="reference external" href="https://github.com/Kinto/kinto-admin">kinto-admin</a> for another project and,
+because the swichboard logic can be done on client-side, they decided
+to try to switch <a class="reference external" href="https://github.com/mozilla-services/switchboard-experiments/">from Switchboard to Kinto</a> to handle the experiments
+data.</p>
+<p>It is <a class="reference external" href="https://bugzilla.mozilla.org/show_bug.cgi?id=1271860">a work in progress</a> in the Fennec code base but we have
+decided to explore how we could use a similar approach to use Kinto to
+A/B test the web.</p>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction</h2>
+<p>I am not a big fan of A/B testing because I think, most of the time,
+<a class="reference external" href="http://stevehanov.ca/blog/index.php?id=132">we can do better</a> however in <a class="reference external" href="https://vwo.com/blog/multi-armed-bandit-algorithm/">certain circumstances</a> A/B testing is
+still a really good idea to test a feature.</p>
+<img alt="The Kinto Logo" src="http://www.servicedenuages.fr/images/kinto-logo.png" style="width: 1700px; height: auto; max-width: 100%;"/>
+<p>In an other hand, I am a big fan of the philosophy behind <a class="reference external" href="http://www.kinto-storage.org/">Kinto</a> which
+as you may know is a database for the web.</p>
+<p>In this article, I will take you through a little experiment I did
+lately to extend the <a class="reference external" href="https://github.com/mozilla-services/switchboard-experiments/">work that has been done</a> to activate a feature
+for some users in Firefox for Android.</p>
+</div>
+<div class="section" id="how-does-a-b-testing-works">
+<h2>How does A/B testing works?</h2>
+<p>You just created a really nice feature and you want to test multiple
+UX solutions in order to decide which one is most usable for your users.</p>
+<p>For instance, what is the best wording for the French banner?</p>
+<p>You can use A/B testing to test different variations on your user
+base and select the best option.</p>
+<p>There are two technical parts on this:</p>
+<ol class="arabic simple">
+<li>You need to display a different version of your banner to your users,
+probably with the same code.</li>
+<li>You need to be able to get the conversion rate for each solution to
+be able to compare them.</li>
+</ol>
+</div>
+<div class="section" id="a-word-about-the-repartition-algorithm">
+<h2>A word about the repartition algorithm</h2>
+<p>The reason why we can use Kinto for this, is that we can run the
+bucket repartition algorithm on client side.</p>
+<p>Because it is easier to think in terms of percentages, we chose to
+split users in 100 buckets with a bucket ID from 0 to 99.</p>
+<p>We then need a way to get a bucket ID for our user device with a
+homogeneous distribution on the bucket space.</p>
+<p>One way to do that is to generate a random UUID and to store it on the
+device. But storing that value can be a bit cumbersome.</p>
+<p>To make this user bucket stateless, on mobile we can use the device ID
+and on the web we can use the <a class="reference external" href="https://github.com/Valve/fingerprintjs2">fingerprint.js</a> project that aims to
+generate a unique user id from the browser configuration.</p>
+<p>We can then use the modulo function to calculate the user bucket ID
+from this device ID.</p>
+<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">fingerprint</span> <span class="o">=</span> <span class="p">{</span><span class="nx">deviceID</span><span class="o">:</span> <span class="s2">"1433179b5711413ba3c404075a629376"</span><span class="p">};</span>
+<span class="kr">const</span> <span class="nx">deviceID</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">fingerprint</span><span class="p">.</span><span class="nx">deviceID</span><span class="p">,</span> <span class="mi">16</span><span class="p">);</span>
+<span class="kr">const</span> <span class="nx">userBucket</span> <span class="o">=</span> <span class="nx">deviceID</span> <span class="o">%</span> <span class="mi">100</span><span class="p">;</span>
+<span class="c1">// userBucket = 68</span>
+</pre></div>
+<p>With <a class="reference external" href="https://github.com/Valve/fingerprintjs2">fingerprint.js</a> specifically, it looks like that:</p>
+<div class="highlight"><pre><span></span><span class="k">new</span> <span class="nx">Fingerprint2</span><span class="p">().</span><span class="nx">get</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">deviceIDString</span><span class="p">)</span> <span class="p">{</span>
+
+  <span class="c1">// Convert the device ID hex string into an integer</span>
+  <span class="kr">const</span> <span class="nx">deviceID</span> <span class="o">=</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">deviceIDString</span><span class="p">,</span> <span class="mi">16</span><span class="p">);</span>
+
+  <span class="c1">// Use a modulo on the device ID value to calculate the user bucket</span>
+  <span class="kr">const</span> <span class="nx">userBucket</span> <span class="o">=</span> <span class="nx">deviceID</span> <span class="o">%</span> <span class="mi">100</span><span class="p">;</span>
+
+<span class="p">});</span>
+</pre></div>
+</div>
+<div class="section" id="how-to-use-kinto-to-know-in-which-test-your-user-is">
+<h2>How to use Kinto to know in which test your user is?</h2>
+<p>The benefit of using <a class="reference external" href="http://www.kinto-storage.org/">Kinto</a> is that you will be able to use the
+<a class="reference external" href="https://github.com/Kinto/kinto-admin">kinto-admin</a> to configure your experiments.</p>
+<img alt="Adding an experiment with the kinto-admin." src="http://www.servicedenuages.fr/images/kinto-admin-screenshot.png" style="width: 1832px; height: auto; max-width: 100%;"/>
+<p>An experiment has got a <tt class="docutils literal">name</tt> and a <tt class="docutils literal">description</tt> as well as some
+<tt class="docutils literal">match</tt> rules and a <tt class="docutils literal">buckets</tt> range.</p>
+<p>For the web, in my proof of concept, matching rules can be defined as
+regexp on the user languages, country or user-agent.</p>
+<p>While defining an experiment we can decide to include a range of
+buckets using the <tt class="docutils literal">min</tt> and <tt class="docutils literal">max</tt> buckets attributes.</p>
+<p>An experiment is then stored in Kinto like this:</p>
+<div class="highlight"><pre><span></span><span class="p">{</span>
+    <span class="nt">"name"</span><span class="p">:</span> <span class="s2">"french-banner"</span><span class="p">,</span>
+    <span class="nt">"description"</span><span class="p">:</span> <span class="s2">"Try the new French banner"</span><span class="p">,</span>
+    <span class="nt">"match"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"country"</span><span class="p">:</span> <span class="s2">"FR"</span><span class="p">,</span>
+        <span class="nt">"lang"</span><span class="p">:</span> <span class="s2">"fr"</span>
+    <span class="p">},</span>
+    <span class="nt">"buckets"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"min"</span><span class="p">:</span> <span class="s2">"0"</span><span class="p">,</span>
+        <span class="nt">"max"</span><span class="p">:</span> <span class="s2">"50"</span>
+    <span class="p">},</span>
+    <span class="nt">"values"</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">"url"</span><span class="p">:</span> <span class="s2">"https://firefoxos.mozfr.org/dotclear/public/Firefox_OS/.Gerez_votre_vie_privee_intelligemment_Mozilla_m.png"</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<p>From this experiment description we can extract two crutial pieces of
+information that we need to track:</p>
+<ul class="simple">
+<li><strong>user matches</strong>: Is the user matching the experiment?</li>
+<li><strong>user in buckets</strong>: Is the user in one of the targeted buckets?</li>
+</ul>
+<p>These two information will be used for the metrics part to decide if we
+should use the new solution rather than the previous one.</p>
+<p>If you are currently in France, you can <a class="reference external" href="https://mozilla-services.github.io/switchboard-experiments-kinto/">try this experiment</a>.</p>
+<p>The good news is that you will be able to change the experiment
+settings after the release using the <a class="reference external" href="https://github.com/Kinto/kinto-admin">kinto-admin</a>.</p>
+<p>If you want to start with the feature off for everyone, you can just
+set the same buckets configuration value for both <tt class="docutils literal">min</tt> and <tt class="docutils literal">max</tt>
+and it will turn it off.</p>
+</div>
+<div class="section" id="how-to-use-kinto-to-store-the-experiment-metrics">
+<h2>How to use Kinto to store the experiment metrics?</h2>
+<p>First with regards to the experiment you want to do, you need a way to
+trigger metrics.</p>
+<p>In the case of the previous example, the metric could be to monitor
+the number of clicks on the banner when it is written in French or when
+it is written in English for people in France.</p>
+<p>Using the power of Kinto permissions, we can create a collection where
+people will be able to create new records in it but not change them.</p>
+<p>Using <a class="reference external" href="https://httpie.org">HTTPie</a> we can do it like that:</p>
+<div class="highlight"><pre><span></span>http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard --auth admin:switchboard
+
+<span class="nb">echo</span> <span class="s1">'{"permissions": {"record:create": ["system.Everyone"]}}'</span> <span class="p">|</span> <span class="se">\</span>
+    http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics <span class="se">\</span>
+        --auth admin:switchboard
+</pre></div>
+<p>Then when people match, we record our metrics:</p>
+<div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records"</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">method</span><span class="o">:</span> <span class="s2">"POST"</span><span class="p">,</span>
+  <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">"Content-Type"</span><span class="o">:</span> <span class="s2">"application/json"</span>
+  <span class="p">},</span>
+  <span class="nx">body</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span><span class="nx">data</span><span class="o">:</span> <span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s2">"french-banner"</span><span class="p">,</span>
+    <span class="nx">matches</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="nx">inBucket</span><span class="o">:</span> <span class="kc">false</span>
+  <span class="p">}})</span>
+<span class="p">});</span>
+</pre></div>
+<p>You can then count the number of calls with or without the banner:</p>
+<div class="highlight"><pre><span></span>$ http HEAD <span class="s1">'https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records?matches=true&amp;inBucket=true'</span> <span class="se">\</span>
+    --auth admin:switchboard <span class="p">|</span> grep Total-Records:
+Total-Records: 300
+
+$ http HEAD <span class="s1">'https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records?matches=true&amp;inBucket=false'</span> <span class="se">\</span>
+    --auth admin:switchboard --print<span class="o">=</span>h <span class="p">|</span> grep Total-Records:
+Total-Records: 20
+</pre></div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion</h2>
+<p>Because we can calculate the user bucket on client side, we do not
+have to actually run the bucket repartition algorithm on the server side.</p>
+<p>We could even use Kinto to store the number of time the banner have
+been displayed to make sure of the bucket repartition.</p>
+<p>The <a class="reference external" href="https://github.com/Kinto/kinto-admin">kinto-admin</a> makes it really easy to handle experiment
+configuration variables.</p>
+<p><a class="reference external" href="http://kinto.readthedocs.io/en/latest/tutorials/install.html#deploying-on-cloud-providers">Deploy a Kinto</a> now for free on Heroku, Scalingo or your own server
+and add A/B testing in your website for free.</p>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.notmyidea.org/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>
