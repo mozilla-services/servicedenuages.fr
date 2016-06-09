@@ -8,8 +8,7 @@ How to use Kinto to A/B test a web application?
 :summary: A/B testing is a form of statistical hypothesis testing. Its
           goal is to identify changes to web pages that increase or
           maximize an outcome of interest. Let's see how we can use
-          kinto to use this technique on our website.
-
+          Kinto to use this technique on our website.
 
 Background
 ==========
@@ -127,8 +126,9 @@ With `fingerprint.js`_ specifically, it looks like that:
 How to use Kinto to know in which test your user is?
 ====================================================
 
-The benefit of using Kinto_ is that you will be able to use the
-`kinto-admin`_ to configure your experiments.
+Apart from being a web service whose API is based on the simple and
+universal JSON format, one of the benefits of using Kinto_ is that you
+will be able to use the `kinto-admin`_ to configure your experiments.
 
 .. image:: {filename}/images/kinto-admin-screenshot.png
     :alt: Adding an experiment with the kinto-admin.
@@ -142,7 +142,7 @@ regexp on the user languages, country or user-agent.
 While defining an experiment we can decide to include a range of
 buckets using the ``min`` and ``max`` buckets attributes.
 
-An experiment is then stored in kinto like this:
+An experiment is then stored in Kinto like this:
 
 .. code-block:: json
 
@@ -255,7 +255,7 @@ been displayed to make sure of the bucket repartition.
 The `kinto-admin`_ makes it really easy to handle experiment
 configuration variables.
 
-`Deploy a kinto`_ now for free on Heroku, Scalingo or your own server
+`Deploy a Kinto`_ now for free on Heroku, Scalingo or your own server
 and add A/B testing in your website for free.
 
-.. _`Deploy a kinto`: http://kinto.readthedocs.io/en/latest/tutorials/install.html#deploying-on-cloud-providers
+.. _`Deploy a Kinto`: http://kinto.readthedocs.io/en/latest/tutorials/install.html#deploying-on-cloud-providers
