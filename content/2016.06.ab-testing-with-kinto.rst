@@ -73,7 +73,7 @@ base and select the best option.
 
 There are two technical parts on this:
 
-1. You need to display a different version of your button to your users,
+1. You need to display a different version of your banner to your users,
    probably with the same code.
 2. You need to be able to get the conversion rate for each solution to
    be able to compare them.
@@ -94,11 +94,11 @@ matching rules and a buckets range.
 For the web, in my proof of concept, matching rules can be defined as
 regexp on the user languages, country or user-agent.
 
-Because it is easier to think in peRCENTAGES, we split users in 100
-buckets with a bucketID from 0 to 99.
+Because it is easier to think in percentages, we split users in 100
+buckets with a bucket ID from 0 to 99.
 
 In our experiment we can decide to include a range of buckets using
-the min and max buckets attributes.
+the ``min`` and ``max`` buckets attributes.
 
 Using `fingerprint.js`_, it is possible to calculate the user bucket
 and see if they are within the experiment buckets range.
@@ -133,7 +133,7 @@ From this experiment description we can extract two crutial pieces of
 information that we need to track:
 
 - **user matches**: Is the user matching the experiment?
-- **user in buckets**: Is the user in one of the targeted bucket?
+- **user in buckets**: Is the user in one of the targeted buckets?
 
 These two information will be used for the metrics part to decide if we
 should use the new solution rather than the previous one.
@@ -143,8 +143,8 @@ If you are currently in France, you can `try this experiment`_.
 The good news is that you will be able to change the experiment settings after the release using the `kinto-admin`_.
 
 If you want to start with the feature off for everyone, you can just
-set the same buckets configuration value for both `min` and `max` and
-it will turn it off.
+set the same buckets configuration value for both ``min`` and ``max``
+and it will turn it off.
 
 
 .. _Kinto: http://www.kinto-storage.org/
@@ -161,7 +161,7 @@ trigger metrics.
 
 In the case of the previous example, the metric could be to monitor
 the number of clicks on the banner when it is written in French or when
-it is written in English for people for people in France.
+it is written in English for people in France.
 
 Using the power of Kinto permissions, we can create a collection where
 people will be able to create new records in it but not change them.
@@ -170,8 +170,7 @@ Using HTTPie_ we can do it like that:
 
 .. code-block:: bash
 
-    http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard \
-        --auth admin:switchboard
+    http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard --auth admin:switchboard
 
     echo '{"permissions": {"record:create": ["system.Everyone"]}}' | \
         http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics \
@@ -189,9 +188,9 @@ Then when people match, we record our metrics:
           "Content-Type": "application/json"
       },
       body: JSON.stringify({data: {
-        name: "experiment-name",
-        matches: matches,
-        inBucket: inBucket
+        name: "french-banner",
+        matches: true,
+        inBucket: false
       }})
     });
 
@@ -213,7 +212,7 @@ In conclusion
 =============
 
 Because we can calculate the user bucket on client side, we do not
-have to actually have a server side bucket repartition algorithm.
+have to actually run the bucket repartition algorithm on the server side.
 
 We could even use Kinto to store the number of time the banner have
 been displayed to make sure of the bucket repartition.
