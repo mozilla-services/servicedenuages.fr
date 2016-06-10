@@ -61,6 +61,11 @@ With `Kinto.js`_, this is as simple as calling `.sync()` on the Kinto instance.
        remote: "https://kinto.dev.mozaws.net/v1"
    }).collection("tasks");
 
+   tasks
+  .create({label: "A first task", done: false})
+  .then(_ => tasks.sync());
+
+
 Storage
 =======
 
