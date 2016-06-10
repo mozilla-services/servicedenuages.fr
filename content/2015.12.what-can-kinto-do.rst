@@ -2,10 +2,9 @@
 What can Kinto do for me?
 =========================
 
-:date: 2015-12-29
+:date: 2016-06-10
 :slug: what-can-kinto-do-for-you
 :lang: en
-:status: draft
 :url: what-can-kinto-do-for-you
 :summary: Kinto, the project we are working on, can do a bunch of different
           things, but it's sometimes hard to see what it is really good at,
@@ -40,7 +39,7 @@ Hmm, and what about my use-case?
 
 The idea here is mainly to show you what is already possible with very little
 efforts using the tooling we have put together. You can leverage the
-`Kinto.js <https://kintojs.readthedocs.org>`_ client, as it allows you to work
+`Kinto.js`_ client, as it allows you to work
 with Kinto really easily, but ultimately you don't need it. It's just here to
 make it really easy for you to integrate with the HTTP APIs exposed by Kinto.
 
@@ -54,7 +53,7 @@ Kinto is a good fit.
 That's useful if you want to synchronise data between devices, and also between
 users. You have the data on one location, and you want it in a different one.
 
-With Kinto.js, this is as simple as calling `.sync()` on the Kinto instance.
+With `Kinto.js`_, this is as simple as calling `.sync()` on the Kinto instance.
 
 .. code-block:: js
 
@@ -116,7 +115,7 @@ turn contain records.
 It's then possible to apply permissions to each container, and all children
 will be impacted.
 
-.. image:: http://kinto.readthedocs.org/en/latest/_images/concepts-permissions.png
+.. image:: {filename}/images/concepts-permissions.png
 
 You can `read more on our documentation
 <http://kinto.readthedocs.org/en/latest/concepts.html>`_ about this if you want.
@@ -183,7 +182,7 @@ Hmm, and what about my use-case?
 
 The idea here is mainly to show you what is already possible with very little
 efforts using the tooling we have put together. These examples are all relying
-on the `Kinto.js <https://kintojs.readthedocs.io>`_ client but ultimately you don't
+on the `Kinto.js`_ client but ultimately you don't
 need it. It's just here to make it really easy for you to integrate with the
 HTTP APIs exposed by Kinto.
 
@@ -240,3 +239,6 @@ it as easy as possible for you.
 
 Don't be shy, we are really here to help, and we want to know about your
 use-cases!
+
+
+.. _`Kinto.js`: https://kintojs.readthedocs.io
