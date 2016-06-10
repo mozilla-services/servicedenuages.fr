@@ -62,8 +62,8 @@ With `Kinto.js`_, this is as simple as calling `.sync()` on the Kinto instance.
    }).collection("tasks");
 
    tasks
-  .create({label: "A first task", done: false})
-  .then(_ => tasks.sync());
+     .create({label: "A first task", done: false})
+     .then(_ => tasks.sync());
 
 
 Storage
