@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>What can Kinto do for me? // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Published</h5>
+                <p title="~1309 words">~6 minutes reading 🕑</p>
+                <p>Fri, 10 June 2016</p>
+                <a href="/en/">&larr; Back to articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>What can Kinto do for me?</h1>
+                        <p class="post-meta">                                <a class="post-category" href="http://www.servicedenuages.fr/tag/mozilla.html">mozilla</a>
+                        </p>
+                </header>
+            </section>
+            <p>Kinto — the project we are working on since quite some time now — can do a bunch
+of different things for you and be useful in many different situations.</p>
+<p>However, we found out that it is really hard to understand at a glance what it
+can do, and where it could help you build your projects in a better way.</p>
+<p>Here is an attempt to fix this.</p>
+<div class="section" id="kinto-is-not-a-framework">
+<h2>Kinto is not a framework</h2>
+<p>First and foremost, Kinto is not a framework. It doesn't try to provide a way
+to structure your projects for you. It is meant to replace the
+storage layer of your application, or more accurately, the synchronisation
+abilities of your applications.</p>
+<p>Said differentely, you store your data locally for your application and <strong>Kinto
+will make this data available to different devices (or users)</strong>.</p>
+<p>That means that you can use Kinto with React, Angular, JQuery (in the
+JavaScript world) or any framework (or no framework at all) in any language.
+<strong>Kinto abstracts away the synchronisation of the application's data</strong>.</p>
+</div>
+<div class="section" id="hmm-and-what-about-my-use-case">
+<h2>Hmm, and what about my use-case?</h2>
+<p>The idea here is mainly to show you what is already possible with very little
+efforts using the tooling we have put together. You can leverage the
+<a class="reference external" href="https://kintojs.readthedocs.io">Kinto.js</a> client, as it allows you to work
+with Kinto really easily, but ultimately you don't need it. It's just here to
+make it really easy for you to integrate with the HTTP APIs exposed by Kinto.</p>
+<div class="section" id="synchronise-your-data">
+<h3>Synchronise your data</h3>
+<p>If there is one thing to take way with you, that would be this: if you need to
+<strong>synchronise</strong> your data between different devices, there are chances that
+Kinto is a good fit.</p>
+<p>That's useful if you want to synchronise data between devices, and also between
+users. You have the data on one location, and you want it in a different one.</p>
+<p>With <a class="reference external" href="https://kintojs.readthedocs.io">Kinto.js</a>, this is as simple as calling <cite>.sync()</cite> on the Kinto instance.</p>
+<div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">tasks</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Kinto</span><span class="p">({</span>
+    <span class="nx">remote</span><span class="o">:</span> <span class="s2">"https://kinto.dev.mozaws.net/v1"</span>
+<span class="p">}).</span><span class="nx">collection</span><span class="p">(</span><span class="s2">"tasks"</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="section" id="storage">
+<h3>Storage</h3>
+<p>Okay, I lied. You are not only syncing your data between different locations,
+you're actually storing it somewhere, on a location of your choice.</p>
+<p>You can access this data later on when you need it. The cool thing here is that
+you can access this data using the HTTP API (that speaks JSON).</p>
+<p>We tried very hard to make the protocol as easy as possible, and are pretty
+happy with our current design, but if you have ideas on how to make it evolve,
+<a class="reference external" href="https://kiwiirc.com/client/irc.freenode.net/?#kinto">we would be really happy to hear them</a>!</p>
+<p>Here's an example of how to retrieve your data using the <a class="reference external" href="https://github.com/jkbrzt/httpie">HTTPie</a> client.</p>
+<div class="highlight"><pre><span></span>$ http get https://kinto.dev.mozaws.net/v1/buckets/default/collections/kinto_demo_calendar/records --auth<span class="o">=</span><span class="s2">"null:notsecret"</span>
+
+<span class="o">{</span>
+    <span class="s2">"data"</span>: <span class="o">[</span>
+        <span class="o">{</span>
+            <span class="s2">"end"</span>: <span class="s2">"2016-01-07T09:30:00"</span>,
+            <span class="s2">"id"</span>: <span class="s2">"1f5d1390-2647-442d-8bc4-5ecc6a4f8beb"</span>,
+            <span class="s2">"last_modified"</span>: 1451997254315,
+            <span class="s2">"start"</span>: <span class="s2">"2016-01-07T09:00:00"</span>,
+            <span class="s2">"title"</span>: <span class="s2">"Visite maison"</span>
+        <span class="o">}</span>,
+        <span class="o">{</span>
+            <span class="s2">"end"</span>: <span class="s2">"2016-01-06"</span>,
+            <span class="s2">"id"</span>: <span class="s2">"0dadb484-259b-482d-8cb8-0e94d743d1c6"</span>,
+            <span class="s2">"last_modified"</span>: 1451997234471,
+            <span class="s2">"start"</span>: <span class="s2">"2016-01-05"</span>,
+            <span class="s2">"title"</span>: <span class="s2">"RDV Osthéo"</span>
+        <span class="o">}</span>
+    <span class="o">]</span>
+<span class="o">}</span>
+</pre></div>
+</div>
+<div class="section" id="permissions">
+<h3>Permissions</h3>
+<p>Sometimes you want your data to remain yours, and some other times you want to
+share it with friends. It really depends what the data is.</p>
+<p>One of the reasons we built Kinto was to control who has access to what on a
+per record level. Without getting too much in the details, the data stored in
+Kinto is organised into three concepts: Buckets contains collections wich in
+turn contain records.</p>
+<p>It's then possible to apply permissions to each container, and all children
+will be impacted.</p>
+<img alt="" src="http://www.servicedenuages.fr/en/../images/concepts-permissions.png" style="width: 600px; height: auto; max-width: 100%;"/>
+<p>You can <a class="reference external" href="http://kinto.readthedocs.org/en/latest/concepts.html">read more on our documentation</a> about this if you want.</p>
+</div>
+<div class="section" id="real-time-notifications">
+<h3>Real-time notifications</h3>
+<p>What happens when the data evolves? Let's say you are on one device doing
+geo-mapping and someone else is doing the same thing on their own device. You
+want to have these two devices in sync, and as such they need to know when new
+data is issued by any other device.</p>
+<p>That's when real-time notifications are useful. Kinto itself doesn't decide for
+you which notification system you should use, but it can integrate easily with
+any notification system.</p>
+<p>We tried to ease your life by providing some solutions to <a class="reference external" href="https://github.com/leplatrem/cliquet-pusher">integrate
+with pusher</a> and <a class="reference external" href="https://github.com/Kinto/kinto-webpush">with WebPush</a>, but you're free to use your own
+notification system.</p>
+</div>
+</div>
+<div class="section" id="some-examples">
+<h2>Some examples</h2>
+<p>Let's take some examples. A few weeks ago we prepared a bunch of demos
+showcasing what can Kinto do and how easy it is. In order to do that, we
+decided to take a few applications we liked that are usually not doing
+synchronisation and sharing. There are many out there, and we chose just a few of
+them:</p>
+<ul class="simple">
+<li><strong>A tool to build forms</strong>, which makes a great alternative to Google Forms.</li>
+<li><strong>A JQuery calendar application</strong> which let you add new events and see them
+on a calendar.</li>
+<li><strong>A leaflet map</strong> where you can add new markers and move them easily.</li>
+<li><strong>A TODO-list application</strong>, because we actually really like TODO lists.</li>
+</ul>
+<p>And then we decided to make them collaborative apps, using Kinto. The goal here
+was to spend the least time possible plugging in Kinto, in order to see what was
+the real potential of it.</p>
+<p>We ended up with a few cool demos. Not all of them are using the same features
+of Kinto (for instance some take advantage of the push notifications while some
+others don't), but overall that was pretty exciting.</p>
+<p>Here are some links if you want to try out the demos yourself:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://www.fourmilieres.net">The formbuilder</a> with direct HTTP calls to
+the Kinto APIs.</li>
+<li><a class="reference external" href="http://leplatrem.github.io/kinto-demo-leaflet/">Kinto.js + Leaflet</a>
+with offline-first maps which requires service workers activated
+(only works in Firefox Nightly these days).</li>
+<li><a class="reference external" href="http://leplatrem.github.io/cliquet-pusher/">Kinto.js + Leaflet + Pusher</a>
+with realtime multi device map markers synchronisation using Pusher.</li>
+<li><a class="reference external" href="http://leplatrem.github.io/kinto-demo-calendar/">Kinto.js + fullCalendar</a>
+with realtime multi device synchronisation using Pusher and Firefox Account integration.</li>
+<li><a class="reference external" href="http://leplatrem.github.io/kinto-telegram-wall/">Kinto.js + Telegram Bot + Pusher</a>
+a realtime wall that receive messages from a Telegram bot and automatically updates the
+slideshow in realtime and add the new content as soon as it arrives.</li>
+</ul>
+</div>
+<div class="section" id="id1">
+<h2>Hmm, and what about my use-case?</h2>
+<p>The idea here is mainly to show you what is already possible with very little
+efforts using the tooling we have put together. These examples are all relying
+on the <a class="reference external" href="https://kintojs.readthedocs.io">Kinto.js</a> client but ultimately you don't
+need it. It's just here to make it really easy for you to integrate with the
+HTTP APIs exposed by Kinto.</p>
+<p>So, what can Kinto do for you?</p>
+<div class="section" id="synchronise">
+<h3>Synchronise</h3>
+<p>If there was one only thing to choose, that would be this one. Kinto can
+<strong>synchronise</strong> your data between different devices. You have the data on one
+location, and you want it in a different one.</p>
+</div>
+<div class="section" id="id2">
+<h3>Storage</h3>
+<p>As a bonus, you get this data stored somewhere so you can access it later on.</p>
+<p>The cool thing with this is that you can access this data using an HTTP (REST)
+API, that speaks JSON. We tried very hard to make the protocol as easy as
+possible, and to be honest we're pretty happy with our current design.</p>
+</div>
+<div class="section" id="id3">
+<h3>Permissions</h3>
+<p>Sometimes, you want your data to remain yours, and some other times you want to
+share it with friends. It really depends what the data is. One of the reasons we
+built Kinto was to control who has access to what on a per record level.</p>
+</div>
+<div class="section" id="id4">
+<h3>Real-time Notifications</h3>
+<p>So, what happens when the data evolves? Let's say you are on one device doing
+geo-mapping and someone else is doing the same thing on their own device. You
+want to have these two devices in Sync, and as such they need to know when new
+data was issued by any other device.</p>
+</div>
+</div>
+<div class="section" id="going-further">
+<h2>Going further</h2>
+<p>Our vision with Kinto is really to propose a simple tool for simple needs, and
+to do these simple things the best way we can.</p>
+<p>If you are interested by what Kinto has to propose, don't hesitate to
+<a class="reference external" href="https://kinto.readthedocs.io">have a look at the documentation</a>,
+try <a class="reference external" href="http://kintojs.readthedocs.io/en/latest/tutorial/">the Kinto.js tutorial</a>
+and <a class="reference external" href="https://kiwiirc.com/client/irc.freenode.net/?#kinto">get in touch</a>
+with us, we would be very happy to discuss what your needs are and how to make
+it as easy as possible for you.</p>
+<p>Don't be shy, we are really here to help, and we want to know about your
+use-cases!</p>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.notmyidea.org/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>

@@ -1,5 +1,185 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/misc.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2016-06-09T00:00:00+02:00</updated><entry><title>How to use Kinto to A/B test a web application?</title><link href="http://www.servicedenuages.fr/en/ab-testing-with-kinto" rel="alternate"></link><published>2016-06-09T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-06-09:en/ab-testing-with-kinto</id><summary type="html">&lt;div class="section" id="background"&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/misc.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2016-06-10T00:00:00+02:00</updated><entry><title>What can Kinto do for me?</title><link href="http://www.servicedenuages.fr/en/what-can-kinto-do-for-you" rel="alternate"></link><published>2016-06-10T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-06-10:en/what-can-kinto-do-for-you</id><summary type="html">&lt;p&gt;Kinto — the project we are working on since quite some time now — can do a bunch
+of different things for you and be useful in many different situations.&lt;/p&gt;
+&lt;p&gt;However, we found out that it is really hard to understand at a glance what it
+can do, and where it could help you build your projects in a better way.&lt;/p&gt;
+&lt;p&gt;Here is an attempt to fix this.&lt;/p&gt;
+&lt;div class="section" id="kinto-is-not-a-framework"&gt;
+&lt;h2&gt;Kinto is not a framework&lt;/h2&gt;
+&lt;p&gt;First and foremost, Kinto is not a framework. It doesn't try to provide a way
+to structure your projects for you. It is meant to replace the
+storage layer of your application, or more accurately, the synchronisation
+abilities of your applications.&lt;/p&gt;
+&lt;p&gt;Said differentely, you store your data locally for your application and &lt;strong&gt;Kinto
+will make this data available to different devices (or users)&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;That means that you can use Kinto with React, Angular, JQuery (in the
+JavaScript world) or any framework (or no framework at all) in any language.
+&lt;strong&gt;Kinto abstracts away the synchronisation of the application's data&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="hmm-and-what-about-my-use-case"&gt;
+&lt;h2&gt;Hmm, and what about my use-case?&lt;/h2&gt;
+&lt;p&gt;The idea here is mainly to show you what is already possible with very little
+efforts using the tooling we have put together. You can leverage the
+&lt;a class="reference external" href="https://kintojs.readthedocs.io"&gt;Kinto.js&lt;/a&gt; client, as it allows you to work
+with Kinto really easily, but ultimately you don't need it. It's just here to
+make it really easy for you to integrate with the HTTP APIs exposed by Kinto.&lt;/p&gt;
+&lt;div class="section" id="synchronise-your-data"&gt;
+&lt;h3&gt;Synchronise your data&lt;/h3&gt;
+&lt;p&gt;If there is one thing to take way with you, that would be this: if you need to
+&lt;strong&gt;synchronise&lt;/strong&gt; your data between different devices, there are chances that
+Kinto is a good fit.&lt;/p&gt;
+&lt;p&gt;That's useful if you want to synchronise data between devices, and also between
+users. You have the data on one location, and you want it in a different one.&lt;/p&gt;
+&lt;p&gt;With &lt;a class="reference external" href="https://kintojs.readthedocs.io"&gt;Kinto.js&lt;/a&gt;, this is as simple as calling &lt;cite&gt;.sync()&lt;/cite&gt; on the Kinto instance.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;tasks&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Kinto&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+    &lt;span class="nx"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"https://kinto.dev.mozaws.net/v1"&lt;/span&gt;
+&lt;span class="p"&gt;}).&lt;/span&gt;&lt;span class="nx"&gt;collection&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"tasks"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="storage"&gt;
+&lt;h3&gt;Storage&lt;/h3&gt;
+&lt;p&gt;Okay, I lied. You are not only syncing your data between different locations,
+you're actually storing it somewhere, on a location of your choice.&lt;/p&gt;
+&lt;p&gt;You can access this data later on when you need it. The cool thing here is that
+you can access this data using the HTTP API (that speaks JSON).&lt;/p&gt;
+&lt;p&gt;We tried very hard to make the protocol as easy as possible, and are pretty
+happy with our current design, but if you have ideas on how to make it evolve,
+&lt;a class="reference external" href="https://kiwiirc.com/client/irc.freenode.net/?#kinto"&gt;we would be really happy to hear them&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;Here's an example of how to retrieve your data using the &lt;a class="reference external" href="https://github.com/jkbrzt/httpie"&gt;HTTPie&lt;/a&gt; client.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ http get https://kinto.dev.mozaws.net/v1/buckets/default/collections/kinto_demo_calendar/records --auth&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"null:notsecret"&lt;/span&gt;
+
+&lt;span class="o"&gt;{&lt;/span&gt;
+    &lt;span class="s2"&gt;"data"&lt;/span&gt;: &lt;span class="o"&gt;[&lt;/span&gt;
+        &lt;span class="o"&gt;{&lt;/span&gt;
+            &lt;span class="s2"&gt;"end"&lt;/span&gt;: &lt;span class="s2"&gt;"2016-01-07T09:30:00"&lt;/span&gt;,
+            &lt;span class="s2"&gt;"id"&lt;/span&gt;: &lt;span class="s2"&gt;"1f5d1390-2647-442d-8bc4-5ecc6a4f8beb"&lt;/span&gt;,
+            &lt;span class="s2"&gt;"last_modified"&lt;/span&gt;: 1451997254315,
+            &lt;span class="s2"&gt;"start"&lt;/span&gt;: &lt;span class="s2"&gt;"2016-01-07T09:00:00"&lt;/span&gt;,
+            &lt;span class="s2"&gt;"title"&lt;/span&gt;: &lt;span class="s2"&gt;"Visite maison"&lt;/span&gt;
+        &lt;span class="o"&gt;}&lt;/span&gt;,
+        &lt;span class="o"&gt;{&lt;/span&gt;
+            &lt;span class="s2"&gt;"end"&lt;/span&gt;: &lt;span class="s2"&gt;"2016-01-06"&lt;/span&gt;,
+            &lt;span class="s2"&gt;"id"&lt;/span&gt;: &lt;span class="s2"&gt;"0dadb484-259b-482d-8cb8-0e94d743d1c6"&lt;/span&gt;,
+            &lt;span class="s2"&gt;"last_modified"&lt;/span&gt;: 1451997234471,
+            &lt;span class="s2"&gt;"start"&lt;/span&gt;: &lt;span class="s2"&gt;"2016-01-05"&lt;/span&gt;,
+            &lt;span class="s2"&gt;"title"&lt;/span&gt;: &lt;span class="s2"&gt;"RDV Osthéo"&lt;/span&gt;
+        &lt;span class="o"&gt;}&lt;/span&gt;
+    &lt;span class="o"&gt;]&lt;/span&gt;
+&lt;span class="o"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="permissions"&gt;
+&lt;h3&gt;Permissions&lt;/h3&gt;
+&lt;p&gt;Sometimes you want your data to remain yours, and some other times you want to
+share it with friends. It really depends what the data is.&lt;/p&gt;
+&lt;p&gt;One of the reasons we built Kinto was to control who has access to what on a
+per record level. Without getting too much in the details, the data stored in
+Kinto is organised into three concepts: Buckets contains collections wich in
+turn contain records.&lt;/p&gt;
+&lt;p&gt;It's then possible to apply permissions to each container, and all children
+will be impacted.&lt;/p&gt;
+&lt;img alt="" src="http://www.servicedenuages.fr/en/../images/concepts-permissions.png" style="width: 600px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;You can &lt;a class="reference external" href="http://kinto.readthedocs.org/en/latest/concepts.html"&gt;read more on our documentation&lt;/a&gt; about this if you want.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="real-time-notifications"&gt;
+&lt;h3&gt;Real-time notifications&lt;/h3&gt;
+&lt;p&gt;What happens when the data evolves? Let's say you are on one device doing
+geo-mapping and someone else is doing the same thing on their own device. You
+want to have these two devices in sync, and as such they need to know when new
+data is issued by any other device.&lt;/p&gt;
+&lt;p&gt;That's when real-time notifications are useful. Kinto itself doesn't decide for
+you which notification system you should use, but it can integrate easily with
+any notification system.&lt;/p&gt;
+&lt;p&gt;We tried to ease your life by providing some solutions to &lt;a class="reference external" href="https://github.com/leplatrem/cliquet-pusher"&gt;integrate
+with pusher&lt;/a&gt; and &lt;a class="reference external" href="https://github.com/Kinto/kinto-webpush"&gt;with WebPush&lt;/a&gt;, but you're free to use your own
+notification system.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="some-examples"&gt;
+&lt;h2&gt;Some examples&lt;/h2&gt;
+&lt;p&gt;Let's take some examples. A few weeks ago we prepared a bunch of demos
+showcasing what can Kinto do and how easy it is. In order to do that, we
+decided to take a few applications we liked that are usually not doing
+synchronisation and sharing. There are many out there, and we chose just a few of
+them:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;strong&gt;A tool to build forms&lt;/strong&gt;, which makes a great alternative to Google Forms.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;A JQuery calendar application&lt;/strong&gt; which let you add new events and see them
+on a calendar.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;A leaflet map&lt;/strong&gt; where you can add new markers and move them easily.&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;A TODO-list application&lt;/strong&gt;, because we actually really like TODO lists.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;And then we decided to make them collaborative apps, using Kinto. The goal here
+was to spend the least time possible plugging in Kinto, in order to see what was
+the real potential of it.&lt;/p&gt;
+&lt;p&gt;We ended up with a few cool demos. Not all of them are using the same features
+of Kinto (for instance some take advantage of the push notifications while some
+others don't), but overall that was pretty exciting.&lt;/p&gt;
+&lt;p&gt;Here are some links if you want to try out the demos yourself:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://www.fourmilieres.net"&gt;The formbuilder&lt;/a&gt; with direct HTTP calls to
+the Kinto APIs.&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://leplatrem.github.io/kinto-demo-leaflet/"&gt;Kinto.js + Leaflet&lt;/a&gt;
+with offline-first maps which requires service workers activated
+(only works in Firefox Nightly these days).&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://leplatrem.github.io/cliquet-pusher/"&gt;Kinto.js + Leaflet + Pusher&lt;/a&gt;
+with realtime multi device map markers synchronisation using Pusher.&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://leplatrem.github.io/kinto-demo-calendar/"&gt;Kinto.js + fullCalendar&lt;/a&gt;
+with realtime multi device synchronisation using Pusher and Firefox Account integration.&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://leplatrem.github.io/kinto-telegram-wall/"&gt;Kinto.js + Telegram Bot + Pusher&lt;/a&gt;
+a realtime wall that receive messages from a Telegram bot and automatically updates the
+slideshow in realtime and add the new content as soon as it arrives.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="id1"&gt;
+&lt;h2&gt;Hmm, and what about my use-case?&lt;/h2&gt;
+&lt;p&gt;The idea here is mainly to show you what is already possible with very little
+efforts using the tooling we have put together. These examples are all relying
+on the &lt;a class="reference external" href="https://kintojs.readthedocs.io"&gt;Kinto.js&lt;/a&gt; client but ultimately you don't
+need it. It's just here to make it really easy for you to integrate with the
+HTTP APIs exposed by Kinto.&lt;/p&gt;
+&lt;p&gt;So, what can Kinto do for you?&lt;/p&gt;
+&lt;div class="section" id="synchronise"&gt;
+&lt;h3&gt;Synchronise&lt;/h3&gt;
+&lt;p&gt;If there was one only thing to choose, that would be this one. Kinto can
+&lt;strong&gt;synchronise&lt;/strong&gt; your data between different devices. You have the data on one
+location, and you want it in a different one.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="id2"&gt;
+&lt;h3&gt;Storage&lt;/h3&gt;
+&lt;p&gt;As a bonus, you get this data stored somewhere so you can access it later on.&lt;/p&gt;
+&lt;p&gt;The cool thing with this is that you can access this data using an HTTP (REST)
+API, that speaks JSON. We tried very hard to make the protocol as easy as
+possible, and to be honest we're pretty happy with our current design.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="id3"&gt;
+&lt;h3&gt;Permissions&lt;/h3&gt;
+&lt;p&gt;Sometimes, you want your data to remain yours, and some other times you want to
+share it with friends. It really depends what the data is. One of the reasons we
+built Kinto was to control who has access to what on a per record level.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="id4"&gt;
+&lt;h3&gt;Real-time Notifications&lt;/h3&gt;
+&lt;p&gt;So, what happens when the data evolves? Let's say you are on one device doing
+geo-mapping and someone else is doing the same thing on their own device. You
+want to have these two devices in Sync, and as such they need to know when new
+data was issued by any other device.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="going-further"&gt;
+&lt;h2&gt;Going further&lt;/h2&gt;
+&lt;p&gt;Our vision with Kinto is really to propose a simple tool for simple needs, and
+to do these simple things the best way we can.&lt;/p&gt;
+&lt;p&gt;If you are interested by what Kinto has to propose, don't hesitate to
+&lt;a class="reference external" href="https://kinto.readthedocs.io"&gt;have a look at the documentation&lt;/a&gt;,
+try &lt;a class="reference external" href="http://kintojs.readthedocs.io/en/latest/tutorial/"&gt;the Kinto.js tutorial&lt;/a&gt;
+and &lt;a class="reference external" href="https://kiwiirc.com/client/irc.freenode.net/?#kinto"&gt;get in touch&lt;/a&gt;
+with us, we would be very happy to discuss what your needs are and how to make
+it as easy as possible for you.&lt;/p&gt;
+&lt;p&gt;Don't be shy, we are really here to help, and we want to know about your
+use-cases!&lt;/p&gt;
+&lt;/div&gt;
+</summary><category term="mozilla"></category></entry><entry><title>How to use Kinto to A/B test a web application?</title><link href="http://www.servicedenuages.fr/en/ab-testing-with-kinto" rel="alternate"></link><published>2016-06-09T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-06-09:en/ab-testing-with-kinto</id><summary type="html">&lt;div class="section" id="background"&gt;
 &lt;h2&gt;Background&lt;/h2&gt;
 &lt;p&gt;The Fennec team, building Firefox for Android, is using
 &lt;a class="reference external" href="https://github.com/KeepSafe/Switchboard"&gt;Switchboard from KeepSafe&lt;/a&gt;, which is an open source project that
