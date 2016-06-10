@@ -134,7 +134,7 @@ you which notification system you should use, but it can integrate easily with
 any notification system.
 
 We tried to ease your life by providing some solutions to `integrate
-with pusher <https://github.com/leplatrem/cliquet-pusher>`_ and `with WebPush
+with pusher <https://github.com/Kinto/kinto-pusher>`_ and `with WebPush
 <https://github.com/Kinto/kinto-webpush>`_, but you're free to use your own
 notification system.
 
