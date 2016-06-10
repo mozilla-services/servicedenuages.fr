@@ -62,7 +62,6 @@ With Kinto.js, this is as simple as calling `.sync()` on the Kinto instance.
        remote: "https://kinto.dev.mozaws.net/v1"
    }).collection("tasks");
 
-
 Storage
 =======
 
@@ -102,7 +101,6 @@ Here's an example of how to retrieve your data using the `HTTPie
             }
         ]
     }
-
 
 Permissions
 ===========
