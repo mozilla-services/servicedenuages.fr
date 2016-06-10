@@ -26,6 +26,6 @@ Most of the dependencies are pure Python and are thus handled by ``pip``
 directly; however, in order to build graphs dynamically, the ``dot`` binary
 from `Graphviz <http://graphviz.org/Download..php>`_ is required.
 
-To install dependencies you can use:
+To install dependencies you can use::
 
     sudo apt-get install graphviz libjpeg8-dev libpng12-dev python-dev
