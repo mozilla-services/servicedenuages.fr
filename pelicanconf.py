@@ -7,7 +7,8 @@ AUTHORS = (
     u'Mathieu Leplatre',
     u'Alexis Métaireau',
     u'Tarek Ziadé',
-    u'Nicolas Perriault'
+    u'Nicolas Perriault',
+    u'Eric Le Lay'
 )
 AUTHOR = "Service de Nuages"
 
