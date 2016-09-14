@@ -1,0 +1,431 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>Survoler les bugs avec Kinto // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Publié</h5>
+                <p title="~2124 mots">~9mn de lecture 🕑</p>
+                <p>jeu. 01 septembre 2016</p>
+                <a href="/">&larr; Liste des articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Survoler les bugs avec Kinto</h1>
+                        <p class="post-meta">                                <a class="post-category" href="http://www.servicedenuages.fr/tag/mozilla.html">mozilla</a>
+                        </p>
+                </header>
+            </section>
+                        <p><a href="http://www.servicedenuages.fr/en/jedit-bugs-getting-off-the-ground">Read the English version</a></p>
+            <h1>Survoler les bugs avec Kinto</h1>
+<p>Voici un article rédigé par <a href="https://github.com/elelay">Eric Le Lay</a> sur son utilisation de Kinto.</p>
+<h2>Introduction</h2>
+<p>Connaissez-vous <a href="http://jedit.org">jEdit</a> — <em>l'éditeur de texte des développeurs</em> ?<br/>
+C'est un éditeur de texte multi-plateforme, écrit en java, disposant de nombreux plugins.
+Je participe à son développement depuis une dizaine d'années.
+Nous l'hébergeons sur Sourceforge ; le code principal est sous <em>Subversion</em>.</p>
+<p>Nous sommes bénévoles et le maintenons sur notre temps libre.
+Pour ma part, je n'ai pas toujours accès à internet pendant les vacances. Ou via un câble Ethernet dans une pièce sombre
+et surchauffée. Tout ça pour dire que j'aime avoir un maximum de choses sous la main hors-ligne :</p>
+<ul>
+<li>sources et doc de la plateforme java : pas de problème avec les packages <code>openjdk7-doc</code> et <code>openjdk7-src</code> ;</li>
+<li>sources de jEdit et des plugins : avec git-svn j'ai le code et son historique ;</li>
+<li><strong>bugs et feature requests : oups!</strong></li>
+</ul>
+<p>Nous avons 1100 tickets ouverts et 7600 clos. Tout ça n'est pas disponible hors-ligne. Ça doit changer !</p>
+<h3>Comment obtenir une archive des tickets ?</h3>
+<p>Sourceforge permet aux admins de télécharger une archive du projet, dont les tickets.
+Actuellement un script les convertit en un paquet de fichiers HTML avec un peu de javascript pour la navigation.
+Le résultat (fichiers HTML pour un usage en-ligne et archive <a href="http://jedit.org/trackers/Export.tgz">téléchargeable</a>)
+est déployé via rsync sur <a href="http://jedit.org/trackers/">jedit.org/trackers</a>.
+Pour limiter le volume, seuls les tickets ouverts sont disponibles.</p>
+<p>La génération de l'archive du projet par Sourceforge prend plusieurs minutes, c'est pourquoi je la lance au plus une fois
+par semaine.
+Pour les utilisateurs, ce n'est pas très pratique, car il faut qu'ils téléchargent une nouvelle archive pour avoir une
+vue à jour des tickets. Elle peut avoir une semaine de retard : peut mieux faire.</p>
+<h3>Objectifs</h3>
+<ul>
+<li>je voudrais permettre la mise à jour incrémentale des tickets ;</li>
+<li>je voudrais enrichir la visualisation des tickets : possibilité de recherche améliorée ;
+   peut-être permettre la modification hors-ligne ;</li>
+<li>je voudrais essayer Kinto :-).</li>
+</ul>
+<h2>Mes premiers pas avec Kinto</h2>
+<p>J'ai entendu parler de Kinto par Rémy et Alexis. Comme avec couchdb/pouchdb, il est possible de synchroniser
+la base de données entre le serveur (Kinto) et le navigateur web (kinto.js). Kinto.js stocke les données dans IndexedDB
+donc il est possible de manipuler une base relativement volumineuse.</p>
+<p>Chaque utilisateur peut créer ses propres collections (l'équivalent des tables SQL) Kinto. Il est même possible de gérer les
+permissions document par document (l'équivalent des lignes SQL).</p>
+<h3>Le tutoriel : ToDo list</h3>
+<p>J'ai commencé par le
+<a href="http://kintojs.readthedocs.io/en/latest/tutorial/">tutoriel</a>. Il présente bien les opérations: créer des documents, les
+afficher, les modifier, synchroniser avec le serveur. Il s'appuie sur le serveur Kinto de test de mozilla : donc un
+obstacle de moins pour démarrer.</p>
+<h3>Des tickets au lieu des tâches</h3>
+<p>Je suis passé à un serveur kinto local pour mes tests : il est déployable très facilement via docker.
+Si vous envisagez d'importer des documents, utilisez tout de suite le backend PostgreSQL
+(aussi facile à mettre en place, avec docker-compose ;
+tout est <a href="http://kinto.readthedocs.io/en/stable/tutorials/install.html#using-docker-compose">expliqué</a>).
+Le backend en RAM pose des <a href="https://github.com/Kinto/kinto/issues/759">problèmes</a> lors d'import batch en parallèle (ce
+qui se produit si vous importez depuis un <a href="https://github.com/elelay/jedit-trackers-kinto/blob/master/transform.js">script</a>
+node.js utilisant <a href="https://www.npmjs.com/package/request">request</a>).</p>
+<p>Une fois les tickets importés, l'application web n'a plus qu'à les récupérer via la synchronisation kinto.js et les
+afficher.</p>
+<h3>Recherche locale avec kinto.js</h3>
+<p>La recherche locale avec kinto.js n'est pas aussi développée que la recherche
+<a href="http://kinto.readthedocs.io/en/stable/api/1.x/filtering.html">sur le serveur</a> :
+seule la conjonction de <code>clé: [valeur1, valeur2, ...]</code> est supportée. La recherche sur les champs <code>id</code>, <code>_status</code> et <code>last_modified</code>
+est accélérée par un index (code <a href="https://github.com/Kinto/kinto.js/blob/f48ea470ddb2c6398acc386439043e6cae8bffe4/src/adapters/IDB.js#L325">ici</a>).
+Ensuite, tous les documents sont chargés et retournés sous forme de tableau puis filtrés selon les critères restants.
+Le filtrage selon des critères plus complexes se fait par l'application sur le résultat de <code>list()</code>.
+Dans les cas de petites collections c'est simple et de bon goût mais avec 8000 documents la recherche
+devient un peu lente.</p>
+<p>Exemple de recherche <em>complexe</em> par mot clé (champ de texte) :</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">filterByKeyword</span><span class="p">(</span><span class="nx">keyword</span><span class="p">){</span>
+  <span class="k">return</span> <span class="kd">function</span><span class="p">(</span><span class="nx">doc</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">doc</span><span class="p">.</span><span class="nx">summary</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">keyword</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">search</span><span class="p">(){</span>
+  <span class="kd">var</span> <span class="nx">keyword</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"query"</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">tickets</span>
+    <span class="p">.</span><span class="nx">list</span><span class="p">()</span>
+    <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+      <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">filterByKeyword</span><span class="p">(</span><span class="nx">keyword</span><span class="p">));</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="c1">// on submit</span>
+<span class="nx">search</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">render</span><span class="p">);</span>
+</pre></div>
+<h2>Architecture</h2>
+<p>J'héberge mon serveur kinto sur un serveur C1 chez scaleway. Il contient deux collections :</p>
+<ul>
+<li>tickets, pour les tickets ouverts ou récemment fermés ;</li>
+<li>oldTickets, pour les tickets fermés avant 2016.</li>
+</ul>
+<p>J'utilise l'id des tickets chez Sourceforge <a href="http://kintojs.readthedocs.io/en/latest/api/#custom-id-generation-using-an-id-schema">plutôt qu'une id auto-générée</a>.
+Je peux ainsi mettre à jour la base facilement à partir des infos de Sourceforge (pas besoin de rechercher le document
+chez kinto avant de le mettre à jour puisque je connais l'id).</p>
+<p>Les clients sont des applications web.</p>
+<p>Un script de mise à jour reporte les modifications de Sourceforge dans la base.</p>
+<p>La machine étant un serveur ARM sous debian Jessie, quelques aménagements ont été nécessaires (détails sur le
+<a href="https://github.com/Kinto/kinto/wiki">wiki kinto</a>).</p>
+<h2>Client kinto.js</h2>
+<p>Mon objectif était d'abord d'en apprendre le maximum sur kinto.js. J'ai bien aimé le coté vanilla du tutoriel (pas de
+dépendance à n frameworks) et suis resté sur cette simplicité :</p>
+<ul>
+<li>le CSS de bootstrap, les icônes de fontawesome</li>
+<li>quelques utilitaires : moment, lodash,</li>
+<li>datatables (après avoir fait ma propre gestion de table, mais voulant déplier certaines lignes de la table et ayant trouvé
+   un <a href="https://datatables.net/examples/server_side/row_details.html">exemple tout prêt</a>).</li>
+</ul>
+<p><img alt="Capture d'écran de l'application" src="http://www.servicedenuages.fr/images/jedit-trackers-with-kinto-app.png" style="width: 990px; height: auto; max-width: 100%;"/></p>
+<h2>État initial</h2>
+<p>Lorsque vous accédez pour la première fois à l'<a href="https://trackers.elelay.fr/trackers.html">application</a>, un panneau vous
+est présenté proposant de récupérer les tickets, dont éventuellement les vieux tickets.</p>
+<p>Petite astuce pour déterminer si c'est la première fois :</p>
+<div class="highlight"><pre><span></span><span class="nx">tickets</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nx">getLastModified</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">hasDB</span><span class="p">();</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">noDB</span><span class="p">();</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+<p>Pour afficher le nombre de tickets sur le serveur avant de les récupérer, il faut descendre dans le package
+<a href="https://github.com/Kinto/kinto-http.js">kinto-http</a>.</p>
+<p>Le code correspondant (bientôt simplifié) :</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">fetchTotalRecords</span><span class="p">(</span><span class="nx">api</span><span class="p">,</span> <span class="nx">bucket</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">etag</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">headers</span><span class="p">[</span><span class="s2">"Authorization"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Basic "</span> <span class="o">+</span> <span class="nx">btoa</span><span class="p">(</span><span class="s2">"token:tr0ub4d@ur"</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">api</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">execute</span><span class="p">({</span>
+        <span class="nx">path</span><span class="o">:</span> <span class="s2">"/buckets/"</span> <span class="o">+</span> <span class="nx">bucket</span> <span class="o">+</span> <span class="s2">"/collections/"</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s2">"/records"</span> <span class="o">+</span> <span class="p">(</span><span class="nx">etag</span> <span class="o">?</span> <span class="p">(</span><span class="s2">"?_since="</span> <span class="o">+</span> <span class="nx">etag</span><span class="p">)</span> <span class="o">:</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="nx">method</span><span class="o">:</span> <span class="s2">"HEAD"</span><span class="p">,</span>
+        <span class="nx">headers</span>
+    <span class="p">},</span> <span class="p">{</span>
+        <span class="nx">raw</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"RES"</span><span class="p">,</span> <span class="nx">res</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"total-records"</span><span class="p">));</span>
+    <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="nx">tickets</span><span class="p">.</span><span class="nx">db</span><span class="p">.</span><span class="nx">getLastModified</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">lastMod</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">tickets</span><span class="p">.</span><span class="nx">api</span><span class="p">.</span><span class="nx">bucket</span><span class="p">(</span><span class="nx">tickets</span><span class="p">.</span><span class="nx">bucket</span><span class="p">).</span><span class="nx">collection</span><span class="p">(</span><span class="nx">tickets</span><span class="p">.</span><span class="nx">name</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">fetchTotalRecords</span><span class="p">(</span><span class="nx">api</span><span class="p">,</span> <span class="nx">tickets</span><span class="p">.</span><span class="nx">bucket</span><span class="p">,</span> <span class="nx">tickets</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">lastMod</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">renderTicketCount</span><span class="p">);</span>
+</pre></div>
+<p>Cette méthode fonctionne aussi pour déterminer s'il y a eu du nouveau sur le serveur (<a href="http://kinto.readthedocs.io/en/latest/api/1.x/filtering.html#polling-for-changes">via l'ETag</a>). Le serveur kinto ne
+répond pas instantanément. Il faudrait peut-être passer l'etag en <code>If-None-Match</code> en plus de <code>since</code> pour accélérer les choses.</p>
+<h2>Recherche</h2>
+<p>Pour la recherche en texte libre coté client, j'ai utilisé <a href="http://lunrjs.com/">lunr</a>. Il construit un index
+à la Lucene, et permet ensuite de rechercher dans cet index. L'index est sérialisé et enregistré comme un document
+d'une collection kinto.js cliente pour être réutilisé à la prochaine visite.</p>
+<p>La recherche dans l'index retourne un tableau d'id de documents depuis lequel j'extrais les documents, avant de filtrer
+ce petit tableau avec les autres critères. Cela a accéléré les choses par rapport à la première version de l'application,
+dans laquelle je commençais toujours la recherche par un <code>tickets.list()</code>, qui retournait tous les documents.</p>
+<p>Pour rechercher <em>hello</em> dans l'index en mémoire :</p>
+<div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">index</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span>
+   <span class="p">[{</span><span class="s2">"ref"</span><span class="o">:</span><span class="s2">"52a4d8cb27184667e3400f42"</span><span class="p">,</span><span class="s2">"score"</span><span class="o">:</span><span class="mf">0.019459983366287688</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"ref"</span><span class="o">:</span><span class="s2">"5690ff3f24b0d96f08df7d6a"</span><span class="p">,</span><span class="s2">"score"</span><span class="o">:</span><span class="mf">0.013994677485991343</span><span class="p">},</span>
+    <span class="p">...</span>
+   <span class="p">]</span>
+</pre></div>
+<p>Pour obtenir une promesse d'un objet <code>{ data: ['tableau', 'de', 'tickets', 'contenant', 'texteLibre'] }</code>:</p>
+<div class="highlight"><pre><span></span><span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">index</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="nx">texteLibre</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">hit</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">tickets</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">hit</span><span class="p">.</span><span class="nx">ref</span><span class="p">);</span>
+<span class="p">})).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">allRes</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="nx">data</span><span class="o">:</span> <span class="nx">allRes</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span>
+        <span class="p">})</span>
+    <span class="p">};</span>
+<span class="p">});</span>
+</pre></div>
+<p>Dans ce code, tous les documents sont récupérés d'IndexedDB en parallèle via leur Id (<code>collection.get()</code>).
+C'est rapide car IndexedDB est optimisé pour l'accès par clé, mais il serait peut⁻être plus efficace d'utiliser
+<code>tickets.list({filters: {id: ['tableau', 'des', 'ids']}})</code> pour limiter le nombre de requêtes.</p>
+<h2>Affichage d'un ticket</h2>
+<p>L'application est conçue pour être multi-onglet, permettre la navigation dans l'historique et la création de marques pages.
+Pour cela, l'état est stocké dans l'url et les recherches entraînent des appels à <code>pushState()</code>.</p>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">state</span><span class="p">;</span>
+
+<span class="kd">function</span> <span class="nx">encodeState</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">"#"</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">state</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">applyState</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"search"</span><span class="p">).</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">filter</span><span class="p">;</span>
+    <span class="nx">search</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">saveState</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">pushState</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="s2">"jEdit Trackers"</span><span class="p">,</span> <span class="nx">encodeState</span><span class="p">(</span><span class="nx">state</span><span class="p">));</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">hashIsTicket</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^#[a-z0-9-]+$/</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"popstate"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// called on browser history navigation</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">state</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
+        <span class="nx">applyState</span><span class="p">(</span><span class="nx">state</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">hashIsTicket</span><span class="p">())</span> <span class="p">{</span>
+            <span class="c1">// show this ticket</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="c1">// show search interface</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+<p>On peut afficher un ticket dans un autre onglet en cliquant sur <em>Ouvrir</em> dans un résultat de recherche.
+Rien de bien compliqué : l'id est mise dans le hash de l'url et l'application interprète ce hash au chargement.</p>
+<div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">restoreInitialState</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^#[a-z0-9-]+$/</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nx">showTicket</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">startsWith</span><span class="p">(</span><span class="s2">"#%7B"</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="nx">state</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">)));</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"invalid state in hash"</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">);</span>
+            <span class="nx">state</span> <span class="o">=</span> <span class="nx">defaultState</span><span class="p">();</span>
+        <span class="p">}</span>
+        <span class="nx">applyState</span><span class="p">(</span><span class="nx">state</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">state</span> <span class="o">=</span> <span class="nx">defaultState</span><span class="p">();</span>
+        <span class="nx">applyState</span><span class="p">(</span><span class="nx">state</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nx">restoreInitialState</span><span class="p">();</span> <span class="c1">// to restore state from bookmark or link at page load</span>
+</pre></div>
+<h1>Mises à jour</h1>
+<p>Lorsqu'un ticket est modifié coté Sourceforge il faut mettre à jour le document correspondant dans Kinto.
+Je le fais via un programme coté serveur. </p>
+<h2>updater.py</h2>
+<p>Il n'est pas possible d'obtenir les modifications de tickets Sourceforge en temps réel via les technologies web.</p>
+<p>Quelques idées pour les obtenir :</p>
+<ol>
+<li>interroger périodiquement le flux RSS de chaque tracker (limité à 10 tickets donc on peut rater des mises à
+ jour si le script ne s'exécute pas pendant un moment) ;</li>
+<li>interroger périodiquement l'API REST de chaque tracker, en demandant les tickets modifiés depuis la dernière
+ fois (délai &lt; période de polling) ;</li>
+<li>s'abonner à la mailing list jedit-devel et les récupérer avec un client pop3 (délai &lt; 1 minute).</li>
+</ol>
+<p>J'ai choisi la solution 2. Le script
+<a href="https://github.com/elelay/jedit-trackers-kinto/blob/master/updater.py">updater.py</a></p>
+<ol>
+<li>récupère la liste des trackers chez Sourceforge,</li>
+<li>récupère de kinto la date de dernière mise à jour (document dans une collection <code>updater</code>),</li>
+<li>interroge Sourceforge sur les tickets modifiés depuis cette date,</li>
+<li>pousse les mises à jour dans les collections <code>tickets</code> et <code>oldTickets</code>.</li>
+</ol>
+<p>Les tickets sont déjà en JSON, avec un minimum de mapping à faire (récupérer les commentaires via une seconde requête
+à Sourceforge).</p>
+<h2>Notifications client</h2>
+<p>Kinto semble disposer d'un mécanisme de notification via
+<a href="http://kinto.readthedocs.io/en/latest/tutorials/notifications-websockets.html">websockets</a> mais je ne l'ai pas exploré.</p>
+<p>Les clients interrogent le serveur kinto pour les nouveaux tickets toutes les minutes. Lorsqu'il y en a, une
+notification proposant de synchroniser la base s'affiche en haut à droite de l'application.</p>
+<p>Suite à la synchronisation, je mets à jour l'index lunr avec les documents modifiés/ajoutés/supprimés (<code>index.add(document)</code>, <code>index.remove(document)</code>).</p>
+<p>Les compteurs de tickets affichés sur les boutons (ratés, bugs ouverts) sont aussi recalculés à cette occasion
+et stockés dans une collection client. S'il n'y a pas de suppressions, je peux les mettre à jour incrémentalement,
+sinon, il faut re-parcourir la collection pour les calculer.</p>
+<h1>Conclusion</h1>
+<h2>Ai-je bien fait d'essayer Kinto ?</h2>
+<p><strong>Oui, certainement</strong>. C'est une bonne plateforme pour mon application. Ce n'est cependant pas une solution clé en main
+comme <a href="https://www.meteor.com/">meteor</a>. Il faut donc l'associer à d'autres librairies pour avoir une application complète.
+D'un autre coté, le déploiement est simple et le déroulement du programme est facile à suivre.</p>
+<p>Les performances sont correctes (l'import batch des 8000 tickets fait tourner mon petit serveur pendant 5 minutes)
+et le système est ouvert.</p>
+<p>Je me suis un peu compliqué la vie en séparant les tickets en deux collections, mais ne charger que les tickets récents
+allège vraiment l'application.</p>
+<h2>Amélioration prévues</h2>
+<p>J'ai passé 3 semaines à explorer Kinto et il reste encore des choses à tester. Je suis également loin d'une application terminée.</p>
+<p>Quelques pistes :</p>
+<p><strong>Modifications des tickets</strong><br/>
+Je voudrais qu'on puisse modifier les tickets depuis l'application, plutôt que de renvoyer vers Sourceforge.
+Les modifications pourraient être temporairement stockées dans kinto.js en attente de réseau.</p>
+<p>La voie est libre depuis la correction d'un <a href="https://sourceforge.net/p/forge/site-support/13403/">petit bug</a>
+qui empêchait d'interroger l'API Sourceforge en CORS depuis la France, mais ça représente pas mal de code pour
+l'interface utilisateur. J'explorerai <a href="https://github.com/Kinto/formbuilder">FormBuilder</a> avant de coder ma
+propre solution. Sans aller jusque là, il pourrait être intéressant de permettre aux utilisateurs de tagger, mettre en
+favoris, suivre, certains tickets (stockage dans kinto).</p>
+<p><strong>Interface Utilisateur</strong>
+L'interface est largement améliorable. J'envisage également de restructurer le code en m'appuyant sur react, vu qu'il existe
+du <a href="https://github.com/Kinto/kinto-react-boilerplate">boilerplate</a> et <a href="https://github.com/Kinto/kinto-admin">kinto-admin</a>
+comme source d'inspiration.</p>
+<p><strong>Pièces jointes</strong>
+Tous les tickets sont accessibles hors-ligne, mais pas les pièces-jointes (comme le log contenant la
+trace d'exécution permettant de comprendre le bug). Nous ne sommes donc pas encore à du 100% hors-ligne. J'aimerai
+distribuer ces pièces-jointes, peut-être avec le mécanisme
+d'<a href="http://www.servicedenuages.fr/kinto-file-attachment">Attachments</a> de kinto. Les pièces-jointes des tickets récents font 10Mo,
+celles des anciens tickets 18Mo : ça semble donc faisable.</p>
+<p><strong>Recherche texte libre</strong>
+Je n'utilise lunr.js que de manière très basique : indexation du titre et de la description. Mais l'index est
+déjà très gros et lent à (dé)sérialiser depuis IndexedDB. J'hésite entre l'enrichir, permettant une recherche sur <a href="https://github.com/olivernn/lunr.js/issues/125">tous
+les champs</a> ou définir mon langage de requête et jouer sur des index que
+je maintiendrai moi-même.</p>
+<p>L'indexation pourrait se faire dans un WebWorker, pour ne pas bloquer l'application.</p>
+<p><strong>Performances</strong>
+Les tickets pourraient être indexés par numéro (ils ne sont pas uniques au sein d'un projet, mais au sein d'un tracker) pour accélérer
+ce type de recherche. De même, indexer par les autres critères de recherche prédéfinis accélèrerait les choses.</p>
+<p>Je peux gérer des index manuels (un document par index, contenant un objet associant chaque valeur possible de la clé
+à un tableau d'id). Alors, rechercher tous les bugs ouverts reviendrait à </p>
+<div class="highlight"><pre><span></span><span class="nx">indexes</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"bug"</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resInd</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">ind</span> <span class="o">=</span> <span class="nx">resInd</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span> <span class="c1">// ind = { open : ["id1", "id2", ...], ...}</span>
+    <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">((</span><span class="nx">ind</span><span class="p">.</span><span class="nx">open</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">tickets</span><span class="p">.</span><span class="nx">get</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">tickets</span><span class="p">)))</span>
+                  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">multiRes</span><span class="p">){</span>
+                      <span class="k">return</span> <span class="nx">multiRes</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span> <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">data</span><span class="p">;})</span>
+                  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<h2>Merci !</h2>
+<p>Je tiens à remercier l'équipe travaillant autour de Kinto pour leur gentillesse
+et leur ouverture : accessibles sur IRC (#kinto) et Slack, ils encouragent la création de tickets, de PR.
+De nombreuses sont même acceptées ;-)</p>
+<p>Le code est disponible sur github: <a href="https://github.com/elelay/jedit-trackers-kinto">elelay/jedit-trackers-kinto</a>.<br/>
+Il tourne sur <a href="http://trackers.elelay.fr/trackers.html">trackers.elelay.fr</a>.<br/>
+Vos retours sont les bienvenus via IRC (elelay) — Issues et PR, sait-on jamais...</p>
+<!-- :wrap=hard:noTabs=true:tabSize=4:indentSize=4: -->
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.notmyidea.org/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>

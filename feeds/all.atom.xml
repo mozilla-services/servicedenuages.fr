@@ -1,5 +1,633 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2015-12-22T00:00:00+01:00</updated><entry><title>The hard promise of self-hosting</title><link href="http://www.servicedenuages.fr/en/self-hosting-a-hard-promise" rel="alternate"></link><published>2015-12-22T00:00:00+01:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-22:en/self-hosting-a-hard-promise</id><summary type="html">&lt;div class="note"&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2016-09-09T00:00:00+02:00</updated><entry><title>jEdit bugs: Getting off the Ground with Kinto and Kinto.js</title><link href="http://www.servicedenuages.fr/en/jedit-bugs-getting-off-the-ground" rel="alternate"></link><published>2016-09-09T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-09-09:en/jedit-bugs-getting-off-the-ground</id><summary type="html">&lt;h1&gt;jEdit bugs: Getting off the Ground with Kinto and Kinto.js&lt;/h1&gt;
+&lt;p&gt;This is a guest post by &lt;a href="https://github.com/elelay"&gt;Eric Le Lay&lt;/a&gt; on his experience using Kinto.&lt;/p&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Have you heard of &lt;a href="http://jedit.org"&gt;jEdit&lt;/a&gt; — the &lt;em&gt;programmer's text editor&lt;/em&gt;?&lt;br/&gt;
+It's a multi-platform text editor, written in Java, with a myriad of plugins.
+I've been part of the development team for ten years.
+It's hosted on Sourceforge, with the code base under &lt;em&gt;Subversion&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;This is a labour of love for us, contributing during our free time. For me, that's when I'm on holidays.
+I don't always have Internet access where I'm staying. Or it's via a short Ethernet cable in a dark and overheated room.
+Don't lock me out of the sunny garden! Give me everything I need off-line!&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Java sources and Javadoc: install the &lt;code&gt;openjdk7-doc&lt;/code&gt; and &lt;code&gt;openjdk7-src&lt;/code&gt; packages;&lt;/li&gt;
+&lt;li&gt;jEdit and plugins sources: with git-svn I get the code and history;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;bugs and feature requests: oops!&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;We have 1100 open tickets and 7600 closed. None of them are available offline. That needs to change!&lt;/p&gt;
+&lt;h3&gt;Grabbing a ticket archive&lt;/h3&gt;
+&lt;p&gt;Sourceforge lets project admins download an archive of their project, containing tickets and other things.
+A script of mine converts them to a bunch of HTML files, with a little JavaScript for navigation.
+Resulting HTML files are then uploaded to
+ &lt;a href="http://jedit.org/trackers/"&gt;jedit.org/trackers&lt;/a&gt; where they can be browsed online or
+ &lt;a href="http://jedit.org/trackers/Export.tgz"&gt;downloaded&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;To save space, only open tickets are available.&lt;/p&gt;
+&lt;p&gt;Sourceforge takes minutes to generate the project archive, so I run the export at most once per week.
+It's not convenient for users either, because they have to download a new archive to get an up-to-date view of tickets.
+Even downloading the latest archive doesn't give them the freshest state, because it can be a week old at worst:
+lots of room for improvements!&lt;/p&gt;
+&lt;h3&gt;My Goals&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;be able to incrementally update tickets;&lt;/li&gt;
+&lt;li&gt;better ticket search and visualization;
+   maybe even offline modification;&lt;/li&gt;
+&lt;li&gt;I'd like to try Kinto :-).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;First Steps with Kinto&lt;/h2&gt;
+&lt;p&gt;I've heard about Kinto from Rémy and Alexis. As with couchdb/pouchdb, it's possible to sync the database between
+the server (Kinto) and the browser (kinto.js). Kinto.js stores data in IndexedDB so it should be possible to work with a
+biggish database.&lt;/p&gt;
+&lt;p&gt;Each user can create his own collections (think SQL tables) in Kinto. There are even finer grained permissions,
+document by document (think SQL rows).&lt;/p&gt;
+&lt;h3&gt;To Do List&lt;/h3&gt;
+&lt;p&gt;I've begun with the &lt;a href="http://kintojs.readthedocs.io/en/latest/tutorial/"&gt;tutorial&lt;/a&gt;.
+It nicely introduces Kinto basics:
+create documents, show them, modify them, sync with a remote server. It uses Mozilla's hosted test server: one
+less barrier to try it out.&lt;/p&gt;
+&lt;h3&gt;Tickets instead of Tasks&lt;/h3&gt;
+&lt;p&gt;I've moved to a local Kinto server for my next steps: it's very easy to deploy using docker.
+If you plan to batch-import documents, install the PostgreSQL backend straight away (easy to install using
+docker-compose; just
+&lt;a href="http://kinto.readthedocs.io/en/stable/tutorials/install.html#using-docker-compose"&gt;follow the instructions&lt;/a&gt;).
+The In-Memory backend has &lt;a href="https://github.com/Kinto/kinto/issues/759"&gt;issues&lt;/a&gt; with parallel batch import requests (which
+happens when you import in a node.js &lt;a href="https://github.com/elelay/jedit-trackers-kinto/blob/master/transform.js"&gt;script&lt;/a&gt;
+with &lt;a href="https://www.npmjs.com/package/request"&gt;request&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Once tickets are imported, the webapp has just to fetch them via kinto.js's &lt;code&gt;sync()&lt;/code&gt;and display them.&lt;/p&gt;
+&lt;h3&gt;Local Search with kinto.js&lt;/h3&gt;
+&lt;p&gt;Searching in the browser with kinto.js is not as rich as
+ &lt;a href="http://kinto.readthedocs.io/en/stable/api/1.x/filtering.html"&gt;on the server&lt;/a&gt;:
+it supports only a conjunction of &lt;code&gt;key: [value1, value2, ...]&lt;/code&gt; parameters. Querying the &lt;code&gt;id&lt;/code&gt;, &lt;code&gt;_status&lt;/code&gt;, &lt;code&gt;last_modified&lt;/code&gt;
+is accelerated by an index (code &lt;a href="https://github.com/Kinto/kinto.js/blob/f48ea470ddb2c6398acc386439043e6cae8bffe4/src/adapters/IDB.js#L325"&gt;here&lt;/a&gt;).
+All documents are then loaded and returned in an array, then filtered according to remaining query params.
+Arbitrary queries are done by the application on the result of the &lt;code&gt;list()&lt;/code&gt; operation.
+This is fine for small collections, but searching is not lighting fast when you reach 8k documents.&lt;/p&gt;
+&lt;p&gt;An example of full-text search (from a keyword in a text field):&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;filterByKeyword&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;keyword&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;doc&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;doc&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;summary&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;indexOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;keyword&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="p"&gt;};&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;search&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+  &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;keyword&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;document&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getElementById&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"query"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;tickets&lt;/span&gt;
+    &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;list&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+      &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;filter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;filterByKeyword&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;keyword&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+    &lt;span class="p"&gt;});&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;// on submit&lt;/span&gt;
+&lt;span class="nx"&gt;search&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;render&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Architecture&lt;/h2&gt;
+&lt;p&gt;I'm hosting my Kinto server on a C1 server at scaleway. It contains 2 collections:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;tickets, for open or recent tickets;&lt;/li&gt;
+&lt;li&gt;oldTickets, for tickets closed before 2016.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;I use Sourceforge's ticket id
+&lt;a href="http://kintojs.readthedocs.io/en/latest/api/#custom-id-generation-using-an-id-schema"&gt;instead of an auto-generated id&lt;/a&gt;.
+This way I can update the database more easily (no need to fetch the kinto document before updating it, since I know
+the content and the id).&lt;/p&gt;
+&lt;p&gt;Clients are web applications.&lt;/p&gt;
+&lt;p&gt;An updater script forwards modifications from Sourceforge to the Kinto database.&lt;/p&gt;
+&lt;p&gt;The C1 machine has an ARM processor and runs Debian Jessie. So a few deviations to the standard setup were necessary 
+(see the &lt;a href="https://github.com/Kinto/kinto/wiki"&gt;wiki kinto&lt;/a&gt;).&lt;/p&gt;
+&lt;h2&gt;The kinto.js Client&lt;/h2&gt;
+&lt;p&gt;My goal was to learn kinto.js, not your latest front-end framework, so I quite liked the vanilla take on the tutorial
+and stuck with it:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;bootstrap CSS, fontawesome icons,&lt;/li&gt;
+&lt;li&gt;a few utilities: moment, lodash,&lt;/li&gt;
+&lt;li&gt;datatables (after devising my own row management, but not wanting to implement row details myself and having
+   found a nice example &lt;a href="https://datatables.net/examples/server_side/row_details.html"&gt;for this&lt;/a&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt="screenshot of the application" src="http://www.servicedenuages.fr/images/jedit-trackers-with-kinto-app.png" style="width: 990px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
+&lt;h2&gt;Initial State&lt;/h2&gt;
+&lt;p&gt;When you load the &lt;a href="https://trackers.elelay.fr/trackers.html"&gt;application&lt;/a&gt; for the first time
+a panel shows you ticket counts, lets you choose to include old tickets and download the database.&lt;/p&gt;
+&lt;p&gt;Here is how I determine if it's the first run:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;db&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getLastModified&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;hasDB&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;noDB&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;To display the server's ticket count before sync, one has to go down to the
+ &lt;a href="https://github.com/Kinto/kinto-http.js"&gt;kinto-http&lt;/a&gt; package (this is being worked on, see
+ &lt;a href="https://github.com/Kinto/kinto-http.js/issues/138"&gt;this issue&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;code snippet:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;fetchTotalRecords&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;api&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;bucket&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;etag&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;headers&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{};&lt;/span&gt;
+    &lt;span class="nx"&gt;headers&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;"Authorization"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"Basic "&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;btoa&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"token:tr0ub4d@ur"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;api&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;client&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;execute&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+        &lt;span class="nx"&gt;path&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"/buckets/"&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;bucket&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;"/collections/"&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;name&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;"/records"&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;etag&lt;/span&gt; &lt;span class="o"&gt;?&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"?_since="&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;etag&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;""&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+        &lt;span class="nx"&gt;method&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"HEAD"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nx"&gt;headers&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;raw&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;
+    &lt;span class="p"&gt;}).&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"RES"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;parseInt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;headers&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"total-records"&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+    &lt;span class="p"&gt;});&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;db&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getLastModified&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;lastMod&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;api&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;api&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;bucket&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;bucket&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;collection&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;name&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="c1"&gt;// you'll soon be able to replace it with api.getLastModified(lastMod)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;fetchTotalRecords&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;api&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;bucket&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;lastMod&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}).&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;renderTicketCount&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This method also works to find out if updated tickets exist on the server
+( &lt;a href="http://kinto.readthedocs.io/en/latest/api/1.x/filtering.html#polling-for-changes"&gt;via the ETag&lt;/a&gt;).
+The kinto server doesn't respond instantly as it should. Maybe I should also put the ETag in an &lt;code&gt;If-None-Match&lt;/code&gt;
+header to speed things up.&lt;/p&gt;
+&lt;h2&gt;Searching for Tickets&lt;/h2&gt;
+&lt;p&gt;I've used &lt;a href="http://lunrjs.com/"&gt;lunr&lt;/a&gt; to implement client-side full text search. It builds a Lucene-like index and
+then lets one query this index. The index is serialized and saved as a document in a local Kinto.js collection
+to be reused on next page load.&lt;/p&gt;
+&lt;p&gt;Searching the index returns an array of document ids, from which I load documents before filtering the resulting
+(usually small) array with remaining query params. This is performing better than the first version of the
+application, when I first loaded all documents by calling &lt;code&gt;tickets.list()&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;To search for &lt;em&gt;hello&lt;/em&gt; in the lunr index:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;index&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;search&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"hello"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+   &lt;span class="p"&gt;[{&lt;/span&gt;&lt;span class="s2"&gt;"ref"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="s2"&gt;"52a4d8cb27184667e3400f42"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s2"&gt;"score"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mf"&gt;0.019459983366287688&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;"ref"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="s2"&gt;"5690ff3f24b0d96f08df7d6a"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s2"&gt;"score"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mf"&gt;0.013994677485991343&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
+   &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;To get a &lt;code&gt;{ data: ['array', 'of', 'tickets', 'containing', 'myText'] }&lt;/code&gt;  Promise:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;Promise&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;all&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;index&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;search&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;myText&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;hit&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;hit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ref&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;})).&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;allRes&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;allRes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;})&lt;/span&gt;
+    &lt;span class="p"&gt;};&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Matching documents are fetched from IndexedDB in parallel via their Id (&lt;code&gt;collection.get()&lt;/code&gt;).
+It's fast because IndexedDB is optimised for key based access, but it could be more efficient to use
+&lt;code&gt;tickets.list({filters: {id: ['array', 'of', 'ids']}})&lt;/code&gt; to curb request count.&lt;/p&gt;
+&lt;h2&gt;Displaying a Ticket&lt;/h2&gt;
+&lt;p&gt;My application is meant to be multi-tab, browser history and bookmarks compatible.
+To achieve that, the UI state is stored in the URL and interactions result in calls to &lt;code&gt;pushState()&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;encodeState&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s2"&gt;"#"&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;encodeURIComponent&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;JSON&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;stringify&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;applyState&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nb"&gt;document&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getElementById&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"search"&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;filter&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nx"&gt;search&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;saveState&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;history&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;pushState&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"jEdit Trackers"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;encodeState&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;hashIsTicket&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;match&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sr"&gt;/^#[a-z0-9-]+$/&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"popstate"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// called on browser history navigation&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;state&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="nx"&gt;applyState&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;hashIsTicket&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="c1"&gt;// show this ticket&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="c1"&gt;// show search interface&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;A ticket can be displayed from the result list by clicking &lt;em&gt;Open&lt;/em&gt;.
+Nothing fancy: the id is put in the URL's hash and the application parses the hash at startup.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;restoreInitialState&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;match&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sr"&gt;/^#[a-z0-9-]+$/&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;showTicket&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;substring&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;startsWith&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"#%7B"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;try&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;state&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;JSON&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;parse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;decodeURIComponent&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;substring&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)));&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;catch&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"invalid state in hash"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="nx"&gt;state&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;defaultState&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="nx"&gt;applyState&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;state&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;defaultState&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+        &lt;span class="nx"&gt;applyState&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="nx"&gt;restoreInitialState&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="c1"&gt;// to restore state from bookmark or link at page load&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;Updates&lt;/h1&gt;
+&lt;p&gt;Documents have to be updated in Kinto whenever a ticket is modified at Sourceforge's trackers.
+I do this via a server-side program.&lt;/p&gt;
+&lt;h2&gt;updater.py&lt;/h2&gt;
+&lt;p&gt;There is no way to get a real-time modification stream from Sourceforge.&lt;/p&gt;
+&lt;p&gt;A few ideas to work around that:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;poll each tracker's RSS feed (limited to 10 tickets so one can miss updates if the script lags at some point);&lt;/li&gt;
+&lt;li&gt;poll each tracker's REST API, asking for tickets modified since last time (delay &amp;lt; polling period);&lt;/li&gt;
+&lt;li&gt;subscribe to the jedit-devel mailing list and fetch mails with a pop3 client (delay &amp;lt; 1 minute).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;I've chosen solution 2. The &lt;a href="https://github.com/elelay/jedit-trackers-kinto/blob/master/updater.py"&gt;updater.py&lt;/a&gt; script:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;fetches the trackers list from Sourceforge,&lt;/li&gt;
+&lt;li&gt;fetches from kinto the last update date (a document in the &lt;code&gt;updater&lt;/code&gt; collection),&lt;/li&gt;
+&lt;li&gt;queries Sourceforge for tickets modified since this date,&lt;/li&gt;
+&lt;li&gt;pushes updates to the &lt;code&gt;tickets&lt;/code&gt; and &lt;code&gt;oldTickets&lt;/code&gt; collections.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Tickets are returned by Sourceforge in JSON format. There is only minimal mapping to do (fetch comments via a second
+request to Sourceforge).&lt;/p&gt;
+&lt;h2&gt;Client Notifications&lt;/h2&gt;
+&lt;p&gt;Kinto seems to provide &lt;a href="http://kinto.readthedocs.io/en/latest/tutorials/notifications-websockets.html"&gt;websockets&lt;/a&gt;
+notifications but I've not looked into it.&lt;/p&gt;
+&lt;p&gt;Clients are instead polling the kinto server for new tickets every minute. When there are, a little &lt;em&gt;would you like to&lt;/em&gt;
+&lt;em&gt;sync?&lt;/em&gt; notification appears on the top-right of the page.&lt;/p&gt;
+&lt;p&gt;Following a synchronization, I update the lunr index with modified/added/deleted documents (&lt;code&gt;index.add(document)&lt;/code&gt;,
+&lt;code&gt;index.remove(document)&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Counters displayed on buttons (missed, open bugs) are then recomputed and stored in a client collection.
+When there are no deletions I can update them incrementally, otherwise I have to go through the whole collection
+to recompute them.&lt;/p&gt;
+&lt;h1&gt;Conclusion&lt;/h1&gt;
+&lt;h2&gt;Was Kinto Worth a Try?&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Definitly yes&lt;/strong&gt;. It's a sound platform and a good fit for my application. However it's not an out-of-box experience
+like &lt;a href="https://www.meteor.com/"&gt;meteor&lt;/a&gt;. One has to combine it with other libraries to create a full application.
+On the other hand, it makes deployment and debugging simpler.&lt;/p&gt;
+&lt;p&gt;Performance is fine (batch importing the 8k tickets keeps my little server busy for 5 minutes) and the system is open.&lt;/p&gt;
+&lt;p&gt;I made things a bit complicated for myself by splitting tickets into 2 collections, but not loading the old tickets
+is a huge performance boost.&lt;/p&gt;
+&lt;h2&gt;To Do List (not the tutorial)&lt;/h2&gt;
+&lt;p&gt;I've spent 3 weeks exploring Kinto and still have things to try out. I'm also far from a full-fledged application.&lt;/p&gt;
+&lt;p&gt;Some leads:&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Modifying Tickets&lt;/strong&gt;&lt;br/&gt;
+I'd like to be able to modify tickets from the application, instead of having to use the Sourceforge UI.
+Modifications could be possible offline, kept in kinto.js until network connectivity is restored.&lt;/p&gt;
+&lt;p&gt;Nothing prevents it but it takes a lot of development to make a nice UI.
+I'll first look into &lt;a href="https://github.com/Kinto/formbuilder"&gt;FormBuilder&lt;/a&gt; before rolling out my own.
+If actual interaction with trackers is too much, maybe letting users tag, star, follow tickets for themselves could be
+useful (stored in kinto to sync between their devices).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;User Interface&lt;/strong&gt;
+The UI could be improved greatly. I also plan to refactor the code to take advantage of react, since there exists some
+ &lt;a href="https://github.com/Kinto/kinto-react-boilerplate"&gt;boilerplate&lt;/a&gt; and &lt;a href="https://github.com/Kinto/kinto-admin"&gt;kinto-admin&lt;/a&gt;
+for inspiration.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Attachments&lt;/strong&gt;
+Tickets are available offline, but not attachments (attachments like the log with the stack trace I need to fix a bug).
+So no 100% offline experience yet! I'd like to distribute these attachments, maybe using
+ &lt;a href="http://www.servicedenuages.fr/kinto-file-attachment"&gt;Kinto Attachments&lt;/a&gt;. Attachments are a total of 10MB for fresh tickets,
+ plus 18MB for old ones: it seems feasible.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Full Text Search&lt;/strong&gt;
+I make very basic use of lunr.js: indexing the title and description fields. But the index is already quite big and slow
+to (de)serialize from IndexedDB. I wonder if I should enrich it, allowing
+&lt;a href="https://github.com/olivernn/lunr.js/issues/125"&gt;more powerful queries&lt;/a&gt; or define my own query language and use indexes
+on my side.&lt;/p&gt;
+&lt;p&gt;Indexing should take place in a WebWorker, to not stall the application.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Performances&lt;/strong&gt;
+Tickets could be indexed by number, to speed up this kind of query (ids are unique in a project,
+numbers are unique in a tracker). Also, indexing on other predefined search criteria could speed things up.&lt;/p&gt;
+&lt;p&gt;Manually managing indexes would be feasible (a document per index, mapping each value of the field to an array of
+document ids). Then, looking for all open bugs would look like:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nx"&gt;indexes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"bug"&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;resInd&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;ind&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;resInd&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// ind = { open: ["id1", "id2", ...], ...}&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;Promise&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;all&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nx"&gt;ind&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;open&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;bind&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+                  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;multiRes&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+                      &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;multiRes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;;})&lt;/span&gt;
+                  &lt;span class="p"&gt;});&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Thank You!&lt;/h2&gt;
+&lt;p&gt;I'd like to thank the Kinto team for their kindness and their openness: reachable on IRC (#kinto) and Slack, they
+encourage issues and PRs. Many of which are even accepted ;-)&lt;/p&gt;
+&lt;p&gt;My code is available on github: &lt;a href="https://github.com/elelay/jedit-trackers-kinto"&gt;elelay/jedit-trackers-kinto&lt;/a&gt;.&lt;br/&gt;
+The application is available at &lt;a href="http://trackers.elelay.fr/trackers.html"&gt;trackers.elelay.fr&lt;/a&gt;.&lt;br/&gt;
+Feedback is welcome via IRC (elelay) — why not even Issues and PR?&lt;/p&gt;
+&lt;!-- :wrap=hard:noTabs=true:tabSize=4:indentSize=4: --&gt;</summary></entry><entry><title>Survoler les bugs avec Kinto</title><link href="http://www.servicedenuages.fr/jedit-bugs-getting-off-the-ground" rel="alternate"></link><published>2016-09-01T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-09-01:jedit-bugs-getting-off-the-ground</id><summary type="html">&lt;h1&gt;Survoler les bugs avec Kinto&lt;/h1&gt;
+&lt;p&gt;Voici un article rédigé par &lt;a href="https://github.com/elelay"&gt;Eric Le Lay&lt;/a&gt; sur son utilisation de Kinto.&lt;/p&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;Connaissez-vous &lt;a href="http://jedit.org"&gt;jEdit&lt;/a&gt; — &lt;em&gt;l'éditeur de texte des développeurs&lt;/em&gt; ?&lt;br/&gt;
+C'est un éditeur de texte multi-plateforme, écrit en java, disposant de nombreux plugins.
+Je participe à son développement depuis une dizaine d'années.
+Nous l'hébergeons sur Sourceforge ; le code principal est sous &lt;em&gt;Subversion&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Nous sommes bénévoles et le maintenons sur notre temps libre.
+Pour ma part, je n'ai pas toujours accès à internet pendant les vacances. Ou via un câble Ethernet dans une pièce sombre
+et surchauffée. Tout ça pour dire que j'aime avoir un maximum de choses sous la main hors-ligne :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;sources et doc de la plateforme java : pas de problème avec les packages &lt;code&gt;openjdk7-doc&lt;/code&gt; et &lt;code&gt;openjdk7-src&lt;/code&gt; ;&lt;/li&gt;
+&lt;li&gt;sources de jEdit et des plugins : avec git-svn j'ai le code et son historique ;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;bugs et feature requests : oups!&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Nous avons 1100 tickets ouverts et 7600 clos. Tout ça n'est pas disponible hors-ligne. Ça doit changer !&lt;/p&gt;
+&lt;h3&gt;Comment obtenir une archive des tickets ?&lt;/h3&gt;
+&lt;p&gt;Sourceforge permet aux admins de télécharger une archive du projet, dont les tickets.
+Actuellement un script les convertit en un paquet de fichiers HTML avec un peu de javascript pour la navigation.
+Le résultat (fichiers HTML pour un usage en-ligne et archive &lt;a href="http://jedit.org/trackers/Export.tgz"&gt;téléchargeable&lt;/a&gt;)
+est déployé via rsync sur &lt;a href="http://jedit.org/trackers/"&gt;jedit.org/trackers&lt;/a&gt;.
+Pour limiter le volume, seuls les tickets ouverts sont disponibles.&lt;/p&gt;
+&lt;p&gt;La génération de l'archive du projet par Sourceforge prend plusieurs minutes, c'est pourquoi je la lance au plus une fois
+par semaine.
+Pour les utilisateurs, ce n'est pas très pratique, car il faut qu'ils téléchargent une nouvelle archive pour avoir une
+vue à jour des tickets. Elle peut avoir une semaine de retard : peut mieux faire.&lt;/p&gt;
+&lt;h3&gt;Objectifs&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;je voudrais permettre la mise à jour incrémentale des tickets ;&lt;/li&gt;
+&lt;li&gt;je voudrais enrichir la visualisation des tickets : possibilité de recherche améliorée ;
+   peut-être permettre la modification hors-ligne ;&lt;/li&gt;
+&lt;li&gt;je voudrais essayer Kinto :-).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2&gt;Mes premiers pas avec Kinto&lt;/h2&gt;
+&lt;p&gt;J'ai entendu parler de Kinto par Rémy et Alexis. Comme avec couchdb/pouchdb, il est possible de synchroniser
+la base de données entre le serveur (Kinto) et le navigateur web (kinto.js). Kinto.js stocke les données dans IndexedDB
+donc il est possible de manipuler une base relativement volumineuse.&lt;/p&gt;
+&lt;p&gt;Chaque utilisateur peut créer ses propres collections (l'équivalent des tables SQL) Kinto. Il est même possible de gérer les
+permissions document par document (l'équivalent des lignes SQL).&lt;/p&gt;
+&lt;h3&gt;Le tutoriel : ToDo list&lt;/h3&gt;
+&lt;p&gt;J'ai commencé par le
+&lt;a href="http://kintojs.readthedocs.io/en/latest/tutorial/"&gt;tutoriel&lt;/a&gt;. Il présente bien les opérations: créer des documents, les
+afficher, les modifier, synchroniser avec le serveur. Il s'appuie sur le serveur Kinto de test de mozilla : donc un
+obstacle de moins pour démarrer.&lt;/p&gt;
+&lt;h3&gt;Des tickets au lieu des tâches&lt;/h3&gt;
+&lt;p&gt;Je suis passé à un serveur kinto local pour mes tests : il est déployable très facilement via docker.
+Si vous envisagez d'importer des documents, utilisez tout de suite le backend PostgreSQL
+(aussi facile à mettre en place, avec docker-compose ;
+tout est &lt;a href="http://kinto.readthedocs.io/en/stable/tutorials/install.html#using-docker-compose"&gt;expliqué&lt;/a&gt;).
+Le backend en RAM pose des &lt;a href="https://github.com/Kinto/kinto/issues/759"&gt;problèmes&lt;/a&gt; lors d'import batch en parallèle (ce
+qui se produit si vous importez depuis un &lt;a href="https://github.com/elelay/jedit-trackers-kinto/blob/master/transform.js"&gt;script&lt;/a&gt;
+node.js utilisant &lt;a href="https://www.npmjs.com/package/request"&gt;request&lt;/a&gt;).&lt;/p&gt;
+&lt;p&gt;Une fois les tickets importés, l'application web n'a plus qu'à les récupérer via la synchronisation kinto.js et les
+afficher.&lt;/p&gt;
+&lt;h3&gt;Recherche locale avec kinto.js&lt;/h3&gt;
+&lt;p&gt;La recherche locale avec kinto.js n'est pas aussi développée que la recherche
+&lt;a href="http://kinto.readthedocs.io/en/stable/api/1.x/filtering.html"&gt;sur le serveur&lt;/a&gt; :
+seule la conjonction de &lt;code&gt;clé: [valeur1, valeur2, ...]&lt;/code&gt; est supportée. La recherche sur les champs &lt;code&gt;id&lt;/code&gt;, &lt;code&gt;_status&lt;/code&gt; et &lt;code&gt;last_modified&lt;/code&gt;
+est accélérée par un index (code &lt;a href="https://github.com/Kinto/kinto.js/blob/f48ea470ddb2c6398acc386439043e6cae8bffe4/src/adapters/IDB.js#L325"&gt;ici&lt;/a&gt;).
+Ensuite, tous les documents sont chargés et retournés sous forme de tableau puis filtrés selon les critères restants.
+Le filtrage selon des critères plus complexes se fait par l'application sur le résultat de &lt;code&gt;list()&lt;/code&gt;.
+Dans les cas de petites collections c'est simple et de bon goût mais avec 8000 documents la recherche
+devient un peu lente.&lt;/p&gt;
+&lt;p&gt;Exemple de recherche &lt;em&gt;complexe&lt;/em&gt; par mot clé (champ de texte) :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;filterByKeyword&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;keyword&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;doc&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;doc&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;summary&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;indexOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;keyword&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+  &lt;span class="p"&gt;};&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;search&lt;/span&gt;&lt;span class="p"&gt;(){&lt;/span&gt;
+  &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;keyword&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;document&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getElementById&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"query"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;tickets&lt;/span&gt;
+    &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;list&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
+    &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+      &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;filter&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;filterByKeyword&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;keyword&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+    &lt;span class="p"&gt;});&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="c1"&gt;// on submit&lt;/span&gt;
+&lt;span class="nx"&gt;search&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;render&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Architecture&lt;/h2&gt;
+&lt;p&gt;J'héberge mon serveur kinto sur un serveur C1 chez scaleway. Il contient deux collections :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;tickets, pour les tickets ouverts ou récemment fermés ;&lt;/li&gt;
+&lt;li&gt;oldTickets, pour les tickets fermés avant 2016.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;J'utilise l'id des tickets chez Sourceforge &lt;a href="http://kintojs.readthedocs.io/en/latest/api/#custom-id-generation-using-an-id-schema"&gt;plutôt qu'une id auto-générée&lt;/a&gt;.
+Je peux ainsi mettre à jour la base facilement à partir des infos de Sourceforge (pas besoin de rechercher le document
+chez kinto avant de le mettre à jour puisque je connais l'id).&lt;/p&gt;
+&lt;p&gt;Les clients sont des applications web.&lt;/p&gt;
+&lt;p&gt;Un script de mise à jour reporte les modifications de Sourceforge dans la base.&lt;/p&gt;
+&lt;p&gt;La machine étant un serveur ARM sous debian Jessie, quelques aménagements ont été nécessaires (détails sur le
+&lt;a href="https://github.com/Kinto/kinto/wiki"&gt;wiki kinto&lt;/a&gt;).&lt;/p&gt;
+&lt;h2&gt;Client kinto.js&lt;/h2&gt;
+&lt;p&gt;Mon objectif était d'abord d'en apprendre le maximum sur kinto.js. J'ai bien aimé le coté vanilla du tutoriel (pas de
+dépendance à n frameworks) et suis resté sur cette simplicité :&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;le CSS de bootstrap, les icônes de fontawesome&lt;/li&gt;
+&lt;li&gt;quelques utilitaires : moment, lodash,&lt;/li&gt;
+&lt;li&gt;datatables (après avoir fait ma propre gestion de table, mais voulant déplier certaines lignes de la table et ayant trouvé
+   un &lt;a href="https://datatables.net/examples/server_side/row_details.html"&gt;exemple tout prêt&lt;/a&gt;).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt="Capture d'écran de l'application" src="http://www.servicedenuages.fr/images/jedit-trackers-with-kinto-app.png" style="width: 990px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
+&lt;h2&gt;État initial&lt;/h2&gt;
+&lt;p&gt;Lorsque vous accédez pour la première fois à l'&lt;a href="https://trackers.elelay.fr/trackers.html"&gt;application&lt;/a&gt;, un panneau vous
+est présenté proposant de récupérer les tickets, dont éventuellement les vieux tickets.&lt;/p&gt;
+&lt;p&gt;Petite astuce pour déterminer si c'est la première fois :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;db&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getLastModified&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;hasDB&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;noDB&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Pour afficher le nombre de tickets sur le serveur avant de les récupérer, il faut descendre dans le package
+&lt;a href="https://github.com/Kinto/kinto-http.js"&gt;kinto-http&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Le code correspondant (bientôt simplifié) :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;fetchTotalRecords&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;api&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;bucket&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;etag&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;headers&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{};&lt;/span&gt;
+    &lt;span class="nx"&gt;headers&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;"Authorization"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"Basic "&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;btoa&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"token:tr0ub4d@ur"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;api&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;client&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;execute&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+        &lt;span class="nx"&gt;path&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"/buckets/"&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;bucket&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;"/collections/"&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;name&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="s2"&gt;"/records"&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;etag&lt;/span&gt; &lt;span class="o"&gt;?&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"?_since="&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;etag&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;""&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+        &lt;span class="nx"&gt;method&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"HEAD"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+        &lt;span class="nx"&gt;headers&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;raw&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;true&lt;/span&gt;
+    &lt;span class="p"&gt;}).&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"RES"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;parseInt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;headers&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"total-records"&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+    &lt;span class="p"&gt;});&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;db&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getLastModified&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;lastMod&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;api&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;api&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;bucket&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;bucket&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;collection&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;name&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;fetchTotalRecords&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;api&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;bucket&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;lastMod&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}).&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;renderTicketCount&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Cette méthode fonctionne aussi pour déterminer s'il y a eu du nouveau sur le serveur (&lt;a href="http://kinto.readthedocs.io/en/latest/api/1.x/filtering.html#polling-for-changes"&gt;via l'ETag&lt;/a&gt;). Le serveur kinto ne
+répond pas instantanément. Il faudrait peut-être passer l'etag en &lt;code&gt;If-None-Match&lt;/code&gt; en plus de &lt;code&gt;since&lt;/code&gt; pour accélérer les choses.&lt;/p&gt;
+&lt;h2&gt;Recherche&lt;/h2&gt;
+&lt;p&gt;Pour la recherche en texte libre coté client, j'ai utilisé &lt;a href="http://lunrjs.com/"&gt;lunr&lt;/a&gt;. Il construit un index
+à la Lucene, et permet ensuite de rechercher dans cet index. L'index est sérialisé et enregistré comme un document
+d'une collection kinto.js cliente pour être réutilisé à la prochaine visite.&lt;/p&gt;
+&lt;p&gt;La recherche dans l'index retourne un tableau d'id de documents depuis lequel j'extrais les documents, avant de filtrer
+ce petit tableau avec les autres critères. Cela a accéléré les choses par rapport à la première version de l'application,
+dans laquelle je commençais toujours la recherche par un &lt;code&gt;tickets.list()&lt;/code&gt;, qui retournait tous les documents.&lt;/p&gt;
+&lt;p&gt;Pour rechercher &lt;em&gt;hello&lt;/em&gt; dans l'index en mémoire :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;index&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;search&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"hello"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+   &lt;span class="p"&gt;[{&lt;/span&gt;&lt;span class="s2"&gt;"ref"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="s2"&gt;"52a4d8cb27184667e3400f42"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s2"&gt;"score"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mf"&gt;0.019459983366287688&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;"ref"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="s2"&gt;"5690ff3f24b0d96f08df7d6a"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s2"&gt;"score"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mf"&gt;0.013994677485991343&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="p"&gt;...&lt;/span&gt;
+   &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Pour obtenir une promesse d'un objet &lt;code&gt;{ data: ['tableau', 'de', 'tickets', 'contenant', 'texteLibre'] }&lt;/code&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;Promise&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;all&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;index&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;search&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;texteLibre&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;hit&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;hit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ref&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;})).&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;allRes&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="nx"&gt;allRes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="p"&gt;})&lt;/span&gt;
+    &lt;span class="p"&gt;};&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Dans ce code, tous les documents sont récupérés d'IndexedDB en parallèle via leur Id (&lt;code&gt;collection.get()&lt;/code&gt;).
+C'est rapide car IndexedDB est optimisé pour l'accès par clé, mais il serait peut⁻être plus efficace d'utiliser
+&lt;code&gt;tickets.list({filters: {id: ['tableau', 'des', 'ids']}})&lt;/code&gt; pour limiter le nombre de requêtes.&lt;/p&gt;
+&lt;h2&gt;Affichage d'un ticket&lt;/h2&gt;
+&lt;p&gt;L'application est conçue pour être multi-onglet, permettre la navigation dans l'historique et la création de marques pages.
+Pour cela, l'état est stocké dans l'url et les recherches entraînent des appels à &lt;code&gt;pushState()&lt;/code&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;encodeState&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s2"&gt;"#"&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;encodeURIComponent&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;JSON&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;stringify&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;applyState&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nb"&gt;document&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getElementById&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"search"&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;filter&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+    &lt;span class="nx"&gt;search&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;saveState&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;history&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;pushState&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"jEdit Trackers"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;encodeState&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;hashIsTicket&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;match&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sr"&gt;/^#[a-z0-9-]+$/&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;addEventListener&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"popstate"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="c1"&gt;// called on browser history navigation&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;state&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+        &lt;span class="nx"&gt;applyState&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;hashIsTicket&lt;/span&gt;&lt;span class="p"&gt;())&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="c1"&gt;// show this ticket&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="c1"&gt;// show search interface&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;On peut afficher un ticket dans un autre onglet en cliquant sur &lt;em&gt;Ouvrir&lt;/em&gt; dans un résultat de recherche.
+Rien de bien compliqué : l'id est mise dans le hash de l'url et l'application interprète ce hash au chargement.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;restoreInitialState&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;match&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sr"&gt;/^#[a-z0-9-]+$/&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;showTicket&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;substring&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;startsWith&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"#%7B"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="k"&gt;try&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;state&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;JSON&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;parse&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;decodeURIComponent&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;substring&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)));&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;catch&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;e&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+            &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"invalid state in hash"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+            &lt;span class="nx"&gt;state&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;defaultState&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+        &lt;span class="p"&gt;}&lt;/span&gt;
+        &lt;span class="nx"&gt;applyState&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="nx"&gt;state&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;defaultState&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+        &lt;span class="nx"&gt;applyState&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+
+&lt;span class="nx"&gt;restoreInitialState&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt; &lt;span class="c1"&gt;// to restore state from bookmark or link at page load&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h1&gt;Mises à jour&lt;/h1&gt;
+&lt;p&gt;Lorsqu'un ticket est modifié coté Sourceforge il faut mettre à jour le document correspondant dans Kinto.
+Je le fais via un programme coté serveur. &lt;/p&gt;
+&lt;h2&gt;updater.py&lt;/h2&gt;
+&lt;p&gt;Il n'est pas possible d'obtenir les modifications de tickets Sourceforge en temps réel via les technologies web.&lt;/p&gt;
+&lt;p&gt;Quelques idées pour les obtenir :&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;interroger périodiquement le flux RSS de chaque tracker (limité à 10 tickets donc on peut rater des mises à
+ jour si le script ne s'exécute pas pendant un moment) ;&lt;/li&gt;
+&lt;li&gt;interroger périodiquement l'API REST de chaque tracker, en demandant les tickets modifiés depuis la dernière
+ fois (délai &amp;lt; période de polling) ;&lt;/li&gt;
+&lt;li&gt;s'abonner à la mailing list jedit-devel et les récupérer avec un client pop3 (délai &amp;lt; 1 minute).&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;J'ai choisi la solution 2. Le script
+&lt;a href="https://github.com/elelay/jedit-trackers-kinto/blob/master/updater.py"&gt;updater.py&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;récupère la liste des trackers chez Sourceforge,&lt;/li&gt;
+&lt;li&gt;récupère de kinto la date de dernière mise à jour (document dans une collection &lt;code&gt;updater&lt;/code&gt;),&lt;/li&gt;
+&lt;li&gt;interroge Sourceforge sur les tickets modifiés depuis cette date,&lt;/li&gt;
+&lt;li&gt;pousse les mises à jour dans les collections &lt;code&gt;tickets&lt;/code&gt; et &lt;code&gt;oldTickets&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Les tickets sont déjà en JSON, avec un minimum de mapping à faire (récupérer les commentaires via une seconde requête
+à Sourceforge).&lt;/p&gt;
+&lt;h2&gt;Notifications client&lt;/h2&gt;
+&lt;p&gt;Kinto semble disposer d'un mécanisme de notification via
+&lt;a href="http://kinto.readthedocs.io/en/latest/tutorials/notifications-websockets.html"&gt;websockets&lt;/a&gt; mais je ne l'ai pas exploré.&lt;/p&gt;
+&lt;p&gt;Les clients interrogent le serveur kinto pour les nouveaux tickets toutes les minutes. Lorsqu'il y en a, une
+notification proposant de synchroniser la base s'affiche en haut à droite de l'application.&lt;/p&gt;
+&lt;p&gt;Suite à la synchronisation, je mets à jour l'index lunr avec les documents modifiés/ajoutés/supprimés (&lt;code&gt;index.add(document)&lt;/code&gt;, &lt;code&gt;index.remove(document)&lt;/code&gt;).&lt;/p&gt;
+&lt;p&gt;Les compteurs de tickets affichés sur les boutons (ratés, bugs ouverts) sont aussi recalculés à cette occasion
+et stockés dans une collection client. S'il n'y a pas de suppressions, je peux les mettre à jour incrémentalement,
+sinon, il faut re-parcourir la collection pour les calculer.&lt;/p&gt;
+&lt;h1&gt;Conclusion&lt;/h1&gt;
+&lt;h2&gt;Ai-je bien fait d'essayer Kinto ?&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Oui, certainement&lt;/strong&gt;. C'est une bonne plateforme pour mon application. Ce n'est cependant pas une solution clé en main
+comme &lt;a href="https://www.meteor.com/"&gt;meteor&lt;/a&gt;. Il faut donc l'associer à d'autres librairies pour avoir une application complète.
+D'un autre coté, le déploiement est simple et le déroulement du programme est facile à suivre.&lt;/p&gt;
+&lt;p&gt;Les performances sont correctes (l'import batch des 8000 tickets fait tourner mon petit serveur pendant 5 minutes)
+et le système est ouvert.&lt;/p&gt;
+&lt;p&gt;Je me suis un peu compliqué la vie en séparant les tickets en deux collections, mais ne charger que les tickets récents
+allège vraiment l'application.&lt;/p&gt;
+&lt;h2&gt;Amélioration prévues&lt;/h2&gt;
+&lt;p&gt;J'ai passé 3 semaines à explorer Kinto et il reste encore des choses à tester. Je suis également loin d'une application terminée.&lt;/p&gt;
+&lt;p&gt;Quelques pistes :&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Modifications des tickets&lt;/strong&gt;&lt;br/&gt;
+Je voudrais qu'on puisse modifier les tickets depuis l'application, plutôt que de renvoyer vers Sourceforge.
+Les modifications pourraient être temporairement stockées dans kinto.js en attente de réseau.&lt;/p&gt;
+&lt;p&gt;La voie est libre depuis la correction d'un &lt;a href="https://sourceforge.net/p/forge/site-support/13403/"&gt;petit bug&lt;/a&gt;
+qui empêchait d'interroger l'API Sourceforge en CORS depuis la France, mais ça représente pas mal de code pour
+l'interface utilisateur. J'explorerai &lt;a href="https://github.com/Kinto/formbuilder"&gt;FormBuilder&lt;/a&gt; avant de coder ma
+propre solution. Sans aller jusque là, il pourrait être intéressant de permettre aux utilisateurs de tagger, mettre en
+favoris, suivre, certains tickets (stockage dans kinto).&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Interface Utilisateur&lt;/strong&gt;
+L'interface est largement améliorable. J'envisage également de restructurer le code en m'appuyant sur react, vu qu'il existe
+du &lt;a href="https://github.com/Kinto/kinto-react-boilerplate"&gt;boilerplate&lt;/a&gt; et &lt;a href="https://github.com/Kinto/kinto-admin"&gt;kinto-admin&lt;/a&gt;
+comme source d'inspiration.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Pièces jointes&lt;/strong&gt;
+Tous les tickets sont accessibles hors-ligne, mais pas les pièces-jointes (comme le log contenant la
+trace d'exécution permettant de comprendre le bug). Nous ne sommes donc pas encore à du 100% hors-ligne. J'aimerai
+distribuer ces pièces-jointes, peut-être avec le mécanisme
+d'&lt;a href="http://www.servicedenuages.fr/kinto-file-attachment"&gt;Attachments&lt;/a&gt; de kinto. Les pièces-jointes des tickets récents font 10Mo,
+celles des anciens tickets 18Mo : ça semble donc faisable.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Recherche texte libre&lt;/strong&gt;
+Je n'utilise lunr.js que de manière très basique : indexation du titre et de la description. Mais l'index est
+déjà très gros et lent à (dé)sérialiser depuis IndexedDB. J'hésite entre l'enrichir, permettant une recherche sur &lt;a href="https://github.com/olivernn/lunr.js/issues/125"&gt;tous
+les champs&lt;/a&gt; ou définir mon langage de requête et jouer sur des index que
+je maintiendrai moi-même.&lt;/p&gt;
+&lt;p&gt;L'indexation pourrait se faire dans un WebWorker, pour ne pas bloquer l'application.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Performances&lt;/strong&gt;
+Les tickets pourraient être indexés par numéro (ils ne sont pas uniques au sein d'un projet, mais au sein d'un tracker) pour accélérer
+ce type de recherche. De même, indexer par les autres critères de recherche prédéfinis accélèrerait les choses.&lt;/p&gt;
+&lt;p&gt;Je peux gérer des index manuels (un document par index, contenant un objet associant chaque valeur possible de la clé
+à un tableau d'id). Alors, rechercher tous les bugs ouverts reviendrait à &lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nx"&gt;indexes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"bug"&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;resInd&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+    &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;ind&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;resInd&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// ind = { open : ["id1", "id2", ...], ...}&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;Promise&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;all&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nx"&gt;ind&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;open&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;bind&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+                  &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;multiRes&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+                      &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;multiRes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;;})&lt;/span&gt;
+                  &lt;span class="p"&gt;});&lt;/span&gt;
+&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;h2&gt;Merci !&lt;/h2&gt;
+&lt;p&gt;Je tiens à remercier l'équipe travaillant autour de Kinto pour leur gentillesse
+et leur ouverture : accessibles sur IRC (#kinto) et Slack, ils encouragent la création de tickets, de PR.
+De nombreuses sont même acceptées ;-)&lt;/p&gt;
+&lt;p&gt;Le code est disponible sur github: &lt;a href="https://github.com/elelay/jedit-trackers-kinto"&gt;elelay/jedit-trackers-kinto&lt;/a&gt;.&lt;br/&gt;
+Il tourne sur &lt;a href="http://trackers.elelay.fr/trackers.html"&gt;trackers.elelay.fr&lt;/a&gt;.&lt;br/&gt;
+Vos retours sont les bienvenus via IRC (elelay) — Issues et PR, sait-on jamais...&lt;/p&gt;
+&lt;!-- :wrap=hard:noTabs=true:tabSize=4:indentSize=4: --&gt;</summary><category term="mozilla"></category></entry><entry><title>The hard promise of self-hosting</title><link href="http://www.servicedenuages.fr/en/self-hosting-a-hard-promise" rel="alternate"></link><published>2015-12-22T00:00:00+01:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-22:en/self-hosting-a-hard-promise</id><summary type="html">&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;This article was translated by &lt;a class="reference external" href="https://notmyidea.org"&gt;Alexis Métaireau&lt;/a&gt;,
 on a train between Rennes and Paris.&lt;/p&gt;
