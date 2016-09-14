@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<rss version="2.0"><channel><title>Service de nuages</title><link>http://www.servicedenuages.fr/en/</link><description></description><lastBuildDate>Fri, 09 Sep 2016 00:00:00 +0200</lastBuildDate><item><title>jEdit bugs: Getting off the Ground with Kinto and Kinto.js</title><link>http://www.servicedenuages.fr/en/jedit-bugs-getting-off-the-ground</link><description>&lt;h1&gt;jEdit bugs: Getting off the Ground with Kinto and Kinto.js&lt;/h1&gt;
-&lt;p&gt;This is a guest post by &lt;a href="https://github.com/elelay"&gt;Eric Le Lay&lt;/a&gt; on his experience using Kinto.&lt;/p&gt;
+<rss version="2.0"><channel><title>Service de nuages</title><link>http://www.servicedenuages.fr/en/</link><description></description><lastBuildDate>Fri, 09 Sep 2016 00:00:00 +0200</lastBuildDate><item><title>jEdit bugs: Getting off the Ground with Kinto and Kinto.js</title><link>http://www.servicedenuages.fr/en/jedit-bugs-getting-off-the-ground</link><description>&lt;p&gt;This is a guest post by &lt;a href="https://github.com/elelay"&gt;Eric Le Lay&lt;/a&gt; on his experience using Kinto.&lt;/p&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;Have you heard of &lt;a href="http://jedit.org"&gt;jEdit&lt;/a&gt; — the &lt;em&gt;programmer's text editor&lt;/em&gt;?&lt;br/&gt;
 It's a multi-platform text editor, written in Java, with a myriad of plugins.
