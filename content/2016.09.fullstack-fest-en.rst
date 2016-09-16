@@ -1,6 +1,7 @@
 I had the chance to go the Fullstack Fest 2016 — thanks Mozilla! — and really enjoyed it!
 
-This blog post is an attempt to give you a summary and some feedback of what happened this 4+1 days conference!
+This blog post is an attempt to give you a summary and some feedback of what happened during this 4+1 days conference!
+
 
 Huge applause!
 ==============
@@ -11,7 +12,10 @@ Former RubyCon and FutureJS events were merged into one *fullstack* event, 2 day
 
     Problems of Today, ideas from the future.
 
-I must congratulate the organizers for the choice of speakers and topics. That's a huge challenge to captivate 500 persons during 5 days, and they did really well!
+I must congratulate the organizers for the choice of speakers and topics. That's a huge challenge to captivate 500 persons during 5 days, and they did really well! And also a big up for the captioners!
+
+.. image:: fullstackfest-venue.jpg
+    :align: center
 
 
 Trends
@@ -28,6 +32,9 @@ Trends
 * React
 * Virtual reality
 * Physical Web
+
+.. image:: fullstackfest-trends.jpg
+    :align: center
 
 
 One sentence summaries
@@ -98,46 +105,39 @@ Virtual reality in the browser is here! — `Liv Erickson <https://www.youtube.c
 The physical Web on top of the open Web and will change our lives — `Scott Jenson <https://www.youtube.com/watch?v=gV72mCdomo4&index=34&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Google
 
 
-General thoughts
-================
+Some thoughts
+=============
 
-I felt really concerned by the challenges Joe and Juan raised! The Web of today has too many points of failure, Web engineers are responsible of making it better. For example, 500 attendees cannot collaborate on a document without going through servers outside the room! `Read this page <https://ipfs.io/#why>`_ and you'll realize this is not only about the future!
+I felt really concerned by the challenges Joe and Juan raised! The Web of today has too many points of failure, Web engineers are responsible of making it better. For example, 500 attendees cannot collaborate on a document without going through servers outside the room! My grand-grand-grand children might not be able to find a picture of me on the Web! `But read this page <https://ipfs.io/#why>`_ and you'll realize this is not *only* about the future!
 
-Both frontend and backend talks seem to agree on the fact that REST has strong limitations for high latency connections like on the mobile Web. GraphQL and Falcor seem like good candidates, but remain complementary to our usual CRUD endpoints.
+Both frontend and backend talks seem to agree on the fact that REST has strong limitations for high latency connections like on the mobile Web. GraphQL and Falcor are good candidates today, but will remain complementary to our usual REST/CRUD endpoints.
 
-Functional programming is a thing. Stateless functions scale. Google and Microsoft are following Amazon to provide a platform of nanoservices for which you don't pay when idle, and that scale on trafic peaks. A whole app can be decomposed into functions and triggered using events. Orchestration of those tiny pieces of code is another story (*for a CRUD endpoint, each verb is bound to a function*), but `Serverless <http://blog.serverless.com/defining-serverless/>`_ wants to tackle that.
+Google and Microsoft are following Amazon to provide a platform of nanoservices for which you don't pay when idle, and that scale on trafic peaks. A whole app can be decomposed into functions and design using internal events. Orchestration of those tiny pieces of code is another story (*for a CRUD endpoint, each verb is bound to a function*), but `Serverless <http://blog.serverless.com/defining-serverless/>`_ wants to tackle that.
 
+Functional programming is trendy. Pure (stateless) functions scale because they can be executed anywere without context. Without side effects, it also becomes obvious to test them. They give backend developers some good pattern for highly available services, and provide the necessary constraints for immutability to frontend developers. I believe that if functional programming is not adopted as much as it could, it is not because of the paradigm and concepts, but because of the disconcerting syntax!
 
+Angular/TypeScript was almost absent from the conference, but we could see a trend around typed languages. It really improves developer experience and reduce runtime errors in the end. With projects like Elm, developers feel safe while coding: the compiler is smart and polite, the concept of ``null`` is replaced with a notion of *maybe <type>*.
 
+Everybody seemed to agree that JavaScript transpilation will last for a long time. The language will evolve, and we shouldn't hope for feature freeze. Plus, it really helps developers focus on modern stacks, leveraging modern features. And nowadays it is rather easy to build your app for legacy versions of JavaScript like ES5. But please, it is a bit absurd that modern browsers have to download big bundles of code full of polyfills! It would be a lot nicer if they were delivered to legacy browsers only — `<!--[if IE 10]>` oh yeah :) — or even better: as browser addons :)
 
+The old times where we could inspect the source code of a page ­— and learn from it — is far! It is sad, but we may have to accept it because WebAssembly goes a lot further and ships code that looks closely to assembler! It's far from the Web we know, but it's still the open Web! Note that it is very different from what we knew with Java applets, a WebAssembly function can be called from a usual JS script.
 
-Joe Armstrong gave very nice introductory talk. He reminded us all that we have an amazing amount of power in our computers today, but software is such a crap that it does not run faster than 30 years ago :) I really liked his vision on the future, where computer are ubiquituous and data kept under control.
-
-
-Random links
-============
-
-*
-
-Let's Restart.network
-
-Backend talks
-
-
+The physical Web is awesome and I'm really excited about this revolution, especially how it could bring a peer-to-peer local Web, using `Web bluetooth <https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API>`_ for example. Scott told me that Mozilla approach with `FlyWeb <https://hacks.mozilla.org/2016/09/flyweb-pure-web-cross-device-interaction/>`_ is slightly different because it goes through Wifi, but both teams are in touch. The physical Web is an open project, and Google is pushing it strongly. I'm bothered by the *URL redirections* strategy though beacause it puts the redirection intermadiary in a very strong position. I believe that Google wants to be that intermediary.
 
 
 Personal feedback
 =================
 
-I never attended a conference that was so close to my flat! 3min walking! It was kind of weird to meet so many IT talents in my neighbourhood! ...and so many floppy disks :)
+I never attended a conference that was so close to my flat! 3min walking! It was kind of weird to meet so many prestigious IT talents in my neighbourhood! ...and so many floppy disks :)
 
-.. fullstackfest-floppydisk.jpg
+.. image:: fullstackfest-floppydisk.jpg
+    :align: center
 
 The venue was great, and very well setup for the show (`see the introductory video clip! <https://www.youtube.com/watch?v=vxMASndC3k4&index=1&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_). The coffee was not so good though.
 
-I really enjoyed the fact that there was one track only. I never had to divide myself between two interesting talks, and could just sit and enjoy :)
+I really enjoyed the fact that there was only **one track**. I never had to divide myself between two interesting talks, and could just sit and enjoy :)
 
-Almost every topic resonated with the challenges we face at work. We are one of the few teams at Mozilla that do both backend and frontend. We implemented some `Amazon lambda <https://amo2kinto-lambda.readthedocs.io>`_ recently, and we are well aware of the frontend architecture challenges through our `Kinto-admin <https://github.com/Kinto/kinto-admin>`_. I wish my teammates were with me!
+Almost every topic resonated with the challenges we face at work. We are one of the few teams at Mozilla that do both backend and frontend, and that's awesome to feel in the same boat as the whole room of attendees. For example, we implemented some `Amazon lambda <https://amo2kinto-lambda.readthedocs.io>`_ recently, we are well aware of the frontend architecture challenges through our `Kinto-admin <https://github.com/Kinto/kinto-admin>`_, Ethan has a functional programming background in Haskell, and Nico and Mathieu `are playing with Elm <https://github.com/n1k0/kinto-elm-experiments>`_. That's why I strongly regretted that my teammates were not with me!
 
 Also, I had the opportunity to meet Luca and Anthony from the Kuzzle team! We had a lot of fun together and our conversations about generic reusable backends were sooner insightful — c.f. `post on kinto ML <https://mail.mozilla.org/pipermail/kinto/2016-September/000197.html>`_.
 
