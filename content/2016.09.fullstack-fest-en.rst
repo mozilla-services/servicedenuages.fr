@@ -15,6 +15,7 @@ Former RubyCon and FutureJS events were merged into one *fullstack* event, 2 day
 I must congratulate the organizers for the choice of speakers and topics. That's a huge challenge to captivate 500 persons during 5 days, and they did really well! And also a big up for the captioners!
 
 .. image:: fullstackfest-venue.jpg
+    :alt: CC-BY @fullstackfest
     :align: center
 
 
@@ -27,13 +28,14 @@ Trends
 * Criticism of microservices
 * Offline / high latency / decentralized Web
 * Functional programming
-* Machine learning
+* Reactive programming
 * Immutability
-* React
+* Machine learning
 * Virtual reality
 * Physical Web
 
 .. image:: fullstackfest-trends.jpg
+    :alt: CC-BY @fullstackfest
     :align: center
 
 
@@ -72,6 +74,10 @@ Enable GraphQL on your API and rely on smart clients to do the hard work of quer
 
 Some insights about recommendation engines and machine learning techniques — `Brian Sam-Bodden <https://www.youtube.com/watch?v=SRnM_P_ygqI&index=17&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Integrallis
 
+.. image:: fullstackfest-talks.jpg
+    :alt: CC-BY @fullstackfest
+    :align: center
+
 Immutable UIs makes it simpler to improve durability, utility and beauty in your software architecture — `Lee Byron <https://www.youtube.com/watch?v=pLvrZPSzHxo&index=18&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Facebook, author of Immutable.js
 
 Elm applications have no runtime errors — `Jack Franklin <https://www.youtube.com/watch?v=rDQ22Yg3Fms&index=19&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Songkick
@@ -82,7 +88,7 @@ PostCSS and CSS modules are really helpful for building a libray of UI component
 
 At last we have proper grids with CSS4 — `Jen Kramer <https://www.youtube.com/watch?v=axVw1Zduqn0&index=22&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Hardvard University
 
-Web apps have views, business logic and persistence, and everything is about improving the developer experience — `Luca Marchesini <https://www.youtube.com/watch?v=wtURpqTgtUs&index=23&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Kuzzle
+Evolution of Web apps which now have views, business logic and persistence, everything has been about improving the developer experience — `Luca Marchesini <https://www.youtube.com/watch?v=wtURpqTgtUs&index=23&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Kuzzle
 
 Om Next leverages Clojure to bring conventions for data immutability, data specifications and data routing — `António Nuno Monteiro <https://www.youtube.com/watch?v=Zb18iPjDgwM&index=24&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Technische Universität Dresden
 
@@ -110,15 +116,24 @@ Some thoughts
 
 I felt really concerned by the challenges Joe and Juan raised! The Web of today has too many points of failure, Web engineers are responsible of making it better. For example, 500 attendees cannot collaborate on a document without going through servers outside the room! My grand-grand-grand children might not be able to find a picture of me on the Web! `But read this page <https://ipfs.io/#why>`_ and you'll realize this is not *only* about the future!
 
+    You are cyberwizards! Juan Benet
+
 Both frontend and backend talks seem to agree on the fact that REST has strong limitations for high latency connections like on the mobile Web. GraphQL and Falcor are good candidates today, but will remain complementary to our usual REST/CRUD endpoints.
 
 Google and Microsoft are following Amazon to provide a platform of nanoservices for which you don't pay when idle, and that scale on trafic peaks. A whole app can be decomposed into functions and design using internal events. Orchestration of those tiny pieces of code is another story (*for a CRUD endpoint, each verb is bound to a function*), but `Serverless <http://blog.serverless.com/defining-serverless/>`_ wants to tackle that.
+
+
+.. image:: fullstackfest-vr.jpg
+    :alt: CC-BY @fullstackfest
+    :align: center
+
+    There is no architecture nirvana! Lee Byron
 
 Functional programming is trendy. Pure (stateless) functions scale because they can be executed anywere without context. Without side effects, it also becomes obvious to test them. They give backend developers some good pattern for highly available services, and provide the necessary constraints for immutability to frontend developers. I believe that if functional programming is not adopted as much as it could, it is not because of the paradigm and concepts, but because of the disconcerting syntax!
 
 Angular/TypeScript was almost absent from the conference, but we could see a trend around typed languages. It really improves developer experience and reduce runtime errors in the end. With projects like Elm, developers feel safe while coding: the compiler is smart and polite, the concept of ``null`` is replaced with a notion of *maybe <type>*.
 
-Everybody seemed to agree that JavaScript transpilation will last for a long time. The language will evolve, and we shouldn't hope for feature freeze. Plus, it really helps developers focus on modern stacks, leveraging modern features. And nowadays it is rather easy to build your app for legacy versions of JavaScript like ES5. But please, it is a bit absurd that modern browsers have to download big bundles of code full of polyfills! It would be a lot nicer if they were delivered to legacy browsers only — `<!--[if IE 10]>` oh yeah :) — or even better: as browser addons :)
+Everybody seemed to agree that JavaScript transpilation will last for a long time. The language will evolve, and we shouldn't hope for feature freeze. Plus, it really helps developers focus on modern stacks, leveraging modern features like `cancelable promises <https://github.com/tc39/proposal-cancelable-promises>`_. And nowadays it is rather easy to build your app for legacy versions of JavaScript like ES5. But please, it is a bit absurd that modern browsers have to download big bundles of code full of polyfills! It would be a lot nicer if they were delivered to legacy browsers only — `<!--[if IE 10]>` oh yeah :) — or even better: as browser addons :)
 
 The old times where we could inspect the source code of a page ­— and learn from it — is far! It is sad, but we may have to accept it because WebAssembly goes a lot further and ships code that looks closely to assembler! It's far from the Web we know, but it's still the open Web! Note that it is very different from what we knew with Java applets, a WebAssembly function can be called from a usual JS script.
 
@@ -131,6 +146,7 @@ Personal feedback
 I never attended a conference that was so close to my flat! 3min walking! It was kind of weird to meet so many prestigious IT talents in my neighbourhood! ...and so many floppy disks :)
 
 .. image:: fullstackfest-floppydisk.jpg
+    :alt: CC-BY @fullstackfest
     :align: center
 
 The venue was great, and very well setup for the show (`see the introductory video clip! <https://www.youtube.com/watch?v=vxMASndC3k4&index=1&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_). The coffee was not so good though.
@@ -142,3 +158,29 @@ Almost every topic resonated with the challenges we face at work. We are one of 
 Also, I had the opportunity to meet Luca and Anthony from the Kuzzle team! We had a lot of fun together and our conversations about generic reusable backends were sooner insightful — c.f. `post on kinto ML <https://mail.mozilla.org/pipermail/kinto/2016-September/000197.html>`_.
 
 Last, but not least, I would like to thank Pusher.com for organizing a hack contest using their API! They had a physical button in their booth, and I made a kind-of video booth that records the webcam when the button is pressed. I could not have won this BB8 droid without `Soledad insights on MozillaHacks <https://hacks.mozilla.org/2016/04/record-almost-everything-in-the-browser-with-mediarecorder/>`_, and I thank her again :)
+
+.. image:: fullstackfest-contest.jpg
+    :align: center
+
+
+Some links
+==========
+
+* https://www.kontena.io: open source containers platform. The features are really really attractive!
+* http://toxiproxy.io: a proxy to simulate network and system conditions
+* https://openresty.org: REST via Lua in Nginx
+* `Gossip/epidemic protocols <https://en.wikipedia.org/wiki/Gossip_protocol>`_ to invalidate cache
+* Challenge unikernel security with the `Bitcoin piñata <http://amirchaudhry.com/bitcoin-pinata>`_
+* Solve deterministic problems with randomness using `the Monte Carlo method <https://en.wikipedia.org/wiki/Monte_Carlo_method>`_
+* Decision tree learning with `random forests <https://en.wikipedia.org/wiki/Random_forest>`_
+* Attack systems with `fork bombs <https://en.wikipedia.org/wiki/Fork_bomb>`_
+* The $10 million australian #censusfail `rebuilt for $500 using AWS Lambda <http://eftm.com.au/2016/08/how-two-uni-students-built-a-better-census-site-in-just-54-hours-for-500-30752>`_
+* Clean natural language with `CoreNLP <https://stanfordnlp.github.io/CoreNLP/>`_
+* https://howdy.ai: trainable bot for Slack
+* https://openbazaar.org: A free market for all, no fees, no restrictions
+* http://www.apollostack.com: everything you need to start using GraphQL
+* `The paradox of choice <https://www.ted.com/talks/barry_schwartz_on_the_paradox_of_choice?language=en>`_
+* `19 Open Source React Component Libraries to use in your next project <http://davidwells.io/19-open-source-react-component-libraries-to-use-in-your-next-project/>`_
+* `react-monocle <https://github.com/team-gryff/react-monocle>`_: A developer tool to visualize a React application's component hierarchy
+* https://hyperdev.com: A fullstack JSBin
+* http://ux.mulesoft.com: MuleSoft components library
