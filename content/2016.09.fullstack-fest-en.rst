@@ -15,13 +15,13 @@ This blog post is an attempt to give you a summary and some feedback of what hap
 Huge applause!
 ==============
 
-The `Codegram team <http://www.codegram.com>`_ did really really well! They raised the bar for tech conferences, every feedback I heard was extremely positive! Plus, Barcelona is a pleasant destination :)
+The `Codegram team <http://www.codegram.com>`_ did really really well! They raised the bar for tech conferences; all the feedback I heard was extremely positive! Plus, Barcelona is a pleasant destination :)
 
 Former *RubyCon* and *FutureJS* events were merged into one *fullstack* event, 2 days of backend talks, 1 gap day with social activites, and 2 days of frontend talks.
 
-    Problems of Today, ideas from the future.
+    Problems of Today, ideas from the future. — FullstackFest motto
 
-I must congratulate the organizers for the choice of speakers and topics. That's a huge challenge to captivate 500 persons during 5 days, and they did really well! And also a big up for the impressive performance of the captioners!
+I must congratulate the organizers for the choice of speakers and topics. It's a huge challenge to captivate 500 persons during 5 days, and they did really well! And also a big up for the impressive performance of the captioners!
 
 .. image:: {filename}/images/fullstackfest-venue.jpg
     :alt: CC-BY @fullstackfest
@@ -57,17 +57,17 @@ One sentence summaries
 
 - Scale using «pods»: deploy several isolated stacks of your multitenant app ­— `Simon Eskildsen <https://www.youtube.com/watch?v=7UyDK2bDjc4&index=3&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Shopify
 
-- Academical theory can help when designing distributed systems with high availability — `Ines Sombra <https://www.youtube.com/watch?v=bUlpp8_Mevk&index=4&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Fastly
+- Theorical knowledge can help when designing distributed systems with high availability — `Ines Sombra <https://www.youtube.com/watch?v=bUlpp8_Mevk&index=4&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Fastly
 
 - Improve efficiency and security using a unikernel: a kernel whose components are built specifically for your app — `Amir Chaudhry <https://www.youtube.com/watch?v=XNu2lze6jS0&index=5&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Docker Inc
 
 - Instead of making X faster, do less of X ­— `Tobias Pfeiffer <https://www.youtube.com/watch?v=b9H9AtbxpPM&index=6&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Bitcrowd
 
-- Docker containers are secure, as much as your best practices — `Ben Hall <https://www.youtube.com/watch?v=oANurUSaOFs&index=7&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, http://katacoda.com
+- Docker containers are only as secure as your best practices — `Ben Hall <https://www.youtube.com/watch?v=oANurUSaOFs&index=7&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, http://katacoda.com
 
 - Elixir provides high level abstractions that make Erlang awesome — `Saša Jurić <https://www.youtube.com/watch?v=Ba3aCm3A0o8&index=8&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Aircloak
 
-- Unison is an experiment to bring a new programming paradigm focused on distributed computing and persistence — `Paul Chiusano <https://www.youtube.com/watch?v=f6yA3t0dO-k&index=10&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Stage N
+- Unison is an experiment to come up with a new programming paradigm focused on distributed computing and persistence — `Paul Chiusano <https://www.youtube.com/watch?v=f6yA3t0dO-k&index=10&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Stage N
 
 - HTTP2 reduces latency. It's here, use it with a one liner in your server configuration — `Ole Michaelis <https://www.youtube.com/watch?v=CThgMRXS8w8&index=11&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Jimdo
 
@@ -87,7 +87,7 @@ One sentence summaries
     :alt: CC-BY @fullstackfest
     :align: center
 
-- Immutable UIs makes it simpler to improve durability, utility and beauty in your software architecture — `Lee Byron <https://www.youtube.com/watch?v=pLvrZPSzHxo&index=18&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Facebook, author of Immutable.js
+- Immutable UIs make it simpler to improve durability, utility and beauty in your software architecture — `Lee Byron <https://www.youtube.com/watch?v=pLvrZPSzHxo&index=18&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Facebook, author of Immutable.js
 
 - Elm applications have no runtime errors — `Jack Franklin <https://www.youtube.com/watch?v=rDQ22Yg3Fms&index=19&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Songkick
 
@@ -97,7 +97,7 @@ One sentence summaries
 
 - At last we have proper grids with CSS4 — `Jen Kramer <https://www.youtube.com/watch?v=axVw1Zduqn0&index=22&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Hardvard University
 
-- Evolution of Web apps which now have views, business logic and persistence, everything has been about improving the developer experience — `Luca Marchesini <https://www.youtube.com/watch?v=wtURpqTgtUs&index=23&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Kuzzle
+- Evolution of Web apps which now have views, business logic and persistence — `Luca Marchesini <https://www.youtube.com/watch?v=wtURpqTgtUs&index=23&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Kuzzle
 
 - Om Next leverages Clojure to bring conventions for data immutability, data specifications and data routing — `António Nuno Monteiro <https://www.youtube.com/watch?v=Zb18iPjDgwM&index=24&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Technische Universität Dresden
 
