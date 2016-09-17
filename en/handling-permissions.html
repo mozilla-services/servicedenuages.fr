@@ -115,7 +115,7 @@ acces rights to a person or a group.</p>
 <p class="attribution">—<a class="reference external" href="https://en.wikipedia.org/wiki/Access_Control_List">https://en.wikipedia.org/wiki/Access_Control_List</a></p>
 </blockquote>
 <p>I would even say, in our case, "to a <em>principal</em>". For instance:</p>
-<div class="highlight"><pre><span></span>create_record: alexis,remy,tarek
+<div class="highlight"><pre>create_record: alexis,remy,tarek
 </pre></div>
 <p>This ACE gives the <tt class="docutils literal">create</tt> permission on the <tt class="docutils literal">record</tt> object to the users
 Tarek, Rémy and Alexis.</p>
@@ -201,7 +201,7 @@ in different <em>buckets</em> so that data are distinct.</td>
 </table>
 <p>To define ACLs, there is a hierarchy: objects inherit the ACLs from their
 parents.</p>
-<div class="highlight"><pre><span></span>           +---------------+
+<div class="highlight"><pre>           +---------------+
            | Bucket        |
            +---------------+
     +-----&gt;+ - id          +&lt;---+
@@ -547,7 +547,7 @@ default and some pages can be published:</p>
 <h3>The HTTP API</h3>
 <p>During the creation of an object, the user is given the <tt class="docutils literal">write</tt> permission on
 the object:</p>
-<div class="highlight"><pre><span></span><span class="nf">PUT</span> <span class="nn">/v1/buckets/servicedenuages_blog</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="highlight"><pre><span class="nf">PUT</span> <span class="nn">/v1/buckets/servicedenuages_blog</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer 0b9c2625dc21ef05f6ad4ddf47c5f203837aa32ca42fced54c2625dc21efac32</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
 
@@ -562,7 +562,7 @@ Content-Type: application/json; charset=utf-8
 }
 </pre></div>
 <p>It's possible to add permissions using the <tt class="docutils literal">PATCH</tt> HTTP method.</p>
-<div class="highlight"><pre><span></span><span class="nf">PATCH</span> <span class="nn">/v1/buckets/servicedenuages_blog/collections/articles</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="highlight"><pre><span class="nf">PATCH</span> <span class="nn">/v1/buckets/servicedenuages_blog/collections/articles</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer 0b9c2625dc21ef05f6ad4ddf47c5f203837aa32ca42fced54c2625dc21efac32</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
 
@@ -605,7 +605,7 @@ specific location, using <tt class="docutils literal">~</tt>.</p>
 a shortcut to reference the <em>personal</em> bucket of the user:
 <tt class="docutils literal">/buckets/personal/collections/contacts</tt>.</p>
 <p>This URL will return a <tt class="docutils literal">HTTP 307</tt> to the current user <em>bucket</em>.</p>
-<div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/v1/buckets/personal/collections/contacts/records</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/v1/buckets/personal/collections/contacts/records</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 
 {
    "name": "Rémy",

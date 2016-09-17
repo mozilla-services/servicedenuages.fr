@@ -56,17 +56,17 @@ cryptographie.</p>
 gérer pour vous la génération de la CSR, la vérification auprès de
 letsencrypt et l'installation du certificat.</p>
 <p><a href="https://letsencrypt.org/howitworks/#installing-lets-encrypt">Comme expliqué sur le site de letsencrypt :</a></p>
-<div class="highlight"><pre><span></span>$ git clone https://github.com/letsencrypt/letsencrypt
-$ <span class="nb">cd</span> letsencrypt
+<div class="highlight"><pre><span class="nv">$ </span>git clone https://github.com/letsencrypt/letsencrypt
+<span class="nv">$ </span><span class="nb">cd </span>letsencrypt
 </pre></div>
 <h1>Serveur dédié</h1>
 <p>Si vous avez la chance d'avoir un serveur dédié, c'est complètement
 automatique et il vous suffit de lancer le script avec les bonnes options:</p>
 <p>Avec Apache c'est automatique :</p>
-<div class="highlight"><pre><span></span>$ ./letsencrypt-auto --apache -d example.com -d www.example.com
+<div class="highlight"><pre><span class="nv">$ </span>./letsencrypt-auto --apache -d example.com -d www.example.com
 </pre></div>
 <p>Pour les autres, la génération du certificat peut se faire comme cela :</p>
-<div class="highlight"><pre><span></span>$ ./letsencrypt-auto certonly --webroot -w /var/www/example -d example.com -d www.example.com
+<div class="highlight"><pre><span class="nv">$ </span>./letsencrypt-auto certonly --webroot -w /var/www/example -d example.com -d www.example.com
 </pre></div>
 <p>Où <code>/var/www/example</code> est le répertoire servant les fichiers sur le domaine <code>example.com</code>.</p>
 <p>Il faudra ensuite consulter la documentation de votre serveur HTTP
@@ -87,7 +87,7 @@ certificat.</p>
 <li>Puis générer et configurer notre certificat SSL.</li>
 </ul>
 <h2>Lancer le script localement</h2>
-<div class="highlight"><pre><span></span>$ ./letsencrypt-auto certonly --manual -d mondomaine.fr -d www.mondomaine.fr
+<div class="highlight"><pre><span class="nv">$ </span>./letsencrypt-auto certonly --manual -d mondomaine.fr -d www.mondomaine.fr
 </pre></div>
 <h2>Mettre en ligne la preuve de possession du nom de domaine</h2>
 <p>En utilisant votre client FTP vous pouvez:</p>
@@ -96,12 +96,12 @@ certificat.</p>
 <li>Créez le fichier dont le nom et le contenu vous est donné.</li>
 </ul>
 <p>Par exemple:</p>
-<div class="highlight"><pre><span></span>$ mkdir .well-known/acme-challenge/
-$ cat &gt; .well-known/acme-challenge/1ni92R95ooeCPOcRhVXYSF1HXVfdS61uWMlMjQXOQns
+<div class="highlight"><pre><span class="nv">$ </span>mkdir .well-known/acme-challenge/
+<span class="nv">$ </span>cat &gt; .well-known/acme-challenge/1ni92R95ooeCPOcRhVXYSF1HXVfdS61uWMlMjQXOQns
 1ni92R95ooeCPOcRhVXYSF1HXVfdS61uWMlMjQXOQns.MJvFiRCK_M0WiBPW19A7VQekVtY5sSojwa44TFcaUAw
 </pre></div>
 <p>Vérifiez que vous pouvez bien accéder au lien qui vous est donné :</p>
-<div class="highlight"><pre><span></span>https://www.mondomaine.com/.well-known/acme-challenge/1ni92R95ooeCPOcRhVXYSF1HXVfdS61uWMlMjQXOQns
+<div class="highlight"><pre>https://www.mondomaine.com/.well-known/acme-challenge/1ni92R95ooeCPOcRhVXYSF1HXVfdS61uWMlMjQXOQns
 </pre></div>
 <p>Ensuite appuyez sur <em>Entrée</em></p>
 <h2>Mettrez en ligne votre certificat</h2>
@@ -117,7 +117,7 @@ votre script et mettre à jour le certificat.</p>
 <p>Les fichiers <code>fullchain.pem</code> et <code>privkey.pem</code> resteront inchangés mais
 le fichier <code>cert.pem</code> doit être mis à jour.</p>
 <p>Pour se faire relancer la commande sur le même ordinateur:</p>
-<div class="highlight"><pre><span></span>$ ./letsencrypt-auto certonly --manual -d mondomaine.fr -d www.mondomaine.fr
+<div class="highlight"><pre><span class="nv">$ </span>./letsencrypt-auto certonly --manual -d mondomaine.fr -d www.mondomaine.fr
 </pre></div>
 <p>Un écran s'affiche vous proposant de renouveler le certificat.</p>
 <p>Suivez la procédure et mettez à jour le certificat dans l'interface de

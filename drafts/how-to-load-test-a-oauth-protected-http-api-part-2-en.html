@@ -69,7 +69,7 @@ can also be used with the <a class="reference external" href="http://httpie.org"
 <p>With this plugin, we can provide our user credentials and a valid
 Bearer Token will be built for our request.</p>
 <p>Here is what it looks like with HTTPie.</p>
-<div class="highlight"><pre><span></span>http https://profile.accounts.firefox.com/v1/profile <span class="se">\</span>
+<div class="highlight"><pre>http https://profile.accounts.firefox.com/v1/profile <span class="se">\</span>
     --auth-type fxa-bearer <span class="se">\</span>
     --auth <span class="s2">"email@domain.tld:password"</span>
 </pre></div>
@@ -81,7 +81,7 @@ to do for the load test setup: generating a Bearer Token for a
 given user.</p>
 <p>We ended-up building a CLI tool called <tt class="docutils literal"><span class="pre">fxa-client</span></tt> that is able to
 generate a BASH file that exports some environment variables:</p>
-<div class="highlight"><pre><span></span>USAGE: fxa-client <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--bearer<span class="o">]</span> <span class="o">[</span>--create-user<span class="o">]</span> <span class="o">[</span>--auth AUTH<span class="o">]</span>
+<div class="highlight"><pre>USAGE: fxa-client <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>--bearer<span class="o">]</span> <span class="o">[</span>--create-user<span class="o">]</span> <span class="o">[</span>--auth AUTH<span class="o">]</span>
                   <span class="o">[</span>--out OUTPUT_FILE<span class="o">]</span> <span class="o">[</span>--verbose<span class="o">]</span> <span class="o">[</span>--user-salt FXA_USER_SALT<span class="o">]</span>
                   <span class="o">[</span>--env <span class="o">{</span>stable,stage,production<span class="o">}]</span>
                   <span class="o">[</span>--user-email-prefix PREFIX<span class="o">]</span> <span class="o">[</span>--account-server ACCOUNT_SERVER_URL<span class="o">]</span>
@@ -90,20 +90,20 @@ generate a BASH file that exports some environment variables:</p>
 </pre></div>
 <p>With this client, instead of building a Bearer Token for the request,
 we can just ask the <tt class="docutils literal"><span class="pre">fxa-client</span></tt> to build one for our load test:</p>
-<div class="highlight"><pre><span></span>fxa-client --auth email@domain.tld --bearer --scopes <span class="s2">"profile"</span>
+<div class="highlight"><pre>fxa-client --auth email@domain.tld --bearer --scopes <span class="s2">"profile"</span>
 
 Please enter a password <span class="k">for</span> email@domain.tld:
-<span class="c1"># ---- BEARER TOKEN INFO ----</span>
-<span class="c1"># User: email@domain.tld</span>
-<span class="c1"># Scopes: profile</span>
-<span class="c1"># Account: https://api-accounts.stage.mozaws.net/v1</span>
-<span class="c1"># Oauth: https://oauth.stage.mozaws.net/v1</span>
-<span class="c1"># Client ID: 5882386c6d801776</span>
-<span class="c1"># ---------------------------</span>
-<span class="nb">export</span> <span class="nv">OAUTH_BEARER_TOKEN</span><span class="o">=</span><span class="s2">"b1d4babc01502fa8d9fc0139757168bf5908f33abc66f46253d4c69468e39373"</span>
+<span class="c"># ---- BEARER TOKEN INFO ----</span>
+<span class="c"># User: email@domain.tld</span>
+<span class="c"># Scopes: profile</span>
+<span class="c"># Account: https://api-accounts.stage.mozaws.net/v1</span>
+<span class="c"># Oauth: https://oauth.stage.mozaws.net/v1</span>
+<span class="c"># Client ID: 5882386c6d801776</span>
+<span class="c"># ---------------------------</span>
+<span class="nb">export </span><span class="nv">OAUTH_BEARER_TOKEN</span><span class="o">=</span><span class="s2">"b1d4babc01502fa8d9fc0139757168bf5908f33abc66f46253d4c69468e39373"</span>
 </pre></div>
 <p>Then we can use this Bearer Token for our request:</p>
-<div class="highlight"><pre><span></span>http https://profile.stage.mozaws.net/v1/profile <span class="se">\</span>
+<div class="highlight"><pre>http https://profile.stage.mozaws.net/v1/profile <span class="se">\</span>
     Authorization:<span class="s2">"Bearer b1d4babc01502fa8d9fc0139757168bf5908f33abc66f46253d4c69468e39373"</span>
 </pre></div>
 </div>
@@ -111,21 +111,21 @@ Please enter a password <span class="k">for</span> email@domain.tld:
 <h3>Using fxa-client to create new test accounts</h3>
 <p>We can also create a random user (on the stage environment only) and
 generate a Bearer Token for it:</p>
-<div class="highlight"><pre><span></span>fxa-client --create-user --bearer --user-email-prefix my-app
+<div class="highlight"><pre>fxa-client --create-user --bearer --user-email-prefix my-app
 
-<span class="c1"># ---- BEARER TOKEN INFO ----</span>
-<span class="c1"># User: my-app-6318a65dde1efc2f4c3f7b4e6cb33188@restmail.net</span>
-<span class="c1"># Scopes: profile</span>
-<span class="c1"># Account: https://api-accounts.stage.mozaws.net/v1</span>
-<span class="c1"># Oauth: https://oauth.stage.mozaws.net/v1</span>
-<span class="c1"># Client ID: 5882386c6d801776</span>
-<span class="c1"># ---------------------------</span>
-<span class="nb">export</span> <span class="nv">OAUTH_BEARER_TOKEN</span><span class="o">=</span><span class="s2">"90abc87ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc"</span>
+<span class="c"># ---- BEARER TOKEN INFO ----</span>
+<span class="c"># User: my-app-6318a65dde1efc2f4c3f7b4e6cb33188@restmail.net</span>
+<span class="c"># Scopes: profile</span>
+<span class="c"># Account: https://api-accounts.stage.mozaws.net/v1</span>
+<span class="c"># Oauth: https://oauth.stage.mozaws.net/v1</span>
+<span class="c"># Client ID: 5882386c6d801776</span>
+<span class="c"># ---------------------------</span>
+<span class="nb">export </span><span class="nv">OAUTH_BEARER_TOKEN</span><span class="o">=</span><span class="s2">"90abc87ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc"</span>
 </pre></div>
 <p>To avoid creating extraneous user accounts, it is possible to specify
 a user salt (as a base64 string) that will always generate the same
 user credentials and recreate the account if needed:</p>
-<div class="highlight"><pre><span></span>fxa-client --create-user --bearer --user-email-prefix my-app --user-salt <span class="nv">MySalt</span><span class="o">==</span>
+<div class="highlight"><pre>fxa-client --create-user --bearer --user-email-prefix my-app --user-salt <span class="nv">MySalt</span><span class="o">==</span>
 </pre></div>
 </div>
 <div class="section" id="using-fxa-client-to-work-with-browserid-assertions">
@@ -135,27 +135,27 @@ user credentials and recreate the account if needed:</p>
 rely on BrowserID assertions for authentication.</p>
 <p>Hopefully <tt class="docutils literal"><span class="pre">fxa-client</span></tt> is able to generate BrowserID assertions too.</p>
 <p>In that case <tt class="docutils literal"><span class="pre">fxa-client</span></tt> provides few specific attributes:</p>
-<div class="highlight"><pre><span></span>optional arguments:
+<div class="highlight"><pre>optional arguments:
   --browserid, --bid    Generate a BrowserID assertion
   --audience AUDIENCE   Firefox BrowserID assertion audience.
   --duration DURATION   Firefox BrowserID assertion duration.
 </pre></div>
 <p>The script works exactly in the same way than the one for Bearer
 Tokens, except it generates a BrowserID assertion instead:</p>
-<div class="highlight"><pre><span></span>fxa-client --create-user --browserid --user-email-prefix my-app <span class="se">\</span>
+<div class="highlight"><pre>fxa-client --create-user --browserid --user-email-prefix my-app <span class="se">\</span>
     --user-salt <span class="nv">MySalt</span><span class="o">==</span> <span class="se">\</span>
     --audience https://loop.stage.mozaws.net
 
-<span class="c1"># ---- BROWSER ID ASSERTION INFO ----</span>
-<span class="c1"># User: my-app-b82d4afaf57cb856ccc04a58a07ce80f@restmail.net</span>
-<span class="c1"># Audience: https://loop.stage.mozaws.net</span>
-<span class="c1"># Account: https://api-accounts.stage.mozaws.net/v1</span>
-<span class="c1"># ------------------------------------</span>
-<span class="nb">export</span> <span class="nv">FXA_BROWSERID_ASSERTION</span><span class="o">=</span><span class="s2">"eyJhbGciOiJSUzI1NiJ9...hIQ9vrkqA"</span>
-<span class="nb">export</span> <span class="nv">FXA_CLIENT_STATE</span><span class="o">=</span><span class="s2">"828aef3bc68ac0bde10f3d4b93303088"</span>
+<span class="c"># ---- BROWSER ID ASSERTION INFO ----</span>
+<span class="c"># User: my-app-b82d4afaf57cb856ccc04a58a07ce80f@restmail.net</span>
+<span class="c"># Audience: https://loop.stage.mozaws.net</span>
+<span class="c"># Account: https://api-accounts.stage.mozaws.net/v1</span>
+<span class="c"># ------------------------------------</span>
+<span class="nb">export </span><span class="nv">FXA_BROWSERID_ASSERTION</span><span class="o">=</span><span class="s2">"eyJhbGciOiJSUzI1NiJ9...hIQ9vrkqA"</span>
+<span class="nb">export </span><span class="nv">FXA_CLIENT_STATE</span><span class="o">=</span><span class="s2">"828aef3bc68ac0bde10f3d4b93303088"</span>
 </pre></div>
 <p>And then the assertion can be used in the Authorization header of the request:</p>
-<div class="highlight"><pre><span></span>http POST https://loop.stage.mozaws.net/v0/registration <span class="se">\</span>
+<div class="highlight"><pre>http POST https://loop.stage.mozaws.net/v0/registration <span class="se">\</span>
     Authorization:<span class="s2">"BrowserID eyJhbGciOiJSUzI1NiJ9...hIQ9vrkqA"</span>
 </pre></div>
 </div>
@@ -168,8 +168,8 @@ we plug that with our load tests?</p>
 the environment variables and then sourcing it in the shell that will
 run the loadtest.</p>
 <p>Something like:</p>
-<div class="highlight"><pre><span></span>fxa-client --create-user --bearer --user-salt <span class="nv">MySalt</span><span class="o">==</span> --out loadtest-fxa-config.sh
-<span class="nb">source</span> loadtest-fxa-config.sh
+<div class="highlight"><pre>fxa-client --create-user --bearer --user-salt <span class="nv">MySalt</span><span class="o">==</span> --out loadtest-fxa-config.sh
+<span class="nb">source </span>loadtest-fxa-config.sh
 docker run -e <span class="nv">OAUTH_BEARER_TOKEN</span><span class="o">=</span><span class="s2">"</span><span class="si">${</span><span class="nv">OAUTH_BEARER_TOKEN</span><span class="si">}</span><span class="s2">"</span> loadtest
 </pre></div>
 <p>After sourcing the <tt class="docutils literal"><span class="pre">loadtest-fxa-config.sh</span></tt> file, the env variables
@@ -181,7 +181,7 @@ needed.</p>
 <p><tt class="docutils literal"><span class="pre">fxa-client</span></tt> have been released in the last release of PyFxA 0.1.0.</p>
 <p>So just install the <a class="reference external" href="https://pypi.python.org/pypi/PyFxA">PyFxA python package</a>
 using pip:</p>
-<div class="highlight"><pre><span></span>pip install -U PyFxA
+<div class="highlight"><pre>pip install -U PyFxA
 </pre></div>
 <div class="section" id="management-firefox-accounts-environments">
 <h3>Management Firefox Accounts environments</h3>
@@ -191,10 +191,10 @@ which default to the stage environment.</p>
 <p>We can find <a class="reference external" href="https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Firefox_Accounts/Introduction#Firefox_Accounts_deployments">all the available environment here</a>.</p>
 <p>However to ease the switch from one to the other we added a <tt class="docutils literal"><span class="pre">--env</span></tt>
 parameter that let you write:</p>
-<div class="highlight"><pre><span></span>fxa-client --bearer --auth email@domain.tld --env production
+<div class="highlight"><pre>fxa-client --bearer --auth email@domain.tld --env production
 </pre></div>
 <p>Rather than:</p>
-<div class="highlight"><pre><span></span>fxa-client --bearer --auth email@domain.tld <span class="se">\</span>
+<div class="highlight"><pre>fxa-client --bearer --auth email@domain.tld <span class="se">\</span>
     --account-server https://api.accounts.firefox.com/v1 <span class="se">\</span>
     --oauth-server https://oauth.accounts.firefox.com/v1
 </pre></div>
@@ -208,17 +208,17 @@ parameter that let you write:</p>
 user, but it would be nice to be able to do so directly with
 <tt class="docutils literal"><span class="pre">fxa-client</span></tt>.</p>
 <p>I was thinking of implementing the following output:</p>
-<div class="highlight"><pre><span></span>fxa-client --create-user --bearer --user-salt <span class="nv">MySalt</span><span class="o">==</span> -n 2
+<div class="highlight"><pre>fxa-client --create-user --bearer --user-salt <span class="nv">MySalt</span><span class="o">==</span> -n 2
 
-<span class="c1"># ---- BEARER TOKEN INFO ----</span>
-<span class="c1"># User1: my-app-1318a65dde1efc2f4c3f7b4e6cb33188@restmail.net</span>
-<span class="c1"># User2: my-app-2318a65dde1efc2f4c3f7b4e6cb33188@restmail.net</span>
-<span class="c1"># Scopes: profile</span>
-<span class="c1"># Account: https://api-accounts.stage.mozaws.net/v1</span>
-<span class="c1"># Oauth: https://oauth.stage.mozaws.net/v1</span>
-<span class="c1"># Client ID: 5882386c6d801776</span>
-<span class="c1"># ---------------------------</span>
-<span class="nb">export</span> <span class="nv">OAUTH_BEARER_TOKEN</span><span class="o">=</span><span class="s2">"90abc87ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc,abc9087ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc"</span>
+<span class="c"># ---- BEARER TOKEN INFO ----</span>
+<span class="c"># User1: my-app-1318a65dde1efc2f4c3f7b4e6cb33188@restmail.net</span>
+<span class="c"># User2: my-app-2318a65dde1efc2f4c3f7b4e6cb33188@restmail.net</span>
+<span class="c"># Scopes: profile</span>
+<span class="c"># Account: https://api-accounts.stage.mozaws.net/v1</span>
+<span class="c"># Oauth: https://oauth.stage.mozaws.net/v1</span>
+<span class="c"># Client ID: 5882386c6d801776</span>
+<span class="c"># ---------------------------</span>
+<span class="nb">export </span><span class="nv">OAUTH_BEARER_TOKEN</span><span class="o">=</span><span class="s2">"90abc87ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc,abc9087ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc"</span>
 </pre></div>
 </div>
 </div>

@@ -1,5 +1,124 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/service-de-nuages.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2016-09-09T00:00:00+02:00</updated><entry><title>jEdit bugs: Getting off the Ground with Kinto and Kinto.js</title><link href="http://www.servicedenuages.fr/en/jedit-bugs-getting-off-the-ground" rel="alternate"></link><published>2016-09-09T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-09-09:en/jedit-bugs-getting-off-the-ground</id><summary type="html">&lt;p&gt;This is a guest post by &lt;a href="https://github.com/elelay"&gt;Eric Le Lay&lt;/a&gt; on his experience using Kinto.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/service-de-nuages.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2016-09-16T00:00:00+02:00</updated><entry><title>FullstackFest 2016</title><link href="http://www.servicedenuages.fr/en/fullstackfest-2016" rel="alternate"></link><updated>2016-09-16T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-09-16:en/fullstackfest-2016</id><summary type="html">&lt;p&gt;I had the chance to go the Fullstack Fest 2016 and really enjoyed it — thanks Mozilla!&lt;/p&gt;
+&lt;p&gt;This blog post is an attempt to give you a summary and some feedback of what happened during this 4+1 days conference!&lt;/p&gt;
+&lt;div class="section" id="huge-applause"&gt;
+&lt;h2&gt;Huge applause!&lt;/h2&gt;
+&lt;p&gt;The &lt;a class="reference external" href="http://www.codegram.com"&gt;Codegram team&lt;/a&gt; did really really well! They raised the bar for tech conferences; all the feedback I heard was extremely positive! Plus, Barcelona is a pleasant destination :)&lt;/p&gt;
+&lt;p&gt;Former &lt;em&gt;RubyCon&lt;/em&gt; and &lt;em&gt;FutureJS&lt;/em&gt; events were merged into one &lt;em&gt;fullstack&lt;/em&gt; event, 2 days of backend talks, 1 gap day with social activites, and 2 days of frontend talks.&lt;/p&gt;
+&lt;blockquote&gt;
+Problems of Today, ideas from the future. — FullstackFest motto&lt;/blockquote&gt;
+&lt;p&gt;I must congratulate the organizers for the choice of speakers and topics. It's a huge challenge to captivate 500 persons during 5 days, and they did really well! And also a big up for the impressive performance of the captioners!&lt;/p&gt;
+&lt;img alt="CC-BY @fullstackfest" class="align-center" src="http://www.servicedenuages.fr/en/../images/fullstackfest-venue.jpg" style="width: 1891px; height: auto; max-width: 100%;"/&gt;
+&lt;/div&gt;
+&lt;div class="section" id="trends"&gt;
+&lt;h2&gt;Trends&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Docker&lt;/li&gt;
+&lt;li&gt;Amazon Lambda&lt;/li&gt;
+&lt;li&gt;GraphQL&lt;/li&gt;
+&lt;li&gt;Criticism of microservices&lt;/li&gt;
+&lt;li&gt;Offline / high latency / decentralized Web&lt;/li&gt;
+&lt;li&gt;Functional programming&lt;/li&gt;
+&lt;li&gt;Reactive programming&lt;/li&gt;
+&lt;li&gt;Immutability&lt;/li&gt;
+&lt;li&gt;Machine learning&lt;/li&gt;
+&lt;li&gt;Virtual reality&lt;/li&gt;
+&lt;li&gt;Physical Web&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img alt="CC-BY @fullstackfest" class="align-center" src="http://www.servicedenuages.fr/en/../images/fullstackfest-trends.jpg" style="width: 1351px; height: auto; max-width: 100%;"/&gt;
+&lt;/div&gt;
+&lt;div class="section" id="one-sentence-summaries"&gt;
+&lt;h2&gt;One sentence summaries&lt;/h2&gt;
+&lt;p&gt;&lt;em&gt;The videos are already online! In order to help you choose which one to watch, here is the shortest summary I could come up with for each talk, videos are linked on authors names:&lt;/em&gt;&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Hardware is amazing, software is crap. Use parallelism and keep your data under your control — &lt;a class="reference external" href="https://www.youtube.com/watch?v=itKFrXghGuA&amp;amp;index=2&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Joe Armstrong&lt;/a&gt;, Erlang's inventor.&lt;/li&gt;
+&lt;li&gt;Scale using «pods»: deploy several isolated stacks of your multitenant app ­— &lt;a class="reference external" href="https://www.youtube.com/watch?v=7UyDK2bDjc4&amp;amp;index=3&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Simon Eskildsen&lt;/a&gt;, Shopify&lt;/li&gt;
+&lt;li&gt;Theorical knowledge can help when designing distributed systems with high availability — &lt;a class="reference external" href="https://www.youtube.com/watch?v=bUlpp8_Mevk&amp;amp;index=4&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Ines Sombra&lt;/a&gt;, Fastly&lt;/li&gt;
+&lt;li&gt;Improve efficiency and security using a unikernel: a kernel whose components are built specifically for your app — &lt;a class="reference external" href="https://www.youtube.com/watch?v=XNu2lze6jS0&amp;amp;index=5&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Amir Chaudhry&lt;/a&gt;, Docker Inc&lt;/li&gt;
+&lt;li&gt;Instead of making X faster, do less of X ­— &lt;a class="reference external" href="https://www.youtube.com/watch?v=b9H9AtbxpPM&amp;amp;index=6&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Tobias Pfeiffer&lt;/a&gt;, Bitcrowd&lt;/li&gt;
+&lt;li&gt;Docker containers are only as secure as your best practices — &lt;a class="reference external" href="https://www.youtube.com/watch?v=oANurUSaOFs&amp;amp;index=7&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Ben Hall&lt;/a&gt;, &lt;a class="reference external" href="http://katacoda.com"&gt;http://katacoda.com&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Elixir provides high level abstractions that make Erlang awesome — &lt;a class="reference external" href="https://www.youtube.com/watch?v=Ba3aCm3A0o8&amp;amp;index=8&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Saša Jurić&lt;/a&gt;, Aircloak&lt;/li&gt;
+&lt;li&gt;Unison is an experiment to come up with a new programming paradigm focused on distributed computing and persistence — &lt;a class="reference external" href="https://www.youtube.com/watch?v=f6yA3t0dO-k&amp;amp;index=10&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Paul Chiusano&lt;/a&gt;, Stage N&lt;/li&gt;
+&lt;li&gt;HTTP2 reduces latency. It's here, use it with a one liner in your server configuration — &lt;a class="reference external" href="https://www.youtube.com/watch?v=CThgMRXS8w8&amp;amp;index=11&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Ole Michaelis&lt;/a&gt;, Jimdo&lt;/li&gt;
+&lt;li&gt;Scale by publishing pre-rendered content to S3 when your data source changes — &lt;a class="reference external" href="https://www.youtube.com/watch?v=vUCr1oTtaKA&amp;amp;index=12&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Tim Perry&lt;/a&gt;, BBC&lt;/li&gt;
+&lt;li&gt;Use Amazon lambda as a very cheap and ultra-efficient scaling solution — &lt;a class="reference external" href="https://www.youtube.com/watch?v=9IrFIobZUEA&amp;amp;index=13&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Austen Collins&lt;/a&gt;, serverless.com&lt;/li&gt;
+&lt;li&gt;Processing natural language can be very easy with simple tricks — &lt;a class="reference external" href="https://www.youtube.com/watch?v=vRb-El8hC-U&amp;amp;index=14&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Duretti Hirpa&lt;/a&gt;, Slack&lt;/li&gt;
+&lt;li&gt;It is our responsability to decentralize access and assure durability of our data. Internet of hash = bittorrent + git — &lt;a class="reference external" href="https://www.youtube.com/watch?v=jONZtXMu03w&amp;amp;index=15&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Juan Benet&lt;/a&gt;, ipfs.io&lt;/li&gt;
+&lt;li&gt;Enable GraphQL on your API and rely on smart clients to do the hard work of querying and caching — &lt;a class="reference external" href="https://www.youtube.com/watch?v=eD7kLFGOgVw&amp;amp;index=16&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Marc-Andre Giroux&lt;/a&gt;, Shopify&lt;/li&gt;
+&lt;li&gt;Some insights about recommendation engines and machine learning techniques — &lt;a class="reference external" href="https://www.youtube.com/watch?v=SRnM_P_ygqI&amp;amp;index=17&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Brian Sam-Bodden&lt;/a&gt;, Integrallis&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img alt="CC-BY @fullstackfest" class="align-center" src="http://www.servicedenuages.fr/en/../images/fullstackfest-talks.jpg" style="width: 1351px; height: auto; max-width: 100%;"/&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Immutable UIs make it simpler to improve durability, utility and beauty in your software architecture — &lt;a class="reference external" href="https://www.youtube.com/watch?v=pLvrZPSzHxo&amp;amp;index=18&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Lee Byron&lt;/a&gt;, Facebook, author of Immutable.js&lt;/li&gt;
+&lt;li&gt;Elm applications have no runtime errors — &lt;a class="reference external" href="https://www.youtube.com/watch?v=rDQ22Yg3Fms&amp;amp;index=19&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Jack Franklin&lt;/a&gt;, Songkick&lt;/li&gt;
+&lt;li&gt;With new versions of Ecmascript, asynchronuous programs will look more and more synchronuous — &lt;a class="reference external" href="https://www.youtube.com/watch?v=3pKNRgResq0&amp;amp;index=20&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Jafar Husain&lt;/a&gt;, Netflix, author of Falcor&lt;/li&gt;
+&lt;li&gt;PostCSS and CSS modules are really helpful for building a libray of UI components — &lt;a class="reference external" href="https://www.youtube.com/watch?v=j8eBXGPl_5E&amp;amp;index=21&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;David Wells&lt;/a&gt;, Serverless&lt;/li&gt;
+&lt;li&gt;At last we have proper grids with CSS4 — &lt;a class="reference external" href="https://www.youtube.com/watch?v=axVw1Zduqn0&amp;amp;index=22&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Jen Kramer&lt;/a&gt;, Hardvard University&lt;/li&gt;
+&lt;li&gt;Evolution of Web apps which now have views, business logic and persistence — &lt;a class="reference external" href="https://www.youtube.com/watch?v=wtURpqTgtUs&amp;amp;index=23&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Luca Marchesini&lt;/a&gt;, Kuzzle&lt;/li&gt;
+&lt;li&gt;Om Next leverages Clojure to bring conventions for data immutability, data specifications and data routing — &lt;a class="reference external" href="https://www.youtube.com/watch?v=Zb18iPjDgwM&amp;amp;index=24&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;António Nuno Monteiro&lt;/a&gt;, Technische Universität Dresden&lt;/li&gt;
+&lt;li&gt;The OpenBCI project allows everyone to study brainwaves using a homemade helmet —  &lt;a class="reference external" href="https://www.youtube.com/watch?v=CSfUr3m0-w8&amp;amp;index=25&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Alex Castillo&lt;/a&gt;, Netflix&lt;/li&gt;
+&lt;li&gt;Flow based programming via CycleJS allows you to design and debug your apps via a high level of abstraction — &lt;a class="reference external" href="https://www.youtube.com/watch?v=R-GzJgEccEQ&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc&amp;amp;index=27"&gt;André Staltz&lt;/a&gt;, Futurice&lt;/li&gt;
+&lt;li&gt;CSP channels in Javascript are the best tooling when dealing with stream of data — &lt;a class="reference external" href="https://www.youtube.com/watch?v=r7yWWxdP_nc&amp;amp;index=28&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Vincenzo Chianese&lt;/a&gt;, Apiary&lt;/li&gt;
+&lt;li&gt;Service workers allow us to forget about page loader, especially when submitting data — &lt;a class="reference external" href="https://www.youtube.com/watch?v=xs_QRqGZ8xQ&amp;amp;index=29&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Andrew Dunkman&lt;/a&gt;, Harvest&lt;/li&gt;
+&lt;li&gt;Build your apps as if there were be accessed by Martian via a high-latency connection ­— &lt;a class="reference external" href="https://www.youtube.com/watch?v=7rlEidtXlZg&amp;amp;index=30&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Slobodan Stojanovic&lt;/a&gt;, Cloud Horizon&lt;/li&gt;
+&lt;li&gt;WebAssembly allows native apps to be run by the browser VM in the same stack context as JavaScript — &lt;a class="reference external" href="https://www.youtube.com/watch?v=vmzz17JGPHI&amp;amp;index=31&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Ben Smith&lt;/a&gt;, Google&lt;/li&gt;
+&lt;li&gt;Render a 2D UI with React within a 3D WebGL scene — &lt;a class="reference external" href="https://www.youtube.com/watch?v=DfPPlakRvow&amp;amp;index=32&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Massimiliano Mantione&lt;/a&gt;, HyperFair&lt;/li&gt;
+&lt;li&gt;Virtual reality in the browser is here! — &lt;cite&gt;Liv Erickson &amp;lt;https://www.youtube.com/watch?v=Ciqucr_Ww9s&amp;amp;index=33&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc&amp;gt;&lt;/cite&gt;, Microsoft&lt;/li&gt;
+&lt;li&gt;The physical Web on top of the open Web and will change our lives — &lt;a class="reference external" href="https://www.youtube.com/watch?v=gV72mCdomo4&amp;amp;index=34&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;Scott Jenson&lt;/a&gt;, Google&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="some-thoughts"&gt;
+&lt;h2&gt;Some thoughts&lt;/h2&gt;
+&lt;p&gt;I felt really concerned by the challenges Joe and Juan raised! The Web of today has too many points of failure, Web engineers are responsible of making it better. For example, 500 attendees cannot collaborate on a document without going through servers outside the room! My grand-grand-grand children might not be able to find a picture of me on the Web! &lt;a class="reference external" href="https://ipfs.io/#why"&gt;But read this page&lt;/a&gt; and you'll realize this is not &lt;em&gt;only&lt;/em&gt; about the future!&lt;/p&gt;
+&lt;blockquote&gt;
+You are cyberwizards!  — Juan Benet&lt;/blockquote&gt;
+&lt;p&gt;Both frontend and backend talks seem to agree on the fact that REST has strong limitations for high latency connections like on the mobile Web. GraphQL and Falcor are good candidates today, and can be complementary to our usual REST/CRUD endpoints.&lt;/p&gt;
+&lt;p&gt;Google and Microsoft are following Amazon and its &lt;a class="reference external" href="https://aws.amazon.com/lambda/details/"&gt;Lambda&lt;/a&gt; to provide a platform of nanoservices for which you don't pay when idle, and that scale on trafic peaks. A whole app can be decomposed into functions and designed using internal events. Orchestration of those tiny pieces of code is another story (&lt;em&gt;for a CRUD endpoint, each verb is bound to a function&lt;/em&gt;), but &lt;a class="reference external" href="http://blog.serverless.com/defining-serverless/"&gt;Serverless&lt;/a&gt; wants to tackle that.&lt;/p&gt;
+&lt;img alt="CC-BY @fullstackfest" class="align-center" src="http://www.servicedenuages.fr/en/../images/fullstackfest-vr.jpg" style="width: 489px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;Functional programming is in the air. Pure (stateless) functions scale because they can be executed anywere without context. Without side effects, it also becomes obvious to test them. They give backend developers some good pattern for highly available services, and provide the necessary constraints for immutability to frontend developers. I believe that if functional programming is not adopted as much as it could, it is not because of the paradigm and concepts, but because of the disconcerting syntax!&lt;/p&gt;
+&lt;blockquote&gt;
+There is no architecture nirvana!  — Lee Byron&lt;/blockquote&gt;
+&lt;p&gt;Angular/TypeScript was almost absent from the conference, but we could see a trend around type inference/checking. It really improves developer experience and reduces runtime errors in the end. With projects like Elm, developers feel safe while coding: the compiler is smart and polite, refactoring is fun! The concept of &lt;tt class="docutils literal"&gt;null&lt;/tt&gt; is replaced with a notion of &lt;em&gt;maybe &amp;lt;type&amp;gt;&lt;/em&gt; which makes apps robust.&lt;/p&gt;
+&lt;p&gt;Everybody seemed to agree that JavaScript transpilation will last for a long time. The language will evolve, and we shouldn't hope for feature freeze. Plus, it really helps developers focus on modern stacks, leveraging modern features like &lt;a class="reference external" href="https://github.com/tc39/proposal-cancelable-promises"&gt;cancelable promises&lt;/a&gt;. And nowadays it is rather easy to build your app for legacy versions of JavaScript like ES5. But hey, it is a bit absurd that modern browsers have to download big bundles of code full of polyfills! It would be a lot nicer if they were delivered to legacy browsers only — &lt;cite&gt;&amp;lt;!--[if IE 10]&amp;gt;&lt;/cite&gt; oh yeah :) — or even better: shipped as something like a browser addon :)&lt;/p&gt;
+&lt;p&gt;The old times where we could inspect the source code of a page ­— and learn from it — is far! It is sad, but we may have to accept it because WebAssembly goes a lot further and ships code that looks closely to assembler! It's far from the Web we know, but it's still the open Web! Note that it is very different from what we saw in the past with plugins like Java applets, now a WebAssembly function can be called from a usual JS script!&lt;/p&gt;
+&lt;p&gt;The physical Web is awesome and I'm really excited about this revolution, especially how it could bring a peer-to-peer local Web, using &lt;a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API"&gt;Web bluetooth&lt;/a&gt; for example. Scott told me that Mozilla approach with &lt;a class="reference external" href="https://hacks.mozilla.org/2016/09/flyweb-pure-web-cross-device-interaction/"&gt;FlyWeb&lt;/a&gt; is slightly different because it goes through Wifi, but both teams are in touch. The physical Web is an open project, and Google is pushing it strongly. I'm bothered by the &lt;em&gt;URL redirections&lt;/em&gt; strategy though beacause it puts the redirection intermadiary in a very strong position. I believe that Google wants to be that intermediary.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="personal-feedback"&gt;
+&lt;h2&gt;Personal feedback&lt;/h2&gt;
+&lt;p&gt;I never attended a conference that was so close to my flat! 3min walking! It was kind of weird to meet so many prestigious IT talents in my neighbourhood! ...and so many floppy disks :)&lt;/p&gt;
+&lt;img alt="CC-BY @fullstackfest" class="align-center" src="http://www.servicedenuages.fr/en/../images/fullstackfest-floppy.jpg" style="width: 1966px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;The venue was great, and very well setup for the show (&lt;a class="reference external" href="https://www.youtube.com/watch?v=vxMASndC3k4&amp;amp;index=1&amp;amp;list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc"&gt;see the introductory video clip!&lt;/a&gt;). The coffee was not so good though.&lt;/p&gt;
+&lt;p&gt;I really enjoyed the fact that there was only &lt;strong&gt;one track&lt;/strong&gt;. I never had to divide myself between two interesting talks, and could just sit and enjoy :)&lt;/p&gt;
+&lt;p&gt;Almost every topic resonated with the challenges we face at work. We are one of the few teams at Mozilla that do both backend and frontend, and that's awesome to feel in the same boat as the whole room of attendees. For example, we implemented some &lt;a class="reference external" href="https://amo2kinto-lambda.readthedocs.io"&gt;Amazon lambda&lt;/a&gt; recently, we are well aware of the frontend architecture challenges through our &lt;a class="reference external" href="https://github.com/Kinto/kinto-admin"&gt;Kinto-admin&lt;/a&gt;, Ethan has a functional programming background in Haskell, and Nico and Mathieu &lt;a class="reference external" href="https://github.com/n1k0/kinto-elm-experiments"&gt;are playing with Elm&lt;/a&gt;. That's why I strongly regretted that my teammates were not with me!&lt;/p&gt;
+&lt;p&gt;Also, I had the opportunity to meet Luca and Anthony from the Kuzzle team! We had a lot of fun together and our conversations about generic reusable backends were sooner insightful — c.f. &lt;a class="reference external" href="https://mail.mozilla.org/pipermail/kinto/2016-September/000197.html"&gt;post on kinto ML&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Last, but not least, I would like to thank Pusher.com for organizing a hack contest using their API! They had a physical button in their booth, and I made a kind-of video booth that records the webcam when the button is pressed. I could not have won this BB8 droid without &lt;a class="reference external" href="https://hacks.mozilla.org/2016/04/record-almost-everything-in-the-browser-with-mediarecorder/"&gt;Soledad insights on MozillaHacks&lt;/a&gt;, and I thank her again :)&lt;/p&gt;
+&lt;img alt="Me holding the prize proudly!" class="align-center" src="http://www.servicedenuages.fr/en/../images/fullstackfest-contest.jpg" style="width: 1080px; height: auto; max-width: 100%;"/&gt;
+&lt;/div&gt;
+&lt;div class="section" id="some-links"&gt;
+&lt;h2&gt;Some links&lt;/h2&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://www.kontena.io"&gt;https://www.kontena.io&lt;/a&gt;: open source containers platform. The features are really really attractive!&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://toxiproxy.io"&gt;http://toxiproxy.io&lt;/a&gt;: a proxy to simulate network and system conditions&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://openresty.org"&gt;https://openresty.org&lt;/a&gt;: REST via Lua in Nginx&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://en.wikipedia.org/wiki/Gossip_protocol"&gt;Gossip/epidemic protocols&lt;/a&gt; to invalidate cache&lt;/li&gt;
+&lt;li&gt;Challenge unikernel security with the &lt;a class="reference external" href="http://amirchaudhry.com/bitcoin-pinata"&gt;Bitcoin piñata&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Solve deterministic problems with randomness using &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Monte_Carlo_method"&gt;the Monte Carlo method&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Decision tree learning with &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Random_forest"&gt;random forests&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Attack systems with &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Fork_bomb"&gt;fork bombs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;The $10 million australian #censusfail &lt;a class="reference external" href="http://eftm.com.au/2016/08/how-two-uni-students-built-a-better-census-site-in-just-54-hours-for-500-30752"&gt;rebuilt for $500 using AWS Lambda&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Clean natural language with &lt;a class="reference external" href="https://stanfordnlp.github.io/CoreNLP/"&gt;CoreNLP&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://howdy.ai"&gt;https://howdy.ai&lt;/a&gt;: trainable bot for Slack&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://openbazaar.org"&gt;https://openbazaar.org&lt;/a&gt;: A free market for all, no fees, no restrictions&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://www.apollostack.com"&gt;http://www.apollostack.com&lt;/a&gt;: everything you need to start using GraphQL&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://www.ted.com/talks/barry_schwartz_on_the_paradox_of_choice?language=en"&gt;The paradox of choice&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://davidwells.io/19-open-source-react-component-libraries-to-use-in-your-next-project/"&gt;19 Open Source React Component Libraries to use in your next project&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://github.com/team-gryff/react-monocle"&gt;react-monocle&lt;/a&gt;: A developer tool to visualize a React application's component hierarchy&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://hyperdev.com"&gt;https://hyperdev.com&lt;/a&gt;: A fullstack JSBin&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://ux.mulesoft.com"&gt;http://ux.mulesoft.com&lt;/a&gt;: MuleSoft components library&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</summary><category term="mozilla"></category></entry><entry><title>jEdit bugs: Getting off the Ground with Kinto and Kinto.js</title><link href="http://www.servicedenuages.fr/en/jedit-bugs-getting-off-the-ground" rel="alternate"></link><updated>2016-09-09T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-09-09:en/jedit-bugs-getting-off-the-ground</id><summary type="html">&lt;h1&gt;jEdit bugs: Getting off the Ground with Kinto and Kinto.js&lt;/h1&gt;
+&lt;p&gt;This is a guest post by &lt;a href="https://github.com/elelay"&gt;Eric Le Lay&lt;/a&gt; on his experience using Kinto.&lt;/p&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;Have you heard of &lt;a href="http://jedit.org"&gt;jEdit&lt;/a&gt; — the &lt;em&gt;programmer's text editor&lt;/em&gt;?&lt;br/&gt;
 It's a multi-platform text editor, written in Java, with a myriad of plugins.
@@ -61,7 +180,7 @@ All documents are then loaded and returned in an array, then filtered according 
 Arbitrary queries are done by the application on the result of the &lt;code&gt;list()&lt;/code&gt; operation.
 This is fine for small collections, but searching is not lighting fast when you reach 8k documents.&lt;/p&gt;
 &lt;p&gt;An example of full-text search (from a keyword in a text field):&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;filterByKeyword&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;keyword&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;filterByKeyword&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;keyword&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
   &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;doc&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;doc&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;summary&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;indexOf&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;keyword&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
   &lt;span class="p"&gt;};&lt;/span&gt;
@@ -107,7 +226,7 @@ and stuck with it:&lt;/p&gt;
 &lt;p&gt;When you load the &lt;a href="https://trackers.elelay.fr/trackers.html"&gt;application&lt;/a&gt; for the first time
 a panel shows you ticket counts, lets you choose to include old tickets and download the database.&lt;/p&gt;
 &lt;p&gt;Here is how I determine if it's the first run:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;db&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getLastModified&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;db&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;getLastModified&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
         &lt;span class="nx"&gt;hasDB&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
@@ -119,7 +238,7 @@ a panel shows you ticket counts, lets you choose to include old tickets and down
  &lt;a href="https://github.com/Kinto/kinto-http.js"&gt;kinto-http&lt;/a&gt; package (this is being worked on, see
  &lt;a href="https://github.com/Kinto/kinto-http.js/issues/138"&gt;this issue&lt;/a&gt;).&lt;/p&gt;
 &lt;p&gt;code snippet:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;fetchTotalRecords&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;api&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;bucket&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;etag&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;fetchTotalRecords&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;api&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;bucket&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;name&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;etag&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;headers&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{};&lt;/span&gt;
     &lt;span class="nx"&gt;headers&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;"Authorization"&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s2"&gt;"Basic "&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;btoa&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"token:tr0ub4d@ur"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;api&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;client&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;execute&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
@@ -152,14 +271,14 @@ to be reused on next page load.&lt;/p&gt;
 (usually small) array with remaining query params. This is performing better than the first version of the
 application, when I first loaded all documents by calling &lt;code&gt;tickets.list()&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;To search for &lt;em&gt;hello&lt;/em&gt; in the lunr index:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;index&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;search&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"hello"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="nx"&gt;index&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;search&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"hello"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
    &lt;span class="p"&gt;[{&lt;/span&gt;&lt;span class="s2"&gt;"ref"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="s2"&gt;"52a4d8cb27184667e3400f42"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s2"&gt;"score"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mf"&gt;0.019459983366287688&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
     &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;"ref"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="s2"&gt;"5690ff3f24b0d96f08df7d6a"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="s2"&gt;"score"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;&lt;span class="mf"&gt;0.013994677485991343&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
     &lt;span class="p"&gt;...&lt;/span&gt;
    &lt;span class="p"&gt;]&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;To get a &lt;code&gt;{ data: ['array', 'of', 'tickets', 'containing', 'myText'] }&lt;/code&gt;  Promise:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;Promise&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;all&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;index&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;search&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;myText&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;hit&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;Promise&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;all&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;index&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;search&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;myText&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;hit&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;hit&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;ref&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="p"&gt;})).&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;allRes&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
@@ -175,7 +294,7 @@ It's fast because IndexedDB is optimised for key based access, but it could be m
 &lt;h2&gt;Displaying a Ticket&lt;/h2&gt;
 &lt;p&gt;My application is meant to be multi-tab, browser history and bookmarks compatible.
 To achieve that, the UI state is stored in the URL and interactions result in calls to &lt;code&gt;pushState()&lt;/code&gt;.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
 &lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;encodeState&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="s2"&gt;"#"&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nb"&gt;encodeURIComponent&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;JSON&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;stringify&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;state&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
@@ -210,7 +329,7 @@ To achieve that, the UI state is stored in the URL and interactions result in ca
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;A ticket can be displayed from the result list by clicking &lt;em&gt;Open&lt;/em&gt;.
 Nothing fancy: the id is put in the URL's hash and the application parses the hash at startup.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;restoreInitialState&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;function&lt;/span&gt; &lt;span class="nx"&gt;restoreInitialState&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;match&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sr"&gt;/^#[a-z0-9-]+$/&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
         &lt;span class="nx"&gt;showTicket&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;substring&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;));&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt; &lt;span class="k"&gt;else&lt;/span&gt; &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;location&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;hash&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;startsWith&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"#%7B"&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
@@ -297,9 +416,9 @@ Tickets could be indexed by number, to speed up this kind of query (ids are uniq
 numbers are unique in a tracker). Also, indexing on other predefined search criteria could speed things up.&lt;/p&gt;
 &lt;p&gt;Manually managing indexes would be feasible (a document per index, mapping each value of the field to an array of
 document ids). Then, looking for all open bugs would look like:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nx"&gt;indexes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"bug"&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;resInd&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;indexes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"bug"&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;resInd&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
     &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;ind&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;resInd&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// ind = { open: ["id1", "id2", ...], ...}&lt;/span&gt;
-    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;Promise&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;all&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nx"&gt;ind&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;open&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;bind&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;Promise&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;all&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nx"&gt;ind&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;open&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;bind&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
                   &lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;multiRes&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
                       &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;multiRes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt; &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;res&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;;})&lt;/span&gt;
                   &lt;span class="p"&gt;});&lt;/span&gt;
@@ -311,7 +430,7 @@ encourage issues and PRs. Many of which are even accepted ;-)&lt;/p&gt;
 &lt;p&gt;My code is available on github: &lt;a href="https://github.com/elelay/jedit-trackers-kinto"&gt;elelay/jedit-trackers-kinto&lt;/a&gt;.&lt;br/&gt;
 The application is available at &lt;a href="http://trackers.elelay.fr/trackers.html"&gt;trackers.elelay.fr&lt;/a&gt;.&lt;br/&gt;
 Feedback is welcome via IRC (elelay) — why not even Issues and PR?&lt;/p&gt;
-&lt;!-- :wrap=hard:noTabs=true:tabSize=4:indentSize=4: --&gt;</summary><category term="mozilla"></category></entry><entry><title>Kinto-admin reaches 1.0</title><link href="http://www.servicedenuages.fr/en/kinto-admin-1.0" rel="alternate"></link><published>2016-06-10T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-06-10:en/kinto-admin-1.0</id><summary type="html">&lt;p&gt;When choosing a database, it's a good idea to study a few important criteria: how nice is the API? Is it well documented? Will it scale? What is the tooling available? Tooling is especially important as it's what will make your life as a developer easier. We've been working on one specific tool, called &lt;a href="https://github.com/Kinto/kinto-admin/"&gt;kinto-admin&lt;/a&gt;, which wants to be to Kinto what &lt;a href="https://www.phpmyadmin.net/"&gt;phpMyAdmin&lt;/a&gt; is to MySQL. Today we're announcing the release of &lt;a href="https://github.com/Kinto/kinto-admin/releases/tag/v1.0.0"&gt;version 1.0&lt;/a&gt;.&lt;/p&gt;
+&lt;!-- :wrap=hard:noTabs=true:tabSize=4:indentSize=4: --&gt;</summary><category term="mozilla"></category></entry><entry><title>Kinto-admin reaches 1.0</title><link href="http://www.servicedenuages.fr/en/kinto-admin-1.0" rel="alternate"></link><updated>2016-06-10T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-06-10:en/kinto-admin-1.0</id><summary type="html">&lt;p&gt;When choosing a database, it's a good idea to study a few important criteria: how nice is the API? Is it well documented? Will it scale? What is the tooling available? Tooling is especially important as it's what will make your life as a developer easier. We've been working on one specific tool, called &lt;a href="https://github.com/Kinto/kinto-admin/"&gt;kinto-admin&lt;/a&gt;, which wants to be to Kinto what &lt;a href="https://www.phpmyadmin.net/"&gt;phpMyAdmin&lt;/a&gt; is to MySQL. Today we're announcing the release of &lt;a href="https://github.com/Kinto/kinto-admin/releases/tag/v1.0.0"&gt;version 1.0&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="kinto-admin-logged-in" src="http://www.servicedenuages.fr/en/../images/kinto-admin-logged-in.png" style="width: 1219px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
 &lt;p&gt;In past releases you had to write and deploy a configuration file explicitly describing the resources to expose in the admin. Kinto-admin 1.0 now allows users to discover and browse the buckets, collections and records they have access to on a given Kinto server. They can also create, update and delete them, provided they have the required permissions. No need for configuration files anymore!&lt;/p&gt;
 &lt;p&gt;Collection settings are configurable from the admin, including defining their &lt;a href="http://json-schema.org/"&gt;JSON schema&lt;/a&gt; and display options such as fields to render in the records list and the widgets to use to render form fields. These settings are stored in the collection metadata on the server.&lt;/p&gt;
@@ -329,7 +448,7 @@ Feedback is welcome via IRC (elelay) — why not even Issues and PR?&lt;/p&gt;
 &lt;li&gt;Allow managing permissions for buckets, collections and records;&lt;/li&gt;
 &lt;li&gt;Allow extending the admin by exposing a plugin API and a custom build system so you can tweak the way it renders and behaves;&lt;/li&gt;
 &lt;li&gt;When we get plugins, we have many ideas for them and a first exciting one is to provide metrics and charts. But hey, we're not there yet :)&lt;/li&gt;
-&lt;/ul&gt;</summary><category term="mozilla"></category></entry><entry><title>What can Kinto do for me?</title><link href="http://www.servicedenuages.fr/en/what-can-kinto-do-for-you" rel="alternate"></link><published>2016-06-10T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-06-10:en/what-can-kinto-do-for-you</id><summary type="html">&lt;p&gt;Kinto — the project we are working on since quite some time now — can do a bunch
+&lt;/ul&gt;</summary><category term="mozilla"></category></entry><entry><title>What can Kinto do for me?</title><link href="http://www.servicedenuages.fr/en/what-can-kinto-do-for-you" rel="alternate"></link><updated>2016-06-10T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-06-10:en/what-can-kinto-do-for-you</id><summary type="html">&lt;p&gt;Kinto — the project we are working on since quite some time now — can do a bunch
 of different things for you and be useful in many different situations.&lt;/p&gt;
 &lt;p&gt;However, we found out that it is really hard to understand at a glance what it
 can do, and where it could help you build your projects in a better way.&lt;/p&gt;
@@ -361,7 +480,7 @@ Kinto is a good fit.&lt;/p&gt;
 &lt;p&gt;That's useful if you want to synchronise data between devices, and also between
 users. You have the data on one location, and you want it in a different one.&lt;/p&gt;
 &lt;p&gt;With &lt;a class="reference external" href="https://kintojs.readthedocs.io"&gt;Kinto.js&lt;/a&gt;, this is as simple as calling &lt;cite&gt;.sync()&lt;/cite&gt; on the Kinto instance.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;tasks&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Kinto&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;tasks&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Kinto&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
     &lt;span class="nx"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"https://kinto.dev.mozaws.net/v1"&lt;/span&gt;
 &lt;span class="p"&gt;}).&lt;/span&gt;&lt;span class="nx"&gt;collection&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"tasks"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
@@ -380,7 +499,7 @@ you can access this data using the HTTP API (that speaks JSON).&lt;/p&gt;
 happy with our current design, but if you have ideas on how to make it evolve,
 &lt;a class="reference external" href="https://kiwiirc.com/client/irc.freenode.net/?#kinto"&gt;we would be really happy to hear them&lt;/a&gt;!&lt;/p&gt;
 &lt;p&gt;Here's an example of how to retrieve your data using the &lt;a class="reference external" href="https://github.com/jkbrzt/httpie"&gt;HTTPie&lt;/a&gt; client.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ http get https://kinto.dev.mozaws.net/v1/buckets/default/collections/kinto_demo_calendar/records --auth&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"null:notsecret"&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;http get https://kinto.dev.mozaws.net/v1/buckets/default/collections/kinto_demo_calendar/records --auth&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"null:notsecret"&lt;/span&gt;
 
 &lt;span class="o"&gt;{&lt;/span&gt;
     &lt;span class="s2"&gt;"data"&lt;/span&gt;: &lt;span class="o"&gt;[&lt;/span&gt;
@@ -513,7 +632,7 @@ it as easy as possible for you.&lt;/p&gt;
 &lt;p&gt;Don't be shy, we are really here to help, and we want to know about your
 use-cases!&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>How to use Kinto to A/B test a web application?</title><link href="http://www.servicedenuages.fr/en/ab-testing-with-kinto" rel="alternate"></link><published>2016-06-09T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-06-09:en/ab-testing-with-kinto</id><summary type="html">&lt;div class="section" id="background"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>How to use Kinto to A/B test a web application?</title><link href="http://www.servicedenuages.fr/en/ab-testing-with-kinto" rel="alternate"></link><updated>2016-06-09T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-06-09:en/ab-testing-with-kinto</id><summary type="html">&lt;div class="section" id="background"&gt;
 &lt;h2&gt;Background&lt;/h2&gt;
 &lt;p&gt;The Fennec team, building Firefox for Android, is using
 &lt;a class="reference external" href="https://github.com/KeepSafe/Switchboard"&gt;Switchboard from KeepSafe&lt;/a&gt;, which is an open source project that
@@ -572,13 +691,13 @@ and on the web we can use the &lt;a class="reference external" href="https://git
 generate a unique user id from the browser configuration.&lt;/p&gt;
 &lt;p&gt;We can then use the modulo function to calculate the user bucket ID
 from this device ID.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;fingerprint&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;deviceID&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"1433179b5711413ba3c404075a629376"&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;fingerprint&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;deviceID&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"1433179b5711413ba3c404075a629376"&lt;/span&gt;&lt;span class="p"&gt;};&lt;/span&gt;
 &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;deviceID&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;parseInt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;fingerprint&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;deviceID&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;userBucket&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;deviceID&lt;/span&gt; &lt;span class="o"&gt;%&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 &lt;span class="c1"&gt;// userBucket = 68&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;With &lt;a class="reference external" href="https://github.com/Valve/fingerprintjs2"&gt;fingerprint.js&lt;/a&gt; specifically, it looks like that:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Fingerprint2&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;deviceIDString&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Fingerprint2&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="kd"&gt;function&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;deviceIDString&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
 
   &lt;span class="c1"&gt;// Convert the device ID hex string into an integer&lt;/span&gt;
   &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;deviceID&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nb"&gt;parseInt&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;deviceIDString&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;16&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
@@ -602,7 +721,7 @@ regexp on the user languages, country or user-agent.&lt;/p&gt;
 &lt;p&gt;While defining an experiment we can decide to include a range of
 buckets using the &lt;tt class="docutils literal"&gt;min&lt;/tt&gt; and &lt;tt class="docutils literal"&gt;max&lt;/tt&gt; buckets attributes.&lt;/p&gt;
 &lt;p&gt;An experiment is then stored in Kinto like this:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="nt"&gt;"name"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"french-banner"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="nt"&gt;"description"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"Try the new French banner"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="nt"&gt;"match"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
@@ -643,14 +762,14 @@ it is written in English for people in France.&lt;/p&gt;
 &lt;p&gt;Using the power of Kinto permissions, we can create a collection where
 people will be able to create new records in it but not change them.&lt;/p&gt;
 &lt;p&gt;Using &lt;a class="reference external" href="https://httpie.org"&gt;HTTPie&lt;/a&gt; we can do it like that:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard --auth admin:switchboard
+&lt;div class="highlight"&gt;&lt;pre&gt;http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard --auth admin:switchboard
 
 &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;'{"permissions": {"record:create": ["system.Everyone"]}}'&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
     http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics &lt;span class="se"&gt;\&lt;/span&gt;
         --auth admin:switchboard
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Then when people match, we record our metrics:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nx"&gt;fetch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nx"&gt;fetch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="nx"&gt;method&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"POST"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
   &lt;span class="nx"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
       &lt;span class="s2"&gt;"Content-Type"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"application/json"&lt;/span&gt;
@@ -663,11 +782,11 @@ people will be able to create new records in it but not change them.&lt;/p&gt;
 &lt;span class="p"&gt;});&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;You can then count the number of calls with or without the banner:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ http HEAD &lt;span class="s1"&gt;'https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records?matches=true&amp;amp;inBucket=true'&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;http HEAD &lt;span class="s1"&gt;'https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records?matches=true&amp;amp;inBucket=true'&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
     --auth admin:switchboard &lt;span class="p"&gt;|&lt;/span&gt; grep Total-Records:
 Total-Records: 300
 
-$ http HEAD &lt;span class="s1"&gt;'https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records?matches=true&amp;amp;inBucket=false'&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
+&lt;span class="nv"&gt;$ &lt;/span&gt;http HEAD &lt;span class="s1"&gt;'https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records?matches=true&amp;amp;inBucket=false'&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
     --auth admin:switchboard --print&lt;span class="o"&gt;=&lt;/span&gt;h &lt;span class="p"&gt;|&lt;/span&gt; grep Total-Records:
 Total-Records: 20
 &lt;/pre&gt;&lt;/div&gt;
@@ -683,7 +802,7 @@ configuration variables.&lt;/p&gt;
 &lt;p&gt;&lt;a class="reference external" href="http://kinto.readthedocs.io/en/latest/tutorials/install.html#deploying-on-cloud-providers"&gt;Deploy a Kinto&lt;/a&gt; now for free on Heroku, Scalingo or your own server
 and add A/B testing in your website for free.&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>How to load test a OAuth-protected HTTP API? (Part 2)</title><link href="http://www.servicedenuages.fr/en/load-testing-a-http-api-which-uses-oauth-for-authentication-part-2" rel="alternate"></link><published>2016-01-05T00:00:00+01:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-01-05:en/load-testing-a-http-api-which-uses-oauth-for-authentication-part-2</id><summary type="html">&lt;p&gt;This is part 2 of a series on loadtesting OAuth APIs.&lt;/p&gt;
+</summary><category term="mozilla"></category></entry><entry><title>How to load test a OAuth-protected HTTP API? (Part 2)</title><link href="http://www.servicedenuages.fr/en/load-testing-a-http-api-which-uses-oauth-for-authentication-part-2" rel="alternate"></link><updated>2016-01-05T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-01-05:en/load-testing-a-http-api-which-uses-oauth-for-authentication-part-2</id><summary type="html">&lt;p&gt;This is part 2 of a series on loadtesting OAuth APIs.&lt;/p&gt;
 &lt;div class="section" id="introduction"&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;&lt;a class="reference external" href="/en/load-testing-a-http-api-which-uses-oauth-for-authentication"&gt;In the previous article&lt;/a&gt;
@@ -709,7 +828,7 @@ can also be used with the &lt;a class="reference external" href="http://httpie.o
 &lt;p&gt;With this plugin, we can provide our user credentials and a valid
 Bearer Token will be built for our request.&lt;/p&gt;
 &lt;p&gt;Here is what it looks like with HTTPie.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;http https://profile.accounts.firefox.com/v1/profile &lt;span class="se"&gt;\&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;http https://profile.accounts.firefox.com/v1/profile &lt;span class="se"&gt;\&lt;/span&gt;
     --auth-type fxa-bearer &lt;span class="se"&gt;\&lt;/span&gt;
     --auth &lt;span class="s2"&gt;"email@domain.tld:password"&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -721,7 +840,7 @@ to do for the load test setup: generating a Bearer Token for a
 given user.&lt;/p&gt;
 &lt;p&gt;We ended-up building a CLI tool called &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;fxa-client&lt;/span&gt;&lt;/tt&gt; that is able to
 generate a BASH file that exports some environment variables:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;USAGE: fxa-client &lt;span class="o"&gt;[&lt;/span&gt;-h&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;--bearer&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;--create-user&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;--auth AUTH&lt;span class="o"&gt;]&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;USAGE: fxa-client &lt;span class="o"&gt;[&lt;/span&gt;-h&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;--bearer&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;--create-user&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;--auth AUTH&lt;span class="o"&gt;]&lt;/span&gt;
                   &lt;span class="o"&gt;[&lt;/span&gt;--out OUTPUT_FILE&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;--verbose&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;--user-salt FXA_USER_SALT&lt;span class="o"&gt;]&lt;/span&gt;
                   &lt;span class="o"&gt;[&lt;/span&gt;--env &lt;span class="o"&gt;{&lt;/span&gt;stable,stage,production&lt;span class="o"&gt;}]&lt;/span&gt;
                   &lt;span class="o"&gt;[&lt;/span&gt;--user-email-prefix PREFIX&lt;span class="o"&gt;]&lt;/span&gt; &lt;span class="o"&gt;[&lt;/span&gt;--account-server ACCOUNT_SERVER_URL&lt;span class="o"&gt;]&lt;/span&gt;
@@ -730,20 +849,20 @@ generate a BASH file that exports some environment variables:&lt;/p&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;With this client, instead of building a Bearer Token for the request,
 we can just ask the &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;fxa-client&lt;/span&gt;&lt;/tt&gt; to build one for our load test:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;fxa-client --auth email@domain.tld --bearer --scopes &lt;span class="s2"&gt;"profile"&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;fxa-client --auth email@domain.tld --bearer --scopes &lt;span class="s2"&gt;"profile"&lt;/span&gt;
 
 Please enter a password &lt;span class="k"&gt;for&lt;/span&gt; email@domain.tld:
-&lt;span class="c1"&gt;# ---- BEARER TOKEN INFO ----&lt;/span&gt;
-&lt;span class="c1"&gt;# User: email@domain.tld&lt;/span&gt;
-&lt;span class="c1"&gt;# Scopes: profile&lt;/span&gt;
-&lt;span class="c1"&gt;# Account: https://api-accounts.stage.mozaws.net/v1&lt;/span&gt;
-&lt;span class="c1"&gt;# Oauth: https://oauth.stage.mozaws.net/v1&lt;/span&gt;
-&lt;span class="c1"&gt;# Client ID: 5882386c6d801776&lt;/span&gt;
-&lt;span class="c1"&gt;# ---------------------------&lt;/span&gt;
-&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;OAUTH_BEARER_TOKEN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"b1d4babc01502fa8d9fc0139757168bf5908f33abc66f46253d4c69468e39373"&lt;/span&gt;
+&lt;span class="c"&gt;# ---- BEARER TOKEN INFO ----&lt;/span&gt;
+&lt;span class="c"&gt;# User: email@domain.tld&lt;/span&gt;
+&lt;span class="c"&gt;# Scopes: profile&lt;/span&gt;
+&lt;span class="c"&gt;# Account: https://api-accounts.stage.mozaws.net/v1&lt;/span&gt;
+&lt;span class="c"&gt;# Oauth: https://oauth.stage.mozaws.net/v1&lt;/span&gt;
+&lt;span class="c"&gt;# Client ID: 5882386c6d801776&lt;/span&gt;
+&lt;span class="c"&gt;# ---------------------------&lt;/span&gt;
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;OAUTH_BEARER_TOKEN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"b1d4babc01502fa8d9fc0139757168bf5908f33abc66f46253d4c69468e39373"&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Then we can use this Bearer Token for our request:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;http https://profile.stage.mozaws.net/v1/profile &lt;span class="se"&gt;\&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;http https://profile.stage.mozaws.net/v1/profile &lt;span class="se"&gt;\&lt;/span&gt;
     Authorization:&lt;span class="s2"&gt;"Bearer b1d4babc01502fa8d9fc0139757168bf5908f33abc66f46253d4c69468e39373"&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
@@ -751,21 +870,21 @@ Please enter a password &lt;span class="k"&gt;for&lt;/span&gt; email@domain.tld:
 &lt;h3&gt;Using fxa-client to create new test accounts&lt;/h3&gt;
 &lt;p&gt;We can also create a random user (on the stage environment only) and
 generate a Bearer Token for it:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;fxa-client --create-user --bearer --user-email-prefix my-app
+&lt;div class="highlight"&gt;&lt;pre&gt;fxa-client --create-user --bearer --user-email-prefix my-app
 
-&lt;span class="c1"&gt;# ---- BEARER TOKEN INFO ----&lt;/span&gt;
-&lt;span class="c1"&gt;# User: my-app-6318a65dde1efc2f4c3f7b4e6cb33188@restmail.net&lt;/span&gt;
-&lt;span class="c1"&gt;# Scopes: profile&lt;/span&gt;
-&lt;span class="c1"&gt;# Account: https://api-accounts.stage.mozaws.net/v1&lt;/span&gt;
-&lt;span class="c1"&gt;# Oauth: https://oauth.stage.mozaws.net/v1&lt;/span&gt;
-&lt;span class="c1"&gt;# Client ID: 5882386c6d801776&lt;/span&gt;
-&lt;span class="c1"&gt;# ---------------------------&lt;/span&gt;
-&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;OAUTH_BEARER_TOKEN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"90abc87ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc"&lt;/span&gt;
+&lt;span class="c"&gt;# ---- BEARER TOKEN INFO ----&lt;/span&gt;
+&lt;span class="c"&gt;# User: my-app-6318a65dde1efc2f4c3f7b4e6cb33188@restmail.net&lt;/span&gt;
+&lt;span class="c"&gt;# Scopes: profile&lt;/span&gt;
+&lt;span class="c"&gt;# Account: https://api-accounts.stage.mozaws.net/v1&lt;/span&gt;
+&lt;span class="c"&gt;# Oauth: https://oauth.stage.mozaws.net/v1&lt;/span&gt;
+&lt;span class="c"&gt;# Client ID: 5882386c6d801776&lt;/span&gt;
+&lt;span class="c"&gt;# ---------------------------&lt;/span&gt;
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;OAUTH_BEARER_TOKEN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"90abc87ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc"&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;To avoid creating extraneous user accounts, it is possible to specify
 a user salt (as a base64 string) that will always generate the same
 user credentials and recreate the account if needed:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;fxa-client --create-user --bearer --user-email-prefix my-app --user-salt &lt;span class="nv"&gt;MySalt&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;fxa-client --create-user --bearer --user-email-prefix my-app --user-salt &lt;span class="nv"&gt;MySalt&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="using-fxa-client-to-work-with-browserid-assertions"&gt;
@@ -775,27 +894,27 @@ user credentials and recreate the account if needed:&lt;/p&gt;
 rely on BrowserID assertions for authentication.&lt;/p&gt;
 &lt;p&gt;Hopefully &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;fxa-client&lt;/span&gt;&lt;/tt&gt; is able to generate BrowserID assertions too.&lt;/p&gt;
 &lt;p&gt;In that case &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;fxa-client&lt;/span&gt;&lt;/tt&gt; provides few specific attributes:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;optional arguments:
+&lt;div class="highlight"&gt;&lt;pre&gt;optional arguments:
   --browserid, --bid    Generate a BrowserID assertion
   --audience AUDIENCE   Firefox BrowserID assertion audience.
   --duration DURATION   Firefox BrowserID assertion duration.
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The script works exactly in the same way than the one for Bearer
 Tokens, except it generates a BrowserID assertion instead:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;fxa-client --create-user --browserid --user-email-prefix my-app &lt;span class="se"&gt;\&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;fxa-client --create-user --browserid --user-email-prefix my-app &lt;span class="se"&gt;\&lt;/span&gt;
     --user-salt &lt;span class="nv"&gt;MySalt&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
     --audience https://loop.stage.mozaws.net
 
-&lt;span class="c1"&gt;# ---- BROWSER ID ASSERTION INFO ----&lt;/span&gt;
-&lt;span class="c1"&gt;# User: my-app-b82d4afaf57cb856ccc04a58a07ce80f@restmail.net&lt;/span&gt;
-&lt;span class="c1"&gt;# Audience: https://loop.stage.mozaws.net&lt;/span&gt;
-&lt;span class="c1"&gt;# Account: https://api-accounts.stage.mozaws.net/v1&lt;/span&gt;
-&lt;span class="c1"&gt;# ------------------------------------&lt;/span&gt;
-&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;FXA_BROWSERID_ASSERTION&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"eyJhbGciOiJSUzI1NiJ9...hIQ9vrkqA"&lt;/span&gt;
-&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;FXA_CLIENT_STATE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"828aef3bc68ac0bde10f3d4b93303088"&lt;/span&gt;
+&lt;span class="c"&gt;# ---- BROWSER ID ASSERTION INFO ----&lt;/span&gt;
+&lt;span class="c"&gt;# User: my-app-b82d4afaf57cb856ccc04a58a07ce80f@restmail.net&lt;/span&gt;
+&lt;span class="c"&gt;# Audience: https://loop.stage.mozaws.net&lt;/span&gt;
+&lt;span class="c"&gt;# Account: https://api-accounts.stage.mozaws.net/v1&lt;/span&gt;
+&lt;span class="c"&gt;# ------------------------------------&lt;/span&gt;
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;FXA_BROWSERID_ASSERTION&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"eyJhbGciOiJSUzI1NiJ9...hIQ9vrkqA"&lt;/span&gt;
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;FXA_CLIENT_STATE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"828aef3bc68ac0bde10f3d4b93303088"&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;And then the assertion can be used in the Authorization header of the request:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;http POST https://loop.stage.mozaws.net/v0/registration &lt;span class="se"&gt;\&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;http POST https://loop.stage.mozaws.net/v0/registration &lt;span class="se"&gt;\&lt;/span&gt;
     Authorization:&lt;span class="s2"&gt;"BrowserID eyJhbGciOiJSUzI1NiJ9...hIQ9vrkqA"&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
@@ -808,8 +927,8 @@ we plug that with our load tests?&lt;/p&gt;
 the environment variables and then sourcing it in the shell that will
 run the loadtest.&lt;/p&gt;
 &lt;p&gt;Something like:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;fxa-client --create-user --bearer --user-salt &lt;span class="nv"&gt;MySalt&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt; --out loadtest-fxa-config.sh
-&lt;span class="nb"&gt;source&lt;/span&gt; loadtest-fxa-config.sh
+&lt;div class="highlight"&gt;&lt;pre&gt;fxa-client --create-user --bearer --user-salt &lt;span class="nv"&gt;MySalt&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt; --out loadtest-fxa-config.sh
+&lt;span class="nb"&gt;source &lt;/span&gt;loadtest-fxa-config.sh
 docker run -e &lt;span class="nv"&gt;OAUTH_BEARER_TOKEN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nv"&gt;OAUTH_BEARER_TOKEN&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt; loadtest
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;After sourcing the &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;loadtest-fxa-config.sh&lt;/span&gt;&lt;/tt&gt; file, the env variables
@@ -821,7 +940,7 @@ needed.&lt;/p&gt;
 &lt;p&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;fxa-client&lt;/span&gt;&lt;/tt&gt; have been released in the last release of PyFxA 0.1.0.&lt;/p&gt;
 &lt;p&gt;So just install the &lt;a class="reference external" href="https://pypi.python.org/pypi/PyFxA"&gt;PyFxA python package&lt;/a&gt;
 using pip:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;pip install -U PyFxA
+&lt;div class="highlight"&gt;&lt;pre&gt;pip install -U PyFxA
 &lt;/pre&gt;&lt;/div&gt;
 &lt;div class="section" id="management-firefox-accounts-environments"&gt;
 &lt;h3&gt;Management Firefox Accounts environments&lt;/h3&gt;
@@ -831,10 +950,10 @@ which default to the stage environment.&lt;/p&gt;
 &lt;p&gt;We can find &lt;a class="reference external" href="https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Firefox_Accounts/Introduction#Firefox_Accounts_deployments"&gt;all the available environment here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;However to ease the switch from one to the other we added a &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;--env&lt;/span&gt;&lt;/tt&gt;
 parameter that let you write:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;fxa-client --bearer --auth email@domain.tld --env production
+&lt;div class="highlight"&gt;&lt;pre&gt;fxa-client --bearer --auth email@domain.tld --env production
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Rather than:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;fxa-client --bearer --auth email@domain.tld &lt;span class="se"&gt;\&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;fxa-client --bearer --auth email@domain.tld &lt;span class="se"&gt;\&lt;/span&gt;
     --account-server https://api.accounts.firefox.com/v1 &lt;span class="se"&gt;\&lt;/span&gt;
     --oauth-server https://oauth.accounts.firefox.com/v1
 &lt;/pre&gt;&lt;/div&gt;
@@ -848,17 +967,17 @@ parameter that let you write:&lt;/p&gt;
 user, but it would be nice to be able to do so directly with
 &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;fxa-client&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
 &lt;p&gt;I was thinking of implementing the following output:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;fxa-client --create-user --bearer --user-salt &lt;span class="nv"&gt;MySalt&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt; -n 2
+&lt;div class="highlight"&gt;&lt;pre&gt;fxa-client --create-user --bearer --user-salt &lt;span class="nv"&gt;MySalt&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt; -n 2
 
-&lt;span class="c1"&gt;# ---- BEARER TOKEN INFO ----&lt;/span&gt;
-&lt;span class="c1"&gt;# User1: my-app-1318a65dde1efc2f4c3f7b4e6cb33188@restmail.net&lt;/span&gt;
-&lt;span class="c1"&gt;# User2: my-app-2318a65dde1efc2f4c3f7b4e6cb33188@restmail.net&lt;/span&gt;
-&lt;span class="c1"&gt;# Scopes: profile&lt;/span&gt;
-&lt;span class="c1"&gt;# Account: https://api-accounts.stage.mozaws.net/v1&lt;/span&gt;
-&lt;span class="c1"&gt;# Oauth: https://oauth.stage.mozaws.net/v1&lt;/span&gt;
-&lt;span class="c1"&gt;# Client ID: 5882386c6d801776&lt;/span&gt;
-&lt;span class="c1"&gt;# ---------------------------&lt;/span&gt;
-&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;OAUTH_BEARER_TOKEN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"90abc87ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc,abc9087ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc"&lt;/span&gt;
+&lt;span class="c"&gt;# ---- BEARER TOKEN INFO ----&lt;/span&gt;
+&lt;span class="c"&gt;# User1: my-app-1318a65dde1efc2f4c3f7b4e6cb33188@restmail.net&lt;/span&gt;
+&lt;span class="c"&gt;# User2: my-app-2318a65dde1efc2f4c3f7b4e6cb33188@restmail.net&lt;/span&gt;
+&lt;span class="c"&gt;# Scopes: profile&lt;/span&gt;
+&lt;span class="c"&gt;# Account: https://api-accounts.stage.mozaws.net/v1&lt;/span&gt;
+&lt;span class="c"&gt;# Oauth: https://oauth.stage.mozaws.net/v1&lt;/span&gt;
+&lt;span class="c"&gt;# Client ID: 5882386c6d801776&lt;/span&gt;
+&lt;span class="c"&gt;# ---------------------------&lt;/span&gt;
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;OAUTH_BEARER_TOKEN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"90abc87ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc,abc9087ed1621ee504c1252ed382abc8269d1abc29f2ff87cc5e25f00249fabc"&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -874,7 +993,7 @@ user credentials to a load test script.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Do not hesitate to reach us if you have any questions or suggestions.&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>The hard promise of self-hosting</title><link href="http://www.servicedenuages.fr/en/self-hosting-a-hard-promise" rel="alternate"></link><published>2015-12-22T00:00:00+01:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-22:en/self-hosting-a-hard-promise</id><summary type="html">&lt;div class="note"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>The hard promise of self-hosting</title><link href="http://www.servicedenuages.fr/en/self-hosting-a-hard-promise" rel="alternate"></link><updated>2015-12-22T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-22:en/self-hosting-a-hard-promise</id><summary type="html">&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;This article was translated by &lt;a class="reference external" href="https://notmyidea.org"&gt;Alexis Métaireau&lt;/a&gt;,
 on a train between Rennes and Paris.&lt;/p&gt;
@@ -969,7 +1088,7 @@ a pragmatic solution in the short/mid term, bringing back some freedom to the
 users.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>How to make the Kinto instances discoverable?</title><link href="http://www.servicedenuages.fr/en/discovery-of-kinto-servers" rel="alternate"></link><published>2015-12-21T00:00:00+01:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-21:en/discovery-of-kinto-servers</id><summary type="html">&lt;div class="section" id="about-me"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>How to make the Kinto instances discoverable?</title><link href="http://www.servicedenuages.fr/en/discovery-of-kinto-servers" rel="alternate"></link><updated>2015-12-21T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-21:en/discovery-of-kinto-servers</id><summary type="html">&lt;div class="section" id="about-me"&gt;
 &lt;h2&gt;About Me&lt;/h2&gt;
 &lt;p&gt;Hi! I am Shweta Oak.&lt;/p&gt;
 &lt;p&gt;I got the opportunity to be part of Mozilla's Kinto team.
@@ -1077,7 +1196,7 @@ than the one given above or, if there is anything you would like to share with u
 this article, do comment below. We look forward to exploring more solutions and making the
 project even better through your feedback :)&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Hacker News answers</title><link href="http://www.servicedenuages.fr/en/hackernews-feedback" rel="alternate"></link><published>2015-12-15T00:00:00+01:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-15:en/hackernews-feedback</id><summary type="html">&lt;p&gt;Today, &lt;a class="reference external" href="https://news.ycombinator.com/item?id=10733164"&gt;Kinto was featured on Hackernews&lt;/a&gt;. We take this as a great
+</summary><category term="mozilla"></category></entry><entry><title>Hacker News answers</title><link href="http://www.servicedenuages.fr/en/hackernews-feedback" rel="alternate"></link><updated>2015-12-15T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-15:en/hackernews-feedback</id><summary type="html">&lt;p&gt;Today, &lt;a class="reference external" href="https://news.ycombinator.com/item?id=10733164"&gt;Kinto was featured on Hackernews&lt;/a&gt;. We take this as a great
 milestone for the project, even if it also comes with some sort of pressure and
 stress :)&lt;/p&gt;
 &lt;p&gt;Since a few questions emerged from the thread there, we thought it'd be
@@ -1209,7 +1328,7 @@ that is fully open-source.&lt;/p&gt;
 out there. We probably missed many of them. So please help us guide the users
 to choose the best solution for their use-case in our overview page!&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>How to load test a OAuth-protected HTTP API? (Part 1)</title><link href="http://www.servicedenuages.fr/en/load-testing-a-http-api-which-uses-oauth-for-authentication" rel="alternate"></link><published>2015-12-02T00:00:00+01:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-02:en/load-testing-a-http-api-which-uses-oauth-for-authentication</id><summary type="html">&lt;p&gt;This is part 1 of a series on loadtesting oauth APIs.&lt;/p&gt;
+</summary><category term="mozilla"></category></entry><entry><title>How to load test a OAuth-protected HTTP API? (Part 1)</title><link href="http://www.servicedenuages.fr/en/load-testing-a-http-api-which-uses-oauth-for-authentication" rel="alternate"></link><updated>2015-12-02T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-02:en/load-testing-a-http-api-which-uses-oauth-for-authentication</id><summary type="html">&lt;p&gt;This is part 1 of a series on loadtesting oauth APIs.&lt;/p&gt;
 &lt;div class="section" id="what-is-oauth-and-how-do-you-use-it-to-authenticate-an-http-api"&gt;
 &lt;h2&gt;What is OAuth and how do you use it to authenticate an HTTP API?&lt;/h2&gt;
 &lt;p&gt;&lt;a class="reference external" href="https://en.wikipedia.org/wiki/OAuth"&gt;OAuth&lt;/a&gt; is a protocol that
@@ -1228,7 +1347,7 @@ redirect the user to the app with the
 &lt;img alt="OAuth 2.0 Bearer Token creation flow" src="http://www.servicedenuages.fr/en/../images/oauth2-flow.png" style="width: 654px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;This Bearer Token will then be used by the app in the HTTP request
 Authorization header to authenticate on the web service.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nf"&gt;GET&lt;/span&gt; &lt;span class="nn"&gt;/v1/articles&lt;/span&gt; &lt;span class="kr"&gt;HTTP&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1.1&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nf"&gt;GET&lt;/span&gt; &lt;span class="nn"&gt;/v1/articles&lt;/span&gt; &lt;span class="kr"&gt;HTTP&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1.1&lt;/span&gt;
 &lt;span class="na"&gt;Authorization&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;Bearer e7613cae7a0660dae7a2dd55c216cbaef75f43254e2a8c77f7e9c7adb549bb65&lt;/span&gt;
 &lt;span class="na"&gt;Host&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;readinglist.services.mozilla.com&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -1290,12 +1409,12 @@ before and that will be read by your code.&lt;/p&gt;
 &lt;p&gt;In order to define the environment variables you can write a Bash file
 that you will be able to source before running your load test and that
 will export all the needed environment variables.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;OAUTH_BEARER_TOKEN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5"&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;OAUTH_BEARER_TOKEN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5"&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;There are also utilities that might help you there, for instance,
 &lt;a class="reference external" href="https://docs.docker.com/engine/reference/run/#env-environment-variables"&gt;docker&lt;/a&gt;
 might set them for you.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;docker run -e &lt;span class="nv"&gt;OAUTH_BEARER_TOKEN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"abc..."&lt;/span&gt; loadtest
+&lt;div class="highlight"&gt;&lt;pre&gt;docker run -e &lt;span class="nv"&gt;OAUTH_BEARER_TOKEN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"abc..."&lt;/span&gt; loadtest
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="working-with-multiple-bearer-tokens"&gt;
@@ -1305,15 +1424,15 @@ variables.&lt;/p&gt;
 &lt;p&gt;You can also set multiple users Bearer tokens using a comma-separated
 list in the env variable and then split on it to choose one randomly
 in your load test:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;OAUTH_BEARER_TOKEN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;OAUTH_BEARER_TOKEN&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
 &lt;span class="s2"&gt;    dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5,&lt;/span&gt;
 &lt;span class="s2"&gt;    b6af04a44aa0f5a6b3a3affbaa41c48c4abaaba50e428ce030f9a4cb356aa36e,&lt;/span&gt;
 &lt;span class="s2"&gt;    a44aa0f5a6b3a3affbaa41c1c48c4abaaba50e428ce030f9428ce070f9d4c75b&lt;/span&gt;
 &lt;span class="s2"&gt;    "&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Or you also could create multiple environment variables:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;OAUTH_BEARER_TOKEN_SCOPE_PROFILE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5"&lt;/span&gt;
-&lt;span class="nb"&gt;export&lt;/span&gt; &lt;span class="nv"&gt;OAUTH_BEARER_TOKEN_SCOPE_KINTO&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;OAUTH_BEARER_TOKEN_SCOPE_PROFILE&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5"&lt;/span&gt;
+&lt;span class="nb"&gt;export &lt;/span&gt;&lt;span class="nv"&gt;OAUTH_BEARER_TOKEN_SCOPE_KINTO&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"&lt;/span&gt;
 &lt;span class="s2"&gt;    b6af04a44aa0f5a6b3a3affbaa41c48c4abaaba50e428ce030f9a4cb356aa36e,&lt;/span&gt;
 &lt;span class="s2"&gt;    a44aa0f5a6b3a3affbaa41c1c48c4abaaba50e428ce030f9428ce070f9d4c75b&lt;/span&gt;
 &lt;span class="s2"&gt;    "&lt;/span&gt;
@@ -1332,9 +1451,9 @@ configure your load test Bearer Token.&lt;/li&gt;
 &lt;p&gt;&lt;a class="reference external" href="/en/load-testing-a-http-api-which-uses-oauth-for-authentication-part-2"&gt;The next article&lt;/a&gt;
 will show some specific tools you can use to do this.&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Kinto.js 1.0 released</title><link href="http://www.servicedenuages.fr/en/kinto-js-1-0-released" rel="alternate"></link><published>2015-10-27T00:00:00+01:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-10-27:en/kinto-js-1-0-released</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="https://kintojs.readthedocs.io/"&gt;Kinto.js&lt;/a&gt; is an offline-first JavaScript client leveraging the &lt;a class="reference external" href="https://kinto.readthedocs.io/"&gt;Kinto API&lt;/a&gt; for data synchronization. In a world where connectivity isn't always guaranteed, local persistence in the browser has become an &lt;a class="reference external" href="http://offlinefirst.org/"&gt;identified priority&lt;/a&gt; for Web applications, especially on mobile.&lt;/p&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Kinto.js 1.0 released</title><link href="http://www.servicedenuages.fr/en/kinto-js-1-0-released" rel="alternate"></link><updated>2015-10-27T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-10-27:en/kinto-js-1-0-released</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="https://kintojs.readthedocs.io/"&gt;Kinto.js&lt;/a&gt; is an offline-first JavaScript client leveraging the &lt;a class="reference external" href="https://kinto.readthedocs.io/"&gt;Kinto API&lt;/a&gt; for data synchronization. In a world where connectivity isn't always guaranteed, local persistence in the browser has become an &lt;a class="reference external" href="http://offlinefirst.org/"&gt;identified priority&lt;/a&gt; for Web applications, especially on mobile.&lt;/p&gt;
 &lt;p&gt;The basic principle is simple; save your data locally, assuming there's no network connectivity. Then as soon as it's available, retrieve remote changes and push your local data to a remote server.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;kinto&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Kinto&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="nx"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"https://kinto.dev.mozaws.net/v1/"&lt;/span&gt;&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;kinto&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Kinto&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="nx"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"https://kinto.dev.mozaws.net/v1/"&lt;/span&gt;&lt;span class="p"&gt;});&lt;/span&gt;
 &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;tasks&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;kinto&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;collection&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"tasks"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
 &lt;span class="nx"&gt;tasks&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;create&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="nx"&gt;label&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"Test kinto.js"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;done&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;
@@ -1388,7 +1507,7 @@ will show some specific tools you can use to do this.&lt;/p&gt;
 &lt;h2&gt;Update&lt;/h2&gt;
 &lt;p&gt;We're not even done polishing this blog post and the &lt;a class="reference external" href="https://github.com/Kinto/kinto.js/releases/tag/v1.1.0"&gt;1.1 version is already there&lt;/a&gt;! Take it the easy way, that means the project is on steroids ;)&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Looking for an Outreachy intern this winter</title><link href="http://www.servicedenuages.fr/en/outreach-kinto-2016" rel="alternate"></link><published>2015-10-01T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-10-01:en/outreach-kinto-2016</id><summary type="html">&lt;blockquote class="epigraph"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Looking for an Outreachy intern this winter</title><link href="http://www.servicedenuages.fr/en/outreach-kinto-2016" rel="alternate"></link><updated>2015-10-01T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-10-01:en/outreach-kinto-2016</id><summary type="html">&lt;blockquote class="epigraph"&gt;
 &lt;p&gt;By having a program targeted specifically towards women, we found that we
 reached talented and passionate participants, who were uncertain about how to
 start otherwise.&lt;/p&gt;
@@ -1490,7 +1609,7 @@ configuration.&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>How to encrypt data with Kinto.js</title><link href="http://www.servicedenuages.fr/en/kinto-encryption-example" rel="alternate"></link><published>2015-09-16T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-09-16:en/kinto-encryption-example</id><summary type="html">&lt;p&gt;A guest post this time, by &lt;a class="reference external" href="https://michielbdejong.com/"&gt;Michiel de Jong&lt;/a&gt;
+</summary><category term="mozilla"></category></entry><entry><title>How to encrypt data with Kinto.js</title><link href="http://www.servicedenuages.fr/en/kinto-encryption-example" rel="alternate"></link><updated>2015-09-16T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-09-16:en/kinto-encryption-example</id><summary type="html">&lt;p&gt;A guest post this time, by &lt;a class="reference external" href="https://michielbdejong.com/"&gt;Michiel de Jong&lt;/a&gt;
 from the Firefox OS team!&lt;/p&gt;
 &lt;p&gt;If you want to encrypt data that is uploaded to the cloud by an offline-first app,
 it makes sense to keep the local copy of the data in-the-clear, and encrypt the
@@ -1538,7 +1657,7 @@ take this opportunity to get used to it! Here's a little translation:&lt;/p&gt;
 &lt;p&gt;First, we need a few helper functions, which will be used later on to convert between
 &lt;a class="reference external" href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Typed_arrays"&gt;byte arrays&lt;/a&gt;
 and ASCII strings.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;// Helper functions:&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// Helper functions:&lt;/span&gt;
 &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;rawStringToByteArray&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;str&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;strLen&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;str&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;length&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
   &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;byteArray&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Uint8Array&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;strLen&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
@@ -1566,7 +1685,7 @@ that, we need to generate an
 fairly new part of &lt;a class="reference external" href="https://platform.html5.org/"&gt;the web platform&lt;/a&gt; and it's awesome.
 We will use that key to encrypt and decrypt
 the data that is passed through the &lt;tt class="docutils literal"&gt;RemoteTransformer&lt;/tt&gt;:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;// RemoteTransformer:&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// RemoteTransformer:&lt;/span&gt;
 &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;generateAesKey&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="c1"&gt;// See http://www.w3.org/TR/WebCryptoAPI/#examples-symmetric-encryption&lt;/span&gt;
   &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;window&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;crypto&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;subtle&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;generateKey&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt; &lt;span class="nx"&gt;name&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'AES-GCM'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;length&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="mi"&gt;128&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt;
@@ -1613,17 +1732,17 @@ the data that is passed through the &lt;tt class="docutils literal"&gt;RemoteTra
 to the other, via the public Kinto demo instance on AWS. Creating multiple Kinto
 instances within the same origin is now possible with the recently added
 &lt;tt class="docutils literal"&gt;dbPrefix&lt;/tt&gt; option:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;// Kinto collection:&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c1"&gt;// Kinto collection:&lt;/span&gt;
 &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;createCollection&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;transformer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;testRun&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;instanceNo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;kinto&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Kinto&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
-    &lt;span class="nx"&gt;dbPrefix&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nx"&gt;testRun&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="sb"&gt;-&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nx"&gt;instanceNo&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nx"&gt;dbPrefix&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;testRun&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;instanceNo&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="nx"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'https://kinto.dev.mozaws.net/v1/'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="nx"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
       &lt;span class="nx"&gt;Authorization&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Basic '&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;btoa&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'public-demo:s3cr3t'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
   &lt;span class="p"&gt;});&lt;/span&gt;
 
-  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;kinto&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;collection&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="sb"&gt;`kinto-encryption-example-&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nx"&gt;testRun&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;kinto&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;collection&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="nx"&gt;kinto&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;encryption&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;example&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="nx"&gt;$&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="nx"&gt;testRun&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;&lt;span class="err"&gt;`&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="nx"&gt;remoteTransformers&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nx"&gt;transformer&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
   &lt;span class="p"&gt;});&lt;/span&gt;
 &lt;span class="p"&gt;};&lt;/span&gt;
@@ -1644,7 +1763,7 @@ instances within the same origin is now possible with the recently added
 should be encrypted on the wire, we can check that on the Network tab of the
 browser console):&lt;/p&gt;
 &lt;img alt="Network tab screenshot" src="http://www.servicedenuages.fr/en/../images/kinto-encryption-example-network-tab.png" style="width: 2560px; height: auto; max-width: 100%;"/&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;syncUp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;syncUp&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="c1"&gt;// Use first Kinto instance to demonstrate encryption:&lt;/span&gt;
   &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;coll1&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;create&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
     &lt;span class="nx"&gt;URL&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'http://www.w3.org/TR/WebCryptoAPI/'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -1661,7 +1780,7 @@ coming in on the wire should be encrypted, but the decrypted results should
 show up in the sync results. And finally, a 'go()' method to put it all together.&lt;/p&gt;
 &lt;p&gt;The full source code is included in a script tag on this page you're reading right
 now, so go ahead and try opening your browser console on this page to try it out!&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;syncDown&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;syncDown&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;()&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="c1"&gt;// Use second Kinto instance to demonstrate decryption:&lt;/span&gt;
   &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nx"&gt;coll2&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;sync&lt;/span&gt;&lt;span class="p"&gt;().&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;syncResults&lt;/span&gt; &lt;span class="o"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="nx"&gt;console&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;log&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'Sync down'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;syncResults&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
@@ -1680,7 +1799,7 @@ now, so go ahead and try opening your browser console on this page to try it out
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Hope you are as excited about Kinto.js as I am, comments below this blogpost
 and github issues on the example code very welcome! :)&lt;/p&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Signing collection to ensure data integrity</title><link href="http://www.servicedenuages.fr/en/data-signature" rel="alternate"></link><published>2015-08-26T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-08-26:en/data-signature</id><summary type="html">&lt;div class="note"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Signing collection to ensure data integrity</title><link href="http://www.servicedenuages.fr/en/data-signature" rel="alternate"></link><updated>2015-08-26T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-08-26:en/data-signature</id><summary type="html">&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;Translated from the French by &lt;a class="reference external" href="https://twitter.com/Natim"&gt;Rémy Hubscher&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -1725,7 +1844,7 @@ same input.&lt;/p&gt;
 &lt;p&gt;All the data are fetched from a &lt;em&gt;secure&lt;/em&gt; source and converted into a JSON
 collection. Each record is assigned a unique ID generated on client side.&lt;/p&gt;
 &lt;p&gt;For instance, we could have the following record:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;"id"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"b7dded96-8df0-8af8-449a-8bc47f71b4c4"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;"id"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"b7dded96-8df0-8af8-449a-8bc47f71b4c4"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
  &lt;span class="s2"&gt;"fingerprint"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"11:D5:D2:0A:9A:F8:D9:FC:23:6E:5C:5C:30:EC:AF:68:F5:68:FB:A3"&lt;/span&gt;&lt;span class="p"&gt;}&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Then the collection &lt;em&gt;hash&lt;/em&gt; is computed, signed, and then sent to the Kinto
@@ -1763,14 +1882,14 @@ can compute the new collection hash and sign it.&lt;/p&gt;
 &lt;p&gt;An interesting candidate could be the &lt;a class="reference external" href="https://tools.ietf.org/html/draft-ietf-jose-json-web-signature-41"&gt;JSON Web Signature&lt;/a&gt;
 standard. Meanwhile, a naive Python implementation could look like
 this:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;json&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;json&lt;/span&gt;
 &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;hashlib&lt;/span&gt;
 
 &lt;span class="n"&gt;data&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
-   &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;"id"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"b7dded96-8df0-8af8-449a-8bc47f71b4c4"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s2"&gt;"fingerprint"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"11:D5:D2:0A:9A:F8:D9:FC:23:6E:5C:5C:30:EC:AF:68:F5:68:FB:A3"&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
-   &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s2"&gt;"id"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"dded96b7-8f0d-8f8a-49a4-7f771b4c4bc4"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="s2"&gt;"fingerprint"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"33:6E:5C:5C:30:EC:AF:68:F5:68:FB:A3:11:D5:D2:0A:9A:F8:D9:FC"&lt;/span&gt;&lt;span class="p"&gt;}]&lt;/span&gt;
+   &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s"&gt;"id"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;"b7dded96-8df0-8af8-449a-8bc47f71b4c4"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;"fingerprint"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;"11:D5:D2:0A:9A:F8:D9:FC:23:6E:5C:5C:30:EC:AF:68:F5:68:FB:A3"&lt;/span&gt;&lt;span class="p"&gt;},&lt;/span&gt;
+   &lt;span class="p"&gt;{&lt;/span&gt;&lt;span class="s"&gt;"id"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;"dded96b7-8f0d-8f8a-49a4-7f771b4c4bc4"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s"&gt;"fingerprint"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s"&gt;"33:6E:5C:5C:30:EC:AF:68:F5:68:FB:A3:11:D5:D2:0A:9A:F8:D9:FC"&lt;/span&gt;&lt;span class="p"&gt;}]&lt;/span&gt;
 
 &lt;span class="n"&gt;m&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;hashlib&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sha256&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;span class="n"&gt;m&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;update&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;json&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;dumps&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;data&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;sort_keys&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
@@ -1779,7 +1898,7 @@ this:&lt;/p&gt;
 &lt;p&gt;Here is a little sketch to summarise:&lt;/p&gt;
 &lt;img alt="Summary schema of the collection signing flow." class="align-center" src="http://www.servicedenuages.fr/en/../images/kinto-signing.jpg" style="width: 600px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Notifications in Kinto (Preamble)</title><link href="http://www.servicedenuages.fr/en/notifications-kinto-preamble" rel="alternate"></link><published>2015-08-13T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-08-13:en/notifications-kinto-preamble</id><summary type="html">&lt;p&gt;At a recent work week in the lovely French town of &lt;a href="https://www.qwant.com/?q=Douarnenez&amp;amp;t=images"&gt;Douarnenez&lt;/a&gt; we laid the groundwork for an upcoming feature in &lt;a href="https://kinto.readthedocs.io"&gt;Kinto&lt;/a&gt;: &lt;em&gt;Notifications!&lt;/em&gt;&lt;/p&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Notifications in Kinto (Preamble)</title><link href="http://www.servicedenuages.fr/en/notifications-kinto-preamble" rel="alternate"></link><updated>2015-08-13T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-08-13:en/notifications-kinto-preamble</id><summary type="html">&lt;p&gt;At a recent work week in the lovely French town of &lt;a href="https://www.qwant.com/?q=Douarnenez&amp;amp;t=images"&gt;Douarnenez&lt;/a&gt; we laid the groundwork for an upcoming feature in &lt;a href="https://kinto.readthedocs.io"&gt;Kinto&lt;/a&gt;: &lt;em&gt;Notifications!&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Sunset over Douarnenez (@phrawzty)" src="http://www.servicedenuages.fr/en/../images/notifications-douarnenez.jpg" style="width: 800px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
 &lt;h1&gt;tl;dr&lt;/h1&gt;
 &lt;p&gt;For those that are in a hurry, here's the gist: We're going to be integrating a "notifications" system into Kinto with an eye towards simplicity, modernity, and flexibility. Our goal is to provide a solid framework that will allow other systems to take advantage of this new feature without having to jump through too many hoops. If that sounds interesting to you - read on.&lt;/p&gt;
@@ -1878,7 +1997,7 @@ this:&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;Once the model is validated we'll begin the iterative improvement process. This will likely take the form of a "standard broker" which we create and maintain as part of the formal ecosystem. We also like the idea of subscribers registering themselves to the broker using an endpoint (such as webhooks), but that's a discussion for future time.&lt;/p&gt;
 &lt;h1&gt;Feedback&lt;/h1&gt;
-&lt;p&gt;As always, we're interested in feedback from the community - feel free to use the Disqus form below to join the conversation!&lt;/p&gt;</summary><category term="mozilla"></category></entry><entry><title>Making the case for Cliquet?</title><link href="http://www.servicedenuages.fr/en/why-cliquet" rel="alternate"></link><published>2015-07-14T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-07-14:en/why-cliquet</id><summary type="html">&lt;div class="note"&gt;
+&lt;p&gt;As always, we're interested in feedback from the community - feel free to use the Disqus form below to join the conversation!&lt;/p&gt;</summary><category term="mozilla"></category></entry><entry><title>Making the case for Cliquet?</title><link href="http://www.servicedenuages.fr/en/why-cliquet" rel="alternate"></link><updated>2015-07-14T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-07-14:en/why-cliquet</id><summary type="html">&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;Translated from the French by &lt;a class="reference external" href="https://twitter.com/phrawzty"&gt;Dan Phrawzty&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -2076,13 +2195,13 @@ no knowledge of &lt;em&gt;Pyramid&lt;/em&gt;.&lt;/p&gt;
 &lt;div class="section" id="step-1"&gt;
 &lt;h3&gt;Step 1&lt;/h3&gt;
 &lt;p&gt;Activate Cliquet:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;cliquet&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;cliquet&lt;/span&gt;
 &lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;pyramid.config&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Configurator&lt;/span&gt;
 
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;global_config&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Configurator&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-    &lt;span class="n"&gt;cliquet&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;initialize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'1.0'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;cliquet&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;initialize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;'1.0'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;make_wsgi_app&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;From here, most of the features of Cliquet are active and ready to be used.&lt;/p&gt;
@@ -2093,16 +2212,16 @@ views in either Pyramid or Cornice.&lt;/p&gt;
 &lt;div class="section" id="step-2"&gt;
 &lt;h3&gt;Step 2&lt;/h3&gt;
 &lt;p&gt;Add some views:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;global_config&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;main&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;global_config&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="o"&gt;**&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;config&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Configurator&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;settings&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
-    &lt;span class="n"&gt;cliquet&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;initialize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'1.0'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-    &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;scan&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"myproject.views"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;cliquet&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;initialize&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s"&gt;'1.0'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;scan&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"myproject.views"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;config&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;make_wsgi_app&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The first step in defining a CRUD resource is to define the schema with
 Colander:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;cliquet&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;schema&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;cliquet&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;schema&lt;/span&gt;
 
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;BookmarkSchema&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;schema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;ResourceSchema&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;url&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;schema&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;URL&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
@@ -2114,7 +2233,7 @@ Colander:&lt;/p&gt;
 &lt;p&gt;From here, the CRUD resource is available at &lt;tt class="docutils literal"&gt;/v1/bookmarks&lt;/tt&gt; with all the
 synchronisation, filtering, sorting, paging, and timestamp features ready to
 go. By default the records are private (per user).&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="err"&gt;http&lt;/span&gt; &lt;span class="err"&gt;GET&lt;/span&gt; &lt;span class="s2"&gt;"http://localhost:8000/v1/bookmarks"&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="err"&gt;$&lt;/span&gt; &lt;span class="err"&gt;http&lt;/span&gt; &lt;span class="err"&gt;GET&lt;/span&gt; &lt;span class="s2"&gt;"http://localhost:8000/v1/bookmarks"&lt;/span&gt;
 &lt;span class="err"&gt;HTTP/&lt;/span&gt;&lt;span class="mf"&gt;1.1&lt;/span&gt; &lt;span class="mi"&gt;200&lt;/span&gt; &lt;span class="err"&gt;OK&lt;/span&gt;
 &lt;span class="err"&gt;...&lt;/span&gt;
 &lt;span class="p"&gt;{&lt;/span&gt;
@@ -2132,16 +2251,16 @@ go. By default the records are private (per user).&lt;/p&gt;
 &lt;h3&gt;Step 3&lt;/h3&gt;
 &lt;p&gt;There's lots of room to change things up, such as the URLs and HTTP verbs, or
 even modifying the fields before they're saved.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nd"&gt;@resource.register&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;collection_path&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'/user/bookmarks'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-                   &lt;span class="n"&gt;record_path&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'/user/bookmarks/{{id}}'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-                   &lt;span class="n"&gt;collection_methods&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'GET'&lt;/span&gt;&lt;span class="p"&gt;,))&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nd"&gt;@resource.register&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;collection_path&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;'/user/bookmarks'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                   &lt;span class="n"&gt;record_path&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;'/user/bookmarks/{{id}}'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                   &lt;span class="n"&gt;collection_methods&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;'GET'&lt;/span&gt;&lt;span class="p"&gt;,))&lt;/span&gt;
 &lt;span class="k"&gt;class&lt;/span&gt; &lt;span class="nc"&gt;Bookmark&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;resource&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;BaseResource&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
     &lt;span class="n"&gt;mapping&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;BookmarkSchema&lt;/span&gt;&lt;span class="p"&gt;()&lt;/span&gt;
 
     &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;process_record&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;old&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;None&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;old&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'device'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;old&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'device'&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt;
-            &lt;span class="n"&gt;device&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'User-Agent'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
-            &lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'device'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;device&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;old&lt;/span&gt; &lt;span class="ow"&gt;is&lt;/span&gt; &lt;span class="ow"&gt;not&lt;/span&gt; &lt;span class="bp"&gt;None&lt;/span&gt; &lt;span class="ow"&gt;and&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;'device'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;!=&lt;/span&gt; &lt;span class="n"&gt;old&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;'device'&lt;/span&gt;&lt;span class="p"&gt;]:&lt;/span&gt;
+            &lt;span class="n"&gt;device&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="bp"&gt;self&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;'User-Agent'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="n"&gt;new&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;'device'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;device&lt;/span&gt;
         &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;For more information, see the &lt;a class="reference external" href="http://cliquet.readthedocs.io/en/latest/reference/resource.html"&gt;resource documentation&lt;/a&gt; .&lt;/p&gt;
@@ -2149,17 +2268,17 @@ even modifying the fields before they're saved.&lt;/p&gt;
 &lt;div class="section" id="step-4-optional"&gt;
 &lt;h3&gt;Step 4 (optional)&lt;/h3&gt;
 &lt;p&gt;Let's try using Cliquet &lt;em&gt;abstractions&lt;/em&gt; in a Cornice &lt;em&gt;view&lt;/em&gt;:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;cliquet&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Service&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;cliquet&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Service&lt;/span&gt;
 
-&lt;span class="n"&gt;score&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Service&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"score"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-                &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'/score/{game}'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-                &lt;span class="n"&gt;description&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"Store game score"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;score&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Service&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"score"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                &lt;span class="n"&gt;path&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;'/score/{game}'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+                &lt;span class="n"&gt;description&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"Store game score"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
 &lt;span class="nd"&gt;@score.post&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;schema&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;ScoreSchema&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 &lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;post_score&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
-    &lt;span class="n"&gt;collection_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s1"&gt;'scores-'&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;match_dict&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s1"&gt;'game'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="n"&gt;collection_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;'scores-'&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;match_dict&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s"&gt;'game'&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
     &lt;span class="n"&gt;user_id&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;authenticated_userid&lt;/span&gt;
-    &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;validated&lt;/span&gt;  &lt;span class="c1"&gt;# c.f. Cornice.&lt;/span&gt;
+    &lt;span class="n"&gt;value&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;validated&lt;/span&gt;  &lt;span class="c"&gt;# c.f. Cornice.&lt;/span&gt;
 
     &lt;span class="n"&gt;storage&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;request&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;registry&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;storage&lt;/span&gt;
     &lt;span class="n"&gt;record&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;storage&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;create&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;collection_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;user_id&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;value&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
@@ -2285,7 +2404,7 @@ plugin-style ecosystem.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Summer Perspectives</title><link href="http://www.servicedenuages.fr/en/summer-perspectives" rel="alternate"></link><published>2015-07-07T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-07-07:en/summer-perspectives</id><summary type="html">&lt;div class="note"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Summer Perspectives</title><link href="http://www.servicedenuages.fr/en/summer-perspectives" rel="alternate"></link><updated>2015-07-07T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-07-07:en/summer-perspectives</id><summary type="html">&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;Translated from the French by &lt;a class="reference external" href="https://dark.ca/"&gt;Dan Phrawzty&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -2390,7 +2509,7 @@ revived in the form of add-ons.&lt;/td&gt;&lt;/tr&gt;
 &lt;p&gt;Finally, we will work to encourage meaningful community contributions to help us build a free, generic, simple, and self-hostable solution for storing data on the web.&lt;/p&gt;
 &lt;img alt="Friday Night Party - CC0" class="align-center" src="http://www.servicedenuages.fr/en/../images/whistler-top-roof.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Achievement unlocked</title><link href="http://www.servicedenuages.fr/en/kinto-1.0" rel="alternate"></link><published>2015-06-17T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-06-17:en/kinto-1.0</id><summary type="html">&lt;p&gt;Today we released Cliquet 2.0 &lt;a class="footnote-reference" href="#id5" id="id1"&gt;[1]&lt;/a&gt; and Kinto 1.0 &lt;a class="footnote-reference" href="#id6" id="id2"&gt;[2]&lt;/a&gt; (a.k.a Cloud Storage).&lt;/p&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Achievement unlocked</title><link href="http://www.servicedenuages.fr/en/kinto-1.0" rel="alternate"></link><updated>2015-06-17T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-06-17:en/kinto-1.0</id><summary type="html">&lt;p&gt;Today we released Cliquet 2.0 &lt;a class="footnote-reference" href="#id5" id="id1"&gt;[1]&lt;/a&gt; and Kinto 1.0 &lt;a class="footnote-reference" href="#id6" id="id2"&gt;[2]&lt;/a&gt; (a.k.a Cloud Storage).&lt;/p&gt;
 &lt;p&gt;&lt;a class="reference external" href="https://kinto.readthedocs.io/en/latest/"&gt;Kinto&lt;/a&gt; is a service to
 store, synchronize and share arbitrary data attached to a Firefox Account.&lt;/p&gt;
 &lt;p&gt;&lt;a class="reference external" href="https://cliquet.readthedocs.io/en/latest/"&gt;Cliquet&lt;/a&gt; is a toolkit to
@@ -2440,7 +2559,7 @@ attached to your Firefox account. — &lt;a class="reference external" href="htt
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id4"&gt;[4]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Kinto roadmap: &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/wiki/roadmap"&gt;https://github.com/mozilla-services/kinto/wiki/roadmap&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Handling permissions</title><link href="http://www.servicedenuages.fr/en/handling-permissions" rel="alternate"></link><published>2015-05-12T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-12:en/handling-permissions</id><summary type="html">&lt;p&gt;When creating a generic data storage (Kinto), permissions handling is one of
+</summary><category term="mozilla"></category></entry><entry><title>Handling permissions</title><link href="http://www.servicedenuages.fr/en/handling-permissions" rel="alternate"></link><updated>2015-05-12T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-12:en/handling-permissions</id><summary type="html">&lt;p&gt;When creating a generic data storage (Kinto), permissions handling is one of
 the big challenges: who should get access to what, and how should we define
 these rules?&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;tl;dr: Some feedback about the permissions vocabulary and our ideas about how
@@ -2509,7 +2628,7 @@ acces rights to a person or a group.&lt;/p&gt;
 &lt;p class="attribution"&gt;—&lt;a class="reference external" href="https://en.wikipedia.org/wiki/Access_Control_List"&gt;https://en.wikipedia.org/wiki/Access_Control_List&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;I would even say, in our case, "to a &lt;em&gt;principal&lt;/em&gt;". For instance:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;create_record: alexis,remy,tarek
+&lt;div class="highlight"&gt;&lt;pre&gt;create_record: alexis,remy,tarek
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;This ACE gives the &lt;tt class="docutils literal"&gt;create&lt;/tt&gt; permission on the &lt;tt class="docutils literal"&gt;record&lt;/tt&gt; object to the users
 Tarek, Rémy and Alexis.&lt;/p&gt;
@@ -2595,7 +2714,7 @@ in different &lt;em&gt;buckets&lt;/em&gt; so that data are distinct.&lt;/td&gt;
 &lt;/table&gt;
 &lt;p&gt;To define ACLs, there is a hierarchy: objects inherit the ACLs from their
 parents.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;           +---------------+
+&lt;div class="highlight"&gt;&lt;pre&gt;           +---------------+
            | Bucket        |
            +---------------+
     +-----&amp;gt;+ - id          +&amp;lt;---+
@@ -2941,7 +3060,7 @@ default and some pages can be published:&lt;/p&gt;
 &lt;h3&gt;The HTTP API&lt;/h3&gt;
 &lt;p&gt;During the creation of an object, the user is given the &lt;tt class="docutils literal"&gt;write&lt;/tt&gt; permission on
 the object:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nf"&gt;PUT&lt;/span&gt; &lt;span class="nn"&gt;/v1/buckets/servicedenuages_blog&lt;/span&gt; &lt;span class="kr"&gt;HTTP&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1.1&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nf"&gt;PUT&lt;/span&gt; &lt;span class="nn"&gt;/v1/buckets/servicedenuages_blog&lt;/span&gt; &lt;span class="kr"&gt;HTTP&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1.1&lt;/span&gt;
 &lt;span class="na"&gt;Authorization&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;Bearer 0b9c2625dc21ef05f6ad4ddf47c5f203837aa32ca42fced54c2625dc21efac32&lt;/span&gt;
 &lt;span class="na"&gt;Accept&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;application/json&lt;/span&gt;
 
@@ -2956,7 +3075,7 @@ Content-Type: application/json; charset=utf-8
 }
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;It's possible to add permissions using the &lt;tt class="docutils literal"&gt;PATCH&lt;/tt&gt; HTTP method.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nf"&gt;PATCH&lt;/span&gt; &lt;span class="nn"&gt;/v1/buckets/servicedenuages_blog/collections/articles&lt;/span&gt; &lt;span class="kr"&gt;HTTP&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1.1&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nf"&gt;PATCH&lt;/span&gt; &lt;span class="nn"&gt;/v1/buckets/servicedenuages_blog/collections/articles&lt;/span&gt; &lt;span class="kr"&gt;HTTP&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1.1&lt;/span&gt;
 &lt;span class="na"&gt;Authorization&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;Bearer 0b9c2625dc21ef05f6ad4ddf47c5f203837aa32ca42fced54c2625dc21efac32&lt;/span&gt;
 &lt;span class="na"&gt;Accept&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="l"&gt;application/json&lt;/span&gt;
 
@@ -2999,7 +3118,7 @@ specific location, using &lt;tt class="docutils literal"&gt;~&lt;/tt&gt;.&lt;/p&
 a shortcut to reference the &lt;em&gt;personal&lt;/em&gt; bucket of the user:
 &lt;tt class="docutils literal"&gt;/buckets/personal/collections/contacts&lt;/tt&gt;.&lt;/p&gt;
 &lt;p&gt;This URL will return a &lt;tt class="docutils literal"&gt;HTTP 307&lt;/tt&gt; to the current user &lt;em&gt;bucket&lt;/em&gt;.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nf"&gt;POST&lt;/span&gt; &lt;span class="nn"&gt;/v1/buckets/personal/collections/contacts/records&lt;/span&gt; &lt;span class="kr"&gt;HTTP&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1.1&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nf"&gt;POST&lt;/span&gt; &lt;span class="nn"&gt;/v1/buckets/personal/collections/contacts/records&lt;/span&gt; &lt;span class="kr"&gt;HTTP&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="m"&gt;1.1&lt;/span&gt;
 
 {
    "name": "Rémy",
@@ -3033,7 +3152,7 @@ applications acting on her behalf.&lt;/p&gt;
 interrupt us while it's still possible!&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Ecosystem &amp; generic storage</title><link href="http://www.servicedenuages.fr/en/generic-storage-ecosystem" rel="alternate"></link><published>2015-04-30T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-30:en/generic-storage-ecosystem</id><summary type="html">&lt;div class="note"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Ecosystem &amp; generic storage</title><link href="http://www.servicedenuages.fr/en/generic-storage-ecosystem" rel="alternate"></link><updated>2015-04-30T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-30:en/generic-storage-ecosystem</id><summary type="html">&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;This article was translated from French by Julien/Sphinx. We thank him a lot
 for this effort! Note, that at the beginning of this year,
@@ -3106,7 +3225,7 @@ reinvent this solution. So there is a great chance that we will integrate
 &lt;h2&gt;PouchDB&lt;/h2&gt;
 &lt;p&gt;&lt;a class="reference external" href="http://pouchdb.com/"&gt;PouchDB&lt;/a&gt; is a Javascript library allowing to manipulate
 records locally and synchronize them to a distant database.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;db&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;PouchDB&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'dbname'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;db&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;PouchDB&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'dbname'&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
 &lt;span class="nx"&gt;db&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;put&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
  &lt;span class="nx"&gt;_id&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'dave@gmail.com'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
@@ -3307,7 +3426,7 @@ public sharing of one's resources from one's &lt;em&gt;Remote Storage&lt;/em&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Service de nuages !</title><link href="http://www.servicedenuages.fr/en/service-de-nuages" rel="alternate"></link><published>2015-04-16T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-16:en/service-de-nuages</id><summary type="html">&lt;p&gt;A bunch of changes since the beginning of the year for the "cloud-services"
+</summary><category term="mozilla"></category></entry><entry><title>Service de nuages !</title><link href="http://www.servicedenuages.fr/en/service-de-nuages" rel="alternate"></link><updated>2015-04-16T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-16:en/service-de-nuages</id><summary type="html">&lt;p&gt;A bunch of changes since the beginning of the year for the "cloud-services"
 frenchies!&lt;/p&gt;
 &lt;p&gt;First of all, two new recruits are here to complement the team:
 &lt;a class="reference external" href="https://nicolas.perriault.net/"&gt;n1k0&lt;/a&gt; and &lt;a class="reference external" href="http://mathieu-leplatre.info"&gt;Mathieu&lt;/a&gt; are now helping out &lt;a class="reference external" href="http://ziade.org/"&gt;Tarek&lt;/a&gt;, &lt;a class="reference external" href="http://natim.ionyse.com"&gt;Rémy&lt;/a&gt; and &lt;a class="reference external" href="http://notmyidea.org"&gt;Alexis&lt;/a&gt;.&lt;/p&gt;
@@ -3373,7 +3492,7 @@ the protocol (or &lt;em&gt;Cliquet&lt;/em&gt;), certain specific technical point
 vision with examples and tutorials.&lt;/p&gt;
 &lt;p&gt;See you soon, then!&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Le printemps</title><link href="http://www.servicedenuages.fr/en/spring" rel="alternate"></link><published>2015-04-15T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-15:en/spring</id><summary type="html">&lt;p&gt;It's spring already, and a good time to tidy-up a bit our minds!&lt;/p&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Le printemps</title><link href="http://www.servicedenuages.fr/en/spring" rel="alternate"></link><updated>2015-04-15T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-15:en/spring</id><summary type="html">&lt;p&gt;It's spring already, and a good time to tidy-up a bit our minds!&lt;/p&gt;
 &lt;p&gt;We've been stacking interesting experiences without really sharing them in
 writings, so now's the time.&lt;/p&gt;
 &lt;p&gt;There were a francophone conference about Hawk the past year, and some articles

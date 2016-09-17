@@ -118,7 +118,7 @@ donnant ou supprimant des droits d'accès à une personne ou un groupe.</p>
 <p class="attribution">—<a class="reference external" href="https://fr.wikipedia.org/wiki/Access_Control_List">https://fr.wikipedia.org/wiki/Access_Control_List</a></p>
 </blockquote>
 <p>Je dirais même plus, dans notre cas, « à un <em>principal</em> ». Par exemple:</p>
-<div class="highlight"><pre><span></span>create_record: alexis,remy,tarek
+<div class="highlight"><pre>create_record: alexis,remy,tarek
 </pre></div>
 <p>Cet ACE donne la permission <tt class="docutils literal">create</tt> sur l'objet <tt class="docutils literal">record</tt> aux
 utilisateurs Tarek, Rémy et Alexis.</p>
@@ -207,7 +207,7 @@ manière à ce que les données soient distinctes.</td>
 </table>
 <p>Pour la définition des ACLs, il y a une hiérarchie et les objets « héritent » des
 ACLs de leur parents :</p>
-<div class="highlight"><pre><span></span>           +---------------+
+<div class="highlight"><pre>           +---------------+
            | Bucket        |
            +---------------+
     +-----&gt;+ - id          +&lt;---+
@@ -554,7 +554,7 @@ wikis sont privés par défaut et certaines pages peuvent être rendues publique
 <h3>L'API HTTP</h3>
 <p>Lors de la création d'un objet, l'utilisateur se voit
 attribué la permission <tt class="docutils literal">write</tt> sur l'objet :</p>
-<div class="highlight"><pre><span></span><span class="nf">PUT</span> <span class="nn">/v1/buckets/servicedenuages_blog</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="highlight"><pre><span class="nf">PUT</span> <span class="nn">/v1/buckets/servicedenuages_blog</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer 0b9c2625dc21ef05f6ad4ddf47c5f203837aa32ca42fced54c2625dc21efac32</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
 
@@ -569,7 +569,7 @@ Content-Type: application/json; charset=utf-8
 }
 </pre></div>
 <p>Il est possible d'ajouter des permissions à l'aide de <tt class="docutils literal">PATCH</tt> :</p>
-<div class="highlight"><pre><span></span><span class="nf">PATCH</span> <span class="nn">/v1/buckets/servicedenuages_blog/collections/articles</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="highlight"><pre><span class="nf">PATCH</span> <span class="nn">/v1/buckets/servicedenuages_blog/collections/articles</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer 0b9c2625dc21ef05f6ad4ddf47c5f203837aa32ca42fced54c2625dc21efac32</span>
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
 
@@ -615,7 +615,7 @@ le disque en utilisant <tt class="docutils literal">~/</tt>.</p>
 utilisateur, elle peut utiliser le raccourci <tt class="docutils literal">~</tt> pour faire référence au
 <em>bucket</em> <strong>personnel</strong> de l'utilisateur : <tt class="docutils literal"><span class="pre">/buckets/~/collections/contacts</span></tt></p>
 <p>Cette URL retournera le code <tt class="docutils literal">HTTP 307</tt> vers le <em>bucket</em> de l'utilisateur courant :</p>
-<div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/v1/buckets/~/collections/contacts/records</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="highlight"><pre><span class="nf">POST</span> <span class="nn">/v1/buckets/~/collections/contacts/records</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 
 {
    "name": "Rémy",

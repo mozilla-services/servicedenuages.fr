@@ -64,7 +64,7 @@ redirect the user to the app with the
 <img alt="OAuth 2.0 Bearer Token creation flow" src="http://www.servicedenuages.fr/en/../images/oauth2-flow.png" style="width: 654px; height: auto; max-width: 100%;"/>
 <p>This Bearer Token will then be used by the app in the HTTP request
 Authorization header to authenticate on the web service.</p>
-<div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/v1/articles</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<div class="highlight"><pre><span class="nf">GET</span> <span class="nn">/v1/articles</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 <span class="na">Authorization</span><span class="o">:</span> <span class="l">Bearer e7613cae7a0660dae7a2dd55c216cbaef75f43254e2a8c77f7e9c7adb549bb65</span>
 <span class="na">Host</span><span class="o">:</span> <span class="l">readinglist.services.mozilla.com</span>
 </pre></div>
@@ -126,12 +126,12 @@ before and that will be read by your code.</p>
 <p>In order to define the environment variables you can write a Bash file
 that you will be able to source before running your load test and that
 will export all the needed environment variables.</p>
-<div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">OAUTH_BEARER_TOKEN</span><span class="o">=</span><span class="s2">"dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5"</span>
+<div class="highlight"><pre><span class="nb">export </span><span class="nv">OAUTH_BEARER_TOKEN</span><span class="o">=</span><span class="s2">"dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5"</span>
 </pre></div>
 <p>There are also utilities that might help you there, for instance,
 <a class="reference external" href="https://docs.docker.com/engine/reference/run/#env-environment-variables">docker</a>
 might set them for you.</p>
-<div class="highlight"><pre><span></span>docker run -e <span class="nv">OAUTH_BEARER_TOKEN</span><span class="o">=</span><span class="s2">"abc..."</span> loadtest
+<div class="highlight"><pre>docker run -e <span class="nv">OAUTH_BEARER_TOKEN</span><span class="o">=</span><span class="s2">"abc..."</span> loadtest
 </pre></div>
 </div>
 <div class="section" id="working-with-multiple-bearer-tokens">
@@ -141,15 +141,15 @@ variables.</p>
 <p>You can also set multiple users Bearer tokens using a comma-separated
 list in the env variable and then split on it to choose one randomly
 in your load test:</p>
-<div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">OAUTH_BEARER_TOKEN</span><span class="o">=</span><span class="s2">"</span>
+<div class="highlight"><pre><span class="nb">export </span><span class="nv">OAUTH_BEARER_TOKEN</span><span class="o">=</span><span class="s2">"</span>
 <span class="s2">    dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5,</span>
 <span class="s2">    b6af04a44aa0f5a6b3a3affbaa41c48c4abaaba50e428ce030f9a4cb356aa36e,</span>
 <span class="s2">    a44aa0f5a6b3a3affbaa41c1c48c4abaaba50e428ce030f9428ce070f9d4c75b</span>
 <span class="s2">    "</span>
 </pre></div>
 <p>Or you also could create multiple environment variables:</p>
-<div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">OAUTH_BEARER_TOKEN_SCOPE_PROFILE</span><span class="o">=</span><span class="s2">"dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5"</span>
-<span class="nb">export</span> <span class="nv">OAUTH_BEARER_TOKEN_SCOPE_KINTO</span><span class="o">=</span><span class="s2">"</span>
+<div class="highlight"><pre><span class="nb">export </span><span class="nv">OAUTH_BEARER_TOKEN_SCOPE_PROFILE</span><span class="o">=</span><span class="s2">"dd7e6b6d0f4d44d0df5d6b73afdfbad41c48c4abdaba50e428ce070f9d4c75b5"</span>
+<span class="nb">export </span><span class="nv">OAUTH_BEARER_TOKEN_SCOPE_KINTO</span><span class="o">=</span><span class="s2">"</span>
 <span class="s2">    b6af04a44aa0f5a6b3a3affbaa41c48c4abaaba50e428ce030f9a4cb356aa36e,</span>
 <span class="s2">    a44aa0f5a6b3a3affbaa41c1c48c4abaaba50e428ce030f9428ce070f9d4c75b</span>
 <span class="s2">    "</span>
