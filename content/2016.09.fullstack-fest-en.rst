@@ -105,25 +105,25 @@ One sentence summaries
 
 - Flow based programming via CycleJS allows you to design and debug your apps via a high level of abstraction — `André Staltz <https://www.youtube.com/watch?v=R-GzJgEccEQ&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc&index=27>`_, Futurice
 
-- CSP channels in Javascript are the best tooling when dealing with stream of data — `Vincenzo Chianese <https://www.youtube.com/watch?v=r7yWWxdP_nc&index=28&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Apiary
+- CSP channels in Javascript is the best tool for dealing with streams of data — `Vincenzo Chianese <https://www.youtube.com/watch?v=r7yWWxdP_nc&index=28&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Apiary
 
-- Service workers allow us to forget about page loader, especially when submitting data — `Andrew Dunkman <https://www.youtube.com/watch?v=xs_QRqGZ8xQ&index=29&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Harvest
+- With Service workers we won't have to wait for the server response when submitting data — `Andrew Dunkman <https://www.youtube.com/watch?v=xs_QRqGZ8xQ&index=29&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Harvest
 
-- Build your apps as if there were be accessed by Martian via a high-latency connection ­— `Slobodan Stojanovic <https://www.youtube.com/watch?v=7rlEidtXlZg&index=30&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Cloud Horizon
+- Build your apps as if there were be accessed by Martians via a high-latency connection ­— `Slobodan Stojanovic <https://www.youtube.com/watch?v=7rlEidtXlZg&index=30&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Cloud Horizon
 
 - WebAssembly allows native apps to be run by the browser VM in the same stack context as JavaScript — `Ben Smith <https://www.youtube.com/watch?v=vmzz17JGPHI&index=31&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Google
 
 - Render a 2D UI with React within a 3D WebGL scene — `Massimiliano Mantione <https://www.youtube.com/watch?v=DfPPlakRvow&index=32&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, HyperFair
 
-- Virtual reality in the browser is here! — `Liv Erickson <https://www.youtube.com/watch?v=Ciqucr_Ww9s&index=33&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`, Microsoft
+- Virtual reality in the browser is here! — `Liv Erickson <https://www.youtube.com/watch?v=Ciqucr_Ww9s&index=33&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Microsoft
 
-- The physical Web on top of the open Web and will change our lives — `Scott Jenson <https://www.youtube.com/watch?v=gV72mCdomo4&index=34&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Google
+- The physical Web is built on top of the open Web and will change our lives — `Scott Jenson <https://www.youtube.com/watch?v=gV72mCdomo4&index=34&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Google
 
 
 Some thoughts
 =============
 
-I felt really concerned by the challenges Joe and Juan raised! The Web of today has too many points of failure, Web engineers are responsible of making it better. For example, 500 attendees cannot collaborate on a document without going through servers outside the room! My grand-grand-grand children might not be able to find a picture of me on the Web! `But read this page <https://ipfs.io/#why>`_ and you'll realize this is not *only* about the future!
+The challenges of Web content durability and decentralization are very concerning. The Web of today has too many points of failure, Web engineers are responsible for making it better. For example, 500 attendees cannot collaborate on a document without going through servers outside the room! My great-great-grandchildren might not be able to find a picture of me on the Web! `But read this page <https://ipfs.io/#why>`_ and you'll realize this is not *only* about the future!
 
     You are cyberwizards!  — Juan Benet
 
@@ -145,7 +145,7 @@ Everybody seemed to agree that JavaScript transpilation will last for a long tim
 
 The old times where we could inspect the source code of a page ­— and learn from it — is far! It is sad, but we may have to accept it because WebAssembly goes a lot further and ships code that looks closely to assembler! It's far from the Web we know, but it's still the open Web! Note that it is very different from what we saw in the past with plugins like Java applets, now a WebAssembly function can be called from a usual JS script!
 
-The physical Web is awesome and I'm really excited about this revolution, especially how it could bring a peer-to-peer local Web, using `Web bluetooth <https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API>`_ for example. Scott told me that Mozilla approach with `FlyWeb <https://hacks.mozilla.org/2016/09/flyweb-pure-web-cross-device-interaction/>`_ is slightly different because it goes through Wifi, but both teams are in touch. The physical Web is an open project, and Google is pushing it strongly. I'm bothered by the *URL redirections* strategy though beacause it puts the redirection intermadiary in a very strong position. I believe that Google wants to be that intermediary.
+The physical Web is awesome and I'm really excited about this revolution, especially how it could bring a peer-to-peer local Web, using `Web bluetooth <https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API>`_ for example. Scott told me that the Mozilla approach with `FlyWeb <https://hacks.mozilla.org/2016/09/flyweb-pure-web-cross-device-interaction/>`_ is slightly different because it goes through Wifi, but both teams in contact. The physical Web is an open project, and Google is pushing it strongly. I'm bothered by the *URL redirections* strategy though because it puts the redirection intermediary in a very strong position. I believe that Google wants to be that intermediary.
 
 
 Personal feedback
@@ -161,11 +161,11 @@ The venue was great, and very well setup for the show (`see the introductory vid
 
 I really enjoyed the fact that there was only **one track**. I never had to divide myself between two interesting talks, and could just sit and enjoy :)
 
-Almost every topic resonated with the challenges we face at work. We are one of the few teams at Mozilla that do both backend and frontend, and that's awesome to feel in the same boat as the whole room of attendees. For example, we implemented some `Amazon lambda <https://amo2kinto-lambda.readthedocs.io>`_ recently, we are well aware of the frontend architecture challenges through our `Kinto-admin <https://github.com/Kinto/kinto-admin>`_, Ethan has a functional programming background in Haskell, and Nico and Mathieu `are playing with Elm <https://github.com/n1k0/kinto-elm-experiments>`_. That's why I strongly regretted that my teammates were not with me!
+Almost every topic resonated with the challenges we face at work. We are one of the few teams at Mozilla that do both backend and frontend, and that's awesome to feel in the same boat as the whole room of attendees. For example, we implemented `something on Amazon lambda <https://amo2kinto-lambda.readthedocs.io>`_ recently, we are well aware of the frontend architecture challenges through our `Kinto-admin <https://github.com/Kinto/kinto-admin>`_, Ethan has a functional programming background in Haskell, and Nico and Mathieu `are playing with Elm <https://github.com/n1k0/kinto-elm-experiments>`_. That's why I strongly regretted that my teammates were not with me!
 
-Also, I had the opportunity to meet Luca and Anthony from the Kuzzle team! We had a lot of fun together and our conversations about generic reusable backends were sooner insightful — c.f. `post on kinto ML <https://mail.mozilla.org/pipermail/kinto/2016-September/000197.html>`_.
+Also, I had the opportunity to meet Luca and Anthony from the Kuzzle team! We had a lot of fun together and our conversations about generic reusable backends were super insightful — see `my post on kinto ML <https://mail.mozilla.org/pipermail/kinto/2016-September/000197.html>`_.
 
-Last, but not least, I would like to thank Pusher.com for organizing a hack contest using their API! They had a physical button in their booth, and I made a kind-of video booth that records the webcam when the button is pressed. I could not have won this BB8 droid without `Soledad insights on MozillaHacks <https://hacks.mozilla.org/2016/04/record-almost-everything-in-the-browser-with-mediarecorder/>`_, and I thank her again :)
+Last, but not least, I would like to thank Pusher.com for organizing a hack contest using their API! They had a physical button in their booth, and I made a kind-of video booth that records the webcam when the button is pressed. I could not have won this BB8 droid without `Soledad's insights on MozillaHacks <https://hacks.mozilla.org/2016/04/record-almost-everything-in-the-browser-with-mediarecorder/>`_, and I thank her again :)
 
 .. image:: {filename}/images/fullstackfest-contest.jpg
     :alt: Me holding the prize proudly!
@@ -175,7 +175,7 @@ Last, but not least, I would like to thank Pusher.com for organizing a hack cont
 Some links
 ==========
 
-* https://www.kontena.io: open source containers platform. The features are really really attractive!
+* https://www.kontena.io: open source container platform. The features are really really attractive!
 * http://toxiproxy.io: a proxy to simulate network and system conditions
 * https://openresty.org: REST via Lua in Nginx
 * `Gossip/epidemic protocols <https://en.wikipedia.org/wiki/Gossip_protocol>`_ to invalidate cache
