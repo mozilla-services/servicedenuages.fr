@@ -16,11 +16,11 @@ Une grosse partie de notre travail sur *Kinto* chez Mozilla consiste à amélior
 l'acheminement de données de configuration dans Firefox. En particulier réduire
 le temps de mise à disposition et l'efficacité de leur mise à jour.
 
-Par example, lorsque ces données étaient de simple fichiers JSON dans le dépôt Mercurial, leur
-modification passaient par le processus de revue de code classique et leur livraison
+Par exemple, lorsque ces données étaient de simples fichiers JSON dans le dépôt Mercurial, leurs
+modifications passaient par le processus de revue de code classique et leur livraison
 via la prochaine release.
 
-Accélerer et fluidifier c'est super, mais il faut pas se louper!
+Accélerer et fluidifier c'est super, mais il faut pas se louper !
 
 Nous avions besoin d'un garde-fou qui permette de retrouver au moins autant de
 sécurité que le précédent système.
@@ -30,20 +30,20 @@ Le besoin universel
 -------------------
 
 N'allez pas imaginer que ce besoin est spécifique à notre utilisation ou aux enjeux
-liés à la livraison de plusieurs centaines de millions de clients!
+liés à la livraison de plusieurs centaines de millions de clients !
 
 Prenez le cas d'une application qui consommerait des données controllées
 par un administrateur (par exemple les valeurs proposées dans un formulaires, les
 niveaux d'un jeu, les chaînes traduites, les paramètres positionnés par défaut etc.).
 
 On veut pouvoir se protéger des modifications hâtives ou maladroites du vendredi soir
-ou des typos du lundi matin!
+ou des typos du lundi matin !
 
 On veut aussi pouvoir vérifier que l'application fonctionne avec les nouvelles
 données avant d'appliquer le changement à tous.
 
 Cela permet aussi d'envisager les cas d'utilisation où les données sont modifiables
-par des contributeurs externes et validées par quelqu'un de confiance!
+par des contributeurs externes et validées par quelqu'un de confiance !
 
 
 La solution
@@ -54,20 +54,20 @@ l'API de Kinto existante.
 
 La façon la plus simple a consisté à utiliser plusieurs collections. La première
 subit les changements, la suivante est mise à jour lors de la demande de revue
-et la dernière est mise à jour si les changements sont approvés.
+et la dernière est mise à jour si les changements sont approuvés.
 
 
-Status
+Statut
 ------
 
 Nous utilisons un attribut particulier (``status``) sur l'object collection,
-qui va servir à demander la revue, approver ou rejetter les changements.
+qui va servir à demander la revue, approuver ou rejetter les changements.
 
-* Lorsqu'un changement a lieu sur les *records* de la *collection*, le status
+* Lorsqu'un changement a lieu sur les *records* de la *collection*, le statut
   passe à ``work-in-progress``.
-* En passant le status à ``to-review`` on demande une revue des changements
-  effectués depuis la dernière revue approvée.
-* En passant le status à ``to-sign`` on approve les changements (*cf. prochaines
+* En passant le statut à ``to-review`` on demande une revue des changements
+  effectués depuis la dernière revue approuvée.
+* En passant le statut à ``to-sign`` on approuve les changements (*cf. prochaines
   étapes pour le rapport avec les signatures*)
 
 
@@ -80,7 +80,7 @@ nous nous en servirons pour restreindre les utilisateurs autorisés à demander
 des revues de changements ou à les valider.
 
 Évidemment, le système refuse que la personne qui a effectué les changements soit le
-même que celle qui les approve.
+même que celle qui les approuve.
 
 
 Plugin History
@@ -101,9 +101,9 @@ de la *demande de revue*.
 Une entrée du journal contient — entre autres — les attributs suivants:
 
 * ``action``: création, mise à jour, suppression
-* ``user_id``: who?
-* ``date``: when?
-* ``target``: what?
+* ``user_id``: qui?
+* ``date``: quand?
+* ``target``: quoi?
 
 La cible contient l'objet soit créé, soit tel qu'il est était avant
 la modification ou la suppression. En d'autres termes, une entrée du journal
@@ -115,7 +115,7 @@ HTTP API
 --------
 
 Comme nous nous sommes reposés sur l'API HTTP existante, nous pouvons utiliser
-le client Python de base pour demander ou approver une revue de changements.
+le client Python de base pour demander ou approuver une revue de changements.
 
 .. code-block:: python
 
@@ -160,9 +160,9 @@ Worflows
 --------
 
 Comme les workflows de validation sont activés via un plugin externe, nous avons
-décidé d'en faire aussi un plugin pour l'admin. Cela nous a permis aussi
-d'expérimenter aussi le concept si l'on souhaite qu'il soit possible un jour
-de personnaliser facilement l'interface pour des besoins spécifiques.
+décidé d'en faire aussi un plugin pour l'admin. Cela nous a permis d'expérimenter
+le principe si l'on souhaite qu'il soit possible un jour de personnaliser facilement
+l'interface pour des besoins spécifiques.
 
 Avec ce plugin, lorsqu'une collection est configurée pour être revue et validée,
 un *widget* apparaît en haut de la liste des enregistrements.
@@ -173,7 +173,7 @@ un *widget* apparaît en haut de la liste des enregistrements.
 
 Un lien permet d'accéder à l'historique filtré avec les changements à valider.
 La collection intermédiaire est également accessible pour voir le résultat
-final ou configurer les clients pour pointer dessus.
+final ou tester dans un véritable client en faisant pointer la collection dessus.
 
 Historique
 ----------
@@ -188,7 +188,7 @@ un onglet *Historique* sur chaque objet.
 Groupes
 -------
 
-Pour faciliter la gestion des utilisateurs autorisés à apporter et approver des
+Pour faciliter la gestion des utilisateurs autorisés à apporter et approuver des
 changements sur les données, nous avons implémenté la gestion des groupes, au
 niveau des buckets et des permissions.
 
@@ -212,6 +212,6 @@ prévoyons pour la suite:
 * Envoyer un email aux membres du groupe de *reviewers* lorsqu'un éditeur demande
   une revue.
 
-Les workflows ont été implémentés en que fonctionnalité du `plugin de signatures <https://github.com/Kinto/kinto-signer/>`_,
+Les workflows ont été implémentés en que fonctionnalités du `plugin de signatures <https://github.com/Kinto/kinto-signer/>`_,
 qui ajoutait déjà certaines garanties pour l'acheminement des données. Mais il est
-possible que nous en fassions un plugin à part entière à terme...
+possible que nous en fassions un plugin spécifique dissocié de la signature...
