@@ -25,6 +25,11 @@ Accélerer et fluidifier c'est super, mais il faut pas se louper !
 Nous avions besoin d'un garde-fou qui permette de retrouver au moins autant de
 sécurité que le précédent système.
 
+.. image:: {filename}/images/unsafe-conditions.jpg
+    :alt: CC-BY-SA Kurt Bauschardt
+    :width: 100%
+    :align: center
+
 
 Le besoin universel
 -------------------
@@ -45,6 +50,11 @@ données avant d'appliquer le changement à tous.
 Cela permet aussi d'envisager les cas d'utilisation où les données sont modifiables
 par des contributeurs externes et validées par quelqu'un de confiance !
 
+.. image:: {filename}/images/approve-shipment.jpg
+    :alt: CC-NC-ND WorldFish
+    :width: 100%
+    :align: center
+
 
 La solution
 ===========
@@ -61,7 +71,7 @@ Statut
 ------
 
 Nous utilisons un attribut particulier (``status``) sur l'object collection,
-qui va servir à demander la revue, approuver ou rejetter les changements.
+qui va servir à demander la revue, approuver ou rejeter les changements.
 
 * Lorsqu'un changement a lieu sur les *records* de la *collection*, le statut
   passe à ``work-in-progress``.
@@ -119,6 +129,8 @@ le client Python de base pour demander ou approuver une revue de changements.
 
 .. code-block:: python
 
+    from kinto_http import Client
+
     editor_client = Client(server_url="https://kinto.dev.mozaws.net/v1",
                            auth=("token", "editor"),
                            bucket="blog")
@@ -131,6 +143,8 @@ En revanche pour l'historique, nous utilisons un nouveau endpoint: ``GET /bucket
 Le client JS a une méthode liée au bucket:
 
 .. code-block:: javascript
+
+    import KintoClient from "kinto-http";
 
     const client = new KintoClient("https://kinto.dev.mozaws.net/v1", {
       headers: {
@@ -156,6 +170,31 @@ Web Admin
 Pour pouvoir exploiter ces fonctionnalités tranquillement, nous avons implémenté
 un certain nombre d'améliorations dans la `Kinto Admin <https://github.com/Kinto/kinto-admin>`_.
 
+Groupes
+-------
+
+Pour faciliter la gestion des utilisateurs autorisés à apporter et approuver des
+changements sur les données, nous avons implémenté la gestion des groupes, au
+niveau des buckets et des permissions.
+
+.. image:: {filename}/images/kinto-admin-edit-group.png
+    :alt: Group members management
+    :align: center
+
+.. image:: {filename}/images/kinto-admin-edit-permissions.png
+    :alt: Groups in permissions
+    :align: center
+
+Historique
+----------
+
+Si le serveur a la fonctionnalité d'historique activée, l'interface présentera
+un onglet *Historique* sur chaque objet.
+
+.. image:: {filename}/images/kinto-admin-history.png
+    :alt: History of objects
+    :align: center
+
 Worflows
 --------
 
@@ -167,38 +206,13 @@ l'interface pour des besoins spécifiques.
 Avec ce plugin, lorsqu'une collection est configurée pour être revue et validée,
 un *widget* apparaît en haut de la liste des enregistrements.
 
-.. image:: {filename}/images/webadmin-workflow.png
+.. image:: {filename}/images/kinto-admin-workflow.png
     :alt: Worflow UI
     :align: center
 
 Un lien permet d'accéder à l'historique filtré avec les changements à valider.
 La collection intermédiaire est également accessible pour voir le résultat
 final ou tester dans un véritable client en faisant pointer la collection dessus.
-
-Historique
-----------
-
-Si le serveur a la fonctionnalité d'historique activée, l'interface présentera
-un onglet *Historique* sur chaque objet.
-
-.. image:: {filename}/images/webadmin-history.png
-    :alt: History of objects
-    :align: center
-
-Groupes
--------
-
-Pour faciliter la gestion des utilisateurs autorisés à apporter et approuver des
-changements sur les données, nous avons implémenté la gestion des groupes, au
-niveau des buckets et des permissions.
-
-.. image:: {filename}/images/webadmin-group-members.png
-    :alt: Group members management
-    :align: center
-
-.. image:: {filename}/images/webadmin-group-permissions.png
-    :alt: Groups in permissions
-    :align: center
 
 
 Prochaines étapes
