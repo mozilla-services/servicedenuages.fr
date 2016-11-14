@@ -1,0 +1,217 @@
+Workflow de validation dans Kinto
+#################################
+
+:slug: kinto-workflows
+:date: 2016-11-14
+:lang: fr
+:url: kinto-workflows
+:summary:
+    Debrief des fonctionnalités de validation dans Kinto.
+
+
+Le besoin initial
+=================
+
+Une grosse partie de notre travail sur *Kinto* chez Mozilla consiste à améliorer
+l'acheminement de données de configuration dans Firefox. En particulier réduire
+le temps de mise à disposition et l'efficacité de leur mise à jour.
+
+Par example, lorsque ces données étaient de simple fichiers JSON dans le dépôt Mercurial, leur
+modification passaient par le processus de revue de code classique et leur livraison
+via la prochaine release.
+
+Accélerer et fluidifier c'est super, mais il faut pas se louper!
+
+Nous avions besoin d'un garde-fou qui permette de retrouver au moins autant de
+sécurité que le précédent système.
+
+
+Le besoin universel
+-------------------
+
+N'allez pas imaginer que ce besoin est spécifique à notre utilisation ou aux enjeux
+liés à la livraison de plusieurs centaines de millions de clients!
+
+Prenez le cas d'une application qui consommerait des données controllées
+par un administrateur (par exemple les valeurs proposées dans un formulaires, les
+niveaux d'un jeu, les chaînes traduites, les paramètres positionnés par défaut etc.).
+
+On veut pouvoir se protéger des modifications hâtives ou maladroites du vendredi soir
+ou des typos du lundi matin!
+
+On veut aussi pouvoir vérifier que l'application fonctionne avec les nouvelles
+données avant d'appliquer le changement à tous.
+
+Cela permet aussi d'envisager les cas d'utilisation où les données sont modifiables
+par des contributeurs externes et validées par quelqu'un de confiance!
+
+
+La solution
+===========
+
+Nous avons implémenté un plugin qui se charge d'ajouter la fonctionnalité en utilisant
+l'API de Kinto existante.
+
+La façon la plus simple a consisté à utiliser plusieurs collections. La première
+subit les changements, la suivante est mise à jour lors de la demande de revue
+et la dernière est mise à jour si les changements sont approvés.
+
+
+Status
+------
+
+Nous utilisons un attribut particulier (``status``) sur l'object collection,
+qui va servir à demander la revue, approver ou rejetter les changements.
+
+* Lorsqu'un changement a lieu sur les *records* de la *collection*, le status
+  passe à ``work-in-progress``.
+* En passant le status à ``to-review`` on demande une revue des changements
+  effectués depuis la dernière revue approvée.
+* En passant le status à ``to-sign`` on approve les changements (*cf. prochaines
+  étapes pour le rapport avec les signatures*)
+
+
+Groupes
+-------
+
+La notion de groupes d'utilisateurs nous servait déjà pour restreindre les
+utilisateurs autorisés à modifier les données. Pour les workflow de validation,
+nous nous en servirons pour restreindre les utilisateurs autorisés à demander
+des revues de changements ou à les valider.
+
+Évidemment, le système refuse que la personne qui a effectué les changements soit le
+même que celle qui les approve.
+
+
+Plugin History
+--------------
+
+De base, *Kinto* ne conserve aucun historique. Lorsqu'un enregistrement est modifié
+on ne conserve que la nouvelle version. De même lors d'une suppression, un enregistrement
+vide (aka. *tombstone*) remplace celui qui été supprimé.
+
+Pour permettre la revue des changements effectués depuis la dernière validation,
+nous avons `implémenté un plugin <https://kinto.readthedocs.io/en/latest/api/1.x/history.html>`_
+qui alimente un journal à chaque opération d'écriture.
+
+De cette manière, il est possible de consulter l'extrait du journal sur la période
+définie par les deux *timestamps* — celui de la *dernière validation* et celui
+de la *demande de revue*.
+
+Une entrée du journal contient — entre autres — les attributs suivants:
+
+* ``action``: création, mise à jour, suppression
+* ``user_id``: who?
+* ``date``: when?
+* ``target``: what?
+
+La cible contient l'objet soit créé, soit tel qu'il est était avant
+la modification ou la suppression. En d'autres termes, une entrée du journal
+ne stocke pas de *diff* mais l'objet complet. Pour obtenir le diff d'une mise à
+jour il faudra comparer avec l'entrée précédente.
+
+
+HTTP API
+--------
+
+Comme nous nous sommes reposés sur l'API HTTP existante, nous pouvons utiliser
+le client Python de base pour demander ou approver une revue de changements.
+
+.. code-block:: python
+
+    editor_client = Client(server_url="https://kinto.dev.mozaws.net/v1",
+                           auth=("token", "editor"),
+                           bucket="blog")
+
+    data = {"status": "to-review"}
+    editor_client.patch_collection(collection="test", data=data)
+
+
+En revanche pour l'historique, nous utilisons un nouveau endpoint: ``GET /buckets/{bid}/history``.
+Le client JS a une méthode liée au bucket:
+
+.. code-block:: javascript
+
+    const client = new KintoClient("https://kinto.dev.mozaws.net/v1", {
+      headers: {
+        Authorization: "Basic " + btoa("token:test")
+      }});
+
+    client.bucket("blog").listHistory()
+      .then(({data}) => {
+        data.forEach(r => console.log(`${r.user_id} ${r.action}d ${r.resource_name} ${r.target.id}`));
+      });
+
+::
+
+    ldap:leplatrem created collection test
+    ldap:leplatrem created record 37368867-9563-451e-9523-fb53e3d6da1e
+    ldap:leplatrem updated record 37368867-9563-451e-9523-fb53e3d6da1e
+    ldap:leplatrem deleted record 37368867-9563-451e-9523-fb53e3d6da1e
+
+
+Web Admin
+=========
+
+Pour pouvoir exploiter ces fonctionnalités tranquillement, nous avons implémenté
+un certain nombre d'améliorations dans la `Kinto Admin <https://github.com/Kinto/kinto-admin>`_.
+
+Worflows
+--------
+
+Comme les workflows de validation sont activés via un plugin externe, nous avons
+décidé d'en faire aussi un plugin pour l'admin. Cela nous a permis aussi
+d'expérimenter aussi le concept si l'on souhaite qu'il soit possible un jour
+de personnaliser facilement l'interface pour des besoins spécifiques.
+
+Avec ce plugin, lorsqu'une collection est configurée pour être revue et validée,
+un *widget* apparaît en haut de la liste des enregistrements.
+
+.. image:: {filename}/images/webadmin-workflow.png
+    :alt: Worflow UI
+    :align: center
+
+Un lien permet d'accéder à l'historique filtré avec les changements à valider.
+La collection intermédiaire est également accessible pour voir le résultat
+final ou configurer les clients pour pointer dessus.
+
+Historique
+----------
+
+Si le serveur a la fonctionnalité d'historique activée, l'interface présentera
+un onglet *Historique* sur chaque objet.
+
+.. image:: {filename}/images/webadmin-history.png
+    :alt: History of objects
+    :align: center
+
+Groupes
+-------
+
+Pour faciliter la gestion des utilisateurs autorisés à apporter et approver des
+changements sur les données, nous avons implémenté la gestion des groupes, au
+niveau des buckets et des permissions.
+
+.. image:: {filename}/images/webadmin-group-members.png
+    :alt: Group members management
+    :align: center
+
+.. image:: {filename}/images/webadmin-group-permissions.png
+    :alt: Groups in permissions
+    :align: center
+
+
+Prochaines étapes
+=================
+
+Nous sommes sur le point de déployer tout ça en production, et voici ce que nous
+prévoyons pour la suite:
+
+* Ajouter une étape dans le workflow pour dissocier l'approbation des changements
+  et la publication
+* Envoyer un email aux membres du groupe de *reviewers* lorsqu'un éditeur demande
+  une revue.
+
+Les workflows ont été implémentés en que fonctionnalité du `plugin de signatures <https://github.com/Kinto/kinto-signer/>`_,
+qui ajoutait déjà certaines garanties pour l'acheminement des données. Mais il est
+possible que nous en fassions un plugin à part entière à terme...
