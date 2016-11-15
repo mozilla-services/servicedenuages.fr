@@ -73,7 +73,7 @@ Statut
 Nous utilisons un attribut particulier (``status``) sur l'object collection,
 qui va servir à demander la revue, approuver ou rejeter les changements.
 
-* Lorsqu'un changement a lieu sur les *records* de la *collection*, le statut
+* Lorsqu'un changement a lieu sur les enregistrements de la collection, le statut
   passe à ``work-in-progress``.
 * En passant le statut à ``to-review`` on demande une revue des changements
   effectués depuis la dernière revue approuvée.
@@ -89,7 +89,7 @@ utilisateurs autorisés à modifier les données. Pour les workflow de validatio
 nous nous en servirons pour restreindre les utilisateurs autorisés à demander
 des revues de changements ou à les valider.
 
-Évidemment, le système refuse que la personne qui a effectué les changements soit le
+Évidemment, le système refuse que la personne qui a effectué les changements soit la
 même que celle qui les approuve.
 
 
@@ -153,15 +153,15 @@ Le client JS a une méthode liée au bucket:
 
     client.bucket("blog").listHistory()
       .then(({data}) => {
-        data.forEach(r => console.log(`${r.user_id} ${r.action}d ${r.resource_name} ${r.target.id}`));
+        data.forEach(r => console.log(r.user_id, r.action, r.resource_name, r.target.id));
       });
 
 ::
 
-    ldap:leplatrem created collection test
-    ldap:leplatrem created record 37368867-9563-451e-9523-fb53e3d6da1e
-    ldap:leplatrem updated record 37368867-9563-451e-9523-fb53e3d6da1e
-    ldap:leplatrem deleted record 37368867-9563-451e-9523-fb53e3d6da1e
+    ldap:leplatrem, create, collection, test
+    ldap:leplatrem, create, record, 37368867-9563-451e-9523-fb53e3d6da1e
+    ldap:leplatrem, update, record, 37368867-9563-451e-9523-fb53e3d6da1e
+    ldap:leplatrem, delete, record, 37368867-9563-451e-9523-fb53e3d6da1e
 
 
 Web Admin
