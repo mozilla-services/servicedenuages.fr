@@ -124,7 +124,7 @@ on doit faire cette intersection pour tous les <em>records</em>.</p>
 dans les <em>ACL*s du *bucket</em> ou de la <em>collection</em>:</p>
 <p>Ensuite, si ce n'est pas le cas, alors on filtre les <em>records</em> pour
 lesquels les <em>principals</em> correspondent à ceux de l'utilisateur.</p>
-<div class="highlight"><pre><span class="n">principals</span> <span class="o">=</span> <span class="n">get_user_principals</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="n">principals</span> <span class="o">=</span> <span class="n">get_user_principals</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
 <span class="n">can_read_all</span> <span class="o">=</span> <span class="n">has_read_perms</span><span class="p">(</span><span class="n">bucket_id</span><span class="p">,</span> <span class="n">collection_id</span><span class="p">,</span>
                               <span class="n">principals</span><span class="p">)</span>
 <span class="k">if</span> <span class="n">can_read_all</span><span class="p">:</span>
@@ -158,13 +158,13 @@ avantages (lisibilité, unicité, cohérence avec les URLs)</p>
 <div class="section" id="les-tables">
 <h3>Les tables</h3>
 <p>Pour le stockage des principals et des permissions:</p>
-<div class="highlight"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">user</span><span class="p">(</span><span class="n">id</span> <span class="nb">TEXT</span><span class="p">,</span> <span class="n">principals</span> <span class="nb">TEXT</span><span class="p">[]);</span>
+<div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">user</span><span class="p">(</span><span class="n">id</span> <span class="nb">TEXT</span><span class="p">,</span> <span class="n">principals</span> <span class="nb">TEXT</span><span class="p">[]);</span>
 <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">perms</span><span class="p">(</span><span class="n">ace</span> <span class="nb">TEXT</span><span class="p">,</span> <span class="n">principals</span> <span class="nb">TEXT</span><span class="p">[]);</span>
 </pre></div>
 <p>La table <em>perms</em> va associer des <em>principals</em> à chaque <em>ACE</em>
 (e.g.``/buckets/blog:write``).</p>
 <p>Pour le stockage des données:</p>
-<div class="highlight"><pre><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">object</span><span class="p">(</span><span class="n">id</span> <span class="nb">TEXT</span><span class="p">,</span> <span class="k">type</span> <span class="nb">TEXT</span><span class="p">,</span> <span class="n">parent_id</span> <span class="nb">TEXT</span><span class="p">,</span> <span class="k">data</span> <span class="n">JSONB</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">object</span><span class="p">(</span><span class="n">id</span> <span class="nb">TEXT</span><span class="p">,</span> <span class="k">type</span> <span class="nb">TEXT</span><span class="p">,</span> <span class="n">parent_id</span> <span class="nb">TEXT</span><span class="p">,</span> <span class="k">data</span> <span class="n">JSONB</span><span class="p">,</span>
                     <span class="n">write_principals</span> <span class="nb">TEXT</span><span class="p">[],</span> <span class="n">read_principals</span> <span class="nb">TEXT</span><span class="p">[]);</span>
 </pre></div>
 <p>La colonne <em>parent_id</em> permet de savoir à qui appartient l'objet
@@ -173,7 +173,7 @@ collection, ...).</p>
 </div>
 <div class="section" id="exemple-d-utilisateur">
 <h3>Exemple d'utilisateur</h3>
-<div class="highlight"><pre><span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">user</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">principals</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">user</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">principals</span><span class="p">)</span>
      <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'fxa:alexis'</span><span class="p">,</span> <span class="s1">'{}'</span><span class="p">);</span>
 
 <span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">user</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">principals</span><span class="p">)</span>
@@ -185,7 +185,7 @@ collection, ...).</p>
 <h3>Exemple d'objets</h3>
 <div class="section" id="bucket">
 <h4>Bucket</h4>
-<div class="highlight"><pre><span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">object</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="k">type</span><span class="p">,</span> <span class="n">parent_id</span><span class="p">,</span> <span class="k">data</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">object</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="k">type</span><span class="p">,</span> <span class="n">parent_id</span><span class="p">,</span> <span class="k">data</span><span class="p">,</span>
                     <span class="n">read_principals</span><span class="p">,</span> <span class="n">write_principals</span><span class="p">)</span>
 <span class="k">VALUES</span> <span class="p">(</span>
     <span class="s1">'/buckets/blog'</span><span class="p">,</span>
@@ -197,7 +197,7 @@ collection, ...).</p>
 </div>
 <div class="section" id="group">
 <h4>Group</h4>
-<div class="highlight"><pre><span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">object</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="k">type</span><span class="p">,</span> <span class="n">parent_id</span><span class="p">,</span> <span class="k">data</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">object</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="k">type</span><span class="p">,</span> <span class="n">parent_id</span><span class="p">,</span> <span class="k">data</span><span class="p">,</span>
                     <span class="n">read_principals</span><span class="p">,</span> <span class="n">write_principals</span><span class="p">)</span>
 <span class="k">VALUES</span> <span class="p">(</span>
     <span class="s1">'/buckets/blog/groups/moderators'</span><span class="p">,</span>
@@ -211,7 +211,7 @@ collection, ...).</p>
 </div>
 <div class="section" id="collection">
 <h4>Collection</h4>
-<div class="highlight"><pre><span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">object</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="k">type</span><span class="p">,</span> <span class="n">parent_id</span><span class="p">,</span> <span class="k">data</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">object</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="k">type</span><span class="p">,</span> <span class="n">parent_id</span><span class="p">,</span> <span class="k">data</span><span class="p">,</span>
                     <span class="n">read_principals</span><span class="p">,</span> <span class="n">write_principals</span><span class="p">)</span>
 <span class="k">VALUES</span> <span class="p">(</span>
     <span class="s1">'/buckets/blog/collections/articles'</span><span class="p">,</span>
@@ -227,7 +227,7 @@ et gérée par les membres du groupe <tt class="docutils literal">moderators</tt
 </div>
 <div class="section" id="records">
 <h4>Records</h4>
-<div class="highlight"><pre><span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">object</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="k">type</span><span class="p">,</span> <span class="n">parent_id</span><span class="p">,</span> <span class="k">data</span><span class="p">,</span>
+<div class="highlight"><pre><span></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">object</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="k">type</span><span class="p">,</span> <span class="n">parent_id</span><span class="p">,</span> <span class="k">data</span><span class="p">,</span>
                     <span class="n">read_principals</span><span class="p">,</span> <span class="n">write_principals</span><span class="p">)</span>
 <span class="k">VALUES</span> <span class="p">(</span>
     <span class="s1">'/buckets/blog/collections/articles/records/02f3f76f-7059-4ae4-888f-2ac9824e9200'</span><span class="p">,</span>
@@ -246,7 +246,7 @@ et gérée par les membres du groupe <tt class="docutils literal">moderators</tt
 <p>Comme vu plus haut, pour vérifier une permission, on fait l'union des
 <em>principals</em> requis par les objets hérités, et on teste leur
 intersection avec ceux de l'utilisateur:</p>
-<div class="highlight"><pre><span class="k">WITH</span> <span class="n">required_principals</span> <span class="k">AS</span> <span class="p">(</span>
+<div class="highlight"><pre><span></span><span class="k">WITH</span> <span class="n">required_principals</span> <span class="k">AS</span> <span class="p">(</span>
      <span class="k">SELECT</span> <span class="k">unnest</span><span class="p">(</span><span class="n">principals</span><span class="p">)</span> <span class="k">AS</span> <span class="n">p</span>
        <span class="k">FROM</span> <span class="n">perms</span>
       <span class="k">WHERE</span> <span class="n">ace</span> <span class="k">IN</span> <span class="p">(</span>
@@ -270,7 +270,7 @@ intersection avec ceux de l'utilisateur:</p>
 <h4>Filtrer les objets en fonction des permissions</h4>
 <p>Pour filtrer les objets, on fait une simple intersection de liste
 (<em>merci PostgreSQL</em>):</p>
-<div class="highlight"><pre><span class="k">SELECT</span> <span class="k">data</span>
+<div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="k">data</span>
   <span class="k">FROM</span> <span class="k">object</span> <span class="n">o</span><span class="p">,</span> <span class="k">user</span> <span class="n">u</span>
  <span class="k">WHERE</span> <span class="n">o</span><span class="p">.</span><span class="k">type</span> <span class="o">=</span> <span class="s1">'record'</span>
    <span class="k">AND</span> <span class="n">o</span><span class="p">.</span><span class="n">parent_id</span> <span class="o">=</span> <span class="s1">'/buckets/blog/collections/article'</span>
@@ -288,7 +288,7 @@ problématiques. Notamment, il gère les <em>set</em> nativement (listes de
 valeurs uniques), ainsi que les opérations d'intersection et d'union.</p>
 <p>Avec <em>Redis</em> on peut écrire l'obtention des <em>principals</em> pour un <em>ACE</em>
 comme cela :</p>
-<div class="highlight"><pre>SUNIONSTORE temp_perm:/buckets/blog/collections/articles:write  permission:/buckets/blog:write  permission:/buckets/blog/collections/articles:write
+<div class="highlight"><pre><span></span>SUNIONSTORE temp_perm:/buckets/blog/collections/articles:write  permission:/buckets/blog:write  permission:/buckets/blog/collections/articles:write
 SINTER temp_perm:/buckets/blog/collections/articles:write principals:fxa:alexis
 </pre></div>
 <ul class="simple">
