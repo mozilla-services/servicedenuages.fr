@@ -111,9 +111,9 @@ de la *demande de revue*.
 Une entrée du journal contient — entre autres — les attributs suivants:
 
 * ``action``: création, mise à jour, suppression
-* ``user_id``: qui?
-* ``date``: quand?
-* ``target``: quoi?
+* ``user_id``: qui ?
+* ``date``: quand ?
+* ``target``: quoi ?
 
 La cible contient l'objet soit créé, soit tel qu'il est était avant
 la modification ou la suppression. En d'autres termes, une entrée du journal
