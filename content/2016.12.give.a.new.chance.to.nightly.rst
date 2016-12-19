@@ -1,0 +1,68 @@
+10 reasons you should give another chance to Firefox Nightly
+############################################################
+
+:slug: firefox-nightly-new-chance
+:date: 2016-12-16
+:lang: fr
+:url: firefox-nightly-new-chance
+:summary:
+    Help use make the best Firefox of all the times!
+
+
+What is Nightly?
+================
+
+Firefox Nightly build also know as Nightly is a version of Firefox
+built from the Firefox source code everyday during the night.
+
+
+Why aren't you using Nightly today?
+===================================
+
+Anyone wants a stable Firefox and you don't have time for a crappy
+browser experience.
+
+Also, it was not always the case, Firefox Nightly is now much more
+stable than ever. The number of crashes has been schrinked down and is
+getting lower really fast everyday.
+
+
+Why you should actually give Firefox Nightly a try
+==================================================
+
+You will have a 18 weeks ahead nicer Firefox, it is basically like
+living your web experience 4.5 months in the future.
+
+
+Benefit from having a faster Firefox
+------------------------------------
+
+Firefox is getting smaller and faster, new features are now tested
+through add-ons using `Test Pilot <https://testpilot.firefox.com/>`_
+instead of getting added to Firefox.
+
+This means less bugs and only great features by default.
+
+
+
+This year 2017, Firefox is going to ship the
+`Quantum <https://wiki.mozilla.org/Quantum>`_ project which is a
+next-generation web engine which benefit from some parts critical
+parts of Gecko being rewritten in Rust which makes them 10 to 100
+times faster than before by using parallelization and GPU offloading.
+
+
+
+
+You always wanted to contribute to Free Libre and OpenSource software
+---------------------------------------------------------------------
+
+To use Firefox Nightly as a daily user is a simple and awesome way to
+help Firefox because it gives us feedback on the work we are doing
+ahead of time, it helps
+
+By the time I write this article we have 38000 daily users of Firefox
+Nightly so your choice to use it makes a huge difference.
+
+Do forget to update your `desktop Firefox version
+<https://nightly.mozilla.org/>` as well as your `Android Firefox version <>`
