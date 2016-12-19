@@ -1,5 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-en.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2016-09-16T00:00:00+02:00</updated><entry><title>FullstackFest 2016</title><link href="http://www.servicedenuages.fr/en/fullstackfest-2016" rel="alternate"></link><published>2016-09-16T00:00:00+02:00</published><updated>2016-09-16T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-09-16:en/fullstackfest-2016</id><summary type="html">&lt;p&gt;I had the chance to go the Fullstack Fest 2016 and really enjoyed it — thanks Mozilla!&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all-en.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2016-12-15T00:00:00+01:00</updated><entry><title>Prototyping an app with Kinto</title><link href="http://www.servicedenuages.fr/en/prototyping-an-app-with-kinto" rel="alternate"></link><published>2016-12-15T00:00:00+01:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-12-15:en/prototyping-an-app-with-kinto</id><summary type="html">&lt;p&gt;I own a car. And it costs a lot. But how much exactly is difficult to know, because the costs are spread between maintenance, repairs, fuel, insurance...
+What if I could store each expense right on the spot, categorize it, and maybe add a description? That would be tremendously helpful, right?&lt;/p&gt;
+&lt;p&gt;In order to build something like that, I'd normally have to fire up a django project, maybe use django-rest-framework to have a proper REST API for the future web or mobile application. Then choose a database like postgresql and configure it.&lt;/p&gt;
+&lt;p&gt;But I'm not even sure it's a good idea! Maybe we can instead give it a try using the &lt;a href="https://github.com/Kinto/kinto-admin/"&gt;kinto-admin&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Let's get started&lt;/h2&gt;
+&lt;p&gt;Let's first think about the data model:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;title: a string&lt;/li&gt;
+&lt;li&gt;comment: a multiline string&lt;/li&gt;
+&lt;li&gt;category: a string taken from a list of choices&lt;/li&gt;
+&lt;li&gt;price: a float&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;And then how to store entries in Kinto:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;we'll have a bucket (&lt;code&gt;track-my-expenses&lt;/code&gt;) which contains a collection (&lt;code&gt;car-expenses&lt;/code&gt;)&lt;/li&gt;
+&lt;li&gt;a &lt;a href="https://kinto.readthedocs.io/en/latest/api/1.x/collections.html#collection-json-schema"&gt;JSON schema&lt;/a&gt; on the collection will validate the data before it's stored in records&lt;/li&gt;
+&lt;li&gt;and a &lt;a href="https://github.com/mozilla-services/react-jsonschema-form/blob/master/README.md#the-uischema-object"&gt;UI schema&lt;/a&gt; to improve the way the form is displayed in the admin (eg. a textarea for the comment instead of a single line text input).&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Our proof of concept will take advantage of the &lt;a href="https://github.com/Kinto/kinto-admin/"&gt;kinto-admin&lt;/a&gt; UI which gives us a way to create/read/update/delete entries (records).&lt;/p&gt;
+&lt;h2&gt;Create the bucket and the collection&lt;/h2&gt;
+&lt;p&gt;For our proof of concept, we'll use Mozilla's demo server, which is wiped clean every night: https://kinto.dev.mozaws.net/v1/.&lt;/p&gt;
+&lt;p&gt;Let's sign in to the &lt;a href="https://kinto.dev.mozaws.net/v1/admin/"&gt;admin&lt;/a&gt; with the user/pass of our choice.&lt;/p&gt;
+&lt;p&gt;Keep in mind that there's no &lt;a href="http://kinto.readthedocs.io/en/stable/api/1.x/authentication.html#a-word-about-users"&gt;concept of user in Kinto&lt;/a&gt;. Instead, a unique id will be generated from the authentication, and the data you enter/modify will be linked to it. Permissions are based on this mechanism.&lt;/p&gt;
+&lt;p&gt;&lt;img alt="kinto-admin-sign-in" src="http://www.servicedenuages.fr/en/../images/kinto-admin-sign-in.png" style="width: 2852px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
+&lt;p&gt;Once connected, we can &lt;a href="https://kinto.dev.mozaws.net/v1/admin/#/buckets/create"&gt;create a bucket&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="kinto-admin-connected" src="http://www.servicedenuages.fr/en/../images/kinto-admin-connected.png" style="width: 2806px; height: auto; max-width: 100%;"/&gt;
+&lt;img alt="kinto-admin-create-bucket" src="http://www.servicedenuages.fr/en/../images/kinto-admin-create-bucket.png" style="width: 2832px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
+&lt;p&gt;And then &lt;a href="https://kinto.dev.mozaws.net/v1/admin/#/buckets/track-my-expenses/collections/create"&gt;create a collection&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="kinto-admin-create-collection" src="http://www.servicedenuages.fr/en/../images/kinto-admin-create-collection.png" style="width: 2810px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
+&lt;p&gt;Let's not submit this new collection just yet, we'd first like to add a &lt;a href="https://kinto.readthedocs.io/en/latest/api/1.x/collections.html#collection-json-schema"&gt;JSON schema&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Add a JSON schema&lt;/h2&gt;
+&lt;p&gt;As you can see while creating a collection, we have the option of adding a JSON schema. This schema will be used to validate the data we will submit, before it's stored in a record.
+The schema will also be used to automatically generate the CRUD forms for our data, straight into the admin.&lt;/p&gt;
+&lt;p&gt;Following our data model, here's what the JSON schema should look like:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nt"&gt;"type"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"object"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="nt"&gt;"properties"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nt"&gt;"title"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="nt"&gt;"type"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"string"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="nt"&gt;"title"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"Title"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="nt"&gt;"description"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"Short title for an expense"&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="nt"&gt;"comment"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="nt"&gt;"type"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"string"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="nt"&gt;"title"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"Comment"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="nt"&gt;"description"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"Provide details if needed..."&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="nt"&gt;"category"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="nt"&gt;"type"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"string"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="nt"&gt;"enum"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="s2"&gt;"fuel"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"repair"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"insurance"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"maintenance"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"equipment"&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt;
+      &lt;span class="nt"&gt;"title"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"Category"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="nt"&gt;"description"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"A category for this expense"&lt;/span&gt;
+    &lt;span class="p"&gt;},&lt;/span&gt;
+    &lt;span class="nt"&gt;"price"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+      &lt;span class="nt"&gt;"type"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"number"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="nt"&gt;"title"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"Price"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+      &lt;span class="nt"&gt;"description"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"The cost for this expense"&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Note the &lt;code&gt;enum&lt;/code&gt; attribute on the category field which will be rendered in the forms as a select, instead of a simple input text field.&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Tip:&lt;/em&gt; You can use the &lt;a href="https://kinto.github.io/formbuilder/"&gt;form builder&lt;/a&gt; to build your form visually, and then copy the JSON schema to the admin!&lt;/p&gt;
+&lt;p&gt;Let's still not submit this new collection just yet, as we'll want to add a &lt;a href="https://github.com/mozilla-services/react-jsonschema-form/blob/master/README.md#the-uischema-object"&gt;UI schema&lt;/a&gt;.&lt;/p&gt;
+&lt;h2&gt;Add a UI schema to improve the forms&lt;/h2&gt;
+&lt;p&gt;Adding a &lt;a href="https://github.com/mozilla-services/react-jsonschema-form/blob/master/README.md#the-uischema-object"&gt;UI schema&lt;/a&gt; will improve the way the admin will display our data, and the forms to add/edit it.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="p"&gt;{&lt;/span&gt;
+  &lt;span class="nt"&gt;"ui:order"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="s2"&gt;"title"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"comment"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"category"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s2"&gt;"price"&lt;/span&gt;
+  &lt;span class="p"&gt;],&lt;/span&gt;
+  &lt;span class="nt"&gt;"comment"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+    &lt;span class="nt"&gt;"ui:widget"&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"textarea"&lt;/span&gt;
+  &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="p"&gt;}&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The &lt;code&gt;ui:order&lt;/code&gt; will be used to display the fields in the order we want (JSON objects attributes aren't ordered), and we also specify that we'd like a &lt;code&gt;textarea&lt;/code&gt; for the comment field, instead of a single line input text field.&lt;/p&gt;
+&lt;p&gt;Nearly done! Just before submitting this new collection, let's configure the columns to be displayed in the record list page.&lt;/p&gt;
+&lt;h2&gt;Final touches&lt;/h2&gt;
+&lt;p&gt;By default, the admin will only display one column in the record list page. It would be much more convenient to display the &lt;code&gt;category&lt;/code&gt; and &lt;code&gt;price&lt;/code&gt; on top of the &lt;code&gt;title&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;&lt;img alt="kinto-admin-records-list-columns" src="http://www.servicedenuages.fr/en/../images/kinto-admin-records-list-columns.png" style="width: 2032px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
+&lt;h2&gt;Profit!&lt;/h2&gt;
+&lt;p&gt;We now have everything we need for our proof of concept!&lt;/p&gt;
+&lt;p&gt;List the current records (there's none yet):
+&lt;img alt="kinto-admin-list-records" src="http://www.servicedenuages.fr/en/../images/kinto-admin-list-records.png" style="width: 2828px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
+&lt;p&gt;Add a new record:
+&lt;img alt="kinto-admin-add-record" src="http://www.servicedenuages.fr/en/../images/kinto-admin-add-record.png" style="width: 2834px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
+&lt;p&gt;Display the list of (sortable) records once we added a few:
+&lt;img alt="kinto-admin-list-records-many" src="http://www.servicedenuages.fr/en/../images/kinto-admin-list-records-many.png" style="width: 2834px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
+&lt;p&gt;As you can see, without a single line of code and very small effort, we have a functional, albeit very basic, proof of concept!&lt;/p&gt;
+&lt;p&gt;While this is a nice and easy way to have a proof of concept, the admin's role is not meant to fulfill all your needs. If you wanted aggregation or filtering, you would still need a client, your own application.&lt;/p&gt;</summary><category term="mozilla"></category></entry><entry><title>FullstackFest 2016</title><link href="http://www.servicedenuages.fr/en/fullstackfest-2016" rel="alternate"></link><published>2016-09-16T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-09-16:en/fullstackfest-2016</id><summary type="html">&lt;p&gt;I had the chance to go the Fullstack Fest 2016 and really enjoyed it — thanks Mozilla!&lt;/p&gt;
 &lt;p&gt;This blog post is an attempt to give you a summary and some feedback of what happened during this 4+1 days conference!&lt;/p&gt;
 &lt;div class="section" id="huge-applause"&gt;
 &lt;h2&gt;Huge applause!&lt;/h2&gt;
@@ -117,8 +209,7 @@ There is no architecture nirvana!  — Lee Byron&lt;/blockquote&gt;
 &lt;li&gt;&lt;a class="reference external" href="http://ux.mulesoft.com"&gt;http://ux.mulesoft.com&lt;/a&gt;: MuleSoft components library&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>jEdit bugs: Getting off the Ground with Kinto and Kinto.js</title><link href="http://www.servicedenuages.fr/en/jedit-bugs-getting-off-the-ground" rel="alternate"></link><published>2016-09-09T00:00:00+02:00</published><updated>2016-09-09T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-09-09:en/jedit-bugs-getting-off-the-ground</id><summary type="html">&lt;h1&gt;jEdit bugs: Getting off the Ground with Kinto and Kinto.js&lt;/h1&gt;
-&lt;p&gt;This is a guest post by &lt;a href="https://github.com/elelay"&gt;Eric Le Lay&lt;/a&gt; on his experience using Kinto.&lt;/p&gt;
+</summary><category term="mozilla"></category></entry><entry><title>jEdit bugs: Getting off the Ground with Kinto and Kinto.js</title><link href="http://www.servicedenuages.fr/en/jedit-bugs-getting-off-the-ground" rel="alternate"></link><published>2016-09-09T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-09-09:en/jedit-bugs-getting-off-the-ground</id><summary type="html">&lt;p&gt;This is a guest post by &lt;a href="https://github.com/elelay"&gt;Eric Le Lay&lt;/a&gt; on his experience using Kinto.&lt;/p&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;Have you heard of &lt;a href="http://jedit.org"&gt;jEdit&lt;/a&gt; — the &lt;em&gt;programmer's text editor&lt;/em&gt;?&lt;br/&gt;
 It's a multi-platform text editor, written in Java, with a myriad of plugins.
@@ -430,7 +521,7 @@ encourage issues and PRs. Many of which are even accepted ;-)&lt;/p&gt;
 &lt;p&gt;My code is available on github: &lt;a href="https://github.com/elelay/jedit-trackers-kinto"&gt;elelay/jedit-trackers-kinto&lt;/a&gt;.&lt;br/&gt;
 The application is available at &lt;a href="http://trackers.elelay.fr/trackers.html"&gt;trackers.elelay.fr&lt;/a&gt;.&lt;br/&gt;
 Feedback is welcome via IRC (elelay) — why not even Issues and PR?&lt;/p&gt;
-&lt;!-- :wrap=hard:noTabs=true:tabSize=4:indentSize=4: --&gt;</summary><category term="mozilla"></category></entry><entry><title>Kinto-admin reaches 1.0</title><link href="http://www.servicedenuages.fr/en/kinto-admin-1.0" rel="alternate"></link><published>2016-06-10T00:00:00+02:00</published><updated>2016-06-10T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-06-10:en/kinto-admin-1.0</id><summary type="html">&lt;p&gt;When choosing a database, it's a good idea to study a few important criteria: how nice is the API? Is it well documented? Will it scale? What is the tooling available? Tooling is especially important as it's what will make your life as a developer easier. We've been working on one specific tool, called &lt;a href="https://github.com/Kinto/kinto-admin/"&gt;kinto-admin&lt;/a&gt;, which wants to be to Kinto what &lt;a href="https://www.phpmyadmin.net/"&gt;phpMyAdmin&lt;/a&gt; is to MySQL. Today we're announcing the release of &lt;a href="https://github.com/Kinto/kinto-admin/releases/tag/v1.0.0"&gt;version 1.0&lt;/a&gt;.&lt;/p&gt;
+&lt;!-- :wrap=hard:noTabs=true:tabSize=4:indentSize=4: --&gt;</summary><category term="mozilla"></category></entry><entry><title>Kinto-admin reaches 1.0</title><link href="http://www.servicedenuages.fr/en/kinto-admin-1.0" rel="alternate"></link><published>2016-06-10T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-06-10:en/kinto-admin-1.0</id><summary type="html">&lt;p&gt;When choosing a database, it's a good idea to study a few important criteria: how nice is the API? Is it well documented? Will it scale? What is the tooling available? Tooling is especially important as it's what will make your life as a developer easier. We've been working on one specific tool, called &lt;a href="https://github.com/Kinto/kinto-admin/"&gt;kinto-admin&lt;/a&gt;, which wants to be to Kinto what &lt;a href="https://www.phpmyadmin.net/"&gt;phpMyAdmin&lt;/a&gt; is to MySQL. Today we're announcing the release of &lt;a href="https://github.com/Kinto/kinto-admin/releases/tag/v1.0.0"&gt;version 1.0&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="kinto-admin-logged-in" src="http://www.servicedenuages.fr/en/../images/kinto-admin-logged-in.png" style="width: 1219px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
 &lt;p&gt;In past releases you had to write and deploy a configuration file explicitly describing the resources to expose in the admin. Kinto-admin 1.0 now allows users to discover and browse the buckets, collections and records they have access to on a given Kinto server. They can also create, update and delete them, provided they have the required permissions. No need for configuration files anymore!&lt;/p&gt;
 &lt;p&gt;Collection settings are configurable from the admin, including defining their &lt;a href="http://json-schema.org/"&gt;JSON schema&lt;/a&gt; and display options such as fields to render in the records list and the widgets to use to render form fields. These settings are stored in the collection metadata on the server.&lt;/p&gt;
@@ -448,7 +539,7 @@ Feedback is welcome via IRC (elelay) — why not even Issues and PR?&lt;/p&gt;
 &lt;li&gt;Allow managing permissions for buckets, collections and records;&lt;/li&gt;
 &lt;li&gt;Allow extending the admin by exposing a plugin API and a custom build system so you can tweak the way it renders and behaves;&lt;/li&gt;
 &lt;li&gt;When we get plugins, we have many ideas for them and a first exciting one is to provide metrics and charts. But hey, we're not there yet :)&lt;/li&gt;
-&lt;/ul&gt;</summary><category term="mozilla"></category></entry><entry><title>What can Kinto do for me?</title><link href="http://www.servicedenuages.fr/en/what-can-kinto-do-for-you" rel="alternate"></link><published>2016-06-10T00:00:00+02:00</published><updated>2016-06-10T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-06-10:en/what-can-kinto-do-for-you</id><summary type="html">&lt;p&gt;Kinto — the project we are working on since quite some time now — can do a bunch
+&lt;/ul&gt;</summary><category term="mozilla"></category></entry><entry><title>What can Kinto do for me?</title><link href="http://www.servicedenuages.fr/en/what-can-kinto-do-for-you" rel="alternate"></link><published>2016-06-10T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-06-10:en/what-can-kinto-do-for-you</id><summary type="html">&lt;p&gt;Kinto — the project we are working on since quite some time now — can do a bunch
 of different things for you and be useful in many different situations.&lt;/p&gt;
 &lt;p&gt;However, we found out that it is really hard to understand at a glance what it
 can do, and where it could help you build your projects in a better way.&lt;/p&gt;
@@ -632,7 +723,7 @@ it as easy as possible for you.&lt;/p&gt;
 &lt;p&gt;Don't be shy, we are really here to help, and we want to know about your
 use-cases!&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>How to use Kinto to A/B test a web application?</title><link href="http://www.servicedenuages.fr/en/ab-testing-with-kinto" rel="alternate"></link><published>2016-06-09T00:00:00+02:00</published><updated>2016-06-09T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-06-09:en/ab-testing-with-kinto</id><summary type="html">&lt;div class="section" id="background"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>How to use Kinto to A/B test a web application?</title><link href="http://www.servicedenuages.fr/en/ab-testing-with-kinto" rel="alternate"></link><published>2016-06-09T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-06-09:en/ab-testing-with-kinto</id><summary type="html">&lt;div class="section" id="background"&gt;
 &lt;h2&gt;Background&lt;/h2&gt;
 &lt;p&gt;The Fennec team, building Firefox for Android, is using
 &lt;a class="reference external" href="https://github.com/KeepSafe/Switchboard"&gt;Switchboard from KeepSafe&lt;/a&gt;, which is an open source project that
@@ -802,7 +893,7 @@ configuration variables.&lt;/p&gt;
 &lt;p&gt;&lt;a class="reference external" href="http://kinto.readthedocs.io/en/latest/tutorials/install.html#deploying-on-cloud-providers"&gt;Deploy a Kinto&lt;/a&gt; now for free on Heroku, Scalingo or your own server
 and add A/B testing in your website for free.&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>How to load test a OAuth-protected HTTP API? (Part 2)</title><link href="http://www.servicedenuages.fr/en/load-testing-a-http-api-which-uses-oauth-for-authentication-part-2" rel="alternate"></link><published>2016-01-05T00:00:00+01:00</published><updated>2016-01-05T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-01-05:en/load-testing-a-http-api-which-uses-oauth-for-authentication-part-2</id><summary type="html">&lt;p&gt;This is part 2 of a series on loadtesting OAuth APIs.&lt;/p&gt;
+</summary><category term="mozilla"></category></entry><entry><title>How to load test a OAuth-protected HTTP API? (Part 2)</title><link href="http://www.servicedenuages.fr/en/load-testing-a-http-api-which-uses-oauth-for-authentication-part-2" rel="alternate"></link><published>2016-01-05T00:00:00+01:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-01-05:en/load-testing-a-http-api-which-uses-oauth-for-authentication-part-2</id><summary type="html">&lt;p&gt;This is part 2 of a series on loadtesting OAuth APIs.&lt;/p&gt;
 &lt;div class="section" id="introduction"&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;&lt;a class="reference external" href="/en/load-testing-a-http-api-which-uses-oauth-for-authentication"&gt;In the previous article&lt;/a&gt;
@@ -993,7 +1084,7 @@ user credentials to a load test script.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Do not hesitate to reach us if you have any questions or suggestions.&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>The hard promise of self-hosting</title><link href="http://www.servicedenuages.fr/en/self-hosting-a-hard-promise" rel="alternate"></link><published>2015-12-22T00:00:00+01:00</published><updated>2015-12-22T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-22:en/self-hosting-a-hard-promise</id><summary type="html">&lt;div class="note"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>The hard promise of self-hosting</title><link href="http://www.servicedenuages.fr/en/self-hosting-a-hard-promise" rel="alternate"></link><published>2015-12-22T00:00:00+01:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-22:en/self-hosting-a-hard-promise</id><summary type="html">&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;This article was translated by &lt;a class="reference external" href="https://notmyidea.org"&gt;Alexis Métaireau&lt;/a&gt;,
 on a train between Rennes and Paris.&lt;/p&gt;
@@ -1088,7 +1179,7 @@ a pragmatic solution in the short/mid term, bringing back some freedom to the
 users.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>How to make the Kinto instances discoverable?</title><link href="http://www.servicedenuages.fr/en/discovery-of-kinto-servers" rel="alternate"></link><published>2015-12-21T00:00:00+01:00</published><updated>2015-12-21T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-21:en/discovery-of-kinto-servers</id><summary type="html">&lt;div class="section" id="about-me"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>How to make the Kinto instances discoverable?</title><link href="http://www.servicedenuages.fr/en/discovery-of-kinto-servers" rel="alternate"></link><published>2015-12-21T00:00:00+01:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-21:en/discovery-of-kinto-servers</id><summary type="html">&lt;div class="section" id="about-me"&gt;
 &lt;h2&gt;About Me&lt;/h2&gt;
 &lt;p&gt;Hi! I am Shweta Oak.&lt;/p&gt;
 &lt;p&gt;I got the opportunity to be part of Mozilla's Kinto team.
@@ -1196,7 +1287,7 @@ than the one given above or, if there is anything you would like to share with u
 this article, do comment below. We look forward to exploring more solutions and making the
 project even better through your feedback :)&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Hacker News answers</title><link href="http://www.servicedenuages.fr/en/hackernews-feedback" rel="alternate"></link><published>2015-12-15T00:00:00+01:00</published><updated>2015-12-15T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-15:en/hackernews-feedback</id><summary type="html">&lt;p&gt;Today, &lt;a class="reference external" href="https://news.ycombinator.com/item?id=10733164"&gt;Kinto was featured on Hackernews&lt;/a&gt;. We take this as a great
+</summary><category term="mozilla"></category></entry><entry><title>Hacker News answers</title><link href="http://www.servicedenuages.fr/en/hackernews-feedback" rel="alternate"></link><published>2015-12-15T00:00:00+01:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-15:en/hackernews-feedback</id><summary type="html">&lt;p&gt;Today, &lt;a class="reference external" href="https://news.ycombinator.com/item?id=10733164"&gt;Kinto was featured on Hackernews&lt;/a&gt;. We take this as a great
 milestone for the project, even if it also comes with some sort of pressure and
 stress :)&lt;/p&gt;
 &lt;p&gt;Since a few questions emerged from the thread there, we thought it'd be
@@ -1328,7 +1419,7 @@ that is fully open-source.&lt;/p&gt;
 out there. We probably missed many of them. So please help us guide the users
 to choose the best solution for their use-case in our overview page!&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>How to load test a OAuth-protected HTTP API? (Part 1)</title><link href="http://www.servicedenuages.fr/en/load-testing-a-http-api-which-uses-oauth-for-authentication" rel="alternate"></link><published>2015-12-02T00:00:00+01:00</published><updated>2015-12-02T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-02:en/load-testing-a-http-api-which-uses-oauth-for-authentication</id><summary type="html">&lt;p&gt;This is part 1 of a series on loadtesting oauth APIs.&lt;/p&gt;
+</summary><category term="mozilla"></category></entry><entry><title>How to load test a OAuth-protected HTTP API? (Part 1)</title><link href="http://www.servicedenuages.fr/en/load-testing-a-http-api-which-uses-oauth-for-authentication" rel="alternate"></link><published>2015-12-02T00:00:00+01:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-02:en/load-testing-a-http-api-which-uses-oauth-for-authentication</id><summary type="html">&lt;p&gt;This is part 1 of a series on loadtesting oauth APIs.&lt;/p&gt;
 &lt;div class="section" id="what-is-oauth-and-how-do-you-use-it-to-authenticate-an-http-api"&gt;
 &lt;h2&gt;What is OAuth and how do you use it to authenticate an HTTP API?&lt;/h2&gt;
 &lt;p&gt;&lt;a class="reference external" href="https://en.wikipedia.org/wiki/OAuth"&gt;OAuth&lt;/a&gt; is a protocol that
@@ -1451,7 +1542,7 @@ configure your load test Bearer Token.&lt;/li&gt;
 &lt;p&gt;&lt;a class="reference external" href="/en/load-testing-a-http-api-which-uses-oauth-for-authentication-part-2"&gt;The next article&lt;/a&gt;
 will show some specific tools you can use to do this.&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Kinto.js 1.0 released</title><link href="http://www.servicedenuages.fr/en/kinto-js-1-0-released" rel="alternate"></link><published>2015-10-27T00:00:00+01:00</published><updated>2015-10-27T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-10-27:en/kinto-js-1-0-released</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="https://kintojs.readthedocs.io/"&gt;Kinto.js&lt;/a&gt; is an offline-first JavaScript client leveraging the &lt;a class="reference external" href="https://kinto.readthedocs.io/"&gt;Kinto API&lt;/a&gt; for data synchronization. In a world where connectivity isn't always guaranteed, local persistence in the browser has become an &lt;a class="reference external" href="http://offlinefirst.org/"&gt;identified priority&lt;/a&gt; for Web applications, especially on mobile.&lt;/p&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Kinto.js 1.0 released</title><link href="http://www.servicedenuages.fr/en/kinto-js-1-0-released" rel="alternate"></link><published>2015-10-27T00:00:00+01:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-10-27:en/kinto-js-1-0-released</id><summary type="html">&lt;p&gt;&lt;a class="reference external" href="https://kintojs.readthedocs.io/"&gt;Kinto.js&lt;/a&gt; is an offline-first JavaScript client leveraging the &lt;a class="reference external" href="https://kinto.readthedocs.io/"&gt;Kinto API&lt;/a&gt; for data synchronization. In a world where connectivity isn't always guaranteed, local persistence in the browser has become an &lt;a class="reference external" href="http://offlinefirst.org/"&gt;identified priority&lt;/a&gt; for Web applications, especially on mobile.&lt;/p&gt;
 &lt;p&gt;The basic principle is simple; save your data locally, assuming there's no network connectivity. Then as soon as it's available, retrieve remote changes and push your local data to a remote server.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;kinto&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Kinto&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="nx"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"https://kinto.dev.mozaws.net/v1/"&lt;/span&gt;&lt;span class="p"&gt;});&lt;/span&gt;
 &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;tasks&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;kinto&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;collection&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"tasks"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
@@ -1507,7 +1598,7 @@ will show some specific tools you can use to do this.&lt;/p&gt;
 &lt;h2&gt;Update&lt;/h2&gt;
 &lt;p&gt;We're not even done polishing this blog post and the &lt;a class="reference external" href="https://github.com/Kinto/kinto.js/releases/tag/v1.1.0"&gt;1.1 version is already there&lt;/a&gt;! Take it the easy way, that means the project is on steroids ;)&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Looking for an Outreachy intern this winter</title><link href="http://www.servicedenuages.fr/en/outreach-kinto-2016" rel="alternate"></link><published>2015-10-01T00:00:00+02:00</published><updated>2015-10-01T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-10-01:en/outreach-kinto-2016</id><summary type="html">&lt;blockquote class="epigraph"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Looking for an Outreachy intern this winter</title><link href="http://www.servicedenuages.fr/en/outreach-kinto-2016" rel="alternate"></link><published>2015-10-01T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-10-01:en/outreach-kinto-2016</id><summary type="html">&lt;blockquote class="epigraph"&gt;
 &lt;p&gt;By having a program targeted specifically towards women, we found that we
 reached talented and passionate participants, who were uncertain about how to
 start otherwise.&lt;/p&gt;
@@ -1609,7 +1700,7 @@ configuration.&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>How to encrypt data with Kinto.js</title><link href="http://www.servicedenuages.fr/en/kinto-encryption-example" rel="alternate"></link><published>2015-09-16T00:00:00+02:00</published><updated>2015-09-16T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-09-16:en/kinto-encryption-example</id><summary type="html">&lt;p&gt;A guest post this time, by &lt;a class="reference external" href="https://michielbdejong.com/"&gt;Michiel de Jong&lt;/a&gt;
+</summary><category term="mozilla"></category></entry><entry><title>How to encrypt data with Kinto.js</title><link href="http://www.servicedenuages.fr/en/kinto-encryption-example" rel="alternate"></link><published>2015-09-16T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-09-16:en/kinto-encryption-example</id><summary type="html">&lt;p&gt;A guest post this time, by &lt;a class="reference external" href="https://michielbdejong.com/"&gt;Michiel de Jong&lt;/a&gt;
 from the Firefox OS team!&lt;/p&gt;
 &lt;p&gt;If you want to encrypt data that is uploaded to the cloud by an offline-first app,
 it makes sense to keep the local copy of the data in-the-clear, and encrypt the
@@ -1799,7 +1890,7 @@ now, so go ahead and try opening your browser console on this page to try it out
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Hope you are as excited about Kinto.js as I am, comments below this blogpost
 and github issues on the example code very welcome! :)&lt;/p&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Signing collection to ensure data integrity</title><link href="http://www.servicedenuages.fr/en/data-signature" rel="alternate"></link><published>2015-08-26T00:00:00+02:00</published><updated>2015-08-26T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-08-26:en/data-signature</id><summary type="html">&lt;div class="note"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Signing collection to ensure data integrity</title><link href="http://www.servicedenuages.fr/en/data-signature" rel="alternate"></link><published>2015-08-26T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-08-26:en/data-signature</id><summary type="html">&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;Translated from the French by &lt;a class="reference external" href="https://twitter.com/Natim"&gt;Rémy Hubscher&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -1898,7 +1989,7 @@ this:&lt;/p&gt;
 &lt;p&gt;Here is a little sketch to summarise:&lt;/p&gt;
 &lt;img alt="Summary schema of the collection signing flow." class="align-center" src="http://www.servicedenuages.fr/en/../images/kinto-signing.jpg" style="width: 600px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Notifications in Kinto (Preamble)</title><link href="http://www.servicedenuages.fr/en/notifications-kinto-preamble" rel="alternate"></link><published>2015-08-13T00:00:00+02:00</published><updated>2015-08-13T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-08-13:en/notifications-kinto-preamble</id><summary type="html">&lt;p&gt;At a recent work week in the lovely French town of &lt;a href="https://www.qwant.com/?q=Douarnenez&amp;amp;t=images"&gt;Douarnenez&lt;/a&gt; we laid the groundwork for an upcoming feature in &lt;a href="https://kinto.readthedocs.io"&gt;Kinto&lt;/a&gt;: &lt;em&gt;Notifications!&lt;/em&gt;&lt;/p&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Notifications in Kinto (Preamble)</title><link href="http://www.servicedenuages.fr/en/notifications-kinto-preamble" rel="alternate"></link><published>2015-08-13T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-08-13:en/notifications-kinto-preamble</id><summary type="html">&lt;p&gt;At a recent work week in the lovely French town of &lt;a href="https://www.qwant.com/?q=Douarnenez&amp;amp;t=images"&gt;Douarnenez&lt;/a&gt; we laid the groundwork for an upcoming feature in &lt;a href="https://kinto.readthedocs.io"&gt;Kinto&lt;/a&gt;: &lt;em&gt;Notifications!&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Sunset over Douarnenez (@phrawzty)" src="http://www.servicedenuages.fr/en/../images/notifications-douarnenez.jpg" style="width: 800px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
 &lt;h1&gt;tl;dr&lt;/h1&gt;
 &lt;p&gt;For those that are in a hurry, here's the gist: We're going to be integrating a "notifications" system into Kinto with an eye towards simplicity, modernity, and flexibility. Our goal is to provide a solid framework that will allow other systems to take advantage of this new feature without having to jump through too many hoops. If that sounds interesting to you - read on.&lt;/p&gt;
@@ -1997,7 +2088,7 @@ this:&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;Once the model is validated we'll begin the iterative improvement process. This will likely take the form of a "standard broker" which we create and maintain as part of the formal ecosystem. We also like the idea of subscribers registering themselves to the broker using an endpoint (such as webhooks), but that's a discussion for future time.&lt;/p&gt;
 &lt;h1&gt;Feedback&lt;/h1&gt;
-&lt;p&gt;As always, we're interested in feedback from the community - feel free to use the Disqus form below to join the conversation!&lt;/p&gt;</summary><category term="mozilla"></category></entry><entry><title>Making the case for Cliquet?</title><link href="http://www.servicedenuages.fr/en/why-cliquet" rel="alternate"></link><published>2015-07-14T00:00:00+02:00</published><updated>2015-07-14T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-07-14:en/why-cliquet</id><summary type="html">&lt;div class="note"&gt;
+&lt;p&gt;As always, we're interested in feedback from the community - feel free to use the Disqus form below to join the conversation!&lt;/p&gt;</summary><category term="mozilla"></category></entry><entry><title>Making the case for Cliquet?</title><link href="http://www.servicedenuages.fr/en/why-cliquet" rel="alternate"></link><published>2015-07-14T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-07-14:en/why-cliquet</id><summary type="html">&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;Translated from the French by &lt;a class="reference external" href="https://twitter.com/phrawzty"&gt;Dan Phrawzty&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -2404,7 +2495,7 @@ plugin-style ecosystem.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Summer Perspectives</title><link href="http://www.servicedenuages.fr/en/summer-perspectives" rel="alternate"></link><published>2015-07-07T00:00:00+02:00</published><updated>2015-07-07T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-07-07:en/summer-perspectives</id><summary type="html">&lt;div class="note"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Summer Perspectives</title><link href="http://www.servicedenuages.fr/en/summer-perspectives" rel="alternate"></link><published>2015-07-07T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-07-07:en/summer-perspectives</id><summary type="html">&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;Translated from the French by &lt;a class="reference external" href="https://dark.ca/"&gt;Dan Phrawzty&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -2509,7 +2600,7 @@ revived in the form of add-ons.&lt;/td&gt;&lt;/tr&gt;
 &lt;p&gt;Finally, we will work to encourage meaningful community contributions to help us build a free, generic, simple, and self-hostable solution for storing data on the web.&lt;/p&gt;
 &lt;img alt="Friday Night Party - CC0" class="align-center" src="http://www.servicedenuages.fr/en/../images/whistler-top-roof.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Achievement unlocked</title><link href="http://www.servicedenuages.fr/en/kinto-1.0" rel="alternate"></link><published>2015-06-17T00:00:00+02:00</published><updated>2015-06-17T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-06-17:en/kinto-1.0</id><summary type="html">&lt;p&gt;Today we released Cliquet 2.0 &lt;a class="footnote-reference" href="#id5" id="id1"&gt;[1]&lt;/a&gt; and Kinto 1.0 &lt;a class="footnote-reference" href="#id6" id="id2"&gt;[2]&lt;/a&gt; (a.k.a Cloud Storage).&lt;/p&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Achievement unlocked</title><link href="http://www.servicedenuages.fr/en/kinto-1.0" rel="alternate"></link><published>2015-06-17T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-06-17:en/kinto-1.0</id><summary type="html">&lt;p&gt;Today we released Cliquet 2.0 &lt;a class="footnote-reference" href="#id5" id="id1"&gt;[1]&lt;/a&gt; and Kinto 1.0 &lt;a class="footnote-reference" href="#id6" id="id2"&gt;[2]&lt;/a&gt; (a.k.a Cloud Storage).&lt;/p&gt;
 &lt;p&gt;&lt;a class="reference external" href="https://kinto.readthedocs.io/en/latest/"&gt;Kinto&lt;/a&gt; is a service to
 store, synchronize and share arbitrary data attached to a Firefox Account.&lt;/p&gt;
 &lt;p&gt;&lt;a class="reference external" href="https://cliquet.readthedocs.io/en/latest/"&gt;Cliquet&lt;/a&gt; is a toolkit to
@@ -2559,7 +2650,7 @@ attached to your Firefox account. — &lt;a class="reference external" href="htt
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id4"&gt;[4]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Kinto roadmap: &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/wiki/roadmap"&gt;https://github.com/mozilla-services/kinto/wiki/roadmap&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Handling permissions</title><link href="http://www.servicedenuages.fr/en/handling-permissions" rel="alternate"></link><published>2015-05-12T00:00:00+02:00</published><updated>2015-05-12T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-12:en/handling-permissions</id><summary type="html">&lt;p&gt;When creating a generic data storage (Kinto), permissions handling is one of
+</summary><category term="mozilla"></category></entry><entry><title>Handling permissions</title><link href="http://www.servicedenuages.fr/en/handling-permissions" rel="alternate"></link><published>2015-05-12T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-05-12:en/handling-permissions</id><summary type="html">&lt;p&gt;When creating a generic data storage (Kinto), permissions handling is one of
 the big challenges: who should get access to what, and how should we define
 these rules?&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;tl;dr: Some feedback about the permissions vocabulary and our ideas about how
@@ -3152,7 +3243,7 @@ applications acting on her behalf.&lt;/p&gt;
 interrupt us while it's still possible!&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Ecosystem &amp; generic storage</title><link href="http://www.servicedenuages.fr/en/generic-storage-ecosystem" rel="alternate"></link><published>2015-04-30T00:00:00+02:00</published><updated>2015-04-30T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-30:en/generic-storage-ecosystem</id><summary type="html">&lt;div class="note"&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Ecosystem &amp; generic storage</title><link href="http://www.servicedenuages.fr/en/generic-storage-ecosystem" rel="alternate"></link><published>2015-04-30T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-30:en/generic-storage-ecosystem</id><summary type="html">&lt;div class="note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;This article was translated from French by Julien/Sphinx. We thank him a lot
 for this effort! Note, that at the beginning of this year,
@@ -3426,7 +3517,7 @@ public sharing of one's resources from one's &lt;em&gt;Remote Storage&lt;/em&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Service de nuages !</title><link href="http://www.servicedenuages.fr/en/service-de-nuages" rel="alternate"></link><published>2015-04-16T00:00:00+02:00</published><updated>2015-04-16T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-16:en/service-de-nuages</id><summary type="html">&lt;p&gt;A bunch of changes since the beginning of the year for the "cloud-services"
+</summary><category term="mozilla"></category></entry><entry><title>Service de nuages !</title><link href="http://www.servicedenuages.fr/en/service-de-nuages" rel="alternate"></link><published>2015-04-16T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-16:en/service-de-nuages</id><summary type="html">&lt;p&gt;A bunch of changes since the beginning of the year for the "cloud-services"
 frenchies!&lt;/p&gt;
 &lt;p&gt;First of all, two new recruits are here to complement the team:
 &lt;a class="reference external" href="https://nicolas.perriault.net/"&gt;n1k0&lt;/a&gt; and &lt;a class="reference external" href="http://mathieu-leplatre.info"&gt;Mathieu&lt;/a&gt; are now helping out &lt;a class="reference external" href="http://ziade.org/"&gt;Tarek&lt;/a&gt;, &lt;a class="reference external" href="http://natim.ionyse.com"&gt;Rémy&lt;/a&gt; and &lt;a class="reference external" href="http://notmyidea.org"&gt;Alexis&lt;/a&gt;.&lt;/p&gt;
@@ -3492,7 +3583,7 @@ the protocol (or &lt;em&gt;Cliquet&lt;/em&gt;), certain specific technical point
 vision with examples and tutorials.&lt;/p&gt;
 &lt;p&gt;See you soon, then!&lt;/p&gt;
 &lt;/div&gt;
-</summary><category term="mozilla"></category></entry><entry><title>Le printemps</title><link href="http://www.servicedenuages.fr/en/spring" rel="alternate"></link><published>2015-04-15T00:00:00+02:00</published><updated>2015-04-15T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-15:en/spring</id><summary type="html">&lt;p&gt;It's spring already, and a good time to tidy-up a bit our minds!&lt;/p&gt;
+</summary><category term="mozilla"></category></entry><entry><title>Le printemps</title><link href="http://www.servicedenuages.fr/en/spring" rel="alternate"></link><published>2015-04-15T00:00:00+02:00</published><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-04-15:en/spring</id><summary type="html">&lt;p&gt;It's spring already, and a good time to tidy-up a bit our minds!&lt;/p&gt;
 &lt;p&gt;We've been stacking interesting experiences without really sharing them in
 writings, so now's the time.&lt;/p&gt;
 &lt;p&gt;There were a francophone conference about Hawk the past year, and some articles

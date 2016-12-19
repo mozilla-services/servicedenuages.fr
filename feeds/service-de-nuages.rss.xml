@@ -160,8 +160,7 @@ une revue.&lt;/li&gt;
 qui ajoutait déjà certaines garanties pour l'acheminement des données. Mais il est
 possible que nous en fassions un plugin spécifique dissocié de la signature...&lt;/p&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Mon, 14 Nov 2016 00:00:00 +0100</pubDate><guid isPermaLink="false">tag:www.servicedenuages.fr,2016-11-14:kinto-workflows</guid><category>mozilla</category></item><item><title>Survoler les bugs avec Kinto</title><link>http://www.servicedenuages.fr/jedit-bugs-getting-off-the-ground</link><description>&lt;h1&gt;Survoler les bugs avec Kinto&lt;/h1&gt;
-&lt;p&gt;Voici un article rédigé par &lt;a href="https://github.com/elelay"&gt;Eric Le Lay&lt;/a&gt; sur son utilisation de Kinto.&lt;/p&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Mon, 14 Nov 2016 00:00:00 +0100</pubDate><guid isPermaLink="false">tag:www.servicedenuages.fr,2016-11-14:kinto-workflows</guid><category>mozilla</category></item><item><title>Survoler les bugs avec Kinto</title><link>http://www.servicedenuages.fr/jedit-bugs-getting-off-the-ground</link><description>&lt;p&gt;Voici un article rédigé par &lt;a href="https://github.com/elelay"&gt;Eric Le Lay&lt;/a&gt; sur son utilisation de Kinto.&lt;/p&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;Connaissez-vous &lt;a href="http://jedit.org"&gt;jEdit&lt;/a&gt; — &lt;em&gt;l'éditeur de texte des développeurs&lt;/em&gt; ?&lt;br/&gt;
 C'est un éditeur de texte multi-plateforme, écrit en java, disposant de nombreux plugins.
