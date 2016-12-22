@@ -2,12 +2,12 @@
 ############################################################
 
 :slug: give-firefox-nightly-a-new-chance
-:date: 2016-12-16
-:lang: fr
+:date: 2016-12-22
+:lang: en
 :url: give-firefox-nightly-a-new-chance
 :summary:
     Help use make the best Mozilla Firefox of all the times by mid 2017!
-
+:status: draft
 
 What is Nightly?
 ================
@@ -186,21 +186,26 @@ can now login with your Github account).
 
 
 Bonus : How to configure Firefox Nightly as my default browser in Linux?
-------------------------------------------------------------------------
+========================================================================
 
-1. Download the archive in https://nightly.mozilla.org/
-1. ``tar jxf ~/Downloads/firefox*.linux-x86_64.tar.bz2 -C ~/apps/``
-1. Copy current Firefox desktop file: ``cp /usr/share/applications/firefox.desktop ~/apps``
-1. Copy current browser alternative file: ``cp /etc/alternatives/x-www-browser ~/apps``
-1. Copy current launcher file: ``cp /usr/lib/firefox/firefox.sh ~/apps``
-1. Remove the version installed by your package manager: ``sudo apt purge firefox``
-1. Install Firefox: ``sudo ln -s ${HOME}/apps/firefox.sh /usr/bin/firefox``
-1. Install the desktop file: ``sudo cp ~/apps/firefox.desktop /usr/share/applications/``
-1. Install the icon: ``sudo cp ~/apps/firefox/browser/icons/mozicon128.png /usr/share/pixmaps/firefox.png``
-1. Install the browser alternative: ``cp ~/apps/x-www-browser /etc/alternatives/x-www-browser``
-1. Display an URL in the terminal: ``echo https://www.mozilla.org/``
-1. Close Firefox and click on the link.
-1. Firefox Nightly should open your link.
-1. Troubleshooting: remove any *.desktop file talking about Firefox in ``~/.local/share/applications/``
-1. You might want to restart your computer at some point.
-1. Ask for help and ping natim here irc://irc.mozilla.org/#lagaule
+
+#. Download the archive in https://nightly.mozilla.org/
+#. ``tar jxf ~/Downloads/firefox*.linux-x86_64.tar.bz2 -C ~/apps/``
+#. Copy current Firefox desktop file: ``cp /usr/share/applications/firefox.desktop ~/apps``
+#. Copy current browser alternative file: ``cp /etc/alternatives/x-www-browser ~/apps``
+#. Copy current launcher file: ``cp /usr/lib/firefox/firefox.sh ~/apps``
+#. Remove the version installed by your package manager: ``sudo apt purge firefox``
+#. Install Firefox: ``sudo ln -s ${HOME}/apps/firefox.sh /usr/bin/firefox``
+#. Install the desktop file: ``sudo cp ~/apps/firefox.desktop /usr/share/applications/``
+#. Install the icon: ``sudo cp ~/apps/firefox/browser/icons/mozicon128.png /usr/share/pixmaps/firefox.png``
+#. Install the browser alternative: ``cp ~/apps/x-www-browser /etc/alternatives/x-www-browser``
+#. Display an URL in the terminal: ``echo https://www.mozilla.org/``
+#. Close Firefox and click on the link.
+#. Firefox Nightly should open your link.
+
+Troubleshooting
+---------------
+
+#. Remove any ``*.desktop`` file talking about Firefox in ``~/.local/share/applications/``
+#. You might want to restart your computer at some point.
+#. Ask for help and ping natim here irc://irc.mozilla.org/#lagaule
