@@ -825,7 +825,7 @@ solution pragmatique sur le court/moyen terme, rendant certaines libertés
 aux utilisateurs et ouvrant la voie pour le futur.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Mon, 05 Oct 2015 00:00:00 +0200</pubDate><guid isPermaLink="false">tag:www.servicedenuages.fr,2015-10-05:difficile-promesse-autohebergement</guid><category>mozilla</category></item><item><title>Comment chiffrer ses données avec Kinto.js</title><link>http://www.servicedenuages.fr/kinto-chiffrer-ses-donnees</link><description>&lt;div class="note"&gt;
+</description><dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">Service de Nuages</dc:creator><pubDate>Mon, 05 Oct 2015 00:00:00 +0200</pubDate><guid isPermaLink="false">tag:www.servicedenuages.fr,2015-10-05:difficile-promesse-autohebergement</guid><category>mozilla</category></item><item><title>Comment chiffrer ses données avec Kinto.js</title><link>http://www.servicedenuages.fr/kinto-chiffrer-ses-donnees</link><description>&lt;div class="admonition note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;Traduit de l'anglais par &lt;a class="reference external" href="https://twitter.com/Natim"&gt;Rémy Hubscher&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
@@ -1707,7 +1707,7 @@ des champs avant l'enregistrement, etc.&lt;/p&gt;
 &lt;/span&gt;&lt;span class="hll"&gt;        &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;new&lt;/span&gt;
 &lt;/span&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;a class="reference external" href="http://cliquet.readthedocs.io/en/latest/reference/resource.html"&gt;Plus d'infos dans la documentation dédiée&lt;/a&gt; !&lt;/p&gt;
-&lt;div class="note"&gt;
+&lt;div class="admonition note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;Il est possible de définir des resources sans validation de schema.
 &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/blob/master/kinto/views/records.py"&gt;Voir le code source de Kinto&lt;/a&gt;.&lt;/p&gt;
@@ -2688,7 +2688,7 @@ fait partie l'utilisateur sont également ajoutés à sa liste de
 &lt;tt class="docutils literal"&gt;Everyone, Authenticated, fxa:32aa95a474c984d41d395e2d0b614aa2, group:moderators&lt;/tt&gt;&lt;/p&gt;
 &lt;p&gt;Il est donc possible d'assigner une permission à Bob en utilisant l'un de
 ces quatre &lt;em&gt;principals&lt;/em&gt;.&lt;/p&gt;
-&lt;div class="note"&gt;
+&lt;div class="admonition note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;Le &lt;em&gt;principal&lt;/em&gt; &lt;tt class="docutils literal"&gt;&amp;lt;userid&amp;gt;&lt;/tt&gt; dépend du &lt;em&gt;back-end&lt;/em&gt; d'authentification (e.g.
 &lt;tt class="docutils literal"&gt;github:leplatrem&lt;/tt&gt;).&lt;/p&gt;
@@ -2909,7 +2909,7 @@ sachant que le &lt;tt class="docutils literal"&gt;PUT&lt;/tt&gt; va ajouter l'ut
 liste automatiquement mais qu'il pourra se retirer avec un &lt;tt class="docutils literal"&gt;PATCH&lt;/tt&gt;.
 Ajouter l'utilisateur courant permet d'éviter les situations où plus
 personne n'a accès aux données.&lt;/p&gt;
-&lt;div class="note"&gt;
+&lt;div class="admonition note"&gt;
 &lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
 &lt;p class="last"&gt;La permission &lt;tt class="docutils literal"&gt;create&lt;/tt&gt; est valable pour &lt;tt class="docutils literal"&gt;POST&lt;/tt&gt; mais aussi pour &lt;tt class="docutils literal"&gt;PUT&lt;/tt&gt;
 lorsque l'enregistrement n'existe pas.&lt;/p&gt;
