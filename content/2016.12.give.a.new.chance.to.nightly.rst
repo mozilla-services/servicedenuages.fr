@@ -41,7 +41,7 @@ By installing Firefox Nightly you will:
 
 1. Have new Mozilla Firefox features 18 weeks before
 1. Have a much faster Firefox
-1. Make a difference (today we have about 35000 users of Nightly)
+1. Make a difference (today we have about 38000 users of Nightly)
 1. Help reduce the number of crashes for Mozilla Firefox users
 1. Make sure Mozilla Firefox source code is in a workable state
 1. Help add-ons developer to validate their add-ons is still working
@@ -163,7 +163,7 @@ help Firefox because it gives us feedback on the work we are doing
 ahead of time and also everyday. We don't have to wait for 18 weeks to
 get feedback on our work, we can have it the day after.
 
-By the time I write this article we have about 35000 daily users of Firefox
+By the time I write this article we have about 38000 daily users of Firefox
 Nightly so your choice to use it makes a huge difference to us.
 
 
@@ -174,7 +174,7 @@ I hope you are now convinced that you can help us to make a better
 Firefox by starting to use Firefox Nightly today.
 
 You can install the `desktop Firefox version <https://nightly.mozilla.org/>` as well as your
-`Android Firefox version <https://www.mozilla.org/fr/firefox/channel/android/>`
+`Android Firefox version <https://www.mozilla.org/firefox/channel/android/>`
 
 By the time you will be using Firefox Nightly, **if you see something, say something**.
 
