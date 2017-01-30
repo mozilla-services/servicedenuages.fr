@@ -50,7 +50,7 @@
 <p class="first admonition-title">Note</p>
 <p class="last">This article was translated from French by Julien/Sphinx. We thank him a lot
 for this effort! Note, that at the beginning of this year,
-<a class="reference external" href="https://medium.com/&#64;Sphinx/mdn-pr%C3%A9sentation-de-la-documentation-javascript-70541cecae54">he also translated MDN to French</a>!
+<a class="reference external" href="https://medium.com/@Sphinx/mdn-pr%C3%A9sentation-de-la-documentation-javascript-70541cecae54">he also translated MDN to French</a>!
 <strong>Big up !</strong></p>
 </div>
 <p><strong>tl;dr We have to build a service to track payments, and we're hesitant
@@ -69,12 +69,12 @@ to easily synchronize and save data associated to a user.</p>
 <li>An authorization/permissions system must allow collection protection or
 fine-grained record sharing;</li>
 <li>Conflict resolution could happen server-side;</li>
-<li>Clients should be &quot;<em>offline-first</em>&quot;;</li>
+<li>Clients should be "<em>offline-first</em>";</li>
 <li>Clients should be able to easily merge/reconcile data;</li>
 <li>Clients should be usable in the browser <em>and</em> server-side;</li>
 <li>Every component should be simple and easily substitutable.</li>
 </ul>
-<p>The first question we were asked was: &quot;<em>Why aren't you just using PouchDB or Remote Storage?</em>&quot;</p>
+<p>The first question we were asked was: "<em>Why aren't you just using PouchDB or Remote Storage?</em>"</p>
 <div class="section" id="remote-storage">
 <h2>Remote Storage</h2>
 <p>Remote Storage is an open standard for user storage. <a class="reference external" href="http://tools.ietf.org/html/draft-dejong-remotestorage-04">The specification</a>
@@ -83,9 +83,9 @@ is based on existing and proven standards: Webfinger, OAuth2, CORS and REST.</p>
 There exist several <a class="reference external" href="https://github.com/jcoglan/restore">server implementations</a>
 and there is even a <a class="reference external" href="https://www.npmjs.com/package/remotestorage-server">Node skeleton</a>
 to build a custom server.</p>
-<img alt="Remote Storage widget" class="align-left" src="http://www.servicedenuages.fr/en/../images/remotestorage-widget.png" />
+<img alt="Remote Storage widget" class="align-left" src="http://www.servicedenuages.fr/en/../images/remotestorage-widget.png" style="width: 243px; height: auto; max-width: 100%;"/>
 <p>The <a class="reference external" href="https://github.com/remotestorage/remotestorage.js/">remoteStorage.js client</a>
-allows us to integrate this solution into Web apps. This client is in charge of the &quot;local store&quot;,
+allows us to integrate this solution into Web apps. This client is in charge of the "local store",
 caching, syncing and providing users a widget so that they can choose the server
 which will receive the data (using Webfinger).</p>
 <p><a class="reference external" href="https://github.com/michielbdejong/ludbud">ludbud</a>, a refined version of
@@ -103,7 +103,7 @@ like <em>Google Drive</em> or <em>Dropbox</em>.</p>
 </ul>
 <p>However, regarding data manipulation, there are several differences with what we want to do:</p>
 <ul class="simple">
-<li>The API seems oriented around &quot;files&quot; (folders and documents) and not &quot;data&quot; (collections and records);</li>
+<li>The API seems oriented around "files" (folders and documents) and not "data" (collections and records);</li>
 <li>There is no record validation following some schema (though <a class="reference external" href="https://remotestorage.io/doc/code/files/baseclient/types-js.html">some implementations</a> of the protocol are actually doing this);</li>
 <li>There is no option to sort/filter records with regards to their attributes;</li>
 <li>The permission system <a class="reference external" href="https://groups.google.com/forum/#!topic/unhosted/5_NOGq8BPTo">is limited to private/public</a> (and
@@ -111,7 +111,7 @@ like <em>Google Drive</em> or <em>Dropbox</em>.</p>
 </ul>
 <p>To summarize, it would seem that what we want to achieve with the storage of
 records is complementary to <em>Remote Storage</em>.</p>
-<p>If there are some needs about &quot;file oriented&quot; persistence, it would be dull to
+<p>If there are some needs about "file oriented" persistence, it would be dull to
 reinvent this solution. So there is a great chance that we will integrate
 <em>Remote Storage</em> some day and that it will become a facet of our solution.</p>
 </div>
@@ -119,24 +119,24 @@ reinvent this solution. So there is a great chance that we will integrate
 <h2>PouchDB</h2>
 <p><a class="reference external" href="http://pouchdb.com/">PouchDB</a> is a Javascript library allowing to manipulate
 records locally and synchronize them to a distant database.</p>
-<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PouchDB</span><span class="p">(</span><span class="s1">&#39;dbname&#39;</span><span class="p">);</span>
+<div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">PouchDB</span><span class="p">(</span><span class="s1">'dbname'</span><span class="p">);</span>
 
 <span class="nx">db</span><span class="p">.</span><span class="nx">put</span><span class="p">({</span>
- <span class="nx">_id</span><span class="o">:</span> <span class="s1">&#39;dave@gmail.com&#39;</span><span class="p">,</span>
- <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;David&#39;</span><span class="p">,</span>
+ <span class="nx">_id</span><span class="o">:</span> <span class="s1">'dave@gmail.com'</span><span class="p">,</span>
+ <span class="nx">name</span><span class="o">:</span> <span class="s1">'David'</span><span class="p">,</span>
  <span class="nx">age</span><span class="o">:</span> <span class="mi">68</span>
 <span class="p">});</span>
 
-<span class="nx">db</span><span class="p">.</span><span class="nx">replicate</span><span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="s1">&#39;http://example.com/mydb&#39;</span><span class="p">);</span>
+<span class="nx">db</span><span class="p">.</span><span class="nx">replicate</span><span class="p">.</span><span class="nx">to</span><span class="p">(</span><span class="s1">'http://example.com/mydb'</span><span class="p">);</span>
 </pre></div>
 <p>The project is seeing some traction and benefits from a lot of contributors. The
 ecosystem is rich and adoption by projects <a class="reference external" href="https://github.com/hoodiehq/wip-hoodie-store-on-pouchdb">such as Hoodie</a> confirms the tool's
 relevance for frontend developers.</p>
-<p><em>PouchDB</em> handles a local &quot;store&quot; whose persistence
+<p><em>PouchDB</em> handles a local "store" whose persistence
 <a class="reference external" href="http://pouchdb.com/2014/07/25/pouchdb-levels-up.html">is built on top</a>
 of the <a class="reference external" href="https://github.com/level/levelup#relationship-to-leveldown">LevelDown API</a>
 to persist data in <a class="reference external" href="https://github.com/Level/levelup/wiki/Modules#storage-back-ends">any backend</a>.</p>
-<p>Even if <em>PouchDB</em> is mainly done for &quot;<em>offline-first</em>&quot; applications, it
+<p>Even if <em>PouchDB</em> is mainly done for "<em>offline-first</em>" applications, it
 can be used inside browsers and on the server side, via Node.</p>
 <div class="section" id="synchronization">
 <h3>Synchronization</h3>
@@ -150,35 +150,35 @@ anywhere (in a <em>Redis</em> or a <em>PostgreSQL</em> database for instance).</
 the server will end up being synchronised with the client. It is possible to filter
 synchronized collections but <a class="reference external" href="http://pouchdb.com/2015/04/05/filtered-replication.html">its purpose is not to secure data access</a>.</p>
 <p>In order to do so, it is recommended to create <a class="reference external" href="https://github.com/nolanlawson/pouchdb-authentication#some-people-can-read-some-docs-some-people-can-write-those-same-docs">a database per user</a>.</p>
-<p>This isn't necessarily a problem since CouchDB <a class="reference external" href="https://mail-archives.apache.org/mod_mbox/couchdb-user/201401.mbox/%3C52CEB873.7080404&#64;ironicdesign.com%3E">can handle hundreds of thousands
+<p>This isn't necessarily a problem since CouchDB <a class="reference external" href="https://mail-archives.apache.org/mod_mbox/couchdb-user/201401.mbox/%3C52CEB873.7080404@ironicdesign.com%3E">can handle hundreds of thousands
 of databases without any problem</a>.
 However, depending on use cases, clustering and isolation (by role, application,
 collection, ...) might not be dealt with easily.</p>
 </div>
 </div>
 <div class="section" id="the-payments-use-case">
-<h2>The &quot;Payments&quot; use case</h2>
-<img alt="Put Payments Here  -- Before the Internet - CC-NC-SA Katy Silberger https://www.flickr.com/photos/katysilbs/11163812186" src="http://www.servicedenuages.fr/en/../images/put-payments.jpg" />
+<h2>The "Payments" use case</h2>
+<img alt="Put Payments Here  -- Before the Internet - CC-NC-SA Katy Silberger https://www.flickr.com/photos/katysilbs/11163812186" src="http://www.servicedenuages.fr/en/../images/put-payments.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
 <p>During the next weeks, we will have to setup a prototype that keeps an history
 of a user's payments and subscriptions.</p>
 <p>The requirements are simple:</p>
 <ul class="simple">
-<li>The &quot;Payment&quot; application tracks payments and subscriptions of a user
+<li>The "Payment" application tracks payments and subscriptions of a user
 for a given application;</li>
-<li>The &quot;Data&quot; application consults the service to check if a user paid or
+<li>The "Data" application consults the service to check if a user paid or
 has subscribed;</li>
 <li>The user consults the service to get a list of all payments/subscriptions
 related to her.</li>
 </ul>
-<p>Only the &quot;Payment&quot; application should have the right to create/modify/delete
+<p>Only the "Payment" application should have the right to create/modify/delete
 records. The two others can only have read-only access to these records.</p>
 <p>A given application cannot access to some other application payments and a given user cannot access to some other user's payments.</p>
 <div class="section" id="with-remotestorage">
 <h3>With RemoteStorage</h3>
-<img alt="Remote Love - CC-BY-NC Julie https://www.flickr.com/photos/mamajulie2008/2609549461" class="align-center" src="http://www.servicedenuages.fr/en/../images/remote-love.jpg" />
+<img alt="Remote Love - CC-BY-NC Julie https://www.flickr.com/photos/mamajulie2008/2609549461" class="align-center" src="http://www.servicedenuages.fr/en/../images/remote-love.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
 <p>The idea of <em>Remote Storage</em> is to separate the application from the data that
 the user created with the application.</p>
-<p>In our use case, the &quot;Payment&quot; app is dealing with the data concerning a user.
+<p>In our use case, the "Payment" app is dealing with the data concerning a user.
 However, this data does not directly belong to the user. A user should be able
 to delete some records but he/she cannot create or edit some existing payments!</p>
 <p>The concept of permissions, limited to private/public is not suitable here.</p>
@@ -186,7 +186,7 @@ to delete some records but he/she cannot create or edit some existing payments!<
 <div class="section" id="with-pouchdb">
 <h3>With PouchDB</h3>
 <p>It will be necessary to create a <em>database</em> per user in order to separate the
-records in a secure way. Only the &quot;Payment&quot; app will be granted full rights
+records in a secure way. Only the "Payment" app will be granted full rights
 on the different databases.</p>
 <p>But this won't be enough.</p>
 <p>An app must not see payments from another application so it would also be
@@ -198,19 +198,19 @@ of thousands of databases.</p>
 <p>This doesn't seem appropriate: most of the time, there are only few
 payments/subscriptions for a given user. Should we have hundreds of thousands of
 databases, each of which will have less than 5 records?</p>
-<p>Moreover, the server side of &quot;Payment&quot; is implemented with Python. Using a
+<p>Moreover, the server side of "Payment" is implemented with Python. Using a
 JavaScript wrapper (as <a class="reference external" href="https://pythonhosted.org/Python-PouchDB/">python-pouchdb</a>) would not thrill us.</p>
 </div>
 </div>
 <div class="section" id="a-new-ecosystem">
 <h2>A new ecosystem?</h2>
-<img alt="Wagon wheel - CC-BY-NC-SA arbyreed https://www.flickr.com/photos/19779889&#64;N00/16161808220" src="http://www.servicedenuages.fr/en/../images/wagon-wheel.jpg" />
+<img alt="Wagon wheel - CC-BY-NC-SA arbyreed https://www.flickr.com/photos/19779889@N00/16161808220" src="http://www.servicedenuages.fr/en/../images/wagon-wheel.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
 <p>It is obvious that <em>PouchDB</em> and <em>Remote Storage</em> are rich projects with dynamic communities. Therefore, it's reasonable to wonder if one should develop another solution.</p>
 <p>When we created the <em>Reading List</em> server, we built it with
 <a class="reference external" href="http://cliquet.readthedocs.io/">Cliquet</a>. We had a chance to setup <a class="reference external" href="http://cliquet.readthedocs.io/en/latest/api/">a very simple protocol</a>, strongly inspired by
 <a class="reference external" href="http://en.wikipedia.org/wiki/Firefox_Sync">Firefox Sync</a>, to sync records.</p>
 <p>The reason clients for <em>Reading List</em> were implemented in few weeks, whether in
-JavaScript, Java (Android) or ASM (Firefox addon), is that the &quot;<em>offline first</em>&quot;
+JavaScript, Java (Android) or ASM (Firefox addon), is that the "<em>offline first</em>"
 principle of the service is trivial.</p>
 <div class="section" id="tradeoffs">
 <h3>Tradeoffs</h3>
@@ -292,8 +292,8 @@ It's always a difficult decision to make... <tt class="docutils literal">&lt;/tr
 This first step might lead us to converge in the end! Maybe our service will end
 up being compatible with Remote Storage, maybe PouchDB will become more agnostic
 regarding the synchronisation protocol...</p>
-<img alt="XKCD — Standards https://xkcd.com/927/" src="http://www.servicedenuages.fr/en/../images/standards.png" />
-<p>Using this new ecosystem for the &quot;Payments&quot; project will allow us to setup a
+<img alt="XKCD — Standards https://xkcd.com/927/" src="http://www.servicedenuages.fr/en/../images/standards.png" style="width: 500px; height: auto; max-width: 100%;"/>
+<p>Using this new ecosystem for the "Payments" project will allow us to setup a
 suitable permission system (<em>probably built on OAuth scopes</em>). We are also
 looking forward to <a class="reference external" href="http://blog.daybed.io/daybed-revival.html">capitalizing on our Daybed experience for this project</a>.</p>
 <p>We'll also extract some parts of the clients source code that were implemented
@@ -313,7 +313,7 @@ write, test, and maintain a whole new ecosystem.</blockquote>
 <p>And this ecosystem is precisely the one that <em>Mozilla Cloud Services</em> team
 is in charge of!</p>
 <table class="docutils footnote" frame="void" id="id3" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
+<colgroup><col class="label"></col><col></col></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>The <a class="reference external" href="https://sharesome.5apps.com/">Sharesome project</a> allows for some
 public sharing of one's resources from one's <em>Remote Storage</em>.</td></tr>

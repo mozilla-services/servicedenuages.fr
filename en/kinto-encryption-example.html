@@ -55,7 +55,7 @@ and update the local copy of the data, without the repeated cost of encrypting
 and decrypting everything all the time. Likewise, you only need to decrypt incoming data
 once, when it's downloaded, and your app can then display the data as often as
 needed without extra processing costs.</p>
-<p>Syncing data to and from &quot;the cloud&quot; is a science in itself, and
+<p>Syncing data to and from "the cloud" is a science in itself, and
 <a class="reference external" href="https://github.com/Kinto/kinto.js">Kinto.js</a> is a brilliant tool for this, developed
 by the equally brilliant Mozilla Services team. It's nearing its 1.0 release, and you'll
 hear a lot more about it on this blog in the future.</p>
@@ -108,7 +108,7 @@ and ASCII strings.</p>
 <span class="p">};</span>
 <span class="kr">const</span> <span class="nx">byteArrayToBase64String</span> <span class="o">=</span> <span class="p">(</span><span class="nx">buffer</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
   <span class="kd">var</span> <span class="nx">bytes</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Uint8Array</span><span class="p">(</span><span class="nx">buffer</span><span class="p">);</span>
-  <span class="kd">var</span> <span class="nx">binary</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">;</span>
+  <span class="kd">var</span> <span class="nx">binary</span> <span class="o">=</span> <span class="s1">''</span><span class="p">;</span>
   <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">bytes</span><span class="p">.</span><span class="nx">byteLength</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
       <span class="nx">binary</span> <span class="o">+=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">bytes</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
   <span class="p">}</span>
@@ -125,8 +125,8 @@ the data that is passed through the <tt class="docutils literal">RemoteTransform
 <div class="highlight"><pre><span></span><span class="c1">// RemoteTransformer:</span>
 <span class="kr">const</span> <span class="nx">generateAesKey</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
   <span class="c1">// See http://www.w3.org/TR/WebCryptoAPI/#examples-symmetric-encryption</span>
-  <span class="k">return</span> <span class="nb">window</span><span class="p">.</span><span class="nx">crypto</span><span class="p">.</span><span class="nx">subtle</span><span class="p">.</span><span class="nx">generateKey</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;AES-GCM&#39;</span><span class="p">,</span> <span class="nx">length</span><span class="o">:</span> <span class="mi">128</span> <span class="p">},</span>
-       <span class="kc">false</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;encrypt&#39;</span><span class="p">,</span> <span class="s1">&#39;decrypt&#39;</span><span class="p">]);</span>
+  <span class="k">return</span> <span class="nb">window</span><span class="p">.</span><span class="nx">crypto</span><span class="p">.</span><span class="nx">subtle</span><span class="p">.</span><span class="nx">generateKey</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">'AES-GCM'</span><span class="p">,</span> <span class="nx">length</span><span class="o">:</span> <span class="mi">128</span> <span class="p">},</span>
+       <span class="kc">false</span><span class="p">,</span> <span class="p">[</span><span class="s1">'encrypt'</span><span class="p">,</span> <span class="s1">'decrypt'</span><span class="p">]);</span>
 <span class="p">};</span>
 
 <span class="kr">const</span> <span class="nx">createTransformer</span> <span class="o">=</span> <span class="p">(</span><span class="nx">aesKey</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
@@ -134,7 +134,7 @@ the data that is passed through the <tt class="docutils literal">RemoteTransform
     <span class="kr">const</span> <span class="nx">cleartext</span> <span class="o">=</span> <span class="nx">rawStringToByteArray</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">record</span><span class="p">));</span>
     <span class="kr">const</span> <span class="nx">IV</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">crypto</span><span class="p">.</span><span class="nx">getRandomValues</span><span class="p">(</span><span class="k">new</span> <span class="nx">Uint8Array</span><span class="p">(</span><span class="mi">16</span><span class="p">));</span>
 
-    <span class="k">return</span> <span class="nb">window</span><span class="p">.</span><span class="nx">crypto</span><span class="p">.</span><span class="nx">subtle</span><span class="p">.</span><span class="nx">encrypt</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;AES-GCM&#39;</span><span class="p">,</span> <span class="nx">iv</span><span class="o">:</span> <span class="nx">IV</span> <span class="p">},</span> <span class="nx">aesKey</span><span class="p">,</span>
+    <span class="k">return</span> <span class="nb">window</span><span class="p">.</span><span class="nx">crypto</span><span class="p">.</span><span class="nx">subtle</span><span class="p">.</span><span class="nx">encrypt</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">'AES-GCM'</span><span class="p">,</span> <span class="nx">iv</span><span class="o">:</span> <span class="nx">IV</span> <span class="p">},</span> <span class="nx">aesKey</span><span class="p">,</span>
         <span class="nx">cleartext</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">ciphertext</span> <span class="p">=&gt;</span> <span class="p">{</span>
       <span class="k">return</span> <span class="p">{</span>
         <span class="nx">id</span><span class="o">:</span> <span class="nx">record</span><span class="p">.</span><span class="nx">id</span><span class="p">,</span>
@@ -148,7 +148,7 @@ the data that is passed through the <tt class="docutils literal">RemoteTransform
     <span class="kr">const</span> <span class="nx">ciphertext</span> <span class="o">=</span> <span class="nx">base64StringToByteArray</span><span class="p">(</span><span class="nx">record</span><span class="p">.</span><span class="nx">ciphertext</span><span class="p">);</span>
     <span class="kr">const</span> <span class="nx">IV</span> <span class="o">=</span> <span class="nx">base64StringToByteArray</span><span class="p">(</span><span class="nx">record</span><span class="p">.</span><span class="nx">IV</span><span class="p">);</span>
 
-    <span class="k">return</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">subtle</span><span class="p">.</span><span class="nx">decrypt</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;AES-GCM&#39;</span><span class="p">,</span> <span class="nx">iv</span><span class="o">:</span> <span class="nx">IV</span> <span class="p">},</span> <span class="nx">aesKey</span><span class="p">,</span>
+    <span class="k">return</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">subtle</span><span class="p">.</span><span class="nx">decrypt</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">'AES-GCM'</span><span class="p">,</span> <span class="nx">iv</span><span class="o">:</span> <span class="nx">IV</span> <span class="p">},</span> <span class="nx">aesKey</span><span class="p">,</span>
         <span class="nx">ciphertext</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">recordArrayBuffer</span> <span class="p">=&gt;</span> <span class="p">{</span>
 
       <span class="k">return</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span>
@@ -173,9 +173,9 @@ instances within the same origin is now possible with the recently added
 <span class="kr">const</span> <span class="nx">createCollection</span> <span class="o">=</span> <span class="p">(</span><span class="nx">transformer</span><span class="p">,</span> <span class="nx">testRun</span><span class="p">,</span> <span class="nx">instanceNo</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
   <span class="kr">const</span> <span class="nx">kinto</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Kinto</span><span class="p">({</span>
     <span class="nx">dbPrefix</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">testRun</span><span class="si">}</span><span class="sb">-</span><span class="si">${</span><span class="nx">instanceNo</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
-    <span class="nx">remote</span><span class="o">:</span> <span class="s1">&#39;https://kinto.dev.mozaws.net/v1/&#39;</span><span class="p">,</span>
+    <span class="nx">remote</span><span class="o">:</span> <span class="s1">'https://kinto.dev.mozaws.net/v1/'</span><span class="p">,</span>
     <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
-      <span class="nx">Authorization</span><span class="o">:</span> <span class="s1">&#39;Basic &#39;</span> <span class="o">+</span> <span class="nx">btoa</span><span class="p">(</span><span class="s1">&#39;public-demo:s3cr3t&#39;</span><span class="p">)</span>
+      <span class="nx">Authorization</span><span class="o">:</span> <span class="s1">'Basic '</span> <span class="o">+</span> <span class="nx">btoa</span><span class="p">(</span><span class="s1">'public-demo:s3cr3t'</span><span class="p">)</span>
     <span class="p">}</span>
   <span class="p">});</span>
 
@@ -199,16 +199,16 @@ instances within the same origin is now possible with the recently added
 <p>Now, let's test if we can create an item in collection 1, sync it up (the data
 should be encrypted on the wire, we can check that on the Network tab of the
 browser console):</p>
-<img alt="Network tab screenshot" src="http://www.servicedenuages.fr/en/../images/kinto-encryption-example-network-tab.png" />
+<img alt="Network tab screenshot" src="http://www.servicedenuages.fr/en/../images/kinto-encryption-example-network-tab.png" style="width: 2560px; height: auto; max-width: 100%;"/>
 <div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">syncUp</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
   <span class="c1">// Use first Kinto instance to demonstrate encryption:</span>
   <span class="k">return</span> <span class="nx">coll1</span><span class="p">.</span><span class="nx">create</span><span class="p">({</span>
-    <span class="nx">URL</span><span class="o">:</span> <span class="s1">&#39;http://www.w3.org/TR/WebCryptoAPI/&#39;</span><span class="p">,</span>
-    <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Web Cryptography API&#39;</span>
+    <span class="nx">URL</span><span class="o">:</span> <span class="s1">'http://www.w3.org/TR/WebCryptoAPI/'</span><span class="p">,</span>
+    <span class="nx">name</span><span class="o">:</span> <span class="s1">'Web Cryptography API'</span>
   <span class="p">}).</span><span class="nx">then</span><span class="p">(()</span> <span class="p">=&gt;</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">coll1</span><span class="p">.</span><span class="nx">sync</span><span class="p">();</span>
   <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">syncResults</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Sync up&#39;</span><span class="p">,</span> <span class="nx">syncResults</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Sync up'</span><span class="p">,</span> <span class="nx">syncResults</span><span class="p">);</span>
   <span class="p">});</span>
 <span class="p">};</span>
 </pre></div>
@@ -220,19 +220,19 @@ now, so go ahead and try opening your browser console on this page to try it out
 <div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">syncDown</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
   <span class="c1">// Use second Kinto instance to demonstrate decryption:</span>
   <span class="k">return</span> <span class="nx">coll2</span><span class="p">.</span><span class="nx">sync</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">syncResults</span> <span class="p">=&gt;</span> <span class="p">{</span>
-    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Sync down&#39;</span><span class="p">,</span> <span class="nx">syncResults</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Sync down'</span><span class="p">,</span> <span class="nx">syncResults</span><span class="p">);</span>
   <span class="p">});</span>
 <span class="p">};</span>
 
 <span class="kr">const</span> <span class="nx">go</span> <span class="o">=</span> <span class="p">()</span> <span class="p">=&gt;</span> <span class="p">{</span>
-  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Watch the Network tab!&#39;</span><span class="p">);</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Watch the Network tab!'</span><span class="p">);</span>
   <span class="k">return</span> <span class="nx">prepare</span><span class="p">()</span>
       <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">syncUp</span><span class="p">)</span>
       <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">syncDown</span><span class="p">)</span>
-      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">a</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Success&#39;</span><span class="p">,</span> <span class="nx">a</span><span class="p">),</span>
-            <span class="nx">b</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">&#39;Failure&#39;</span><span class="p">,</span> <span class="nx">b</span><span class="p">));</span>
+      <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">a</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Success'</span><span class="p">,</span> <span class="nx">a</span><span class="p">),</span>
+            <span class="nx">b</span> <span class="p">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">error</span><span class="p">(</span><span class="s1">'Failure'</span><span class="p">,</span> <span class="nx">b</span><span class="p">));</span>
 <span class="p">};</span>
-<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Type go(); to start!&#39;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Type go(); to start!'</span><span class="p">);</span>
 </pre></div>
 <p>Hope you are as excited about Kinto.js as I am, comments below this blogpost
 and github issues on the example code very welcome! :)</p>

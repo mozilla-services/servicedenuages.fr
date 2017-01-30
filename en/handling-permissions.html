@@ -76,13 +76,13 @@ vocabulary.</p>
 <p>A <em>principal</em>, is an entity that can be authenticated by a computer system.
 It is the actor who does the action. <a class="footnote-reference" href="#id2" id="id1">[1]</a></p>
 <p>It could either be someone, a computer, a service or a group of any of such
-things. This is conceptually wider than the classical &quot;user id*&quot;.</p>
+things. This is conceptually wider than the classical "user id*".</p>
 <p>Permissions are then associated to these <em>principals</em>.</p>
 <p>For instance, a user is identified in an unique way when he connects to the
 authentication system, which role is to define a list of <em>principals</em> for the
 authenticating user.</p>
 <table class="docutils footnote" frame="void" id="id2" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
+<colgroup><col class="label"></col><col></col></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>To read more about <em>principals</em> :
 <a class="reference external" href="https://en.wikipedia.org/wiki/Principal_%28computer_security%29">https://en.wikipedia.org/wiki/Principal_%28computer_security%29</a></td></tr>
@@ -93,14 +93,14 @@ authenticating user.</p>
 <h3>The difference between a role and a group</h3>
 <p>From scratch, it's not easy to precisely define the difference between these two
 concepts which allow to associate permissions to a group of <em>principals</em>. <a class="footnote-reference" href="#id4" id="id3">[2]</a></p>
-<p>The difference is mainly semantic, but we can see a difference in the &quot;direction&quot;
+<p>The difference is mainly semantic, but we can see a difference in the "direction"
 of the relationship between these two concepts.</p>
 <ul class="simple">
 <li>A role is a list of permissions associated to a <em>principal</em>;</li>
 <li>A group is a list of <em>principals</em> we can associate to a permission.</li>
 </ul>
 <table class="docutils footnote" frame="void" id="id4" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
+<colgroup><col class="label"></col><col></col></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td>More information at:
 <a class="reference external" href="http://stackoverflow.com/questions/7770728/group-vs-role-any-real-difference">http://stackoverflow.com/questions/7770728/group-vs-role-any-real-difference</a></td></tr>
@@ -112,9 +112,9 @@ of the relationship between these two concepts.</p>
 <blockquote class="epigraph">
 <p>An ACL is a list of Access Control Entry (ACE) enabling or disabling
 acces rights to a person or a group.</p>
-<p class="attribution">&mdash;<a class="reference external" href="https://en.wikipedia.org/wiki/Access_Control_List">https://en.wikipedia.org/wiki/Access_Control_List</a></p>
+<p class="attribution">—<a class="reference external" href="https://en.wikipedia.org/wiki/Access_Control_List">https://en.wikipedia.org/wiki/Access_Control_List</a></p>
 </blockquote>
-<p>I would even say, in our case, &quot;to a <em>principal</em>&quot;. For instance:</p>
+<p>I would even say, in our case, "to a <em>principal</em>". For instance:</p>
 <div class="highlight"><pre><span></span>create_record: alexis,remy,tarek
 </pre></div>
 <p>This ACE gives the <tt class="docutils literal">create</tt> permission on the <tt class="docutils literal">record</tt> object to the users
@@ -160,9 +160,9 @@ the <em>namespace</em> was implicit: stored data was necessarily tied to the con
 user.</p>
 <p>User data were then impossible to share.</p>
 <p><em>Namespaces</em> are a simple way to handle the data sharing problem.</p>
-<p>We chose to re-use the GitHub and BitBucket mode, which uses &quot;organisations&quot; as
+<p>We chose to re-use the GitHub and BitBucket mode, which uses "organisations" as
 <em>namespaces</em>.</p>
-<p>In our case, it's possible to create &quot;buckets&quot;, which are one of these
+<p>In our case, it's possible to create "buckets", which are one of these
 <em>namespaces</em>. A bucket is a container for collections and user groups.</p>
 <p>ACLs on these collections can be given to certain groups of the bucket, and
 directly to other <em>principals</em>.</p>
@@ -174,8 +174,8 @@ directly to other <em>principals</em>.</p>
 <p>To handle permissions, we identified the following objects:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="23%" />
-<col width="77%" />
+<col width="23%"></col>
+<col width="77%"></col>
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head">Object</th>
@@ -235,8 +235,8 @@ parents.</p>
 <p>For all of these objects, we identified the following permissions:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="23%" />
-<col width="77%" />
+<col width="23%"></col>
+<col width="77%"></col>
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head">Permission</th>
@@ -278,9 +278,9 @@ permission that its parent.</p>
 <p>Here is a complete list of permissions:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="21%" />
-<col width="32%" />
-<col width="47%" />
+<col width="21%"></col>
+<col width="32%"></col>
+<col width="47%"></col>
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head">Object</th>
@@ -295,11 +295,11 @@ permission that its parent.</p>
 <td><em>Principals</em> who can create
 a bucket are defined in the
 service configuration (for
-instance &quot;authenticated users&quot;)</td>
+instance "authenticated users")</td>
 </tr>
 <tr><td rowspan="4"><tt class="docutils literal">bucket</tt></td>
 <td><cite>write</cite></td>
-<td>The &quot;admin&quot; permission for the
+<td>The "admin" permission for the
 <em>bucket</em>.</td>
 </tr>
 <tr><td><cite>read</cite></td>
@@ -380,9 +380,9 @@ following list of principals:
 <p><strong>Blog</strong></p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="35%" />
-<col width="18%" />
-<col width="46%" />
+<col width="35%"></col>
+<col width="18%"></col>
+<col width="46%"></col>
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head">Object</th>
@@ -411,9 +411,9 @@ following list of principals:
 <p><strong>Wiki</strong></p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="35%" />
-<col width="18%" />
-<col width="46%" />
+<col width="35%"></col>
+<col width="18%"></col>
+<col width="46%"></col>
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head">Object</th>
@@ -438,9 +438,9 @@ following list of principals:
 <p><strong>Polls</strong></p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="34%" />
-<col width="31%" />
-<col width="35%" />
+<col width="34%"></col>
+<col width="31%"></col>
+<col width="35%"></col>
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head">Object</th>
@@ -468,9 +468,9 @@ following list of principals:
 <p><strong>Collaborative maps</strong></p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="34%" />
-<col width="31%" />
-<col width="35%" />
+<col width="34%"></col>
+<col width="31%"></col>
+<col width="35%"></col>
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head">Object</th>
@@ -507,9 +507,9 @@ possible to imagine a wiki platform (ala wikia.com) where wikis are private by
 default and some pages can be published:</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="32%" />
-<col width="30%" />
-<col width="38%" />
+<col width="32%"></col>
+<col width="30%"></col>
+<col width="38%"></col>
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head">Object</th>
@@ -555,9 +555,9 @@ HTTP/1.1 201 Created
 Content-Type: application/json; charset=utf-8
 
 {
-    &quot;id&quot;: &quot;servicedenuages_blog&quot;,
-    &quot;permissions&quot;: {
-        &quot;write&quot;: [&quot;fxa:49d02d55ad10973b7b9d0dc9eba7fdf0&quot;]
+    "id": "servicedenuages_blog",
+    "permissions": {
+        "write": ["fxa:49d02d55ad10973b7b9d0dc9eba7fdf0"]
     }
 }
 </pre></div>
@@ -567,8 +567,8 @@ Content-Type: application/json; charset=utf-8
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
 
 {
-    &quot;permissions&quot;: {
-        &quot;read&quot;: [&quot;+system.Everyone&quot;]
+    "permissions": {
+        "read": ["+system.Everyone"]
     }
 }
 
@@ -576,10 +576,10 @@ HTTP/1.1 201 Created
 Content-Type: application/json; charset=utf-8
 
 {
-    &quot;id&quot;: &quot;servicedenuages_blog&quot;,
-    &quot;permissions&quot;: {
-        &quot;write&quot;: [&quot;fxa:49d02d55ad10973b7b9d0dc9eba7fdf0&quot;],
-        &quot;read&quot;: [&quot;system.Everyone&quot;]
+    "id": "servicedenuages_blog",
+    "permissions": {
+        "write": ["fxa:49d02d55ad10973b7b9d0dc9eba7fdf0"],
+        "read": ["system.Everyone"]
     }
 }
 </pre></div>
@@ -608,9 +608,9 @@ a shortcut to reference the <em>personal</em> bucket of the user:
 <div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/v1/buckets/personal/collections/contacts/records</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 
 {
-   &quot;name&quot;: &quot;Rémy&quot;,
-   &quot;emails&quot;: [&quot;remy@example.com&quot;],
-   &quot;phones&quot;: [&quot;+330820800800&quot;]
+   "name": "Rémy",
+   "emails": ["remy@example.com"],
+   "phones": ["+330820800800"]
 }
 
 HTTP/1.1 307 Temporary Redirect

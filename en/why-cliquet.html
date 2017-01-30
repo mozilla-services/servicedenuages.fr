@@ -67,7 +67,7 @@ protocol.</p>
 same rules, so we decided go with a common implementation of these best
 practices (and resulting protocol) in the form of a re-usable toolkit.</p>
 <p><em>Cliquet</em> was born.</p>
-<img alt="Cliquet logo" class="align-center" src="http://www.servicedenuages.fr/en/../images/cliquet-logo.png" />
+<img alt="Cliquet logo" class="align-center" src="http://www.servicedenuages.fr/en/../images/cliquet-logo.png" style="width: 300px; height: auto; max-width: 100%;"/>
 <div class="section" id="the-intentions">
 <h3>The Intentions</h3>
 <blockquote class="epigraph">
@@ -105,7 +105,7 @@ that we try to make things optional where we can (and malleable where we
 can't) - Cliquet is no different. <em>Everything is configurable</em> right from the
 <tt class="docutils literal">.ini</tt> file! What's more, all of the projects that use the toolkit are
 deployed in exactly the same way - only the <em>configuration</em> is different.</p>
-<img alt="A meeting in Paris..." class="align-center" src="http://www.servicedenuages.fr/en/../images/cliquet-notes-whiteboard.jpg" />
+<img alt="A meeting in Paris..." class="align-center" src="http://www.servicedenuages.fr/en/../images/cliquet-notes-whiteboard.jpg" style="width: 500px; height: auto; max-width: 100%;"/>
 </div>
 </div>
 <div class="section" id="the-protocol">
@@ -155,20 +155,20 @@ other highly monitorable information (to keep your local sysadmin happy).</li>
 <li>Advice from senior system administrators whose jobs it is to maintain
 services for the many millions of Firefox users;</li>
 <li>Feedback from the <em>Firefox Sync</em> team regarding concurrency management and
-&quot;offline-first&quot; design.</li>
+"offline-first" design.</li>
 </ul>
 <p>Want to know more? No problem since it's <a class="reference external" href="http://cliquet.readthedocs.io/en/latest/api/index.html">documented in great detail</a>.</p>
 <p>In an ideal world this protocol would be versioned and formalised in an RFC.
 Perhaps there would even be several implementations in different languages.
 <a class="footnote-reference" href="#id4" id="id2">[2]</a></p>
 <table class="docutils footnote" frame="void" id="id3" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
+<colgroup><col class="label"></col><col></col></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>See our dedicated article on <a class="reference external" href="http://www.servicedenuages.fr/en/handling-permissions">permissions in Cliquet</a>.</td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id4" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
+<colgroup><col class="label"></col><col></col></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>Bear in mind that we're a very small team!</td></tr>
 </tbody>
@@ -192,7 +192,7 @@ and so forth.</p>
 and provide the necessary abstractions; both remain available for expanding
 and extending from what comes in the box.</p>
 <table class="docutils footnote" frame="void" id="id6" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
+<colgroup><col class="label"></col><col></col></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id5">[3]</a></td><td>We started with an implementation using <em>Python-Eve</em> (Flask) but we weren't
 satisified with the API configuration process - too much hand-waving and
@@ -215,7 +215,7 @@ variables or the <tt class="docutils literal">.ini</tt> file - or a combination 
 substituted completely) via the configuration alone.</li>
 <li><strong>Profiling</strong>: Built-in development utilities to help find <a class="reference external" href="https://en.wiktionary.org/wiki/bottleneck">bottlenecks</a>.</li>
 </ul>
-<img alt="Cliquet concepts" class="align-center" src="http://www.servicedenuages.fr/en/../images/cliquet-concepts.png" />
+<img alt="Cliquet concepts" class="align-center" src="http://www.servicedenuages.fr/en/../images/cliquet-concepts.png" style="width: 500px; height: auto; max-width: 100%;"/>
 <p>By proportion, the number of lines of code that are necessary to support REST
 outweighs that of any other component in Cliquet. This is a feature; Cliquet
 provides a wide range of functionality and can therefore be used in any
@@ -227,9 +227,9 @@ every component is guaranteed to be production-ready.</p>
 but there's no reason a relational storage model couldn't be implemented. Since
 all of the moving parts can be replaced directly via the configuration, it's
 entirely feasible to extend Cliquet with business logic or other exotic
-elements. We've got even more ideas in the &quot;ecosystem&quot; portion of <a class="reference external" href="http://cliquet.readthedocs.io/en/latest/ecosystem.html">our
+elements. We've got even more ideas in the "ecosystem" portion of <a class="reference external" href="http://cliquet.readthedocs.io/en/latest/ecosystem.html">our
 documentation</a>.</p>
-<p>In a few weeks well be introducing the idea of &quot;events&quot; (or &quot;signals&quot;)
+<p>In a few weeks well be introducing the idea of "events" (or "signals")
 which will allow plugins to interface in a much cleaner way.</p>
 <p>We put a high value on code <em>readability</em>, as well as the importance of
 patterns, tests, and documentation. If you have any feedback, suggestions,
@@ -250,7 +250,7 @@ no knowledge of <em>Pyramid</em>.</p>
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">global_config</span><span class="p">,</span> <span class="o">**</span><span class="n">settings</span><span class="p">):</span>
     <span class="n">config</span> <span class="o">=</span> <span class="n">Configurator</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">settings</span><span class="p">)</span>
 
-    <span class="n">cliquet</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s1">&#39;1.0&#39;</span><span class="p">)</span>
+    <span class="n">cliquet</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s1">'1.0'</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">make_wsgi_app</span><span class="p">()</span>
 </pre></div>
 <p>From here, most of the features of Cliquet are active and ready to be used.</p>
@@ -264,8 +264,8 @@ views in either Pyramid or Cornice.</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">global_config</span><span class="p">,</span> <span class="o">**</span><span class="n">settings</span><span class="p">):</span>
     <span class="n">config</span> <span class="o">=</span> <span class="n">Configurator</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">settings</span><span class="p">)</span>
 
-    <span class="n">cliquet</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s1">&#39;1.0&#39;</span><span class="p">)</span>
-    <span class="n">config</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s2">&quot;myproject.views&quot;</span><span class="p">)</span>
+    <span class="n">cliquet</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s1">'1.0'</span><span class="p">)</span>
+    <span class="n">config</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s2">"myproject.views"</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">make_wsgi_app</span><span class="p">()</span>
 </pre></div>
 <p>The first step in defining a CRUD resource is to define the schema with
@@ -282,15 +282,15 @@ Colander:</p>
 <p>From here, the CRUD resource is available at <tt class="docutils literal">/v1/bookmarks</tt> with all the
 synchronisation, filtering, sorting, paging, and timestamp features ready to
 go. By default the records are private (per user).</p>
-<div class="highlight"><pre><span></span><span class="err">$</span> <span class="err">http</span> <span class="err">GET</span> <span class="s2">&quot;http://localhost:8000/v1/bookmarks&quot;</span>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="err">http</span> <span class="err">GET</span> <span class="s2">"http://localhost:8000/v1/bookmarks"</span>
 <span class="err">HTTP/</span><span class="mf">1.1</span> <span class="mi">200</span> <span class="err">OK</span>
 <span class="err">...</span>
 <span class="p">{</span>
-    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nt">"data"</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
-            <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://cliquet.readthedocs.io&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;cc103eb5-0c80-40ec-b6f5-dad12e7d975e&quot;</span><span class="p">,</span>
-            <span class="nt">&quot;last_modified&quot;</span><span class="p">:</span> <span class="mi">1437034418940</span><span class="p">,</span>
+            <span class="nt">"url"</span><span class="p">:</span> <span class="s2">"http://cliquet.readthedocs.io"</span><span class="p">,</span>
+            <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"cc103eb5-0c80-40ec-b6f5-dad12e7d975e"</span><span class="p">,</span>
+            <span class="nt">"last_modified"</span><span class="p">:</span> <span class="mi">1437034418940</span><span class="p">,</span>
         <span class="p">}</span>
     <span class="p">]</span>
 <span class="p">}</span>
@@ -300,16 +300,16 @@ go. By default the records are private (per user).</p>
 <h3>Step 3</h3>
 <p>There's lots of room to change things up, such as the URLs and HTTP verbs, or
 even modifying the fields before they're saved.</p>
-<div class="highlight"><pre><span></span><span class="nd">@resource.register</span><span class="p">(</span><span class="n">collection_path</span><span class="o">=</span><span class="s1">&#39;/user/bookmarks&#39;</span><span class="p">,</span>
-                   <span class="n">record_path</span><span class="o">=</span><span class="s1">&#39;/user/bookmarks/{{id}}&#39;</span><span class="p">,</span>
-                   <span class="n">collection_methods</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,))</span>
+<div class="highlight"><pre><span></span><span class="nd">@resource.register</span><span class="p">(</span><span class="n">collection_path</span><span class="o">=</span><span class="s1">'/user/bookmarks'</span><span class="p">,</span>
+                   <span class="n">record_path</span><span class="o">=</span><span class="s1">'/user/bookmarks/{{id}}'</span><span class="p">,</span>
+                   <span class="n">collection_methods</span><span class="o">=</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,))</span>
 <span class="k">class</span> <span class="nc">Bookmark</span><span class="p">(</span><span class="n">resource</span><span class="o">.</span><span class="n">BaseResource</span><span class="p">):</span>
     <span class="n">mapping</span> <span class="o">=</span> <span class="n">BookmarkSchema</span><span class="p">()</span>
 
     <span class="k">def</span> <span class="nf">process_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new</span><span class="p">,</span> <span class="n">old</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="k">if</span> <span class="n">old</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">new</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">old</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">]:</span>
-            <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;User-Agent&#39;</span><span class="p">)</span>
-            <span class="n">new</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">device</span>
+        <span class="k">if</span> <span class="n">old</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">new</span><span class="p">[</span><span class="s1">'device'</span><span class="p">]</span> <span class="o">!=</span> <span class="n">old</span><span class="p">[</span><span class="s1">'device'</span><span class="p">]:</span>
+            <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'User-Agent'</span><span class="p">)</span>
+            <span class="n">new</span><span class="p">[</span><span class="s1">'device'</span><span class="p">]</span> <span class="o">=</span> <span class="n">device</span>
         <span class="k">return</span> <span class="n">new</span>
 </pre></div>
 <p>For more information, see the <a class="reference external" href="http://cliquet.readthedocs.io/en/latest/reference/resource.html">resource documentation</a> .</p>
@@ -319,13 +319,13 @@ even modifying the fields before they're saved.</p>
 <p>Let's try using Cliquet <em>abstractions</em> in a Cornice <em>view</em>:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cliquet</span> <span class="kn">import</span> <span class="n">Service</span>
 
-<span class="n">score</span> <span class="o">=</span> <span class="n">Service</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;score&quot;</span><span class="p">,</span>
-                <span class="n">path</span><span class="o">=</span><span class="s1">&#39;/score/{game}&#39;</span><span class="p">,</span>
-                <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Store game score&quot;</span><span class="p">)</span>
+<span class="n">score</span> <span class="o">=</span> <span class="n">Service</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"score"</span><span class="p">,</span>
+                <span class="n">path</span><span class="o">=</span><span class="s1">'/score/{game}'</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">"Store game score"</span><span class="p">)</span>
 
 <span class="nd">@score.post</span><span class="p">(</span><span class="n">schema</span><span class="o">=</span><span class="n">ScoreSchema</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">post_score</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="n">collection_id</span> <span class="o">=</span> <span class="s1">&#39;scores-&#39;</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="n">match_dict</span><span class="p">[</span><span class="s1">&#39;game&#39;</span><span class="p">]</span>
+    <span class="n">collection_id</span> <span class="o">=</span> <span class="s1">'scores-'</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="n">match_dict</span><span class="p">[</span><span class="s1">'game'</span><span class="p">]</span>
     <span class="n">user_id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">authenticated_userid</span>
     <span class="n">value</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">validated</span>  <span class="c1"># c.f. Cornice.</span>
 
@@ -350,8 +350,8 @@ could improve things - maybe you'd like to help?</p>
 based on Cliquet to easily integrate all of the API documentation.</li>
 <li><strong>Documentation in general</strong>: It's difficult to write, organise, and maintain
 documentation, especially when it's aimed at a general public that runs the
-gamut from absolute beginner to expert. We are victims of the &quot;<a class="reference external" href="https://en.wikipedia.org/wiki/Curse_of_knowledge">curse of
-knowledge</a>&quot;.</li>
+gamut from absolute beginner to expert. We are victims of the "<a class="reference external" href="https://en.wikipedia.org/wiki/Curse_of_knowledge">curse of
+knowledge</a>".</li>
 <li><strong>Protocol</strong>: At some point we're going to have to properly version the
 protocol, which means making a division within versions of Cliquet itself;
 this will be necessary if we want to move the ecosystem forward.</li>

@@ -51,7 +51,7 @@
 <p>Connaissez-vous <a href="http://jedit.org">jEdit</a> — <em>l'éditeur de texte des développeurs</em> ?<br>
 C'est un éditeur de texte multi-plateforme, écrit en java, disposant de nombreux plugins.
 Je participe à son développement depuis une dizaine d'années.
-Nous l'hébergeons sur Sourceforge ; le code principal est sous <em>Subversion</em>.</p>
+Nous l'hébergeons sur Sourceforge ; le code principal est sous <em>Subversion</em>.</br></p>
 <p>Nous sommes bénévoles et le maintenons sur notre temps libre.
 Pour ma part, je n'ai pas toujours accès à internet pendant les vacances. Ou via un câble Ethernet dans une pièce sombre
 et surchauffée. Tout ça pour dire que j'aime avoir un maximum de choses sous la main hors-ligne :</p>
@@ -116,7 +116,7 @@ devient un peu lente.</p>
 <span class="p">}</span>
 
 <span class="kd">function</span> <span class="nx">search</span><span class="p">(){</span>
-  <span class="kd">var</span> <span class="nx">keyword</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;query&quot;</span><span class="p">);</span>
+  <span class="kd">var</span> <span class="nx">keyword</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"query"</span><span class="p">);</span>
   <span class="k">return</span> <span class="nx">tickets</span>
     <span class="p">.</span><span class="nx">list</span><span class="p">()</span>
     <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
@@ -127,8 +127,6 @@ devient un peu lente.</p>
 <span class="c1">// on submit</span>
 <span class="nx">search</span><span class="p">().</span><span class="nx">then</span><span class="p">(</span><span class="nx">render</span><span class="p">);</span>
 </pre></div>
-
-
 <h2>Architecture</h2>
 <p>J'héberge mon serveur kinto sur un serveur C1 chez scaleway. Il contient deux collections :</p>
 <ul>
@@ -151,7 +149,7 @@ dépendance à n frameworks) et suis resté sur cette simplicité :</p>
 <li>datatables (après avoir fait ma propre gestion de table, mais voulant déplier certaines lignes de la table et ayant trouvé
    un <a href="https://datatables.net/examples/server_side/row_details.html">exemple tout prêt</a>).</li>
 </ul>
-<p><img alt="Capture d'écran de l'application" src="http://www.servicedenuages.fr/images/jedit-trackers-with-kinto-app.png"></p>
+<p><img alt="Capture d'écran de l'application" src="http://www.servicedenuages.fr/images/jedit-trackers-with-kinto-app.png" style="width: 990px; height: auto; max-width: 100%;"/></p>
 <h2>État initial</h2>
 <p>Lorsque vous accédez pour la première fois à l'<a href="https://trackers.elelay.fr/trackers.html">application</a>, un panneau vous
 est présenté proposant de récupérer les tickets, dont éventuellement les vieux tickets.</p>
@@ -164,23 +162,21 @@ est présenté proposant de récupérer les tickets, dont éventuellement les vi
     <span class="p">}</span>
 <span class="p">});</span>
 </pre></div>
-
-
 <p>Pour afficher le nombre de tickets sur le serveur avant de les récupérer, il faut descendre dans le package
 <a href="https://github.com/Kinto/kinto-http.js">kinto-http</a>.</p>
 <p>Le code correspondant (bientôt simplifié) :</p>
 <div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">fetchTotalRecords</span><span class="p">(</span><span class="nx">api</span><span class="p">,</span> <span class="nx">bucket</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">etag</span><span class="p">)</span> <span class="p">{</span>
     <span class="kd">var</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{};</span>
-    <span class="nx">headers</span><span class="p">[</span><span class="s2">&quot;Authorization&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;Basic &quot;</span> <span class="o">+</span> <span class="nx">btoa</span><span class="p">(</span><span class="s2">&quot;token:tr0ub4d@ur&quot;</span><span class="p">);</span>
+    <span class="nx">headers</span><span class="p">[</span><span class="s2">"Authorization"</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"Basic "</span> <span class="o">+</span> <span class="nx">btoa</span><span class="p">(</span><span class="s2">"token:tr0ub4d@ur"</span><span class="p">);</span>
     <span class="k">return</span> <span class="nx">api</span><span class="p">.</span><span class="nx">client</span><span class="p">.</span><span class="nx">execute</span><span class="p">({</span>
-        <span class="nx">path</span><span class="o">:</span> <span class="s2">&quot;/buckets/&quot;</span> <span class="o">+</span> <span class="nx">bucket</span> <span class="o">+</span> <span class="s2">&quot;/collections/&quot;</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s2">&quot;/records&quot;</span> <span class="o">+</span> <span class="p">(</span><span class="nx">etag</span> <span class="o">?</span> <span class="p">(</span><span class="s2">&quot;?_since=&quot;</span> <span class="o">+</span> <span class="nx">etag</span><span class="p">)</span> <span class="o">:</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
-        <span class="nx">method</span><span class="o">:</span> <span class="s2">&quot;HEAD&quot;</span><span class="p">,</span>
+        <span class="nx">path</span><span class="o">:</span> <span class="s2">"/buckets/"</span> <span class="o">+</span> <span class="nx">bucket</span> <span class="o">+</span> <span class="s2">"/collections/"</span> <span class="o">+</span> <span class="nx">name</span> <span class="o">+</span> <span class="s2">"/records"</span> <span class="o">+</span> <span class="p">(</span><span class="nx">etag</span> <span class="o">?</span> <span class="p">(</span><span class="s2">"?_since="</span> <span class="o">+</span> <span class="nx">etag</span><span class="p">)</span> <span class="o">:</span> <span class="s2">""</span><span class="p">),</span>
+        <span class="nx">method</span><span class="o">:</span> <span class="s2">"HEAD"</span><span class="p">,</span>
         <span class="nx">headers</span>
     <span class="p">},</span> <span class="p">{</span>
         <span class="nx">raw</span><span class="o">:</span> <span class="kc">true</span>
     <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;RES&quot;</span><span class="p">,</span> <span class="nx">res</span><span class="p">);</span>
-        <span class="k">return</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;total-records&quot;</span><span class="p">));</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"RES"</span><span class="p">,</span> <span class="nx">res</span><span class="p">);</span>
+        <span class="k">return</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">res</span><span class="p">.</span><span class="nx">headers</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"total-records"</span><span class="p">));</span>
     <span class="p">});</span>
 <span class="p">}</span>
 
@@ -189,8 +185,6 @@ est présenté proposant de récupérer les tickets, dont éventuellement les vi
     <span class="k">return</span> <span class="nx">fetchTotalRecords</span><span class="p">(</span><span class="nx">api</span><span class="p">,</span> <span class="nx">tickets</span><span class="p">.</span><span class="nx">bucket</span><span class="p">,</span> <span class="nx">tickets</span><span class="p">.</span><span class="nx">name</span><span class="p">,</span> <span class="nx">lastMod</span><span class="p">);</span>
 <span class="p">}).</span><span class="nx">then</span><span class="p">(</span><span class="nx">renderTicketCount</span><span class="p">);</span>
 </pre></div>
-
-
 <p>Cette méthode fonctionne aussi pour déterminer s'il y a eu du nouveau sur le serveur (<a href="http://kinto.readthedocs.io/en/latest/api/1.x/filtering.html#polling-for-changes">via l'ETag</a>). Le serveur kinto ne
 répond pas instantanément. Il faudrait peut-être passer l'etag en <code>If-None-Match</code> en plus de <code>since</code> pour accélérer les choses.</p>
 <h2>Recherche</h2>
@@ -201,14 +195,12 @@ d'une collection kinto.js cliente pour être réutilisé à la prochaine visite.
 ce petit tableau avec les autres critères. Cela a accéléré les choses par rapport à la première version de l'application,
 dans laquelle je commençais toujours la recherche par un <code>tickets.list()</code>, qui retournait tous les documents.</p>
 <p>Pour rechercher <em>hello</em> dans l'index en mémoire :</p>
-<div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">index</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
-   <span class="p">[{</span><span class="s2">&quot;ref&quot;</span><span class="o">:</span><span class="s2">&quot;52a4d8cb27184667e3400f42&quot;</span><span class="p">,</span><span class="s2">&quot;score&quot;</span><span class="o">:</span><span class="mf">0.019459983366287688</span><span class="p">},</span>
-    <span class="p">{</span><span class="s2">&quot;ref&quot;</span><span class="o">:</span><span class="s2">&quot;5690ff3f24b0d96f08df7d6a&quot;</span><span class="p">,</span><span class="s2">&quot;score&quot;</span><span class="o">:</span><span class="mf">0.013994677485991343</span><span class="p">},</span>
+<div class="highlight"><pre><span></span><span class="o">&gt;</span> <span class="nx">index</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="s2">"hello"</span><span class="p">)</span>
+   <span class="p">[{</span><span class="s2">"ref"</span><span class="o">:</span><span class="s2">"52a4d8cb27184667e3400f42"</span><span class="p">,</span><span class="s2">"score"</span><span class="o">:</span><span class="mf">0.019459983366287688</span><span class="p">},</span>
+    <span class="p">{</span><span class="s2">"ref"</span><span class="o">:</span><span class="s2">"5690ff3f24b0d96f08df7d6a"</span><span class="p">,</span><span class="s2">"score"</span><span class="o">:</span><span class="mf">0.013994677485991343</span><span class="p">},</span>
     <span class="p">...</span>
    <span class="p">]</span>
 </pre></div>
-
-
 <p>Pour obtenir une promesse d'un objet <code>{ data: ['tableau', 'de', 'tickets', 'contenant', 'texteLibre'] }</code>:</p>
 <div class="highlight"><pre><span></span><span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">(</span><span class="nx">index</span><span class="p">.</span><span class="nx">search</span><span class="p">(</span><span class="nx">texteLibre</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">hit</span><span class="p">)</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nx">tickets</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">hit</span><span class="p">.</span><span class="nx">ref</span><span class="p">);</span>
@@ -220,8 +212,6 @@ dans laquelle je commençais toujours la recherche par un <code>tickets.list()</
     <span class="p">};</span>
 <span class="p">});</span>
 </pre></div>
-
-
 <p>Dans ce code, tous les documents sont récupérés d'IndexedDB en parallèle via leur Id (<code>collection.get()</code>).
 C'est rapide car IndexedDB est optimisé pour l'accès par clé, mais il serait peut⁻être plus efficace d'utiliser
 <code>tickets.list({filters: {id: ['tableau', 'des', 'ids']}})</code> pour limiter le nombre de requêtes.</p>
@@ -231,23 +221,23 @@ Pour cela, l'état est stocké dans l'url et les recherches entraînent des appe
 <div class="highlight"><pre><span></span><span class="kd">var</span> <span class="nx">state</span><span class="p">;</span>
 
 <span class="kd">function</span> <span class="nx">encodeState</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">return</span> <span class="s2">&quot;#&quot;</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">state</span><span class="p">));</span>
+    <span class="k">return</span> <span class="s2">"#"</span> <span class="o">+</span> <span class="nb">encodeURIComponent</span><span class="p">(</span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">state</span><span class="p">));</span>
 <span class="p">}</span>
 
 <span class="kd">function</span> <span class="nx">applyState</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;search&quot;</span><span class="p">).</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">filter</span><span class="p">;</span>
+    <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">"search"</span><span class="p">).</span><span class="nx">value</span> <span class="o">=</span> <span class="nx">state</span><span class="p">.</span><span class="nx">filter</span><span class="p">;</span>
     <span class="nx">search</span><span class="p">();</span>
 <span class="p">}</span>
 
 <span class="kd">function</span> <span class="nx">saveState</span><span class="p">(</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
-    <span class="nb">window</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">pushState</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="s2">&quot;jEdit Trackers&quot;</span><span class="p">,</span> <span class="nx">encodeState</span><span class="p">(</span><span class="nx">state</span><span class="p">));</span>
+    <span class="nb">window</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">pushState</span><span class="p">(</span><span class="nx">state</span><span class="p">,</span> <span class="s2">"jEdit Trackers"</span><span class="p">,</span> <span class="nx">encodeState</span><span class="p">(</span><span class="nx">state</span><span class="p">));</span>
 <span class="p">}</span>
 
 <span class="kd">function</span> <span class="nx">hashIsTicket</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">return</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^#[a-z0-9-]+$/</span><span class="p">);</span>
 <span class="p">}</span>
 
-<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">&quot;popstate&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+<span class="nb">window</span><span class="p">.</span><span class="nx">addEventListener</span><span class="p">(</span><span class="s2">"popstate"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
     <span class="c1">// called on browser history navigation</span>
     <span class="k">if</span> <span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">state</span><span class="p">)</span> <span class="p">{</span>
         <span class="nx">state</span> <span class="o">=</span> <span class="nx">e</span><span class="p">.</span><span class="nx">state</span><span class="p">;</span>
@@ -261,18 +251,16 @@ Pour cela, l'état est stocké dans l'url et les recherches entraînent des appe
     <span class="p">}</span>
 <span class="p">});</span>
 </pre></div>
-
-
 <p>On peut afficher un ticket dans un autre onglet en cliquant sur <em>Ouvrir</em> dans un résultat de recherche.
 Rien de bien compliqué : l'id est mise dans le hash de l'url et l'application interprète ce hash au chargement.</p>
 <div class="highlight"><pre><span></span><span class="kd">function</span> <span class="nx">restoreInitialState</span><span class="p">()</span> <span class="p">{</span>
     <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">match</span><span class="p">(</span><span class="sr">/^#[a-z0-9-]+$/</span><span class="p">))</span> <span class="p">{</span>
         <span class="nx">showTicket</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">));</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">startsWith</span><span class="p">(</span><span class="s2">&quot;#%7B&quot;</span><span class="p">))</span> <span class="p">{</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">startsWith</span><span class="p">(</span><span class="s2">"#%7B"</span><span class="p">))</span> <span class="p">{</span>
         <span class="k">try</span> <span class="p">{</span>
             <span class="nx">state</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nb">decodeURIComponent</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">1</span><span class="p">)));</span>
         <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;invalid state in hash&quot;</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">);</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">"invalid state in hash"</span><span class="p">,</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span><span class="p">);</span>
             <span class="nx">state</span> <span class="o">=</span> <span class="nx">defaultState</span><span class="p">();</span>
         <span class="p">}</span>
         <span class="nx">applyState</span><span class="p">(</span><span class="nx">state</span><span class="p">);</span>
@@ -284,8 +272,6 @@ Rien de bien compliqué : l'id est mise dans le hash de l'url et l'application i
 
 <span class="nx">restoreInitialState</span><span class="p">();</span> <span class="c1">// to restore state from bookmark or link at page load</span>
 </pre></div>
-
-
 <h1>Mises à jour</h1>
 <p>Lorsqu'un ticket est modifié coté Sourceforge il faut mettre à jour le document correspondant dans Kinto.
 Je le fais via un programme coté serveur. </p>
@@ -332,7 +318,7 @@ allège vraiment l'application.</p>
 <p>Quelques pistes :</p>
 <p><strong>Modifications des tickets</strong><br>
 Je voudrais qu'on puisse modifier les tickets depuis l'application, plutôt que de renvoyer vers Sourceforge.
-Les modifications pourraient être temporairement stockées dans kinto.js en attente de réseau.</p>
+Les modifications pourraient être temporairement stockées dans kinto.js en attente de réseau.</br></p>
 <p>La voie est libre depuis la correction d'un <a href="https://sourceforge.net/p/forge/site-support/13403/">petit bug</a>
 qui empêchait d'interroger l'API Sourceforge en CORS depuis la France, mais ça représente pas mal de code pour
 l'interface utilisateur. J'explorerai <a href="https://github.com/Kinto/formbuilder">FormBuilder</a> avant de coder ma
@@ -359,23 +345,21 @@ Les tickets pourraient être indexés par numéro (ils ne sont pas uniques au se
 ce type de recherche. De même, indexer par les autres critères de recherche prédéfinis accélèrerait les choses.</p>
 <p>Je peux gérer des index manuels (un document par index, contenant un objet associant chaque valeur possible de la clé
 à un tableau d'id). Alors, rechercher tous les bugs ouverts reviendrait à </p>
-<div class="highlight"><pre><span></span><span class="nx">indexes</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;bug&quot;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resInd</span><span class="p">){</span>
-    <span class="kd">var</span> <span class="nx">ind</span> <span class="o">=</span> <span class="nx">resInd</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span> <span class="c1">// ind = { open : [&quot;id1&quot;, &quot;id2&quot;, ...], ...}</span>
+<div class="highlight"><pre><span></span><span class="nx">indexes</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"bug"</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resInd</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">ind</span> <span class="o">=</span> <span class="nx">resInd</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span> <span class="c1">// ind = { open : ["id1", "id2", ...], ...}</span>
     <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">((</span><span class="nx">ind</span><span class="p">.</span><span class="nx">open</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">tickets</span><span class="p">.</span><span class="nx">get</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">tickets</span><span class="p">)))</span>
                   <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">multiRes</span><span class="p">){</span>
                       <span class="k">return</span> <span class="nx">multiRes</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span> <span class="k">return</span> <span class="nx">res</span><span class="p">.</span><span class="nx">data</span><span class="p">;})</span>
                   <span class="p">});</span>
 <span class="p">});</span>
 </pre></div>
-
-
 <h2>Merci !</h2>
 <p>Je tiens à remercier l'équipe travaillant autour de Kinto pour leur gentillesse
 et leur ouverture : accessibles sur IRC (#kinto) et Slack, ils encouragent la création de tickets, de PR.
 De nombreuses sont même acceptées ;-)</p>
 <p>Le code est disponible sur github: <a href="https://github.com/elelay/jedit-trackers-kinto">elelay/jedit-trackers-kinto</a>.<br>
 Il tourne sur <a href="http://trackers.elelay.fr/trackers.html">trackers.elelay.fr</a>.<br>
-Vos retours sont les bienvenus via IRC (elelay) — Issues et PR, sait-on jamais...</p>
+Vos retours sont les bienvenus via IRC (elelay) — Issues et PR, sait-on jamais...</br></br></p>
 <!-- :wrap=hard:noTabs=true:tabSize=4:indentSize=4: -->
             <div class="hr"></div>
             <a href="#" class="go-top">Revenir au début</a>

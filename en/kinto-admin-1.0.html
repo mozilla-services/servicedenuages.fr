@@ -46,14 +46,14 @@
                 </header>
             </section>
             <p>When choosing a database, it's a good idea to study a few important criteria: how nice is the API? Is it well documented? Will it scale? What is the tooling available? Tooling is especially important as it's what will make your life as a developer easier. We've been working on one specific tool, called <a href="https://github.com/Kinto/kinto-admin/">kinto-admin</a>, which wants to be to Kinto what <a href="https://www.phpmyadmin.net/">phpMyAdmin</a> is to MySQL. Today we're announcing the release of <a href="https://github.com/Kinto/kinto-admin/releases/tag/v1.0.0">version 1.0</a>.</p>
-<p><img alt="kinto-admin-logged-in" src="http://www.servicedenuages.fr/en/../images/kinto-admin-logged-in.png"></p>
+<p><img alt="kinto-admin-logged-in" src="http://www.servicedenuages.fr/en/../images/kinto-admin-logged-in.png" style="width: 1219px; height: auto; max-width: 100%;"/></p>
 <p>In past releases you had to write and deploy a configuration file explicitly describing the resources to expose in the admin. Kinto-admin 1.0 now allows users to discover and browse the buckets, collections and records they have access to on a given Kinto server. They can also create, update and delete them, provided they have the required permissions. No need for configuration files anymore!</p>
 <p>Collection settings are configurable from the admin, including defining their <a href="http://json-schema.org/">JSON schema</a> and display options such as fields to render in the records list and the widgets to use to render form fields. These settings are stored in the collection metadata on the server.</p>
-<p><img alt="kinto-admin-collection-edit" src="http://www.servicedenuages.fr/en/../images/kinto-admin-collection-edit.png"></p>
-<p><img alt="kinto-admin-delete-collection" src="http://www.servicedenuages.fr/en/../images/kinto-admin-delete-collection.png"></p>
+<p><img alt="kinto-admin-collection-edit" src="http://www.servicedenuages.fr/en/../images/kinto-admin-collection-edit.png" style="width: 1219px; height: auto; max-width: 100%;"/></p>
+<p><img alt="kinto-admin-delete-collection" src="http://www.servicedenuages.fr/en/../images/kinto-admin-delete-collection.png" style="width: 904px; height: auto; max-width: 100%;"/></p>
 <p>For authentication, kinto-admin currently supports <a href="http://kinto.readthedocs.io/en/stable/api/1.x/authentication.html?highlight=basic%20auth#basic-auth">Basic Auth</a>, and <a href="https://accounts.firefox.com/">Firefox Account</a> if <a href="https://github.com/mozilla-services/kinto-fxa">kinto-fxa</a> is installed on the server, though we're planning to add more providers in the future.</p>
 <p>We've also added native support for <a href="https://github.com/Kinto/kinto-attachment">kinto-attachments</a>, which means you can attach files to records and post them to the server when the capability is available.</p>
-<p><img alt="kinto-admin-edit-attachment" src="http://www.servicedenuages.fr/en/../images/kinto-admin-edit-attachment.png"></p>
+<p><img alt="kinto-admin-edit-attachment" src="http://www.servicedenuages.fr/en/../images/kinto-admin-edit-attachment.png" style="width: 1219px; height: auto; max-width: 100%;"/></p>
 <p>We really hope you'll enjoy this new version as much as we loved building it. You can use <a href="https://kinto.github.io/kinto-admin/">our hosted instance</a> on Github, or – as kinto-admin is a pure html/css/js static Web application – host it on your own static Web server.</p>
 <p>Of course there are and will be bugs, and you're invited to file new ones on the <a href="https://github.com/Kinto/kinto-admin/issues">issue tracker</a>. By the way, did I mention 1.0.1 is out already?</p>
 <h2>What's next?</h2>

@@ -49,7 +49,7 @@ on avance dans les pages, plus c'est lent.</p>
 <p>C'est dommage parce que c'était facile à appréhender ! La limite donne
 le nombre d'éléments affichés et le décalage est calculé en fonction
 de la page en cours !</p>
-<p>Il y a même une initiative &quot;<a class="reference external" href="http://use-the-index-luke.com/no-offset">STOP OFFSET</a>&quot; pour que les développeurs y
+<p>Il y a même une initiative "<a class="reference external" href="http://use-the-index-luke.com/no-offset">STOP OFFSET</a>" pour que les développeurs y
 pensent.</p>
 <p>Sur ce site, la solution évoquée consiste à mettre en place une keyset
 pagination, ou seek method. Autrement dit une pagination à base de
@@ -175,7 +175,7 @@ on se rend compte que l'on peut sauvegarder la valeur du dernier
 <span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
 
 <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
-<span class="k">WHERE</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">&#39;2012-02-25&#39;</span>
+<span class="k">WHERE</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'2012-02-25'</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span>
 <span class="k">LIMIT</span> <span class="mi">2</span>
 
@@ -186,7 +186,7 @@ on se rend compte que l'on peut sauvegarder la valeur du dernier
 <span class="o">+</span><span class="c1">----+----------+----------+---------------------+</span>
 
 <span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
-<span class="k">WHERE</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">&#39;2013-06-14&#39;</span>
+<span class="k">WHERE</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'2013-06-14'</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span>
 <span class="k">LIMIT</span> <span class="mi">2</span>
 
@@ -204,7 +204,7 @@ ruser en inversant l'ordre de tri puis en selectionnant les résultats
 supérieurs au premier élément de la page courante et en affichant les
 résultats dans l'ordre inverse :</p>
 <div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
-<span class="k">WHERE</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span> <span class="o">&lt;</span> <span class="s1">&#39;2013-08-05&#39;</span>
+<span class="k">WHERE</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span> <span class="o">&lt;</span> <span class="s1">'2013-08-05'</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">date_embauche</span><span class="o">`</span> <span class="k">DESC</span>
 <span class="k">LIMIT</span> <span class="mi">2</span>
 
@@ -314,8 +314,8 @@ compte qu'il y a un souci.</p>
 </ul>
 </blockquote>
 <div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
-<span class="k">WHERE</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">&#39;Mozilla&#39;</span>
-<span class="k">OR</span> <span class="p">(</span><span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">&#39;Mozilla&#39;</span> <span class="k">AND</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">)</span>
+<span class="k">WHERE</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'Mozilla'</span>
+<span class="k">OR</span> <span class="p">(</span><span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mozilla'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">4</span><span class="p">)</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span>
 <span class="k">LIMIT</span> <span class="mi">2</span>
 
@@ -327,8 +327,8 @@ compte qu'il y a un souci.</p>
 </pre></div>
 <p>On peut vérifier que le cas limite fonctionne aussi:</p>
 <div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
-<span class="k">WHERE</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">&#39;Mozilla&#39;</span>
-<span class="k">OR</span> <span class="p">(</span><span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">&#39;Mozilla&#39;</span> <span class="k">AND</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">7</span><span class="p">)</span>
+<span class="k">WHERE</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'Mozilla'</span>
+<span class="k">OR</span> <span class="p">(</span><span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mozilla'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">7</span><span class="p">)</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span>
 <span class="k">LIMIT</span> <span class="mi">2</span>
 
@@ -351,9 +351,9 @@ compte qu'il y a un souci.</p>
 </ul>
 </blockquote>
 <div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
-<span class="k">WHERE</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">&#39;Mozilla&#39;</span> <span class="k">AND</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span> <span class="o">=</span> <span class="s1">&#39;Mathieu&#39;</span> <span class="k">AND</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">7</span>
-<span class="k">OR</span> <span class="p">(</span><span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">&#39;Mozilla&#39;</span> <span class="k">AND</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">&#39;Mathieu&#39;</span><span class="p">)</span>
-<span class="k">OR</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">&#39;Mozilla&#39;</span>
+<span class="k">WHERE</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mozilla'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mathieu'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">7</span>
+<span class="k">OR</span> <span class="p">(</span><span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mozilla'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'Mathieu'</span><span class="p">)</span>
+<span class="k">OR</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'Mozilla'</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span>
 <span class="k">LIMIT</span> <span class="mi">2</span>
 
@@ -370,9 +370,9 @@ compte qu'il y a un souci.</p>
 </pre></div>
 <p>Et on a bien :</p>
 <div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="o">`</span><span class="n">salaries</span><span class="o">`</span>
-<span class="k">WHERE</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">&#39;Mozilla&#39;</span> <span class="k">AND</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span> <span class="o">=</span> <span class="s1">&#39;Mathieu&#39;</span> <span class="k">AND</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">7</span>
-<span class="k">OR</span> <span class="p">(</span><span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">&#39;Mozilla&#39;</span> <span class="k">AND</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">&#39;Mathieu&#39;</span><span class="p">)</span>
-<span class="k">OR</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">&#39;Mozilla&#39;</span>
+<span class="k">WHERE</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mozilla'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mathieu'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">id</span><span class="o">`</span> <span class="o">&gt;</span> <span class="mi">7</span>
+<span class="k">OR</span> <span class="p">(</span><span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">=</span> <span class="s1">'Mozilla'</span> <span class="k">AND</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'Mathieu'</span><span class="p">)</span>
+<span class="k">OR</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span> <span class="o">&gt;</span> <span class="s1">'Mozilla'</span>
 <span class="k">ORDER</span> <span class="k">BY</span> <span class="o">`</span><span class="n">societe</span><span class="o">`</span><span class="p">,</span> <span class="o">`</span><span class="n">nom</span><span class="o">`</span>
 <span class="k">LIMIT</span> <span class="mi">2</span>
 
@@ -395,34 +395,34 @@ choisir sa requête de tri est de générer le jeton à partir du dernier
 champs de tri et la dernière entrée de la page précédente et me
 retourne une liste de conditions de tri.</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_continuation_token_conditions</span><span class="p">(</span><span class="n">record</span><span class="p">,</span> <span class="n">sorting</span><span class="p">,</span> <span class="n">results</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Return the list of conditions for a given record and sorting attributes.</span>
+    <span class="sd">"""Return the list of conditions for a given record and sorting attributes.</span>
 
 <span class="sd">    &gt;&gt;&gt; get_continuation_token_conditions(</span>
-<span class="sd">    ...     {&#39;id&#39;: 7, &#39;nom&#39;: &#39;Mathieu&#39;, &#39;societe&#39;: &#39;Mozilla&#39;},</span>
-<span class="sd">    ...     [&#39;societe&#39;, &#39;nom&#39;, &#39;id&#39;]</span>
+<span class="sd">    ...     {'id': 7, 'nom': 'Mathieu', 'societe': 'Mozilla'},</span>
+<span class="sd">    ...     ['societe', 'nom', 'id']</span>
 <span class="sd">    ... )</span>
-<span class="sd">    [((&#39;societe&#39;, &#39;=&#39;, &#39;Mozilla&#39;), (&#39;nom&#39;, &#39;=&#39;, &#39;Mathieu&#39;), (&#39;id&#39;, &#39;&gt;&#39;, 7)),</span>
-<span class="sd">     ((&#39;societe&#39;, &#39;=&#39;, &#39;Mozilla&#39;), (&#39;nom&#39;, &#39;&gt;&#39;, &#39;Mathieu&#39;)),</span>
-<span class="sd">     ((&#39;societe&#39;, &#39;&gt;&#39;, &#39;Mozilla&#39;))]</span>
+<span class="sd">    [(('societe', '=', 'Mozilla'), ('nom', '=', 'Mathieu'), ('id', '&gt;', 7)),</span>
+<span class="sd">     (('societe', '=', 'Mozilla'), ('nom', '&gt;', 'Mathieu')),</span>
+<span class="sd">     (('societe', '&gt;', 'Mozilla'))]</span>
 
 <span class="sd">    &gt;&gt;&gt; get_continuation_token_conditions(</span>
-<span class="sd">    ...     {&#39;id&#39;: 7, &#39;nom&#39;: &#39;Mathieu&#39;, &#39;societe&#39;: &#39;Mozilla&#39;},</span>
-<span class="sd">    ...     [&#39;societe&#39;, &#39;-nom&#39;, &#39;id&#39;]</span>
+<span class="sd">    ...     {'id': 7, 'nom': 'Mathieu', 'societe': 'Mozilla'},</span>
+<span class="sd">    ...     ['societe', '-nom', 'id']</span>
 <span class="sd">    ... )</span>
-<span class="sd">    [((&#39;societe&#39;, &#39;=&#39;, &#39;Mozilla&#39;), (&#39;nom&#39;, &#39;=&#39;, &#39;Mathieu&#39;), (&#39;id&#39;, &#39;&gt;&#39;, 7)),</span>
-<span class="sd">     ((&#39;societe&#39;, &#39;=&#39;, &#39;Mozilla&#39;), (&#39;nom&#39;, &#39;&lt;&#39;, &#39;Mathieu&#39;)),</span>
-<span class="sd">     ((&#39;societe&#39;, &#39;&gt;&#39;, &#39;Mozilla&#39;))]</span>
+<span class="sd">    [(('societe', '=', 'Mozilla'), ('nom', '=', 'Mathieu'), ('id', '&gt;', 7)),</span>
+<span class="sd">     (('societe', '=', 'Mozilla'), ('nom', '&lt;', 'Mathieu')),</span>
+<span class="sd">     (('societe', '&gt;', 'Mozilla'))]</span>
 
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">sorting</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
-        <span class="n">field_name</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
-        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">field_name</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">,</span> <span class="n">record</span><span class="p">[</span><span class="n">field_name</span><span class="p">]))</span>
+        <span class="n">field_name</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">'-'</span><span class="p">)</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">field_name</span><span class="p">,</span> <span class="s1">'='</span><span class="p">,</span> <span class="n">record</span><span class="p">[</span><span class="n">field_name</span><span class="p">]))</span>
 
     <span class="n">field</span> <span class="o">=</span> <span class="n">sorting</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">field_name</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
-    <span class="n">direction</span> <span class="o">=</span> <span class="s1">&#39;&lt;&#39;</span> <span class="k">if</span> <span class="p">(</span><span class="n">field</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;-&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="s1">&#39;&gt;&#39;</span>
+    <span class="n">field_name</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">'-'</span><span class="p">)</span>
+    <span class="n">direction</span> <span class="o">=</span> <span class="s1">'&lt;'</span> <span class="k">if</span> <span class="p">(</span><span class="n">field</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">'-'</span><span class="p">)</span> <span class="k">else</span> <span class="s1">'&gt;'</span>
     <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">field_name</span><span class="p">,</span> <span class="n">direction</span><span class="p">,</span> <span class="n">record</span><span class="p">[</span><span class="n">field_name</span><span class="p">]))</span>
 
     <span class="k">if</span> <span class="n">results</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>

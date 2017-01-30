@@ -57,7 +57,7 @@ faut un moyen de pouvoir les partager avec d'autres personnes.</p>
 <p>En regardant les cas d'utilisations, on se rend compte qu'on a plusieurs types
 d'utilisateurs :</p>
 <ul class="simple">
-<li>les utilisateurs &quot;finaux&quot; (vous) ;</li>
+<li>les utilisateurs "finaux" (vous) ;</li>
 <li>les applications qui interagissent en leurs noms.</li>
 </ul>
 <p>Tous les intervenants n'ont donc pas les mêmes droits : certains doivent
@@ -84,7 +84,7 @@ est plus large que le classique « <em>user id</em> ».</p>
 connexion par le système d'authentification dont le rôle est de
 définir une liste de <em>principals</em> pour l'utilisateur se connectant.</p>
 <table class="docutils footnote" frame="void" id="id2" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
+<colgroup><col class="label"></col><col></col></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Pour en savoir plus sur les <em>principals</em> :
 <a class="reference external" href="https://en.wikipedia.org/wiki/Principal_%28computer_security%29">https://en.wikipedia.org/wiki/Principal_%28computer_security%29</a></td></tr>
@@ -103,7 +103,7 @@ différence dans la « direction » de la relation entre les deux concepts.</p>
 <li>Un groupe est une liste de <em>principals</em> que l'on peut associer à une permission.</li>
 </ul>
 <table class="docutils footnote" frame="void" id="id4" rules="none">
-<colgroup><col class="label" /><col /></colgroup>
+<colgroup><col class="label"></col><col></col></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id3">[2]</a></td><td>Plus d'informations :
 <a class="reference external" href="http://stackoverflow.com/questions/7770728/group-vs-role-any-real-difference">http://stackoverflow.com/questions/7770728/group-vs-role-any-real-difference</a></td></tr>
@@ -115,7 +115,7 @@ différence dans la « direction » de la relation entre les deux concepts.</p>
 <blockquote class="epigraph">
 <p>Une ACL est une liste d’Access Control Entry (ACE) ou entrée de contrôle d'accès
 donnant ou supprimant des droits d'accès à une personne ou un groupe.</p>
-<p class="attribution">&mdash;<a class="reference external" href="https://fr.wikipedia.org/wiki/Access_Control_List">https://fr.wikipedia.org/wiki/Access_Control_List</a></p>
+<p class="attribution">—<a class="reference external" href="https://fr.wikipedia.org/wiki/Access_Control_List">https://fr.wikipedia.org/wiki/Access_Control_List</a></p>
 </blockquote>
 <p>Je dirais même plus, dans notre cas, « à un <em>principal</em> ». Par exemple:</p>
 <div class="highlight"><pre><span></span>create_record: alexis,remy,tarek
@@ -165,7 +165,7 @@ nécessairement celles de l'utilisateur connecté.</p>
 <p>L'utilisation d'espaces de noms est une manière simple de gérer le partage des données.</p>
 <p>Nous avons choisi de reprendre le modèle de GitHub et de Bitbucket, qui
 utilisent les « organisations » comme espaces de noms.</p>
-<p>Dans notre cas, il est possible de créer des &quot;buckets&quot;, qui correspondent à ces
+<p>Dans notre cas, il est possible de créer des "buckets", qui correspondent à ces
 espaces de noms. Un bucket est un conteneur de collections et de groupes
 utilisateurs.</p>
 <p>Les ACLs sur ces collections peuvent être attribuées à certains groupes du
@@ -179,8 +179,8 @@ utilisateurs.</p>
 objets suivants :</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="23%" />
-<col width="77%" />
+<col width="23%"></col>
+<col width="77%"></col>
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head">Objet</th>
@@ -241,8 +241,8 @@ ACLs de leur parents :</p>
 <p>Pour chacun de ces objets nous avons identifié les permissions suivantes :</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="23%" />
-<col width="77%" />
+<col width="23%"></col>
+<col width="77%"></col>
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head">Permission</th>
@@ -285,9 +285,9 @@ possible qu'un objet ait des permissions plus restrictives que son parent.</p>
 <p>Voici la liste exhaustive des permissions :</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="21%" />
-<col width="32%" />
-<col width="47%" />
+<col width="21%"></col>
+<col width="32%"></col>
+<col width="47%"></col>
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head">Objet</th>
@@ -387,9 +387,9 @@ ces quatre <em>principals</em>.</p>
 <p><strong>Blog</strong></p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="35%" />
-<col width="18%" />
-<col width="46%" />
+<col width="35%"></col>
+<col width="18%"></col>
+<col width="46%"></col>
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head">Objet</th>
@@ -418,9 +418,9 @@ ces quatre <em>principals</em>.</p>
 <p><strong>Wiki</strong></p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="35%" />
-<col width="18%" />
-<col width="46%" />
+<col width="35%"></col>
+<col width="18%"></col>
+<col width="46%"></col>
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head">Object</th>
@@ -445,9 +445,9 @@ ces quatre <em>principals</em>.</p>
 <p><strong>Sondages</strong></p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="34%" />
-<col width="31%" />
-<col width="35%" />
+<col width="34%"></col>
+<col width="31%"></col>
+<col width="35%"></col>
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head">Objet</th>
@@ -475,9 +475,9 @@ ces quatre <em>principals</em>.</p>
 <p><strong>Cartes colaboratives</strong></p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="34%" />
-<col width="31%" />
-<col width="35%" />
+<col width="34%"></col>
+<col width="31%"></col>
+<col width="35%"></col>
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head">Objet</th>
@@ -514,9 +514,9 @@ Par exemple, on peut imaginer une plateforme de wikis (à la wikia.com), où les
 wikis sont privés par défaut et certaines pages peuvent être rendues publiques :</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="32%" />
-<col width="30%" />
-<col width="38%" />
+<col width="32%"></col>
+<col width="30%"></col>
+<col width="38%"></col>
 </colgroup>
 <thead valign="bottom">
 <tr><th class="head">Objet</th>
@@ -562,9 +562,9 @@ HTTP/1.1 201 Created
 Content-Type: application/json; charset=utf-8
 
 {
-    &quot;id&quot;: &quot;servicedenuages_blog&quot;,
-    &quot;permissions&quot;: {
-        &quot;write&quot;: [&quot;fxa:49d02d55ad10973b7b9d0dc9eba7fdf0&quot;]
+    "id": "servicedenuages_blog",
+    "permissions": {
+        "write": ["fxa:49d02d55ad10973b7b9d0dc9eba7fdf0"]
     }
 }
 </pre></div>
@@ -574,8 +574,8 @@ Content-Type: application/json; charset=utf-8
 <span class="na">Accept</span><span class="o">:</span> <span class="l">application/json</span>
 
 {
-    &quot;permissions&quot;: {
-        &quot;read&quot;: [&quot;+system.Everyone&quot;]
+    "permissions": {
+        "read": ["+system.Everyone"]
     }
 }
 
@@ -583,10 +583,10 @@ HTTP/1.1 201 Created
 Content-Type: application/json; charset=utf-8
 
 {
-    &quot;id&quot;: &quot;servicedenuages_blog&quot;,
-    &quot;permissions&quot;: {
-        &quot;write&quot;: [&quot;fxa:49d02d55ad10973b7b9d0dc9eba7fdf0&quot;],
-        &quot;read&quot;: [&quot;system.Everyone&quot;]
+    "id": "servicedenuages_blog",
+    "permissions": {
+        "write": ["fxa:49d02d55ad10973b7b9d0dc9eba7fdf0"],
+        "read": ["system.Everyone"]
     }
 }
 </pre></div>
@@ -618,9 +618,9 @@ utilisateur, elle peut utiliser le raccourci <tt class="docutils literal">~</tt>
 <div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/v1/buckets/~/collections/contacts/records</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
 
 {
-   &quot;name&quot;: &quot;Rémy&quot;,
-   &quot;emails&quot;: [&quot;remy@example.com&quot;],
-   &quot;phones&quot;: [&quot;+330820800800&quot;]
+   "name": "Rémy",
+   "emails": ["remy@example.com"],
+   "phones": ["+330820800800"]
 }
 
 HTTP/1.1 307 Temporary Redirect

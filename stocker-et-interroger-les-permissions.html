@@ -57,7 +57,7 @@ d'accès, il faut donc que la réponse soit très rapide sous peine
 d'impacter la vélocité du service.</p>
 </div>
 <div class="section" id="obtenir-la-liste-des-principals-d-un-utilisateur">
-<h2>Obtenir la liste des &quot;principals&quot; d'un utilisateur</h2>
+<h2>Obtenir la liste des "principals" d'un utilisateur</h2>
 <p>Les <em>principals</em> de l'utilisateur correspondent à son <tt class="docutils literal">user_id</tt>
 ainsi qu'à la liste des identifiants des groupes dans lesquels il a
 été ajouté.</p>
@@ -80,9 +80,9 @@ les <em>buckets</em>.</p>
 <tt class="docutils literal">/buckets/blog/groups/moderators</tt></p>
 </div>
 <div class="section" id="obtenir-la-liste-des-principals-d-un-ace">
-<h2>Obtenir la liste des &quot;principals&quot; d'un ACE</h2>
+<h2>Obtenir la liste des "principals" d'un ACE</h2>
 <blockquote>
-Rappel, un &quot;ACE&quot; est un <em>Access Control Entry</em>, un des éléments
+Rappel, un "ACE" est un <em>Access Control Entry</em>, un des éléments
 d'une ACL (e.g. <em>modifier un enregistrement</em>).</blockquote>
 <p>Avec le <a class="reference external" href="http://www.servicedenuages.fr/la-gestion-des-permissions">système de permissions choisi</a>, les permissions d'un
 objet héritent de celle de l'objet parent.</p>
@@ -176,11 +176,11 @@ collection, ...).</p>
 <div class="section" id="exemple-d-utilisateur">
 <h3>Exemple d'utilisateur</h3>
 <div class="highlight"><pre><span></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">user</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">principals</span><span class="p">)</span>
-     <span class="k">VALUES</span> <span class="p">(</span><span class="s1">&#39;fxa:alexis&#39;</span><span class="p">,</span> <span class="s1">&#39;{}&#39;</span><span class="p">);</span>
+     <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'fxa:alexis'</span><span class="p">,</span> <span class="s1">'{}'</span><span class="p">);</span>
 
 <span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">user</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">principals</span><span class="p">)</span>
-     <span class="k">VALUES</span> <span class="p">(</span><span class="s1">&#39;fxa:natim&#39;</span><span class="p">,</span>
-             <span class="s1">&#39;{&quot;/buckets/blog/groups/moderators&quot;}&#39;</span><span class="p">);</span>
+     <span class="k">VALUES</span> <span class="p">(</span><span class="s1">'fxa:natim'</span><span class="p">,</span>
+             <span class="s1">'{"/buckets/blog/groups/moderators"}'</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="section" id="exemple-d-objets">
@@ -190,11 +190,11 @@ collection, ...).</p>
 <div class="highlight"><pre><span></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">object</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="k">type</span><span class="p">,</span> <span class="n">parent_id</span><span class="p">,</span> <span class="k">data</span><span class="p">,</span>
                     <span class="n">read_principals</span><span class="p">,</span> <span class="n">write_principals</span><span class="p">)</span>
 <span class="k">VALUES</span> <span class="p">(</span>
-    <span class="s1">&#39;/buckets/blog&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;bucket&#39;</span><span class="p">,</span>
+    <span class="s1">'/buckets/blog'</span><span class="p">,</span>
+    <span class="s1">'bucket'</span><span class="p">,</span>
     <span class="k">NULL</span><span class="p">,</span>
-    <span class="s1">&#39;{&quot;name&quot;: &quot;blog&quot;}&#39;</span><span class="p">::</span><span class="n">JSONB</span><span class="p">,</span>
-    <span class="s1">&#39;{}&#39;</span><span class="p">,</span> <span class="s1">&#39;{&quot;fxa:alexis&quot;}&#39;</span><span class="p">);</span>
+    <span class="s1">'{"name": "blog"}'</span><span class="p">::</span><span class="n">JSONB</span><span class="p">,</span>
+    <span class="s1">'{}'</span><span class="p">,</span> <span class="s1">'{"fxa:alexis"}'</span><span class="p">);</span>
 </pre></div>
 </div>
 <div class="section" id="group">
@@ -202,11 +202,11 @@ collection, ...).</p>
 <div class="highlight"><pre><span></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">object</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="k">type</span><span class="p">,</span> <span class="n">parent_id</span><span class="p">,</span> <span class="k">data</span><span class="p">,</span>
                     <span class="n">read_principals</span><span class="p">,</span> <span class="n">write_principals</span><span class="p">)</span>
 <span class="k">VALUES</span> <span class="p">(</span>
-    <span class="s1">&#39;/buckets/blog/groups/moderators&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;group&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;/buckets/blog&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;{&quot;name&quot;: &quot;moderators&quot;, &quot;members&quot;: [&#39;</span><span class="n">fxa</span><span class="p">:</span><span class="n">natim</span><span class="s1">&#39;]}&#39;</span><span class="p">::</span><span class="n">JSONB</span><span class="p">,</span>
-    <span class="s1">&#39;{}&#39;</span><span class="p">,</span> <span class="s1">&#39;{}&#39;</span><span class="p">);</span>
+    <span class="s1">'/buckets/blog/groups/moderators'</span><span class="p">,</span>
+    <span class="s1">'group'</span><span class="p">,</span>
+    <span class="s1">'/buckets/blog'</span><span class="p">,</span>
+    <span class="s1">'{"name": "moderators", "members": ['</span><span class="n">fxa</span><span class="p">:</span><span class="n">natim</span><span class="s1">']}'</span><span class="p">::</span><span class="n">JSONB</span><span class="p">,</span>
+    <span class="s1">'{}'</span><span class="p">,</span> <span class="s1">'{}'</span><span class="p">);</span>
 </pre></div>
 <p>Ce groupe peut être gére par <tt class="docutils literal">fxa:alexis</tt> puisqu'il a la permission
 <tt class="docutils literal">write</tt> dans le <em>bucket</em> parent.</p>
@@ -216,12 +216,12 @@ collection, ...).</p>
 <div class="highlight"><pre><span></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">object</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="k">type</span><span class="p">,</span> <span class="n">parent_id</span><span class="p">,</span> <span class="k">data</span><span class="p">,</span>
                     <span class="n">read_principals</span><span class="p">,</span> <span class="n">write_principals</span><span class="p">)</span>
 <span class="k">VALUES</span> <span class="p">(</span>
-    <span class="s1">&#39;/buckets/blog/collections/articles&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;collection&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;/buckets/blog&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;{&quot;name&quot;: &quot;article&quot;}&#39;</span><span class="p">::</span><span class="n">JSONB</span><span class="p">,</span>
-    <span class="s1">&#39;{&quot;system.Everyone&quot;}&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;{&quot;/buckets/blog/groups/moderators&quot;}&#39;</span><span class="p">);</span>
+    <span class="s1">'/buckets/blog/collections/articles'</span><span class="p">,</span>
+    <span class="s1">'collection'</span><span class="p">,</span>
+    <span class="s1">'/buckets/blog'</span><span class="p">,</span>
+    <span class="s1">'{"name": "article"}'</span><span class="p">::</span><span class="n">JSONB</span><span class="p">,</span>
+    <span class="s1">'{"system.Everyone"}'</span><span class="p">,</span>
+    <span class="s1">'{"/buckets/blog/groups/moderators"}'</span><span class="p">);</span>
 </pre></div>
 <p>Cette collection d'articles peut être lue par tout le monde,
 et gérée par les membres du groupe <tt class="docutils literal">moderators</tt>, ainsi que
@@ -232,19 +232,19 @@ et gérée par les membres du groupe <tt class="docutils literal">moderators</tt
 <div class="highlight"><pre><span></span><span class="k">INSERT</span> <span class="k">INTO</span> <span class="k">object</span> <span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="k">type</span><span class="p">,</span> <span class="n">parent_id</span><span class="p">,</span> <span class="k">data</span><span class="p">,</span>
                     <span class="n">read_principals</span><span class="p">,</span> <span class="n">write_principals</span><span class="p">)</span>
 <span class="k">VALUES</span> <span class="p">(</span>
-    <span class="s1">&#39;/buckets/blog/collections/articles/records/02f3f76f-7059-4ae4-888f-2ac9824e9200&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;record&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;/buckets/blog/collections/articles&#39;</span><span class="p">,</span>
-    <span class="s1">&#39;{&quot;name&quot;: &quot;02f3f76f-7059-4ae4-888f-2ac9824e9200&quot;,</span>
-<span class="s1">      &quot;title&quot;: &quot;Stocker les permissions&quot;, ...}&#39;</span><span class="p">::</span><span class="n">JSONB</span><span class="p">,</span>
-    <span class="s1">&#39;{}&#39;</span><span class="p">,</span> <span class="s1">&#39;{}&#39;</span><span class="p">);</span>
+    <span class="s1">'/buckets/blog/collections/articles/records/02f3f76f-7059-4ae4-888f-2ac9824e9200'</span><span class="p">,</span>
+    <span class="s1">'record'</span><span class="p">,</span>
+    <span class="s1">'/buckets/blog/collections/articles'</span><span class="p">,</span>
+    <span class="s1">'{"name": "02f3f76f-7059-4ae4-888f-2ac9824e9200",</span>
+<span class="s1">      "title": "Stocker les permissions", ...}'</span><span class="p">::</span><span class="n">JSONB</span><span class="p">,</span>
+    <span class="s1">'{}'</span><span class="p">,</span> <span class="s1">'{}'</span><span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="interroger-les-permissions">
 <h3>Interroger les permissions</h3>
 <div class="section" id="id1">
-<h4>Obtenir la liste des &quot;principals&quot; d'un ACE</h4>
+<h4>Obtenir la liste des "principals" d'un ACE</h4>
 <p>Comme vu plus haut, pour vérifier une permission, on fait l'union des
 <em>principals</em> requis par les objets hérités, et on teste leur
 intersection avec ceux de l'utilisateur:</p>
@@ -252,15 +252,15 @@ intersection avec ceux de l'utilisateur:</p>
      <span class="k">SELECT</span> <span class="k">unnest</span><span class="p">(</span><span class="n">principals</span><span class="p">)</span> <span class="k">AS</span> <span class="n">p</span>
        <span class="k">FROM</span> <span class="n">perms</span>
       <span class="k">WHERE</span> <span class="n">ace</span> <span class="k">IN</span> <span class="p">(</span>
-         <span class="s1">&#39;/buckets/blog:write&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;/buckets/blog:read&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;/buckets/blog/collections/article:write&#39;</span><span class="p">,</span>
-         <span class="s1">&#39;/buckets/blog/collections/article:read&#39;</span><span class="p">)</span>
+         <span class="s1">'/buckets/blog:write'</span><span class="p">,</span>
+         <span class="s1">'/buckets/blog:read'</span><span class="p">,</span>
+         <span class="s1">'/buckets/blog/collections/article:write'</span><span class="p">,</span>
+         <span class="s1">'/buckets/blog/collections/article:read'</span><span class="p">)</span>
  <span class="p">),</span>
  <span class="n">user_principals</span> <span class="k">AS</span> <span class="p">(</span>
      <span class="k">SELECT</span> <span class="k">unnest</span><span class="p">(</span><span class="n">principals</span><span class="p">)</span>
        <span class="k">FROM</span> <span class="k">user</span>
-      <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="s1">&#39;fxa:natim&#39;</span>
+      <span class="k">WHERE</span> <span class="n">id</span> <span class="o">=</span> <span class="s1">'fxa:natim'</span>
  <span class="p">)</span>
  <span class="k">SELECT</span> <span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span>
    <span class="k">FROM</span> <span class="n">user_principals</span> <span class="n">a</span>
@@ -274,11 +274,11 @@ intersection avec ceux de l'utilisateur:</p>
 (<em>merci PostgreSQL</em>):</p>
 <div class="highlight"><pre><span></span><span class="k">SELECT</span> <span class="k">data</span>
   <span class="k">FROM</span> <span class="k">object</span> <span class="n">o</span><span class="p">,</span> <span class="k">user</span> <span class="n">u</span>
- <span class="k">WHERE</span> <span class="n">o</span><span class="p">.</span><span class="k">type</span> <span class="o">=</span> <span class="s1">&#39;record&#39;</span>
-   <span class="k">AND</span> <span class="n">o</span><span class="p">.</span><span class="n">parent_id</span> <span class="o">=</span> <span class="s1">&#39;/buckets/blog/collections/article&#39;</span>
+ <span class="k">WHERE</span> <span class="n">o</span><span class="p">.</span><span class="k">type</span> <span class="o">=</span> <span class="s1">'record'</span>
+   <span class="k">AND</span> <span class="n">o</span><span class="p">.</span><span class="n">parent_id</span> <span class="o">=</span> <span class="s1">'/buckets/blog/collections/article'</span>
    <span class="k">AND</span> <span class="p">(</span><span class="n">o</span><span class="p">.</span><span class="n">read_principals</span> <span class="o">&amp;&amp;</span> <span class="n">u</span><span class="p">.</span><span class="n">principals</span> <span class="k">OR</span>
         <span class="n">o</span><span class="p">.</span><span class="n">write_principals</span> <span class="o">&amp;&amp;</span> <span class="n">u</span><span class="p">.</span><span class="n">principals</span><span class="p">)</span>
-   <span class="k">AND</span> <span class="n">u</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="s1">&#39;fxa:natim&#39;</span><span class="p">;</span>
+   <span class="k">AND</span> <span class="n">u</span><span class="p">.</span><span class="n">id</span> <span class="o">=</span> <span class="s1">'fxa:natim'</span><span class="p">;</span>
 </pre></div>
 <p>Les listes s'indexent bien, notamment grâce aux <a class="reference external" href="http://www.postgresql.org/docs/current/static/indexes-types.html">index GIN</a>.</p>
 </div>
