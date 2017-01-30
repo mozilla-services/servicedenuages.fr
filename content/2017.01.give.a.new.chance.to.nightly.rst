@@ -1,13 +1,12 @@
-10 reasons you should give another chance to Firefox Nightly
-############################################################
+10 reasons to give another chance to Firefox Nightly
+####################################################
 
 :slug: give-firefox-nightly-another-chance
-:date: 2016-01-30
+:date: 2017-01-30
 :lang: en
 :url: give-firefox-nightly-another-chance
 :summary:
     Help us make the best Mozilla Firefox of all the times by mid 2017!
-:status: draft
 
 What is Nightly?
 ================
@@ -17,6 +16,9 @@ of Firefox built from the source code every day at night.
 
 This means that Firefox updates itself every day!
 
+.. image:: {filename}/images/nightly.png
+    :alt: You've just been upgraded to Firefox Nightly 54!
+    :align: center
 
 Why aren't you using Nightly today?
 ===================================
@@ -125,6 +127,10 @@ with Firefox Release you will potentially have to wait for 6 weeks.
 Help add-on developers to validate that their add-ons are still working
 -----------------------------------------------------------------------
 
+.. image:: {filename}/images/amo.png
+    :alt: Add-ons for Firefox
+    :align: center
+
 Firefox is transitioning from a complex and error-prone way of
 writing add-ons to a standardized way of writing Web extensions, which
 are most likely to be compatible with Chrome and use well known Web
@@ -221,4 +227,4 @@ Troubleshooting
 
 #. Remove any ``*.desktop`` file talking about Firefox in ``~/.local/share/applications/``
 #. You might want to restart your computer at some point.
-#. Ask for help and ping natim here irc://irc.mozilla.org/#lagaule
+#. Ask for help and ping natim on irc://irc.mozilla.org/
