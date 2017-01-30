@@ -78,12 +78,12 @@ Kinto is a good fit.</p>
 users. You have the data on one location, and you want it in a different one.</p>
 <p>With <a class="reference external" href="https://kintojs.readthedocs.io">Kinto.js</a>, this is as simple as calling <cite>.sync()</cite> on the Kinto instance.</p>
 <div class="highlight"><pre><span></span><span class="kr">const</span> <span class="nx">tasks</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Kinto</span><span class="p">({</span>
-    <span class="nx">remote</span><span class="o">:</span> <span class="s2">"https://kinto.dev.mozaws.net/v1"</span>
-<span class="p">}).</span><span class="nx">collection</span><span class="p">(</span><span class="s2">"tasks"</span><span class="p">);</span>
+    <span class="nx">remote</span><span class="o">:</span> <span class="s2">&quot;https://kinto.dev.mozaws.net/v1&quot;</span>
+<span class="p">}).</span><span class="nx">collection</span><span class="p">(</span><span class="s2">&quot;tasks&quot;</span><span class="p">);</span>
 
 <span class="nx">tasks</span>
-  <span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="nx">label</span><span class="o">:</span> <span class="s2">"A first task"</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">false</span><span class="p">})</span>
-  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">_</span> <span class="o">=&gt;</span> <span class="nx">tasks</span><span class="p">.</span><span class="nx">sync</span><span class="p">());</span>
+  <span class="p">.</span><span class="nx">create</span><span class="p">({</span><span class="nx">label</span><span class="o">:</span> <span class="s2">&quot;A first task&quot;</span><span class="p">,</span> <span class="nx">done</span><span class="o">:</span> <span class="kc">false</span><span class="p">})</span>
+  <span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="nx">_</span> <span class="p">=&gt;</span> <span class="nx">tasks</span><span class="p">.</span><span class="nx">sync</span><span class="p">());</span>
 </pre></div>
 </div>
 <div class="section" id="storage">
@@ -96,23 +96,23 @@ you can access this data using the HTTP API (that speaks JSON).</p>
 happy with our current design, but if you have ideas on how to make it evolve,
 <a class="reference external" href="https://kiwiirc.com/client/irc.freenode.net/?#kinto">we would be really happy to hear them</a>!</p>
 <p>Here's an example of how to retrieve your data using the <a class="reference external" href="https://github.com/jkbrzt/httpie">HTTPie</a> client.</p>
-<div class="highlight"><pre><span></span>$ http get https://kinto.dev.mozaws.net/v1/buckets/default/collections/kinto_demo_calendar/records --auth<span class="o">=</span><span class="s2">"null:notsecret"</span>
+<div class="highlight"><pre><span></span>$ http get https://kinto.dev.mozaws.net/v1/buckets/default/collections/kinto_demo_calendar/records --auth<span class="o">=</span><span class="s2">&quot;null:notsecret&quot;</span>
 
 <span class="o">{</span>
-    <span class="s2">"data"</span>: <span class="o">[</span>
+    <span class="s2">&quot;data&quot;</span>: <span class="o">[</span>
         <span class="o">{</span>
-            <span class="s2">"end"</span>: <span class="s2">"2016-01-07T09:30:00"</span>,
-            <span class="s2">"id"</span>: <span class="s2">"1f5d1390-2647-442d-8bc4-5ecc6a4f8beb"</span>,
-            <span class="s2">"last_modified"</span>: 1451997254315,
-            <span class="s2">"start"</span>: <span class="s2">"2016-01-07T09:00:00"</span>,
-            <span class="s2">"title"</span>: <span class="s2">"Visite maison"</span>
+            <span class="s2">&quot;end&quot;</span>: <span class="s2">&quot;2016-01-07T09:30:00&quot;</span>,
+            <span class="s2">&quot;id&quot;</span>: <span class="s2">&quot;1f5d1390-2647-442d-8bc4-5ecc6a4f8beb&quot;</span>,
+            <span class="s2">&quot;last_modified&quot;</span>: <span class="m">1451997254315</span>,
+            <span class="s2">&quot;start&quot;</span>: <span class="s2">&quot;2016-01-07T09:00:00&quot;</span>,
+            <span class="s2">&quot;title&quot;</span>: <span class="s2">&quot;Visite maison&quot;</span>
         <span class="o">}</span>,
         <span class="o">{</span>
-            <span class="s2">"end"</span>: <span class="s2">"2016-01-06"</span>,
-            <span class="s2">"id"</span>: <span class="s2">"0dadb484-259b-482d-8cb8-0e94d743d1c6"</span>,
-            <span class="s2">"last_modified"</span>: 1451997234471,
-            <span class="s2">"start"</span>: <span class="s2">"2016-01-05"</span>,
-            <span class="s2">"title"</span>: <span class="s2">"RDV Osthéo"</span>
+            <span class="s2">&quot;end&quot;</span>: <span class="s2">&quot;2016-01-06&quot;</span>,
+            <span class="s2">&quot;id&quot;</span>: <span class="s2">&quot;0dadb484-259b-482d-8cb8-0e94d743d1c6&quot;</span>,
+            <span class="s2">&quot;last_modified&quot;</span>: <span class="m">1451997234471</span>,
+            <span class="s2">&quot;start&quot;</span>: <span class="s2">&quot;2016-01-05&quot;</span>,
+            <span class="s2">&quot;title&quot;</span>: <span class="s2">&quot;RDV Osthéo&quot;</span>
         <span class="o">}</span>
     <span class="o">]</span>
 <span class="o">}</span>
@@ -128,7 +128,7 @@ Kinto is organised into three concepts: Buckets contains collections wich in
 turn contain records.</p>
 <p>It's then possible to apply permissions to each container, and all children
 will be impacted.</p>
-<img alt="" src="http://www.servicedenuages.fr/en/../images/concepts-permissions.png" style="width: 600px; height: auto; max-width: 100%;"/>
+<img alt="" src="http://www.servicedenuages.fr/en/../images/concepts-permissions.png" />
 <p>You can <a class="reference external" href="http://kinto.readthedocs.org/en/latest/concepts.html">read more on our documentation</a> about this if you want.</p>
 </div>
 <div class="section" id="real-time-notifications">

@@ -46,7 +46,7 @@
                 </header>
             </section>
                         <p><a href="http://www.servicedenuages.fr/en/../service-de-nuages">Lire la version française</a></p>
-            <p>A bunch of changes since the beginning of the year for the "cloud-services"
+            <p>A bunch of changes since the beginning of the year for the &quot;cloud-services&quot;
 frenchies!</p>
 <p>First of all, two new recruits are here to complement the team:
 <a class="reference external" href="https://nicolas.perriault.net/">n1k0</a> and <a class="reference external" href="http://mathieu-leplatre.info">Mathieu</a> are now helping out <a class="reference external" href="http://ziade.org/">Tarek</a>, <a class="reference external" href="http://natim.ionyse.com">Rémy</a> and <a class="reference external" href="http://notmyidea.org">Alexis</a>.</p>
@@ -56,11 +56,11 @@ written in Node.js®.</p>
 <div class="section" id="a-readinglist-server">
 <h2>A readinglist server</h2>
 <p>In parallel, a project about <a class="reference external" href="https://readinglist.readthedocs.io">synchronizing reading lists</a> (<em>Reading List</em>) started.
-The idea is to be able to bookmark pages to "read for later" and continue the
+The idea is to be able to bookmark pages to &quot;read for later&quot; and continue the
 reading on any synchronized device (Firefox for Android or Firefox Desktop). An
 open source counterpart to <a class="reference external" href="http://getpocket.com">Pocket</a>, in some regards, which is possible to host
 yourself.</p>
-<img alt="Capture of Firefox nightly with the readinglist." src="http://www.servicedenuages.fr/en/../images/readinglist-screenshot.png" style="width: 953px; height: auto; max-width: 100%;"/>
+<img alt="Capture of Firefox nightly with the readinglist." src="http://www.servicedenuages.fr/en/../images/readinglist-screenshot.png" />
 <p>To build this service, we could have reused <a class="reference external" href="https://github.com/mozilla-services/server-syncstorage">Firefox sync</a> , after all it's
 a robust synchronisation service, built on top of <a class="reference external" href="http://cornice.readthedocs.io/">Cornice</a>. But <em>Sync</em> hasn't
 been thought to guarantee strong data integrity and it was too complex to change that
@@ -76,9 +76,9 @@ persist data in a database.</p>
 <p>For client applications, JavaScript or other, using this service should be as
 easy as a pie! The application handles its data locally (offline-first) and
 synchronizes upon request.</p>
-<p>Here, the heart of the <em>Reading List</em> service is a "CRUD" API (Create, Retrieve,
+<p>Here, the heart of the <em>Reading List</em> service is a &quot;CRUD&quot; API (Create, Retrieve,
 Update, Delete), which handles synchronisation and authentication. We made the
-bet to do a "simple" API, with the less specific code as possible, which would
+bet to do a &quot;simple&quot; API, with the less specific code as possible, which would
 create the basis of a generic service. Also because it's likely that other
 similar projects will follow.</p>
 <p>A bunch of experience was accumulated within the team, on one hand with the
@@ -95,7 +95,7 @@ dissociate it from the readinglist project.</p>
 <p>As a first stone to build the cathedral, we created <a class="reference external" href="https://cliquet.readthedocs.io">Cliquet</a>, which main idea is to have an
 implementation of this protocol in Python, while factorizing all our good
 practices (notably for putting everything in production).</p>
-<img alt="Cliquet's logo" class="align-right" src="http://www.servicedenuages.fr/en/../images/cliquet-logo.png" style="width: 300px; height: auto; max-width: 100%;"/>
+<img alt="Cliquet's logo" class="align-right" src="http://www.servicedenuages.fr/en/../images/cliquet-logo.png" />
 <p>The good thing with protocols (as opposed to monoliths) is that if you prefer
 Asyncio, io.js or Go, we will encourage you to publish your alternative
 implementation!</p>

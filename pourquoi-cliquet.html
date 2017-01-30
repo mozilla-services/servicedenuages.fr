@@ -64,7 +64,7 @@ devaient obéir globalement à ces mêmes règles, nous avons décidé de mettre
 commun l'implémentation de ce protocole et de ces bonnes pratiques dans un
 «toolkit».</p>
 <p><em>Cliquet</em> est né.</p>
-<img alt="Cliquet logo" class="align-center" src="http://www.servicedenuages.fr/images/cliquet-logo.png" style="width: 300px; height: auto; max-width: 100%;"/>
+<img alt="Cliquet logo" class="align-center" src="http://www.servicedenuages.fr/images/cliquet-logo.png" />
 <div class="section" id="les-intentions">
 <h3>Les intentions</h3>
 <blockquote class="epigraph">
@@ -98,7 +98,7 @@ de resource REST et de backend de stockage.</p>
 depuis le fichier <tt class="docutils literal">.ini</tt> de l'application. Ainsi tous les projets qui utilisent
 le toolkit se déploieront de la même manière : seuls quelques éléments de configuration
 les distingueront.</p>
-<img alt="Une réunion à Paris..." class="align-center" src="http://www.servicedenuages.fr/images/cliquet-notes-whiteboard.jpg" style="width: 500px; height: auto; max-width: 100%;"/>
+<img alt="Une réunion à Paris..." class="align-center" src="http://www.servicedenuages.fr/images/cliquet-notes-whiteboard.jpg" />
 </div>
 </div>
 <div class="section" id="le-protocole">
@@ -149,13 +149,13 @@ de <em>Firefox Sync</em> pour la gestion de la concurrence et de l'«offline-fir
 En rêve, il existerait même plusieurs implémentations avec des technologies différentes
 (Python, Go, Node, etc.). <a class="footnote-reference" href="#id4" id="id2">[2]</a></p>
 <table class="docutils footnote" frame="void" id="id3" rules="none">
-<colgroup><col class="label"></col><col></col></colgroup>
+<colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>Voir notre <a class="reference external" href="http://www.servicedenuages.fr/la-gestion-des-permissions">article dédié sur les permissions</a></td></tr>
 </tbody>
 </table>
 <table class="docutils footnote" frame="void" id="id4" rules="none">
-<colgroup><col class="label"></col><col></col></colgroup>
+<colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id2">[2]</a></td><td>Rappel: nous sommes une toute petite équipe !</td></tr>
 </tbody>
@@ -180,7 +180,7 @@ rigoureux, gérer les entêtes CORS, fournir la validation JSON à partir de sch
 des abstractions, mais on a toujours <em>Pyramid</em> et <em>Cornice</em> sous la main pour
 aller au delà de ce qui est proposé !</p>
 <table class="docutils footnote" frame="void" id="id6" rules="none">
-<colgroup><col class="label"></col><col></col></colgroup>
+<colgroup><col class="label" /><col /></colgroup>
 <tbody valign="top">
 <tr><td class="label"><a class="fn-backref" href="#id5">[3]</a></td><td>Au tout début nous avons commencé une implémentation avec <em>Python-Eve</em>
 (Flask), mais n'étions pas satisfaits de l'approche pour la configuration
@@ -204,7 +204,7 @@ depuis la configuration.</li>
 <li><strong>Le profiling</strong> : utilitaires de développement pour trouver les <a class="reference external" href="https://fr.wiktionary.org/wiki/goulet_d%E2%80%99%C3%A9tranglement">goulets
 d'étranglement</a>.</li>
 </ul>
-<img alt="Cliquet concepts" class="align-center" src="http://www.servicedenuages.fr/images/cliquet-concepts.png" style="width: 500px; height: auto; max-width: 100%;"/>
+<img alt="Cliquet concepts" class="align-center" src="http://www.servicedenuages.fr/images/cliquet-concepts.png" />
 <p>Proportionnellement, l'implémentation du protocole pour les resources REST est
 la plus volumineuse dans le code source de <em>Cliquet</em>.
 Cependant, comme nous l'avons décrit plus haut, <em>Cliquet</em> fournit tout un
@@ -242,7 +242,7 @@ qui n'exige pas de connaître <em>Pyramid</em>.</p>
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">global_config</span><span class="p">,</span> <span class="o">**</span><span class="n">settings</span><span class="p">):</span>
     <span class="n">config</span> <span class="o">=</span> <span class="n">Configurator</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">settings</span><span class="p">)</span>
 
-<span class="hll">    <span class="n">cliquet</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s1">'1.0'</span><span class="p">)</span>
+<span class="hll">    <span class="n">cliquet</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s1">&#39;1.0&#39;</span><span class="p">)</span>
 </span>    <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">make_wsgi_app</span><span class="p">()</span>
 </pre></div>
 <p>À partir de là, la plupart des outils de <em>Cliquet</em> sont activés et accessibles.</p>
@@ -256,8 +256,8 @@ qu'il est possible d'utiliser dans des vues classiques <em>Pyramid</em> ou <em>C
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">global_config</span><span class="p">,</span> <span class="o">**</span><span class="n">settings</span><span class="p">):</span>
     <span class="n">config</span> <span class="o">=</span> <span class="n">Configurator</span><span class="p">(</span><span class="n">settings</span><span class="o">=</span><span class="n">settings</span><span class="p">)</span>
 
-    <span class="n">cliquet</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s1">'1.0'</span><span class="p">)</span>
-<span class="hll">    <span class="n">config</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s2">"myproject.views"</span><span class="p">)</span>
+    <span class="n">cliquet</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="s1">&#39;1.0&#39;</span><span class="p">)</span>
+<span class="hll">    <span class="n">config</span><span class="o">.</span><span class="n">scan</span><span class="p">(</span><span class="s2">&quot;myproject.views&quot;</span><span class="p">)</span>
 </span>    <span class="k">return</span> <span class="n">config</span><span class="o">.</span><span class="n">make_wsgi_app</span><span class="p">()</span>
 </pre></div>
 <p>Pour définir des resources CRUD, il faut commencer par définir un schéma,
@@ -274,15 +274,15 @@ avec <em>Colander</em>, et ensuite déclarer une resource:</p>
 <p>Désormais, la resource CRUD est disponible sur <tt class="docutils literal">/v1/bookmarks</tt>, avec toutes
 les fonctionnalités de synchronisation, filtrage, tri, pagination, timestamp, etc.
 De base les enregistrements sont privés, par utilisateur.</p>
-<div class="highlight"><pre><span></span><span class="err">$</span> <span class="err">http</span> <span class="err">GET</span> <span class="s2">"http://localhost:8000/v1/bookmarks"</span>
+<div class="highlight"><pre><span></span><span class="err">$</span> <span class="err">http</span> <span class="err">GET</span> <span class="s2">&quot;http://localhost:8000/v1/bookmarks&quot;</span>
 <span class="err">HTTP/</span><span class="mf">1.1</span> <span class="mi">200</span> <span class="err">OK</span>
 <span class="err">...</span>
 <span class="p">{</span>
-    <span class="nt">"data"</span><span class="p">:</span> <span class="p">[</span>
+    <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">[</span>
         <span class="p">{</span>
-            <span class="nt">"url"</span><span class="p">:</span> <span class="s2">"http://cliquet.readthedocs.io"</span><span class="p">,</span>
-            <span class="nt">"id"</span><span class="p">:</span> <span class="s2">"cc103eb5-0c80-40ec-b6f5-dad12e7d975e"</span><span class="p">,</span>
-            <span class="nt">"last_modified"</span><span class="p">:</span> <span class="mi">1437034418940</span><span class="p">,</span>
+            <span class="nt">&quot;url&quot;</span><span class="p">:</span> <span class="s2">&quot;http://cliquet.readthedocs.io&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;id&quot;</span><span class="p">:</span> <span class="s2">&quot;cc103eb5-0c80-40ec-b6f5-dad12e7d975e&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;last_modified&quot;</span><span class="p">:</span> <span class="mi">1437034418940</span><span class="p">,</span>
         <span class="p">}</span>
     <span class="p">]</span>
 <span class="p">}</span>
@@ -292,16 +292,16 @@ De base les enregistrements sont privés, par utilisateur.</p>
 <h3>Étape 3</h3>
 <p>Évidemment, il est possible choisir les URLS, les verbes HTTP supportés, de modifier
 des champs avant l'enregistrement, etc.</p>
-<div class="highlight"><pre><span></span><span class="hll"><span class="nd">@resource.register</span><span class="p">(</span><span class="n">collection_path</span><span class="o">=</span><span class="s1">'/user/bookmarks'</span><span class="p">,</span>
-</span><span class="hll">                   <span class="n">record_path</span><span class="o">=</span><span class="s1">'/user/bookmarks/{{id}}'</span><span class="p">,</span>
-</span><span class="hll">                   <span class="n">collection_methods</span><span class="o">=</span><span class="p">(</span><span class="s1">'GET'</span><span class="p">,))</span>
+<div class="highlight"><pre><span></span><span class="hll"><span class="nd">@resource.register</span><span class="p">(</span><span class="n">collection_path</span><span class="o">=</span><span class="s1">&#39;/user/bookmarks&#39;</span><span class="p">,</span>
+</span><span class="hll">                   <span class="n">record_path</span><span class="o">=</span><span class="s1">&#39;/user/bookmarks/{{id}}&#39;</span><span class="p">,</span>
+</span><span class="hll">                   <span class="n">collection_methods</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;GET&#39;</span><span class="p">,))</span>
 </span><span class="k">class</span> <span class="nc">Bookmark</span><span class="p">(</span><span class="n">resource</span><span class="o">.</span><span class="n">BaseResource</span><span class="p">):</span>
     <span class="n">mapping</span> <span class="o">=</span> <span class="n">BookmarkSchema</span><span class="p">()</span>
 
 <span class="hll">    <span class="k">def</span> <span class="nf">process_record</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new</span><span class="p">,</span> <span class="n">old</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-</span><span class="hll">        <span class="k">if</span> <span class="n">old</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">new</span><span class="p">[</span><span class="s1">'device'</span><span class="p">]</span> <span class="o">!=</span> <span class="n">old</span><span class="p">[</span><span class="s1">'device'</span><span class="p">]:</span>
-</span><span class="hll">            <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'User-Agent'</span><span class="p">)</span>
-</span><span class="hll">            <span class="n">new</span><span class="p">[</span><span class="s1">'device'</span><span class="p">]</span> <span class="o">=</span> <span class="n">device</span>
+</span><span class="hll">        <span class="k">if</span> <span class="n">old</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">new</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">]</span> <span class="o">!=</span> <span class="n">old</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">]:</span>
+</span><span class="hll">            <span class="n">device</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;User-Agent&#39;</span><span class="p">)</span>
+</span><span class="hll">            <span class="n">new</span><span class="p">[</span><span class="s1">&#39;device&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">device</span>
 </span><span class="hll">        <span class="k">return</span> <span class="n">new</span>
 </span></pre></div>
 <p><a class="reference external" href="http://cliquet.readthedocs.io/en/latest/reference/resource.html">Plus d'infos dans la documentation dédiée</a> !</p>
@@ -317,13 +317,13 @@ des champs avant l'enregistrement, etc.</p>
 <p>Par exemple, une vue qui utilise le backend de stockage:</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">cliquet</span> <span class="kn">import</span> <span class="n">Service</span>
 
-<span class="n">score</span> <span class="o">=</span> <span class="n">Service</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"score"</span><span class="p">,</span>
-                <span class="n">path</span><span class="o">=</span><span class="s1">'/score/{game}'</span><span class="p">,</span>
-                <span class="n">description</span><span class="o">=</span><span class="s2">"Store game score"</span><span class="p">)</span>
+<span class="n">score</span> <span class="o">=</span> <span class="n">Service</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;score&quot;</span><span class="p">,</span>
+                <span class="n">path</span><span class="o">=</span><span class="s1">&#39;/score/{game}&#39;</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="s2">&quot;Store game score&quot;</span><span class="p">)</span>
 
 <span class="nd">@score.post</span><span class="p">(</span><span class="n">schema</span><span class="o">=</span><span class="n">ScoreSchema</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">post_score</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-    <span class="n">collection_id</span> <span class="o">=</span> <span class="s1">'scores-'</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="n">match_dict</span><span class="p">[</span><span class="s1">'game'</span><span class="p">]</span>
+    <span class="n">collection_id</span> <span class="o">=</span> <span class="s1">&#39;scores-&#39;</span> <span class="o">+</span> <span class="n">request</span><span class="o">.</span><span class="n">match_dict</span><span class="p">[</span><span class="s1">&#39;game&#39;</span><span class="p">]</span>
     <span class="n">user_id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">authenticated_userid</span>
     <span class="n">value</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">validated</span>  <span class="c1"># c.f. Cornice.</span>
 
