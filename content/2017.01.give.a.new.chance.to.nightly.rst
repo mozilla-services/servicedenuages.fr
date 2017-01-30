@@ -1,0 +1,233 @@
+10 reasons to give another chance to Firefox Nightly
+####################################################
+
+:slug: give-firefox-nightly-another-chance
+:date: 2017-01-30
+:lang: en
+:url: give-firefox-nightly-another-chance
+:summary:
+    Help us make the best Mozilla Firefox of all the times by mid 2017!
+
+What is Nightly?
+================
+
+The Firefox Nightly build also known as Firefox Nightly is a version
+of Firefox built from the source code every day at night.
+
+This means that Firefox updates itself every day!
+
+.. image:: {filename}/images/nightly.png
+    :alt: You've just been upgraded to Firefox Nightly 54!
+    :align: center
+
+Why aren't you using Nightly today?
+===================================
+
+Everyone wants a stable Firefox and you don't have time for a crappy
+browser experience.
+
+Although it wasn't always the case, Firefox Nightly is now more
+stable than ever. The number of crashes has been reduced and it
+is getting much further every day.
+
+Additionally most of the bugs that you might have will be fixed the
+next day.
+
+You can always go in the `Help > About Firefox` menu to make sure you
+have the last update!
+
+
+Why you should actually give Firefox Nightly a try
+==================================================
+
+By installing Firefox Nightly you will:
+
+#. Have new Mozilla Firefox features 18 weeks earlier
+#. Have a much faster Firefox
+#. Make a difference
+#. Help reduce the number of crashes for Mozilla Firefox users
+#. Make sure Mozilla Firefox source code is in a workable state
+#. Help add-on developers to validate that their add-ons are still working
+#. Have a better developer experience to develop your apps
+#. Make a really valuable contribution to the Mozilla project without coding
+#. Participate at building a Free, Libre, and Open Source browser that respects user privacy
+#. Have a real impact on how the Web is built nowadays.
+
+Have a much faster Firefox
+--------------------------
+
+Firefox is getting smaller!
+
+New features are now tested through add-ons using
+`Test Pilot <https://testpilot.firefox.com/>`_ instead of getting
+added to Firefox. This means less bugs and only great features by
+default.
+
+Firefox is getting faster!
+
+This year 2017, Firefox is going to ship the `Quantum
+<https://wiki.mozilla.org/Quantum>`_ project which is a
+next-generation Web engine. It benefits from some critical parts of
+Gecko being rewritten in Rust which makes them 10 to 100 times faster
+than before by using parallelization and GPU offloading.
+
+This is happening now and you will get it 3 months early.
+
+Not only thatm Quantum is a lot more secure, the rewrite is a good
+opportunity to have a brand new and better-tested code base which
+means that you are less likely to have bugs in it.
+
+Have new Mozilla Firefox features 18 weeks before
+-------------------------------------------------
+
+Mozilla Firefox is on a fixed Release Calendar workflow called trains,
+which means that developer can plan their features to land in a
+certain version and coordinate other teams work (QA, OPS, Service
+developers, Deployments, Translations) for a certain date.
+
+In case the deadline is missed, they will have to wait for the next
+release 6 weeks later.
+
+Today, there are 4 versions of Firefox:
+
+- Firefox Nightly, which is a tag of Mozilla Central every day
+- Firefox Developer Edition, which is a tag of Nightly every 6 weeks
+- Firefox Beta, which is a release of the previous Developer edition branch
+- Firefox Release, which is a release of the previous Beta branch
+
+With Nightly, the release is everyday, which means you will be the
+first one to benefit from new features, while other people will
+have to wait more than 3 months before being able to use them (less
+than 6 weeks in Nightly, 6 weeks for Developer Edition, 6 weeks for
+Beta).
+
+Not only that, but some features are only activated in Nightly.
+
+
+Make a difference and help reduce the number of crashes for Mozilla Firefox users
+---------------------------------------------------------------------------------
+
+The more users we have in Nightly, the more stable future versions of
+Firefox become.
+
+If everybody waits to use the last release of Firefox, it means
+that Developer Edition and Beta steps don't make any sense because
+they will not be used and bugs that might occur will appear directly
+at the Release stage, making a poor Firefox experience for people that
+don't even know what a browser is.
+
+By using Nightly, you will help us make a really great Firefox and as
+a benefit you will have this great Firefox experience 3 months ahead
+of schedule!
+
+Also most of the time, if you discover a problem with your Firefox
+Nightly, it will be fixed in the next release the day after, while
+with Firefox Release you will potentially have to wait for 6 weeks.
+
+Help add-on developers to validate that their add-ons are still working
+-----------------------------------------------------------------------
+
+.. image:: {filename}/images/amo.png
+    :alt: Add-ons for Firefox
+    :align: center
+
+Firefox is transitioning from a complex and error-prone way of
+writing add-ons to a standardized way of writing Web extensions, which
+are most likely to be compatible with Chrome and use well known Web
+technologies which makes them easier to develop.
+
+This is challenging for add-ons creators that already have a working
+add-on that needs to be rewritten.
+
+As a community we can help them. If they already have a Google Chrome
+add-on, it is most likely that they will be able to install it in
+Firefox directly. Plus, Firefox pans to expose more add-ons API
+than Chrome and we will create more in 2017 to help as much as
+possible port previous add-ons to the Web extensions standard.
+
+As an early adopter we can help to test these new add-ons to keep a
+good experience for our users.
+
+Have a better developer experience to develop your Web apps
+-----------------------------------------------------------
+
+If you develop Web applications you might have had some problems to
+debug them with Firefox.
+
+We have a full team of developers dedicated to make Firefox the best
+tool for developping Web applications. This team is improving Web
+developer tools everyday and by using Nightly it will make your life
+easier.
+
+I hope that at some point you will even want to open Firefox because
+it is easiser than debugging your app in Chrome. And I have good hope
+that we reach this point in 2017.
+
+
+Give a really valuable contribution to the Mozilla project without coding
+-------------------------------------------------------------------------
+
+Often people ask me how they can contribute to the Mozilla Firefox
+project.
+
+To be honest, starting to use Nightly today is a real huge step toward
+that goal.
+
+To use Firefox Nightly as a daily user is a simple and awesome way to
+help Firefox because it gives us feedback on the work we are doing
+ahead of time and also immediately. We don't have to wait for 18 weeks to
+get feedback on our work, we can have it the day after.
+
+As of this writing, we have only few handfuls of users for Firefox
+Nightly so your choice to use it makes a huge difference to us.
+
+
+Conclusion
+----------
+
+I hope you are now convinced that you can help us to make a better
+Firefox by starting to use Firefox Nightly today.
+
+You can install the `desktop Firefox version <https://nightly.mozilla.org/>`_ as well as your
+`Android Firefox version <https://www.mozilla.org/firefox/channel/android/>`_
+
+Once you are using Firefox Nightly, **if you see something, say something**.
+
+You will have a good chance to see it fixed the day after, while if
+you don't say anything it might never get fixed...
+
+`File a Bug in our bugtracker <https://bugzilla.mozilla.org/>`_ (you
+can now login with your Github account).
+
+However in case of crashes, the bug report is sent automatically for
+you with the detail that will hopefully help developpers to reproduce
+it, so you don't need to do anything.
+
+Bonus: How to configure Firefox Nightly as my default browser in Linux?
+=======================================================================
+
+.. image:: {filename}/images/ubuntu-behavior.png
+    :alt: Setup Firefox Nightly on Ubuntu.
+    :align: center
+
+
+#. Download the archive in https://nightly.mozilla.org/
+#. ``tar jxf ~/Downloads/firefox*.linux-x86_64.tar.bz2 -C ~/apps/``
+#. Copy current Firefox desktop file: ``cp /usr/share/applications/firefox.desktop ~/apps``
+#. Copy current browser alternative file: ``cp /etc/alternatives/x-www-browser ~/apps``
+#. Copy current launcher file: ``cp /usr/lib/firefox/firefox.sh ~/apps``
+#. Remove the version installed by your package manager: ``sudo apt purge firefox``
+#. Install Firefox: ``sudo ln -s ${HOME}/apps/firefox.sh /usr/bin/firefox``
+#. Install the desktop file: ``sudo cp ~/apps/firefox.desktop /usr/share/applications/``
+#. Install the icon: ``sudo cp ~/apps/firefox/browser/icons/mozicon128.png /usr/share/pixmaps/firefox.png``
+#. Install the browser alternative: ``cp ~/apps/x-www-browser /etc/alternatives/x-www-browser``
+#. Display an URL in the terminal: ``echo https://www.mozilla.org/``
+#. Close Firefox and click on the link.
+#. Firefox Nightly should open your link.
+
+Troubleshooting
+---------------
+
+#. Remove any ``*.desktop`` file talking about Firefox in ``~/.local/share/applications/``
+#. You might want to restart your computer at some point.
+#. Ask for help and ping natim on irc://irc.mozilla.org/
