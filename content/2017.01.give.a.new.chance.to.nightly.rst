@@ -203,9 +203,12 @@ However in case of crashes, the bug report is sent automatically for
 you with the detail that will hopefully help developpers to reproduce
 it, so you don't need to do anything.
 
-
 Bonus: How to configure Firefox Nightly as my default browser in Linux?
 =======================================================================
+
+.. image:: {filename}/images/ubuntu-behavior.png
+    :alt: Setup Firefox Nightly on Ubuntu.
+    :align: center
 
 
 #. Download the archive in https://nightly.mozilla.org/
