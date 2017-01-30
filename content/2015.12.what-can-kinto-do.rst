@@ -121,6 +121,8 @@ It's then possible to apply permissions to each container, and all children
 will be impacted.
 
 .. image:: {filename}/images/concepts-permissions.png
+    :alt: Concepts around permissions
+    :align: center
 
 You can `read more on our documentation
 <http://kinto.readthedocs.org/en/latest/concepts.html>`_ about this if you want.

@@ -28,4 +28,4 @@ from `Graphviz <http://graphviz.org/Download..php>`_ is required.
 
 To install dependencies you can use::
 
-    sudo apt-get install graphviz libjpeg8-dev libpng12-dev python-dev
+    sudo apt-get install graphviz libjpeg8-dev libpng-dev python-dev

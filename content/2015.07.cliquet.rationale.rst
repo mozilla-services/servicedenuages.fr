@@ -392,8 +392,7 @@ Points faibles
 --------------
 
 Nous sommes très fiers de ce que nous avons construit, en relativement peu
-de temps. Et comme nous l'exposions dans `l'article précédent
-<{filename/2015.07.whistler-use-cases.rst}>`_, il y a du potentiel !
+de temps. Et comme nous l'exposions dans `l'article précédent <{filename}/2015.07.whistler-use-cases.rst>`_, il y a du potentiel !
 
 Cependant, nous sommes conscients d'un certain nombre de points
 qui peuvent être vus comme des faiblesses.

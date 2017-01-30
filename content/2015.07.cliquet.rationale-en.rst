@@ -364,8 +364,7 @@ Areas for improvement
 ---------------------
 
 We're quite proud of what we've built in a relatively short time frame, and as
-we noted in a `previous article
-<{filename/2015.07.whistler-use-cases-en.rst}>`_, there's a lot of potential
+we noted in a `previous article <{filename}/2015.07.whistler-use-cases-en.rst>`_, there's a lot of potential
 just waiting to be tapped. Nonetheless, we are aware of a few areas where we
 could improve things - maybe you'd like to help?
 
