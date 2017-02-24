@@ -1,0 +1,225 @@
+Handling Python Project dependencies
+####################################
+
+:slug: handling-python-projects-dependencies
+:date: 2017-02-24
+:lang: en
+:url: handling-python-projects-dependencies
+:summary:
+    Coping with project depdendencies can be a bit cumbersome.
+	Learn how we are handling our Python project dependencies.
+
+
+Introduction
+============
+
+If you ever started a Python project you might have heard of a
+``requirements.txt`` file that contains a list of dependencies.
+
+.. code-block:: ini
+
+    pelican
+    beautifulsoup4
+    ghp-import
+    Pillow==4.0.0
+    markdown
+    pysvg>=0.2,<0.3
+
+
+If you ship you project or library in Pypi you need to put them in the
+``setup.py`` file in order for them to be installed with the other
+projects.
+
+.. code-block:: ini
+
+    setup(name='saucisson',
+      version='1.0.0.dev0',
+      license='Apache License (2.0)',
+      packages=find_packages(),
+      include_package_data=True,
+      zip_safe=False,
+      install_requires=[
+        'colander >= 1.3.2',
+        'colorama',
+        'cornice >= 2.4',
+        'cornice_swagger >= 0.5',
+        'jsonschema',
+        'jsonpatch',
+        'python-dateutil',
+        'pyramid > 1.8',
+        'pyramid_multiauth >= 0.8',  # User on policy selected event.
+        'transaction',
+        'pyramid_tm',
+        'requests',
+        'structlog >= 16.1.0',
+        'waitress',
+        'ujson >= 1.35'])
+
+This brinks a lot of questions:
+
+ - How do I update project dependencies?
+ - What were the know working dependencies version at a certain release?
+ - How do I make sure a release of one of the dependency I use doesn't break my release?
+ - How do I make sure that my code is not used with a non supported version of a dependency?
+
+
+Avoid using requirements file to handle your program dependencies
+=================================================================
+
+Because your program will eventually be released, you want to be able
+to use ``python setup.py install`` to install it so that you will be
+able to install it with ``pip install saucisson`` to install the last
+release and it will install itself automatically with the right
+dependencies.
+
+Instead use your ``requirements.txt`` to set a know working set of your
+dependencies at the time of a release.
+
+We usually add a `build-requirements` makefile rule on our projects:
+
+.. code-block:: Makefile
+
+    VIRTUALENV = virtualenv --python=python3
+    
+    
+    build-requirements:
+    	$(eval TEMPDIR := $(shell mktemp -d))
+    	$(VIRTUALENV) $(TEMPDIR)
+    	$(TEMPDIR)/bin/pip install -U pip  # Upgrade pip
+    	$(TEMPDIR)/bin/pip install -Ue .   # Develop the current project locally
+    	# Freeze the dependencies ignoring the dependency links.
+    	$(TEMPDIR)/bin/pip freeze | grep -v -- '^-e' > requirements.txt
+
+If you run `make build-requirements` before tagging your release you
+will document what was the known working dependency set at the time of
+the release.
+
+Then you can install your program later using this file as a
+`dependency constrain file <https://pip.pypa.io/en/stable/user_guide/#constraints-files>`_:
+
+.. code-block:: console
+
+    pip install saucisson -c requirements.txt
+
+
+Avoid pining version in your setup.py
+=====================================
+
+You might be tempted to pin dependencies version in your setup.py
+
+Because you are using a contrain file you are safe for future updates
+that might break your code.
+
+On your CI not using a contrain file will help you to detect that you
+need to take some actions to support the new released version.
+
+There are some cases when you still want to pin some version:
+
+
+If you know that your project will not work with a lower version
+----------------------------------------------------------------
+
+If you are using a feature or API that didn't existed before or you
+had a bug that was fixed after.
+
+.. code-block::
+
+   psycopg > 2.5
+   colander >= 1.3.2
+   ujson >= 1.35
+
+
+If you know that your project doesn't support yet the next release
+------------------------------------------------------------------
+
+**I insist that this implies that the release already exists and that
+your test suite doesn't run on it.**
+
+In that case, and only in that case, you can do it for the shorted
+possible time until you ported your project to it.
+
+It is often the case for frameworks:
+
+.. code-block::
+
+   Pyramid < 1.8
+   django >1.6,<= 1.8
+
+The danger of doing it is that you migh create conflict and in that
+case Python will not let you start your application.
+
+An easy way to break things is to ping a max ``requests`` version for instance:
+
+.. code-block::
+
+   requests < 2.13
+
+If you do that you will end up having a lot of
+``pkg_resources.VersionConflict`` error when running your program
+because Python will check the dependency and will not accept to run if
+you have a greater ``requests`` version which can happen if another
+dependency already needed ``requests`` as a dependency and pip already
+installed it.
+
+**Really don't do it**
+
+
+What about test dependencies?
+=============================
+
+That's a good question, I am glad you asked.
+
+Test dependencies are less of an issue. You can either use
+``test_requires`` in your ``setup.py`` or a ``dev-requirements.txt``
+file.
+
+In the former you will need to run tests using ``python setup.py test``
+which unfortunately doesn't run in a ``virtualenv``
+
+In the later you will need to make sure your test dependencies are
+installed before running the tests but tools like ``tox`` already do
+that for you.
+
+
+Our take on this is to put test dependencies in a
+``dev-requirements.txt`` file.
+
+We have a Makefile rule that knows if dev-dependencies should be
+installed or not before running the ``tests`` target.
+
+As a bonus itt will automatically create a virtualenv if you don't
+have one already activated:
+
+.. code-block:: Makefile
+
+    VIRTUALENV = virtualenv --python=python3
+	VENV := $(shell echo $${VIRTUAL_ENV-.venv})  # Use the activated virtualenv path or use .venv
+	PYTHON = $(VENV)/bin/python
+	INSTALL_STAMP = $(VENV)/.install.stamp
+	INSTALL_DEV_STAMP = $(VENV)/.dev_env_installed.stamp
+
+	install: $(INSTALL_STAMP)
+
+    $(INSTALL_STAMP): $(PYTHON) setup.py  # Refresh the virtualenv if setup.py changed
+    	$(VENV)/bin/pip install -U pip
+    	$(VENV)/bin/pip install -Ue .
+    	touch $(INSTALL_STAMP)
+
+    virtualenv: $(PYTHON)  # Create the virtualenv if needed (python executable not present)
+
+    $(PYTHON):
+    	$(VIRTUALENV) $(VENV)
+		
+    install-dev: install $(DEV_STAMP)
+
+    # Refresh dev dependencies if dev-requirements.txt changed
+    $(DEV_STAMP): $(PYTHON) dev-requirements.txt
+    	$(VENV)/bin/pip install -Ur dev-requirements.txt
+    	touch $(DEV_STAMP)
+
+	tests-once: install-dev
+	    $(VENV)/bin/py.test tests/
+
+	serve:
+		$(VENV)/bin/python manage.py runserver
+
