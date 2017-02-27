@@ -30,7 +30,7 @@
         <header class="header-article">
             <hgroup>
                 <h5>Published</h5>
-                <p title="~1735 words">~7 minutes reading 🕑</p>
+                <p title="~1734 words">~7 minutes reading 🕑</p>
                 <p>Fri, 24 February 2017</p>
                 <a href="/en/">&larr; Back to articles</a>
             </hgroup>
@@ -47,39 +47,39 @@
 <h2>Introduction</h2>
 <p>If you ever started a Python project you might have heard of a
 <tt class="docutils literal">requirements.txt</tt> file that contains a list of dependencies.</p>
-<div class="highlight"><pre><span></span><span class="na">pelican</span>
-<span class="na">beautifulsoup4</span>
-<span class="na">ghp-import</span>
-<span class="na">Pillow</span><span class="o">=</span><span class="s">=4.0.0</span>
-<span class="na">markdown</span>
-<span class="na">pysvg&gt;</span><span class="o">=</span><span class="s">0.2,&lt;0.3</span>
+<div class="highlight"><pre><span></span><span class="n">pelican</span>
+<span class="n">beautifulsoup4</span>
+<span class="n">ghp</span><span class="o">-</span><span class="kn">import</span>
+<span class="nn">Pillow</span><span class="o">==</span><span class="mf">4.0</span><span class="o">.</span><span class="mi">0</span>
+<span class="n">markdown</span>
+<span class="n">pysvg</span><span class="o">&gt;=</span><span class="mf">0.2</span><span class="p">,</span><span class="o">&lt;</span><span class="mf">0.3</span>
 </pre></div>
 <p>However if you plan on shipping your project or library with Pypi,
-install it in another project, or in a virtualenv you need to put them
-in the <tt class="docutils literal">setup.py</tt> file directly in order for them to be installed
-automatically along with your code.</p>
-<div class="highlight"><pre><span></span><span class="na">setup(name</span><span class="o">=</span><span class="s">'saucisson',</span>
-<span class="s">  version='1.0.0.dev0',</span>
-<span class="s">  license='Apache License (2.0)',</span>
-<span class="s">  packages=find_packages(),</span>
-<span class="s">  include_package_data=True,</span>
-<span class="s">  zip_safe=False,</span>
-<span class="s">  install_requires=[</span>
-<span class="s">    'colander &gt;= 1.3.2',</span>
-<span class="s">    'colorama',</span>
-<span class="s">    'cornice &gt;= 2.4',</span>
-<span class="s">    'cornice_swagger &gt;= 0.5',</span>
-<span class="s">    'jsonschema',</span>
-<span class="s">    'jsonpatch',</span>
-<span class="s">    'python-dateutil',</span>
-<span class="s">    'pyramid &gt; 1.8',</span>
-<span class="s">    'pyramid_multiauth &gt;= 0.8',  # User on policy selected event.</span>
-<span class="s">    'transaction',</span>
-<span class="s">    'pyramid_tm',</span>
-<span class="s">    'requests',</span>
-<span class="s">    'structlog &gt;= 16.1.0',</span>
-<span class="s">    'waitress',</span>
-<span class="s">    'ujson &gt;= 1.35'])</span>
+installing it in another project, or in a virtualenv you need to put
+them in the <tt class="docutils literal">setup.py</tt> file directly in order for them to be
+installed automatically along with your code.</p>
+<div class="highlight"><pre><span></span><span class="n">setup</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">'saucisson'</span><span class="p">,</span>
+  <span class="n">version</span><span class="o">=</span><span class="s1">'1.0.0.dev0'</span><span class="p">,</span>
+  <span class="n">license</span><span class="o">=</span><span class="s1">'Apache License (2.0)'</span><span class="p">,</span>
+  <span class="n">packages</span><span class="o">=</span><span class="n">find_packages</span><span class="p">(),</span>
+  <span class="n">include_package_data</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+  <span class="n">zip_safe</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+  <span class="n">install_requires</span><span class="o">=</span><span class="p">[</span>
+    <span class="s1">'colander &gt;= 1.3.2'</span><span class="p">,</span>
+    <span class="s1">'colorama'</span><span class="p">,</span>
+    <span class="s1">'cornice &gt;= 2.4'</span><span class="p">,</span>
+    <span class="s1">'cornice_swagger &gt;= 0.5'</span><span class="p">,</span>
+    <span class="s1">'jsonschema'</span><span class="p">,</span>
+    <span class="s1">'jsonpatch'</span><span class="p">,</span>
+    <span class="s1">'python-dateutil'</span><span class="p">,</span>
+    <span class="s1">'pyramid &gt; 1.8'</span><span class="p">,</span>
+    <span class="s1">'pyramid_multiauth &gt;= 0.8'</span><span class="p">,</span>  <span class="c1"># User on policy selected event.</span>
+    <span class="s1">'transaction'</span><span class="p">,</span>
+    <span class="s1">'pyramid_tm'</span><span class="p">,</span>
+    <span class="s1">'requests'</span><span class="p">,</span>
+    <span class="s1">'structlog &gt;= 16.1.0'</span><span class="p">,</span>
+    <span class="s1">'waitress'</span><span class="p">,</span>
+    <span class="s1">'ujson &gt;= 1.35'</span><span class="p">])</span>
 </pre></div>
 <p>This raises a lot of questions:</p>
 <blockquote>
@@ -98,7 +98,7 @@ it with <tt class="docutils literal">pip install saucisson</tt>, which means tha
 <tt class="docutils literal">python setup.py install</tt> needs to pick up the right dependencies for it.</p>
 <p>It means that <tt class="docutils literal">setup.py</tt> needs to know what are your program
 dependencies and not the <tt class="docutils literal">requirements.txt</tt> file. Instead use your
-<tt class="docutils literal">requirements.txt</tt> to keep a know working set of your dependencies at
+<tt class="docutils literal">requirements.txt</tt> to keep a known working set of your dependencies at
 the time of a release.</p>
 <p>We usually add a <cite>build-requirements</cite> makefile rule on our projects:</p>
 <div class="highlight"><pre><span></span><span class="nv">VIRTUALENV</span> <span class="o">=</span> virtualenv --python<span class="o">=</span>python3
@@ -116,7 +116,7 @@ the time of a release.</p>
 will document what was the known working dependency set at the time of
 the release.</p>
 <p>Then you can install your program later using this file as a
-<a class="reference external" href="https://pip.pypa.io/en/stable/user_guide/#constraints-files">dependency constrain file</a>:</p>
+<a class="reference external" href="https://pip.pypa.io/en/stable/user_guide/#constraints-files">dependency constraint file</a>:</p>
 <div class="highlight"><pre><span></span><span class="go">pip install saucisson -c requirements.txt</span>
 </pre></div>
 </div>
@@ -124,7 +124,7 @@ the release.</p>
 <h2>Avoid pinning version in your setup.py</h2>
 <p>You might be tempted to put dependencies versions in your setup.py,
 i.e. "pinning" them to a specific version.</p>
-<p>You don't need to do so because you are using a contraint file, you
+<p>You don't need to do so because you are using a constraint file, you
 are safe for future updates that might break your code.</p>
 <p>On your CI, don't use a contraint file. It will help you to detect
 that you need to take some actions to support the new released version
@@ -135,9 +135,9 @@ pin some version:</p>
 <h3>If you know that your project will not work with a lower version</h3>
 <p>If you are using a feature or API that didn't exist before or you hit
 a bug that was fixed later.</p>
-<div class="highlight"><pre><span></span><span class="na">psycopg &gt; 2.5</span>
-<span class="na">colander &gt;</span><span class="o">=</span> <span class="s">1.3.2</span>
-<span class="na">ujson &gt;</span><span class="o">=</span> <span class="s">1.35</span>
+<div class="highlight"><pre><span></span><span class="n">psycopg</span> <span class="o">&gt;</span> <span class="mf">2.5</span>
+<span class="n">colander</span> <span class="o">&gt;=</span> <span class="mf">1.3</span><span class="o">.</span><span class="mi">2</span>
+<span class="n">ujson</span> <span class="o">&gt;=</span> <span class="mf">1.35</span>
 </pre></div>
 <p>It won't change the way pip handles your dependency, because even if
 you don't put this, pip will always try to install the latest version.</p>
@@ -154,8 +154,8 @@ run on it.</strong></p>
 version for the shortest possible time until you port your project to
 it.</p>
 <p>It's common to encounter breaking changes when upgrading frameworks:</p>
-<div class="highlight"><pre><span></span><span class="na">Pyramid &lt; 1.8</span>
-<span class="na">django &gt;1.6,&lt;</span><span class="o">=</span> <span class="s">1.8</span>
+<div class="highlight"><pre><span></span><span class="n">Pyramid</span> <span class="o">&lt;</span> <span class="mf">1.8</span>
+<span class="n">django</span> <span class="o">&gt;</span><span class="mf">1.6</span><span class="p">,</span><span class="o">&lt;=</span> <span class="mf">1.8</span>
 </pre></div>
 <p>The danger of doing it is that you might create
 <tt class="docutils literal">pkg_resources.VersionConflict</tt> errors.</p>
@@ -171,7 +171,7 @@ your virtualenv, pip will not upgrade it with the mandatory lower
 version.</p>
 <p>An easy way to break things is to pin a max <tt class="docutils literal">requests</tt> version for
 instance:</p>
-<div class="highlight"><pre><span></span><span class="na">requests &lt; 2.13</span>
+<div class="highlight"><pre><span></span><span class="n">requests</span> <span class="o">&lt;</span> <span class="mf">2.13</span>
 </pre></div>
 <p>If you do that, you will end up having
 <tt class="docutils literal">pkg_resources.VersionConflict</tt> error when running your program.</p>
@@ -237,16 +237,16 @@ have one already activated:</p>
 process that needs to work well together.</p>
 <ul class="simple">
 <li>Installing automatically a project version in a working state,
-that's what you can do using requiremrents constraint files.</li>
+you can do this using requiremrents constraint files.</li>
 <li>Keeping the project up-to-date with next version of its dependencies
 without breaking previous released versions.</li>
 <li>Installing a project as part as another project without it breaking
 the project with dependencies version conflicts.</li>
 </ul>
-<p>Our solution to this is as follow:</p>
+<p>Our solution to this is as follows:</p>
 <ul class="simple">
 <li>Keep your project dependencies clean of any version number.</li>
-<li>At release time document what is the known version check.</li>
+<li>At release time, document what is the tested dependency versions.</li>
 <li>Use that known working state as a way to install a given release of
 the project.</li>
 <li>Run your CI without the constraint file to detect dependencies
@@ -258,7 +258,7 @@ update that might break future release of your code.</li>
 <p>In a perfect world, it would be great to know in advance what is the
 next version of the library that will stop working with your code.</p>
 <p>The good news is that this future is already there and that's what
-semantic versionning is trying to address.</p>
+semantic versioning is trying to address.</p>
 <div class="section" id="what-can-break-your-code">
 <h3>What can break your code?</h3>
 <ul class="simple">
@@ -269,14 +269,14 @@ semantic versionning is trying to address.</p>
 <p>In one word, everything that changes the API that is exposed by the
 library will break the code of people relying on it.</p>
 </div>
-<div class="section" id="what-is-semantic-versionning">
-<h3>What is Semantic Versionning?</h3>
-<p>Semantic versionning is a way to be able to tell if a new release of a
+<div class="section" id="what-is-semantic-versioning">
+<h3>What is Semantic Versioning?</h3>
+<p>Semantic versioning is a way to be able to tell if a new release of a
 dependency you are using is compatible with your code by looking at
 its version number.</p>
 <p>Alternatively it is a way to tell people relying on your code if your
 release is likely to break their code or not.</p>
-<p>In semantic versionning, the version number is made of a triplet of
+<p>In semantic versioning, the version number is made of a triplet of
 numbers separated by dots: i.e <tt class="docutils literal">2.11.5</tt></p>
 <p>They are call <tt class="docutils literal">MAJOR.MINOR.PATCH</tt></p>
 </div>
@@ -294,13 +294,13 @@ the case yet as soon as one project is using the code in production.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p>In case your project is providing a web API or implements a
-protocol, it might be really tempted to say that the MAJOR version
+protocol, it might be really tempting to say that the MAJOR version
 is also the version of the implemented protocol.</p>
 <p class="last">You should not do that because if your break the code API and not
 the protocol API and that both are coupled you will not be able to
 increment this MAJOR version. Instead the protocol version should
 be tracked in another protocol version information that could also
-follow semantic versionning.</p>
+follow semantic versioning.</p>
 </div>
 </div>
 <div class="section" id="minor-version">
@@ -318,22 +318,22 @@ and should not.</p>
 <p>They are for bug fixes only and should has a really low impact on the
 existing code base.</p>
 </div>
-<div class="section" id="the-case-of-semantic-versionning-dependencies">
-<h3>The case of semantic versionning dependencies</h3>
-<p>If your project dependencies are using semantic versionning you can
+<div class="section" id="the-case-of-semantic-versioning-dependencies">
+<h3>The case of semantic versioning dependencies</h3>
+<p>If your project dependencies are using semantic versioning you can
 theoritically know that the next major version is likely to break it.</p>
-<p>However minor should not break it and patched version must definitely
+<p>However minor should not break it and patched version must defpythontely
 not break it.</p>
-<p>With projects using semantic versionning you could define your
+<p>With projects using semantic versioning you could define your
 dependencies like that:</p>
-<div class="highlight"><pre><span></span><span class="na">kinto &gt;</span><span class="o">=</span><span class="s">5.1,&lt;6</span>
-<span class="na">kinto-redis &gt;</span><span class="o">=</span><span class="s">1.1,&lt;2</span>
+<div class="highlight"><pre><span></span><span class="n">kinto</span> <span class="o">&gt;=</span><span class="mf">5.1</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">6</span>
+<span class="n">kinto</span><span class="o">-</span><span class="n">redis</span> <span class="o">&gt;=</span><span class="mf">1.1</span><span class="p">,</span><span class="o">&lt;</span><span class="mi">2</span>
 </pre></div>
 <p>Often people are afraid to increment the MAJOR version of their
 projects.</p>
 <p>If it is the case ask yourself why, it should not be a problem to do
-so because if your project follows semantic versionning then that's
-how it should works.</p>
+so because if your project follows semantic versioning then that's
+how it should work.</p>
 <p>Most of the time it is because you are also using your <tt class="docutils literal">MAJOR</tt>
 number for something else so don't do it. You should not be worried
 about that, it is always great to increment a version number because

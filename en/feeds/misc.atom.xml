@@ -1,5 +1,307 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages - misc</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/misc.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2017-01-30T00:00:00+01:00</updated><entry><title>10 reasons to give another chance to Firefox Nightly</title><link href="http://www.servicedenuages.fr/en/give-firefox-nightly-another-chance" rel="alternate"></link><published>2017-01-30T00:00:00+01:00</published><updated>2017-01-30T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2017-01-30:/en/give-firefox-nightly-another-chance</id><summary type="html">&lt;p class="first last"&gt;Help us make the best Mozilla Firefox of all the times by mid 2017!&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages - misc</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/misc.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2017-02-24T00:00:00+01:00</updated><entry><title>Handling Python Project dependencies</title><link href="http://www.servicedenuages.fr/en/handling-python-projects-dependencies" rel="alternate"></link><published>2017-02-24T00:00:00+01:00</published><updated>2017-02-24T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2017-02-24:/en/handling-python-projects-dependencies</id><summary type="html">&lt;dl class="first last docutils"&gt;
+&lt;dt&gt;Coping with project depdendencies can be a bit cumbersome.&lt;/dt&gt;
+&lt;dd&gt;&lt;p class="first last"&gt;Learn how we are handling our Python project dependencies.&lt;/p&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+</summary><content type="html">&lt;div class="section" id="introduction"&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;If you ever started a Python project you might have heard of a
+&lt;tt class="docutils literal"&gt;requirements.txt&lt;/tt&gt; file that contains a list of dependencies.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;pelican&lt;/span&gt;
+&lt;span class="n"&gt;beautifulsoup4&lt;/span&gt;
+&lt;span class="n"&gt;ghp&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt;
+&lt;span class="nn"&gt;Pillow&lt;/span&gt;&lt;span class="o"&gt;==&lt;/span&gt;&lt;span class="mf"&gt;4.0&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;
+&lt;span class="n"&gt;markdown&lt;/span&gt;
+&lt;span class="n"&gt;pysvg&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;=&lt;/span&gt;&lt;span class="mf"&gt;0.2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="mf"&gt;0.3&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;However if you plan on shipping your project or library with Pypi,
+installing it in another project, or in a virtualenv you need to put
+them in the &lt;tt class="docutils literal"&gt;setup.py&lt;/tt&gt; file directly in order for them to be
+installed automatically along with your code.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;setup&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'saucisson'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="n"&gt;version&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'1.0.0.dev0'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="n"&gt;license&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s1"&gt;'Apache License (2.0)'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="n"&gt;packages&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="n"&gt;find_packages&lt;/span&gt;&lt;span class="p"&gt;(),&lt;/span&gt;
+  &lt;span class="n"&gt;include_package_data&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;True&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="n"&gt;zip_safe&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="bp"&gt;False&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+  &lt;span class="n"&gt;install_requires&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;
+    &lt;span class="s1"&gt;'colander &amp;gt;= 1.3.2'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'colorama'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'cornice &amp;gt;= 2.4'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'cornice_swagger &amp;gt;= 0.5'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'jsonschema'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'jsonpatch'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'python-dateutil'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'pyramid &amp;gt; 1.8'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'pyramid_multiauth &amp;gt;= 0.8'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;  &lt;span class="c1"&gt;# User on policy selected event.&lt;/span&gt;
+    &lt;span class="s1"&gt;'transaction'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'pyramid_tm'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'requests'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'structlog &amp;gt;= 16.1.0'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'waitress'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="s1"&gt;'ujson &amp;gt;= 1.35'&lt;/span&gt;&lt;span class="p"&gt;])&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;This raises a lot of questions:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;How do I update project dependencies?&lt;/li&gt;
+&lt;li&gt;What were the known working dependencies version at a certain release?&lt;/li&gt;
+&lt;li&gt;How do I make sure a release of one of my dependencies doesn't break my release?&lt;/li&gt;
+&lt;li&gt;How do I make sure that my code is not used with a unsupported version of a dependency?&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;/div&gt;
+&lt;div class="section" id="avoid-using-requirements-file-to-handle-your-program-dependencies"&gt;
+&lt;h2&gt;Avoid using requirements file to handle your program dependencies&lt;/h2&gt;
+&lt;p&gt;Once your program (i.e &lt;tt class="docutils literal"&gt;saucisson&lt;/tt&gt;) is released, users will install
+it with &lt;tt class="docutils literal"&gt;pip install saucisson&lt;/tt&gt;, which means that
+&lt;tt class="docutils literal"&gt;python setup.py install&lt;/tt&gt; needs to pick up the right dependencies for it.&lt;/p&gt;
+&lt;p&gt;It means that &lt;tt class="docutils literal"&gt;setup.py&lt;/tt&gt; needs to know what are your program
+dependencies and not the &lt;tt class="docutils literal"&gt;requirements.txt&lt;/tt&gt; file. Instead use your
+&lt;tt class="docutils literal"&gt;requirements.txt&lt;/tt&gt; to keep a known working set of your dependencies at
+the time of a release.&lt;/p&gt;
+&lt;p&gt;We usually add a &lt;cite&gt;build-requirements&lt;/cite&gt; makefile rule on our projects:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;VIRTUALENV&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; virtualenv --python&lt;span class="o"&gt;=&lt;/span&gt;python3
+
+
+&lt;span class="nf"&gt;build-requirements&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;&lt;span class="nb"&gt;eval&lt;/span&gt; TEMPDIR :&lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;shell mktemp -d&lt;span class="k"&gt;))&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;VIRTUALENV&lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;TEMPDIR&lt;span class="k"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;TEMPDIR&lt;span class="k"&gt;)&lt;/span&gt;/bin/pip install -U pip  &lt;span class="c1"&gt;# Upgrade pip&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;TEMPDIR&lt;span class="k"&gt;)&lt;/span&gt;/bin/pip install -Ue .   &lt;span class="c1"&gt;# Develop the current project locally&lt;/span&gt;
+&lt;span class="c"&gt;    # Freeze the dependencies ignoring the dependency links.&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;TEMPDIR&lt;span class="k"&gt;)&lt;/span&gt;/bin/pip freeze &lt;span class="p"&gt;|&lt;/span&gt; grep -v -- &lt;span class="s1"&gt;'^-e'&lt;/span&gt; &amp;gt; requirements.txt
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If you run &lt;cite&gt;make build-requirements&lt;/cite&gt; before tagging your release you
+will document what was the known working dependency set at the time of
+the release.&lt;/p&gt;
+&lt;p&gt;Then you can install your program later using this file as a
+&lt;a class="reference external" href="https://pip.pypa.io/en/stable/user_guide/#constraints-files"&gt;dependency constraint file&lt;/a&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="go"&gt;pip install saucisson -c requirements.txt&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="avoid-pinning-version-in-your-setup-py"&gt;
+&lt;h2&gt;Avoid pinning version in your setup.py&lt;/h2&gt;
+&lt;p&gt;You might be tempted to put dependencies versions in your setup.py,
+i.e. "pinning" them to a specific version.&lt;/p&gt;
+&lt;p&gt;You don't need to do so because you are using a constraint file, you
+are safe for future updates that might break your code.&lt;/p&gt;
+&lt;p&gt;On your CI, don't use a contraint file. It will help you to detect
+that you need to take some actions to support the new released version
+that breaks your tests.&lt;/p&gt;
+&lt;p&gt;However with that in mind, there are some cases when you still want to
+pin some version:&lt;/p&gt;
+&lt;div class="section" id="if-you-know-that-your-project-will-not-work-with-a-lower-version"&gt;
+&lt;h3&gt;If you know that your project will not work with a lower version&lt;/h3&gt;
+&lt;p&gt;If you are using a feature or API that didn't exist before or you hit
+a bug that was fixed later.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;psycopg&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="mf"&gt;2.5&lt;/span&gt;
+&lt;span class="n"&gt;colander&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="mf"&gt;1.3&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;span class="n"&gt;ujson&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt; &lt;span class="mf"&gt;1.35&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;It won't change the way pip handles your dependency, because even if
+you don't put this, pip will always try to install the latest version.&lt;/p&gt;
+&lt;p&gt;However it will detect if another library or the project using your
+library is trying to use it with a lower version that won't work with
+your code.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="if-you-know-that-your-project-doesn-t-support-yet-the-next-release"&gt;
+&lt;h3&gt;If you know that your project doesn't support yet the next release&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;I insist that this applies only if a new version version of a
+dependency has already been released and that your test suite doesn't
+run on it.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;In that case, and only in that case, you can pin the dependency's
+version for the shortest possible time until you port your project to
+it.&lt;/p&gt;
+&lt;p&gt;It's common to encounter breaking changes when upgrading frameworks:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;Pyramid&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mf"&gt;1.8&lt;/span&gt;
+&lt;span class="n"&gt;django&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;&lt;/span&gt;&lt;span class="mf"&gt;1.6&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;=&lt;/span&gt; &lt;span class="mf"&gt;1.8&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The danger of doing it is that you might create
+&lt;tt class="docutils literal"&gt;pkg_resources.VersionConflict&lt;/tt&gt; errors.&lt;/p&gt;
+&lt;p&gt;When Python starts and imports your lib it will look at the
+requirements list and validate that all dependencies are installed
+with their expected version. If it is not the case Python will not let
+you start your application.&lt;/p&gt;
+&lt;p&gt;However when you install a dependency, pip will check if it is already
+installed without validating if the expected version is installed but
+rather if a version is installed.&lt;/p&gt;
+&lt;p&gt;If a lib already installed the dependency with a greater version in
+your virtualenv, pip will not upgrade it with the mandatory lower
+version.&lt;/p&gt;
+&lt;p&gt;An easy way to break things is to pin a max &lt;tt class="docutils literal"&gt;requests&lt;/tt&gt; version for
+instance:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;requests&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt; &lt;span class="mf"&gt;2.13&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If you do that, you will end up having
+&lt;tt class="docutils literal"&gt;pkg_resources.VersionConflict&lt;/tt&gt; error when running your program.&lt;/p&gt;
+&lt;p&gt;What is happening is that Python is checking the dependencies and will
+refuse to run if you have a greater &lt;tt class="docutils literal"&gt;requests&lt;/tt&gt; version.&lt;/p&gt;
+&lt;p&gt;This can happen if another dependency already needed &lt;tt class="docutils literal"&gt;requests&lt;/tt&gt; as a
+dependency and pip already installed it with a greater version.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;So really do it only if you must.&lt;/strong&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="what-about-test-dependencies"&gt;
+&lt;h2&gt;What about test dependencies?&lt;/h2&gt;
+&lt;p&gt;That's a good question, I am glad you asked.&lt;/p&gt;
+&lt;p&gt;Test dependencies are less of an issue. You can either use
+&lt;tt class="docutils literal"&gt;test_requires&lt;/tt&gt; in your &lt;tt class="docutils literal"&gt;setup.py&lt;/tt&gt; or a &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;dev-requirements.txt&lt;/span&gt;&lt;/tt&gt;
+file.&lt;/p&gt;
+&lt;p&gt;In the former you will need to run tests using &lt;tt class="docutils literal"&gt;python setup.py test&lt;/tt&gt;
+which unfortunately doesn't install dependencies in a &lt;tt class="docutils literal"&gt;virtualenv&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;In the later you will need to make sure your test dependencies are
+installed before running the tests but tools like &lt;tt class="docutils literal"&gt;tox&lt;/tt&gt; already do
+that for you.&lt;/p&gt;
+&lt;p&gt;Our take on this was to put test dependencies in a
+&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;dev-requirements.txt&lt;/span&gt;&lt;/tt&gt; file.&lt;/p&gt;
+&lt;p&gt;We have a Makefile rule that knows if dev-dependencies should be
+installed or not before running the &lt;tt class="docutils literal"&gt;tests&lt;/tt&gt; target.&lt;/p&gt;
+&lt;p&gt;As a bonus it will automatically create a virtualenv if you don't
+have one already activated:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nv"&gt;VIRTUALENV&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; virtualenv --python&lt;span class="o"&gt;=&lt;/span&gt;python3
+&lt;span class="nv"&gt;VENV&lt;/span&gt; &lt;span class="o"&gt;:=&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;shell &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="nv"&gt;$$&lt;/span&gt;&lt;span class="o"&gt;{&lt;/span&gt;VIRTUAL_ENV-.venv&lt;span class="o"&gt;}&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;  &lt;span class="c1"&gt;# Use the activated virtualenv path or use .venv&lt;/span&gt;
+&lt;span class="nv"&gt;PYTHON&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;VENV&lt;span class="k"&gt;)&lt;/span&gt;/bin/python
+&lt;span class="nv"&gt;INSTALL_STAMP&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;VENV&lt;span class="k"&gt;)&lt;/span&gt;/.install.stamp
+&lt;span class="nv"&gt;INSTALL_DEV_STAMP&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;VENV&lt;span class="k"&gt;)&lt;/span&gt;/.dev_env_installed.stamp
+
+&lt;span class="nf"&gt;install&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;&lt;span class="nv"&gt;INSTALL_STAMP&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;
+
+&lt;span class="nf"&gt;$(INSTALL_STAMP)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;&lt;span class="nv"&gt;PYTHON&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="n"&gt;setup&lt;/span&gt;.&lt;span class="n"&gt;py&lt;/span&gt;  &lt;span class="c"&gt;# Refresh the virtualenv if setup.py changed&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;VENV&lt;span class="k"&gt;)&lt;/span&gt;/bin/pip install -U pip
+    &lt;span class="k"&gt;$(&lt;/span&gt;VENV&lt;span class="k"&gt;)&lt;/span&gt;/bin/pip install -Ue .
+    touch &lt;span class="k"&gt;$(&lt;/span&gt;INSTALL_STAMP&lt;span class="k"&gt;)&lt;/span&gt;
+
+&lt;span class="nf"&gt;virtualenv&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;&lt;span class="nv"&gt;PYTHON&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;  &lt;span class="c"&gt;# Create the virtualenv if needed (python executable not present)&lt;/span&gt;
+
+&lt;span class="nf"&gt;$(PYTHON)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;VIRTUALENV&lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;VENV&lt;span class="k"&gt;)&lt;/span&gt;
+
+&lt;span class="nf"&gt;install-dev&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;&lt;span class="nv"&gt;DEV_STAMP&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt;
+
+&lt;span class="c"&gt;# Refresh dev dependencies if dev-requirements.txt changed&lt;/span&gt;
+&lt;span class="nf"&gt;$(DEV_STAMP)&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="k"&gt;$(&lt;/span&gt;&lt;span class="nv"&gt;PYTHON&lt;/span&gt;&lt;span class="k"&gt;)&lt;/span&gt; &lt;span class="n"&gt;dev&lt;/span&gt;-&lt;span class="n"&gt;requirements&lt;/span&gt;.&lt;span class="n"&gt;txt&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;VENV&lt;span class="k"&gt;)&lt;/span&gt;/bin/pip install -Ur dev-requirements.txt
+    touch &lt;span class="k"&gt;$(&lt;/span&gt;DEV_STAMP&lt;span class="k"&gt;)&lt;/span&gt;
+
+&lt;span class="nf"&gt;tests-once&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt;-&lt;span class="n"&gt;dev&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;VENV&lt;span class="k"&gt;)&lt;/span&gt;/bin/py.test tests/
+
+&lt;span class="nf"&gt;serve&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="n"&gt;install&lt;/span&gt;
+    &lt;span class="k"&gt;$(&lt;/span&gt;VENV&lt;span class="k"&gt;)&lt;/span&gt;/bin/python manage.py runserver
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="conclusion"&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;As a conclusion, when working with Python dependencies there are three
+process that needs to work well together.&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Installing automatically a project version in a working state,
+you can do this using requiremrents constraint files.&lt;/li&gt;
+&lt;li&gt;Keeping the project up-to-date with next version of its dependencies
+without breaking previous released versions.&lt;/li&gt;
+&lt;li&gt;Installing a project as part as another project without it breaking
+the project with dependencies version conflicts.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Our solution to this is as follows:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Keep your project dependencies clean of any version number.&lt;/li&gt;
+&lt;li&gt;At release time, document what is the tested dependency versions.&lt;/li&gt;
+&lt;li&gt;Use that known working state as a way to install a given release of
+the project.&lt;/li&gt;
+&lt;li&gt;Run your CI without the constraint file to detect dependencies
+update that might break future release of your code.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="in-our-way-to-the-future"&gt;
+&lt;h2&gt;In our way to the future&lt;/h2&gt;
+&lt;p&gt;In a perfect world, it would be great to know in advance what is the
+next version of the library that will stop working with your code.&lt;/p&gt;
+&lt;p&gt;The good news is that this future is already there and that's what
+semantic versioning is trying to address.&lt;/p&gt;
+&lt;div class="section" id="what-can-break-your-code"&gt;
+&lt;h3&gt;What can break your code?&lt;/h3&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Changing the name of functions or objects&lt;/li&gt;
+&lt;li&gt;Changing the name of parameters or their order in the function call&lt;/li&gt;
+&lt;li&gt;Changing the way to configure the project&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In one word, everything that changes the API that is exposed by the
+library will break the code of people relying on it.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="what-is-semantic-versioning"&gt;
+&lt;h3&gt;What is Semantic Versioning?&lt;/h3&gt;
+&lt;p&gt;Semantic versioning is a way to be able to tell if a new release of a
+dependency you are using is compatible with your code by looking at
+its version number.&lt;/p&gt;
+&lt;p&gt;Alternatively it is a way to tell people relying on your code if your
+release is likely to break their code or not.&lt;/p&gt;
+&lt;p&gt;In semantic versioning, the version number is made of a triplet of
+numbers separated by dots: i.e &lt;tt class="docutils literal"&gt;2.11.5&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;They are call &lt;tt class="docutils literal"&gt;MAJOR.MINOR.PATCH&lt;/tt&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="major-version"&gt;
+&lt;h3&gt;MAJOR version&lt;/h3&gt;
+&lt;p&gt;The &lt;tt class="docutils literal"&gt;MAJOR&lt;/tt&gt; number is the version of the public API that the library
+provides.&lt;/p&gt;
+&lt;p&gt;The API that you provide are the public function that you expect
+people that use your API to use or the plugin of your project to
+implements.&lt;/p&gt;
+&lt;p&gt;As soon as the &lt;tt class="docutils literal"&gt;MAJOR&lt;/tt&gt; version is greater than 0, the API is
+considered to be stable and not to change unexpectidly.&lt;/p&gt;
+&lt;p&gt;It is really important to set the &lt;tt class="docutils literal"&gt;MAJOR&lt;/tt&gt; version to 1 if it is not
+the case yet as soon as one project is using the code in production.&lt;/p&gt;
+&lt;div class="admonition note"&gt;
+&lt;p class="first admonition-title"&gt;Note&lt;/p&gt;
+&lt;p&gt;In case your project is providing a web API or implements a
+protocol, it might be really tempting to say that the MAJOR version
+is also the version of the implemented protocol.&lt;/p&gt;
+&lt;p class="last"&gt;You should not do that because if your break the code API and not
+the protocol API and that both are coupled you will not be able to
+increment this MAJOR version. Instead the protocol version should
+be tracked in another protocol version information that could also
+follow semantic versioning.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="minor-version"&gt;
+&lt;h3&gt;MINOR version&lt;/h3&gt;
+&lt;p&gt;The &lt;tt class="docutils literal"&gt;MINOR&lt;/tt&gt; number is the most common number to change, it is
+incremented when you are improving the software, adding non-breaking
+features to existing API or refactoring existing code.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="patch-version"&gt;
+&lt;h3&gt;PATCH version&lt;/h3&gt;
+&lt;p&gt;The &lt;tt class="docutils literal"&gt;PATCH&lt;/tt&gt; number is incremented when the previous minor version
+has some bugs that affects users and that should be fixed as soon as
+possible. Non handled exceptions, cases that make the library fails
+and should not.&lt;/p&gt;
+&lt;p&gt;They are for bug fixes only and should has a really low impact on the
+existing code base.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="the-case-of-semantic-versioning-dependencies"&gt;
+&lt;h3&gt;The case of semantic versioning dependencies&lt;/h3&gt;
+&lt;p&gt;If your project dependencies are using semantic versioning you can
+theoritically know that the next major version is likely to break it.&lt;/p&gt;
+&lt;p&gt;However minor should not break it and patched version must defpythontely
+not break it.&lt;/p&gt;
+&lt;p&gt;With projects using semantic versioning you could define your
+dependencies like that:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;kinto&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt;&lt;span class="mf"&gt;5.1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="mi"&gt;6&lt;/span&gt;
+&lt;span class="n"&gt;kinto&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;redis&lt;/span&gt; &lt;span class="o"&gt;&amp;gt;=&lt;/span&gt;&lt;span class="mf"&gt;1.1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Often people are afraid to increment the MAJOR version of their
+projects.&lt;/p&gt;
+&lt;p&gt;If it is the case ask yourself why, it should not be a problem to do
+so because if your project follows semantic versioning then that's
+how it should work.&lt;/p&gt;
+&lt;p&gt;Most of the time it is because you are also using your &lt;tt class="docutils literal"&gt;MAJOR&lt;/tt&gt;
+number for something else so don't do it. You should not be worried
+about that, it is always great to increment a version number because
+it means your project is alive.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</content><category term="mozilla"></category></entry><entry><title>10 reasons to give another chance to Firefox Nightly</title><link href="http://www.servicedenuages.fr/en/give-firefox-nightly-another-chance" rel="alternate"></link><published>2017-01-30T00:00:00+01:00</published><updated>2017-01-30T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2017-01-30:/en/give-firefox-nightly-another-chance</id><summary type="html">&lt;p class="first last"&gt;Help us make the best Mozilla Firefox of all the times by mid 2017!&lt;/p&gt;
 </summary><content type="html">&lt;div class="section" id="what-is-nightly"&gt;
 &lt;h2&gt;What is Nightly?&lt;/h2&gt;
 &lt;p&gt;The Firefox Nightly build also known as Firefox Nightly is a version
