@@ -26,10 +26,10 @@ If you ever started a Python project you might have heard of a
     pysvg>=0.2,<0.3
 
 
-However if you plan on ship your project or library with Pypi, install
-it in another project or in a virtualevn you need to put them in the
-``setup.py`` file in order for them to be installed automatically with
-your code.
+However if you plan on shipping your project or library with Pypi,
+install it in another project, or in a virtualenv you need to put them
+in the ``setup.py`` file directly in order for them to be installed
+automatically along with your code.
 
 .. code-block:: ini
 
@@ -73,7 +73,7 @@ it with ``pip install saucisson``, which means that
 
 It means that ``setup.py`` needs to know what are your program
 dependencies and not the ``requirements.txt`` file. Instead use your
-``requirements.txt`` to set a know working set of your dependencies at
+``requirements.txt`` to keep a know working set of your dependencies at
 the time of a release.
 
 We usually add a `build-requirements` makefile rule on our projects:
@@ -114,7 +114,7 @@ are safe for future updates that might break your code.
 
 On your CI, don't use a contraint file. It will help you to detect
 that you need to take some actions to support the new released version
-that break your tests.
+that breaks your tests.
 
 However with that in mind, there are some cases when you still want to
 pin some version:
@@ -203,14 +203,13 @@ Test dependencies are less of an issue. You can either use
 file.
 
 In the former you will need to run tests using ``python setup.py test``
-which unfortunately doesn't run in a ``virtualenv``
+which unfortunately doesn't install dependencies in a ``virtualenv``
 
 In the later you will need to make sure your test dependencies are
 installed before running the tests but tools like ``tox`` already do
 that for you.
 
-
-Our take on this is to put test dependencies in a
+Our take on this was to put test dependencies in a
 ``dev-requirements.txt`` file.
 
 We have a Makefile rule that knows if dev-dependencies should be
@@ -249,5 +248,145 @@ have one already activated:
     tests-once: install-dev
         $(VENV)/bin/py.test tests/
     
-    serve:
+    serve: install
     	$(VENV)/bin/python manage.py runserver
+
+
+Conclusion
+==========
+
+As a conclusion, when working with Python dependencies there are three
+process that needs to work well together.
+
+- Installing automatically a project version in a working state,
+  that's what you can do using requiremrents constraint files.
+- Keeping the project up-to-date with next version of its dependencies
+  without breaking previous released versions.
+- Installing a project as part as another project without it breaking
+  the project with dependencies version conflicts.
+
+Our solution to this is as follow:
+
+- Keep your project dependencies clean of any version number.
+- At release time document what is the known version check.
+- Use that known working state as a way to install a given release of
+  the project.
+- Run your CI without the constraint file to detect dependencies
+  update that might break future release of your code.
+
+
+In our way to the future
+========================
+
+In a perfect world, it would be great to know in advance what is the
+next version of the library that will stop working with your code.
+
+The good news is that this future is already there and that's what
+semantic versionning is trying to address.
+
+
+What can break your code?
+-------------------------
+
+- Changing the name of functions or objects
+- Changing the name of parameters or their order in the function call
+- Changing the way to configure the project
+
+In one word, everything that changes the API that is exposed by the
+library will break the code of people relying on it.
+
+
+What is Semantic Versionning?
+-----------------------------
+
+Semantic versionning is a way to be able to tell if a new release of a
+dependency you are using is compatible with your code by looking at
+its version number.
+
+Alternatively it is a way to tell people relying on your code if your
+release is likely to break their code or not.
+
+In semantic versionning, the version number is made of a triplet of
+numbers separated by dots: i.e ``2.11.5``
+
+They are call ``MAJOR.MINOR.PATCH``
+
+MAJOR version
+-------------
+
+The ``MAJOR`` number is the version of the public API that the library
+provides.
+
+The API that you provide are the public function that you expect
+people that use your API to use or the plugin of your project to
+implements.
+
+As soon as the ``MAJOR`` version is greater than 0, the API is
+considered to be stable and not to change unexpectidly.
+
+It is really important to set the ``MAJOR`` version to 1 if it is not
+the case yet as soon as one project is using the code in production.
+
+
+.. note::
+
+   In case your project is providing a web API or implements a
+   protocol, it might be really tempted to say that the MAJOR version
+   is also the version of the implemented protocol.
+
+   You should not do that because if your break the code API and not
+   the protocol API and that both are coupled you will not be able to
+   increment this MAJOR version. Instead the protocol version should
+   be tracked in another protocol version information that could also
+   follow semantic versionning.
+
+
+MINOR version
+-------------
+
+The ``MINOR`` number is the most common number to change, it is
+incremented when you are improving the software, adding non-breaking
+features to existing API or refactoring existing code.
+
+
+PATCH version
+-------------
+
+The ``PATCH`` number is incremented when the previous minor version
+has some bugs that affects users and that should be fixed as soon as
+possible. Non handled exceptions, cases that make the library fails
+and should not.
+
+They are for bug fixes only and should has a really low impact on the
+existing code base.
+
+
+The case of semantic versionning dependencies
+---------------------------------------------
+
+If your project dependencies are using semantic versionning you can
+theoritically know that the next major version is likely to break it.
+
+However minor should not break it and patched version must definitely
+not break it.
+
+With projects using semantic versionning you could define your
+dependencies like that:
+
+
+.. code-block:: ini
+
+    kinto >=5.1,<6
+    kinto-redis >=1.1,<2
+
+Often people are afraid to increment the MAJOR version of their
+projects.
+
+If it is the case ask yourself why, it should not be a problem to do
+so because if your project follows semantic versionning then that's
+how it should works.
+
+Most of the time it is because you are also using your ``MAJOR``
+number for something else so don't do it. You should not be worried
+about that, it is always great to increment a version number because
+it means your project is alive.
