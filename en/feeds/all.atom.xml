@@ -198,7 +198,7 @@ have one already activated:&lt;/p&gt;
 process that needs to work well together.&lt;/p&gt;
 &lt;ul class="simple"&gt;
 &lt;li&gt;Installing automatically a project version in a working state,
-you can do this using requiremrents constraint files.&lt;/li&gt;
+you can do this using requirements constraint files.&lt;/li&gt;
 &lt;li&gt;Keeping the project up-to-date with next version of its dependencies
 without breaking previous released versions.&lt;/li&gt;
 &lt;li&gt;Installing a project as part as another project without it breaking
