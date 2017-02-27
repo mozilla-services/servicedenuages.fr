@@ -4,6 +4,7 @@ Handling Python Project dependencies
 :slug: handling-python-projects-dependencies
 :date: 2017-02-24
 :lang: en
+:status: draft
 :url: handling-python-projects-dependencies
 :summary:
     Coping with project depdendencies can be a bit cumbersome.
@@ -16,7 +17,7 @@ Introduction
 If you ever started a Python project you might have heard of a
 ``requirements.txt`` file that contains a list of dependencies.
 
-.. code-block:: ini
+.. code-block:: python
 
     pelican
     beautifulsoup4
@@ -31,7 +32,7 @@ installing it in another project, or in a virtualenv you need to put
 them in the ``setup.py`` file directly in order for them to be
 installed automatically along with your code.
 
-.. code-block:: ini
+.. code-block:: python
 
     setup(name='saucisson',
       version='1.0.0.dev0',
@@ -126,7 +127,7 @@ If you know that your project will not work with a lower version
 If you are using a feature or API that didn't exist before or you hit
 a bug that was fixed later.
 
-.. code-block:: ini
+.. code-block:: python
 
    psycopg > 2.5
    colander >= 1.3.2
@@ -153,7 +154,7 @@ it.
 
 It's common to encounter breaking changes when upgrading frameworks:
 
-.. code-block:: ini
+.. code-block:: python
 
    Pyramid < 1.8
    django >1.6,<= 1.8
@@ -177,7 +178,7 @@ version.
 An easy way to break things is to pin a max ``requests`` version for
 instance:
 
-.. code-block:: ini
+.. code-block:: python
 
    requests < 2.13
 
@@ -331,7 +332,7 @@ the case yet as soon as one project is using the code in production.
 .. note::
 
    In case your project is providing a web API or implements a
-   protocol, it might be really tempted to say that the MAJOR version
+   protocol, it might be really tempting to say that the MAJOR version
    is also the version of the implemented protocol.
 
    You should not do that because if your break the code API and not
@@ -367,14 +368,14 @@ The case of semantic versioning dependencies
 If your project dependencies are using semantic versioning you can
 theoritically know that the next major version is likely to break it.
 
-However minor should not break it and patched version must definitely
+However minor should not break it and patched version must defpythontely
 not break it.
 
 With projects using semantic versioning you could define your
 dependencies like that:
 
 
-.. code-block:: ini
+.. code-block:: python
 
     kinto >=5.1,<6
     kinto-redis >=1.1,<2
