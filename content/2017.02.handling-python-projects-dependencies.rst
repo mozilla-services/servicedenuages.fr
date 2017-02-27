@@ -27,9 +27,9 @@ If you ever started a Python project you might have heard of a
 
 
 However if you plan on shipping your project or library with Pypi,
-install it in another project, or in a virtualenv you need to put them
-in the ``setup.py`` file directly in order for them to be installed
-automatically along with your code.
+installing it in another project, or in a virtualenv you need to put
+them in the ``setup.py`` file directly in order for them to be
+installed automatically along with your code.
 
 .. code-block:: ini
 
@@ -73,7 +73,7 @@ it with ``pip install saucisson``, which means that
 
 It means that ``setup.py`` needs to know what are your program
 dependencies and not the ``requirements.txt`` file. Instead use your
-``requirements.txt`` to keep a know working set of your dependencies at
+``requirements.txt`` to keep a known working set of your dependencies at
 the time of a release.
 
 We usually add a `build-requirements` makefile rule on our projects:
@@ -96,7 +96,7 @@ will document what was the known working dependency set at the time of
 the release.
 
 Then you can install your program later using this file as a
-`dependency constrain file <https://pip.pypa.io/en/stable/user_guide/#constraints-files>`_:
+`dependency constraint file <https://pip.pypa.io/en/stable/user_guide/#constraints-files>`_:
 
 .. code-block:: console
 
@@ -109,7 +109,7 @@ Avoid pinning version in your setup.py
 You might be tempted to put dependencies versions in your setup.py,
 i.e. "pinning" them to a specific version.
 
-You don't need to do so because you are using a contraint file, you
+You don't need to do so because you are using a constraint file, you
 are safe for future updates that might break your code.
 
 On your CI, don't use a contraint file. It will help you to detect
@@ -126,7 +126,7 @@ If you know that your project will not work with a lower version
 If you are using a feature or API that didn't exist before or you hit
 a bug that was fixed later.
 
-.. code-block::
+.. code-block:: ini
 
    psycopg > 2.5
    colander >= 1.3.2
@@ -153,7 +153,7 @@ it.
 
 It's common to encounter breaking changes when upgrading frameworks:
 
-.. code-block::
+.. code-block:: ini
 
    Pyramid < 1.8
    django >1.6,<= 1.8
@@ -177,7 +177,7 @@ version.
 An easy way to break things is to pin a max ``requests`` version for
 instance:
 
-.. code-block::
+.. code-block:: ini
 
    requests < 2.13
 
@@ -259,16 +259,16 @@ As a conclusion, when working with Python dependencies there are three
 process that needs to work well together.
 
 - Installing automatically a project version in a working state,
-  that's what you can do using requiremrents constraint files.
+  you can do this using requiremrents constraint files.
 - Keeping the project up-to-date with next version of its dependencies
   without breaking previous released versions.
 - Installing a project as part as another project without it breaking
   the project with dependencies version conflicts.
 
-Our solution to this is as follow:
+Our solution to this is as follows:
 
 - Keep your project dependencies clean of any version number.
-- At release time document what is the known version check.
+- At release time, document what is the tested dependency versions.
 - Use that known working state as a way to install a given release of
   the project.
 - Run your CI without the constraint file to detect dependencies
@@ -282,7 +282,7 @@ In a perfect world, it would be great to know in advance what is the
 next version of the library that will stop working with your code.
 
 The good news is that this future is already there and that's what
-semantic versionning is trying to address.
+semantic versioning is trying to address.
 
 
 What can break your code?
@@ -296,17 +296,17 @@ In one word, everything that changes the API that is exposed by the
 library will break the code of people relying on it.
 
 
-What is Semantic Versionning?
------------------------------
+What is Semantic Versioning?
+----------------------------
 
-Semantic versionning is a way to be able to tell if a new release of a
+Semantic versioning is a way to be able to tell if a new release of a
 dependency you are using is compatible with your code by looking at
 its version number.
 
 Alternatively it is a way to tell people relying on your code if your
 release is likely to break their code or not.
 
-In semantic versionning, the version number is made of a triplet of
+In semantic versioning, the version number is made of a triplet of
 numbers separated by dots: i.e ``2.11.5``
 
 They are call ``MAJOR.MINOR.PATCH``
@@ -338,7 +338,7 @@ the case yet as soon as one project is using the code in production.
    the protocol API and that both are coupled you will not be able to
    increment this MAJOR version. Instead the protocol version should
    be tracked in another protocol version information that could also
-   follow semantic versionning.
+   follow semantic versioning.
 
 
 MINOR version
@@ -361,16 +361,16 @@ They are for bug fixes only and should has a really low impact on the
 existing code base.
 
 
-The case of semantic versionning dependencies
----------------------------------------------
+The case of semantic versioning dependencies
+--------------------------------------------
 
-If your project dependencies are using semantic versionning you can
+If your project dependencies are using semantic versioning you can
 theoritically know that the next major version is likely to break it.
 
 However minor should not break it and patched version must definitely
 not break it.
 
-With projects using semantic versionning you could define your
+With projects using semantic versioning you could define your
 dependencies like that:
 
 
@@ -383,8 +383,8 @@ Often people are afraid to increment the MAJOR version of their
 projects.
 
 If it is the case ask yourself why, it should not be a problem to do
-so because if your project follows semantic versionning then that's
-how it should works.
+so because if your project follows semantic versioning then that's
+how it should work.
 
 Most of the time it is because you are also using your ``MAJOR``
 number for something else so don't do it. You should not be worried
