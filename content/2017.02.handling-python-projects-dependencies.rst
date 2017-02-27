@@ -259,7 +259,7 @@ As a conclusion, when working with Python dependencies there are three
 process that needs to work well together.
 
 - Installing automatically a project version in a working state,
-  you can do this using requiremrents constraint files.
+  you can do this using requirements constraint files.
 - Keeping the project up-to-date with next version of its dependencies
   without breaking previous released versions.
 - Installing a project as part as another project without it breaking
