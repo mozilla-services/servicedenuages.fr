@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>Handling Python Project dependencies // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Published</h5>
+                <p title="~1735 words">~7 minutes reading 🕑</p>
+                <p>Fri, 24 February 2017</p>
+                <a href="/en/">&larr; Back to articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Handling Python Project dependencies</h1>
+                </header>
+            </section>
+            <div class="section" id="introduction">
+<h2>Introduction</h2>
+<p>If you ever started a Python project you might have heard of a
+<tt class="docutils literal">requirements.txt</tt> file that contains a list of dependencies.</p>
+<div class="highlight"><pre><span></span><span class="na">pelican</span>
+<span class="na">beautifulsoup4</span>
+<span class="na">ghp-import</span>
+<span class="na">Pillow</span><span class="o">=</span><span class="s">=4.0.0</span>
+<span class="na">markdown</span>
+<span class="na">pysvg&gt;</span><span class="o">=</span><span class="s">0.2,&lt;0.3</span>
+</pre></div>
+<p>However if you plan on shipping your project or library with Pypi,
+install it in another project, or in a virtualenv you need to put them
+in the <tt class="docutils literal">setup.py</tt> file directly in order for them to be installed
+automatically along with your code.</p>
+<div class="highlight"><pre><span></span><span class="na">setup(name</span><span class="o">=</span><span class="s">'saucisson',</span>
+<span class="s">  version='1.0.0.dev0',</span>
+<span class="s">  license='Apache License (2.0)',</span>
+<span class="s">  packages=find_packages(),</span>
+<span class="s">  include_package_data=True,</span>
+<span class="s">  zip_safe=False,</span>
+<span class="s">  install_requires=[</span>
+<span class="s">    'colander &gt;= 1.3.2',</span>
+<span class="s">    'colorama',</span>
+<span class="s">    'cornice &gt;= 2.4',</span>
+<span class="s">    'cornice_swagger &gt;= 0.5',</span>
+<span class="s">    'jsonschema',</span>
+<span class="s">    'jsonpatch',</span>
+<span class="s">    'python-dateutil',</span>
+<span class="s">    'pyramid &gt; 1.8',</span>
+<span class="s">    'pyramid_multiauth &gt;= 0.8',  # User on policy selected event.</span>
+<span class="s">    'transaction',</span>
+<span class="s">    'pyramid_tm',</span>
+<span class="s">    'requests',</span>
+<span class="s">    'structlog &gt;= 16.1.0',</span>
+<span class="s">    'waitress',</span>
+<span class="s">    'ujson &gt;= 1.35'])</span>
+</pre></div>
+<p>This raises a lot of questions:</p>
+<blockquote>
+<ul class="simple">
+<li>How do I update project dependencies?</li>
+<li>What were the known working dependencies version at a certain release?</li>
+<li>How do I make sure a release of one of my dependencies doesn't break my release?</li>
+<li>How do I make sure that my code is not used with a unsupported version of a dependency?</li>
+</ul>
+</blockquote>
+</div>
+<div class="section" id="avoid-using-requirements-file-to-handle-your-program-dependencies">
+<h2>Avoid using requirements file to handle your program dependencies</h2>
+<p>Once your program (i.e <tt class="docutils literal">saucisson</tt>) is released, users will install
+it with <tt class="docutils literal">pip install saucisson</tt>, which means that
+<tt class="docutils literal">python setup.py install</tt> needs to pick up the right dependencies for it.</p>
+<p>It means that <tt class="docutils literal">setup.py</tt> needs to know what are your program
+dependencies and not the <tt class="docutils literal">requirements.txt</tt> file. Instead use your
+<tt class="docutils literal">requirements.txt</tt> to keep a know working set of your dependencies at
+the time of a release.</p>
+<p>We usually add a <cite>build-requirements</cite> makefile rule on our projects:</p>
+<div class="highlight"><pre><span></span><span class="nv">VIRTUALENV</span> <span class="o">=</span> virtualenv --python<span class="o">=</span>python3
+
+
+<span class="nf">build-requirements</span><span class="o">:</span>
+    <span class="k">$(</span><span class="nb">eval</span> TEMPDIR :<span class="o">=</span> <span class="k">$(</span>shell mktemp -d<span class="k">))</span>
+    <span class="k">$(</span>VIRTUALENV<span class="k">)</span> <span class="k">$(</span>TEMPDIR<span class="k">)</span>
+    <span class="k">$(</span>TEMPDIR<span class="k">)</span>/bin/pip install -U pip  <span class="c1"># Upgrade pip</span>
+    <span class="k">$(</span>TEMPDIR<span class="k">)</span>/bin/pip install -Ue .   <span class="c1"># Develop the current project locally</span>
+<span class="c">    # Freeze the dependencies ignoring the dependency links.</span>
+    <span class="k">$(</span>TEMPDIR<span class="k">)</span>/bin/pip freeze <span class="p">|</span> grep -v -- <span class="s1">'^-e'</span> &gt; requirements.txt
+</pre></div>
+<p>If you run <cite>make build-requirements</cite> before tagging your release you
+will document what was the known working dependency set at the time of
+the release.</p>
+<p>Then you can install your program later using this file as a
+<a class="reference external" href="https://pip.pypa.io/en/stable/user_guide/#constraints-files">dependency constrain file</a>:</p>
+<div class="highlight"><pre><span></span><span class="go">pip install saucisson -c requirements.txt</span>
+</pre></div>
+</div>
+<div class="section" id="avoid-pinning-version-in-your-setup-py">
+<h2>Avoid pinning version in your setup.py</h2>
+<p>You might be tempted to put dependencies versions in your setup.py,
+i.e. "pinning" them to a specific version.</p>
+<p>You don't need to do so because you are using a contraint file, you
+are safe for future updates that might break your code.</p>
+<p>On your CI, don't use a contraint file. It will help you to detect
+that you need to take some actions to support the new released version
+that breaks your tests.</p>
+<p>However with that in mind, there are some cases when you still want to
+pin some version:</p>
+<div class="section" id="if-you-know-that-your-project-will-not-work-with-a-lower-version">
+<h3>If you know that your project will not work with a lower version</h3>
+<p>If you are using a feature or API that didn't exist before or you hit
+a bug that was fixed later.</p>
+<div class="highlight"><pre><span></span><span class="na">psycopg &gt; 2.5</span>
+<span class="na">colander &gt;</span><span class="o">=</span> <span class="s">1.3.2</span>
+<span class="na">ujson &gt;</span><span class="o">=</span> <span class="s">1.35</span>
+</pre></div>
+<p>It won't change the way pip handles your dependency, because even if
+you don't put this, pip will always try to install the latest version.</p>
+<p>However it will detect if another library or the project using your
+library is trying to use it with a lower version that won't work with
+your code.</p>
+</div>
+<div class="section" id="if-you-know-that-your-project-doesn-t-support-yet-the-next-release">
+<h3>If you know that your project doesn't support yet the next release</h3>
+<p><strong>I insist that this applies only if a new version version of a
+dependency has already been released and that your test suite doesn't
+run on it.</strong></p>
+<p>In that case, and only in that case, you can pin the dependency's
+version for the shortest possible time until you port your project to
+it.</p>
+<p>It's common to encounter breaking changes when upgrading frameworks:</p>
+<div class="highlight"><pre><span></span><span class="na">Pyramid &lt; 1.8</span>
+<span class="na">django &gt;1.6,&lt;</span><span class="o">=</span> <span class="s">1.8</span>
+</pre></div>
+<p>The danger of doing it is that you might create
+<tt class="docutils literal">pkg_resources.VersionConflict</tt> errors.</p>
+<p>When Python starts and imports your lib it will look at the
+requirements list and validate that all dependencies are installed
+with their expected version. If it is not the case Python will not let
+you start your application.</p>
+<p>However when you install a dependency, pip will check if it is already
+installed without validating if the expected version is installed but
+rather if a version is installed.</p>
+<p>If a lib already installed the dependency with a greater version in
+your virtualenv, pip will not upgrade it with the mandatory lower
+version.</p>
+<p>An easy way to break things is to pin a max <tt class="docutils literal">requests</tt> version for
+instance:</p>
+<div class="highlight"><pre><span></span><span class="na">requests &lt; 2.13</span>
+</pre></div>
+<p>If you do that, you will end up having
+<tt class="docutils literal">pkg_resources.VersionConflict</tt> error when running your program.</p>
+<p>What is happening is that Python is checking the dependencies and will
+refuse to run if you have a greater <tt class="docutils literal">requests</tt> version.</p>
+<p>This can happen if another dependency already needed <tt class="docutils literal">requests</tt> as a
+dependency and pip already installed it with a greater version.</p>
+<p><strong>So really do it only if you must.</strong></p>
+</div>
+</div>
+<div class="section" id="what-about-test-dependencies">
+<h2>What about test dependencies?</h2>
+<p>That's a good question, I am glad you asked.</p>
+<p>Test dependencies are less of an issue. You can either use
+<tt class="docutils literal">test_requires</tt> in your <tt class="docutils literal">setup.py</tt> or a <tt class="docutils literal"><span class="pre">dev-requirements.txt</span></tt>
+file.</p>
+<p>In the former you will need to run tests using <tt class="docutils literal">python setup.py test</tt>
+which unfortunately doesn't install dependencies in a <tt class="docutils literal">virtualenv</tt></p>
+<p>In the later you will need to make sure your test dependencies are
+installed before running the tests but tools like <tt class="docutils literal">tox</tt> already do
+that for you.</p>
+<p>Our take on this was to put test dependencies in a
+<tt class="docutils literal"><span class="pre">dev-requirements.txt</span></tt> file.</p>
+<p>We have a Makefile rule that knows if dev-dependencies should be
+installed or not before running the <tt class="docutils literal">tests</tt> target.</p>
+<p>As a bonus it will automatically create a virtualenv if you don't
+have one already activated:</p>
+<div class="highlight"><pre><span></span><span class="nv">VIRTUALENV</span> <span class="o">=</span> virtualenv --python<span class="o">=</span>python3
+<span class="nv">VENV</span> <span class="o">:=</span> <span class="k">$(</span>shell <span class="nb">echo</span> <span class="nv">$$</span><span class="o">{</span>VIRTUAL_ENV-.venv<span class="o">}</span><span class="k">)</span>  <span class="c1"># Use the activated virtualenv path or use .venv</span>
+<span class="nv">PYTHON</span> <span class="o">=</span> <span class="k">$(</span>VENV<span class="k">)</span>/bin/python
+<span class="nv">INSTALL_STAMP</span> <span class="o">=</span> <span class="k">$(</span>VENV<span class="k">)</span>/.install.stamp
+<span class="nv">INSTALL_DEV_STAMP</span> <span class="o">=</span> <span class="k">$(</span>VENV<span class="k">)</span>/.dev_env_installed.stamp
+
+<span class="nf">install</span><span class="o">:</span> <span class="k">$(</span><span class="nv">INSTALL_STAMP</span><span class="k">)</span>
+
+<span class="nf">$(INSTALL_STAMP)</span><span class="o">:</span> <span class="k">$(</span><span class="nv">PYTHON</span><span class="k">)</span> <span class="n">setup</span>.<span class="n">py</span>  <span class="c"># Refresh the virtualenv if setup.py changed</span>
+    <span class="k">$(</span>VENV<span class="k">)</span>/bin/pip install -U pip
+    <span class="k">$(</span>VENV<span class="k">)</span>/bin/pip install -Ue .
+    touch <span class="k">$(</span>INSTALL_STAMP<span class="k">)</span>
+
+<span class="nf">virtualenv</span><span class="o">:</span> <span class="k">$(</span><span class="nv">PYTHON</span><span class="k">)</span>  <span class="c"># Create the virtualenv if needed (python executable not present)</span>
+
+<span class="nf">$(PYTHON)</span><span class="o">:</span>
+    <span class="k">$(</span>VIRTUALENV<span class="k">)</span> <span class="k">$(</span>VENV<span class="k">)</span>
+
+<span class="nf">install-dev</span><span class="o">:</span> <span class="n">install</span> <span class="k">$(</span><span class="nv">DEV_STAMP</span><span class="k">)</span>
+
+<span class="c"># Refresh dev dependencies if dev-requirements.txt changed</span>
+<span class="nf">$(DEV_STAMP)</span><span class="o">:</span> <span class="k">$(</span><span class="nv">PYTHON</span><span class="k">)</span> <span class="n">dev</span>-<span class="n">requirements</span>.<span class="n">txt</span>
+    <span class="k">$(</span>VENV<span class="k">)</span>/bin/pip install -Ur dev-requirements.txt
+    touch <span class="k">$(</span>DEV_STAMP<span class="k">)</span>
+
+<span class="nf">tests-once</span><span class="o">:</span> <span class="n">install</span>-<span class="n">dev</span>
+    <span class="k">$(</span>VENV<span class="k">)</span>/bin/py.test tests/
+
+<span class="nf">serve</span><span class="o">:</span> <span class="n">install</span>
+    <span class="k">$(</span>VENV<span class="k">)</span>/bin/python manage.py runserver
+</pre></div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion</h2>
+<p>As a conclusion, when working with Python dependencies there are three
+process that needs to work well together.</p>
+<ul class="simple">
+<li>Installing automatically a project version in a working state,
+that's what you can do using requiremrents constraint files.</li>
+<li>Keeping the project up-to-date with next version of its dependencies
+without breaking previous released versions.</li>
+<li>Installing a project as part as another project without it breaking
+the project with dependencies version conflicts.</li>
+</ul>
+<p>Our solution to this is as follow:</p>
+<ul class="simple">
+<li>Keep your project dependencies clean of any version number.</li>
+<li>At release time document what is the known version check.</li>
+<li>Use that known working state as a way to install a given release of
+the project.</li>
+<li>Run your CI without the constraint file to detect dependencies
+update that might break future release of your code.</li>
+</ul>
+</div>
+<div class="section" id="in-our-way-to-the-future">
+<h2>In our way to the future</h2>
+<p>In a perfect world, it would be great to know in advance what is the
+next version of the library that will stop working with your code.</p>
+<p>The good news is that this future is already there and that's what
+semantic versionning is trying to address.</p>
+<div class="section" id="what-can-break-your-code">
+<h3>What can break your code?</h3>
+<ul class="simple">
+<li>Changing the name of functions or objects</li>
+<li>Changing the name of parameters or their order in the function call</li>
+<li>Changing the way to configure the project</li>
+</ul>
+<p>In one word, everything that changes the API that is exposed by the
+library will break the code of people relying on it.</p>
+</div>
+<div class="section" id="what-is-semantic-versionning">
+<h3>What is Semantic Versionning?</h3>
+<p>Semantic versionning is a way to be able to tell if a new release of a
+dependency you are using is compatible with your code by looking at
+its version number.</p>
+<p>Alternatively it is a way to tell people relying on your code if your
+release is likely to break their code or not.</p>
+<p>In semantic versionning, the version number is made of a triplet of
+numbers separated by dots: i.e <tt class="docutils literal">2.11.5</tt></p>
+<p>They are call <tt class="docutils literal">MAJOR.MINOR.PATCH</tt></p>
+</div>
+<div class="section" id="major-version">
+<h3>MAJOR version</h3>
+<p>The <tt class="docutils literal">MAJOR</tt> number is the version of the public API that the library
+provides.</p>
+<p>The API that you provide are the public function that you expect
+people that use your API to use or the plugin of your project to
+implements.</p>
+<p>As soon as the <tt class="docutils literal">MAJOR</tt> version is greater than 0, the API is
+considered to be stable and not to change unexpectidly.</p>
+<p>It is really important to set the <tt class="docutils literal">MAJOR</tt> version to 1 if it is not
+the case yet as soon as one project is using the code in production.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>In case your project is providing a web API or implements a
+protocol, it might be really tempted to say that the MAJOR version
+is also the version of the implemented protocol.</p>
+<p class="last">You should not do that because if your break the code API and not
+the protocol API and that both are coupled you will not be able to
+increment this MAJOR version. Instead the protocol version should
+be tracked in another protocol version information that could also
+follow semantic versionning.</p>
+</div>
+</div>
+<div class="section" id="minor-version">
+<h3>MINOR version</h3>
+<p>The <tt class="docutils literal">MINOR</tt> number is the most common number to change, it is
+incremented when you are improving the software, adding non-breaking
+features to existing API or refactoring existing code.</p>
+</div>
+<div class="section" id="patch-version">
+<h3>PATCH version</h3>
+<p>The <tt class="docutils literal">PATCH</tt> number is incremented when the previous minor version
+has some bugs that affects users and that should be fixed as soon as
+possible. Non handled exceptions, cases that make the library fails
+and should not.</p>
+<p>They are for bug fixes only and should has a really low impact on the
+existing code base.</p>
+</div>
+<div class="section" id="the-case-of-semantic-versionning-dependencies">
+<h3>The case of semantic versionning dependencies</h3>
+<p>If your project dependencies are using semantic versionning you can
+theoritically know that the next major version is likely to break it.</p>
+<p>However minor should not break it and patched version must definitely
+not break it.</p>
+<p>With projects using semantic versionning you could define your
+dependencies like that:</p>
+<div class="highlight"><pre><span></span><span class="na">kinto &gt;</span><span class="o">=</span><span class="s">5.1,&lt;6</span>
+<span class="na">kinto-redis &gt;</span><span class="o">=</span><span class="s">1.1,&lt;2</span>
+</pre></div>
+<p>Often people are afraid to increment the MAJOR version of their
+projects.</p>
+<p>If it is the case ask yourself why, it should not be a problem to do
+so because if your project follows semantic versionning then that's
+how it should works.</p>
+<p>Most of the time it is because you are also using your <tt class="docutils literal">MAJOR</tt>
+number for something else so don't do it. You should not be worried
+about that, it is always great to increment a version number because
+it means your project is alive.</p>
+</div>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.notmyidea.org/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>
