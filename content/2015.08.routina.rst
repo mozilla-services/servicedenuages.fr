@@ -1,0 +1,46 @@
+Routina
+#######
+
+Intentions
+==========
+
+* Not just a todolist, Routina is an app I'd actually use
+* Put kinto.js in a real offline Web app
+* Publish on Firefox Marketplace
+* Use advanced APIs like Crypto, Alarm or Desktop notifications
+
+Boiler plate
+============
+
+* Packaging & testing nightmare
+* React and Webpack
+* Live refresh
+  - killer feature for Less/CSS
+
+WebIDE
+======
+
+* Firefox Developper edition
+* Live inspect on the phone
+
+Plug Firefox OS
+---------------
+
+* Install android development
+* Download platform
+
+Open Web App
+============
+
+* Github pages
+  - Webpack workflow
+* Firefox Marketplace
+  - Submit and wait for approval
+* Self host and install button
+  - Thanks http://www.manejandodatos.es/2014/06/firefox-os-packaged-apps-crono/
+* Install from Firefox
+  - routina.zip
+  - mini manifest
+* Offline manifest
+  - Thanks Github for mimetype
+  - Service Workers ? ...But where to start ?
