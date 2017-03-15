@@ -1,0 +1,294 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>Building software as a distributed team // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Published</h5>
+                <p title="~1511 words">~7 minutes reading 🕑</p>
+                <p>Wed, 15 March 2017</p>
+                <a href="/en/">&larr; Back to articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Building software as a distributed team</h1>
+                </header>
+            </section>
+            <p>Today, I realized that I've been working for Mozilla for three years
+already.</p>
+<p>I've learned a lot, and with the storage team we have been part of a
+number of different projects:</p>
+<ul class="simple">
+<li>Firefox Hello: Building a WebRTC signaling service.</li>
+<li>MSISDN auth: Building a password less BrowserID authentication service using a phone number.</li>
+<li>Syncto: Browsing Firefox Sync using the Kinto protocol.</li>
+<li>Kinto: Building synchronization services with backup and sharing capability in mind.</li>
+<li>RemoteServiceWorker: Building a Firefox Service Worker in the cloud</li>
+<li>WebPush channels: Building a PubSub on top of WebPush</li>
+</ul>
+<p>While most of these projects have been built, deployed in production
+and eventually decommissined, some of them are still actively use by
+Firefox users everyday.</p>
+<div class="section" id="how-do-you-keep-motivated-building-things-that-are-thrown-away">
+<h2>How do you keep motivated building things that are thrown away?</h2>
+<p>Let's be honest, everything we build: cars, houses, and even softwares
+are meant to be eventually thrown away. That's why recycling is so
+important.</p>
+<p>The question is why do we keep building them nevertheless.</p>
+<p>My daily job is to help Mozilla make the web a safe place for users
+and prevent big companies to turn them into advertisement products
+without their consent.</p>
+<p>One way of doing so is to build software that empower people to use
+internet while being in charge of their own data.</p>
+<p>When users give their data to big companies, they are given them
+leverage, in the meantime these companies are offering a service that
+solve people problems, and they get addicted to it and come back for
+more.</p>
+<p>We alone cannot compete with companies that are spending millions of
+dollars building great products to capture users.</p>
+<p>However, we can build software that, in one hand, is useful for the
+Mozilla mission and makes us reactive to fix Mozilla issues while
+building Firefox, and in the other hand enpower developers to build
+great software where users choose where they want to store their data.</p>
+<p>What matters rather than building software is the vision that this
+software carries.</p>
+<p>Writting lines of code is cheap and fast. You can build a prototype in
+two weeks and iterate until you are happy with the result.</p>
+<p>Then it might be use by some people and it might get some traction for
+few months or few years and it will be eventually forgotten in a git
+repository somewhere forever.</p>
+<p>Writting software to solve problems is not enough, to keep motivated on the long term.</p>
+<p>What you need is a vision and make sure you work toward that vision.</p>
+</div>
+<div class="section" id="how-do-you-turn-a-vision-into-okr">
+<h2>How do you turn a vision into OKR?</h2>
+<p>OKR means <strong>Objectives and Key results</strong>, it is a way to define
+tangible objectives and key results. You can then look at the results
+to tell if you were able to achieve your objectives.</p>
+<p>It is also a way to cut your vision in steps and to move your vision
+forward.</p>
+<p>OKR should be defined for quite short period of time to stay agile and
+be able to adapt to new environment constraints.</p>
+<p>At Mozilla we define quaterly OKR.</p>
+</div>
+<div class="section" id="how-do-you-set-course-on-a-vision">
+<h2>How do you set course on a vision?</h2>
+<p>To be able to define OKR from your vision, you need to be able to find
+the fastest way to get closer to your vision, however what I've learn
+from sailing is that the fastest way is rarely the shortest.</p>
+<p>At Mozilla, we have a vision that is written down in the
+<a class="reference external" href="https://www.mozilla.org/en-US/about/manifesto/">Mozilla Manifesto</a>.</p>
+<p>Mitchell Baker does a great job making sure everyone at Mozilla stays
+aligned with that vision.</p>
+<p>However agreeing on the fastest way and turning the Mozilla vision
+into OKR is really challenging and even more when you have a thousand
+people opinion about it.</p>
+<p>That's the board job to set course every six months on what we should
+be focusing on for the next six months.</p>
+<p>This often means changing our course and killing projects or at least
+putting them on the side if team are turning over to new priorities.</p>
+</div>
+<div class="section" id="our-chance-is-opensource">
+<h2>Our chance is opensource</h2>
+<p>The chance we have at Mozilla, is that everything we do is published
+as Free, Libre, Opensource Software, which means that, even if, as
+Mozilla employee, we focus on something else, the work we've done is
+still available for the community to care about it.</p>
+<p>Thunderbird is a good example of this, Mozilla stopped spending
+resources on it in September 2007 but ten years later Mozilla
+Thunderbird is still actively used by a large number of users everyday.</p>
+<p>When building software we solve complex issues and all the solutions
+we have put together while doing so are really useful for other people
+that might need to solve similar problems.</p>
+<ul class="simple">
+<li>Mozilla Persona lead the ground for Firefox Account and Portier.</li>
+<li>The Firefox Hello loop server is a good example of how to build a
+WebRTC signaling server.</li>
+<li>The RemoteServiceWorker projects shows how to use Python 3 asyncio
+to handle a large pool of websockets using redis to route messages
+between them.</li>
+</ul>
+</div>
+<div class="section" id="prototyping-as-a-way-to-learn">
+<h2>Prototyping as a way to learn</h2>
+<p>More than writting lines of code, we are researching solutions to
+complex problems at scale and turning this solution into, production
+ready, experiments.</p>
+<p>All this efforts are not lost because we learn a great deal from all
+of them.</p>
+<p>When we spend a month to one year building something, we are learning.</p>
+<p>But everything you learn is useful only if you share it.</p>
+</div>
+<div class="section" id="sharing-as-a-way-to-build-software">
+<h2>Sharing as a way to build software</h2>
+<p>In one sentence, what matters the most is to build software to put
+your vision in motion and to share what you've learned along the way.</p>
+<p>Luckily, there are people that you need to inform about what you are
+doing and learning about: your colleagues.</p>
+<p>You need to explain what you are trying to solve, you need to find out
+how to solve the issue and agree on the solution you are putting
+together, also having feedback will help you to choose the best
+solution even before having written a single line of code.</p>
+</div>
+<div class="section" id="the-process-of-building-software-in-a-remote-team">
+<h2>The process of building software in a remote team</h2>
+<p>Working in a remote team is really close from working with a
+community.</p>
+<p>You need to explicit everything you do, you need to find consensuses,
+you need to take feedback, you need to propose solutions and try
+things.</p>
+<p>As a team, as a community, you are stronger because instead of being
+alone you can rely on others to help you make the best choices and
+write the best software.</p>
+<div class="section" id="the-minimal-viable-prototype-mvp">
+<h3>The Minimal Viable Prototype (MVP)</h3>
+<p>The first thing to do, is to gather together and brainstorm around the
+project to define what is the <strong>Minimal Viable Prototype</strong>.</p>
+<p>At this stage it is really important to start talking about
+prototypes, the project version <tt class="docutils literal">0.1.0</tt> starts with a <tt class="docutils literal">0</tt> which
+means that we are still figuring out what we are doing and possibly
+breaking the API, features, expectations.</p>
+<p>Everything that is not in the feature set of the MVP is put in a
+Roadmap document for later; to document the fact that we thought about
+it and that we will possibly care about it later.</p>
+<p>We write a small article to resume the discussion and to explain what
+is the MVP feature set.</p>
+</div>
+<div class="section" id="answering-complex-questions">
+<h3>Answering complex questions</h3>
+<p>Some features of the MVP might not be trivial.</p>
+<p>I have a bunch of examples of hard problems:</p>
+<ul class="simple">
+<li>How do you handle permissions in Kinto?</li>
+<li>How do we support multiple database backend?</li>
+<li>How do we handle <tt class="docutils literal"><span class="pre">content-editable</span></tt> divs with React or Elm?</li>
+<li>How do you implement an OAuth flow from a web-extension?</li>
+<li>How do you handle pluggable notifications in Kinto?</li>
+<li>How do we configure email notifications in Kinto?</li>
+<li>How do we enable people to attach attachment to records in Kinto?</li>
+<li>How do we get Firefox Account keys derivated from the password from
+an Oauth flow while we never get in touch with the password?</li>
+</ul>
+<p>Each problem will have to be addressed by someone and presented to the
+team members so that they can comment on it. Sometimes the way to go
+is obvious, sometimes there is only one good solution, but sometimes
+the good solution is not obvious.</p>
+<p>When a complex problem arise, what we want is to learn from it and to
+share what we've learn. A good way of doing so it to write a Blue
+print article exposing pros and cons for the problem and explaining
+which solution was chosen, why and how we've implemented it.</p>
+</div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion</h2>
+<p>Make the process of building software a way to learn new things and
+share what you've learn. Then you don't have to worry about your
+project to be decommissioned because you've already got the take aways
+of building it.</p>
+<p>Make the process of build software a way to share what you've learned.</p>
+<p>Document why you did things that way instead of differently.</p>
+<p>Document consensus and decision making.</p>
+<p>Document your roadmap and product iterations changelog.</p>
+<p>If you start coding without having a Blue Print, it probably means you
+are wasting your time because you are building something without
+asking for feedback and you are not documenting what you are learning
+so that your coworkers benefit from it. You might end-up rewritting
+everything after taking feedback.</p>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.notmyidea.org/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>
