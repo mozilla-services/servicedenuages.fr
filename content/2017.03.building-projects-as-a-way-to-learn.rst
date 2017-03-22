@@ -20,72 +20,81 @@ number of different projects:
 - MSISDN auth: Building a password less BrowserID authentication
   service using a phone number.
 - Syncto: Browsing Firefox Sync using the Kinto protocol.
-- Kinto: Building synchronization services with backup and sharing capability in mind.
-- RemoteServiceWorker: Building a Firefox Service Worker in the cloud
+- Kinto: Building synchronization services with backup and sharing
+  capabilities in mind.
+- RemoteServiceWorker: Building a Firefox Service Worker that does
+  heavy calculation in the cloud, to save battery life on mobile.
 - WebPush channels: Building a PubSub on top of WebPush
 
-While most of these projects have been built, deployed in production
-and eventually decommissined, some of them are still actively use by
+While most of these projects have been built, deployed to production
+and eventually decommissioned, some of them are still actively used by
 Firefox users everyday.
 
 
 How do you keep motivated building things that are thrown away?
 ===============================================================
 
-Let's be honest, everything we build: cars, houses, and even softwares
-are meant to be eventually thrown away. That's why recycling is so
+Let's be honest: everything we build — cars, houses, and even software —
+is meant to be eventually thrown away. That's why recycling is so
 important.
 
 The question is why do we keep building them nevertheless.
 
 Our daily job is to help Mozilla make the web a safe place for users
-and prevent big companies to turn them into advertisement products
-without their consent.
+and prevent their privacy from being compromised.
 
-One way of doing so is to build software that empower people to use
-internet while being in charge of their own data.
+One way of doing so is to build software that empowers people to use
+the Internet while being in charge of their own data.
 
-When users give their data to big companies, they are given them
-leverage. In the meantime these companies are offering a service that
-solve people problems, and they get addicted to it and come back for
-more.
+When users give their data to big companies, they know they are giving
+them to much power. In the meantime these companies are offering a
+service that solve people problems, and they get addicted to it and
+come back for more.
 
 We alone cannot compete with companies that are spending millions of
 dollars building great products to capture users.
 
-However, we can build software that, in one hand, is useful for the
-Mozilla mission and makes us reactive to fix Mozilla issues while
-building Firefox, and in the other hand enpower developers to build
-great software where users choose where they want to store their data.
+However, we can build software that, on the one hand, is useful for
+the Mozilla mission and enable us to fix Mozilla issues quickly while
+building Firefox and, on the other hand, empowers developers to build
+great software where users choose where they want to store and control
+their data.
 
 What matters rather than building software is the vision that this
 software carries.
 
-Writting lines of code is cheap and fast. You can build a prototype in
-two weeks and iterate until you are happy with the result.
+If you don't have a vision, what are you building? Sure, writing lines
+of code is cheap and fast. You can build a prototype in two weeks and
+iterate until you are happy with the Minimum Viable Product.
 
-Then it might be use by some people and it might get some traction for
-few months or few years and it will be eventually forgotten in a git
-repository somewhere forever.
+Note that, it might not be so cheap anymore when you start adding
+documentation and maintenance costs.
 
-Writting software to solve problems is not enough, to keep motivated
-on the long term.
+The product might be used, and might get some traction for months or
+even years but it will be eventually forgotten in a git repository
+somewhere forever.
 
-Our understanding is that you need a greater goal than just writting
-code.
+Writing software to solve problems is not enough, to keep motivated on
+the long term. You need a greater goal than just writing code.
 
-For us the answer to that question is: what can we learn while
-building software that can be useful for us and for our community to
-help us go faster and build more robust software later.
+Knowing that, how do you keep motivated building things that are
+thrown away?
+
+Different people or communities might have different answers.
+
+For us the answer is: As well as solving the problem, what can we
+learn while building this solution that can be useful for us and for
+our community to help us go faster and build more robust software
+later.
 
 For Mozilla the answer to that question is: How do I improve Firefox
 so that people want to use it as their main browser?
 
-Both answer are goals that we set to ourselves and we are using
+Both answer lead to goals that we set to ourselves. We are using
 software development to reach them.
 
 Mozilla is calling that the True North, we are calling it a vision,
-some other people might call it an utopia.
+some other people might call it a utopia.
 
 In both cases that vision should set the route of our ambition and give
 people a aim to all look in the same direction.
@@ -94,23 +103,19 @@ people a aim to all look in the same direction.
 How do you turn this vision into OKRs?
 ======================================
 
-OKR means **Objectives and Key results**, it is a way to define
-tangible objectives and key results. You can then look at the results
-to tell if you were able to achieve your objectives.
+OKR means **Objectives and Key results**: it is a way to define what
+you want to achieve in a tangible way and what you will be able to
+mesure
+`to see how effective you were <https://blog.betterworks.com/okrs-stretch-or-not-to-stretch/>`_.
 
 It is also a way to cut your vision in steps and to move your vision
 forward.
 
-OKR should be defined for quite short period of time to stay agile and
-be able to adapt to new environment constraints.
 
-At Mozilla we define quaterly OKRs.
+How do you set course for a vision?
+===================================
 
-
-How do you set course on a vision?
-==================================
-
-To be able to define OKR from your vision, you need to be able to find
+To be able to define OKRs from your vision, you need to be able to find
 the fastest way to get closer to your aim, however what we can learn
 from sailing is that the fastest way is rarely the shortest.
 
@@ -121,37 +126,52 @@ Mitchell Baker does a great job making sure everyone at Mozilla stays
 aligned with that vision.
 
 However agreeing on the fastest way and turning the Mozilla vision
-into OKR is really challenging and even more when you have a thousand
-people opinion about it.
+into OKRs is really challenging and even more when you have a thousand
+people's opinion about it.
 
-That's the board job to set course every six months (or even less) on
+It's the board's job to set course every six months (or even less) on
 what we should be focusing on for the next six months.
 
-This often means changing our course and killing projects or at least
-putting them on the side if team are turning over to new priorities.
+When this happens, it often means changing our course and killing
+projects or at least putting them on the side if teams are turning to
+new priorities.
+
+At our level, we are driven by the use case. We have a vision of what
+we want to build and we keep adding ideas in the backlog.
+
+However we are not building anything until we have a proper use case
+for it. As soon as we have a use case it is added to our Roadmap.
+
+You endup not spending time on tasks you don't need and for each use
+case you are getting closer to your goal even if it might not be the
+way you'd taken initially.
+
+You also don't have to support code that you don't use.
+
+We even ended up removing features that were not used anymore.
 
 
-Our chance is opensource
-========================
+Our luck is opensource
+======================
 
-The chance we have at Mozilla, is that everything we do is published
-as Free, Libre, Opensource Software, which means that, even if, as
-Mozilla employee, we focus on something else, the work we've done is
-still available for the community to care about it.
+The advantage we have at Mozilla, is that everything we do is
+published as Free, Libre, Opensource Software, which means that, even
+if, as Mozilla employees, we focus on something else, the work we've
+done is still available for the community to care about it.
 
-Thunderbird is an example of this, Mozilla stopped spending resources
+Thunderbird is an example of this. Mozilla stopped spending resources
 on it in September 2007 but ten years later Mozilla Thunderbird is
-still actively used by a large number of users everyday.
+still actively used by a large number of users every day.
 
 When building software we solve complex issues and all the solutions
-we have put together while doing so are really useful for other people
-that might need to solve similar problems.
+we have put together are really useful for other people who might need
+to solve similar problems.
 
-- Mozilla Persona lead the ground for Firefox Account and the Portier
-  broker.
+- Mozilla Persona lead the ground for Firefox Accounts and the Portier
+  project.
 - The Firefox Hello loop server is a good example of how to build a
   WebRTC signaling server.
-- The RemoteServiceWorker projects shows how to use Python 3 asyncio
+- The RemoteServiceWorker project shows how to use Python 3 asyncio
   to handle a large pool of websockets using redis to route messages
   between them.
 
@@ -159,20 +179,21 @@ that might need to solve similar problems.
 Prototyping as a way to learn
 =============================
   
-More than writting lines of code, we are researching solutions to
-complex problems at scale and turning solutions into, production
-ready, experiments.
+More than writing lines of code, we are researching solutions to
+complex problems at scale and turning those solutions into production
+ready experiments.
 
 All this efforts are not lost because we learn a great deal from all
 of them.
 
-When we spend a month to one year building something, we are learning.
+Whether it takes us a month or a year to build something, we are
+learning.
 
 But everything you learn is useful only if you share it.
 
 
-Sharing as a way to build software
-==================================
+Building software as a way to share
+===================================
 
 In one sentence, what matters the most is to build software to put
 your vision in motion and to share what you've learned along the way.
@@ -180,10 +201,11 @@ your vision in motion and to share what you've learned along the way.
 Luckily, there are people that you need to inform about what you are
 doing and learning about: your colleagues.
 
-You need to explain what you are trying to solve, you need to find out
-how to solve the issue and agree on the solution you are putting
-together, also having feedback will help you to choose the best
-solution even before having written a single line of code.
+- You need to explain what you are trying to solve.
+- You need to find out how to solve the issue and agree on the solution you are putting
+  together.
+- You need to take feedback to be able to choose the best solution
+  even before having written a single line of code.
 
 Conclusion
 ==========
