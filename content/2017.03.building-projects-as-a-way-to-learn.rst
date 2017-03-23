@@ -10,6 +10,10 @@ Building software as a way to learn
     Here are some elements to move projects forward as a team.
 
 
+.. image:: {filename}/images/mozilla-logo.jpg
+    :alt: New Mozilla 2017 Logo
+    :align: center
+
 Today, I realized that I've been working for Mozilla for three years
 already.
 
@@ -30,9 +34,13 @@ While most of these projects have been built, deployed to production
 and eventually decommissioned, some of them are still actively used by
 Firefox users everyday.
 
-
 How do you keep motivated building things that are thrown away?
 ===============================================================
+
+.. image:: {filename}/images/dino.jpg
+    :alt: Mozilla Dino Wallpaper
+    :align: center
+
 
 Let's be honest: everything we build — cars, houses, and even software —
 is meant to be eventually thrown away. That's why recycling is so
@@ -102,6 +110,11 @@ point out a direction for everyone to sail to.
 How do you set course for a vision?
 ===================================
 
+.. image:: {filename}/images/draken.jpg
+    :alt: Draken sailing to the North
+    :align: center
+
+
 OKRs are a way to cut your vision in steps and to move your vision
 forward.
 
@@ -119,16 +132,22 @@ However agreeing on the fastest way and turning the Mozilla vision
 into OKRs is really challenging and even more when you have a thousand
 people's opinion about it.
 
-It's the board's job to set course every six months (or even less) on
-what we should be focusing on for the next six months.
+It's the board's job to `set course every six months`_ (or even less)
+on what we should be focusing on for the next six months.
 
 When this happens, it often means changing our course and killing
 projects or at least putting them on the side if teams are turning to
 new priorities.
 
+.. _`set course every six months`: https://air.mozilla.org/mozilla-all-hands-hawaii-2016-20161221/
 
 How do you define what the priorities are?
 ==========================================
+
+.. image:: {filename}/images/true-north.jpg
+    :alt: Mozilla Logo as a Sailing Map — From https://uk.pinterest.com/explore/firefox-logo/
+    :align: center
+
 
 At our level, we are driven by the use case. We have a vision of what
 we want to build. That vision leads to ideas of feature that we are
@@ -148,6 +167,10 @@ features that are not used any more.
 
 Our secret is opensource
 ========================
+
+.. image:: {filename}/images/open-source-software.png
+    :alt: Open Source as a way to share
+    :align: center
 
 More than writing lines of code, we are researching solutions to
 complex problems at scale and turning those solutions into production
@@ -185,6 +208,10 @@ websockets_ using redis_ to route messages between them.
 
 Building software as a way to learn
 ===================================
+
+.. image:: {filename}/images/conferences.jpg
+    :alt: Conference Room for DjangoCon Europe 2016
+    :align: center
 
 As you can see, every effort is not pointless because we learn a great
 deal from all these projects.
