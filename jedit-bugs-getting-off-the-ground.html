@@ -48,10 +48,10 @@
                         <p><a href="http://www.servicedenuages.fr/en/jedit-bugs-getting-off-the-ground">Read the English version</a></p>
             <p>Voici un article rédigé par <a href="https://github.com/elelay">Eric Le Lay</a> sur son utilisation de Kinto.</p>
 <h2>Introduction</h2>
-<p>Connaissez-vous <a href="http://jedit.org">jEdit</a> — <em>l'éditeur de texte des développeurs</em> ?<br>
+<p>Connaissez-vous <a href="http://jedit.org">jEdit</a> — <em>l'éditeur de texte des développeurs</em> ?
 C'est un éditeur de texte multi-plateforme, écrit en java, disposant de nombreux plugins.
 Je participe à son développement depuis une dizaine d'années.
-Nous l'hébergeons sur Sourceforge ; le code principal est sous <em>Subversion</em>.</br></p>
+Nous l'hébergeons sur Sourceforge ; le code principal est sous <em>Subversion</em>.</p>
 <p>Nous sommes bénévoles et le maintenons sur notre temps libre.
 Pour ma part, je n'ai pas toujours accès à internet pendant les vacances. Ou via un câble Ethernet dans une pièce sombre
 et surchauffée. Tout ça pour dire que j'aime avoir un maximum de choses sous la main hors-ligne :</p>
@@ -274,7 +274,7 @@ Rien de bien compliqué : l'id est mise dans le hash de l'url et l'application i
 </pre></div>
 <h1>Mises à jour</h1>
 <p>Lorsqu'un ticket est modifié coté Sourceforge il faut mettre à jour le document correspondant dans Kinto.
-Je le fais via un programme coté serveur. </p>
+Je le fais via un programme coté serveur.</p>
 <h2>updater.py</h2>
 <p>Il n'est pas possible d'obtenir les modifications de tickets Sourceforge en temps réel via les technologies web.</p>
 <p>Quelques idées pour les obtenir :</p>
@@ -316,9 +316,9 @@ allège vraiment l'application.</p>
 <h2>Amélioration prévues</h2>
 <p>J'ai passé 3 semaines à explorer Kinto et il reste encore des choses à tester. Je suis également loin d'une application terminée.</p>
 <p>Quelques pistes :</p>
-<p><strong>Modifications des tickets</strong><br>
+<p><strong>Modifications des tickets</strong>
 Je voudrais qu'on puisse modifier les tickets depuis l'application, plutôt que de renvoyer vers Sourceforge.
-Les modifications pourraient être temporairement stockées dans kinto.js en attente de réseau.</br></p>
+Les modifications pourraient être temporairement stockées dans kinto.js en attente de réseau.</p>
 <p>La voie est libre depuis la correction d'un <a href="https://sourceforge.net/p/forge/site-support/13403/">petit bug</a>
 qui empêchait d'interroger l'API Sourceforge en CORS depuis la France, mais ça représente pas mal de code pour
 l'interface utilisateur. J'explorerai <a href="https://github.com/Kinto/formbuilder">FormBuilder</a> avant de coder ma
@@ -344,7 +344,7 @@ je maintiendrai moi-même.</p>
 Les tickets pourraient être indexés par numéro (ils ne sont pas uniques au sein d'un projet, mais au sein d'un tracker) pour accélérer
 ce type de recherche. De même, indexer par les autres critères de recherche prédéfinis accélèrerait les choses.</p>
 <p>Je peux gérer des index manuels (un document par index, contenant un objet associant chaque valeur possible de la clé
-à un tableau d'id). Alors, rechercher tous les bugs ouverts reviendrait à </p>
+à un tableau d'id). Alors, rechercher tous les bugs ouverts reviendrait à</p>
 <div class="highlight"><pre><span></span><span class="nx">indexes</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">"bug"</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="nx">resInd</span><span class="p">){</span>
     <span class="kd">var</span> <span class="nx">ind</span> <span class="o">=</span> <span class="nx">resInd</span><span class="p">.</span><span class="nx">data</span><span class="p">;</span> <span class="c1">// ind = { open : ["id1", "id2", ...], ...}</span>
     <span class="k">return</span> <span class="nb">Promise</span><span class="p">.</span><span class="nx">all</span><span class="p">((</span><span class="nx">ind</span><span class="p">.</span><span class="nx">open</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="nx">tickets</span><span class="p">.</span><span class="nx">get</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">tickets</span><span class="p">)))</span>
@@ -357,9 +357,9 @@ ce type de recherche. De même, indexer par les autres critères de recherche pr
 <p>Je tiens à remercier l'équipe travaillant autour de Kinto pour leur gentillesse
 et leur ouverture : accessibles sur IRC (#kinto) et Slack, ils encouragent la création de tickets, de PR.
 De nombreuses sont même acceptées ;-)</p>
-<p>Le code est disponible sur github: <a href="https://github.com/elelay/jedit-trackers-kinto">elelay/jedit-trackers-kinto</a>.<br>
-Il tourne sur <a href="http://trackers.elelay.fr/trackers.html">trackers.elelay.fr</a>.<br>
-Vos retours sont les bienvenus via IRC (elelay) — Issues et PR, sait-on jamais...</br></br></p>
+<p>Le code est disponible sur github: <a href="https://github.com/elelay/jedit-trackers-kinto">elelay/jedit-trackers-kinto</a>.
+Il tourne sur <a href="http://trackers.elelay.fr/trackers.html">trackers.elelay.fr</a>.
+Vos retours sont les bienvenus via IRC (elelay) — Issues et PR, sait-on jamais...</p>
 <!-- :wrap=hard:noTabs=true:tabSize=4:indentSize=4: -->
             <div class="hr"></div>
             <a href="#" class="go-top">Revenir au début</a>

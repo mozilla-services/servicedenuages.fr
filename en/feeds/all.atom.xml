@@ -689,10 +689,10 @@ There is no architecture nirvana!  — Lee Byron&lt;/blockquote&gt;
 &lt;/div&gt;
 </content><category term="mozilla"></category></entry><entry><title>jEdit bugs: Getting off the Ground with Kinto and Kinto.js</title><link href="http://www.servicedenuages.fr/en/jedit-bugs-getting-off-the-ground" rel="alternate"></link><published>2016-09-09T00:00:00+02:00</published><updated>2016-09-09T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-09-09:/en/jedit-bugs-getting-off-the-ground</id><summary type="html">&lt;p&gt;My experience using Kinto and Kinto.js to browse jEdit tickets offline&lt;/p&gt;</summary><content type="html">&lt;p&gt;This is a guest post by &lt;a href="https://github.com/elelay"&gt;Eric Le Lay&lt;/a&gt; on his experience using Kinto.&lt;/p&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Have you heard of &lt;a href="http://jedit.org"&gt;jEdit&lt;/a&gt; — the &lt;em&gt;programmer's text editor&lt;/em&gt;?&lt;br&gt;
+&lt;p&gt;Have you heard of &lt;a href="http://jedit.org"&gt;jEdit&lt;/a&gt; — the &lt;em&gt;programmer's text editor&lt;/em&gt;?
 It's a multi-platform text editor, written in Java, with a myriad of plugins.
 I've been part of the development team for ten years.
-It's hosted on Sourceforge, with the code base under &lt;em&gt;Subversion&lt;/em&gt;.&lt;/br&gt;&lt;/p&gt;
+It's hosted on Sourceforge, with the code base under &lt;em&gt;Subversion&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;This is a labour of love for us, contributing during our free time. For me, that's when I'm on holidays.
 I don't always have Internet access where I'm staying. Or it's via a short Ethernet cable in a dark and overheated room.
 Don't lock me out of the sunny garden! Give me everything I need off-line!&lt;/p&gt;
@@ -779,7 +779,7 @@ This way I can update the database more easily (no need to fetch the kinto docum
 the content and the id).&lt;/p&gt;
 &lt;p&gt;Clients are web applications.&lt;/p&gt;
 &lt;p&gt;An updater script forwards modifications from Sourceforge to the Kinto database.&lt;/p&gt;
-&lt;p&gt;The C1 machine has an ARM processor and runs Debian Jessie. So a few deviations to the standard setup were necessary 
+&lt;p&gt;The C1 machine has an ARM processor and runs Debian Jessie. So a few deviations to the standard setup were necessary
 (see the &lt;a href="https://github.com/Kinto/kinto/wiki"&gt;wiki kinto&lt;/a&gt;).&lt;/p&gt;
 &lt;h2&gt;The kinto.js Client&lt;/h2&gt;
 &lt;p&gt;My goal was to learn kinto.js, not your latest front-end framework, so I quite liked the vanilla take on the tutorial
@@ -958,9 +958,9 @@ is a huge performance boost.&lt;/p&gt;
 &lt;h2&gt;To Do List (not the tutorial)&lt;/h2&gt;
 &lt;p&gt;I've spent 3 weeks exploring Kinto and still have things to try out. I'm also far from a full-fledged application.&lt;/p&gt;
 &lt;p&gt;Some leads:&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Modifying Tickets&lt;/strong&gt;&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;Modifying Tickets&lt;/strong&gt;
 I'd like to be able to modify tickets from the application, instead of having to use the Sourceforge UI.
-Modifications could be possible offline, kept in kinto.js until network connectivity is restored.&lt;/br&gt;&lt;/p&gt;
+Modifications could be possible offline, kept in kinto.js until network connectivity is restored.&lt;/p&gt;
 &lt;p&gt;Nothing prevents it but it takes a lot of development to make a nice UI.
 I'll first look into &lt;a href="https://github.com/Kinto/formbuilder"&gt;FormBuilder&lt;/a&gt; before rolling out my own.
 If actual interaction with trackers is too much, maybe letting users tag, star, follow tickets for themselves could be
@@ -996,15 +996,15 @@ document ids). Then, looking for all open bugs would look like:&lt;/p&gt;
 &lt;h2&gt;Thank You!&lt;/h2&gt;
 &lt;p&gt;I'd like to thank the Kinto team for their kindness and their openness: reachable on IRC (#kinto) and Slack, they
 encourage issues and PRs. Many of which are even accepted ;-)&lt;/p&gt;
-&lt;p&gt;My code is available on github: &lt;a href="https://github.com/elelay/jedit-trackers-kinto"&gt;elelay/jedit-trackers-kinto&lt;/a&gt;.&lt;br&gt;
-The application is available at &lt;a href="http://trackers.elelay.fr/trackers.html"&gt;trackers.elelay.fr&lt;/a&gt;.&lt;br&gt;
-Feedback is welcome via IRC (elelay) — why not even Issues and PR?&lt;/br&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;My code is available on github: &lt;a href="https://github.com/elelay/jedit-trackers-kinto"&gt;elelay/jedit-trackers-kinto&lt;/a&gt;.
+The application is available at &lt;a href="http://trackers.elelay.fr/trackers.html"&gt;trackers.elelay.fr&lt;/a&gt;.
+Feedback is welcome via IRC (elelay) — why not even Issues and PR?&lt;/p&gt;
 &lt;!-- :wrap=hard:noTabs=true:tabSize=4:indentSize=4: --&gt;</content><category term="mozilla"></category></entry><entry><title>Survoler les bugs avec Kinto</title><link href="http://www.servicedenuages.fr/en/../jedit-bugs-getting-off-the-ground" rel="alternate"></link><published>2016-09-01T00:00:00+02:00</published><updated>2016-09-01T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-09-01:/en/../jedit-bugs-getting-off-the-ground</id><summary type="html">&lt;p&gt;Retour d'expérience sur l'utilisation de Kinto et Kinto.js pour parcourir les tickets de jEdit hors-ligne&lt;/p&gt;</summary><content type="html">&lt;p&gt;Voici un article rédigé par &lt;a href="https://github.com/elelay"&gt;Eric Le Lay&lt;/a&gt; sur son utilisation de Kinto.&lt;/p&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Connaissez-vous &lt;a href="http://jedit.org"&gt;jEdit&lt;/a&gt; — &lt;em&gt;l'éditeur de texte des développeurs&lt;/em&gt; ?&lt;br&gt;
+&lt;p&gt;Connaissez-vous &lt;a href="http://jedit.org"&gt;jEdit&lt;/a&gt; — &lt;em&gt;l'éditeur de texte des développeurs&lt;/em&gt; ?
 C'est un éditeur de texte multi-plateforme, écrit en java, disposant de nombreux plugins.
 Je participe à son développement depuis une dizaine d'années.
-Nous l'hébergeons sur Sourceforge ; le code principal est sous &lt;em&gt;Subversion&lt;/em&gt;.&lt;/br&gt;&lt;/p&gt;
+Nous l'hébergeons sur Sourceforge ; le code principal est sous &lt;em&gt;Subversion&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;Nous sommes bénévoles et le maintenons sur notre temps libre.
 Pour ma part, je n'ai pas toujours accès à internet pendant les vacances. Ou via un câble Ethernet dans une pièce sombre
 et surchauffée. Tout ça pour dire que j'aime avoir un maximum de choses sous la main hors-ligne :&lt;/p&gt;
@@ -1227,7 +1227,7 @@ Rien de bien compliqué : l'id est mise dans le hash de l'url et l'application i
 &lt;/pre&gt;&lt;/div&gt;
 &lt;h1&gt;Mises à jour&lt;/h1&gt;
 &lt;p&gt;Lorsqu'un ticket est modifié coté Sourceforge il faut mettre à jour le document correspondant dans Kinto.
-Je le fais via un programme coté serveur. &lt;/p&gt;
+Je le fais via un programme coté serveur.&lt;/p&gt;
 &lt;h2&gt;updater.py&lt;/h2&gt;
 &lt;p&gt;Il n'est pas possible d'obtenir les modifications de tickets Sourceforge en temps réel via les technologies web.&lt;/p&gt;
 &lt;p&gt;Quelques idées pour les obtenir :&lt;/p&gt;
@@ -1269,9 +1269,9 @@ allège vraiment l'application.&lt;/p&gt;
 &lt;h2&gt;Amélioration prévues&lt;/h2&gt;
 &lt;p&gt;J'ai passé 3 semaines à explorer Kinto et il reste encore des choses à tester. Je suis également loin d'une application terminée.&lt;/p&gt;
 &lt;p&gt;Quelques pistes :&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Modifications des tickets&lt;/strong&gt;&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;Modifications des tickets&lt;/strong&gt;
 Je voudrais qu'on puisse modifier les tickets depuis l'application, plutôt que de renvoyer vers Sourceforge.
-Les modifications pourraient être temporairement stockées dans kinto.js en attente de réseau.&lt;/br&gt;&lt;/p&gt;
+Les modifications pourraient être temporairement stockées dans kinto.js en attente de réseau.&lt;/p&gt;
 &lt;p&gt;La voie est libre depuis la correction d'un &lt;a href="https://sourceforge.net/p/forge/site-support/13403/"&gt;petit bug&lt;/a&gt;
 qui empêchait d'interroger l'API Sourceforge en CORS depuis la France, mais ça représente pas mal de code pour
 l'interface utilisateur. J'explorerai &lt;a href="https://github.com/Kinto/formbuilder"&gt;FormBuilder&lt;/a&gt; avant de coder ma
@@ -1297,7 +1297,7 @@ je maintiendrai moi-même.&lt;/p&gt;
 Les tickets pourraient être indexés par numéro (ils ne sont pas uniques au sein d'un projet, mais au sein d'un tracker) pour accélérer
 ce type de recherche. De même, indexer par les autres critères de recherche prédéfinis accélèrerait les choses.&lt;/p&gt;
 &lt;p&gt;Je peux gérer des index manuels (un document par index, contenant un objet associant chaque valeur possible de la clé
-à un tableau d'id). Alors, rechercher tous les bugs ouverts reviendrait à &lt;/p&gt;
+à un tableau d'id). Alors, rechercher tous les bugs ouverts reviendrait à&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nx"&gt;indexes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"bug"&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;resInd&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
     &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;ind&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;resInd&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// ind = { open : ["id1", "id2", ...], ...}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;Promise&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;all&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nx"&gt;ind&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;open&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;bind&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
@@ -1310,9 +1310,9 @@ ce type de recherche. De même, indexer par les autres critères de recherche pr
 &lt;p&gt;Je tiens à remercier l'équipe travaillant autour de Kinto pour leur gentillesse
 et leur ouverture : accessibles sur IRC (#kinto) et Slack, ils encouragent la création de tickets, de PR.
 De nombreuses sont même acceptées ;-)&lt;/p&gt;
-&lt;p&gt;Le code est disponible sur github: &lt;a href="https://github.com/elelay/jedit-trackers-kinto"&gt;elelay/jedit-trackers-kinto&lt;/a&gt;.&lt;br&gt;
-Il tourne sur &lt;a href="http://trackers.elelay.fr/trackers.html"&gt;trackers.elelay.fr&lt;/a&gt;.&lt;br&gt;
-Vos retours sont les bienvenus via IRC (elelay) — Issues et PR, sait-on jamais...&lt;/br&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;Le code est disponible sur github: &lt;a href="https://github.com/elelay/jedit-trackers-kinto"&gt;elelay/jedit-trackers-kinto&lt;/a&gt;.
+Il tourne sur &lt;a href="http://trackers.elelay.fr/trackers.html"&gt;trackers.elelay.fr&lt;/a&gt;.
+Vos retours sont les bienvenus via IRC (elelay) — Issues et PR, sait-on jamais...&lt;/p&gt;
 &lt;!-- :wrap=hard:noTabs=true:tabSize=4:indentSize=4: --&gt;</content></entry><entry><title>Kinto-admin reaches 1.0</title><link href="http://www.servicedenuages.fr/en/kinto-admin-1.0" rel="alternate"></link><published>2016-06-10T00:00:00+02:00</published><updated>2016-06-10T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-06-10:/en/kinto-admin-1.0</id><summary type="html">&lt;p&gt;Introducing kinto-admin, a Web UI for managing your Kinto data&lt;/p&gt;</summary><content type="html">&lt;p&gt;When choosing a database, it's a good idea to study a few important criteria: how nice is the API? Is it well documented? Will it scale? What is the tooling available? Tooling is especially important as it's what will make your life as a developer easier. We've been working on one specific tool, called &lt;a href="https://github.com/Kinto/kinto-admin/"&gt;kinto-admin&lt;/a&gt;, which wants to be to Kinto what &lt;a href="https://www.phpmyadmin.net/"&gt;phpMyAdmin&lt;/a&gt; is to MySQL. Today we're announcing the release of &lt;a href="https://github.com/Kinto/kinto-admin/releases/tag/v1.0.0"&gt;version 1.0&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="kinto-admin-logged-in" src="http://www.servicedenuages.fr/en/../images/kinto-admin-logged-in.png" style="width: 1219px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
 &lt;p&gt;In past releases you had to write and deploy a configuration file explicitly describing the resources to expose in the admin. Kinto-admin 1.0 now allows users to discover and browse the buckets, collections and records they have access to on a given Kinto server. They can also create, update and delete them, provided they have the required permissions. No need for configuration files anymore!&lt;/p&gt;

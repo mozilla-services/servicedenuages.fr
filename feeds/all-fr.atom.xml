@@ -163,10 +163,10 @@ possible que nous en fassions un plugin spécifique dissocié de la signature...
 &lt;/div&gt;
 </content><category term="mozilla"></category></entry><entry><title>Survoler les bugs avec Kinto</title><link href="http://www.servicedenuages.fr/jedit-bugs-getting-off-the-ground" rel="alternate"></link><published>2016-09-01T00:00:00+02:00</published><updated>2016-09-01T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-09-01:/jedit-bugs-getting-off-the-ground</id><summary type="html">&lt;p&gt;Retour d'expérience sur l'utilisation de Kinto et Kinto.js pour parcourir les tickets de jEdit hors-ligne&lt;/p&gt;</summary><content type="html">&lt;p&gt;Voici un article rédigé par &lt;a href="https://github.com/elelay"&gt;Eric Le Lay&lt;/a&gt; sur son utilisation de Kinto.&lt;/p&gt;
 &lt;h2&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Connaissez-vous &lt;a href="http://jedit.org"&gt;jEdit&lt;/a&gt; — &lt;em&gt;l'éditeur de texte des développeurs&lt;/em&gt; ?&lt;br&gt;
+&lt;p&gt;Connaissez-vous &lt;a href="http://jedit.org"&gt;jEdit&lt;/a&gt; — &lt;em&gt;l'éditeur de texte des développeurs&lt;/em&gt; ?
 C'est un éditeur de texte multi-plateforme, écrit en java, disposant de nombreux plugins.
 Je participe à son développement depuis une dizaine d'années.
-Nous l'hébergeons sur Sourceforge ; le code principal est sous &lt;em&gt;Subversion&lt;/em&gt;.&lt;/br&gt;&lt;/p&gt;
+Nous l'hébergeons sur Sourceforge ; le code principal est sous &lt;em&gt;Subversion&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;Nous sommes bénévoles et le maintenons sur notre temps libre.
 Pour ma part, je n'ai pas toujours accès à internet pendant les vacances. Ou via un câble Ethernet dans une pièce sombre
 et surchauffée. Tout ça pour dire que j'aime avoir un maximum de choses sous la main hors-ligne :&lt;/p&gt;
@@ -389,7 +389,7 @@ Rien de bien compliqué : l'id est mise dans le hash de l'url et l'application i
 &lt;/pre&gt;&lt;/div&gt;
 &lt;h1&gt;Mises à jour&lt;/h1&gt;
 &lt;p&gt;Lorsqu'un ticket est modifié coté Sourceforge il faut mettre à jour le document correspondant dans Kinto.
-Je le fais via un programme coté serveur. &lt;/p&gt;
+Je le fais via un programme coté serveur.&lt;/p&gt;
 &lt;h2&gt;updater.py&lt;/h2&gt;
 &lt;p&gt;Il n'est pas possible d'obtenir les modifications de tickets Sourceforge en temps réel via les technologies web.&lt;/p&gt;
 &lt;p&gt;Quelques idées pour les obtenir :&lt;/p&gt;
@@ -431,9 +431,9 @@ allège vraiment l'application.&lt;/p&gt;
 &lt;h2&gt;Amélioration prévues&lt;/h2&gt;
 &lt;p&gt;J'ai passé 3 semaines à explorer Kinto et il reste encore des choses à tester. Je suis également loin d'une application terminée.&lt;/p&gt;
 &lt;p&gt;Quelques pistes :&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;Modifications des tickets&lt;/strong&gt;&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;Modifications des tickets&lt;/strong&gt;
 Je voudrais qu'on puisse modifier les tickets depuis l'application, plutôt que de renvoyer vers Sourceforge.
-Les modifications pourraient être temporairement stockées dans kinto.js en attente de réseau.&lt;/br&gt;&lt;/p&gt;
+Les modifications pourraient être temporairement stockées dans kinto.js en attente de réseau.&lt;/p&gt;
 &lt;p&gt;La voie est libre depuis la correction d'un &lt;a href="https://sourceforge.net/p/forge/site-support/13403/"&gt;petit bug&lt;/a&gt;
 qui empêchait d'interroger l'API Sourceforge en CORS depuis la France, mais ça représente pas mal de code pour
 l'interface utilisateur. J'explorerai &lt;a href="https://github.com/Kinto/formbuilder"&gt;FormBuilder&lt;/a&gt; avant de coder ma
@@ -459,7 +459,7 @@ je maintiendrai moi-même.&lt;/p&gt;
 Les tickets pourraient être indexés par numéro (ils ne sont pas uniques au sein d'un projet, mais au sein d'un tracker) pour accélérer
 ce type de recherche. De même, indexer par les autres critères de recherche prédéfinis accélèrerait les choses.&lt;/p&gt;
 &lt;p&gt;Je peux gérer des index manuels (un document par index, contenant un objet associant chaque valeur possible de la clé
-à un tableau d'id). Alors, rechercher tous les bugs ouverts reviendrait à &lt;/p&gt;
+à un tableau d'id). Alors, rechercher tous les bugs ouverts reviendrait à&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nx"&gt;indexes&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"bug"&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;then&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;resInd&lt;/span&gt;&lt;span class="p"&gt;){&lt;/span&gt;
     &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;ind&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;resInd&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;data&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="c1"&gt;// ind = { open : ["id1", "id2", ...], ...}&lt;/span&gt;
     &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="nb"&gt;Promise&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;all&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="nx"&gt;ind&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;open&lt;/span&gt;&lt;span class="p"&gt;).&lt;/span&gt;&lt;span class="nx"&gt;map&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;get&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;bind&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;tickets&lt;/span&gt;&lt;span class="p"&gt;)))&lt;/span&gt;
@@ -472,9 +472,9 @@ ce type de recherche. De même, indexer par les autres critères de recherche pr
 &lt;p&gt;Je tiens à remercier l'équipe travaillant autour de Kinto pour leur gentillesse
 et leur ouverture : accessibles sur IRC (#kinto) et Slack, ils encouragent la création de tickets, de PR.
 De nombreuses sont même acceptées ;-)&lt;/p&gt;
-&lt;p&gt;Le code est disponible sur github: &lt;a href="https://github.com/elelay/jedit-trackers-kinto"&gt;elelay/jedit-trackers-kinto&lt;/a&gt;.&lt;br&gt;
-Il tourne sur &lt;a href="http://trackers.elelay.fr/trackers.html"&gt;trackers.elelay.fr&lt;/a&gt;.&lt;br&gt;
-Vos retours sont les bienvenus via IRC (elelay) — Issues et PR, sait-on jamais...&lt;/br&gt;&lt;/br&gt;&lt;/p&gt;
+&lt;p&gt;Le code est disponible sur github: &lt;a href="https://github.com/elelay/jedit-trackers-kinto"&gt;elelay/jedit-trackers-kinto&lt;/a&gt;.
+Il tourne sur &lt;a href="http://trackers.elelay.fr/trackers.html"&gt;trackers.elelay.fr&lt;/a&gt;.
+Vos retours sont les bienvenus via IRC (elelay) — Issues et PR, sait-on jamais...&lt;/p&gt;
 &lt;!-- :wrap=hard:noTabs=true:tabSize=4:indentSize=4: --&gt;</content><category term="mozilla"></category></entry><entry><title>Configurer un certificat SSL avec Let's Encrypt</title><link href="http://www.servicedenuages.fr/configurer-un-certificat-ssl-lets-encrypt" rel="alternate"></link><published>2015-12-16T00:00:00+01:00</published><updated>2015-12-16T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2015-12-16:/configurer-un-certificat-ssl-lets-encrypt</id><summary type="html">&lt;p&gt;Description de la procédure à suivre pour utiliser un certificat SSL vérifié par Let's Encrypt.&lt;/p&gt;</summary><content type="html">&lt;p&gt;Fini les certificats non sécurisés et très coûteux !&lt;/p&gt;
 &lt;p&gt;&lt;img alt="Let's encrypt — a new Certificate Authority:  free, automated, and open." src="http://www.servicedenuages.fr/images/letsencrypt-logo-horizontal.png" style="width: 1025px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
 &lt;p&gt;Avec Let's Encrypt vous n'avez plus d'excuse car il vous est
