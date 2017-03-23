@@ -115,7 +115,7 @@ How do you set course for a vision?
     :align: center
 
 
-OKRs are a way to cut your vision in steps and to move your vision
+|OKRs| are a way to cut your vision in steps and to move your vision
 forward.
 
 To be able to define OKRs from your vision, you need to be able to find
@@ -141,6 +141,10 @@ new priorities.
 
 .. _`set course every six months`: https://air.mozilla.org/mozilla-all-hands-hawaii-2016-20161221/
 
+.. |OKRs| raw:: html
+
+    <abbr title="Objectives and Key results">OKRs</abbr>
+
 How do you define what the priorities are?
 ==========================================
 
@@ -149,9 +153,9 @@ How do you define what the priorities are?
     :align: center
 
 
-At our level, we are driven by the use case. We have a vision of what
-we want to build. That vision leads to ideas of feature that we are
-adding to the backlog.
+At our team level, we are driven by the use case. We have a vision of
+what we want to build. That vision leads to ideas of feature that we
+are adding to the backlog.
 
 However we are not building anything until we have a proper use case
 for it. As soon as we have a use case it is added to our quaterly
