@@ -474,7 +474,7 @@ will then add the current user to the list. It's possible to use a ``PATCH`` to
 remove herself from the list. Adding the current user allows to avoid
 situations where nobody has access to the data anymore.
 
-.. note:: 
+.. note::
 
     The ``create`` permission is used for a ``POST`` but also for a ``PUT``
     when the record doesn't exist.

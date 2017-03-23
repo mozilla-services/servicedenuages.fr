@@ -64,7 +64,7 @@ reusable.
 
 Cliquet provides everything you need to get you started in production - by
 design, the transition from prototype to operational service is smooth and
-rapid. Out of the box, the service will have facilities for monitoring and 
+rapid. Out of the box, the service will have facilities for monitoring and
 configuration, as well as aides for deployment and version deprecation. As
 these realities evolve in the real world, so does the toolkit.
 
@@ -440,7 +440,7 @@ specific protocol), you must use Cornice or Pyramid directly.
 Is Cliquet sufficiently generic for non-Mozilla projects?
 `````````````````````````````````````````````````````````
 
-Yes! 
+Yes!
 
 It's designed from the ground up such that every component can be
 turned on or off, or substituted entirely, right from the configuration file
@@ -449,7 +449,7 @@ turned on or off, or substituted entirely, right from the configuration file
 If the combination of HTTP, JSON, and CRUD resources satisfies your use case,
 then Cliquet is a pretty safe bet for you new application. Combined with
 a design based on production best practices and handy abstractions, Cliquet
-offers a straightforward way to quickly get up and running with a Pyramid / 
+offers a straightforward way to quickly get up and running with a Pyramid /
 Cornice webapp.
 
 Do the JSON resources support complex relational models?

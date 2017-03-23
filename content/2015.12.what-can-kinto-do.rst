@@ -46,7 +46,7 @@ make it really easy for you to integrate with the HTTP APIs exposed by Kinto.
 Synchronise your data
 =====================
 
-If there is one thing to take way with you, that would be this: if you need to 
+If there is one thing to take way with you, that would be this: if you need to
 **synchronise** your data between different devices, there are chances that
 Kinto is a good fit.
 
@@ -90,17 +90,17 @@ Here's an example of how to retrieve your data using the `HTTPie
     {
         "data": [
             {
-                "end": "2016-01-07T09:30:00", 
-                "id": "1f5d1390-2647-442d-8bc4-5ecc6a4f8beb", 
-                "last_modified": 1451997254315, 
-                "start": "2016-01-07T09:00:00", 
+                "end": "2016-01-07T09:30:00",
+                "id": "1f5d1390-2647-442d-8bc4-5ecc6a4f8beb",
+                "last_modified": 1451997254315,
+                "start": "2016-01-07T09:00:00",
                 "title": "Visite maison"
-            }, 
+            },
             {
-                "end": "2016-01-06", 
-                "id": "0dadb484-259b-482d-8cb8-0e94d743d1c6", 
-                "last_modified": 1451997234471, 
-                "start": "2016-01-05", 
+                "end": "2016-01-06",
+                "id": "0dadb484-259b-482d-8cb8-0e94d743d1c6",
+                "last_modified": 1451997234471,
+                "start": "2016-01-05",
                 "title": "RDV Osthéo"
             }
         ]

@@ -1,5 +1,5 @@
-Achievement unlocked 
-#####################
+Achievement unlocked
+####################
 
 :date: 2015-06-17
 :summary: We just released cliquet 2.0 and Kinto 1.0 !

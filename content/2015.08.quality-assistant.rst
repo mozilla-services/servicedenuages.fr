@@ -24,7 +24,7 @@ horaire, puisque cela facilite énormement la communication, d'où ce billet.
 De notre coté, on est déjà bien branchés qualité : on utilise à fond TravisCI,
 on écrit des tests de montée en charge, on cherche toujours à garder une
 couverture de tests de 100%, mais quand même, au moment où les QA commencent à
-déployer en préproduction et matraquer le service, on fait pas les malins :) 
+déployer en préproduction et matraquer le service, on fait pas les malins :)
 
 On passe toujours à coté de détails (importants!) et on va rarement aussi loin
 que les QA qui ont vraiment le sens du détail et de la qualité. Ils sont les

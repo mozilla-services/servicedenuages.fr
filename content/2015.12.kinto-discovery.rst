@@ -11,14 +11,14 @@ How to make the Kinto instances discoverable?
 About Me
 ========
 
-Hi! I am Shweta Oak. 
+Hi! I am Shweta Oak.
 
 I got the opportunity to be part of Mozilla's Kinto team.
 Here, my work focuses on the discovery of Kinto servers.
 I am passionate about Technology and believe in applying it to enhance the lives of people.
 I like to solve problems. While solving problems, I like exploring and crafting various
 solutions to find the best one. I am enthusiastic about taking up new challenges, learning
-new things and discovering my potential. 
+new things and discovering my potential.
 
 
 How does an application discover the location of a Kinto server?
@@ -29,7 +29,7 @@ and anywhere. However, there has to be a way for the user to choose where the da
 are getting stored. In addition to configuring the frontend app for their personal
 server, users can get the  location of the server in the form of a URL which can be
 shared with another user in order to collaborate and share data between multiple
-users on the same Kinto server. 
+users on the same Kinto server.
 
 To solve this problem, the following approach can be taken:
 
@@ -94,7 +94,7 @@ this:
 **Cons of using a central repository:**
 
 - The user needs to trust a 3rd party as the links to the information of the user is being stored in one place.
-- There is a possibility of leak of information that someone is connected to a Kinto instance, and where this instance is.  
+- There is a possibility of leak of information that someone is connected to a Kinto instance, and where this instance is.
 
 (B2) Distributed Hash Table (DHT)
 ---------------------------------

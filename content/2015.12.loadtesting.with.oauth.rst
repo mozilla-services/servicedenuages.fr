@@ -58,7 +58,7 @@ So, what's so complicated about OAuth?
 
 Load testing a service that requires OAuth-based authentication means:
 
-* having an OAuth account (often creating it) 
+* having an OAuth account (often creating it)
 * getting a Bearer Token with the right scopes
 
 Doing all this setup, will add a number of requests. Plus it will take

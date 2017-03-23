@@ -63,7 +63,7 @@ Premier envoi de données sur Kinto
 L'ensemble des données est récupéré depuis une source *sécurisée* puis mis dans
 une collection JSON. Chaque élément contient un identifiant unique généré sur
 le client.
-  
+
 Par exemple, un enregistrement peut ressembler à :
 
 .. code-block:: javascript

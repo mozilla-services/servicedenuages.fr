@@ -75,7 +75,7 @@ we can just ask the ``fxa-client`` to build one for our load test:
 
     fxa-client --auth email@domain.tld --bearer --scopes "profile"
 
-    Please enter a password for email@domain.tld: 
+    Please enter a password for email@domain.tld:
     # ---- BEARER TOKEN INFO ----
     # User: email@domain.tld
     # Scopes: profile

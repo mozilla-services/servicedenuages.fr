@@ -74,7 +74,7 @@ Les données sont inexactes mais plausibles.
 .. code-block:: sql
 
     +----+----------+----------+---------------------+
-    | ID | Nom      | Société  | Date de recrutement | 
+    | ID | Nom      | Société  | Date de recrutement |
     +----+----------+----------+---------------------+
     | 1  | Rodolphe | Novapost | 2014-09-03          |
     +----+----------+----------+---------------------+
@@ -142,7 +142,7 @@ Comment peut-on obtenir le même résultat sans utiliser OFFSET ?
     +----+----------+----------+---------------------+
 
     SELECT * FROM `salaries`
-    WHERE `id` > 2 
+    WHERE `id` > 2
     ORDER BY `id`
     LIMIT 2
 
@@ -242,7 +242,7 @@ Prenons la requête suivante :
     ORDER BY `societe`, `nom`
 
     +----+----------+----------+---------------------+
-    | ID | Nom      | Société  | Date de recrutement | 
+    | ID | Nom      | Société  | Date de recrutement |
     +----+----------+----------+---------------------+
     | 4  | Alexis   | Mozilla  | 2012-09-24          |
     +----+----------+----------+---------------------+
@@ -300,7 +300,7 @@ Commençons avec un tri sur une seule colonne non unique ``societe``:
     ORDER BY `societe`
 
     +----+----------+----------+---------------------+
-    | ID | Nom      | Société  | Date de recrutement | 
+    | ID | Nom      | Société  | Date de recrutement |
     +----+----------+----------+---------------------+
     | 2  | Tarek    | Mozilla  | 2009-03-01          |
     +----+----------+----------+---------------------+
@@ -390,14 +390,14 @@ Pour atteindre la page deux, on a donc trois ensembles à concaténer:
     | 6  | Rémy     | Mozilla  | 2014-03-11          |
     +----+----------+----------+---------------------+
 
-On peut tester notre cas limite en ajoutant 
+On peut tester notre cas limite en ajoutant
 
 .. code-block:: sql
 
     +----+----------+----------+---------------------+
     | 10 | Mathieu  | Mozilla  | 2015-03-22          |
     +----+----------+----------+---------------------+
-    
+
 Et on a bien :
 
 .. code-block:: sql
@@ -435,7 +435,7 @@ retourne une liste de conditions de tri.
 
     def get_continuation_token_conditions(record, sorting, results=None):
         """Return the list of conditions for a given record and sorting attributes.
-    
+
         >>> get_continuation_token_conditions(
         ...     {'id': 7, 'nom': 'Mathieu', 'societe': 'Mozilla'},
         ...     ['societe', 'nom', 'id']
@@ -451,24 +451,24 @@ retourne une liste de conditions de tri.
         [(('societe', '=', 'Mozilla'), ('nom', '=', 'Mathieu'), ('id', '>', 7)),
          (('societe', '=', 'Mozilla'), ('nom', '<', 'Mathieu')),
          (('societe', '>', 'Mozilla'))]
-        
+
         """
-        
+
         result = []
         for field in sorting[:-1]:
             field_name = field.lstrip('-')
             result.append((field_name, '=', record[field_name]))
-        
+
         field = sorting[-1]
         field_name = field.lstrip('-')
         direction = '<' if (field[0] == '-') else '>'
         result.append((field_name, direction, record[field_name]))
-        
+
         if results is not None:
             results.append(result)
         else:
             results = [result]
-        
+
         if len(sorting) == 1:
             return results
         else:

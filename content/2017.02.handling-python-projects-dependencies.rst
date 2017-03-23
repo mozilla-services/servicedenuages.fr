@@ -81,8 +81,8 @@ We usually add a `build-requirements` makefile rule on our projects:
 .. code-block:: Makefile
 
     VIRTUALENV = virtualenv --python=python3
-    
-    
+
+
     build-requirements:
     	$(eval TEMPDIR := $(shell mktemp -d))
     	$(VIRTUALENV) $(TEMPDIR)
@@ -225,29 +225,29 @@ have one already activated:
     PYTHON = $(VENV)/bin/python
     INSTALL_STAMP = $(VENV)/.install.stamp
     INSTALL_DEV_STAMP = $(VENV)/.dev_env_installed.stamp
-    
+
     install: $(INSTALL_STAMP)
-    
+
     $(INSTALL_STAMP): $(PYTHON) setup.py  # Refresh the virtualenv if setup.py changed
     	$(VENV)/bin/pip install -U pip
     	$(VENV)/bin/pip install -Ue .
     	touch $(INSTALL_STAMP)
-    
+
     virtualenv: $(PYTHON)  # Create the virtualenv if needed (python executable not present)
-    
+
     $(PYTHON):
     	$(VIRTUALENV) $(VENV)
-    	
+
     install-dev: install $(DEV_STAMP)
-    
+
     # Refresh dev dependencies if dev-requirements.txt changed
     $(DEV_STAMP): $(PYTHON) dev-requirements.txt
     	$(VENV)/bin/pip install -Ur dev-requirements.txt
     	touch $(DEV_STAMP)
-    
+
     tests-once: install-dev
         $(VENV)/bin/py.test tests/
-    
+
     serve: install
     	$(VENV)/bin/python manage.py runserver
 
