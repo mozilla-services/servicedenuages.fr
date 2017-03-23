@@ -47,7 +47,7 @@ One way of doing so is to build software that empowers people to use
 the Internet while being in charge of their own data.
 
 When users give their data to big companies, they know they are giving
-them to much power. In the meantime these companies are offering a
+them too much power. In the meantime these companies are offering a
 service that solve people problems, and they get addicted to it and
 come back for more.
 
@@ -70,9 +70,9 @@ iterate until you are happy with the Minimum Viable Product.
 Note that, it might not be so cheap anymore when you start adding
 documentation and maintenance costs.
 
-The product might be used, and might get some traction for months or
-even years but it will be eventually forgotten in a git repository
-somewhere forever.
+However, the product might be used, and might get some traction for
+months or even years but it will be eventually forgotten in a git
+repository somewhere forever.
 
 Writing software to solve problems is not enough, to keep motivated on
 the long term. You need a greater goal than just writing code.
@@ -80,40 +80,30 @@ the long term. You need a greater goal than just writing code.
 Knowing that, how do you keep motivated building things that are
 thrown away?
 
-Different people or communities might have different answers.
+Different people or communities might have different guiding questions.
 
-For us the answer is: As well as solving the problem, what can we
+For us the question is: As well as solving the problem, what can we
 learn while building this solution that can be useful for us and for
 our community to help us go faster and build more robust software
 later.
 
-For Mozilla the answer to that question is: How do I improve Firefox
+For Mozilla the question is: How do I improve Firefox
 so that people want to use it as their main browser?
 
-Both answer lead to goals that we set to ourselves. We are using
+Both questions lead to goals that we set to ourselves. We are using
 software development to reach them.
 
 Mozilla is calling that the True North, we are calling it a vision,
 some other people might call it a utopia.
 
-In both cases that vision should set the route of our ambition and give
-people a aim to all look in the same direction.
-
-
-How do you turn this vision into OKRs?
-======================================
-
-OKR means **Objectives and Key results**: it is a way to define what
-you want to achieve in a tangible way and what you will be able to
-mesure
-`to see how effective you were <https://blog.betterworks.com/okrs-stretch-or-not-to-stretch/>`_.
-
-It is also a way to cut your vision in steps and to move your vision
-forward.
-
+In both cases that vision should set the route of our ambition and
+point out a direction for everyone to sail to.
 
 How do you set course for a vision?
 ===================================
+
+OKRs are a way to cut your vision in steps and to move your vision
+forward.
 
 To be able to define OKRs from your vision, you need to be able to find
 the fastest way to get closer to your aim, however what we can learn
@@ -136,23 +126,32 @@ When this happens, it often means changing our course and killing
 projects or at least putting them on the side if teams are turning to
 new priorities.
 
+
+How do you define what the priorities are?
+==========================================
+
 At our level, we are driven by the use case. We have a vision of what
-we want to build and we keep adding ideas in the backlog.
+we want to build. That vision leads to ideas of feature that we are
+adding to the backlog.
 
 However we are not building anything until we have a proper use case
-for it. As soon as we have a use case it is added to our Roadmap.
+for it. As soon as we have a use case it is added to our quaterly
+roadmap.
 
-You endup not spending time on tasks you don't need and for each use
+You end up not spending time on tasks you don't need and for each use
 case you are getting closer to your goal even if it might not be the
 way you'd taken initially.
 
-You also don't have to support code that you don't use.
+You also don't have to support code that you don't use. We even remove
+features that are not used any more.
 
-We even ended up removing features that were not used anymore.
 
+Our secret is opensource
+========================
 
-Our luck is opensource
-======================
+More than writing lines of code, we are researching solutions to
+complex problems at scale and turning those solutions into production
+ready experiments.
 
 The advantage we have at Mozilla, is that everything we do is
 published as Free, Libre, Opensource Software, which means that, even
@@ -160,63 +159,69 @@ if, as Mozilla employees, we focus on something else, the work we've
 done is still available for the community to care about it.
 
 Thunderbird is an example of this. Mozilla stopped spending resources
-on it in September 2007 but ten years later Mozilla Thunderbird is
-still actively used by a large number of users every day.
+on it in July 2012 but five years later Mozilla Thunderbird is still
+actively used by a large number of users every day.
 
 When building software we solve complex issues and all the solutions
 we have put together are really useful for other people who might need
 to solve similar problems.
 
-- Mozilla Persona lead the ground for Firefox Accounts and the Portier
-  project.
-- The Firefox Hello loop server is a good example of how to build a
-  WebRTC signaling server.
-- The RemoteServiceWorker project shows how to use Python 3 asyncio
-  to handle a large pool of websockets using redis to route messages
-  between them.
+For instance, Mozilla Persona lead the ground for `Firefox Accounts`_
+and the `Portier project`_, the Firefox Hello `loop server`_ shows a
+good example of how to build a WebRTC signaling server and was reused
+later by `Project Link`_. The `Remote Service Worker project`_ also
+shows how to use `Python asyncio`_ to handle a large pool of
+websockets_ using redis_ to route messages between them.
+
+.. _`Firefox Accounts`: https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Firefox_Accounts
+.. _`Portier project`: https://portier.github.io/
+.. _`loop server`:  https://github.com/mozilla-services/loop-server
+.. _`Project Link`: https://wiki.mozilla.org/Connected_Devices/Projects/Project_Link
+.. _`Remote Service Worker project`: https://github.com/mozilla-services/remote-worker-server
+.. _`Python asyncio`: https://docs.python.org/3/library/asyncio.html
+.. _websockets: https://websockets.readthedocs.io/
+.. _redis: https://redis.io/
 
 
-Prototyping as a way to learn
-=============================
-  
-More than writing lines of code, we are researching solutions to
-complex problems at scale and turning those solutions into production
-ready experiments.
-
-All this efforts are not lost because we learn a great deal from all
-of them.
-
-Whether it takes us a month or a year to build something, we are
-learning.
-
-But everything you learn is useful only if you share it.
-
-
-Building software as a way to share
+Building software as a way to learn
 ===================================
 
-In one sentence, what matters the most is to build software to put
-your vision in motion and to share what you've learned along the way.
+As you can see, every effort is not pointless because we learn a great
+deal from all these projects.
 
-Luckily, there are people that you need to inform about what you are
-doing and learning about: your colleagues.
+Whether it takes us a month or a year to build something, we are
+learning. And if you want ot make the most value of this learning, it
+is important to share it as well.
+
+Luckily, there are at least one kind of people that you need to inform
+about what you are doing and learning about as part of your job: your
+colleagues.
 
 - You need to explain what you are trying to solve.
-- You need to find out how to solve the issue and agree on the solution you are putting
-  together.
+- You need to find out how to solve the issue and agree on the
+  solutions you are putting together.
 - You need to take feedback to be able to choose the best solution
   even before having written a single line of code.
+
+In a next article we will see how we make sharing the core of the
+process of building software as a distributed team.
+
+In the meantime, we can only encourage you to write about what you are
+building, go to conferences and tell others about what you learned and
+listen to them so that you don't have to go through the same pitfall.
+
 
 Conclusion
 ==========
 
-As a conclusion, don't build software to build software, build it to
-solve people problems. Set a long term goal, work toward that goal and
+In conclusion, don't build software to build software, build it to
+solve people's problems. Set a long term goal, work toward that goal and
 iterate. Do not be afraid of killing things that don't work.
 
 In the meantime, make the process of building software a way to learn
 new things and share what you've learn. Then you don't have to worry
-about your project to be decommissioned because you've already got the
+about your project being decommissioned because you've already got the
 take aways of building it.
-  
-Make the process of build software a way to share what you've learned.
+
+Make the process of building software a way to share what you've
+learned.
