@@ -1,5 +1,181 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages - misc</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/misc.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2017-02-24T00:00:00+01:00</updated><entry><title>Handling Python Project dependencies</title><link href="http://www.servicedenuages.fr/en/handling-python-projects-dependencies" rel="alternate"></link><published>2017-02-24T00:00:00+01:00</published><updated>2017-02-24T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2017-02-24:/en/handling-python-projects-dependencies</id><summary type="html">&lt;dl class="first last docutils"&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages - misc</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/misc.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2017-04-12T00:00:00+02:00</updated><entry><title>Building software as a way to learn</title><link href="http://www.servicedenuages.fr/en/building-software-as-a-way-to-learn" rel="alternate"></link><published>2017-04-12T00:00:00+02:00</published><updated>2017-04-12T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2017-04-12:/en/building-software-as-a-way-to-learn</id><summary type="html">&lt;p class="first last"&gt;Having multiple people working on a big project is not as easy as it seems.
+Here are some elements to move projects forward as a team.&lt;/p&gt;
+</summary><content type="html">&lt;img alt="New Mozilla 2017 Logo" class="align-center" src="http://www.servicedenuages.fr/en/../images/mozilla-logo.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;Today, I realized that I've been working for Mozilla for three years
+already.&lt;/p&gt;
+&lt;p&gt;I've learned a lot, and with the storage team we have been part of a
+number of different projects:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;Firefox Hello: Building a WebRTC signaling service.&lt;/li&gt;
+&lt;li&gt;MSISDN auth: Building a password less BrowserID authentication
+service using a phone number.&lt;/li&gt;
+&lt;li&gt;Syncto: Browsing Firefox Sync using the Kinto protocol.&lt;/li&gt;
+&lt;li&gt;Kinto: Building synchronization services with backup and sharing
+capabilities in mind.&lt;/li&gt;
+&lt;li&gt;RemoteServiceWorker: Building a Firefox Service Worker that does
+heavy calculation in the cloud, to save battery life on mobile.&lt;/li&gt;
+&lt;li&gt;WebPush channels: Building a PubSub on top of WebPush&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;While most of these projects have been built, deployed to production
+and eventually decommissioned, some of them are still actively used by
+Firefox users everyday.&lt;/p&gt;
+&lt;div class="section" id="how-do-you-keep-motivated-building-things-that-are-thrown-away"&gt;
+&lt;h2&gt;How do you keep motivated building things that are thrown away?&lt;/h2&gt;
+&lt;img alt="Mozilla Dino Wallpaper" class="align-center" src="http://www.servicedenuages.fr/en/../images/dino.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;Let's be honest: everything we build — cars, houses, and even software —
+is meant to be eventually thrown away. That's why recycling is so
+important.&lt;/p&gt;
+&lt;p&gt;The question is why do we keep building them nevertheless?&lt;/p&gt;
+&lt;p&gt;Our daily job is to help Mozilla make the web a safe place for users
+and prevent their privacy from being compromised.&lt;/p&gt;
+&lt;p&gt;One way of doing so is to build software that empowers people to
+freely use the Internet while keeping them in charge of their own
+data.&lt;/p&gt;
+&lt;p&gt;When users give their data to big companies, they don't necessarily
+know that they are giving them too much power. As a result, these
+companies are offering services that respond people's needs,
+triggering an addictive behaviour which leads to an increase in
+product consumption. Which lead people to give away even more
+information about them.&lt;/p&gt;
+&lt;p&gt;We alone cannot compete with companies that are spending millions of
+dollars building great products to capture users.&lt;/p&gt;
+&lt;p&gt;What we can do instead is to build software that, on the one hand, is
+useful for the Mozilla mission and enables us to fix Mozilla issues
+quickly while building Firefox and, on the other hand, empowers
+developers to build their own great software where users can choose
+where they want to store and control their data.&lt;/p&gt;
+&lt;p&gt;What matters the most is the vision that this software
+carries. Without it, is like buiding on sand.&lt;/p&gt;
+&lt;p&gt;Sure, writing lines of code is cheap and fast. You can build a
+prototype in two weeks and iterate until you are happy with the
+Minimum Viable Product.&lt;/p&gt;
+&lt;p&gt;Note that, it might not be so cheap anymore when you start adding
+documentation and maintenance costs.&lt;/p&gt;
+&lt;p&gt;However, the product might be used, and might get some traction for
+months or even years but it will be eventually forgotten in a git
+repository somewhere forever.&lt;/p&gt;
+&lt;p&gt;Writing software to solve problems is not enough to keep motivated on
+the long term. One needs a greater goal than just writing code.&lt;/p&gt;
+&lt;p&gt;Having said that, how can one still be motivated on building things
+that are eventually to be thrown away?&lt;/p&gt;
+&lt;p&gt;Different people or communities might have different guiding questions.&lt;/p&gt;
+&lt;p&gt;For our team of developers the secret for solving this problem is
+actually the following question: As well as solving the problem, what
+can we learn while building this solution that can be useful for us
+and for our community to help us go faster and build more robust
+software later?&lt;/p&gt;
+&lt;p&gt;For Mozilla the question is: How do I improve Firefox
+so that people want to use it as their main browser?&lt;/p&gt;
+&lt;p&gt;By answering these two questions, we define our goals; and we fulfil
+these goals through software development.&lt;/p&gt;
+&lt;p&gt;Mozilla is calling this the True North, we are calling it a vision,
+some other people might call it a utopia.&lt;/p&gt;
+&lt;p&gt;In both cases that vision should set the route of our ambition and
+point out a direction for everyone in the team to sail to.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="how-do-you-set-course-for-a-vision"&gt;
+&lt;h2&gt;How do you set course for a vision?&lt;/h2&gt;
+&lt;img alt="Draken sailing to the North" class="align-center" src="http://www.servicedenuages.fr/en/../images/draken.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;&lt;abbr title="Objectives and Key results"&gt;OKRs&lt;/abbr&gt; are a way to organise the vision in steps and to move it
+forward.&lt;/p&gt;
+&lt;p&gt;To be able to define OKRs from your vision, you need to be able to find
+the fastest way to get closer to your aim. However what we can learn
+from sailing is that the fastest way is rarely the shortest.&lt;/p&gt;
+&lt;p&gt;At Mozilla, we have a vision that is written down in the &lt;a class="reference external" href="https://www.mozilla.org/en-US/about/manifesto/"&gt;Mozilla
+Manifesto&lt;/a&gt;, Mitchell
+Baker does a great job making sure everyone stays aligned with it.&lt;/p&gt;
+&lt;p&gt;However agreeing on the fastest way and turning the Mozilla vision
+into OKRs is really challenging. Even more when you have a thousand
+people's opinion about it.&lt;/p&gt;
+&lt;p&gt;The idea is to find the smallest and ambitious enough step for which
+you can mesure the success in the timeframe you set to yourself.&lt;/p&gt;
+&lt;p&gt;It's the board's job to &lt;a class="reference external" href="https://air.mozilla.org/mozilla-all-hands-hawaii-2016-20161221/"&gt;set course every six months&lt;/a&gt; (or even less)
+on what we should be focusing on for the next six months.&lt;/p&gt;
+&lt;p&gt;However each manager have to cut down the board objectives in
+something that their team can have an action on.&lt;/p&gt;
+&lt;p&gt;When the focus changes, it often means changing our course and killing
+projects or at least putting them on the side if teams are turning to
+new priorities.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="how-do-you-define-your-priorities"&gt;
+&lt;h2&gt;How do you define your priorities?&lt;/h2&gt;
+&lt;img alt="Mozilla Logo as a Sailing Map — From https://uk.pinterest.com/explore/firefox-logo/" class="align-center" src="http://www.servicedenuages.fr/en/../images/true-north.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;At our team level, we are driven by the use case. We have a vision of
+what we want to build. That leads to feature ideas that we add to the
+backlog.&lt;/p&gt;
+&lt;p&gt;However we are not building anything until we have a proper use case
+for it. As soon as we have a use case it is added to our quarterly
+roadmap.&lt;/p&gt;
+&lt;p&gt;We end up not spending time on tasks we don't need and for each use
+case we are getting closer to our goal even if it might not be the way
+we'd taken initially.&lt;/p&gt;
+&lt;p&gt;We also don't have to support code that we don't use. We even remove
+features that are not used any more.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="our-secret-is-opensource"&gt;
+&lt;h2&gt;Our secret is opensource&lt;/h2&gt;
+&lt;img alt="Open Source as a way to share" class="align-center" src="http://www.servicedenuages.fr/en/../images/open-source-software.png" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;More than writing lines of code, we are researching solutions to
+complex problems at scale and turning those solutions into production
+ready experiments. And sometimes those experiments fail.&lt;/p&gt;
+&lt;p&gt;The advantage we have at Mozilla, is that everything we do is
+published as Free, Libre, Opensource Software, which means that, even
+if, as Mozilla employees, we focus on something else, the work we've
+done is still available for the community to care about it.&lt;/p&gt;
+&lt;p&gt;Thunderbird is an example of this. Mozilla stopped spending resources
+on it in July 2012 but five years later Mozilla Thunderbird is still
+actively used by a large number of users every day.&lt;/p&gt;
+&lt;p&gt;When building software, we solve complex issues and all the solutions
+we have put together are really useful for other people who might need
+to solve similar problems.&lt;/p&gt;
+&lt;p&gt;For instance, Mozilla Persona lead the ground for &lt;a class="reference external" href="https://developer.mozilla.org/en-US/docs/Mozilla/Tech/Firefox_Accounts"&gt;Firefox Accounts&lt;/a&gt;
+and the &lt;a class="reference external" href="https://portier.github.io/"&gt;Portier project&lt;/a&gt;, the Firefox Hello &lt;a class="reference external" href="https://github.com/mozilla-services/loop-server"&gt;loop server&lt;/a&gt; shows a
+good example of how to build a WebRTC signaling server and was reused
+later by &lt;a class="reference external" href="https://wiki.mozilla.org/Connected_Devices/Projects/Project_Link"&gt;Project Link&lt;/a&gt;. The &lt;a class="reference external" href="https://github.com/mozilla-services/remote-worker-server"&gt;Remote Service Worker project&lt;/a&gt; also
+shows how to use &lt;a class="reference external" href="https://docs.python.org/3/library/asyncio.html"&gt;Python asyncio&lt;/a&gt; to handle a large pool of
+&lt;a class="reference external" href="https://websockets.readthedocs.io/"&gt;websockets&lt;/a&gt; using &lt;a class="reference external" href="https://redis.io/"&gt;redis&lt;/a&gt; to route messages between them.&lt;/p&gt;
+&lt;p&gt;These are all valuable even though they are not in production anymore
+today.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="id1"&gt;
+&lt;h2&gt;Building software as a way to learn&lt;/h2&gt;
+&lt;img alt="Conference Room for DjangoCon Europe 2016" class="align-center" src="http://www.servicedenuages.fr/en/../images/conferences.jpg" style="width: 1347px; height: auto; max-width: 100%;"/&gt;
+&lt;p&gt;As you can see, every effort is not pointless because we learn a great
+deal from all these projects.&lt;/p&gt;
+&lt;p&gt;Whether it takes us a month or a year to build something, we are
+learning. And if you want to make the most value of this learning, it
+is important to share it as well.&lt;/p&gt;
+&lt;p&gt;Luckily, there are at least one kind of people that you already have
+to inform about what you are doing and learning about as part of your
+job: your colleagues.&lt;/p&gt;
+&lt;p&gt;You need to:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;explain what you are trying to solve.&lt;/li&gt;
+&lt;li&gt;find out how to solve the issue and agree on the solutions you are
+putting together.&lt;/li&gt;
+&lt;li&gt;take feedback to be able to choose the best solution even before
+having written a single line of code.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In a next article we will see how we make sharing the core of the
+process of building software as a distributed team.&lt;/p&gt;
+&lt;p&gt;In the meantime, we can only encourage you to write about what you are
+building, go to conferences and tell others about what you learned and
+listen to them so that you don't have to go through the same pitfall.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="conclusion"&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;In conclusion, don't build software to build software, build it to
+solve people's problems. Set a long term goal, work toward that goal and
+iterate. Do not be afraid of killing things that don't work.&lt;/p&gt;
+&lt;p&gt;In the meantime, make the process of building software a way to learn
+new things and share what you've learn. Then you don't have to worry
+about your project being decommissioned because you've already got the
+take aways of building it.&lt;/p&gt;
+&lt;p&gt;Make the process of building software a way to share what you've
+learned and enjoy it!&lt;/p&gt;
+&lt;/div&gt;
+</content><category term="mozilla"></category></entry><entry><title>Handling Python Project dependencies</title><link href="http://www.servicedenuages.fr/en/handling-python-projects-dependencies" rel="alternate"></link><published>2017-02-24T00:00:00+01:00</published><updated>2017-02-24T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2017-02-24:/en/handling-python-projects-dependencies</id><summary type="html">&lt;dl class="first last docutils"&gt;
 &lt;dt&gt;Coping with project depdendencies can be a bit cumbersome.&lt;/dt&gt;
 &lt;dd&gt;&lt;p class="first last"&gt;Learn how we are handling our Python project dependencies.&lt;/p&gt;
 &lt;/dd&gt;
