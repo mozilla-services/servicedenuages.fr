@@ -124,17 +124,15 @@ How do you set course for a vision?
 forward.
 
 To be able to define OKRs from your vision, you need to be able to find
-the fastest way to get closer to your aim, however what we can learn
+the fastest way to get closer to your aim. However what we can learn
 from sailing is that the fastest way is rarely the shortest.
 
-At Mozilla, we have a vision that is written down in the
-`Mozilla Manifesto <https://www.mozilla.org/en-US/about/manifesto/>`_.
-
-Mitchell Baker does a great job making sure everyone at Mozilla stays
-aligned with that vision.
+At Mozilla, we have a vision that is written down in the `Mozilla
+Manifesto <https://www.mozilla.org/en-US/about/manifesto/>`_, Mitchell
+Baker does a great job making sure everyone stays aligned with it.
 
 However agreeing on the fastest way and turning the Mozilla vision
-into OKRs is really challenging and even more when you have a thousand
+into OKRs is really challenging. Even more when you have a thousand
 people's opinion about it.
 
 The idea is to find the smallest and ambitious enough step for which
@@ -166,8 +164,8 @@ How do you define your priorities?
 
 
 At our team level, we are driven by the use case. We have a vision of
-what we want to build. That vision leads to feature ideas that we add
-to the backlog.
+what we want to build. That leads to feature ideas that we add to the
+backlog.
 
 However we are not building anything until we have a proper use case
 for it. As soon as we have a use case it is added to our quarterly
@@ -201,7 +199,7 @@ Thunderbird is an example of this. Mozilla stopped spending resources
 on it in July 2012 but five years later Mozilla Thunderbird is still
 actively used by a large number of users every day.
 
-When building software we solve complex issues and all the solutions
+When building software, we solve complex issues and all the solutions
 we have put together are really useful for other people who might need
 to solve similar problems.
 
