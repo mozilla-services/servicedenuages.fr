@@ -1,0 +1,433 @@
+Getting started with Elm
+########################
+
+:lang: en
+:date: 2017-04-13
+:url: getting-started-with-elm
+:summary: What is Elm? how does it work? How can I try it really fast?
+
+Introduction
+============
+
+The past two weeks we have been traveling and meeting a bunch of
+developers.
+
+It was a chance for us to tell them about elm through talks at
+conference and to train a little and short one hour workshop.
+
+You can find the slides of the two talks here:
+
+- `a short introduction to Elm by Niko <http://slides.com/n1k0/elm>`_
+- `Talking JSON with Elm by Natim <http://natim.github.io/django-slides/elm-json/>`_
+
+However, this article is a summary of the take aways of this workshop
+for thoose who would like to know a bit more about Elm.
+
+
+What is Elm and why should I be concerned?
+==========================================
+
+Elm is a toolkit that is focused on making sure your app state and the
+DOM (html nodes) that reflects it are always in sync and that updates
+on your app state are reflected on what the user is seeing.
+
+If you have been doing some frontend during the last couple of years,
+you might have seen that the JavaScript ecosystem is a bit wild.
+
+Keeping up-to-date with the growing number of competing frameworks can
+take a lot of energy, not to mention trying your app on all the
+available browser version to make sure it works well everywhere.
+
+Training a team to build an app with React.js, Angular2.js, Vue.js or
+Ember.js as well as looking for the right boilerplate to get started
+with your project are good examples of how hard the learning curve can
+be.
+
+In the other hands, writing tests for the front-end can be tidious and
+supporting Flow or TypeScript proved to be yet another layer to handle
+in your stack.
+
+If you are already up-to-speed with all these stacks, then you should
+probably keep using them.
+
+However if you don't know which one to choose and that you are looking
+for a painless way to build frontend application, read on.
+
+
+How is Elm different?
+=====================
+
+First of all, using Elm, loading your app is all the Javascript you
+will write. Your application will be written in Elm and compiled into
+Javascript.
+
+All the mistake you will do will be handled at compilation, which
+means that you will not have error at the javascript level on runtime.
+
+Because you will have a compilation step, Elm will force you to handle
+every possible cases of your model state to be handled on the display
+side.
+
+The tooling is great, elm-live will reflect your code update in
+realtime in the browser, you have a debugger that will show you the
+list of events and show you the state of your application at a given
+time. You can even go back in time and replay events. elm-format will
+also format your code automatically to avoid fighting with coding
+styles.
+
+
+Getting started
+===============
+
+Installing elm
+--------------
+
+First of all install ``elm`` and ``elm-format`` using npm the node
+package manager:
+
+.. code-block:: bash
+
+    npm install -g elm elm-format
+
+I don't know npm
+----------------
+
+npm is the node package manager. To install it, you might want to use
+`nvm <https://github.com/creationix/nvm#install-script>`_.
+
+Once you installed nvm you can use::
+
+    nvm install node
+
+And then you wil be able to run the previous ``npm`` command.
+
+Looking for an IDE?
+-------------------
+
+Don't hesitate to use `Atom <https://atom.io/>`_, it will come with
+``elm-format`` activated each time you save your file which is really
+handy.
+
+Take a few moment to make sure you configured your text editor to
+works friendly with Elm files.
+
+
+Starting your first project
+===========================
+
+No need for a boilerplate here, you can just start by running
+``elm-package install`` and approve the plan:
+
+.. code-block:: bash
+
+    ~/tutorial$ elm-package install
+
+    Some new packages are needed. Here is the upgrade plan.
+
+      Install:
+        elm-lang/core 5.1.1
+        elm-lang/html 2.0.0
+        elm-lang/virtual-dom 2.0.4
+
+    Do you approve of this plan? [Y/n] Y
+    Starting downloads...
+
+      ● elm-lang/html 2.0.0
+      ● elm-lang/virtual-dom 2.0.4
+      ● elm-lang/core 5.1.1
+
+    Packages configured successfully!
+
+You now have a ``elm-package.json`` in your project as well as a
+``elm-stuff/`` directory that contains the library elm-package
+installed.
+
+.. code-block:: bash
+
+    ~/tutorial$ tree -L2
+	.
+    ├── elm-package.json
+    └── elm-stuff
+        ├── exact-dependencies.json
+        └── packages
+
+    2 directories, 2 files
+
+
+Creating your first file
+========================
+
+No need for a boilerplate here, to get started you can simply create a
+new file named ``Main.elm`` with the following:
+
+.. code-block:: elm
+
+    import Html
+    main = Html.text "Hello world"
+
+Playing with elm-format
+-----------------------
+	
+If your editor is well configured with ``elm-format``, you should see
+that as soon as you save it:
+
+.. code-block:: elm
+
+    module Main exposing (..)
+    
+    import Html
+    
+    
+    main =
+        Html.text "Hello world!"
+
+If not, you can run ``elm-format`` manually on your file:
+
+.. code-block:: bash
+
+    ~/tutorial$ elm-format Main.elm
+    This will overwrite the following files to use Elm's preferred style:
+
+        Main.elm
+
+    This cannot be undone! Make sure to back up these files before proceeding.
+
+    Are you sure you want to overwrite these files with formatted versions? (y/n)
+
+    y
+    Processing file Main.elm
+
+To avoid having to answer yes each time you can use the ``--yes`` parameter::
+
+    elm-format --yes Main.elm
+
+
+Opening your app in the browser
+-------------------------------
+
+One way to run your app is to use ``elm-reactor``.
+
+.. code-block:: bash
+
+    ~/tutorial$ elm-reactor
+	elm-reactor 0.18.0
+    Listening on http://localhost:8000
+
+Then open: http://localhost:8000/Main.elm
+
+You are now viewing your Elm app live !!!
+
+
+Learning about the Elm virtual dom
+==================================
+
+The elm virtual dom is exposed in the ``Html`` module.
+
+If you want you can import all of it in your module using:
+
+.. code-block:: elm
+
+    import Html exposing (..)
+
+You can then use ``text`` directly for instance:
+
+.. code-block:: elm
+
+    main = text "Hello world"
+
+The virtual dom HTML nodes take two parameters:
+
+- A list of attributes for the node
+- A list of child for the node
+
+If I want to create a div, with a link it would look like that:
+
+.. code-block:: elm
+
+    module Main exposing (..)
+
+    import Html exposing (..)
+    import Html.Attributes exposing (..)
+
+
+    main =
+        div
+            [ class "container" ]
+            [ a
+                [ href "http://www.servicedenuages.fr/" ]
+                [ text "Blog" ]
+            ]
+
+We can also create a list of links in our div:
+
+.. code-block:: elm
+
+    module Main exposing (..)
+
+    import Html exposing (..)
+    import Html.Attributes exposing (..)
+
+
+    main =
+        div
+            [ class "container" ]
+            [ ul
+                [ class "links" ]
+                [ li
+                    []
+                    [ a
+                        [ href "http://www.servicedenuages.fr/" ]
+                        [ text "Blog" ]
+                    ]
+                , li
+                    []
+                    [ a
+                        [ href "http://www.elm-lang.org/" ]
+                        [ text "Elm lang" ]
+                    ]
+                ]
+            ]
+
+
+Adding some state
+=================
+
+Now that you know how to render your page in HTML, it is time to start
+a program that know how to handle events.
+
+The way elm works about that is by having:
+
+- a ``Model``, an Elm record: a bit like a Javascript object with
+  properties, that keep the state of the app,
+- an update function that will handle all the app events
+- a view function that will return the virtualdom that matches the state.
+
+The events and their params are defined in a ``Msg`` type. It is a bit
+like a enum that would take parameters.
+
+In order to do that we can use the ``beginnerProgram`` from the html package:
+
+.. code-block:: elm
+
+    module Main exposing (..)
+    
+    import Html exposing (..)
+    
+    
+    type Msg
+        = Noop
+    
+    
+    type alias Model =
+        { name : String }
+    
+    
+    main =
+        beginnerProgram { model = { name = "Rémy" }, view = view, update = update }
+    
+    
+    update : Msg -> Model -> Model
+    update msg model =
+        model
+    
+    
+    view : Model -> Html Msg
+    view model =
+        text ("Hello " ++ model.name)
+
+We can now handle an event and change the name when we click on it.
+
+.. code-block:: elm
+
+    module Main exposing (..)
+
+    import Html exposing (..)
+    import Html.Attributes exposing (..)
+    import Html.Events exposing (..)
+
+
+    type Msg
+        = Switch
+
+
+    type alias Model =
+        { name : String }
+
+
+    main =
+        beginnerProgram { model = { name = "Rémy" }, view = view, update = update }
+
+
+    update : Msg -> Model -> Model
+    update msg model =
+        case msg of
+            Switch ->
+                { model | name = "Séverine" }
+
+
+    view : Model -> Html Msg
+    view model =
+        div []
+            [ text "Hello "
+            , a [ href "#", onClick Switch ] [ text model.name ]
+            ]
+
+You can refresh the page and try it.
+
+If we want to switch back to ``Rémy`` when we click on ``Séverine`` we can add a ``if``:
+
+.. code-block:: elm
+
+    module Main exposing (..)
+
+    import Html exposing (..)
+    import Html.Attributes exposing (..)
+    import Html.Events exposing (..)
+
+
+    type Msg
+        = Switch
+
+
+    type alias Model =
+        { name : String }
+
+
+    main =
+        beginnerProgram { model = { name = "Rémy" }, view = view, update = update }
+
+
+    update : Msg -> Model -> Model
+    update msg model =
+        case msg of
+            Switch ->
+                if model.name == "Rémy" then
+                    { model | name = "Séverine" }
+                else
+                    { model | name = "Rémy" }
+
+
+    view : Model -> Html Msg
+    view model =
+        div []
+            [ text "Hello "
+            , a [ href "#", onClick Switch ] [ text model.name ]
+            ]
+
+
+Conclusion
+==========
+
+That's about it. You now know more than you think about Elm. I hope
+you can try it in a small project and start to like it as much as we
+do.
+
+If you want to learn more about it, don't hesitate to look at some of
+our projects or ask question on the #kinto chan.
+
+- https://github.com/n1k0/myshows
+- https://github.com/leplatrem/systemaddons-versions
+- https://github.com/addons-shipping/stepfunction-dashboard/
+- https://github.com/Natim/twitter-elm-wall/
+- https://github.com/kinto/kinto-alwaysdata/
+- https://github.com/Natim/social-dashboard/
