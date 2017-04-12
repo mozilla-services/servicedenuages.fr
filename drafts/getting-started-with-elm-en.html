@@ -1,0 +1,463 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>Getting started with Elm // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Published</h5>
+                <p title="~1350 words">~6 minutes reading 🕑</p>
+                <p>Thu, 13 April 2017</p>
+                <a href="/en/">&larr; Back to articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Getting started with Elm</h1>
+                </header>
+            </section>
+            <div class="section" id="introduction">
+<h2>Introduction</h2>
+<p>The past two weeks we have been traveling and meeting a bunch of
+developers.</p>
+<p>It was a chance for us to tell them about elm through talks at
+conference and to train a little and short one hour workshop.</p>
+<p>You can find the slides of the two talks here:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://slides.com/n1k0/elm">a short introduction to Elm by Niko</a></li>
+<li><a class="reference external" href="http://natim.github.io/django-slides/elm-json/">Talking JSON with Elm by Natim</a></li>
+</ul>
+<p>However, this article is a summary of the take aways of this workshop
+for thoose who would like to know a bit more about Elm.</p>
+</div>
+<div class="section" id="what-is-elm-and-why-should-i-be-concerned">
+<h2>What is Elm and why should I be concerned?</h2>
+<p>Elm is a toolkit that is focused on making sure your app state and the
+DOM (html nodes) that reflects it are always in sync and that updates
+on your app state are reflected on what the user is seeing.</p>
+<p>If you have been doing some frontend during the last couple of years,
+you might have seen that the JavaScript ecosystem is a bit wild.</p>
+<p>Keeping up-to-date with the growing number of competing frameworks can
+take a lot of energy, not to mention trying your app on all the
+available browser version to make sure it works well everywhere.</p>
+<p>Training a team to build an app with React.js, Angular2.js, Vue.js or
+Ember.js as well as looking for the right boilerplate to get started
+with your project are good examples of how hard the learning curve can
+be.</p>
+<p>In the other hands, writing tests for the front-end can be tidious and
+supporting Flow or TypeScript proved to be yet another layer to handle
+in your stack.</p>
+<p>If you are already up-to-speed with all these stacks, then you should
+probably keep using them.</p>
+<p>However if you don't know which one to choose and that you are looking
+for a painless way to build frontend application, read on.</p>
+</div>
+<div class="section" id="how-is-elm-different">
+<h2>How is Elm different?</h2>
+<p>First of all, using Elm, loading your app is all the Javascript you
+will write. Your application will be written in Elm and compiled into
+Javascript.</p>
+<p>All the mistake you will do will be handled at compilation, which
+means that you will not have error at the javascript level on runtime.</p>
+<p>Because you will have a compilation step, Elm will force you to handle
+every possible cases of your model state to be handled on the display
+side.</p>
+<p>The tooling is great, elm-live will reflect your code update in
+realtime in the browser, you have a debugger that will show you the
+list of events and show you the state of your application at a given
+time. You can even go back in time and replay events. elm-format will
+also format your code automatically to avoid fighting with coding
+styles.</p>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting started</h2>
+<div class="section" id="installing-elm">
+<h3>Installing elm</h3>
+<p>First of all install <tt class="docutils literal">elm</tt> and <tt class="docutils literal"><span class="pre">elm-format</span></tt> using npm the node
+package manager:</p>
+<div class="highlight"><pre><span></span>npm install -g elm elm-format
+</pre></div>
+</div>
+<div class="section" id="i-don-t-know-npm">
+<h3>I don't know npm</h3>
+<p>npm is the node package manager. To install it, you might want to use
+<a class="reference external" href="https://github.com/creationix/nvm#install-script">nvm</a>.</p>
+<p>Once you installed nvm you can use:</p>
+<pre class="literal-block">
+nvm install node
+</pre>
+<p>And then you wil be able to run the previous <tt class="docutils literal">npm</tt> command.</p>
+</div>
+<div class="section" id="looking-for-an-ide">
+<h3>Looking for an IDE?</h3>
+<p>Don't hesitate to use <a class="reference external" href="https://atom.io/">Atom</a>, it will come with
+<tt class="docutils literal"><span class="pre">elm-format</span></tt> activated each time you save your file which is really
+handy.</p>
+<p>Take a few moment to make sure you configured your text editor to
+works friendly with Elm files.</p>
+</div>
+</div>
+<div class="section" id="starting-your-first-project">
+<h2>Starting your first project</h2>
+<p>No need for a boilerplate here, you can just start by running
+<tt class="docutils literal"><span class="pre">elm-package</span> install</tt> and approve the plan:</p>
+<div class="highlight"><pre><span></span>~/tutorial$ elm-package install
+
+Some new packages are needed. Here is the upgrade plan.
+
+  Install:
+    elm-lang/core <span class="m">5</span>.1.1
+    elm-lang/html <span class="m">2</span>.0.0
+    elm-lang/virtual-dom <span class="m">2</span>.0.4
+
+Do you approve of this plan? <span class="o">[</span>Y/n<span class="o">]</span> Y
+Starting downloads...
+
+  ● elm-lang/html <span class="m">2</span>.0.0
+  ● elm-lang/virtual-dom <span class="m">2</span>.0.4
+  ● elm-lang/core <span class="m">5</span>.1.1
+
+Packages configured successfully!
+</pre></div>
+<p>You now have a <tt class="docutils literal"><span class="pre">elm-package.json</span></tt> in your project as well as a
+<tt class="docutils literal"><span class="pre">elm-stuff/</span></tt> directory that contains the library elm-package
+installed.</p>
+<div class="highlight"><pre><span></span>~/tutorial$ tree -L2
+    .
+├── elm-package.json
+└── elm-stuff
+    ├── exact-dependencies.json
+    └── packages
+
+<span class="m">2</span> directories, <span class="m">2</span> files
+</pre></div>
+</div>
+<div class="section" id="creating-your-first-file">
+<h2>Creating your first file</h2>
+<p>No need for a boilerplate here, to get started you can simply create a
+new file named <tt class="docutils literal">Main.elm</tt> with the following:</p>
+<div class="highlight"><pre><span></span><span class="kn">import </span><span class="nc">Html</span>
+<span class="kr">main </span><span class="nf">=</span> <span class="kt">Html</span><span class="nf">.</span><span class="nv">text</span> <span class="s">"Hello world"</span>
+</pre></div>
+<div class="section" id="playing-with-elm-format">
+<h3>Playing with elm-format</h3>
+<p>If your editor is well configured with <tt class="docutils literal"><span class="pre">elm-format</span></tt>, you should see
+that as soon as you save it:</p>
+<div class="highlight"><pre><span></span><span class="kn">module </span><span class="nc">Main</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+
+<span class="kn">import </span><span class="nc">Html</span>
+
+
+<span class="kr">main </span><span class="nf">=</span>
+    <span class="kt">Html</span><span class="nf">.</span><span class="nv">text</span> <span class="s">"Hello world!"</span>
+</pre></div>
+<p>If not, you can run <tt class="docutils literal"><span class="pre">elm-format</span></tt> manually on your file:</p>
+<div class="highlight"><pre><span></span>~/tutorial$ elm-format Main.elm
+This will overwrite the following files to use Elm<span class="err">'</span>s preferred style:
+
+    Main.elm
+
+This cannot be undone! Make sure to back up these files before proceeding.
+
+Are you sure you want to overwrite these files with formatted versions? <span class="o">(</span>y/n<span class="o">)</span>
+
+y
+Processing file Main.elm
+</pre></div>
+<p>To avoid having to answer yes each time you can use the <tt class="docutils literal"><span class="pre">--yes</span></tt> parameter:</p>
+<pre class="literal-block">
+elm-format --yes Main.elm
+</pre>
+</div>
+<div class="section" id="opening-your-app-in-the-browser">
+<h3>Opening your app in the browser</h3>
+<p>One way to run your app is to use <tt class="docutils literal"><span class="pre">elm-reactor</span></tt>.</p>
+<div class="highlight"><pre><span></span>~/tutorial$ elm-reactor
+    elm-reactor <span class="m">0</span>.18.0
+Listening on http://localhost:8000
+</pre></div>
+<p>Then open: <a class="reference external" href="http://localhost:8000/Main.elm">http://localhost:8000/Main.elm</a></p>
+<p>You are now viewing your Elm app live !!!</p>
+</div>
+</div>
+<div class="section" id="learning-about-the-elm-virtual-dom">
+<h2>Learning about the Elm virtual dom</h2>
+<p>The elm virtual dom is exposed in the <tt class="docutils literal">Html</tt> module.</p>
+<p>If you want you can import all of it in your module using:</p>
+<div class="highlight"><pre><span></span><span class="kn">import </span><span class="nc">Html</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+</pre></div>
+<p>You can then use <tt class="docutils literal">text</tt> directly for instance:</p>
+<div class="highlight"><pre><span></span><span class="kr">main </span><span class="nf">=</span> <span class="nv">text</span> <span class="s">"Hello world"</span>
+</pre></div>
+<p>The virtual dom HTML nodes take two parameters:</p>
+<ul class="simple">
+<li>A list of attributes for the node</li>
+<li>A list of child for the node</li>
+</ul>
+<p>If I want to create a div, with a link it would look like that:</p>
+<div class="highlight"><pre><span></span><span class="kn">module </span><span class="nc">Main</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+
+<span class="kn">import </span><span class="nc">Html</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+<span class="kn">import </span><span class="nc">Html.Attributes</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+
+
+<span class="kr">main </span><span class="nf">=</span>
+    <span class="nv">div</span>
+        <span class="p">[</span> <span class="nv">class</span> <span class="s">"container"</span> <span class="p">]</span>
+        <span class="p">[</span> <span class="nv">a</span>
+            <span class="p">[</span> <span class="nv">href</span> <span class="s">"http://www.servicedenuages.fr/"</span> <span class="p">]</span>
+            <span class="p">[</span> <span class="nv">text</span> <span class="s">"Blog"</span> <span class="p">]</span>
+        <span class="p">]</span>
+</pre></div>
+<p>We can also create a list of links in our div:</p>
+<div class="highlight"><pre><span></span><span class="kn">module </span><span class="nc">Main</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+
+<span class="kn">import </span><span class="nc">Html</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+<span class="kn">import </span><span class="nc">Html.Attributes</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+
+
+<span class="kr">main </span><span class="nf">=</span>
+    <span class="nv">div</span>
+        <span class="p">[</span> <span class="nv">class</span> <span class="s">"container"</span> <span class="p">]</span>
+        <span class="p">[</span> <span class="nv">ul</span>
+            <span class="p">[</span> <span class="nv">class</span> <span class="s">"links"</span> <span class="p">]</span>
+            <span class="p">[</span> <span class="nv">li</span>
+                <span class="p">[]</span>
+                <span class="p">[</span> <span class="nv">a</span>
+                    <span class="p">[</span> <span class="nv">href</span> <span class="s">"http://www.servicedenuages.fr/"</span> <span class="p">]</span>
+                    <span class="p">[</span> <span class="nv">text</span> <span class="s">"Blog"</span> <span class="p">]</span>
+                <span class="p">]</span>
+            <span class="p">,</span> <span class="nv">li</span>
+                <span class="p">[]</span>
+                <span class="p">[</span> <span class="nv">a</span>
+                    <span class="p">[</span> <span class="nv">href</span> <span class="s">"http://www.elm-lang.org/"</span> <span class="p">]</span>
+                    <span class="p">[</span> <span class="nv">text</span> <span class="s">"Elm lang"</span> <span class="p">]</span>
+                <span class="p">]</span>
+            <span class="p">]</span>
+        <span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="adding-some-state">
+<h2>Adding some state</h2>
+<p>Now that you know how to render your page in HTML, it is time to start
+a program that know how to handle events.</p>
+<p>The way elm works about that is by having:</p>
+<ul class="simple">
+<li>a <tt class="docutils literal">Model</tt>, an Elm record: a bit like a Javascript object with
+properties, that keep the state of the app,</li>
+<li>an update function that will handle all the app events</li>
+<li>a view function that will return the virtualdom that matches the state.</li>
+</ul>
+<p>The events and their params are defined in a <tt class="docutils literal">Msg</tt> type. It is a bit
+like a enum that would take parameters.</p>
+<p>In order to do that we can use the <tt class="docutils literal">beginnerProgram</tt> from the html package:</p>
+<div class="highlight"><pre><span></span><span class="kn">module </span><span class="nc">Main</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+
+<span class="kn">import </span><span class="nc">Html</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+
+
+<span class="kr">type</span> <span class="kt">Msg</span>
+    <span class="nf">=</span> <span class="kt">Noop</span>
+
+
+<span class="kr">type</span> <span class="kr">alias</span> <span class="kt">Model</span> <span class="nf">=</span>
+    <span class="p">{</span> <span class="nv">name</span> <span class="nf">:</span> <span class="kt">String</span> <span class="p">}</span>
+
+
+<span class="kr">main </span><span class="nf">=</span>
+    <span class="nv">beginnerProgram</span> <span class="p">{</span> <span class="nv">model</span> <span class="nf">=</span> <span class="p">{</span> <span class="nv">name</span> <span class="nf">=</span> <span class="s">"Rémy"</span> <span class="p">},</span> <span class="nv">view</span> <span class="nf">=</span> <span class="nv">view</span><span class="p">,</span> <span class="nv">update</span> <span class="nf">=</span> <span class="nv">update</span> <span class="p">}</span>
+
+
+<span class="nv">update</span> <span class="nf">:</span> <span class="kt">Msg</span> <span class="nf">-&gt;</span> <span class="kt">Model</span> <span class="nf">-&gt;</span> <span class="kt">Model</span>
+<span class="nv">update</span> <span class="nv">msg</span> <span class="nv">model</span> <span class="nf">=</span>
+    <span class="nv">model</span>
+
+
+<span class="nv">view</span> <span class="nf">:</span> <span class="kt">Model</span> <span class="nf">-&gt;</span> <span class="kt">Html</span> <span class="kt">Msg</span>
+<span class="nv">view</span> <span class="nv">model</span> <span class="nf">=</span>
+    <span class="nv">text</span> <span class="p">(</span><span class="s">"Hello "</span> <span class="nf">++</span> <span class="nv">model</span><span class="nf">.</span><span class="nv">name</span><span class="p">)</span>
+</pre></div>
+<p>We can now handle an event and change the name when we click on it.</p>
+<div class="highlight"><pre><span></span><span class="kn">module </span><span class="nc">Main</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+
+<span class="kn">import </span><span class="nc">Html</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+<span class="kn">import </span><span class="nc">Html.Attributes</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+<span class="kn">import </span><span class="nc">Html.Events</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+
+
+<span class="kr">type</span> <span class="kt">Msg</span>
+    <span class="nf">=</span> <span class="kt">Switch</span>
+
+
+<span class="kr">type</span> <span class="kr">alias</span> <span class="kt">Model</span> <span class="nf">=</span>
+    <span class="p">{</span> <span class="nv">name</span> <span class="nf">:</span> <span class="kt">String</span> <span class="p">}</span>
+
+
+<span class="kr">main </span><span class="nf">=</span>
+    <span class="nv">beginnerProgram</span> <span class="p">{</span> <span class="nv">model</span> <span class="nf">=</span> <span class="p">{</span> <span class="nv">name</span> <span class="nf">=</span> <span class="s">"Rémy"</span> <span class="p">},</span> <span class="nv">view</span> <span class="nf">=</span> <span class="nv">view</span><span class="p">,</span> <span class="nv">update</span> <span class="nf">=</span> <span class="nv">update</span> <span class="p">}</span>
+
+
+<span class="nv">update</span> <span class="nf">:</span> <span class="kt">Msg</span> <span class="nf">-&gt;</span> <span class="kt">Model</span> <span class="nf">-&gt;</span> <span class="kt">Model</span>
+<span class="nv">update</span> <span class="nv">msg</span> <span class="nv">model</span> <span class="nf">=</span>
+    <span class="kr">case</span> <span class="nv">msg</span> <span class="kr">of</span>
+        <span class="kt">Switch</span> <span class="nf">-&gt;</span>
+            <span class="p">{</span> <span class="nv">model</span> <span class="nf">|</span> <span class="nv">name</span> <span class="nf">=</span> <span class="s">"Séverine"</span> <span class="p">}</span>
+
+
+<span class="nv">view</span> <span class="nf">:</span> <span class="kt">Model</span> <span class="nf">-&gt;</span> <span class="kt">Html</span> <span class="kt">Msg</span>
+<span class="nv">view</span> <span class="nv">model</span> <span class="nf">=</span>
+    <span class="nv">div</span> <span class="p">[]</span>
+        <span class="p">[</span> <span class="nv">text</span> <span class="s">"Hello "</span>
+        <span class="p">,</span> <span class="nv">a</span> <span class="p">[</span> <span class="nv">href</span> <span class="s">"#"</span><span class="p">,</span> <span class="nv">onClick</span> <span class="kt">Switch</span> <span class="p">]</span> <span class="p">[</span> <span class="nv">text</span> <span class="nv">model</span><span class="nf">.</span><span class="nv">name</span> <span class="p">]</span>
+        <span class="p">]</span>
+</pre></div>
+<p>You can refresh the page and try it.</p>
+<p>If we want to switch back to <tt class="docutils literal">Rémy</tt> when we click on <tt class="docutils literal">Séverine</tt> we can add a <tt class="docutils literal">if</tt>:</p>
+<div class="highlight"><pre><span></span><span class="kn">module </span><span class="nc">Main</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+
+<span class="kn">import </span><span class="nc">Html</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+<span class="kn">import </span><span class="nc">Html.Attributes</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+<span class="kn">import </span><span class="nc">Html.Events</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+
+
+<span class="kr">type</span> <span class="kt">Msg</span>
+    <span class="nf">=</span> <span class="kt">Switch</span>
+
+
+<span class="kr">type</span> <span class="kr">alias</span> <span class="kt">Model</span> <span class="nf">=</span>
+    <span class="p">{</span> <span class="nv">name</span> <span class="nf">:</span> <span class="kt">String</span> <span class="p">}</span>
+
+
+<span class="kr">main </span><span class="nf">=</span>
+    <span class="nv">beginnerProgram</span> <span class="p">{</span> <span class="nv">model</span> <span class="nf">=</span> <span class="p">{</span> <span class="nv">name</span> <span class="nf">=</span> <span class="s">"Rémy"</span> <span class="p">},</span> <span class="nv">view</span> <span class="nf">=</span> <span class="nv">view</span><span class="p">,</span> <span class="nv">update</span> <span class="nf">=</span> <span class="nv">update</span> <span class="p">}</span>
+
+
+<span class="nv">update</span> <span class="nf">:</span> <span class="kt">Msg</span> <span class="nf">-&gt;</span> <span class="kt">Model</span> <span class="nf">-&gt;</span> <span class="kt">Model</span>
+<span class="nv">update</span> <span class="nv">msg</span> <span class="nv">model</span> <span class="nf">=</span>
+    <span class="kr">case</span> <span class="nv">msg</span> <span class="kr">of</span>
+        <span class="kt">Switch</span> <span class="nf">-&gt;</span>
+            <span class="kr">if</span> <span class="nv">model</span><span class="nf">.</span><span class="nv">name</span> <span class="nf">==</span> <span class="s">"Rémy"</span> <span class="kr">then</span>
+                <span class="p">{</span> <span class="nv">model</span> <span class="nf">|</span> <span class="nv">name</span> <span class="nf">=</span> <span class="s">"Séverine"</span> <span class="p">}</span>
+            <span class="kr">else</span>
+                <span class="p">{</span> <span class="nv">model</span> <span class="nf">|</span> <span class="nv">name</span> <span class="nf">=</span> <span class="s">"Rémy"</span> <span class="p">}</span>
+
+
+<span class="nv">view</span> <span class="nf">:</span> <span class="kt">Model</span> <span class="nf">-&gt;</span> <span class="kt">Html</span> <span class="kt">Msg</span>
+<span class="nv">view</span> <span class="nv">model</span> <span class="nf">=</span>
+    <span class="nv">div</span> <span class="p">[]</span>
+        <span class="p">[</span> <span class="nv">text</span> <span class="s">"Hello "</span>
+        <span class="p">,</span> <span class="nv">a</span> <span class="p">[</span> <span class="nv">href</span> <span class="s">"#"</span><span class="p">,</span> <span class="nv">onClick</span> <span class="kt">Switch</span> <span class="p">]</span> <span class="p">[</span> <span class="nv">text</span> <span class="nv">model</span><span class="nf">.</span><span class="nv">name</span> <span class="p">]</span>
+        <span class="p">]</span>
+</pre></div>
+</div>
+<div class="section" id="conclusion">
+<h2>Conclusion</h2>
+<p>That's about it. You now know more than you think about Elm. I hope
+you can try it in a small project and start to like it as much as we
+do.</p>
+<p>If you want to learn more about it, don't hesitate to look at some of
+our projects or ask question on the #kinto chan.</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/n1k0/myshows">https://github.com/n1k0/myshows</a></li>
+<li><a class="reference external" href="https://github.com/leplatrem/systemaddons-versions">https://github.com/leplatrem/systemaddons-versions</a></li>
+<li><a class="reference external" href="https://github.com/addons-shipping/stepfunction-dashboard/">https://github.com/addons-shipping/stepfunction-dashboard/</a></li>
+<li><a class="reference external" href="https://github.com/Natim/twitter-elm-wall/">https://github.com/Natim/twitter-elm-wall/</a></li>
+<li><a class="reference external" href="https://github.com/kinto/kinto-alwaysdata/">https://github.com/kinto/kinto-alwaysdata/</a></li>
+<li><a class="reference external" href="https://github.com/Natim/social-dashboard/">https://github.com/Natim/social-dashboard/</a></li>
+</ul>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.notmyidea.org/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>
