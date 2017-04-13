@@ -165,17 +165,17 @@ new file named ``Main.elm`` with the following:
 
 Playing with elm-format
 -----------------------
-	
+
 If your editor is well configured with ``elm-format``, you should see
 this as soon as you save it:
 
 .. code-block:: elm
 
     module Main exposing (..)
-    
+
     import Html
-    
-    
+
+
     main =
         Html.text "Hello world!"
 
@@ -309,27 +309,27 @@ In order to do that we can use the ``beginnerProgram`` from the Html package:
 .. code-block:: elm
 
     module Main exposing (..)
-    
+
     import Html exposing (..)
-    
-    
+
+
     type Msg
         = Noop
-    
-    
+
+
     type alias Model =
         { name : String }
-    
-    
+
+
     main =
         beginnerProgram { model = { name = "Rémy" }, view = view, update = update }
-    
-    
+
+
     update : Msg -> Model -> Model
     update msg model =
         model
-    
-    
+
+
     view : Model -> Html Msg
     view model =
         text ("Hello " ++ model.name)
@@ -412,6 +412,62 @@ If we want to switch back to ``Rémy`` when we click on ``Séverine`` we can add
             [ text "Hello "
             , a [ href "#", onClick Switch ] [ text model.name ]
             ]
+
+
+Enabling auto updates with ``elm-live``
+=======================================
+
+``elm-reactor`` is good to get started but if you want your app to
+auto refresh you might want to setup ``elm-live``.
+
+To install it, you can use: ``npm install -g elm-live``
+
+Then you can use:
+
+.. code-block:: bash
+
+    $ elm-live Main.elm --open
+
+If you want to have the debugger, you can use the ``--debug`` option:
+
+.. code-block:: bash
+
+    $ elm-live Main.elm --open --debug
+
+It will automatically generate an ``index.html`` file with the compiled JavaScript.
+
+You can use the ``--output`` option to save the JavaScript in its own
+file and load it in the HTML yourself.
+
+First update the ``index.html`` to make it looks like:
+
+.. code-block:: html
+
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <title>Hello world</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+      </head>
+
+      <body>
+        <script src="elm.js"></script>
+        <script>
+        var app = Elm.Main.fullscreen();
+        </script>
+      </body>
+    </html>
+
+
+Then you can run elm-live with the ``--output`` option:
+	
+.. code-block:: bash
+
+    $ elm-live Main.elm --output=elm.js --open --debug --output elm.js
+
+Now each time you will update your Elm code it will refresh the app in
+the browser.
 
 
 Conclusion
