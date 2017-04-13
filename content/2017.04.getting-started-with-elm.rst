@@ -5,7 +5,6 @@ Getting started with Elm
 :date: 2017-04-13
 :url: getting-started-with-elm
 :summary: What is Elm? how does it work? How can I try it really fast?
-:status: draft
 
 Introduction
 ============
