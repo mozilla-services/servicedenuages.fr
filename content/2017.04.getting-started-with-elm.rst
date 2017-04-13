@@ -241,7 +241,8 @@ You can then use ``text`` directly for instance:
 
     main = text "Hello world"
 
-The Virtual DOM HTML nodes take two parameters:
+The Virtual DOM HTML nodes are functions named after standard HTML
+tags, and take two parameters:
 
 - A list of attributes
 - A list of children
