@@ -6,14 +6,15 @@ Getting started with Elm
 :url: getting-started-with-elm
 :summary: What is Elm? how does it work? How can I try it really fast?
 
+
 Introduction
 ============
 
 The past two weeks we have been traveling and meeting a bunch of
 developers.
 
-It was a chance for us to tell them about elm through talks at
-conference and to train a little and short one hour workshop.
+It was a chance for us to tell them about Elm through talks at
+conferences and to present a short one-hour workshop.
 
 You can find the slides of the two talks here:
 
@@ -21,65 +22,63 @@ You can find the slides of the two talks here:
 - `Talking JSON with Elm by Natim <http://natim.github.io/django-slides/elm-json/>`_
 
 However, this article is a summary of the take aways of this workshop
-for thoose who would like to know a bit more about Elm.
+for those who would like to know a bit more about Elm.
 
 
-What is Elm and why should I be concerned?
-==========================================
+What is Elm and why should I be interested?
+===========================================
 
 Elm is a toolkit that is focused on making sure your app state and the
-DOM (html nodes) that reflects it are always in sync and that updates
-on your app state are reflected on what the user is seeing.
+HTML that reflects it are always in sync.
 
-If you have been doing some frontend during the last couple of years,
-you might have seen that the JavaScript ecosystem is a bit wild.
+If you have been doing any frontend development during the last couple
+of years, you might have seen that the JavaScript ecosystem is a bit
+wild. Keeping up-to-date with the growing number of competing
+frameworks can take a lot of energy, not to mention trying your app on
+all the available browser versions to make sure it works well
+everywhere. Training a team to build an app with React.js,
+Angular2.js, Vue.js or Ember.js as well as looking for the right
+boilerplate to get started with your project are good examples of how
+hight the frustration that the constant reinvention of the ecosystem
+causes can be.
 
-Keeping up-to-date with the growing number of competing frameworks can
-take a lot of energy, not to mention trying your app on all the
-available browser version to make sure it works well everywhere.
+On the other hand, writing tests for the front-end can be tedious and
+supporting Flow or TypeScript can prove to be yet another layer to
+handle in your stack.
 
-Training a team to build an app with React.js, Angular2.js, Vue.js or
-Ember.js as well as looking for the right boilerplate to get started
-with your project are good examples of how hard the learning curve can
-be.
-
-In the other hands, writing tests for the front-end can be tidious and
-supporting Flow or TypeScript proved to be yet another layer to handle
-in your stack.
-
-If you are already up-to-speed with all these stacks, then you should
-probably keep using them.
-
-However if you don't know which one to choose and that you are looking
-for a painless way to build frontend application, read on.
+If you are already up-to-speed with all those stacks, then you should
+probably keep using them. However if you don't know which one to
+choose and you are looking for a painless way to build frontend
+applications, read on.
 
 
 How is Elm different?
 =====================
 
-First of all, using Elm, loading your app is all the Javascript you
-will write. Your application will be written in Elm and compiled into
-Javascript.
+First of all, using Elm, the two lines it takes to load your app is
+all the JavaScript you will write. Your application will be written in
+Elm and compiled into JavaScript.
 
-All the mistake you will do will be handled at compilation, which
-means that you will not have error at the javascript level on runtime.
+All the mistakes you will do will be caught at compilation, which
+means that you will not have errors when running your app in the
+browser.
 
 Because you will have a compilation step, Elm will force you to handle
-every possible cases of your model state to be handled on the display
-side.
+every possible case of your model state. It will make sure you covered
+them on the rendering side.
 
-The tooling is great, elm-live will reflect your code update in
-realtime in the browser, you have a debugger that will show you the
-list of events and show you the state of your application at a given
-time. You can even go back in time and replay events. elm-format will
-also format your code automatically to avoid fighting with coding
-styles.
+The tooling is great. ``elm-live`` will automatically update the
+browser code to reflect your code update in realtime. You have a
+debugger that will show you the list of events and show you the state
+of your application at a given time. You can even go back in time and
+replay events. ``elm-format`` will also format your code automatically
+to avoid fighting over coding styles.
 
 
 Getting started
 ===============
 
-Installing elm
+Installing Elm
 --------------
 
 First of all install ``elm`` and ``elm-format`` using npm the node
@@ -89,13 +88,13 @@ package manager:
 
     npm install -g elm elm-format
 
-I don't know npm
-----------------
+What is npm? How to install it?
+-------------------------------
 
 npm is the node package manager. To install it, you might want to use
 `nvm <https://github.com/creationix/nvm#install-script>`_.
 
-Once you installed nvm you can use::
+Once nvm is installed, you can use::
 
     nvm install node
 
@@ -104,12 +103,11 @@ And then you wil be able to run the previous ``npm`` command.
 Looking for an IDE?
 -------------------
 
-Don't hesitate to use `Atom <https://atom.io/>`_, it will come with
-``elm-format`` activated each time you save your file which is really
-handy.
+Have a look at `Atom <https://atom.io/>`. By default it will run
+``elm-format`` each time you save your file which is really handy.
 
-Take a few moment to make sure you configured your text editor to
-works friendly with Elm files.
+Take a few moments to make sure your text editor is configured to work
+friendly with Elm files.
 
 
 Starting your first project
@@ -139,7 +137,7 @@ No need for a boilerplate here, you can just start by running
     Packages configured successfully!
 
 You now have a ``elm-package.json`` in your project as well as a
-``elm-stuff/`` directory that contains the library elm-package
+``elm-stuff/`` directory that contains libraries ``elm-package``
 installed.
 
 .. code-block:: bash
@@ -169,7 +167,7 @@ Playing with elm-format
 -----------------------
 	
 If your editor is well configured with ``elm-format``, you should see
-that as soon as you save it:
+this as soon as you save it:
 
 .. code-block:: elm
 
@@ -215,13 +213,14 @@ One way to run your app is to use ``elm-reactor``.
 
 Then open: http://localhost:8000/Main.elm
 
-You are now viewing your Elm app live !!!
+You are now viewing your Elm app live!!!
 
 
-Learning about the Elm virtual dom
+Learning about the Elm virtual DOM
 ==================================
 
-The elm virtual dom is exposed in the ``Html`` module.
+The Elm Virtual DOM, functions to generate HTML are in the ``Html``
+module.
 
 If you want you can import all of it in your module using:
 
@@ -235,12 +234,12 @@ You can then use ``text`` directly for instance:
 
     main = text "Hello world"
 
-The virtual dom HTML nodes take two parameters:
+The Virtual DOM HTML nodes take two parameters:
 
 - A list of attributes for the node
-- A list of child for the node
+- A list of children for the node
 
-If I want to create a div, with a link it would look like that:
+If I want to create a ``div`` with a link it would look like this:
 
 .. code-block:: elm
 
@@ -293,19 +292,19 @@ Adding some state
 =================
 
 Now that you know how to render your page in HTML, it is time to start
-a program that know how to handle events.
+a program that knows how to handle events.
 
-The way elm works about that is by having:
+The way Elm handles that is by having:
 
-- a ``Model``, an Elm record: a bit like a Javascript object with
+- a ``Model``, an Elm record: a bit like a JavaScript object with
   properties, that keep the state of the app,
 - an update function that will handle all the app events
-- a view function that will return the virtualdom that matches the state.
+- a view function that will return the Virtual DOM that matches the state.
 
 The events and their params are defined in a ``Msg`` type. It is a bit
 like a enum that would take parameters.
 
-In order to do that we can use the ``beginnerProgram`` from the html package:
+In order to do that we can use the ``beginnerProgram`` from the Html package:
 
 .. code-block:: elm
 
@@ -419,11 +418,10 @@ Conclusion
 ==========
 
 That's about it. You now know more than you think about Elm. I hope
-you can try it in a small project and start to like it as much as we
-do.
+you try it in a small project and start to like it as much as we do.
 
 If you want to learn more about it, don't hesitate to look at some of
-our projects or ask question on the #kinto chan.
+our projects or ask questions on the #kinto chan.
 
 - https://github.com/n1k0/myshows
 - https://github.com/leplatrem/systemaddons-versions
