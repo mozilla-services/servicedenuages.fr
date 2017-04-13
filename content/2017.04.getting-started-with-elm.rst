@@ -198,7 +198,9 @@ If not, you can run ``elm-format`` manually on your file:
     y
     Processing file Main.elm
 
-To avoid having to answer "yes" each time you can use the ``--yes`` parameter::
+To avoid having to answer "yes" each time you can use the ``--yes`` parameter:
+
+.. code-block:: bash
 
     elm-format --yes Main.elm
 
@@ -230,7 +232,7 @@ If you want you can import all of it in your module using:
 
     import Html exposing (..)
 
-Note that unless other languages, The Elm_ compiler will prevent any
+Note that unless other languages, the Elm_ compiler will prevent any
 overriden imports when using ``exposing (..)`` on multiple packages,
 which makes the feature really enjoyable.
 
@@ -310,7 +312,7 @@ The way Elm_ handles that is by having:
 - a view function that will return the Virtual DOM that matches the state.
 
 For those who know Redux_, it has been heavily inspired by
-Elm. Basically ``update`` is a reducer.
+Elm_. Basically ``update`` is a reducer.
 
 .. _Redux: http://redux.js.org/
 
@@ -475,13 +477,69 @@ First update the ``index.html`` to make it looks like:
 
 
 Then you can run elm-live with the ``--output`` option:
-	
+
 .. code-block:: bash
 
-    $ elm-live Main.elm --output=elm.js --open --debug --output elm.js
+    $ elm-live Main.elm --open --debug --output elm.js
 
 Now each time you will update your Elm_ code it will refresh the app in
 the browser.
+
+
+Handling a second event
+=======================
+
+Let's add an input to let people choose who to great.
+
+.. code-block:: elm
+
+    module Main exposing (..)
+
+    import Html exposing (..)
+    import Html.Attributes exposing (..)
+    import Html.Events exposing (..)
+
+
+    type Msg
+        = Switch
+        | NewName String
+
+
+    type alias Model =
+        { name : String }
+
+
+    main =
+        beginnerProgram { model = { name = "Rémy" }, view = view, update = update }
+
+
+    update : Msg -> Model -> Model
+    update msg model =
+        case msg of
+            Switch ->
+                if model.name == "Rémy" then
+                    { model | name = "Séverine" }
+                else
+                    { model | name = "Rémy" }
+
+            NewName new_name ->
+                { model | name = new_name }
+
+
+    view : Model -> Html Msg
+    view model =
+        div []
+            [ text "Hello "
+            , a [ href "#", onClick Switch ] [ text model.name ]
+            , br [] []
+            , input
+                [ onInput NewName
+                , value model.name
+                ]
+                []
+            ]
+
+The ``NewName`` event will be emitted with the content of the input each time we type in it.
 
 
 Conclusion
