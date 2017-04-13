@@ -1,5 +1,391 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2017-04-12T00:00:00+02:00</updated><entry><title>Building software as a way to learn</title><link href="http://www.servicedenuages.fr/en/building-software-as-a-way-to-learn" rel="alternate"></link><published>2017-04-12T00:00:00+02:00</published><updated>2017-04-12T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2017-04-12:/en/building-software-as-a-way-to-learn</id><summary type="html">&lt;p class="first last"&gt;Having multiple people working on a big project is not as easy as it seems.
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/all.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2017-04-13T00:00:00+02:00</updated><entry><title>Getting started with Elm</title><link href="http://www.servicedenuages.fr/en/getting-started-with-elm" rel="alternate"></link><published>2017-04-13T00:00:00+02:00</published><updated>2017-04-13T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2017-04-13:/en/getting-started-with-elm</id><summary type="html">&lt;p class="first last"&gt;What is Elm? how does it work? How can I try it really fast?&lt;/p&gt;
+</summary><content type="html">&lt;div class="section" id="introduction"&gt;
+&lt;h2&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;The past two weeks we have been traveling and meeting a bunch of
+developers.&lt;/p&gt;
+&lt;p&gt;It was a chance for us to tell them about &lt;a class="reference external" href="http://www.elm-lang.org/"&gt;Elm&lt;/a&gt; through talks at
+conferences and to present a short one-hour workshop.&lt;/p&gt;
+&lt;p&gt;You can find the slides of the two talks here:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://slides.com/n1k0/elm"&gt;a short introduction to Elm by Niko&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="http://natim.github.io/django-slides/elm-json/"&gt;Talking JSON with Elm by Natim&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;However, this article is a summary of the take aways of this workshop
+for those who would like to know a bit more about Elm.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="what-is-elm-and-why-should-i-be-interested"&gt;
+&lt;h2&gt;What is Elm and why should I be interested?&lt;/h2&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://www.elm-lang.org/"&gt;Elm&lt;/a&gt; is a development platform, providing a programming language, a
+compiler, an architecture and tooling around. It is focused on making
+sure your app state and the HTML that reflects it are always in sync.&lt;/p&gt;
+&lt;p&gt;If you have been doing any frontend development during the last couple
+of years, you might have seen that the JavaScript ecosystem is a bit
+wild. Keeping up-to-date with the growing number of competing
+frameworks can take a lot of energy, not to mention the challenge in
+making sure you app works on all the available browser
+versions.&lt;/p&gt;
+&lt;p&gt;In addition, writing tests for the front-end can be tedious and
+supporting &lt;a class="reference external" href="https://flow.org/en/"&gt;Flow&lt;/a&gt; or &lt;a class="reference external" href="https://www.typescriptlang.org/"&gt;TypeScript&lt;/a&gt;, while tremendously useful, is yet
+another layer to setup, configure and maintain in your stack.&lt;/p&gt;
+&lt;p&gt;Elm brings functional programming to your browser, the language is
+statically typed so with Elm you won't see any run-time errors caused
+by wrong type. Being purely functional, Elm let you write code that is
+completely decoupled, it makes your code much more reusable and more
+easy to refactor.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="how-is-elm-different"&gt;
+&lt;h2&gt;How is Elm different?&lt;/h2&gt;
+&lt;p&gt;Most of the time, using &lt;a class="reference external" href="http://www.elm-lang.org/"&gt;Elm&lt;/a&gt;, the two lines it takes to load your app
+is all the JavaScript you will write. Your application will be written
+in &lt;a class="reference external" href="http://www.elm-lang.org/"&gt;Elm&lt;/a&gt; and compiled into JavaScript.&lt;/p&gt;
+&lt;p&gt;All the mistakes you will do will be caught at compilation time, which
+means that you will barely never encounter uncaught exceptions at
+runtime in the browser.&lt;/p&gt;
+&lt;p&gt;Because you will have a compilation step, &lt;a class="reference external" href="http://www.elm-lang.org/"&gt;Elm&lt;/a&gt; will force you to handle
+every possible case of your model state. It will make sure you covered
+them on the rendering side.&lt;/p&gt;
+&lt;p&gt;The tooling is great. &lt;a class="reference external" href="https://github.com/tomekwi/elm-live"&gt;elm-live&lt;/a&gt; will automatically update the browser
+code to reflect your code update in realtime. It comes with a debugger
+that will show you the list of events and state of your application at
+a given time, you can also go back in time and replay previous
+events. &lt;a class="reference external" href="https://github.com/avh4/elm-format"&gt;elm-format&lt;/a&gt; will also format your code automatically to avoid
+fighting over coding styles.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="getting-started"&gt;
+&lt;h2&gt;Getting started&lt;/h2&gt;
+&lt;div class="section" id="installing-elm"&gt;
+&lt;h3&gt;Installing Elm&lt;/h3&gt;
+&lt;p&gt;First of all install &lt;tt class="docutils literal"&gt;elm&lt;/tt&gt; and &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;elm-format&lt;/span&gt;&lt;/tt&gt; using &lt;a class="reference external" href="https://www.npmjs.com/"&gt;npm&lt;/a&gt; the node
+package manager.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;npm install -g elm elm-format
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="looking-for-an-ide"&gt;
+&lt;h3&gt;Looking for an IDE?&lt;/h3&gt;
+&lt;p&gt;Have a look at &lt;a class="reference external" href="https://atom.io/"&gt;Atom&lt;/a&gt;. By default it will run
+&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;elm-format&lt;/span&gt;&lt;/tt&gt; each time you save your file which is really handy.&lt;/p&gt;
+&lt;p&gt;Take a moment to make sure your text editor is configured to work well
+with &lt;a class="reference external" href="http://www.elm-lang.org/"&gt;Elm&lt;/a&gt; files.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="starting-your-first-project"&gt;
+&lt;h2&gt;Starting your first project&lt;/h2&gt;
+&lt;p&gt;No need for a boilerplate here, you can just start by running
+&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;elm-package&lt;/span&gt; install&lt;/tt&gt; and approve the default core packages that
+will be installed:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;~/tutorial$ elm-package install
+
+Some new packages are needed. Here is the upgrade plan.
+
+  Install:
+    elm-lang/core &lt;span class="m"&gt;5&lt;/span&gt;.1.1
+    elm-lang/html &lt;span class="m"&gt;2&lt;/span&gt;.0.0
+    elm-lang/virtual-dom &lt;span class="m"&gt;2&lt;/span&gt;.0.4
+
+Do you approve of this plan? &lt;span class="o"&gt;[&lt;/span&gt;Y/n&lt;span class="o"&gt;]&lt;/span&gt; Y
+Starting downloads...
+
+  ● elm-lang/html &lt;span class="m"&gt;2&lt;/span&gt;.0.0
+  ● elm-lang/virtual-dom &lt;span class="m"&gt;2&lt;/span&gt;.0.4
+  ● elm-lang/core &lt;span class="m"&gt;5&lt;/span&gt;.1.1
+
+Packages configured successfully!
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You now have a &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;elm-package.json&lt;/span&gt;&lt;/tt&gt; in your project as well as a
+&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;elm-stuff/&lt;/span&gt;&lt;/tt&gt; directory that contains libraries that &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;elm-package&lt;/span&gt;&lt;/tt&gt;
+installed. &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;elm-package.json&lt;/span&gt;&lt;/tt&gt; is to &lt;a class="reference external" href="http://www.elm-lang.org/"&gt;Elm&lt;/a&gt; projects what
+&lt;tt class="docutils literal"&gt;package.json&lt;/tt&gt; is to nodejs ones.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;    .
+├── elm-package.json
+└── elm-stuff
+    ├── exact-dependencies.json
+    └── packages
+
+&lt;span class="m"&gt;2&lt;/span&gt; directories, &lt;span class="m"&gt;2&lt;/span&gt; files
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="creating-your-first-file"&gt;
+&lt;h2&gt;Creating your first file&lt;/h2&gt;
+&lt;p&gt;To get started you can simply create a new file named &lt;tt class="docutils literal"&gt;Main.elm&lt;/tt&gt;
+with the following:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import &lt;/span&gt;&lt;span class="nc"&gt;Html&lt;/span&gt;
+&lt;span class="kr"&gt;main &lt;/span&gt;&lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;Html&lt;/span&gt;&lt;span class="nf"&gt;.&lt;/span&gt;&lt;span class="nv"&gt;text&lt;/span&gt; &lt;span class="s"&gt;"Hello world"&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;a class="reference external" href="http://www.elm-lang.org/"&gt;Elm&lt;/a&gt; benefits from a full featured module system, with a broad
+ecosystem of external packages avaiable. &lt;tt class="docutils literal"&gt;Html&lt;/tt&gt; is part of the core.&lt;/p&gt;
+&lt;div class="section" id="playing-with-elm-format"&gt;
+&lt;h3&gt;Playing with elm-format&lt;/h3&gt;
+&lt;p&gt;If your editor is well configured with &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;elm-format&lt;/span&gt;&lt;/tt&gt;, you should see
+this as soon as you save it:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;module &lt;/span&gt;&lt;span class="nc"&gt;Main&lt;/span&gt; &lt;span class="nv"&gt;exposing&lt;/span&gt; &lt;span class="nf"&gt;(..)&lt;/span&gt;
+
+&lt;span class="kn"&gt;import &lt;/span&gt;&lt;span class="nc"&gt;Html&lt;/span&gt;
+
+
+&lt;span class="kr"&gt;main &lt;/span&gt;&lt;span class="nf"&gt;=&lt;/span&gt;
+    &lt;span class="kt"&gt;Html&lt;/span&gt;&lt;span class="nf"&gt;.&lt;/span&gt;&lt;span class="nv"&gt;text&lt;/span&gt; &lt;span class="s"&gt;"Hello world!"&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If not, you can run &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;elm-format&lt;/span&gt;&lt;/tt&gt; manually on your file:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;~/tutorial$ elm-format Main.elm
+This will overwrite the following files to use Elm&lt;span class="err"&gt;'&lt;/span&gt;s preferred style:
+
+    Main.elm
+
+This cannot be undone! Make sure to back up these files before proceeding.
+
+Are you sure you want to overwrite these files with formatted versions? &lt;span class="o"&gt;(&lt;/span&gt;y/n&lt;span class="o"&gt;)&lt;/span&gt;
+
+y
+Processing file Main.elm
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;To avoid having to answer "yes" each time you can use the &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;--yes&lt;/span&gt;&lt;/tt&gt; parameter:&lt;/p&gt;
+&lt;pre class="literal-block"&gt;
+elm-format --yes Main.elm
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div class="section" id="opening-your-app-in-the-browser"&gt;
+&lt;h3&gt;Opening your app in the browser&lt;/h3&gt;
+&lt;p&gt;One way to run your app is to use &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;elm-reactor&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;~/tutorial$ elm-reactor
+    elm-reactor &lt;span class="m"&gt;0&lt;/span&gt;.18.0
+Listening on http://localhost:8000
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Then open: &lt;a class="reference external" href="http://localhost:8000/Main.elm"&gt;http://localhost:8000/Main.elm&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;You are now viewing your &lt;a class="reference external" href="http://www.elm-lang.org/"&gt;Elm&lt;/a&gt; app!!!&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="learning-about-the-elm-virtual-dom"&gt;
+&lt;h2&gt;Learning about the Elm virtual DOM&lt;/h2&gt;
+&lt;p&gt;Virtual DOM functions to generate HTML are in the &lt;tt class="docutils literal"&gt;Html&lt;/tt&gt; module.&lt;/p&gt;
+&lt;p&gt;If you want you can import all of it in your module using:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import &lt;/span&gt;&lt;span class="nc"&gt;Html&lt;/span&gt; &lt;span class="nv"&gt;exposing&lt;/span&gt; &lt;span class="nf"&gt;(..)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Note that unless other languages, The &lt;a class="reference external" href="http://www.elm-lang.org/"&gt;Elm&lt;/a&gt; compiler will prevent any
+overriden imports when using &lt;tt class="docutils literal"&gt;exposing &lt;span class="pre"&gt;(..)&lt;/span&gt;&lt;/tt&gt; on multiple packages,
+which makes the feature really enjoyable.&lt;/p&gt;
+&lt;p&gt;You can then use &lt;tt class="docutils literal"&gt;text&lt;/tt&gt; directly for instance:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;main &lt;/span&gt;&lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;text&lt;/span&gt; &lt;span class="s"&gt;"Hello world"&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;The Virtual DOM HTML nodes are functions named after standard HTML
+tags, and take two parameters:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;A list of attributes&lt;/li&gt;
+&lt;li&gt;A list of children&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;If I want to create a &lt;tt class="docutils literal"&gt;div&lt;/tt&gt; with a link it would look like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;module &lt;/span&gt;&lt;span class="nc"&gt;Main&lt;/span&gt; &lt;span class="nv"&gt;exposing&lt;/span&gt; &lt;span class="nf"&gt;(..)&lt;/span&gt;
+
+&lt;span class="kn"&gt;import &lt;/span&gt;&lt;span class="nc"&gt;Html&lt;/span&gt; &lt;span class="nv"&gt;exposing&lt;/span&gt; &lt;span class="nf"&gt;(..)&lt;/span&gt;
+&lt;span class="kn"&gt;import &lt;/span&gt;&lt;span class="nc"&gt;Html.Attributes&lt;/span&gt; &lt;span class="nv"&gt;exposing&lt;/span&gt; &lt;span class="nf"&gt;(..)&lt;/span&gt;
+
+
+&lt;span class="kr"&gt;main &lt;/span&gt;&lt;span class="nf"&gt;=&lt;/span&gt;
+    &lt;span class="nv"&gt;div&lt;/span&gt;
+        &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;class&lt;/span&gt; &lt;span class="s"&gt;"container"&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;a&lt;/span&gt;
+            &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;href&lt;/span&gt; &lt;span class="s"&gt;"http://www.servicedenuages.fr/"&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+            &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;text&lt;/span&gt; &lt;span class="s"&gt;"Blog"&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We can also create a list of links in our div:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;module &lt;/span&gt;&lt;span class="nc"&gt;Main&lt;/span&gt; &lt;span class="nv"&gt;exposing&lt;/span&gt; &lt;span class="nf"&gt;(..)&lt;/span&gt;
+
+&lt;span class="kn"&gt;import &lt;/span&gt;&lt;span class="nc"&gt;Html&lt;/span&gt; &lt;span class="nv"&gt;exposing&lt;/span&gt; &lt;span class="nf"&gt;(..)&lt;/span&gt;
+&lt;span class="kn"&gt;import &lt;/span&gt;&lt;span class="nc"&gt;Html.Attributes&lt;/span&gt; &lt;span class="nv"&gt;exposing&lt;/span&gt; &lt;span class="nf"&gt;(..)&lt;/span&gt;
+
+
+&lt;span class="kr"&gt;main &lt;/span&gt;&lt;span class="nf"&gt;=&lt;/span&gt;
+    &lt;span class="nv"&gt;div&lt;/span&gt;
+        &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;class&lt;/span&gt; &lt;span class="s"&gt;"container"&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;ul&lt;/span&gt;
+            &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;class&lt;/span&gt; &lt;span class="s"&gt;"links"&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+            &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;li&lt;/span&gt;
+                &lt;span class="p"&gt;[]&lt;/span&gt;
+                &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;a&lt;/span&gt;
+                    &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;href&lt;/span&gt; &lt;span class="s"&gt;"http://www.servicedenuages.fr/"&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+                    &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;text&lt;/span&gt; &lt;span class="s"&gt;"Blog"&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+                &lt;span class="p"&gt;]&lt;/span&gt;
+            &lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;li&lt;/span&gt;
+                &lt;span class="p"&gt;[]&lt;/span&gt;
+                &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;a&lt;/span&gt;
+                    &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;href&lt;/span&gt; &lt;span class="s"&gt;"http://www.elm-lang.org/"&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+                    &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;text&lt;/span&gt; &lt;span class="s"&gt;"Elm lang"&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+                &lt;span class="p"&gt;]&lt;/span&gt;
+            &lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="adding-some-state"&gt;
+&lt;h2&gt;Adding some state&lt;/h2&gt;
+&lt;p&gt;Now that you know how to render your page in HTML, let's see how to
+write a program that handles events.&lt;/p&gt;
+&lt;p&gt;The way &lt;a class="reference external" href="http://www.elm-lang.org/"&gt;Elm&lt;/a&gt; handles that is by having:&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;a &lt;tt class="docutils literal"&gt;Model&lt;/tt&gt;, an &lt;a class="reference external" href="http://www.elm-lang.org/"&gt;Elm&lt;/a&gt; record: a bit like a JavaScript object with
+properties, that keep the state of the app&lt;/li&gt;
+&lt;li&gt;an update function that will handle all the app events and update
+the model state accordingly&lt;/li&gt;
+&lt;li&gt;a view function that will return the Virtual DOM that matches the state.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;For those who know &lt;a class="reference external" href="http://redux.js.org/"&gt;Redux&lt;/a&gt;, it has been heavily inspired by
+Elm. Basically &lt;tt class="docutils literal"&gt;update&lt;/tt&gt; is a reducer.&lt;/p&gt;
+&lt;p&gt;The events and their parameters are defined in a &lt;tt class="docutils literal"&gt;Msg&lt;/tt&gt; type, which
+is a bit like a enum that would take parameters.&lt;/p&gt;
+&lt;p&gt;In order to create our application that handle states, we can use the
+&lt;tt class="docutils literal"&gt;beginnerProgram&lt;/tt&gt; from the Html package:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;module &lt;/span&gt;&lt;span class="nc"&gt;Main&lt;/span&gt; &lt;span class="nv"&gt;exposing&lt;/span&gt; &lt;span class="nf"&gt;(..)&lt;/span&gt;
+
+&lt;span class="kn"&gt;import &lt;/span&gt;&lt;span class="nc"&gt;Html&lt;/span&gt; &lt;span class="nv"&gt;exposing&lt;/span&gt; &lt;span class="nf"&gt;(..)&lt;/span&gt;
+
+
+&lt;span class="kr"&gt;type&lt;/span&gt; &lt;span class="kt"&gt;Msg&lt;/span&gt;
+    &lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;Noop&lt;/span&gt;
+
+
+&lt;span class="kr"&gt;type&lt;/span&gt; &lt;span class="kr"&gt;alias&lt;/span&gt; &lt;span class="kt"&gt;Model&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nv"&gt;name&lt;/span&gt; &lt;span class="nf"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+
+
+&lt;span class="kr"&gt;main &lt;/span&gt;&lt;span class="nf"&gt;=&lt;/span&gt;
+    &lt;span class="nv"&gt;beginnerProgram&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nv"&gt;model&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nv"&gt;name&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="s"&gt;"Rémy"&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="nv"&gt;view&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;view&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;update&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;update&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+
+
+&lt;span class="nv"&gt;update&lt;/span&gt; &lt;span class="nf"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Msg&lt;/span&gt; &lt;span class="nf"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Model&lt;/span&gt; &lt;span class="nf"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Model&lt;/span&gt;
+&lt;span class="nv"&gt;update&lt;/span&gt; &lt;span class="nv"&gt;msg&lt;/span&gt; &lt;span class="nv"&gt;model&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt;
+    &lt;span class="nv"&gt;model&lt;/span&gt;
+
+
+&lt;span class="nv"&gt;view&lt;/span&gt; &lt;span class="nf"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Model&lt;/span&gt; &lt;span class="nf"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Html&lt;/span&gt; &lt;span class="kt"&gt;Msg&lt;/span&gt;
+&lt;span class="nv"&gt;view&lt;/span&gt; &lt;span class="nv"&gt;model&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt;
+    &lt;span class="nv"&gt;text&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s"&gt;"Hello "&lt;/span&gt; &lt;span class="nf"&gt;++&lt;/span&gt; &lt;span class="nv"&gt;model&lt;/span&gt;&lt;span class="nf"&gt;.&lt;/span&gt;&lt;span class="nv"&gt;name&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;We can now handle an event and change the name when we click on it.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;module &lt;/span&gt;&lt;span class="nc"&gt;Main&lt;/span&gt; &lt;span class="nv"&gt;exposing&lt;/span&gt; &lt;span class="nf"&gt;(..)&lt;/span&gt;
+
+&lt;span class="kn"&gt;import &lt;/span&gt;&lt;span class="nc"&gt;Html&lt;/span&gt; &lt;span class="nv"&gt;exposing&lt;/span&gt; &lt;span class="nf"&gt;(..)&lt;/span&gt;
+&lt;span class="kn"&gt;import &lt;/span&gt;&lt;span class="nc"&gt;Html.Attributes&lt;/span&gt; &lt;span class="nv"&gt;exposing&lt;/span&gt; &lt;span class="nf"&gt;(..)&lt;/span&gt;
+&lt;span class="kn"&gt;import &lt;/span&gt;&lt;span class="nc"&gt;Html.Events&lt;/span&gt; &lt;span class="nv"&gt;exposing&lt;/span&gt; &lt;span class="nf"&gt;(..)&lt;/span&gt;
+
+
+&lt;span class="kr"&gt;type&lt;/span&gt; &lt;span class="kt"&gt;Msg&lt;/span&gt;
+    &lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;Switch&lt;/span&gt;
+
+
+&lt;span class="kr"&gt;type&lt;/span&gt; &lt;span class="kr"&gt;alias&lt;/span&gt; &lt;span class="kt"&gt;Model&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nv"&gt;name&lt;/span&gt; &lt;span class="nf"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+
+
+&lt;span class="kr"&gt;main &lt;/span&gt;&lt;span class="nf"&gt;=&lt;/span&gt;
+    &lt;span class="nv"&gt;beginnerProgram&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nv"&gt;model&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nv"&gt;name&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="s"&gt;"Rémy"&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="nv"&gt;view&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;view&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;update&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;update&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+
+
+&lt;span class="nv"&gt;update&lt;/span&gt; &lt;span class="nf"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Msg&lt;/span&gt; &lt;span class="nf"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Model&lt;/span&gt; &lt;span class="nf"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Model&lt;/span&gt;
+&lt;span class="nv"&gt;update&lt;/span&gt; &lt;span class="nv"&gt;msg&lt;/span&gt; &lt;span class="nv"&gt;model&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt;
+    &lt;span class="kr"&gt;case&lt;/span&gt; &lt;span class="nv"&gt;msg&lt;/span&gt; &lt;span class="kr"&gt;of&lt;/span&gt;
+        &lt;span class="kt"&gt;Switch&lt;/span&gt; &lt;span class="nf"&gt;-&amp;gt;&lt;/span&gt;
+            &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nv"&gt;model&lt;/span&gt; &lt;span class="nf"&gt;|&lt;/span&gt; &lt;span class="nv"&gt;name&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="s"&gt;"Séverine"&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+
+
+&lt;span class="nv"&gt;view&lt;/span&gt; &lt;span class="nf"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Model&lt;/span&gt; &lt;span class="nf"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Html&lt;/span&gt; &lt;span class="kt"&gt;Msg&lt;/span&gt;
+&lt;span class="nv"&gt;view&lt;/span&gt; &lt;span class="nv"&gt;model&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt;
+    &lt;span class="nv"&gt;div&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+        &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;text&lt;/span&gt; &lt;span class="s"&gt;"Hello "&lt;/span&gt;
+        &lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;a&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;href&lt;/span&gt; &lt;span class="s"&gt;"#"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;onClick&lt;/span&gt; &lt;span class="kt"&gt;Switch&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;text&lt;/span&gt; &lt;span class="nv"&gt;model&lt;/span&gt;&lt;span class="nf"&gt;.&lt;/span&gt;&lt;span class="nv"&gt;name&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;You can refresh the page and try it.&lt;/p&gt;
+&lt;p&gt;If we want to switch back to &lt;tt class="docutils literal"&gt;Rémy&lt;/tt&gt; when we click on &lt;tt class="docutils literal"&gt;Séverine&lt;/tt&gt; we can add a &lt;tt class="docutils literal"&gt;if&lt;/tt&gt;:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;module &lt;/span&gt;&lt;span class="nc"&gt;Main&lt;/span&gt; &lt;span class="nv"&gt;exposing&lt;/span&gt; &lt;span class="nf"&gt;(..)&lt;/span&gt;
+
+&lt;span class="kn"&gt;import &lt;/span&gt;&lt;span class="nc"&gt;Html&lt;/span&gt; &lt;span class="nv"&gt;exposing&lt;/span&gt; &lt;span class="nf"&gt;(..)&lt;/span&gt;
+&lt;span class="kn"&gt;import &lt;/span&gt;&lt;span class="nc"&gt;Html.Attributes&lt;/span&gt; &lt;span class="nv"&gt;exposing&lt;/span&gt; &lt;span class="nf"&gt;(..)&lt;/span&gt;
+&lt;span class="kn"&gt;import &lt;/span&gt;&lt;span class="nc"&gt;Html.Events&lt;/span&gt; &lt;span class="nv"&gt;exposing&lt;/span&gt; &lt;span class="nf"&gt;(..)&lt;/span&gt;
+
+
+&lt;span class="kr"&gt;type&lt;/span&gt; &lt;span class="kt"&gt;Msg&lt;/span&gt;
+    &lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="kt"&gt;Switch&lt;/span&gt;
+
+
+&lt;span class="kr"&gt;type&lt;/span&gt; &lt;span class="kr"&gt;alias&lt;/span&gt; &lt;span class="kt"&gt;Model&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt;
+    &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nv"&gt;name&lt;/span&gt; &lt;span class="nf"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;String&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+
+
+&lt;span class="kr"&gt;main &lt;/span&gt;&lt;span class="nf"&gt;=&lt;/span&gt;
+    &lt;span class="nv"&gt;beginnerProgram&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nv"&gt;model&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nv"&gt;name&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="s"&gt;"Rémy"&lt;/span&gt; &lt;span class="p"&gt;},&lt;/span&gt; &lt;span class="nv"&gt;view&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;view&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;update&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="nv"&gt;update&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+
+
+&lt;span class="nv"&gt;update&lt;/span&gt; &lt;span class="nf"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Msg&lt;/span&gt; &lt;span class="nf"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Model&lt;/span&gt; &lt;span class="nf"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Model&lt;/span&gt;
+&lt;span class="nv"&gt;update&lt;/span&gt; &lt;span class="nv"&gt;msg&lt;/span&gt; &lt;span class="nv"&gt;model&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt;
+    &lt;span class="kr"&gt;case&lt;/span&gt; &lt;span class="nv"&gt;msg&lt;/span&gt; &lt;span class="kr"&gt;of&lt;/span&gt;
+        &lt;span class="kt"&gt;Switch&lt;/span&gt; &lt;span class="nf"&gt;-&amp;gt;&lt;/span&gt;
+            &lt;span class="kr"&gt;if&lt;/span&gt; &lt;span class="nv"&gt;model&lt;/span&gt;&lt;span class="nf"&gt;.&lt;/span&gt;&lt;span class="nv"&gt;name&lt;/span&gt; &lt;span class="nf"&gt;==&lt;/span&gt; &lt;span class="s"&gt;"Rémy"&lt;/span&gt; &lt;span class="kr"&gt;then&lt;/span&gt;
+                &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nv"&gt;model&lt;/span&gt; &lt;span class="nf"&gt;|&lt;/span&gt; &lt;span class="nv"&gt;name&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="s"&gt;"Séverine"&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+            &lt;span class="kr"&gt;else&lt;/span&gt;
+                &lt;span class="p"&gt;{&lt;/span&gt; &lt;span class="nv"&gt;model&lt;/span&gt; &lt;span class="nf"&gt;|&lt;/span&gt; &lt;span class="nv"&gt;name&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt; &lt;span class="s"&gt;"Rémy"&lt;/span&gt; &lt;span class="p"&gt;}&lt;/span&gt;
+
+
+&lt;span class="nv"&gt;view&lt;/span&gt; &lt;span class="nf"&gt;:&lt;/span&gt; &lt;span class="kt"&gt;Model&lt;/span&gt; &lt;span class="nf"&gt;-&amp;gt;&lt;/span&gt; &lt;span class="kt"&gt;Html&lt;/span&gt; &lt;span class="kt"&gt;Msg&lt;/span&gt;
+&lt;span class="nv"&gt;view&lt;/span&gt; &lt;span class="nv"&gt;model&lt;/span&gt; &lt;span class="nf"&gt;=&lt;/span&gt;
+    &lt;span class="nv"&gt;div&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+        &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;text&lt;/span&gt; &lt;span class="s"&gt;"Hello "&lt;/span&gt;
+        &lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;a&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;href&lt;/span&gt; &lt;span class="s"&gt;"#"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nv"&gt;onClick&lt;/span&gt; &lt;span class="kt"&gt;Switch&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt; &lt;span class="nv"&gt;text&lt;/span&gt; &lt;span class="nv"&gt;model&lt;/span&gt;&lt;span class="nf"&gt;.&lt;/span&gt;&lt;span class="nv"&gt;name&lt;/span&gt; &lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="p"&gt;]&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="enabling-auto-updates-with-elm-live"&gt;
+&lt;h2&gt;Enabling auto updates with &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;elm-live&lt;/span&gt;&lt;/tt&gt;&lt;/h2&gt;
+&lt;p&gt;&lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;elm-reactor&lt;/span&gt;&lt;/tt&gt; is good to get started but if you want your app to
+auto refresh you might want to setup &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;elm-live&lt;/span&gt;&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;To install it, you can use: &lt;tt class="docutils literal"&gt;npm install &lt;span class="pre"&gt;-g&lt;/span&gt; &lt;span class="pre"&gt;elm-live&lt;/span&gt;&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;Then you can use:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ elm-live Main.elm --open
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;If you have to use the debugger, you can use the &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;--debug&lt;/span&gt;&lt;/tt&gt; option:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ elm-live Main.elm --open --debug
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;It will automatically generate an &lt;tt class="docutils literal"&gt;index.html&lt;/tt&gt; file with the compiled JavaScript.&lt;/p&gt;
+&lt;p&gt;You can use the &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;--output&lt;/span&gt;&lt;/tt&gt; option to save the JavaScript in its own
+file and load it in the HTML yourself.&lt;/p&gt;
+&lt;p&gt;First update the &lt;tt class="docutils literal"&gt;index.html&lt;/tt&gt; to make it looks like:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="cp"&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;html&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;head&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;meta&lt;/span&gt; &lt;span class="na"&gt;charset&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"utf-8"&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;title&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;Hello world&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;title&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;meta&lt;/span&gt; &lt;span class="na"&gt;name&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"viewport"&lt;/span&gt; &lt;span class="na"&gt;content&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"width=device-width, initial-scale=1"&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;head&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+
+  &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;body&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt; &lt;span class="na"&gt;src&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s"&gt;"elm.js"&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+    &lt;span class="kd"&gt;var&lt;/span&gt; &lt;span class="nx"&gt;app&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;Elm&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;Main&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;fullscreen&lt;/span&gt;&lt;span class="p"&gt;();&lt;/span&gt;
+    &lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;script&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+  &lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;body&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="p"&gt;&amp;lt;/&lt;/span&gt;&lt;span class="nt"&gt;html&lt;/span&gt;&lt;span class="p"&gt;&amp;gt;&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Then you can run elm-live with the &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;--output&lt;/span&gt;&lt;/tt&gt; option:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ elm-live Main.elm --output&lt;span class="o"&gt;=&lt;/span&gt;elm.js --open --debug --output elm.js
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Now each time you will update your &lt;a class="reference external" href="http://www.elm-lang.org/"&gt;Elm&lt;/a&gt; code it will refresh the app in
+the browser.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="conclusion"&gt;
+&lt;h2&gt;Conclusion&lt;/h2&gt;
+&lt;p&gt;That's about it. You now know more than you think about Elm. I hope
+you try it on your next project and enjoy &lt;a class="reference external" href="http://www.elm-lang.org/"&gt;Elm&lt;/a&gt; as much as we do.&lt;/p&gt;
+&lt;p&gt;If you want to learn more about it, don't hesitate to look at some of
+our projects or ask questions on the &lt;a class="reference external" href="http://kinto.readthedocs.io/en/stable/community.html#communication-channels"&gt;#kinto chan&lt;/a&gt;.&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://github.com/n1k0/myshows"&gt;https://github.com/n1k0/myshows&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://github.com/leplatrem/systemaddons-versions"&gt;https://github.com/leplatrem/systemaddons-versions&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://github.com/addons-shipping/stepfunction-dashboard/"&gt;https://github.com/addons-shipping/stepfunction-dashboard/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://github.com/Natim/twitter-elm-wall/"&gt;https://github.com/Natim/twitter-elm-wall/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://github.com/kinto/kinto-alwaysdata/"&gt;https://github.com/kinto/kinto-alwaysdata/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://github.com/Natim/social-dashboard/"&gt;https://github.com/Natim/social-dashboard/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</content><category term="mozilla"></category></entry><entry><title>Building software as a way to learn</title><link href="http://www.servicedenuages.fr/en/building-software-as-a-way-to-learn" rel="alternate"></link><published>2017-04-12T00:00:00+02:00</published><updated>2017-04-12T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2017-04-12:/en/building-software-as-a-way-to-learn</id><summary type="html">&lt;p class="first last"&gt;Having multiple people working on a big project is not as easy as it seems.
 Here are some elements to move projects forward as a team.&lt;/p&gt;
 </summary><content type="html">&lt;img alt="New Mozilla 2017 Logo" class="align-center" src="http://www.servicedenuages.fr/en/../images/mozilla-logo.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
 &lt;p&gt;Today, I realized that I've been working for Mozilla for three years
