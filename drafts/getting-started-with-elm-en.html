@@ -30,7 +30,7 @@
         <header class="header-article">
             <hgroup>
                 <h5>Published</h5>
-                <p title="~1522 words">~7 minutes reading 🕑</p>
+                <p title="~1638 words">~7 minutes reading 🕑</p>
                 <p>Thu, 13 April 2017</p>
                 <a href="/en/">&larr; Back to articles</a>
             </hgroup>
@@ -183,9 +183,8 @@ y
 Processing file Main.elm
 </pre></div>
 <p>To avoid having to answer "yes" each time you can use the <tt class="docutils literal"><span class="pre">--yes</span></tt> parameter:</p>
-<pre class="literal-block">
-elm-format --yes Main.elm
-</pre>
+<div class="highlight"><pre><span></span>elm-format --yes Main.elm
+</pre></div>
 </div>
 <div class="section" id="opening-your-app-in-the-browser">
 <h3>Opening your app in the browser</h3>
@@ -204,7 +203,7 @@ Listening on http://localhost:8000
 <p>If you want you can import all of it in your module using:</p>
 <div class="highlight"><pre><span></span><span class="kn">import </span><span class="nc">Html</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
 </pre></div>
-<p>Note that unless other languages, The <a class="reference external" href="http://www.elm-lang.org/">Elm</a> compiler will prevent any
+<p>Note that unless other languages, the <a class="reference external" href="http://www.elm-lang.org/">Elm</a> compiler will prevent any
 overriden imports when using <tt class="docutils literal">exposing <span class="pre">(..)</span></tt> on multiple packages,
 which makes the feature really enjoyable.</p>
 <p>You can then use <tt class="docutils literal">text</tt> directly for instance:</p>
@@ -272,7 +271,7 @@ the model state accordingly</li>
 <li>a view function that will return the Virtual DOM that matches the state.</li>
 </ul>
 <p>For those who know <a class="reference external" href="http://redux.js.org/">Redux</a>, it has been heavily inspired by
-Elm. Basically <tt class="docutils literal">update</tt> is a reducer.</p>
+<a class="reference external" href="http://www.elm-lang.org/">Elm</a>. Basically <tt class="docutils literal">update</tt> is a reducer.</p>
 <p>The events and their parameters are defined in a <tt class="docutils literal">Msg</tt> type, which
 is a bit like a enum that would take parameters.</p>
 <p>In order to create our application that handle states, we can use the
@@ -408,10 +407,61 @@ file and load it in the HTML yourself.</p>
 <span class="p">&lt;/</span><span class="nt">html</span><span class="p">&gt;</span>
 </pre></div>
 <p>Then you can run elm-live with the <tt class="docutils literal"><span class="pre">--output</span></tt> option:</p>
-<div class="highlight"><pre><span></span>$ elm-live Main.elm --output<span class="o">=</span>elm.js --open --debug --output elm.js
+<div class="highlight"><pre><span></span>$ elm-live Main.elm --open --debug --output elm.js
 </pre></div>
 <p>Now each time you will update your <a class="reference external" href="http://www.elm-lang.org/">Elm</a> code it will refresh the app in
 the browser.</p>
+</div>
+<div class="section" id="handling-a-second-event">
+<h2>Handling a second event</h2>
+<p>Let's add an input to let people choose who to great.</p>
+<div class="highlight"><pre><span></span><span class="kn">module </span><span class="nc">Main</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+
+<span class="kn">import </span><span class="nc">Html</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+<span class="kn">import </span><span class="nc">Html.Attributes</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+<span class="kn">import </span><span class="nc">Html.Events</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
+
+
+<span class="kr">type</span> <span class="kt">Msg</span>
+    <span class="nf">=</span> <span class="kt">Switch</span>
+    <span class="nf">|</span> <span class="kt">NewName</span> <span class="kt">String</span>
+
+
+<span class="kr">type</span> <span class="kr">alias</span> <span class="kt">Model</span> <span class="nf">=</span>
+    <span class="p">{</span> <span class="nv">name</span> <span class="nf">:</span> <span class="kt">String</span> <span class="p">}</span>
+
+
+<span class="kr">main </span><span class="nf">=</span>
+    <span class="nv">beginnerProgram</span> <span class="p">{</span> <span class="nv">model</span> <span class="nf">=</span> <span class="p">{</span> <span class="nv">name</span> <span class="nf">=</span> <span class="s">"Rémy"</span> <span class="p">},</span> <span class="nv">view</span> <span class="nf">=</span> <span class="nv">view</span><span class="p">,</span> <span class="nv">update</span> <span class="nf">=</span> <span class="nv">update</span> <span class="p">}</span>
+
+
+<span class="nv">update</span> <span class="nf">:</span> <span class="kt">Msg</span> <span class="nf">-&gt;</span> <span class="kt">Model</span> <span class="nf">-&gt;</span> <span class="kt">Model</span>
+<span class="nv">update</span> <span class="nv">msg</span> <span class="nv">model</span> <span class="nf">=</span>
+    <span class="kr">case</span> <span class="nv">msg</span> <span class="kr">of</span>
+        <span class="kt">Switch</span> <span class="nf">-&gt;</span>
+            <span class="kr">if</span> <span class="nv">model</span><span class="nf">.</span><span class="nv">name</span> <span class="nf">==</span> <span class="s">"Rémy"</span> <span class="kr">then</span>
+                <span class="p">{</span> <span class="nv">model</span> <span class="nf">|</span> <span class="nv">name</span> <span class="nf">=</span> <span class="s">"Séverine"</span> <span class="p">}</span>
+            <span class="kr">else</span>
+                <span class="p">{</span> <span class="nv">model</span> <span class="nf">|</span> <span class="nv">name</span> <span class="nf">=</span> <span class="s">"Rémy"</span> <span class="p">}</span>
+
+        <span class="kt">NewName</span> <span class="nv">new_name</span> <span class="nf">-&gt;</span>
+            <span class="p">{</span> <span class="nv">model</span> <span class="nf">|</span> <span class="nv">name</span> <span class="nf">=</span> <span class="nv">new_name</span> <span class="p">}</span>
+
+
+<span class="nv">view</span> <span class="nf">:</span> <span class="kt">Model</span> <span class="nf">-&gt;</span> <span class="kt">Html</span> <span class="kt">Msg</span>
+<span class="nv">view</span> <span class="nv">model</span> <span class="nf">=</span>
+    <span class="nv">div</span> <span class="p">[]</span>
+        <span class="p">[</span> <span class="nv">text</span> <span class="s">"Hello "</span>
+        <span class="p">,</span> <span class="nv">a</span> <span class="p">[</span> <span class="nv">href</span> <span class="s">"#"</span><span class="p">,</span> <span class="nv">onClick</span> <span class="kt">Switch</span> <span class="p">]</span> <span class="p">[</span> <span class="nv">text</span> <span class="nv">model</span><span class="nf">.</span><span class="nv">name</span> <span class="p">]</span>
+        <span class="p">,</span> <span class="nv">br</span> <span class="p">[]</span> <span class="p">[]</span>
+        <span class="p">,</span> <span class="nv">input</span>
+            <span class="p">[</span> <span class="nv">onInput</span> <span class="kt">NewName</span>
+            <span class="p">,</span> <span class="nv">value</span> <span class="nv">model</span><span class="nf">.</span><span class="nv">name</span>
+            <span class="p">]</span>
+            <span class="p">[]</span>
+        <span class="p">]</span>
+</pre></div>
+<p>The <tt class="docutils literal">NewName</tt> event will be emitted with the content of the input each time we type in it.</p>
 </div>
 <div class="section" id="conclusion">
 <h2>Conclusion</h2>
