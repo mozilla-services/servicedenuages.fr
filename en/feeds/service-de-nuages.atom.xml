@@ -40,8 +40,8 @@ easier to refactor.&lt;/p&gt;
 is all the JavaScript you will write. Your application will be written
 in Elm and compiled into JavaScript.&lt;/p&gt;
 &lt;p&gt;All the mistakes you make will be caught at compilation time, which
-means that you will barely never encounter uncaught exceptions at
-runtime in the browser.&lt;/p&gt;
+means that you will barely ever encounter exceptions at runtime in the
+browser.&lt;/p&gt;
 &lt;p&gt;Because you will have a compilation step, Elm will force you to handle
 every possible case of your model state. It will make sure you covered
 them on the rendering side.&lt;/p&gt;
