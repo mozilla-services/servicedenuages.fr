@@ -47,9 +47,9 @@ another layer to setup, configure and maintain in your stack.
 .. _Flow: https://flow.org/en/
 .. _TypeScript: https://www.typescriptlang.org/
 
-You can think of the Elm platform as the equivalent feature set of React_,
-Redux_, react-redux_, Babel_, eslint_, Flow/Typescript and Webpack_ all
-bundled in a single homogeneous package!
+You can think of the Elm platform as the equivalent combined feature
+set of React_, Redux_, react-redux_, Babel_, eslint_, Flow/Typescript
+and Webpack_ all bundled in a single homogeneous and consistent package!
 
 .. _React: https://facebook.github.io/react/
 .. _react-redux: https://github.com/reactjs/react-redux
