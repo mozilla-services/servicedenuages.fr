@@ -30,7 +30,7 @@
         <header class="header-article">
             <hgroup>
                 <h5>Published</h5>
-                <p title="~1638 words">~7 minutes reading 🕑</p>
+                <p title="~1635 words">~7 minutes reading 🕑</p>
                 <p>Thu, 13 April 2017</p>
                 <a href="/en/">&larr; Back to articles</a>
             </hgroup>
@@ -61,7 +61,7 @@ for those who would like to know a bit more about Elm.</p>
 </div>
 <div class="section" id="what-is-elm-and-why-should-i-be-interested">
 <h2>What is Elm and why should I be interested?</h2>
-<p><a class="reference external" href="http://www.elm-lang.org/">Elm</a> is a development platform, providing a programming language, a
+<p>Elm is a development platform, providing a programming language, a
 compiler, an architecture and tooling around. It is focused on making
 sure your app state and the HTML that reflects it are always in sync.</p>
 <p>If you have been doing any frontend development during the last couple
@@ -75,25 +75,25 @@ supporting <a class="reference external" href="https://flow.org/en/">Flow</a> or
 another layer to setup, configure and maintain in your stack.</p>
 <p>Elm brings functional programming to your browser, the language is
 statically typed so with Elm you won't see any run-time errors caused
-by wrong type. Being purely functional, Elm let you write code that is
-completely decoupled, it makes your code much more reusable and more
-easy to refactor.</p>
+by wrong type. Being purely functional, Elm lets you write code that
+is completely decoupled, which makes your code much more reusable and
+easier to refactor.</p>
 </div>
 <div class="section" id="how-is-elm-different">
 <h2>How is Elm different?</h2>
-<p>Most of the time, using <a class="reference external" href="http://www.elm-lang.org/">Elm</a>, the two lines it takes to load your app
+<p>Most of the time, using Elm, the two lines it takes to load your app
 is all the JavaScript you will write. Your application will be written
-in <a class="reference external" href="http://www.elm-lang.org/">Elm</a> and compiled into JavaScript.</p>
-<p>All the mistakes you will do will be caught at compilation time, which
+in Elm and compiled into JavaScript.</p>
+<p>All the mistakes you make will be caught at compilation time, which
 means that you will barely never encounter uncaught exceptions at
 runtime in the browser.</p>
-<p>Because you will have a compilation step, <a class="reference external" href="http://www.elm-lang.org/">Elm</a> will force you to handle
+<p>Because you will have a compilation step, Elm will force you to handle
 every possible case of your model state. It will make sure you covered
 them on the rendering side.</p>
 <p>The tooling is great. <a class="reference external" href="https://github.com/tomekwi/elm-live">elm-live</a> will automatically update the browser
 code to reflect your code update in realtime. It comes with a debugger
 that will show you the list of events and state of your application at
-a given time, you can also go back in time and replay previous
+a given time — you can even go back in time and replay previous
 events. <a class="reference external" href="https://github.com/avh4/elm-format">elm-format</a> will also format your code automatically to avoid
 fighting over coding styles.</p>
 </div>
@@ -111,12 +111,12 @@ package manager.</p>
 <p>Have a look at <a class="reference external" href="https://atom.io/">Atom</a>. By default it will run
 <tt class="docutils literal"><span class="pre">elm-format</span></tt> each time you save your file which is really handy.</p>
 <p>Take a moment to make sure your text editor is configured to work well
-with <a class="reference external" href="http://www.elm-lang.org/">Elm</a> files.</p>
+with Elm files.</p>
 </div>
 </div>
 <div class="section" id="starting-your-first-project">
 <h2>Starting your first project</h2>
-<p>No need for a boilerplate here, you can just start by running
+<p>No need for boilerplate here, you can just start by running
 <tt class="docutils literal"><span class="pre">elm-package</span> install</tt> and approve the default core packages that
 will be installed:</p>
 <div class="highlight"><pre><span></span>~/tutorial$ elm-package install
@@ -139,7 +139,7 @@ Packages configured successfully!
 </pre></div>
 <p>You now have a <tt class="docutils literal"><span class="pre">elm-package.json</span></tt> in your project as well as a
 <tt class="docutils literal"><span class="pre">elm-stuff/</span></tt> directory that contains libraries that <tt class="docutils literal"><span class="pre">elm-package</span></tt>
-installed. <tt class="docutils literal"><span class="pre">elm-package.json</span></tt> is to <a class="reference external" href="http://www.elm-lang.org/">Elm</a> projects what
+installed. <tt class="docutils literal"><span class="pre">elm-package.json</span></tt> is to Elm projects what
 <tt class="docutils literal">package.json</tt> is to nodejs ones.</p>
 <div class="highlight"><pre><span></span>    .
 ├── elm-package.json
@@ -157,7 +157,7 @@ with the following:</p>
 <div class="highlight"><pre><span></span><span class="kn">import </span><span class="nc">Html</span>
 <span class="kr">main </span><span class="nf">=</span> <span class="kt">Html</span><span class="nf">.</span><span class="nv">text</span> <span class="s">"Hello world"</span>
 </pre></div>
-<p><a class="reference external" href="http://www.elm-lang.org/">Elm</a> benefits from a full featured module system, with a broad
+<p>Elm benefits from a full featured module system, with a broad
 ecosystem of external packages avaiable. <tt class="docutils literal">Html</tt> is part of the core.</p>
 <div class="section" id="playing-with-elm-format">
 <h3>Playing with elm-format</h3>
@@ -196,7 +196,7 @@ Processing file Main.elm
 Listening on http://localhost:8000
 </pre></div>
 <p>Then open: <a class="reference external" href="http://localhost:8000/Main.elm">http://localhost:8000/Main.elm</a></p>
-<p>You are now viewing your <a class="reference external" href="http://www.elm-lang.org/">Elm</a> app!!!</p>
+<p>You are now viewing your Elm app!!!</p>
 </div>
 </div>
 <div class="section" id="learning-about-the-elm-virtual-dom">
@@ -205,7 +205,7 @@ Listening on http://localhost:8000
 <p>If you want you can import all of it in your module using:</p>
 <div class="highlight"><pre><span></span><span class="kn">import </span><span class="nc">Html</span> <span class="nv">exposing</span> <span class="nf">(..)</span>
 </pre></div>
-<p>Note that unless other languages, the <a class="reference external" href="http://www.elm-lang.org/">Elm</a> compiler will prevent any
+<p>Note that unlike other languages, the Elm compiler will prevent any
 overriden imports when using <tt class="docutils literal">exposing <span class="pre">(..)</span></tt> on multiple packages,
 which makes the feature really enjoyable.</p>
 <p>You can then use <tt class="docutils literal">text</tt> directly for instance:</p>
@@ -264,16 +264,16 @@ tags, and take two parameters:</p>
 <h2>Adding some state</h2>
 <p>Now that you know how to render your page in HTML, let's see how to
 write a program that handles events.</p>
-<p>The way <a class="reference external" href="http://www.elm-lang.org/">Elm</a> handles that is by having:</p>
+<p>The way Elm handles that is by having:</p>
 <ul class="simple">
-<li>a <tt class="docutils literal">Model</tt>, an <a class="reference external" href="http://www.elm-lang.org/">Elm</a> record: a bit like a JavaScript object with
+<li>a <tt class="docutils literal">Model</tt>, an Elm record: a bit like a JavaScript object with
 properties, that keep the state of the app</li>
 <li>an update function that will handle all the app events and update
 the model state accordingly</li>
 <li>a view function that will return the Virtual DOM that matches the state.</li>
 </ul>
 <p>For those who know <a class="reference external" href="http://redux.js.org/">Redux</a>, it has been heavily inspired by
-<a class="reference external" href="http://www.elm-lang.org/">Elm</a>. Basically <tt class="docutils literal">update</tt> is a reducer.</p>
+Elm. Basically <tt class="docutils literal">update</tt> is a reducer.</p>
 <p>The events and their parameters are defined in a <tt class="docutils literal">Msg</tt> type, which
 is a bit like a enum that would take parameters.</p>
 <p>In order to create our application that handle states, we can use the
@@ -411,7 +411,7 @@ file and load it in the HTML yourself.</p>
 <p>Then you can run elm-live with the <tt class="docutils literal"><span class="pre">--output</span></tt> option:</p>
 <div class="highlight"><pre><span></span>$ elm-live Main.elm --open --debug --output elm.js
 </pre></div>
-<p>Now each time you will update your <a class="reference external" href="http://www.elm-lang.org/">Elm</a> code it will refresh the app in
+<p>Now each time you will update your Elm code it will refresh the app in
 the browser.</p>
 </div>
 <div class="section" id="handling-a-second-event">
@@ -468,7 +468,7 @@ the browser.</p>
 <div class="section" id="conclusion">
 <h2>Conclusion</h2>
 <p>That's about it. You now know more than you think about Elm. I hope
-you try it on your next project and enjoy <a class="reference external" href="http://www.elm-lang.org/">Elm</a> as much as we do.</p>
+you try it on your next project and enjoy Elm as much as we do.</p>
 <p>If you want to learn more about it, don't hesitate to look at some of
 our projects or ask questions on the <a class="reference external" href="http://kinto.readthedocs.io/en/stable/community.html#communication-channels">#kinto chan</a>.</p>
 <ul class="simple">
