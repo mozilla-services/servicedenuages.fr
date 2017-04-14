@@ -32,10 +32,10 @@ another layer to setup, configure and maintain in your stack.&lt;/p&gt;
 set of &lt;a class="reference external" href="https://facebook.github.io/react/"&gt;React&lt;/a&gt;, &lt;a class="reference external" href="http://redux.js.org/"&gt;Redux&lt;/a&gt;, &lt;a class="reference external" href="https://github.com/reactjs/react-redux"&gt;react-redux&lt;/a&gt;, &lt;a class="reference external" href="https://babeljs.io/"&gt;Babel&lt;/a&gt;, &lt;a class="reference external" href="http://eslint.org/"&gt;eslint&lt;/a&gt;, Flow/Typescript
 and &lt;a class="reference external" href="https://webpack.github.io/"&gt;Webpack&lt;/a&gt; all bundled in a single homogeneous and consistent package!&lt;/p&gt;
 &lt;p&gt;Elm brings functional programming to your browser. The language is
-statically typed, so with Elm you won't see any run-time errors caused
+statically typed, so with Elm you won't see any runtime errors caused
 by inconsistent typing. Being functional and pure, Elm let you write code
-that is completely decoupled, which makes your code more reusable and&lt;/p&gt;
-&lt;p&gt;easier to refactor.&lt;/p&gt;
+that is completely decoupled, which makes your code more reusable and
+easier to refactor.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="how-is-elm-different"&gt;
 &lt;h2&gt;How is Elm different?&lt;/h2&gt;
@@ -49,6 +49,22 @@ write, which is always good.&lt;/p&gt;
 &lt;p&gt;Because there is a compilation step, Elm forces you to handle every
 possible case of your model state. It makes sure you covered them on
 the rendering side.&lt;/p&gt;
+&lt;p&gt;Also, the Elm compiler is &lt;em&gt;super&lt;/em&gt; smart. It always does its best to
+help you with meaningful messages, provides guidance to fix your types
+and handle uncovered edge cases. It even finds your typos!&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;Cannot find variable &lt;span class="sb"&gt;`&lt;/span&gt;nane&lt;span class="sb"&gt;`&lt;/span&gt;
+
+&lt;span class="m"&gt;13&lt;/span&gt;&lt;span class="p"&gt;|&lt;/span&gt;     hello ++ &lt;span class="s2"&gt;", "&lt;/span&gt; ++ nane ++ &lt;span class="s2"&gt;"!"&lt;/span&gt;
+                         ^^^^
+Maybe you want one of the following?
+
+    name
+    tan
+    Cmd.none
+    Sub.none
+
+Detected errors in &lt;span class="m"&gt;1&lt;/span&gt; module.
+&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;The tooling is great. &lt;a class="reference external" href="https://github.com/tomekwi/elm-live"&gt;elm-live&lt;/a&gt; automatically updates the browser
 code to reflect your code update in realtime. It comes with a debugger
 that will show you the list of events and state of your application at

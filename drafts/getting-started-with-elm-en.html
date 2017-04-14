@@ -30,7 +30,7 @@
         <header class="header-article">
             <hgroup>
                 <h5>Published</h5>
-                <p title="~1683 words">~7 minutes reading 🕑</p>
+                <p title="~1740 words">~7 minutes reading 🕑</p>
                 <p>Thu, 13 April 2017</p>
                 <a href="/en/">&larr; Back to articles</a>
             </hgroup>
@@ -75,10 +75,10 @@ another layer to setup, configure and maintain in your stack.</p>
 set of <a class="reference external" href="https://facebook.github.io/react/">React</a>, <a class="reference external" href="http://redux.js.org/">Redux</a>, <a class="reference external" href="https://github.com/reactjs/react-redux">react-redux</a>, <a class="reference external" href="https://babeljs.io/">Babel</a>, <a class="reference external" href="http://eslint.org/">eslint</a>, Flow/Typescript
 and <a class="reference external" href="https://webpack.github.io/">Webpack</a> all bundled in a single homogeneous and consistent package!</p>
 <p>Elm brings functional programming to your browser. The language is
-statically typed, so with Elm you won't see any run-time errors caused
+statically typed, so with Elm you won't see any runtime errors caused
 by inconsistent typing. Being functional and pure, Elm let you write code
-that is completely decoupled, which makes your code more reusable and</p>
-<p>easier to refactor.</p>
+that is completely decoupled, which makes your code more reusable and
+easier to refactor.</p>
 </div>
 <div class="section" id="how-is-elm-different">
 <h2>How is Elm different?</h2>
@@ -92,6 +92,22 @@ write, which is always good.</p>
 <p>Because there is a compilation step, Elm forces you to handle every
 possible case of your model state. It makes sure you covered them on
 the rendering side.</p>
+<p>Also, the Elm compiler is <em>super</em> smart. It always does its best to
+help you with meaningful messages, provides guidance to fix your types
+and handle uncovered edge cases. It even finds your typos!</p>
+<div class="highlight"><pre><span></span>Cannot find variable <span class="sb">`</span>nane<span class="sb">`</span>
+
+<span class="m">13</span><span class="p">|</span>     hello ++ <span class="s2">", "</span> ++ nane ++ <span class="s2">"!"</span>
+                         ^^^^
+Maybe you want one of the following?
+
+    name
+    tan
+    Cmd.none
+    Sub.none
+
+Detected errors in <span class="m">1</span> module.
+</pre></div>
 <p>The tooling is great. <a class="reference external" href="https://github.com/tomekwi/elm-live">elm-live</a> automatically updates the browser
 code to reflect your code update in realtime. It comes with a debugger
 that will show you the list of events and state of your application at
