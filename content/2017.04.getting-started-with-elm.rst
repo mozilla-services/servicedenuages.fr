@@ -69,9 +69,9 @@ How is Elm different?
 
 Most of the time, using Elm, the two lines it takes to load your app
 from the HTML file is all the JavaScript you will write, as your Elm
-code will be compiled to JavaScript by the compiler.
+code will be compiled to JavaScript by the Elm compiler.
 
-Most mistakes you will make will be caught at compilation time, which
+Most mistakes you make will be caught at compilation time, which
 means that you will barely ever encounter exceptions at runtime in the
 browser. Also that means less unit tests and defensive programming to
 write, which is always good.
