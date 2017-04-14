@@ -72,7 +72,7 @@ code will be compiled to JavaScrit by the compiler.
 
 Most of mistakes you will do will be caught at compilation time, which
 means that you will barely never encounter exceptions at runtime in the
-browser. Also that means less unit tests and defensive priogramming to
+browser. Also that means less unit tests and defensive programming to
 write, which is always good.
 
 Because there's a compilation step, Elm forces you to handle every
