@@ -60,6 +60,7 @@ Elm brings functional programming to your browser. The language is
 statically typed, so with Elm you won't see any run-time errors caused
 by inconsistent typing. Being functional and pure, Elm let you write code
 that is completely decoupled, which makes your code more reusable and
+
 easier to refactor.
 
 
@@ -71,7 +72,7 @@ from the HTML file is all the JavaScript you will write, as your Elm
 code will be compiled to JavaScrit by the compiler.
 
 Most of mistakes you will make will be caught at compilation time, which
-means that you will barely never encounter exceptions at runtime in the
+means that you will barely ever encounter exceptions at runtime in the
 browser. Also that means less unit tests and defensive programming to
 write, which is always good.
 
@@ -82,7 +83,7 @@ the rendering side.
 The tooling is great. elm-live_ automatically updates the browser
 code to reflect your code update in realtime. It comes with a debugger
 that will show you the list of events and state of your application at
-a given point in time, you can also go back in time and replay previous
+a given point in time — you can even go back in time and replay previous
 events. elm-format_ will also format your code automatically to avoid
 fighting over coding styles.
 
