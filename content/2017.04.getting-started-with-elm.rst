@@ -222,7 +222,7 @@ Learning about the Elm virtual DOM
 
 Virtual DOM functions to generate HTML are in the ``Html`` module.
 
-The ``Html`` module we used above to render some text also expose many
+The ``Html`` module we used above to render some text also exposes many
 more functions for rendering HTML tags. You can import them all using:
 
 .. code-block:: elm
