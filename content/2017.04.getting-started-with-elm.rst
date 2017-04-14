@@ -68,7 +68,7 @@ How is Elm different?
 
 Most of the time, using Elm, the two lines it takes to load your app
 from the HTML file is all the JavaScript you will write, as your Elm
-code will be transpiled to JavaScrit by the compiler.
+code will be compiled to JavaScrit by the compiler.
 
 Most of mistakes you will do will be caught at compilation time, which
 means that you will barely never encounter exceptions at runtime in the
