@@ -70,7 +70,7 @@ Most of the time, using Elm, the two lines it takes to load your app
 from the HTML file is all the JavaScript you will write, as your Elm
 code will be compiled to JavaScrit by the compiler.
 
-Most of mistakes you will do will be caught at compilation time, which
+Most of mistakes you will make will be caught at compilation time, which
 means that you will barely never encounter exceptions at runtime in the
 browser. Also that means less unit tests and defensive programming to
 write, which is always good.
@@ -231,7 +231,7 @@ more functions for rendering HTML tags. You can import them all using:
 
 Note that unlike with some other languages, the Elm compiler will
 complain if you try to import symbols already defined in the current
-module, which makes actually useful and really enjoyable.
+module, which makes it actually useful and really enjoyable to use.
 
 You can then use ``text`` directly for instance:
 
