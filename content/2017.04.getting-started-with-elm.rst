@@ -65,8 +65,8 @@ is all the JavaScript you will write. Your application will be written
 in Elm and compiled into JavaScript.
 
 All the mistakes you make will be caught at compilation time, which
-means that you will barely never encounter uncaught exceptions at
-runtime in the browser.
+means that you will barely ever encounter exceptions at runtime in the
+browser.
 
 Because you will have a compilation step, Elm will force you to handle
 every possible case of your model state. It will make sure you covered
