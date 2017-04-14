@@ -27,21 +27,18 @@ for those who would like to know a bit more about Elm.
 What is Elm and why should I be interested?
 ===========================================
 
-Elm_ is a development platform, providing a programming language, a
-compiler, an architecture and tooling around. It is focused on making
-sure your app state and the HTML that reflects it are always in sync.
+Elm_ is a Web application development platform, providing a programming
+language, a compiler, an architecture and tooling around. It is focused
+on making sure your app state and the HTML that reflects it are always
+in sync.
 
 If you have been doing any frontend development during the last couple
 of years, you might have seen that the JavaScript ecosystem is a bit
 wild. Keeping up-to-date with the growing number of competing
 frameworks can take a lot of energy, not to mention the challenge in
-making sure you app works on all the available browser
-versions.
+making sure you app works on all the available browser versions.
 
 .. _React: https://facebook.github.io/react/
-.. _Angular: https://angularjs.org/
-.. _`Vue.js`: https://vuejs.org/
-.. _Ember: https://www.emberjs.com/
 
 In addition, writing tests for the front-end can be tedious and
 supporting Flow_ or TypeScript_, while tremendously useful, is yet
@@ -50,32 +47,42 @@ another layer to setup, configure and maintain in your stack.
 .. _Flow: https://flow.org/en/
 .. _TypeScript: https://www.typescriptlang.org/
 
-Elm brings functional programming to your browser, the language is
-statically typed so with Elm you won't see any run-time errors caused
-by wrong type. Being purely functional, Elm let you write code that is
-completely decoupled, it makes your code much more reusable and more
-easy to refactor.
+You can think of the Elm platform as the equivalent feature set of React_,
+Redux_, react-redux_, Babel_, eslint_, Flow/Typescript and Webpack_ all
+bundled in a single homogeneous package!
+
+.. _React: https://facebook.github.io/react/
+.. _react-redux: https://github.com/reactjs/react-redux
+.. _eslint: http://eslint.org/
+.. _Webpack: https://webpack.github.io/
+
+Elm brings functional programming to your browser. The language is
+statically typed, so with Elm you won't see any run-time errors caused
+by inconsistent typing. Being functional and pure, Elm let you write code
+that is completely decoupled, which makes your code more reusable and
+easier to refactor.
 
 
 How is Elm different?
 =====================
 
-Most of the time, using Elm_, the two lines it takes to load your app
-is all the JavaScript you will write. Your application will be written
-in Elm_ and compiled into JavaScript.
+Most of the time, using Elm, the two lines it takes to load your app
+from the HTML file is all the JavaScript you will write, as your Elm
+code will be transpiled to JavaScrit by the compiler.
 
-All the mistakes you will do will be caught at compilation time, which
-means that you will barely never encounter uncaught exceptions at
-runtime in the browser.
+Most of mistakes you will do will be caught at compilation time, which
+means that you will barely never encounter exceptions at runtime in the
+browser. Also that means less unit tests and defensive priogramming to
+write, which is always good.
 
-Because you will have a compilation step, Elm_ will force you to handle
-every possible case of your model state. It will make sure you covered
-them on the rendering side.
+Because there's a compilation step, Elm forces you to handle every
+possible case of your model state. It makes sure you covered them on
+the rendering side.
 
-The tooling is great. elm-live_ will automatically update the browser
+The tooling is great. elm-live_ automatically updates the browser
 code to reflect your code update in realtime. It comes with a debugger
 that will show you the list of events and state of your application at
-a given time, you can also go back in time and replay previous
+a given point in time, you can also go back in time and replay previous
 events. elm-format_ will also format your code automatically to avoid
 fighting over coding styles.
 
@@ -90,7 +97,7 @@ Getting started
 Installing Elm
 --------------
 
-First of all install ``elm`` and ``elm-format`` using npm_ the node
+First of all install ``elm`` and ``elm-format`` using npm_ – the nodejs
 package manager.
 
 .. code-block:: bash
@@ -102,19 +109,25 @@ package manager.
 Looking for an IDE?
 -------------------
 
-Have a look at `Atom <https://atom.io/>`_. By default it will run
-``elm-format`` each time you save your file which is really handy.
+Have a look at `Atom <https://atom.io/>`_. Combined with the
+`appropriate extension <https://atom.io/packages/elm-format>`_, it will
+run ``elm-format`` each time you save your file which is really handy.
+
+Elmjutsu_ is another useful package providing type-aware autocompletion
+among other niceties.
+
+.. _Elmjutsu: https://atom.io/packages/elmjutsu
 
 Take a moment to make sure your text editor is configured to work well
-with Elm_ files.
+with Elm files.
 
 
 Starting your first project
 ===========================
 
 No need for a boilerplate here, you can just start by running
-``elm-package install`` and approve the default core packages that
-will be installed:
+``elm-package install`` to install the core packages required to start
+creating your app:
 
 .. code-block:: bash
 
@@ -136,14 +149,14 @@ will be installed:
 
     Packages configured successfully!
 
-You now have a ``elm-package.json`` in your project as well as a
+You now have an ``elm-package.json`` file in your project as well as a
 ``elm-stuff/`` directory that contains libraries that ``elm-package``
-installed. ``elm-package.json`` is to Elm_ projects what
+installed. ``elm-package.json`` is to Elm projects what
 ``package.json`` is to nodejs ones.
 
 .. code-block:: bash
 
-	.
+    ~/tutorial$ tree -L2
     ├── elm-package.json
     └── elm-stuff
         ├── exact-dependencies.json
@@ -163,7 +176,7 @@ with the following:
     import Html
     main = Html.text "Hello world"
 
-Elm_ benefits from a full featured module system, with a broad
+Elm benefits from a full featured module system, with a broad
 ecosystem of external packages avaiable. ``Html`` is part of the core.
 
 Playing with elm-format
@@ -186,39 +199,22 @@ If not, you can run ``elm-format`` manually on your file:
 
 .. code-block:: bash
 
-    ~/tutorial$ elm-format Main.elm
-    This will overwrite the following files to use Elm's preferred style:
-
-        Main.elm
-
-    This cannot be undone! Make sure to back up these files before proceeding.
-
-    Are you sure you want to overwrite these files with formatted versions? (y/n)
-
-    y
-    Processing file Main.elm
-
-To avoid having to answer "yes" each time you can use the ``--yes`` parameter:
-
-.. code-block:: bash
-
-    elm-format --yes Main.elm
+    ~/tutorial$ elm-format --yes Main.elm
 
 
 Opening your app in the browser
 -------------------------------
 
-One way to run your app is to use ``elm-reactor``.
+One way to run your app is to use ``elm-reactor``, the core app browser
+provided by the platform:
 
 .. code-block:: bash
 
     ~/tutorial$ elm-reactor
-	elm-reactor 0.18.0
+    elm-reactor 0.18.0
     Listening on http://localhost:8000
 
-Then open: http://localhost:8000/Main.elm
-
-You are now viewing your Elm_ app!!!
+Then open http://localhost:8000/Main.elm in your favorite Web browser.
 
 
 Learning about the Elm virtual DOM
@@ -226,15 +222,16 @@ Learning about the Elm virtual DOM
 
 Virtual DOM functions to generate HTML are in the ``Html`` module.
 
-If you want you can import all of it in your module using:
+The ``Html`` module we used above to render some text also expose many
+more functions for rendering HTML tags. You can import them all using:
 
 .. code-block:: elm
 
     import Html exposing (..)
 
-Note that unless other languages, the Elm_ compiler will prevent any
-overriden imports when using ``exposing (..)`` on multiple packages,
-which makes the feature really enjoyable.
+Note that unlike with some other languages, the Elm compiler will
+complain if you try to import symbols already defined in the current
+module, which makes actually useful and really enjoyable.
 
 You can then use ``text`` directly for instance:
 
@@ -303,16 +300,17 @@ Adding some state
 Now that you know how to render your page in HTML, let's see how to
 write a program that handles events.
 
-The way Elm_ handles that is by having:
+The way Elm handles that is by having:
 
-- a ``Model``, an Elm_ record: a bit like a JavaScript object with
+- a ``Model``, an Elm record: a bit like a JavaScript object with
   properties, that keep the state of the app
 - an update function that will handle all the app events and update
   the model state accordingly
-- a view function that will return the Virtual DOM that matches the state.
+- a view function that will return the Virtual DOM that matches the state
+  every time it's updated.
 
 For those who know Redux_, it has been heavily inspired by
-Elm_. Basically ``update`` is a reducer.
+Elm. Basically ``update`` is a reducer.
 
 .. _Redux: http://redux.js.org/
 
@@ -330,7 +328,7 @@ In order to create our application that handle states, we can use the
 
 
     type Msg
-        = Noop
+        = NoOp
 
 
     type alias Model =
@@ -433,12 +431,12 @@ If we want to switch back to ``Rémy`` when we click on ``Séverine`` we can add
 Enabling auto updates with ``elm-live``
 =======================================
 
-``elm-reactor`` is good to get started but if you want your app to
-auto refresh you might want to setup ``elm-live``.
+``elm-reactor`` is good to get started but if you want hot-reloading of
+your app, you might want to setup ``elm-live``.
 
 To install it, you can use: ``npm install -g elm-live``
 
-Then you can use:
+Once istalled, run:
 
 .. code-block:: bash
 
@@ -450,7 +448,8 @@ If you have to use the debugger, you can use the ``--debug`` option:
 
     $ elm-live Main.elm --open --debug
 
-It will automatically generate an ``index.html`` file with the compiled JavaScript.
+It will automatically generate an ``index.html`` file with the
+compiled JavaScript, and open it in your default Web browser.
 
 You can use the ``--output`` option to save the JavaScript in its own
 file and load it in the HTML yourself.
@@ -482,7 +481,7 @@ Then you can run elm-live with the ``--output`` option:
 
     $ elm-live Main.elm --open --debug --output elm.js
 
-Now each time you will update your Elm_ code it will refresh the app in
+Now each time you will update your Elm code it will refresh the app in
 the browser.
 
 
@@ -546,7 +545,7 @@ Conclusion
 ==========
 
 That's about it. You now know more than you think about Elm. I hope
-you try it on your next project and enjoy Elm_ as much as we do.
+you try it on your next project and enjoy Elm as much as we do.
 
 If you want to learn more about it, don't hesitate to look at some of
 our projects or ask questions on the `#kinto chan`_.
