@@ -28,7 +28,7 @@ What is Elm and why should I be interested?
 ===========================================
 
 Elm_ is a Web application development platform, providing a programming
-language, a compiler, an architecture and tooling around. It is focused
+language, a compiler, an architecture and tooling around. It focuses
 on making sure your app state and the HTML that reflects it are always
 in sync.
 
@@ -36,7 +36,7 @@ If you have been doing any frontend development during the last couple
 of years, you might have seen that the JavaScript ecosystem is a bit
 wild. Keeping up-to-date with the growing number of competing
 frameworks can take a lot of energy, not to mention the challenge in
-making sure you app works on all the available browser versions.
+making sure your app works on all the available browser versions.
 
 .. _React: https://facebook.github.io/react/
 
