@@ -82,30 +82,35 @@ A word about the repartition algorithm
 ======================================
 
 The reason why we can use Kinto for this, is that we can run the
-bucket repartition algorithm on client side.
+cohort repartition algorithm on client side.
+
+.. note::
+
+  In statistics and demography, a cohort is a group of subjects/people, defined
+  by a particular aspect, that make up a particular study.
 
 Because it is easier to think in terms of percentages, we chose to
-split users in 100 buckets with a bucket ID from 0 to 99.
+split users in 100 cohorts with a cohort ID from 0 to 99.
 
-We then need a way to get a bucket ID for our user device with a
-homogeneous distribution on the bucket space.
+We then need a way to get a cohort ID for our user device with a
+homogeneous distribution on the cohort space.
 
 One way to do that is to generate a random UUID and to store it on the
 device. But storing that value can be a bit cumbersome.
 
-To make this user bucket stateless, on mobile we can use the device ID
+To make this user cohort stateless, on mobile we can use the device ID
 and on the web we can use the `fingerprint.js`_ project that aims to
 generate a unique user id from the browser configuration.
 
-We can then use the modulo function to calculate the user bucket ID
+We can then use the modulo function to calculate the user cohort ID
 from this device ID.
 
 .. code-block:: javascript
 
     const fingerprint = {deviceID: "1433179b5711413ba3c404075a629376"};
     const deviceID = parseInt(fingerprint.deviceID, 16);
-    const userBucket = deviceID % 100;
-    // userBucket = 68
+    const userCohort = deviceID % 100;
+    // userCohort = 68
 
 
 With `fingerprint.js`_ specifically, it looks like that:
@@ -117,8 +122,8 @@ With `fingerprint.js`_ specifically, it looks like that:
       // Convert the device ID hex string into an integer
       const deviceID = parseInt(deviceIDString, 16);
 
-      // Use a modulo on the device ID value to calculate the user bucket
-      const userBucket = deviceID % 100;
+      // Use a modulo on the device ID value to calculate the user cohort
+      const userCohort = deviceID % 100;
 
     });
 
@@ -134,13 +139,13 @@ will be able to use the `kinto-admin`_ to configure your experiments.
     :alt: Adding an experiment with the kinto-admin.
 
 An experiment has got a ``name`` and a ``description`` as well as some
-``match`` rules and a ``buckets`` range.
+``match`` rules and a ``cohorts`` range.
 
 For the web, in my proof of concept, matching rules can be defined as
 regexp on the user languages, country or user-agent.
 
 While defining an experiment we can decide to include a range of
-buckets using the ``min`` and ``max`` buckets attributes.
+cohorts using the ``min`` and ``max`` cohorts attributes.
 
 An experiment is then stored in Kinto like this:
 
@@ -153,7 +158,7 @@ An experiment is then stored in Kinto like this:
             "country": "FR",
             "lang": "fr"
         },
-        "buckets": {
+        "cohorts": {
             "min": "0",
             "max": "50"
         },
@@ -167,7 +172,7 @@ From this experiment description we can extract two crutial pieces of
 information that we need to track:
 
 - **user matches**: Is the user matching the experiment?
-- **user in buckets**: Is the user in one of the targeted buckets?
+- **user in cohorts**: Is the user in one of the targeted cohorts?
 
 These two information will be used for the metrics part to decide if we
 should use the new solution rather than the previous one.
@@ -178,7 +183,7 @@ The good news is that you will be able to change the experiment
 settings after the release using the `kinto-admin`_.
 
 If you want to start with the feature off for everyone, you can just
-set the same buckets configuration value for both ``min`` and ``max``
+set the same cohorts configuration value for both ``min`` and ``max``
 and it will turn it off.
 
 
@@ -225,7 +230,7 @@ Then when people match, we record our metrics:
       body: JSON.stringify({data: {
         name: "french-banner",
         matches: true,
-        inBucket: false
+        inCohort: false
       }})
     });
 
@@ -246,11 +251,11 @@ You can then count the number of calls with or without the banner:
 Conclusion
 ==========
 
-Because we can calculate the user bucket on client side, we do not
-have to actually run the bucket repartition algorithm on the server side.
+Because we can calculate the user cohort on client side, we do not
+have to actually run the cohort repartition algorithm on the server side.
 
 We could even use Kinto to store the number of time the banner have
-been displayed to make sure of the bucket repartition.
+been displayed to make sure of the cohort repartition.
 
 The `kinto-admin`_ makes it really easy to handle experiment
 configuration variables.
