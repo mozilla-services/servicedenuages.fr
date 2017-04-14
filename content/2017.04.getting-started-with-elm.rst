@@ -58,10 +58,9 @@ and Webpack_ all bundled in a single homogeneous and consistent package!
 .. _Webpack: https://webpack.github.io/
 
 Elm brings functional programming to your browser. The language is
-statically typed, so with Elm you won't see any run-time errors caused
+statically typed, so with Elm you won't see any runtime errors caused
 by inconsistent typing. Being functional and pure, Elm let you write code
 that is completely decoupled, which makes your code more reusable and
-
 easier to refactor.
 
 
@@ -80,6 +79,25 @@ write, which is always good.
 Because there is a compilation step, Elm forces you to handle every
 possible case of your model state. It makes sure you covered them on
 the rendering side.
+
+Also, the Elm compiler is *super* smart. It always does its best to
+help you with meaningful messages, provides guidance to fix your types
+and handle uncovered edge cases. It even finds your typos!
+
+.. code-block:: bash
+
+    Cannot find variable `nane`
+
+    13|     hello ++ ", " ++ nane ++ "!"
+                             ^^^^
+    Maybe you want one of the following?
+
+        name
+        tan
+        Cmd.none
+        Sub.none
+
+    Detected errors in 1 module.
 
 The tooling is great. elm-live_ automatically updates the browser
 code to reflect your code update in realtime. It comes with a debugger
