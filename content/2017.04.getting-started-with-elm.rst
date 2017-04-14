@@ -436,7 +436,7 @@ your app, you might want to setup ``elm-live``.
 
 To install it, you can use: ``npm install -g elm-live``
 
-Once istalled, run:
+Once installed, run:
 
 .. code-block:: bash
 
