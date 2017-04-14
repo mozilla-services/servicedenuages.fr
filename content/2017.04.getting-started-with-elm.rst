@@ -53,6 +53,7 @@ and Webpack_ all bundled in a single homogeneous and consistent package!
 
 .. _React: https://facebook.github.io/react/
 .. _react-redux: https://github.com/reactjs/react-redux
+.. _Babel: https://babeljs.io/
 .. _eslint: http://eslint.org/
 .. _Webpack: https://webpack.github.io/
 
