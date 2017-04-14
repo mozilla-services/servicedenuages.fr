@@ -111,7 +111,7 @@ Looking for an IDE?
 
 Have a look at `Atom <https://atom.io/>`_. Combined with the
 `appropriate extension <https://atom.io/packages/elm-format>`_, it will
-run ``elm-format`` each time you save your file which is really handy.
+run ``elm-format`` each time you save your file – which is super handy.
 
 Elmjutsu_ is another useful package providing type-aware autocompletion
 among other niceties.
