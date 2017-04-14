@@ -98,7 +98,7 @@ Getting started
 Installing Elm
 --------------
 
-First of all install ``elm`` and ``elm-format`` using npm_ – the nodejs
+First of all install ``elm`` and ``elm-format`` using npm_ — the nodejs
 package manager.
 
 .. code-block:: bash
