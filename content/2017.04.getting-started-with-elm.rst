@@ -76,7 +76,7 @@ means that you will barely ever encounter exceptions at runtime in the
 browser. Also that means less unit tests and defensive programming to
 write, which is always good.
 
-Because there's a compilation step, Elm forces you to handle every
+Because there is a compilation step, Elm forces you to handle every
 possible case of your model state. It makes sure you covered them on
 the rendering side.
 
