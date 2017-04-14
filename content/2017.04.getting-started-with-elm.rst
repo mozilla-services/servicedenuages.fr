@@ -126,7 +126,7 @@ with Elm files.
 Starting your first project
 ===========================
 
-No need for a boilerplate here, you can just start by running
+No need for boilerplate here, you can just start by running
 ``elm-package install`` to install the core packages required to start
 creating your app:
 
