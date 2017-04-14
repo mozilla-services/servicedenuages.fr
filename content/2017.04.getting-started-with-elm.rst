@@ -27,7 +27,7 @@ for those who would like to know a bit more about Elm.
 What is Elm and why should I be interested?
 ===========================================
 
-Elm_ is a development platform, providing a programming language, a
+Elm is a development platform, providing a programming language, a
 compiler, an architecture and tooling around. It is focused on making
 sure your app state and the HTML that reflects it are always in sync.
 
@@ -52,30 +52,30 @@ another layer to setup, configure and maintain in your stack.
 
 Elm brings functional programming to your browser, the language is
 statically typed so with Elm you won't see any run-time errors caused
-by wrong type. Being purely functional, Elm let you write code that is
-completely decoupled, it makes your code much more reusable and more
-easy to refactor.
+by wrong type. Being purely functional, Elm lets you write code that
+is completely decoupled, which makes your code much more reusable and
+easier to refactor.
 
 
 How is Elm different?
 =====================
 
-Most of the time, using Elm_, the two lines it takes to load your app
+Most of the time, using Elm, the two lines it takes to load your app
 is all the JavaScript you will write. Your application will be written
-in Elm_ and compiled into JavaScript.
+in Elm and compiled into JavaScript.
 
-All the mistakes you will do will be caught at compilation time, which
+All the mistakes you make will be caught at compilation time, which
 means that you will barely never encounter uncaught exceptions at
 runtime in the browser.
 
-Because you will have a compilation step, Elm_ will force you to handle
+Because you will have a compilation step, Elm will force you to handle
 every possible case of your model state. It will make sure you covered
 them on the rendering side.
 
 The tooling is great. elm-live_ will automatically update the browser
 code to reflect your code update in realtime. It comes with a debugger
 that will show you the list of events and state of your application at
-a given time, you can also go back in time and replay previous
+a given time — you can even go back in time and replay previous
 events. elm-format_ will also format your code automatically to avoid
 fighting over coding styles.
 
@@ -106,13 +106,13 @@ Have a look at `Atom <https://atom.io/>`_. By default it will run
 ``elm-format`` each time you save your file which is really handy.
 
 Take a moment to make sure your text editor is configured to work well
-with Elm_ files.
+with Elm files.
 
 
 Starting your first project
 ===========================
 
-No need for a boilerplate here, you can just start by running
+No need for boilerplate here, you can just start by running
 ``elm-package install`` and approve the default core packages that
 will be installed:
 
@@ -138,7 +138,7 @@ will be installed:
 
 You now have a ``elm-package.json`` in your project as well as a
 ``elm-stuff/`` directory that contains libraries that ``elm-package``
-installed. ``elm-package.json`` is to Elm_ projects what
+installed. ``elm-package.json`` is to Elm projects what
 ``package.json`` is to nodejs ones.
 
 .. code-block:: bash
@@ -163,7 +163,7 @@ with the following:
     import Html
     main = Html.text "Hello world"
 
-Elm_ benefits from a full featured module system, with a broad
+Elm benefits from a full featured module system, with a broad
 ecosystem of external packages avaiable. ``Html`` is part of the core.
 
 Playing with elm-format
@@ -218,7 +218,7 @@ One way to run your app is to use ``elm-reactor``.
 
 Then open: http://localhost:8000/Main.elm
 
-You are now viewing your Elm_ app!!!
+You are now viewing your Elm app!!!
 
 
 Learning about the Elm virtual DOM
@@ -232,7 +232,7 @@ If you want you can import all of it in your module using:
 
     import Html exposing (..)
 
-Note that unless other languages, the Elm_ compiler will prevent any
+Note that unlike other languages, the Elm compiler will prevent any
 overriden imports when using ``exposing (..)`` on multiple packages,
 which makes the feature really enjoyable.
 
@@ -303,16 +303,16 @@ Adding some state
 Now that you know how to render your page in HTML, let's see how to
 write a program that handles events.
 
-The way Elm_ handles that is by having:
+The way Elm handles that is by having:
 
-- a ``Model``, an Elm_ record: a bit like a JavaScript object with
+- a ``Model``, an Elm record: a bit like a JavaScript object with
   properties, that keep the state of the app
 - an update function that will handle all the app events and update
   the model state accordingly
 - a view function that will return the Virtual DOM that matches the state.
 
 For those who know Redux_, it has been heavily inspired by
-Elm_. Basically ``update`` is a reducer.
+Elm. Basically ``update`` is a reducer.
 
 .. _Redux: http://redux.js.org/
 
@@ -482,7 +482,7 @@ Then you can run elm-live with the ``--output`` option:
 
     $ elm-live Main.elm --open --debug --output elm.js
 
-Now each time you will update your Elm_ code it will refresh the app in
+Now each time you will update your Elm code it will refresh the app in
 the browser.
 
 
@@ -546,7 +546,7 @@ Conclusion
 ==========
 
 That's about it. You now know more than you think about Elm. I hope
-you try it on your next project and enjoy Elm_ as much as we do.
+you try it on your next project and enjoy Elm as much as we do.
 
 If you want to learn more about it, don't hesitate to look at some of
 our projects or ask questions on the `#kinto chan`_.
