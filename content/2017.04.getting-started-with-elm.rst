@@ -82,7 +82,7 @@ the rendering side.
 
 Also, the Elm compiler is *super* smart. It always does its best to
 help you with meaningful messages, provides guidance to fix your types
-and handle uncovered edge cases. It even find your typos!
+and handle uncovered edge cases. It even finds your typos!
 
 .. code-block:: bash
 
