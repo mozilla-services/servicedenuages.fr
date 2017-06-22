@@ -1,0 +1,145 @@
+Kinto and ElasticSearch
+#######################
+
+:lang: en
+:date: 2017-06-21
+:url: kinto-elasticsearch
+:summary: Introducing our ElasticSearch plugin for Kinto
+
+
+ElasticSearch integration
+=========================
+
+Kinto exposes is a generic API on top of a storage backend.
+ElasticSearch is a generic API on top of a index backend. When combining both,
+your data is stored in a persistent database, and you can search, aggregate and
+filter it efficiently.
+
+This integration has been sitting around for a long time, since it was the matter of
+our `Kinto plugin tutorial <>`_! But recently, we had a concrete use-case at Mozilla
+so we published it as `an official plugin <>`_ :)
+
+
+Use case
+========
+
+Mozilla publishes its products for several platforms, in a lot of different locales (*70-100 regions/languages*),
+and at different stages of maturity (*nightly, beta, release, ESR*). And currently there
+is no comprehensive or official database for every released version and its associated
+metadata (revision, build date, ...).
+
+Our idea was to build an API to allow third-party scripts and tools to publish or query
+metadata about released products. As well as a nice UI to explore and browse the catalog.
+
+Kinto gives us a ready-to-use JSON storage API, whose accessibility via ``curl`` is rather intuitive,
+and for which we can manage authentication and permissions using simple tokens or LDAP.
+ElasticSearch gives us a rocket fast index that powers the facetted search of our catalog.
+
+.. image:: ...
+
+
+How does it work?
+=================
+
+Basically, when enabling the plugin a new endpoint is available: ``/buckets/{bid}/collections/{cid}/search``
+
+When the collection is created, a dedicated index is created on the underlying ElasticSearch cluster/instance.
+When a record is created, it is duplicated in the collection index.
+The ``/search`` on the collection is just a pass-through endpoint of the collection, where you post a query and obtain the results.
+You can only access it if you have the permission to read the whole collection.
+
+By default, ElasticSearch will infer the fields types from the posted data. But it is possible to define and force the mapping schema in the collection metadata.
+
+The installation is straightforward:
+
+.. code-block :: bash
+
+    pip install kinto-elasticsearch
+
+And activation is done as usual in the settings:
+
+.. code-block :: ini
+
+    kinto.includes = kinto_elasticsearch
+    kinto.elasticsearch.hosts = localhost:9200
+
+
+Example with geographical data
+==============================
+
+ElasticSearch supports geospatial indices, which allow — for example — to filter points contained in a rectangle (aka. bounding box).
+
+In this example, we'll import some OpenStreetMap data into a Kinto collection. A simple Leaflet map will then display all records as dots on the map, and filter the list of results based on the current map extent using the search endpoint.
+
+Loading the data
+----------------
+
+We can obtain some OSM export on `http://overpass-turbo.eu`_. For example, the following query will return every pizzeria of Italy:
+
+::
+
+    area[name="Italia"];(node["cuisine"="pizza"](area););out;
+
+We export and save the result as ``export.geojson``.
+
+
+We load it into Kinto using `kinto-http.py <>`_:
+
+.. code-block :: python
+
+    import kinto_http
+
+    server = "http://localhost:8888/v1"
+    bucket = "restaurants"
+    collection = "pizzerias"
+    auth = ("user", "pass")
+
+    # Create the destination bucket.
+    client = kinto_http.Client(server_url=server, auth=auth)
+    client.create_bucket(id=bucket, if_not_exists=True)
+
+We define the index and permissions:
+
+.. code-block :: python
+
+    # Define the ElasticSearch mapping in the collection metadata.
+    collection_metadata = {
+        "index:schema": {
+            "properties": {
+                "name": {
+                    "type": "text"
+                },
+                "location": {
+                    "type": "geo_point"
+                }
+            }
+        }
+    }
+    # Let anonymous users read the records (online map demo).
+    collection_permissions = {
+        "read": ["system.Everyone"]
+    }
+    client.create_collection(id=collection, bucket=bucket, data=collection_metadata,
+                             permissions=collection_permissions, if_not_exists=True)
+
+Create a record for each «feature» in the GeoJSON file:
+
+.. code-block :: python
+
+    export = json.load(open("export.geojson"))
+
+    with client.batch() as batch:
+        for pizzeria in export["features"]:
+            record = {
+                "id": pizzeria["id"].replace("node/", ""),
+                "name": pizzeria["properties"].get("name"),
+                "location": pizzeria["geometry"]["coordinates"],
+            }
+            batch.create_record(data=record, bucket=bucket, collection=collection)
+
+
+
+Web mapping
+-----------
+
+
