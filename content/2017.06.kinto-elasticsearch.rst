@@ -10,14 +10,14 @@ Kinto and ElasticSearch
 ElasticSearch integration
 =========================
 
-Kinto exposes is a generic API on top of a storage backend.
-ElasticSearch is a generic API on top of a index backend. When combining both,
+Kinto is a generic API on top of a storage backend.
+ElasticSearch is a generic API on top of an indexing backend. When combining both,
 your data is stored in a persistent database, and you can search, aggregate and
 filter it efficiently.
 
 This integration has been sitting around for a long time, since it was the matter of
-our `Kinto plugin tutorial <>`_! But recently, we had a concrete use-case at Mozilla
-so we published it as `an official plugin <>`_ :)
+our `Kinto plugin tutorial <http://kinto.readthedocs.io/en/7.0.1/tutorials/write-plugin.html>`_! But recently, we had a concrete use-case at Mozilla
+so we published it as `an official plugin <https://github.com/Kinto/kinto-elasticsearch/>`_ :)
 
 
 Use case
@@ -35,7 +35,8 @@ Kinto gives us a ready-to-use JSON storage API, whose accessibility via ``curl``
 and for which we can manage authentication and permissions using simple tokens or LDAP.
 ElasticSearch gives us a rocket fast index that powers the facetted search of our catalog.
 
-.. image:: ...
+.. image:: {filename}/images/buildhub-searchkit-screenshot.png
+    :alt: Prototype UI using SearchKit
 
 
 How does it work?
@@ -74,7 +75,7 @@ In this example, we'll import some OpenStreetMap data into a Kinto collection. A
 Loading the data
 ----------------
 
-We can obtain some OSM export on `http://overpass-turbo.eu`_. For example, the following query will return every pizzeria of Italy:
+We can obtain some OSM export on <http://overpass-turbo.eu>. For example, the following query will return every pizzeria of Italy:
 
 ::
 
@@ -82,8 +83,10 @@ We can obtain some OSM export on `http://overpass-turbo.eu`_. For example, the f
 
 We export and save the result as ``export.geojson``.
 
+.. image:: {filename}/images/overpass-turbo.png
+    :alt: Screenshot of query on overpass-turbo.eu
 
-We load it into Kinto using `kinto-http.py <>`_:
+We load it into Kinto using `kinto-http.py <https://github.com/Kinto/kinto-http.py>`_:
 
 .. code-block :: python
 
@@ -98,7 +101,7 @@ We load it into Kinto using `kinto-http.py <>`_:
     client = kinto_http.Client(server_url=server, auth=auth)
     client.create_bucket(id=bucket, if_not_exists=True)
 
-We define the index and permissions:
+We define the index and permissions. Each pizzeria will have a name and a location (long, lat).
 
 .. code-block :: python
 
@@ -122,7 +125,7 @@ We define the index and permissions:
     client.create_collection(id=collection, bucket=bucket, data=collection_metadata,
                              permissions=collection_permissions, if_not_exists=True)
 
-Create a record for each «feature» in the GeoJSON file:
+Create a record for each «feature» in the GeoJSON file, using batched requests (one HTTP request includes many creations):
 
 .. code-block :: python
 
@@ -131,15 +134,116 @@ Create a record for each «feature» in the GeoJSON file:
     with client.batch() as batch:
         for pizzeria in export["features"]:
             record = {
-                "id": pizzeria["id"].replace("node/", ""),
                 "name": pizzeria["properties"].get("name"),
                 "location": pizzeria["geometry"]["coordinates"],
             }
             batch.create_record(data=record, bucket=bucket, collection=collection)
 
 
-
 Web mapping
 -----------
 
+Now that the data is loaded in Kinto, indexed in ElasticSearch, and publicly available, we'll render a map.
 
+Leaflet.js is a nice piece of software that makes webmapping really pleasant.
+
+.. code-block :: javascript
+
+    // A map with OpenStreetMap background.
+    const map = L.map('map');
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+Using `kinto-http.js <https://github.com/Kinto/kinto-http.js/>`_, it is also quite intuitive to retrieve the whole list of records:
+
+.. code-block :: javascript
+
+    // Fetch all records from Kinto to populate the map layer.
+    // (Note: this also could have been done using ES.)
+    const kinto = new KintoClient(server);
+
+    kinto.bucket(bucket).collection(collection).listRecords()
+      .then(({data: pizzerias}) => {
+        // ...
+      });
+
+Showing records on the map is done like this. (Note: it would even be simpler if Leaflet `wouldn't have followed <https://macwright.org/2016/07/15/longitude-latitude-is-the-right-way.html>`_ GMaps and used {long, lat} instead of {lat, long}.)
+
+.. code-block :: javascript
+
+    // Add a circle on the map for each record.
+    pizzerias.map((pizzeria) => {
+      // Leaflet maps use [lat, lng] and [lng, lat].
+      const latlng = [pizzeria.location[1], pizzeria.location[0]];
+
+      L.circleMarker(latlng, {
+        color: 'purple',
+        fillOpacity: 0.7
+      }).setRadius(4).addTo(map);
+    });
+
+In order to query the search endpoint, we use the `fetch API <https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API>`_ and post a query that defines a filter using a rectangle:
+
+.. code-block :: javascript
+
+    async function searchExtent(bbox) {
+      const query = {
+        query: {
+          bool: {
+            must: {
+              match_all: {},
+            },
+            filter: {
+              geo_bounding_box : {
+                location: {
+                  top: bbox.getNorthWest().lat,
+                  left: bbox.getNorthWest().lng,
+                  bottom: bbox.getSouthEast().lat,
+                  right: bbox.getSouthEast().lng
+                }
+              }
+            }
+          }
+        }
+      };
+      const url = `${server}/buckets/${bucket}/collections/${collection}/search`;
+      const {hits: {hits}} = await postJSON(url, query);
+      return hits;
+    }
+
+    async function postJSON(url, body) {
+      const response = await fetch(url, {
+        body: JSON.stringify(body),
+        method: "POST",
+        headers: {"Content-Type": "application/json"}
+      });
+      return await response.json();
+    }
+
+Now that we know how to render the map and obtain the list of records on a rectangle, we just need to listen to the map move event and refresh the list of results:
+
+.. code-block :: javascript
+
+    map.on('load moveend', async (e) => {
+      // Query ElasticSearch with the current map bounds as search extent.
+      const bbox = e.target.getBounds();
+      const hits = await searchExtent(bbox);
+
+      // Render the results as a list of bullet points.
+      const listing = document.getElementById("listing");
+      listing.innerHTML = "";
+      hits.map(({_source: pizzeria}) => {
+        const node = document.createElement("li");
+        const textnode = document.createTextNode(pizzeria.name || "(No name)");
+        node.appendChild(textnode);
+        listing.appendChild(node);
+      });
+    });
+
+Here you go!
+
+`Online demo <https://kinto.github.io/kinto-elasticsearch/>`_
+
+.. image:: {filename}/images/kinto-elasticsearch-demo.gif
+    :alt: kinto-elasticsearch map search extent
