@@ -15,9 +15,9 @@ ElasticSearch is a generic API on top of an indexing backend. When combining bot
 your data is stored in a persistent database, and you can search, aggregate and
 filter it efficiently.
 
-This integration has been sitting around for a long time, since it was the matter of
-our `Kinto plugin tutorial <http://kinto.readthedocs.io/en/7.0.1/tutorials/write-plugin.html>`_! But recently, we had a concrete use-case at Mozilla
-so we published it as `an official plugin <https://github.com/Kinto/kinto-elasticsearch/>`_ :)
+This integration has been sitting around for a long time, since it was the subject of
+our `Kinto plugin tutorial <http://kinto.readthedocs.io/en/7.0.1/tutorials/write-plugin.html>`_. But recently, we had a concrete use-case at Mozilla
+so we published it as `an official plugin <https://github.com/Kinto/kinto-elasticsearch/>`_!
 
 
 Use case
@@ -28,12 +28,12 @@ and at different stages of maturity (*nightly, beta, release, ESR*). And current
 is no comprehensive or official database for every released version and its associated
 metadata (revision, build date, ...).
 
-Our idea was to build an API to allow third-party scripts and tools to publish or query
-metadata about released products. As well as a nice UI to explore and browse the catalog.
+Our task was to build an API to allow third-party scripts and tools to publish or query
+metadata about released products, as well as a nice UI to explore and browse the catalog.
 
 Kinto gives us a ready-to-use JSON storage API, whose accessibility via ``curl`` is rather intuitive,
 and for which we can manage authentication and permissions using simple tokens or LDAP.
-ElasticSearch gives us a rocket fast index that powers the facetted search of our catalog.
+ElasticSearch gives us a rocket fast index that powers the faceted search of our catalog.
 
 .. image:: {filename}/images/buildhub-searchkit-screenshot.png
     :alt: Prototype UI using SearchKit
@@ -49,7 +49,7 @@ When a record is created, it is duplicated in the collection index.
 The ``/search`` on the collection is just a pass-through endpoint of the collection, where you post a query and obtain the results.
 You can only access it if you have the permission to read the whole collection.
 
-By default, ElasticSearch will infer the fields types from the posted data. But it is possible to define and force the mapping schema in the collection metadata.
+By default, ElasticSearch will infer the field types from the posted data. But it is possible to define and force the mapping schema in the collection metadata.
 
 The installation is straightforward:
 
@@ -70,7 +70,7 @@ Example with geographical data
 
 ElasticSearch supports geospatial indices, which allow — for example — to filter points contained in a rectangle (aka. bounding box).
 
-In this example, we'll import some OpenStreetMap data into a Kinto collection. A simple Leaflet map will then display all records as dots on the map, and filter the list of results based on the current map extent using the search endpoint.
+In this example, we'll import some OpenStreetMap data into a Kinto collection. `A simple Leaflet map <https://kinto.github.io/kinto-elasticsearch/>`_ will then display all records as dots on the map, and filter the list of results based on the current map extent using the search endpoint.
 
 Loading the data
 ----------------
@@ -168,13 +168,13 @@ Using `kinto-http.js <https://github.com/Kinto/kinto-http.js/>`_, it is also qui
         // ...
       });
 
-Showing records on the map is done like this. (Note: it would even be simpler if Leaflet `wouldn't have followed <https://macwright.org/2016/07/15/longitude-latitude-is-the-right-way.html>`_ GMaps and used {long, lat} instead of {lat, long}.)
+Showing records on the map is done like this. (Note: it would have been even simpler if Leaflet `hadn't followed <https://macwright.org/2016/07/15/longitude-latitude-is-the-right-way.html>`_ GMaps and used {long, lat} instead of {lat, long}.)
 
 .. code-block :: javascript
 
     // Add a circle on the map for each record.
     pizzerias.map((pizzeria) => {
-      // Leaflet maps use [lat, lng] and [lng, lat].
+      // Leaflet maps use [lat, lng] and GeoJSON uses [lng, lat].
       const latlng = [pizzeria.location[1], pizzeria.location[0]];
 
       L.circleMarker(latlng, {
