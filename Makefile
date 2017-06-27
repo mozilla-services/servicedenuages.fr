@@ -9,7 +9,7 @@ PUBLISHCONF=$(BASEDIR)/publishconf.py
 GITHUB_PAGES_BRANCH=gh-pages
 
 VENV := $(shell echo $${VIRTUAL_ENV-$(shell pwd)/.venv})
-VIRTUALENV = virtualenv
+VIRTUALENV = virtualenv --python python2.7
 INSTALL_STAMP = $(VENV)/.install.stamp
 
 PYTHON=$(VENV)/bin/python
