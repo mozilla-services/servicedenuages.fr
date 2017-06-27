@@ -1,0 +1,178 @@
+Building software as a distributed team
+#######################################
+
+:slug: building-software-as-a-distributed-team
+:date: 2017-03-15
+:lang: en
+:url: building-software-as-a-distributed-team
+:summary:
+   How do you build software together when you don't have overlapping
+   working hours?
+
+During the last few months we moved from a team mostly based in the
+Paris timezone to a team distributed across 8 timezones.
+
+- 4 people are in France and Spain (Niko, Mago, Mat and Natim)
+- 1 person is in New-York City (Ethan)
+- 1 person, our manager, is in Vancouver (Ben)
+
+
+Working across timezones
+========================
+
+We have only 2 time slots available to have a meeting alltogether:
+
++------------+----------+-------+
+| Vancouver  | New-York | Paris |
++------------+----------+-------+
+|   06:00    |  09:00   | 15:00 |
++------------+----------+-------+
+|   08:00    |  11:00   | 17:00 |
++------------+----------+-------+
+|   11:00    |  14:00   | 20:00 |
++------------+----------+-------+
+|   14:00    |  17:00   | 23:00 |
++------------+----------+-------+
+|   16:00    |  19:00   | 01:00 |
++------------+----------+-------+
+|   23:00    |  02:00   | 08:00 |
++------------+----------+-------+
+
+As you can see that's not a lot of overlap, which means we need to be
+able to collaborate asynchroneously.
+
+The process of building software in a remote team
+=================================================
+
+Working in a remote team is really similar to working with a
+community.
+
+You need to explain everything you do, you need to find consensus,
+you need to take feedback, you need to propose solutions and try
+things.
+
+As a team, as a community, you are stronger because instead of being
+alone you can rely on others to help you make the best choices and
+write the best software.
+
+
+The Prototype
+=============
+
+You've got an idea, let's make it a prototype.
+
+Find out what are the essential features that would solve the problem.
+
+Write a document (article, blue print) to explain what you decided to
+build as a prototype.
+
+At this stage it is really important to get something that looks close
+enough to the minimum feature set we want, but it should be really
+simple. In two days you should be able to demo the UX of your
+prototype and in two weeks something working well enough.
+
+It is really important to do that because it will bring a lot of
+questions, you will realize that the prototype is different from each
+thoughts of how it should look likes.
+
+This is especially true if you are working with people from differents
+jobs that are not looking at the same things. (Backend developers, UX
+designers, users, ...)
+
+The faster you get your prototype ready the faster you can align on
+what you all want for your MVP.
+
+
+The Minimal Viable Product (MVP)
+================================
+
+Now that we have a prototype, the question now is what is missing to
+make a product.
+
+It is time to gather together and brainstorm around the
+project to define what is the **Minimum Viable Product**.
+
+At this stage it is really important to start talking of a product,
+the project version ``1.0.0`` starts with a ``1`` which means that you
+are trying to put together the first actual version of your product.
+
+Everything that is not in the feature set of the MVP is put in a
+backlog for later.
+
+It is important to document the fact that we thought about it and that
+we will possibly care about it later.
+
+At each stage — Prototype, MVP — we write a small article to summarize
+the discussion and to explain what is the feature set, what is the
+protocol.
+
+You might think that writing an article about it should be optional,
+but you will realize that if you don't do it, you won't remember on
+what you'd agree and people of your team will start asking questions
+about why you did it like that. If the expectation change along the
+way we should notice it and take decision to update the document.
+
+
+Answering complex questions
+---------------------------
+
+Some features of the MVP might not be trivial. Some decision are hard
+to make between two solutions.
+
+You will have to carefully explain pros and cons and why you choose to
+do it like that. If it is written it is easy to explain people who
+forgot about it why you did it like that.
+
+We have a bunch of examples of hard problems:
+
+- How do you handle permissions in Kinto?
+- How do we support multiple database backends?
+- How do we handle ``content-editable`` divs with React or Elm?
+- How do you implement an OAuth flow from a web extension or a Mobile app?
+- How do you handle pluggable notifications in Kinto?
+- How do we configure email notifications in Kinto?
+- How do we let people attach files to their records in Kinto?
+- How do we get Firefox Account keys derived from the password from
+  an OAuth flow when we never get our hands on the password?
+
+Each problem will have to be addressed by someone and presented to the
+team members so that they can comment on it. Often the way to go is
+obvious — sometimes there is only one good solution — but sometimes
+the good solution is not obvious.
+
+When a complex problem arises, what we want is to learn from it and to
+share what we've learned. A good way of doing so is to write a
+blueprint article exposing pros and cons for the problem and
+explaining which solution will be chosen, why and how we plan on
+implementing it.
+
+
+Conclusion
+==========
+
+Document everything you plan on doing and explain why you plan on
+doing it like that.
+
+- It will be easier for your teamates to follow what you are doing.
+- It will be easier for them to work with you asynchroneously.
+- It will help to show that you are making progress.
+- It will help one to understand how to use your software.
+- It will allow people from your community to give feedback and be
+  implicated in the process.
+- It will also help people to present new ideas and start a discussion
+  about them.
+
+It will help you to handle software as a team rather than as an
+individual, because after each consensus, it is not your solution
+anymore but the team decision to do it like that.
+
+Document your roadmap and product iterations changelog.
+
+If you start coding without having a blueprint, it probably means you
+are wasting your time because you are running alone, building
+something without asking for feedback.
+
+You are not documenting what you are learning which means your
+coworkers won't be able to cach up to help you . You might end-up
+rewritting everything after taking feedback because you missed
+something important.
