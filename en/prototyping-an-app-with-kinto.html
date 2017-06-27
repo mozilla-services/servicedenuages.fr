@@ -70,8 +70,8 @@ What if I could store each expense right on the spot, categorize it, and maybe a
 <p>Keep in mind that there's no <a href="http://kinto.readthedocs.io/en/stable/api/1.x/authentication.html#a-word-about-users">concept of user in Kinto</a>. Instead, a unique id will be generated from the authentication, and the data you enter/modify will be linked to it. Permissions are based on this mechanism.</p>
 <p><img alt="kinto-admin-sign-in" src="http://www.servicedenuages.fr/en/../images/kinto-admin-sign-in.png" style="width: 2852px; height: auto; max-width: 100%;"/></p>
 <p>Once connected, we can <a href="https://kinto.dev.mozaws.net/v1/admin/#/buckets/create">create a bucket</a>:</p>
-<p><img alt="kinto-admin-connected" src="http://www.servicedenuages.fr/en/../images/kinto-admin-connected.png" style="width: 2806px; height: auto; max-width: 100%;">
-<img alt="kinto-admin-create-bucket" src="http://www.servicedenuages.fr/en/../images/kinto-admin-create-bucket.png" style="width: 2832px; height: auto; max-width: 100%;"/></img></p>
+<p><img alt="kinto-admin-connected" src="http://www.servicedenuages.fr/en/../images/kinto-admin-connected.png" style="width: 2806px; height: auto; max-width: 100%;"/>
+<img alt="kinto-admin-create-bucket" src="http://www.servicedenuages.fr/en/../images/kinto-admin-create-bucket.png" style="width: 2832px; height: auto; max-width: 100%;"/></p>
 <p>And then <a href="https://kinto.dev.mozaws.net/v1/admin/#/buckets/track-my-expenses/collections/create">create a collection</a>:</p>
 <p><img alt="kinto-admin-create-collection" src="http://www.servicedenuages.fr/en/../images/kinto-admin-create-collection.png" style="width: 2810px; height: auto; max-width: 100%;"/></p>
 <p>Let's not submit this new collection just yet, we'd first like to add a <a href="https://kinto.readthedocs.io/en/latest/api/1.x/collections.html#collection-json-schema">JSON schema</a>.</p>

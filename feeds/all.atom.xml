@@ -1033,7 +1033,7 @@ Pour les fichiers «privés», il faut donc que les URLs générées soient «se
 &lt;li&gt;Ajout d'un endpoint (optionnel) pour servir des fichiers complètement privés&lt;/li&gt;
 &lt;/ul&gt;
 &lt;table class="docutils footnote" frame="void" id="id2" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;ça nous permet aussi de &lt;a class="reference external" href="https://github.com/mozilla-services/cliquet/pull/584"&gt;remonter&lt;/a&gt;
 &lt;a class="reference external" href="https://github.com/Kinto/kinto/issues/277"&gt;des&lt;/a&gt;
@@ -2357,13 +2357,13 @@ de &lt;em&gt;Firefox Sync&lt;/em&gt; pour la gestion de la concurrence et de l'�
 En rêve, il existerait même plusieurs implémentations avec des technologies différentes
 (Python, Go, Node, etc.). &lt;a class="footnote-reference" href="#id4" id="id2"&gt;[2]&lt;/a&gt;&lt;/p&gt;
 &lt;table class="docutils footnote" frame="void" id="id3" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Voir notre &lt;a class="reference external" href="http://www.servicedenuages.fr/la-gestion-des-permissions"&gt;article dédié sur les permissions&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table class="docutils footnote" frame="void" id="id4" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id2"&gt;[2]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Rappel: nous sommes une toute petite équipe !&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
@@ -2388,7 +2388,7 @@ rigoureux, gérer les entêtes CORS, fournir la validation JSON à partir de sch
 des abstractions, mais on a toujours &lt;em&gt;Pyramid&lt;/em&gt; et &lt;em&gt;Cornice&lt;/em&gt; sous la main pour
 aller au delà de ce qui est proposé !&lt;/p&gt;
 &lt;table class="docutils footnote" frame="void" id="id6" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id5"&gt;[3]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Au tout début nous avons commencé une implémentation avec &lt;em&gt;Python-Eve&lt;/em&gt;
 (Flask), mais n'étions pas satisfaits de l'approche pour la configuration
@@ -2771,13 +2771,13 @@ services for the many millions of Firefox users;&lt;/li&gt;
 Perhaps there would even be several implementations in different languages.
 &lt;a class="footnote-reference" href="#id4" id="id2"&gt;[2]&lt;/a&gt;&lt;/p&gt;
 &lt;table class="docutils footnote" frame="void" id="id3" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;See our dedicated article on &lt;a class="reference external" href="http://www.servicedenuages.fr/en/handling-permissions"&gt;permissions in Cliquet&lt;/a&gt;.&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table class="docutils footnote" frame="void" id="id4" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id2"&gt;[2]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Bear in mind that we're a very small team!&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
@@ -2801,7 +2801,7 @@ and so forth.&lt;/p&gt;
 and provide the necessary abstractions; both remain available for expanding
 and extending from what comes in the box.&lt;/p&gt;
 &lt;table class="docutils footnote" frame="void" id="id6" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id5"&gt;[3]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;We started with an implementation using &lt;em&gt;Python-Eve&lt;/em&gt; (Flask) but we weren't
 satisified with the API configuration process - too much hand-waving and
@@ -3164,7 +3164,7 @@ et pour l'instant, aucun choix n'a été fait. Mais lors des conversations avec
 l'équipe en charge du projet, ce fût vraiment motivant de voir que même pour
 ce genre de besoins internes, &lt;em&gt;Kinto&lt;/em&gt; est tout aussi pertinent !&lt;/p&gt;
 &lt;table class="docutils footnote" frame="void" id="id4" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id3"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;La bonne nouvelle c'est que toutes les fonctionnalités &lt;em&gt;third-party&lt;/em&gt; qui ont
 été intégrées récemment vont redevenir des &lt;em&gt;add-ons&lt;/em&gt; \o/.&lt;/td&gt;&lt;/tr&gt;
@@ -3288,7 +3288,7 @@ de données sur le Web :)&lt;/p&gt;
 &lt;p&gt;The Firefox development and release process is currently based on a six-week cycle. One of the objectives is to decouple certain specific content elements (such as safety rules, dictionaries and translations, etc.) from these relatively long cycles &lt;a class="footnote-reference" href="#id4" id="id3"&gt;[1]&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The proposed solution is versioned, read-only JSON and binary blobs that can be synchronised with live browsers. There are already a number of tools to manage this sort of thing (examples include &lt;a class="reference external" href="https://wiki.mozilla.org/Balrog"&gt;Balrog&lt;/a&gt; and &lt;a class="reference external" href="https://github.com/mozilla-services/shavar"&gt;Shavar&lt;/a&gt;), but for the moment no choice has been made. During conversations with the team in charge of this project it became evident that Kinto could be useful here too - which is motivating us even more to evolve our project!&lt;/p&gt;
 &lt;table class="docutils footnote" frame="void" id="id4" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id3"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;The good news is that all the existing 3rd-party functionality will be
 revived in the form of add-ons.&lt;/td&gt;&lt;/tr&gt;
@@ -3368,7 +3368,7 @@ contacter sur le canal &lt;a class="reference external" href="irc://irc.mozilla.
 &lt;p&gt;Et ce n'est que le début ! Le futur se dessine dans notre feuille de route
 &lt;a class="footnote-reference" href="#id8" id="id4"&gt;[4]&lt;/a&gt;.&lt;/p&gt;
 &lt;table class="docutils footnote" frame="void" id="id5" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;&lt;strong&gt;Cliquet&lt;/strong&gt; est une boite à outils pour faciliter l'implémentation de
 microservices HTTP tels que les APIs &lt;em&gt;REST&lt;/em&gt; ayant des besoins de
@@ -3376,7 +3376,7 @@ synchronisation.&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table class="docutils footnote" frame="void" id="id6" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id2"&gt;[2]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;&lt;strong&gt;Kinto&lt;/strong&gt; est un service pour stocker, synchroniser et partager des données
 arbitraires, attachées à un compte Firefox (mais le système d'authentification
@@ -3384,14 +3384,14 @@ est &lt;em&gt;pluggable&lt;/em&gt;).&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table class="docutils footnote" frame="void" id="id7" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id3"&gt;[3]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Cliquetis, la bibliothèque JavaScript pour consommer l'API HTTP de Kinto —
 &lt;a class="reference external" href="https://github.com/mozilla-services/cliquetis"&gt;https://github.com/mozilla-services/cliquetis&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table class="docutils footnote" frame="void" id="id8" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id4"&gt;[4]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;La feuille de route de Kinto: &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/wiki/roadmap"&gt;https://github.com/mozilla-services/kinto/wiki/roadmap&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
@@ -3421,28 +3421,28 @@ to us, you can use the #storage channel of the Mozilla IRC network.&lt;/p&gt;
 &lt;p&gt;And, this is just the beginning! Future plans are described in our road
 map &lt;a class="footnote-reference" href="#id8" id="id4"&gt;[4]&lt;/a&gt;.&lt;/p&gt;
 &lt;table class="docutils footnote" frame="void" id="id5" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Cliquet is a toolkit to ease the implementation of HTTP
 microservices, such as data-driven REST APIs —  &lt;a class="reference external" href="https://cliquet.readthedocs.io"&gt;https://cliquet.readthedocs.io&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table class="docutils footnote" frame="void" id="id6" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id2"&gt;[2]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Kinto is a server allowing you to store and synchronize arbitrary data,
 attached to your Firefox account. — &lt;a class="reference external" href="https://kinto.readthedocs.io"&gt;https://kinto.readthedocs.io&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table class="docutils footnote" frame="void" id="id7" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id3"&gt;[3]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Cliquetis, the javascript library to consume the Kinto HTTP API —
 &lt;a class="reference external" href="https://github.com/mozilla-services/cliquetis"&gt;https://github.com/mozilla-services/cliquetis&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table class="docutils footnote" frame="void" id="id8" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id4"&gt;[4]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Kinto roadmap: &lt;a class="reference external" href="https://github.com/mozilla-services/kinto/wiki/roadmap"&gt;https://github.com/mozilla-services/kinto/wiki/roadmap&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
@@ -3773,7 +3773,7 @@ est plus large que le classique « &lt;em&gt;user id&lt;/em&gt; ».&lt;/p&gt;
 connexion par le système d'authentification dont le rôle est de
 définir une liste de &lt;em&gt;principals&lt;/em&gt; pour l'utilisateur se connectant.&lt;/p&gt;
 &lt;table class="docutils footnote" frame="void" id="id2" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Pour en savoir plus sur les &lt;em&gt;principals&lt;/em&gt; :
 &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Principal_%28computer_security%29"&gt;https://en.wikipedia.org/wiki/Principal_%28computer_security%29&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
@@ -3792,7 +3792,7 @@ différence dans la « direction » de la relation entre les deux concepts.&lt;/
 &lt;li&gt;Un groupe est une liste de &lt;em&gt;principals&lt;/em&gt; que l'on peut associer à une permission.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;table class="docutils footnote" frame="void" id="id4" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id3"&gt;[2]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Plus d'informations :
 &lt;a class="reference external" href="http://stackoverflow.com/questions/7770728/group-vs-role-any-real-difference"&gt;http://stackoverflow.com/questions/7770728/group-vs-role-any-real-difference&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
@@ -3868,8 +3868,8 @@ utilisateurs.&lt;/p&gt;
 objets suivants :&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
 &lt;colgroup&gt;
-&lt;col width="23%"&gt;&lt;/col&gt;
-&lt;col width="77%"&gt;&lt;/col&gt;
+&lt;col width="23%"/&gt;
+&lt;col width="77%"/&gt;
 &lt;/colgroup&gt;
 &lt;thead valign="bottom"&gt;
 &lt;tr&gt;&lt;th class="head"&gt;Objet&lt;/th&gt;
@@ -3930,8 +3930,8 @@ ACLs de leur parents :&lt;/p&gt;
 &lt;p&gt;Pour chacun de ces objets nous avons identifié les permissions suivantes :&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
 &lt;colgroup&gt;
-&lt;col width="23%"&gt;&lt;/col&gt;
-&lt;col width="77%"&gt;&lt;/col&gt;
+&lt;col width="23%"/&gt;
+&lt;col width="77%"/&gt;
 &lt;/colgroup&gt;
 &lt;thead valign="bottom"&gt;
 &lt;tr&gt;&lt;th class="head"&gt;Permission&lt;/th&gt;
@@ -3974,9 +3974,9 @@ possible qu'un objet ait des permissions plus restrictives que son parent.&lt;/p
 &lt;p&gt;Voici la liste exhaustive des permissions :&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
 &lt;colgroup&gt;
-&lt;col width="21%"&gt;&lt;/col&gt;
-&lt;col width="32%"&gt;&lt;/col&gt;
-&lt;col width="47%"&gt;&lt;/col&gt;
+&lt;col width="21%"/&gt;
+&lt;col width="32%"/&gt;
+&lt;col width="47%"/&gt;
 &lt;/colgroup&gt;
 &lt;thead valign="bottom"&gt;
 &lt;tr&gt;&lt;th class="head"&gt;Objet&lt;/th&gt;
@@ -4076,9 +4076,9 @@ ces quatre &lt;em&gt;principals&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Blog&lt;/strong&gt;&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
 &lt;colgroup&gt;
-&lt;col width="35%"&gt;&lt;/col&gt;
-&lt;col width="18%"&gt;&lt;/col&gt;
-&lt;col width="46%"&gt;&lt;/col&gt;
+&lt;col width="35%"/&gt;
+&lt;col width="18%"/&gt;
+&lt;col width="46%"/&gt;
 &lt;/colgroup&gt;
 &lt;thead valign="bottom"&gt;
 &lt;tr&gt;&lt;th class="head"&gt;Objet&lt;/th&gt;
@@ -4107,9 +4107,9 @@ ces quatre &lt;em&gt;principals&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Wiki&lt;/strong&gt;&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
 &lt;colgroup&gt;
-&lt;col width="35%"&gt;&lt;/col&gt;
-&lt;col width="18%"&gt;&lt;/col&gt;
-&lt;col width="46%"&gt;&lt;/col&gt;
+&lt;col width="35%"/&gt;
+&lt;col width="18%"/&gt;
+&lt;col width="46%"/&gt;
 &lt;/colgroup&gt;
 &lt;thead valign="bottom"&gt;
 &lt;tr&gt;&lt;th class="head"&gt;Object&lt;/th&gt;
@@ -4134,9 +4134,9 @@ ces quatre &lt;em&gt;principals&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Sondages&lt;/strong&gt;&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
 &lt;colgroup&gt;
-&lt;col width="34%"&gt;&lt;/col&gt;
-&lt;col width="31%"&gt;&lt;/col&gt;
-&lt;col width="35%"&gt;&lt;/col&gt;
+&lt;col width="34%"/&gt;
+&lt;col width="31%"/&gt;
+&lt;col width="35%"/&gt;
 &lt;/colgroup&gt;
 &lt;thead valign="bottom"&gt;
 &lt;tr&gt;&lt;th class="head"&gt;Objet&lt;/th&gt;
@@ -4164,9 +4164,9 @@ ces quatre &lt;em&gt;principals&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Cartes colaboratives&lt;/strong&gt;&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
 &lt;colgroup&gt;
-&lt;col width="34%"&gt;&lt;/col&gt;
-&lt;col width="31%"&gt;&lt;/col&gt;
-&lt;col width="35%"&gt;&lt;/col&gt;
+&lt;col width="34%"/&gt;
+&lt;col width="31%"/&gt;
+&lt;col width="35%"/&gt;
 &lt;/colgroup&gt;
 &lt;thead valign="bottom"&gt;
 &lt;tr&gt;&lt;th class="head"&gt;Objet&lt;/th&gt;
@@ -4203,9 +4203,9 @@ Par exemple, on peut imaginer une plateforme de wikis (à la wikia.com), où les
 wikis sont privés par défaut et certaines pages peuvent être rendues publiques :&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
 &lt;colgroup&gt;
-&lt;col width="32%"&gt;&lt;/col&gt;
-&lt;col width="30%"&gt;&lt;/col&gt;
-&lt;col width="38%"&gt;&lt;/col&gt;
+&lt;col width="32%"/&gt;
+&lt;col width="30%"/&gt;
+&lt;col width="38%"/&gt;
 &lt;/colgroup&gt;
 &lt;thead valign="bottom"&gt;
 &lt;tr&gt;&lt;th class="head"&gt;Objet&lt;/th&gt;
@@ -4378,7 +4378,7 @@ things. This is conceptually wider than the classical "user id*".&lt;/p&gt;
 authentication system, which role is to define a list of &lt;em&gt;principals&lt;/em&gt; for the
 authenticating user.&lt;/p&gt;
 &lt;table class="docutils footnote" frame="void" id="id2" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;To read more about &lt;em&gt;principals&lt;/em&gt; :
 &lt;a class="reference external" href="https://en.wikipedia.org/wiki/Principal_%28computer_security%29"&gt;https://en.wikipedia.org/wiki/Principal_%28computer_security%29&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
@@ -4396,7 +4396,7 @@ of the relationship between these two concepts.&lt;/p&gt;
 &lt;li&gt;A group is a list of &lt;em&gt;principals&lt;/em&gt; we can associate to a permission.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;table class="docutils footnote" frame="void" id="id4" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id3"&gt;[2]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;More information at:
 &lt;a class="reference external" href="http://stackoverflow.com/questions/7770728/group-vs-role-any-real-difference"&gt;http://stackoverflow.com/questions/7770728/group-vs-role-any-real-difference&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;
@@ -4470,8 +4470,8 @@ directly to other &lt;em&gt;principals&lt;/em&gt;.&lt;/p&gt;
 &lt;p&gt;To handle permissions, we identified the following objects:&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
 &lt;colgroup&gt;
-&lt;col width="23%"&gt;&lt;/col&gt;
-&lt;col width="77%"&gt;&lt;/col&gt;
+&lt;col width="23%"/&gt;
+&lt;col width="77%"/&gt;
 &lt;/colgroup&gt;
 &lt;thead valign="bottom"&gt;
 &lt;tr&gt;&lt;th class="head"&gt;Object&lt;/th&gt;
@@ -4531,8 +4531,8 @@ parents.&lt;/p&gt;
 &lt;p&gt;For all of these objects, we identified the following permissions:&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
 &lt;colgroup&gt;
-&lt;col width="23%"&gt;&lt;/col&gt;
-&lt;col width="77%"&gt;&lt;/col&gt;
+&lt;col width="23%"/&gt;
+&lt;col width="77%"/&gt;
 &lt;/colgroup&gt;
 &lt;thead valign="bottom"&gt;
 &lt;tr&gt;&lt;th class="head"&gt;Permission&lt;/th&gt;
@@ -4574,9 +4574,9 @@ permission that its parent.&lt;/p&gt;
 &lt;p&gt;Here is a complete list of permissions:&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
 &lt;colgroup&gt;
-&lt;col width="21%"&gt;&lt;/col&gt;
-&lt;col width="32%"&gt;&lt;/col&gt;
-&lt;col width="47%"&gt;&lt;/col&gt;
+&lt;col width="21%"/&gt;
+&lt;col width="32%"/&gt;
+&lt;col width="47%"/&gt;
 &lt;/colgroup&gt;
 &lt;thead valign="bottom"&gt;
 &lt;tr&gt;&lt;th class="head"&gt;Object&lt;/th&gt;
@@ -4676,9 +4676,9 @@ following list of principals:
 &lt;p&gt;&lt;strong&gt;Blog&lt;/strong&gt;&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
 &lt;colgroup&gt;
-&lt;col width="35%"&gt;&lt;/col&gt;
-&lt;col width="18%"&gt;&lt;/col&gt;
-&lt;col width="46%"&gt;&lt;/col&gt;
+&lt;col width="35%"/&gt;
+&lt;col width="18%"/&gt;
+&lt;col width="46%"/&gt;
 &lt;/colgroup&gt;
 &lt;thead valign="bottom"&gt;
 &lt;tr&gt;&lt;th class="head"&gt;Object&lt;/th&gt;
@@ -4707,9 +4707,9 @@ following list of principals:
 &lt;p&gt;&lt;strong&gt;Wiki&lt;/strong&gt;&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
 &lt;colgroup&gt;
-&lt;col width="35%"&gt;&lt;/col&gt;
-&lt;col width="18%"&gt;&lt;/col&gt;
-&lt;col width="46%"&gt;&lt;/col&gt;
+&lt;col width="35%"/&gt;
+&lt;col width="18%"/&gt;
+&lt;col width="46%"/&gt;
 &lt;/colgroup&gt;
 &lt;thead valign="bottom"&gt;
 &lt;tr&gt;&lt;th class="head"&gt;Object&lt;/th&gt;
@@ -4734,9 +4734,9 @@ following list of principals:
 &lt;p&gt;&lt;strong&gt;Polls&lt;/strong&gt;&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
 &lt;colgroup&gt;
-&lt;col width="34%"&gt;&lt;/col&gt;
-&lt;col width="31%"&gt;&lt;/col&gt;
-&lt;col width="35%"&gt;&lt;/col&gt;
+&lt;col width="34%"/&gt;
+&lt;col width="31%"/&gt;
+&lt;col width="35%"/&gt;
 &lt;/colgroup&gt;
 &lt;thead valign="bottom"&gt;
 &lt;tr&gt;&lt;th class="head"&gt;Object&lt;/th&gt;
@@ -4764,9 +4764,9 @@ following list of principals:
 &lt;p&gt;&lt;strong&gt;Collaborative maps&lt;/strong&gt;&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
 &lt;colgroup&gt;
-&lt;col width="34%"&gt;&lt;/col&gt;
-&lt;col width="31%"&gt;&lt;/col&gt;
-&lt;col width="35%"&gt;&lt;/col&gt;
+&lt;col width="34%"/&gt;
+&lt;col width="31%"/&gt;
+&lt;col width="35%"/&gt;
 &lt;/colgroup&gt;
 &lt;thead valign="bottom"&gt;
 &lt;tr&gt;&lt;th class="head"&gt;Object&lt;/th&gt;
@@ -4803,9 +4803,9 @@ possible to imagine a wiki platform (ala wikia.com) where wikis are private by
 default and some pages can be published:&lt;/p&gt;
 &lt;table border="1" class="docutils"&gt;
 &lt;colgroup&gt;
-&lt;col width="32%"&gt;&lt;/col&gt;
-&lt;col width="30%"&gt;&lt;/col&gt;
-&lt;col width="38%"&gt;&lt;/col&gt;
+&lt;col width="32%"/&gt;
+&lt;col width="30%"/&gt;
+&lt;col width="38%"/&gt;
 &lt;/colgroup&gt;
 &lt;thead valign="bottom"&gt;
 &lt;tr&gt;&lt;th class="head"&gt;Object&lt;/th&gt;
@@ -5126,13 +5126,13 @@ de cet évènement fédérateur.&lt;/p&gt;
 &lt;p&gt;Je vous conseille de guetter les futures dates dans les différentes villes du monde !&lt;/p&gt;
 &lt;p&gt;&lt;a class="reference external" href="http://www.apidays.io"&gt;http://www.apidays.io&lt;/a&gt;&lt;/p&gt;
 &lt;table class="docutils footnote" frame="void" id="id3" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Bon courage à celui qui tentera de traduire ça &lt;a class="reference external" href="http://blog.notmyidea.org/language.html"&gt;tiens&lt;/a&gt; !&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
 &lt;table class="docutils footnote" frame="void" id="id4" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id2"&gt;[2]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;&lt;a class="reference external" href="http://sookocheff.com/posts/2014-03-11-on-choosing-a-hypermedia-format/"&gt;http://sookocheff.com/posts/2014-03-11-on-choosing-a-hypermedia-format/&lt;/a&gt; (gist: &lt;a class="reference external" href="https://gist.github.com/soofaloofa/9350847"&gt;https://gist.github.com/soofaloofa/9350847&lt;/a&gt;)&lt;/td&gt;&lt;/tr&gt;
 &lt;/tbody&gt;
@@ -5839,7 +5839,7 @@ might give you more control, but at the same time it will force you to engineer,
 write, test, and maintain a whole new ecosystem.&lt;/blockquote&gt;
 &lt;p&gt;C'est justement l'éco-système dont est responsable l'équipe &lt;em&gt;Mozilla Cloud Services&lt;/em&gt;!&lt;/p&gt;
 &lt;table class="docutils footnote" frame="void" id="id3" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;Il existe le &lt;a class="reference external" href="https://sharesome.5apps.com/"&gt;projet Sharesome&lt;/a&gt; qui
 permet de partager publiquement des ressources de son &lt;em&gt;remote Storage&lt;/em&gt;.&lt;/td&gt;&lt;/tr&gt;
@@ -6115,7 +6115,7 @@ write, test, and maintain a whole new ecosystem.&lt;/blockquote&gt;
 &lt;p&gt;And this ecosystem is precisely the one that &lt;em&gt;Mozilla Cloud Services&lt;/em&gt; team
 is in charge of!&lt;/p&gt;
 &lt;table class="docutils footnote" frame="void" id="id3" rules="none"&gt;
-&lt;colgroup&gt;&lt;col class="label"&gt;&lt;/col&gt;&lt;col&gt;&lt;/col&gt;&lt;/colgroup&gt;
+&lt;colgroup&gt;&lt;col class="label"/&gt;&lt;col/&gt;&lt;/colgroup&gt;
 &lt;tbody valign="top"&gt;
 &lt;tr&gt;&lt;td class="label"&gt;&lt;a class="fn-backref" href="#id1"&gt;[1]&lt;/a&gt;&lt;/td&gt;&lt;td&gt;The &lt;a class="reference external" href="https://sharesome.5apps.com/"&gt;Sharesome project&lt;/a&gt; allows for some
 public sharing of one's resources from one's &lt;em&gt;Remote Storage&lt;/em&gt;.&lt;/td&gt;&lt;/tr&gt;
