@@ -1,5 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages - misc</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/misc.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2017-06-21T00:00:00+02:00</updated><entry><title>Kinto and ElasticSearch</title><link href="http://www.servicedenuages.fr/en/kinto-elasticsearch" rel="alternate"></link><published>2017-06-21T00:00:00+02:00</published><updated>2017-06-21T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2017-06-21:/en/kinto-elasticsearch</id><summary type="html">&lt;p class="first last"&gt;Introducing our ElasticSearch plugin for Kinto&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages - misc</title><link href="http://www.servicedenuages.fr/en/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/misc.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/en/</id><updated>2017-07-18T00:00:00+02:00</updated><entry><title>Enabling Slack automatic updates on Debian and Ubuntu</title><link href="http://www.servicedenuages.fr/en/slack-deb-automatic-updates" rel="alternate"></link><published>2017-07-18T00:00:00+02:00</published><updated>2017-07-18T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2017-07-18:/en/slack-deb-automatic-updates</id><summary type="html">&lt;p class="first last"&gt;A little tip to enable automatic updates of Slack with Debian and Linux&lt;/p&gt;
+</summary><content type="html">&lt;div class="section" id="installing-slack-on-linux"&gt;
+&lt;h2&gt;Installing Slack on Linux&lt;/h2&gt;
+&lt;p&gt;The proper way to install Slack is to download the installer for your
+Operating System on the &lt;a class="reference external" href="https://slack.com/downloads"&gt;Slack website&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;However I realized my Slack client was not really up-to-date.&lt;/p&gt;
+&lt;p&gt;When installing Slack, a daily cronjob is installed automatically
+which is supposed to configure the automatic updates.&lt;/p&gt;
+&lt;p&gt;However for some reason on my computer the cronjob while running never
+installed anything.&lt;/p&gt;
+&lt;p&gt;It is only when I started to encounter problems with my Slack client
+that I realized I had an outdated version.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="how-to-verify-if-slack-is-correctly-configured"&gt;
+&lt;h2&gt;How to verify if Slack is correctly configured?&lt;/h2&gt;
+&lt;p&gt;The configuration should create the following file: &lt;tt class="docutils literal"&gt;/etc/apt/sources.list.d/slack.list&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;If this file is missing, you can use the following steps to install it manually.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="configuring-apt-for-slack-updates"&gt;
+&lt;h2&gt;Configuring APT for Slack updates&lt;/h2&gt;
+&lt;p&gt;There is a tutorial and an automatic script that you can find here:
+&lt;a class="reference external" href="https://packagecloud.io/slacktechnologies/slack/install"&gt;https://packagecloud.io/slacktechnologies/slack/install&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;But if you want to do it step by step, here is how to do it.&lt;/p&gt;
+&lt;ol class="arabic simple"&gt;
+&lt;li&gt;First add the &lt;a class="reference external" href="https://packagecloud.io/app/slacktechnologies/slack/gpg#gpg-apt"&gt;repository key&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;wget -O - https://packagecloud.io/slacktechnologies/slack/gpgkey  &lt;span class="p"&gt;|&lt;/span&gt; sudo apt-key add -
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ol class="arabic simple" start="2"&gt;
+&lt;li&gt;Enter your password and you should see the following result.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;--201X-XX-XX XX:XX:28--  https://packagecloud.io/slacktechnologies/slack/gpgkey
+-                         &lt;span class="m"&gt;100&lt;/span&gt;%&lt;span class="o"&gt;[===================================&lt;/span&gt;&amp;gt;&lt;span class="o"&gt;]&lt;/span&gt;   &lt;span class="m"&gt;3&lt;/span&gt;,86K  --.-KB/s    in 0s
+201X-XX-XX XX:XX:30 &lt;span class="o"&gt;(&lt;/span&gt;&lt;span class="m"&gt;59&lt;/span&gt;,8 MB/s&lt;span class="o"&gt;)&lt;/span&gt; — &lt;span class="o"&gt;[&lt;/span&gt;&lt;span class="m"&gt;3954&lt;/span&gt;/3954&lt;span class="o"&gt;]&lt;/span&gt;
+
+OK
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ol class="arabic simple" start="3"&gt;
+&lt;li&gt;Create the file &lt;strong&gt;/etc/apt/sources.list.d/slack.list&lt;/strong&gt; with the following content&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;deb https://packagecloud.io/slacktechnologies/slack/debian/ jessie main
+&lt;/pre&gt;&lt;/div&gt;
+&lt;ol class="arabic simple" start="4"&gt;
+&lt;li&gt;Run &lt;tt class="docutils literal"&gt;sudo apt update&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;Run &lt;tt class="docutils literal"&gt;sudo apt install &lt;span class="pre"&gt;slack-desktop&lt;/span&gt;&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;That's it, Slack is now installed and will update itself automatically with APT.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</content><category term="mozilla"></category></entry><entry><title>Kinto and ElasticSearch</title><link href="http://www.servicedenuages.fr/en/kinto-elasticsearch" rel="alternate"></link><published>2017-06-21T00:00:00+02:00</published><updated>2017-06-21T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2017-06-21:/en/kinto-elasticsearch</id><summary type="html">&lt;p class="first last"&gt;Introducing our ElasticSearch plugin for Kinto&lt;/p&gt;
 </summary><content type="html">&lt;div class="section" id="elasticsearch-integration"&gt;
 &lt;h2&gt;ElasticSearch integration&lt;/h2&gt;
 &lt;p&gt;Kinto is a generic API on top of a storage backend.

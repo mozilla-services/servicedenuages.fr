@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>Enabling Slack automatic updates on Debian and Ubuntu // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Published</h5>
+                <p title="~220 words">~1 minutes reading 🕑</p>
+                <p>Tue, 18 July 2017</p>
+                <a href="/en/">&larr; Back to articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Enabling Slack automatic updates on Debian and Ubuntu</h1>
+                        <p class="post-meta">                                <a class="post-category" href="http://www.servicedenuages.fr/tag/mozilla.html">mozilla</a>
+                        </p>
+                </header>
+            </section>
+            <div class="section" id="installing-slack-on-linux">
+<h2>Installing Slack on Linux</h2>
+<p>The proper way to install Slack is to download the installer for your
+Operating System on the <a class="reference external" href="https://slack.com/downloads">Slack website</a>.</p>
+<p>However I realized my Slack client was not really up-to-date.</p>
+<p>When installing Slack, a daily cronjob is installed automatically
+which is supposed to configure the automatic updates.</p>
+<p>However for some reason on my computer the cronjob while running never
+installed anything.</p>
+<p>It is only when I started to encounter problems with my Slack client
+that I realized I had an outdated version.</p>
+</div>
+<div class="section" id="how-to-verify-if-slack-is-correctly-configured">
+<h2>How to verify if Slack is correctly configured?</h2>
+<p>The configuration should create the following file: <tt class="docutils literal">/etc/apt/sources.list.d/slack.list</tt></p>
+<p>If this file is missing, you can use the following steps to install it manually.</p>
+</div>
+<div class="section" id="configuring-apt-for-slack-updates">
+<h2>Configuring APT for Slack updates</h2>
+<p>There is a tutorial and an automatic script that you can find here:
+<a class="reference external" href="https://packagecloud.io/slacktechnologies/slack/install">https://packagecloud.io/slacktechnologies/slack/install</a></p>
+<p>But if you want to do it step by step, here is how to do it.</p>
+<ol class="arabic simple">
+<li>First add the <a class="reference external" href="https://packagecloud.io/app/slacktechnologies/slack/gpg#gpg-apt">repository key</a></li>
+</ol>
+<div class="highlight"><pre><span></span>wget -O - https://packagecloud.io/slacktechnologies/slack/gpgkey  <span class="p">|</span> sudo apt-key add -
+</pre></div>
+<ol class="arabic simple" start="2">
+<li>Enter your password and you should see the following result.</li>
+</ol>
+<div class="highlight"><pre><span></span>--201X-XX-XX XX:XX:28--  https://packagecloud.io/slacktechnologies/slack/gpgkey
+-                         <span class="m">100</span>%<span class="o">[===================================</span>&gt;<span class="o">]</span>   <span class="m">3</span>,86K  --.-KB/s    in 0s
+201X-XX-XX XX:XX:30 <span class="o">(</span><span class="m">59</span>,8 MB/s<span class="o">)</span> — <span class="o">[</span><span class="m">3954</span>/3954<span class="o">]</span>
+
+OK
+</pre></div>
+<ol class="arabic simple" start="3">
+<li>Create the file <strong>/etc/apt/sources.list.d/slack.list</strong> with the following content</li>
+</ol>
+<div class="highlight"><pre><span></span>deb https://packagecloud.io/slacktechnologies/slack/debian/ jessie main
+</pre></div>
+<ol class="arabic simple" start="4">
+<li>Run <tt class="docutils literal">sudo apt update</tt></li>
+<li>Run <tt class="docutils literal">sudo apt install <span class="pre">slack-desktop</span></tt></li>
+<li>That's it, Slack is now installed and will update itself automatically with APT.</li>
+</ol>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.notmyidea.org/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>
