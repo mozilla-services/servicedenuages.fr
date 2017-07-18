@@ -18,7 +18,8 @@ However I realized my Slack client was not really up-to-date.
 When installing Slack, a daily cronjob is installed automatically
 which is supposed to configure the automatic updates.
 
-However for some reason on my computer the cronjob never ran.
+However for some reason on my computer the cronjob while running never
+installed anything.
 
 It is only when I started to encounter problems with my Slack client
 that I realized I had an outdated version.
@@ -34,9 +35,14 @@ If this file is missing, you can use the following steps to install it manually.
 Configuring APT for Slack updates
 =================================
 
+There is a tutorial and an automatic script that you can find here:
+https://packagecloud.io/slacktechnologies/slack/install
+
+But if you want to do it step by step, here is how to do it.
+
 1. First add the `repository key <https://packagecloud.io/app/slacktechnologies/slack/gpg#gpg-apt>`_
 
-.. code-block::
+.. code-block:: bash
 
     wget -O - https://packagecloud.io/slacktechnologies/slack/gpgkey  | sudo apt-key add -
 
@@ -45,9 +51,13 @@ Configuring APT for Slack updates
 
 .. code-block:: bash
 
+    --201X-XX-XX XX:XX:28--  https://packagecloud.io/slacktechnologies/slack/gpgkey
+    -                         100%[===================================>]   3,86K  --.-KB/s    in 0s 
+    201X-XX-XX XX:XX:30 (59,8 MB/s) — [3954/3954]
+    
     OK
 
-3. Create the file ``/etc/apt/sources.list.d/slack.list`` with the following content
+3. Create the file **/etc/apt/sources.list.d/slack.list** with the following content
 
 .. code-block:: bash
 
