@@ -1,5 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages - Service de Nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/service-de-nuages.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2016-11-14T00:00:00+01:00</updated><entry><title>Workflow de validation dans Kinto</title><link href="http://www.servicedenuages.fr/kinto-workflows" rel="alternate"></link><published>2016-11-14T00:00:00+01:00</published><updated>2016-11-14T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-11-14:/kinto-workflows</id><summary type="html">&lt;p class="first last"&gt;Debrief des fonctionnalités de validation dans Kinto.&lt;/p&gt;
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Service de nuages - Service de Nuages</title><link href="http://www.servicedenuages.fr/" rel="alternate"></link><link href="http://www.servicedenuages.fr/feeds/service-de-nuages.atom.xml" rel="self"></link><id>http://www.servicedenuages.fr/</id><updated>2017-08-01T00:00:00+02:00</updated><entry><title>Comment installer Kinto manuellement chez Alwaysdata</title><link href="http://www.servicedenuages.fr/kinto-installation-alwaysdata-manuelle" rel="alternate"></link><published>2017-08-01T00:00:00+02:00</published><updated>2017-08-01T00:00:00+02:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2017-08-01:/kinto-installation-alwaysdata-manuelle</id><summary type="html">&lt;p class="first last"&gt;Apprennez à installer Kinto chez Alwaysdata manuelllement.&lt;/p&gt;
+</summary><content type="html">&lt;div class="section" id="qu-est-ce-que-alwaysdata"&gt;
+&lt;h2&gt;Qu'est-ce que Alwaysdata ?&lt;/h2&gt;
+&lt;p&gt;Alwaysdata est un hébergeur français qui vous permet de payer pour un
+espace et d'y héberger autant de sites que vous le souhaitez en toute
+liberté.&lt;/p&gt;
+&lt;p&gt;L'équipe est à l'écoute et très sympathique ce qui en fait un service
+de grande qualité.&lt;/p&gt;
+&lt;p&gt;Une offre de découverte gratuite vous permet de tester le service
+avant de souscrire à un abonnement.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="creer-un-compte-chez-alwaysdata"&gt;
+&lt;h2&gt;Créer un compte chez Alwaysdata&lt;/h2&gt;
+&lt;p&gt;Pour créer un compte, rendez-vous ici: &lt;a class="reference external" href="https://www.alwaysdata.com/fr/signup/"&gt;https://www.alwaysdata.com/fr/signup/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Vous allez renseigner vos coordonnées, votre email et choisir un mot
+de passe ainsi qu'un identifiant pour votre compte.&lt;/p&gt;
+&lt;p&gt;Cet identifiant vous sera nécessaire par la suite. Nous l'appelons
+ID_ALWAYSDATA.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="installation-automatique-de-kinto-chez-alwaysdata"&gt;
+&lt;h2&gt;Installation automatique de Kinto chez Alwaysdata&lt;/h2&gt;
+&lt;p&gt;Avant toute chose, sachez qu'il existe un script qui s'occupe de faire
+l'installation pour vous automatiquement.&lt;/p&gt;
+&lt;p&gt;Vous pouvez le trouver ici : &lt;a class="reference external" href="https://kinto.github.io/kinto-alwaysdata/"&gt;https://kinto.github.io/kinto-alwaysdata/&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="installation-manuelle-de-kinto-chez-alwaysdata"&gt;
+&lt;h2&gt;Installation manuelle de Kinto chez Alwaysdata&lt;/h2&gt;
+&lt;div class="section" id="activez-python-3-6-0"&gt;
+&lt;h3&gt;Activez Python 3.6.0&lt;/h3&gt;
+&lt;p&gt;Dans le menu &lt;tt class="docutils literal"&gt;Environnement &amp;gt; Python&lt;/tt&gt; vérifiez que votre version de
+Python par défaut soit bien au moins &lt;tt class="docutils literal"&gt;Python 3.6.0&lt;/tt&gt;&lt;/p&gt;
+&lt;img alt="Configurer la version 3.6.0 de Python chez Alwaysdata." src="http://www.servicedenuages.fr/images/ad-kinto-install/env.png" style="width: 1044px; height: auto; max-width: 100%;"/&gt;
+&lt;/div&gt;
+&lt;div class="section" id="creez-une-base-de-donnees-postgresql"&gt;
+&lt;h3&gt;Créez une base de données PostgreSQL&lt;/h3&gt;
+&lt;p&gt;Via l'administration de Alwaysdata vous pouvez créer un utilisateur et
+une base de données PostgreSQL, retenez bien l'identifiant et le mot
+de passe car vous en aurez besoin pour votre fichier de configuration
+&lt;tt class="docutils literal"&gt;kinto.ini&lt;/tt&gt;&lt;/p&gt;
+&lt;img alt="Créer un utilisateur et une base de données PostgreSQL" src="http://www.servicedenuages.fr/images/ad-kinto-install/postgresql.png" style="width: 1041px; height: auto; max-width: 100%;"/&gt;
+&lt;/div&gt;
+&lt;div class="section" id="activer-la-connexion-ssh"&gt;
+&lt;h3&gt;Activer la connexion SSH&lt;/h3&gt;
+&lt;p&gt;L'installation de Kinto chez Alwaysdata se fait à l'aide de la
+connexion SSH.&lt;/p&gt;
+&lt;p&gt;Commencez par vous connecter à l'administration et à activer votre
+compte SSH.&lt;/p&gt;
+&lt;img alt="Activer l'utilisateur SSH." src="http://www.servicedenuages.fr/images/ad-kinto-install/ssh.png" style="width: 921px; height: auto; max-width: 100%;"/&gt;
+&lt;/div&gt;
+&lt;div class="section" id="creer-le-fichier-de-configuration-de-kinto"&gt;
+&lt;h3&gt;Créer le fichier de configuration de Kinto&lt;/h3&gt;
+&lt;p&gt;Créez le fichier &lt;tt class="docutils literal"&gt;kinto/kinto.ini&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;Vous pouvez utiliser
+&lt;a class="reference external" href="https://github.com/Kinto/kinto-alwaysdata/blob/master/alwaysdata_kinto/alwaysdata_kinto/kinto.ini"&gt;ce modèle de fichier ini&lt;/a&gt;
+en veillant bien à remplacer &lt;tt class="docutils literal"&gt;{id_alwaysdata}&lt;/tt&gt; et à configurer votre
+base de donnée PostgreSQL avec votre identifiant et mot de passe. Il
+est conseiller de créer un utilisateur spécifique pour Kinto.&lt;/p&gt;
+&lt;p&gt;Vous devez également générer une clé secrète pour &lt;tt class="docutils literal"&gt;{hmac_secret}&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;Pour ce faire vous pouvez utiliser la commande &lt;tt class="docutils literal"&gt;uuidgen&lt;/tt&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="creer-le-lanceur-du-serveur"&gt;
+&lt;h3&gt;Créer le lanceur du serveur&lt;/h3&gt;
+&lt;p&gt;Créez le fichier &lt;tt class="docutils literal"&gt;kinto/kinto.wsgi&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;Vous pouvez utiliser &lt;a class="reference external" href="https://github.com/Kinto/kinto-alwaysdata/blob/master/alwaysdata_kinto/alwaysdata_kinto/kinto.wsgi"&gt;ce modèle de fichier WSGI&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Veillez à ce que le fichier soit exécutable :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;chmod +x kinto/kinto.wsgi
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="creer-un-environment-virtuel-python-et-installez-kinto-dedans"&gt;
+&lt;h3&gt;Créer un environment virtuel Python et installez Kinto dedans&lt;/h3&gt;
+&lt;p&gt;Vous pouvez vous connecter à votre compte SSH depuis le terminal :&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;ssh ID_ALWAYSDATA@ssh-ID_ALWAYSDATA.alwaysdata.net
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Remplacez &lt;tt class="docutils literal"&gt;ID_ALWAYSDATA&lt;/tt&gt; par l'identifiant de votre compte alwaysdata.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;virtualenv kinto/venv/
+kinto/venv/bin/pip install kinto&lt;span class="o"&gt;[&lt;/span&gt;postgresql&lt;span class="o"&gt;]&lt;/span&gt; kinto-attachment
+kinto/venv/bin/kinto migrate --ini kinto/kinto.ini
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="associer-votre-kinto-a-un-nom-de-domaine"&gt;
+&lt;h2&gt;Associer votre Kinto à un nom de domaine&lt;/h2&gt;
+&lt;p&gt;Par défaut, Alwaysdata vous procure le sous domaine suivant:
+&lt;tt class="docutils literal"&gt;ID_ALWAYSDATA.alwaysdata.net&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;Mais vous pouvez également lier votre propre nom de domaine, soit en
+délégant la gestion du DNS à Alwaysdata soit en configurant la zone
+DNS pour pointer vers les serveurs de Alwaysdata.&lt;/p&gt;
+&lt;p&gt;Dans tous les cas Alwaysdata pourra vous fournir un certificat SSL
+gratuit via Let's Encrypt.&lt;/p&gt;
+&lt;div class="section" id="ajoutez-un-nouveau-site"&gt;
+&lt;h3&gt;Ajoutez un nouveau site&lt;/h3&gt;
+&lt;img alt="Configurer le site internet" src="http://www.servicedenuages.fr/images/ad-kinto-install/domain-name.png" style="width: 1044px; height: auto; max-width: 100%;"/&gt;
+&lt;/div&gt;
+&lt;div class="section" id="informations"&gt;
+&lt;h3&gt;Informations&lt;/h3&gt;
+&lt;p&gt;Entrez les informations concernant le site.&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;strong&gt;Nom&lt;/strong&gt; : Kinto&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Adresses&lt;/strong&gt;: ID_ALWAYSDATA.alwaysdata.net&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img alt="Nom du site et noms de domaine associés." src="http://www.servicedenuages.fr/images/ad-kinto-install/info-site.png" style="width: 886px; height: auto; max-width: 100%;"/&gt;
+&lt;/div&gt;
+&lt;div class="section" id="configuration"&gt;
+&lt;h3&gt;Configuration&lt;/h3&gt;
+&lt;p&gt;Configurer le site Python :&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;strong&gt;Type&lt;/strong&gt; : &lt;tt class="docutils literal"&gt;Python WSGI&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Chemin de l'application&lt;/strong&gt; : &lt;tt class="docutils literal"&gt;/kinto/kinto.wsgi&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Version de Python&lt;/strong&gt; : &lt;tt class="docutils literal"&gt;Version par défaut&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Répertoire du virtualenv&lt;/strong&gt; : &lt;tt class="docutils literal"&gt;/kinto/venv/&lt;/tt&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Chemins statiques&lt;/strong&gt; : &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;/attachments/=attachments&lt;/span&gt;&lt;/tt&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img alt="Configuration du site Python" src="http://www.servicedenuages.fr/images/ad-kinto-install/configuration.png" style="width: 857px; height: auto; max-width: 100%;"/&gt;
+&lt;/div&gt;
+&lt;div class="section" id="ssl"&gt;
+&lt;h3&gt;SSL&lt;/h3&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;strong&gt;Forcer le SSL&lt;/strong&gt; : Oui&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img alt="Configuration SSL" src="http://www.servicedenuages.fr/images/ad-kinto-install/ssl.png" style="width: 917px; height: auto; max-width: 100%;"/&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="section" id="se-connecter"&gt;
+&lt;h2&gt;Se connecter&lt;/h2&gt;
+&lt;p&gt;Vous pouvez maintenant vous connecter au site et vérifier que tout fonctionne :&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://ID_ALWAYDATA.alwaysdata.net/v1/"&gt;https://ID_ALWAYDATA.alwaysdata.net/v1/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://ID_ALWAYDATA.alwaysdata.net/v1/__heartbeat__"&gt;https://ID_ALWAYDATA.alwaysdata.net/v1/__heartbeat__&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class="section" id="configurer-un-administrateur"&gt;
+&lt;h2&gt;Configurer un administrateur&lt;/h2&gt;
+&lt;p&gt;Connectez-vous à la &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;kinto-admin&lt;/span&gt;&lt;/tt&gt; : &lt;a class="reference external" href="https://ID_ALWAYDATA.alwaysdata.net/v1/admin/"&gt;https://ID_ALWAYDATA.alwaysdata.net/v1/admin/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Choisissez un login/password et connectez-vous. Vous allez obtenir un
+identifiant unique pour votre administrateur: &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;basicauth:......&lt;/span&gt;&lt;/tt&gt;&lt;/p&gt;
+&lt;p&gt;Vous pouvez ensuite modifier la configuration de votre serveur Kinto
+pour n'autoriser la création de bucket que par cet utilisateur (et
+vous protéger des usages abusifs de votre service.)&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="na"&gt;kinto.bucket_create_principals&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;basicauth:800748fb8963fd00...a3420db354570a4e&lt;/span&gt;
+&lt;span class="na"&gt;kinto.bucket_write_principals&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;basicauth:800748fb8963fd00...a3420db354570a4e&lt;/span&gt;
+&lt;span class="na"&gt;kinto.bucket_read_principals&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;basicauth:800748fb8963fd00...a3420db354570a4e&lt;/span&gt;
+
+&lt;span class="na"&gt;kinto.collection_create_principals&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;basicauth:800748fb8963fd00...a3420db354570a4e&lt;/span&gt;
+&lt;span class="na"&gt;kinto.collection_write_principals&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;basicauth:800748fb8963fd00...a3420db354570a4e&lt;/span&gt;
+&lt;span class="na"&gt;kinto.collection_read_principals&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;basicauth:800748fb8963fd00...a3420db354570a4e&lt;/span&gt;
+
+&lt;span class="na"&gt;kinto.group_create_principals&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;basicauth:800748fb8963fd00...a3420db354570a4e&lt;/span&gt;
+&lt;span class="na"&gt;kinto.group_write_principals&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;basicauth:800748fb8963fd00...a3420db354570a4e&lt;/span&gt;
+&lt;span class="na"&gt;kinto.group_read_principals&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;basicauth:800748fb8963fd00...a3420db354570a4e&lt;/span&gt;
+
+&lt;span class="na"&gt;kinto.record_create_principals&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;basicauth:800748fb8963fd00...a3420db354570a4e&lt;/span&gt;
+&lt;span class="na"&gt;kinto.record_write_principals&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;basicauth:800748fb8963fd00...a3420db354570a4e&lt;/span&gt;
+&lt;span class="na"&gt;kinto.record_read_principals&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="s"&gt;basicauth:800748fb8963fd00...a3420db354570a4e&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Si vous utilisez un autre système d'authentification, vous aurez
+probablement d'autres identifiants ne commençant pas par basicauth
+mais vous pouvez quand même utiliser ces identifiants dans votre
+fichier de configuration.&lt;/p&gt;
+&lt;p&gt;Vous pouvez également créer un groupe et utiliser ce groupe comme identifiant.&lt;/p&gt;
+&lt;p&gt;N'hésitez pas à nous demander de l'aide sur &lt;a class="reference external" href="http://slack.kinto-storage.org/"&gt;Slack&lt;/a&gt;
+ou &lt;a class="reference external" href="https://kiwiirc.com/client/irc.freenode.net/?#kinto"&gt;IRC&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+</content><category term="mozilla"></category></entry><entry><title>Workflow de validation dans Kinto</title><link href="http://www.servicedenuages.fr/kinto-workflows" rel="alternate"></link><published>2016-11-14T00:00:00+01:00</published><updated>2016-11-14T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-11-14:/kinto-workflows</id><summary type="html">&lt;p class="first last"&gt;Debrief des fonctionnalités de validation dans Kinto.&lt;/p&gt;
 </summary><content type="html">&lt;div class="section" id="le-besoin-initial"&gt;
 &lt;h2&gt;Le besoin initial&lt;/h2&gt;
 &lt;p&gt;Une grosse partie de notre travail sur &lt;em&gt;Kinto&lt;/em&gt; chez Mozilla consiste à améliorer

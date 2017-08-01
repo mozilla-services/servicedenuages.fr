@@ -30,7 +30,7 @@
         <header class="header-article">
             <hgroup>
                 <h5>Publié</h5>
-                <p title="~583 mots">~3mn de lecture 🕑</p>
+                <p title="~621 mots">~3mn de lecture 🕑</p>
                 <p>mar. 01 août 2017</p>
                 <a href="/">&larr; Liste des articles</a>
             </hgroup>
@@ -41,6 +41,8 @@
             <section class="post">
                 <header class="post-header">
                     <h1>Comment installer Kinto manuellement chez Alwaysdata</h1>
+                        <p class="post-meta">                                <a class="post-category" href="http://www.servicedenuages.fr/tag/mozilla.html">mozilla</a>
+                        </p>
                 </header>
             </section>
             <div class="section" id="qu-est-ce-que-alwaysdata">
@@ -52,6 +54,14 @@ liberté.</p>
 de grande qualité.</p>
 <p>Une offre de découverte gratuite vous permet de tester le service
 avant de souscrire à un abonnement.</p>
+</div>
+<div class="section" id="creer-un-compte-chez-alwaysdata">
+<h2>Créer un compte chez Alwaysdata</h2>
+<p>Pour créer un compte, rendez-vous ici: <a class="reference external" href="https://www.alwaysdata.com/fr/signup/">https://www.alwaysdata.com/fr/signup/</a></p>
+<p>Vous allez renseigner vos coordonnées, votre email et choisir un mot
+de passe ainsi qu'un identifiant pour votre compte.</p>
+<p>Cet identifiant vous sera nécessaire par la suite. Nous l'appelons
+ID_ALWAYSDATA.</p>
 </div>
 <div class="section" id="installation-automatique-de-kinto-chez-alwaysdata">
 <h2>Installation automatique de Kinto chez Alwaysdata</h2>
@@ -119,7 +129,7 @@ kinto/venv/bin/kinto migrate --ini kinto/kinto.ini
 <p>Par défaut, Alwaysdata vous procure le sous domaine suivant:
 <tt class="docutils literal">ID_ALWAYSDATA.alwaysdata.net</tt></p>
 <p>Mais vous pouvez également lier votre propre nom de domaine, soit en
-déléguant la gestion du DNS à Alwaysdata soit en configurant la zone
+délégant la gestion du DNS à Alwaysdata soit en configurant la zone
 DNS pour pointer vers les serveurs de Alwaysdata.</p>
 <p>Dans tous les cas Alwaysdata pourra vous fournir un certificat SSL
 gratuit via Let's Encrypt.</p>
@@ -142,10 +152,9 @@ gratuit via Let's Encrypt.</p>
 <ul class="simple">
 <li><strong>Type</strong> : <tt class="docutils literal">Python WSGI</tt></li>
 <li><strong>Chemin de l'application</strong> : <tt class="docutils literal">/kinto/kinto.wsgi</tt></li>
-<li><strong>Répertoire de travail</strong> : <tt class="docutils literal">/kinto/</tt></li>
 <li><strong>Version de Python</strong> : <tt class="docutils literal">Version par défaut</tt></li>
 <li><strong>Répertoire du virtualenv</strong> : <tt class="docutils literal">/kinto/venv/</tt></li>
-<li><strong>Chemins statiques</strong> : <tt class="docutils literal"><span class="pre">/attachments/=/kinto/attachments/</span></tt></li>
+<li><strong>Chemins statiques</strong> : <tt class="docutils literal"><span class="pre">/attachments/=attachments</span></tt></li>
 </ul>
 <img alt="Configuration du site Python" src="http://www.servicedenuages.fr/images/ad-kinto-install/configuration.png" style="width: 857px; height: auto; max-width: 100%;"/>
 </div>
@@ -189,11 +198,11 @@ vous protéger des usages abusifs de votre service.)</p>
 <span class="na">kinto.record_write_principals</span> <span class="o">=</span> <span class="s">basicauth:800748fb8963fd00...a3420db354570a4e</span>
 <span class="na">kinto.record_read_principals</span> <span class="o">=</span> <span class="s">basicauth:800748fb8963fd00...a3420db354570a4e</span>
 </pre></div>
-<p>Si vous utilisez un autre système d'authenficiation, vous aurez
+<p>Si vous utilisez un autre système d'authentification, vous aurez
 probablement d'autres identifiants ne commençant pas par basicauth
 mais vous pouvez quand même utiliser ces identifiants dans votre
 fichier de configuration.</p>
-<p>Vous pouvez également créer un groupe et utiliser se groupe comme identifiant.</p>
+<p>Vous pouvez également créer un groupe et utiliser ce groupe comme identifiant.</p>
 <p>N'hésitez pas à nous demander de l'aide sur <a class="reference external" href="http://slack.kinto-storage.org/">Slack</a>
 ou <a class="reference external" href="https://kiwiirc.com/client/irc.freenode.net/?#kinto">IRC</a>.</p>
 </div>
