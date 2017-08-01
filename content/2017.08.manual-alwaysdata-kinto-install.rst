@@ -1,0 +1,223 @@
+Comment installer Kinto manuellement chez Alwaysdata
+####################################################
+
+:date: 2017-08-01
+:summary: Apprennez à installer Kinto chez Alwaysdata manuelllement.
+:slug: kinto-installation-alwaysdata-manuelle
+:lang: fr
+:url: kinto-installation-alwaysdata-manuelle
+
+
+Qu'est-ce que Alwaysdata ?
+==========================
+
+Alwaysdata est un hébergeur français qui vous permet de payer pour un
+espace et d'y héberger autant de sites que vous le souhaitez en toute
+liberté.
+
+L'équipe est à l'écoute et très sympathique ce qui en fait un service
+de grande qualité.
+
+Une offre de découverte gratuite vous permet de tester le service
+avant de souscrire à un abonnement.
+
+
+Installation automatique de Kinto chez Alwaysdata
+=================================================
+
+Avant toute chose, sachez qu'il existe un script qui s'occupe de faire
+l'installation pour vous automatiquement.
+
+Vous pouvez le trouver ici : https://kinto.github.io/kinto-alwaysdata/
+
+
+Installation manuelle de Kinto chez Alwaysdata
+==============================================
+
+
+Activez Python 3.6.0
+--------------------
+
+Dans le menu ``Environnement > Python`` vérifiez que votre version de
+Python par défaut soit bien au moins ``Python 3.6.0``
+
+.. image:: {filename}/images/ad-kinto-install/env.png
+    :alt: Configurer la version 3.6.0 de Python chez Alwaysdata.
+
+
+Créez une base de données PostgreSQL
+------------------------------------
+
+Via l'administration de Alwaysdata vous pouvez créer un utilisateur et
+une base de données PostgreSQL, retenez bien l'identifiant et le mot
+de passe car vous en aurez besoin pour votre fichier de configuration
+``kinto.ini``
+
+.. image:: {filename}/images/ad-kinto-install/postgresql.png
+    :alt: Créer un utilisateur et une base de données PostgreSQL
+
+
+Activer la connexion SSH
+------------------------
+
+L'installation de Kinto chez Alwaysdata se fait à l'aide de la
+connexion SSH.
+
+Commencez par vous connecter à l'administration et à activer votre
+compte SSH.
+
+.. image:: {filename}/images/ad-kinto-install/ssh.png
+    :alt: Activer l'utilisateur SSH.
+
+
+Créer le fichier de configuration de Kinto
+------------------------------------------
+
+Créez le fichier ``kinto/kinto.ini``
+
+Vous pouvez utiliser
+`ce modèle de fichier ini <https://github.com/Kinto/kinto-alwaysdata/blob/master/alwaysdata_kinto/alwaysdata_kinto/kinto.ini>`_
+en veillant bien à remplacer ``{id_alwaysdata}`` et à configurer votre
+base de donnée PostgreSQL avec votre identifiant et mot de passe. Il
+est conseiller de créer un utilisateur spécifique pour Kinto.
+
+Vous devez également générer une clé secrète pour ``{hmac_secret}``.
+
+Pour ce faire vous pouvez utiliser la commande ``uuidgen``
+
+
+Créer le lanceur du serveur
+---------------------------
+
+Créez le fichier ``kinto/kinto.wsgi``
+
+Vous pouvez utiliser `ce modèle de fichier WSGI <https://github.com/Kinto/kinto-alwaysdata/blob/master/alwaysdata_kinto/alwaysdata_kinto/kinto.wsgi>`_
+
+Veillez à ce que le fichier soit exécutable :
+
+.. code-block:: bash
+
+    chmod +x kinto/kinto.wsgi
+
+
+Créer un environment virtuel Python et installez Kinto dedans
+-------------------------------------------------------------
+
+Vous pouvez vous connecter à votre compte SSH depuis le terminal :
+
+.. code-block:: bash
+
+    ssh ID_ALWAYSDATA@ssh-ID_ALWAYSDATA.alwaysdata.net
+
+Remplacez ``ID_ALWAYSDATA`` par l'identifiant de votre compte alwaysdata.
+
+.. code-block:: bash
+
+    virtualenv kinto/venv/
+    kinto/venv/bin/pip install kinto[postgresql] kinto-attachment
+    kinto/venv/bin/kinto migrate --ini kinto/kinto.ini
+
+
+Associer votre Kinto à un nom de domaine
+========================================
+
+Par défaut, Alwaysdata vous procure le sous domaine suivant:
+``ID_ALWAYSDATA.alwaysdata.net``
+
+Mais vous pouvez également lier votre propre nom de domaine, soit en
+déléguant la gestion du DNS à Alwaysdata soit en configurant la zone
+DNS pour pointer vers les serveurs de Alwaysdata.
+
+Dans tous les cas Alwaysdata pourra vous fournir un certificat SSL
+gratuit via Let's Encrypt.
+
+Ajoutez un nouveau site
+-----------------------
+
+.. image:: {filename}/images/ad-kinto-install/domain-name.png
+    :alt: Configurer le site internet
+
+
+Informations
+------------
+
+Entrez les informations concernant le site.
+
+- **Nom** : Kinto
+- **Adresses**: ID_ALWAYSDATA.alwaysdata.net
+
+.. image:: {filename}/images/ad-kinto-install/info-site.png
+    :alt: Nom du site et noms de domaine associés.
+
+Configuration
+-------------
+
+Configurer le site Python :
+
+- **Type** : ``Python WSGI``
+- **Chemin de l'application** : ``/kinto/kinto.wsgi``
+- **Répertoire de travail** : ``/kinto/``
+- **Version de Python** : ``Version par défaut``
+- **Répertoire du virtualenv** : ``/kinto/venv/``
+- **Chemins statiques** : ``/attachments/=/kinto/attachments/``
+
+.. image:: {filename}/images/ad-kinto-install/configuration.png
+    :alt: Configuration du site Python
+
+SSL
+---
+
+- **Forcer le SSL** : Oui
+
+.. image:: {filename}/images/ad-kinto-install/ssl.png
+    :alt: Configuration SSL
+
+
+Se connecter
+============
+
+Vous pouvez maintenant vous connecter au site et vérifier que tout fonctionne :
+
+- https://ID_ALWAYDATA.alwaysdata.net/v1/
+- https://ID_ALWAYDATA.alwaysdata.net/v1/__heartbeat__
+
+
+Configurer un administrateur
+============================
+
+Connectez-vous à la ``kinto-admin`` : https://ID_ALWAYDATA.alwaysdata.net/v1/admin/
+
+Choisissez un login/password et connectez-vous. Vous allez obtenir un
+identifiant unique pour votre administrateur: ``basicauth:......``
+
+Vous pouvez ensuite modifier la configuration de votre serveur Kinto
+pour n'autoriser la création de bucket que par cet utilisateur (et
+vous protéger des usages abusifs de votre service.)
+
+.. code-block:: ini
+
+    kinto.bucket_create_principals = basicauth:800748fb8963fd00...a3420db354570a4e
+    kinto.bucket_write_principals = basicauth:800748fb8963fd00...a3420db354570a4e
+    kinto.bucket_read_principals = basicauth:800748fb8963fd00...a3420db354570a4e
+
+    kinto.collection_create_principals = basicauth:800748fb8963fd00...a3420db354570a4e
+    kinto.collection_write_principals = basicauth:800748fb8963fd00...a3420db354570a4e
+    kinto.collection_read_principals = basicauth:800748fb8963fd00...a3420db354570a4e
+
+    kinto.group_create_principals = basicauth:800748fb8963fd00...a3420db354570a4e
+    kinto.group_write_principals = basicauth:800748fb8963fd00...a3420db354570a4e
+    kinto.group_read_principals = basicauth:800748fb8963fd00...a3420db354570a4e
+
+    kinto.record_create_principals = basicauth:800748fb8963fd00...a3420db354570a4e
+    kinto.record_write_principals = basicauth:800748fb8963fd00...a3420db354570a4e
+    kinto.record_read_principals = basicauth:800748fb8963fd00...a3420db354570a4e
+
+Si vous utilisez un autre système d'authenficiation, vous aurez
+probablement d'autres identifiants ne commençant pas par basicauth
+mais vous pouvez quand même utiliser ces identifiants dans votre
+fichier de configuration.
+
+Vous pouvez également créer un groupe et utiliser se groupe comme identifiant.
+
+N'hésitez pas à nous demander de l'aide sur `Slack <http://slack.kinto-storage.org/>`_
+ou `IRC <https://kiwiirc.com/client/irc.freenode.net/?#kinto>`_.
