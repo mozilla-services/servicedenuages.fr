@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>Comment installer Kinto manuellement chez Alwaysdata // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Publié</h5>
+                <p title="~583 mots">~3mn de lecture 🕑</p>
+                <p>mar. 01 août 2017</p>
+                <a href="/">&larr; Liste des articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Comment installer Kinto manuellement chez Alwaysdata</h1>
+                </header>
+            </section>
+            <div class="section" id="qu-est-ce-que-alwaysdata">
+<h2>Qu'est-ce que Alwaysdata ?</h2>
+<p>Alwaysdata est un hébergeur français qui vous permet de payer pour un
+espace et d'y héberger autant de sites que vous le souhaitez en toute
+liberté.</p>
+<p>L'équipe est à l'écoute et très sympathique ce qui en fait un service
+de grande qualité.</p>
+<p>Une offre de découverte gratuite vous permet de tester le service
+avant de souscrire à un abonnement.</p>
+</div>
+<div class="section" id="installation-automatique-de-kinto-chez-alwaysdata">
+<h2>Installation automatique de Kinto chez Alwaysdata</h2>
+<p>Avant toute chose, sachez qu'il existe un script qui s'occupe de faire
+l'installation pour vous automatiquement.</p>
+<p>Vous pouvez le trouver ici : <a class="reference external" href="https://kinto.github.io/kinto-alwaysdata/">https://kinto.github.io/kinto-alwaysdata/</a></p>
+</div>
+<div class="section" id="installation-manuelle-de-kinto-chez-alwaysdata">
+<h2>Installation manuelle de Kinto chez Alwaysdata</h2>
+<div class="section" id="activez-python-3-6-0">
+<h3>Activez Python 3.6.0</h3>
+<p>Dans le menu <tt class="docutils literal">Environnement &gt; Python</tt> vérifiez que votre version de
+Python par défaut soit bien au moins <tt class="docutils literal">Python 3.6.0</tt></p>
+<img alt="Configurer la version 3.6.0 de Python chez Alwaysdata." src="http://www.servicedenuages.fr/images/ad-kinto-install/env.png" style="width: 1044px; height: auto; max-width: 100%;"/>
+</div>
+<div class="section" id="creez-une-base-de-donnees-postgresql">
+<h3>Créez une base de données PostgreSQL</h3>
+<p>Via l'administration de Alwaysdata vous pouvez créer un utilisateur et
+une base de données PostgreSQL, retenez bien l'identifiant et le mot
+de passe car vous en aurez besoin pour votre fichier de configuration
+<tt class="docutils literal">kinto.ini</tt></p>
+<img alt="Créer un utilisateur et une base de données PostgreSQL" src="http://www.servicedenuages.fr/images/ad-kinto-install/postgresql.png" style="width: 1041px; height: auto; max-width: 100%;"/>
+</div>
+<div class="section" id="activer-la-connexion-ssh">
+<h3>Activer la connexion SSH</h3>
+<p>L'installation de Kinto chez Alwaysdata se fait à l'aide de la
+connexion SSH.</p>
+<p>Commencez par vous connecter à l'administration et à activer votre
+compte SSH.</p>
+<img alt="Activer l'utilisateur SSH." src="http://www.servicedenuages.fr/images/ad-kinto-install/ssh.png" style="width: 921px; height: auto; max-width: 100%;"/>
+</div>
+<div class="section" id="creer-le-fichier-de-configuration-de-kinto">
+<h3>Créer le fichier de configuration de Kinto</h3>
+<p>Créez le fichier <tt class="docutils literal">kinto/kinto.ini</tt></p>
+<p>Vous pouvez utiliser
+<a class="reference external" href="https://github.com/Kinto/kinto-alwaysdata/blob/master/alwaysdata_kinto/alwaysdata_kinto/kinto.ini">ce modèle de fichier ini</a>
+en veillant bien à remplacer <tt class="docutils literal">{id_alwaysdata}</tt> et à configurer votre
+base de donnée PostgreSQL avec votre identifiant et mot de passe. Il
+est conseiller de créer un utilisateur spécifique pour Kinto.</p>
+<p>Vous devez également générer une clé secrète pour <tt class="docutils literal">{hmac_secret}</tt>.</p>
+<p>Pour ce faire vous pouvez utiliser la commande <tt class="docutils literal">uuidgen</tt></p>
+</div>
+<div class="section" id="creer-le-lanceur-du-serveur">
+<h3>Créer le lanceur du serveur</h3>
+<p>Créez le fichier <tt class="docutils literal">kinto/kinto.wsgi</tt></p>
+<p>Vous pouvez utiliser <a class="reference external" href="https://github.com/Kinto/kinto-alwaysdata/blob/master/alwaysdata_kinto/alwaysdata_kinto/kinto.wsgi">ce modèle de fichier WSGI</a></p>
+<p>Veillez à ce que le fichier soit exécutable :</p>
+<div class="highlight"><pre><span></span>chmod +x kinto/kinto.wsgi
+</pre></div>
+</div>
+<div class="section" id="creer-un-environment-virtuel-python-et-installez-kinto-dedans">
+<h3>Créer un environment virtuel Python et installez Kinto dedans</h3>
+<p>Vous pouvez vous connecter à votre compte SSH depuis le terminal :</p>
+<div class="highlight"><pre><span></span>ssh ID_ALWAYSDATA@ssh-ID_ALWAYSDATA.alwaysdata.net
+</pre></div>
+<p>Remplacez <tt class="docutils literal">ID_ALWAYSDATA</tt> par l'identifiant de votre compte alwaysdata.</p>
+<div class="highlight"><pre><span></span>virtualenv kinto/venv/
+kinto/venv/bin/pip install kinto<span class="o">[</span>postgresql<span class="o">]</span> kinto-attachment
+kinto/venv/bin/kinto migrate --ini kinto/kinto.ini
+</pre></div>
+</div>
+</div>
+<div class="section" id="associer-votre-kinto-a-un-nom-de-domaine">
+<h2>Associer votre Kinto à un nom de domaine</h2>
+<p>Par défaut, Alwaysdata vous procure le sous domaine suivant:
+<tt class="docutils literal">ID_ALWAYSDATA.alwaysdata.net</tt></p>
+<p>Mais vous pouvez également lier votre propre nom de domaine, soit en
+déléguant la gestion du DNS à Alwaysdata soit en configurant la zone
+DNS pour pointer vers les serveurs de Alwaysdata.</p>
+<p>Dans tous les cas Alwaysdata pourra vous fournir un certificat SSL
+gratuit via Let's Encrypt.</p>
+<div class="section" id="ajoutez-un-nouveau-site">
+<h3>Ajoutez un nouveau site</h3>
+<img alt="Configurer le site internet" src="http://www.servicedenuages.fr/images/ad-kinto-install/domain-name.png" style="width: 1044px; height: auto; max-width: 100%;"/>
+</div>
+<div class="section" id="informations">
+<h3>Informations</h3>
+<p>Entrez les informations concernant le site.</p>
+<ul class="simple">
+<li><strong>Nom</strong> : Kinto</li>
+<li><strong>Adresses</strong>: ID_ALWAYSDATA.alwaysdata.net</li>
+</ul>
+<img alt="Nom du site et noms de domaine associés." src="http://www.servicedenuages.fr/images/ad-kinto-install/info-site.png" style="width: 886px; height: auto; max-width: 100%;"/>
+</div>
+<div class="section" id="configuration">
+<h3>Configuration</h3>
+<p>Configurer le site Python :</p>
+<ul class="simple">
+<li><strong>Type</strong> : <tt class="docutils literal">Python WSGI</tt></li>
+<li><strong>Chemin de l'application</strong> : <tt class="docutils literal">/kinto/kinto.wsgi</tt></li>
+<li><strong>Répertoire de travail</strong> : <tt class="docutils literal">/kinto/</tt></li>
+<li><strong>Version de Python</strong> : <tt class="docutils literal">Version par défaut</tt></li>
+<li><strong>Répertoire du virtualenv</strong> : <tt class="docutils literal">/kinto/venv/</tt></li>
+<li><strong>Chemins statiques</strong> : <tt class="docutils literal"><span class="pre">/attachments/=/kinto/attachments/</span></tt></li>
+</ul>
+<img alt="Configuration du site Python" src="http://www.servicedenuages.fr/images/ad-kinto-install/configuration.png" style="width: 857px; height: auto; max-width: 100%;"/>
+</div>
+<div class="section" id="ssl">
+<h3>SSL</h3>
+<ul class="simple">
+<li><strong>Forcer le SSL</strong> : Oui</li>
+</ul>
+<img alt="Configuration SSL" src="http://www.servicedenuages.fr/images/ad-kinto-install/ssl.png" style="width: 917px; height: auto; max-width: 100%;"/>
+</div>
+</div>
+<div class="section" id="se-connecter">
+<h2>Se connecter</h2>
+<p>Vous pouvez maintenant vous connecter au site et vérifier que tout fonctionne :</p>
+<ul class="simple">
+<li><a class="reference external" href="https://ID_ALWAYDATA.alwaysdata.net/v1/">https://ID_ALWAYDATA.alwaysdata.net/v1/</a></li>
+<li><a class="reference external" href="https://ID_ALWAYDATA.alwaysdata.net/v1/__heartbeat__">https://ID_ALWAYDATA.alwaysdata.net/v1/__heartbeat__</a></li>
+</ul>
+</div>
+<div class="section" id="configurer-un-administrateur">
+<h2>Configurer un administrateur</h2>
+<p>Connectez-vous à la <tt class="docutils literal"><span class="pre">kinto-admin</span></tt> : <a class="reference external" href="https://ID_ALWAYDATA.alwaysdata.net/v1/admin/">https://ID_ALWAYDATA.alwaysdata.net/v1/admin/</a></p>
+<p>Choisissez un login/password et connectez-vous. Vous allez obtenir un
+identifiant unique pour votre administrateur: <tt class="docutils literal"><span class="pre">basicauth:......</span></tt></p>
+<p>Vous pouvez ensuite modifier la configuration de votre serveur Kinto
+pour n'autoriser la création de bucket que par cet utilisateur (et
+vous protéger des usages abusifs de votre service.)</p>
+<div class="highlight"><pre><span></span><span class="na">kinto.bucket_create_principals</span> <span class="o">=</span> <span class="s">basicauth:800748fb8963fd00...a3420db354570a4e</span>
+<span class="na">kinto.bucket_write_principals</span> <span class="o">=</span> <span class="s">basicauth:800748fb8963fd00...a3420db354570a4e</span>
+<span class="na">kinto.bucket_read_principals</span> <span class="o">=</span> <span class="s">basicauth:800748fb8963fd00...a3420db354570a4e</span>
+
+<span class="na">kinto.collection_create_principals</span> <span class="o">=</span> <span class="s">basicauth:800748fb8963fd00...a3420db354570a4e</span>
+<span class="na">kinto.collection_write_principals</span> <span class="o">=</span> <span class="s">basicauth:800748fb8963fd00...a3420db354570a4e</span>
+<span class="na">kinto.collection_read_principals</span> <span class="o">=</span> <span class="s">basicauth:800748fb8963fd00...a3420db354570a4e</span>
+
+<span class="na">kinto.group_create_principals</span> <span class="o">=</span> <span class="s">basicauth:800748fb8963fd00...a3420db354570a4e</span>
+<span class="na">kinto.group_write_principals</span> <span class="o">=</span> <span class="s">basicauth:800748fb8963fd00...a3420db354570a4e</span>
+<span class="na">kinto.group_read_principals</span> <span class="o">=</span> <span class="s">basicauth:800748fb8963fd00...a3420db354570a4e</span>
+
+<span class="na">kinto.record_create_principals</span> <span class="o">=</span> <span class="s">basicauth:800748fb8963fd00...a3420db354570a4e</span>
+<span class="na">kinto.record_write_principals</span> <span class="o">=</span> <span class="s">basicauth:800748fb8963fd00...a3420db354570a4e</span>
+<span class="na">kinto.record_read_principals</span> <span class="o">=</span> <span class="s">basicauth:800748fb8963fd00...a3420db354570a4e</span>
+</pre></div>
+<p>Si vous utilisez un autre système d'authenficiation, vous aurez
+probablement d'autres identifiants ne commençant pas par basicauth
+mais vous pouvez quand même utiliser ces identifiants dans votre
+fichier de configuration.</p>
+<p>Vous pouvez également créer un groupe et utiliser se groupe comme identifiant.</p>
+<p>N'hésitez pas à nous demander de l'aide sur <a class="reference external" href="http://slack.kinto-storage.org/">Slack</a>
+ou <a class="reference external" href="https://kiwiirc.com/client/irc.freenode.net/?#kinto">IRC</a>.</p>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.notmyidea.org/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>
