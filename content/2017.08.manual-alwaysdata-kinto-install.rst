@@ -21,6 +21,17 @@ de grande qualité.
 Une offre de découverte gratuite vous permet de tester le service
 avant de souscrire à un abonnement.
 
+Créer un compte chez Alwaysdata
+===============================
+
+Pour créer un compte, rendez-vous ici: https://www.alwaysdata.com/fr/signup/
+
+Vous allez renseigner vos coordonnées, votre email et choisir un mot
+de passe ainsi qu'un identifiant pour votre compte.
+
+Cet identifiant vous sera nécessaire par la suite. Nous l'appelons
+ID_ALWAYSDATA.
+
 
 Installation automatique de Kinto chez Alwaysdata
 =================================================
@@ -125,7 +136,7 @@ Par défaut, Alwaysdata vous procure le sous domaine suivant:
 ``ID_ALWAYSDATA.alwaysdata.net``
 
 Mais vous pouvez également lier votre propre nom de domaine, soit en
-déléguant la gestion du DNS à Alwaysdata soit en configurant la zone
+délégant la gestion du DNS à Alwaysdata soit en configurant la zone
 DNS pour pointer vers les serveurs de Alwaysdata.
 
 Dans tous les cas Alwaysdata pourra vous fournir un certificat SSL
@@ -156,10 +167,9 @@ Configurer le site Python :
 
 - **Type** : ``Python WSGI``
 - **Chemin de l'application** : ``/kinto/kinto.wsgi``
-- **Répertoire de travail** : ``/kinto/``
 - **Version de Python** : ``Version par défaut``
 - **Répertoire du virtualenv** : ``/kinto/venv/``
-- **Chemins statiques** : ``/attachments/=/kinto/attachments/``
+- **Chemins statiques** : ``/attachments/=attachments``
 
 .. image:: {filename}/images/ad-kinto-install/configuration.png
     :alt: Configuration du site Python
@@ -212,12 +222,12 @@ vous protéger des usages abusifs de votre service.)
     kinto.record_write_principals = basicauth:800748fb8963fd00...a3420db354570a4e
     kinto.record_read_principals = basicauth:800748fb8963fd00...a3420db354570a4e
 
-Si vous utilisez un autre système d'authenficiation, vous aurez
+Si vous utilisez un autre système d'authentification, vous aurez
 probablement d'autres identifiants ne commençant pas par basicauth
 mais vous pouvez quand même utiliser ces identifiants dans votre
 fichier de configuration.
 
-Vous pouvez également créer un groupe et utiliser se groupe comme identifiant.
+Vous pouvez également créer un groupe et utiliser ce groupe comme identifiant.
 
 N'hésitez pas à nous demander de l'aide sur `Slack <http://slack.kinto-storage.org/>`_
 ou `IRC <https://kiwiirc.com/client/irc.freenode.net/?#kinto>`_.
