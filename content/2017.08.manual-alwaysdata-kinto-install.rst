@@ -88,13 +88,19 @@ Créez le fichier ``kinto/kinto.ini``
 
 Vous pouvez utiliser
 `ce modèle de fichier ini <https://github.com/Kinto/kinto-alwaysdata/blob/master/alwaysdata_kinto/alwaysdata_kinto/kinto.ini>`_
-en veillant bien à remplacer ``{id_alwaysdata}`` et à configurer votre
-base de donnée PostgreSQL avec votre identifiant et mot de passe. Il
-est conseillé de créer un utilisateur spécifique pour Kinto.
+en veillant bien à remplacer les champs de type ``{...}`` et à configurer votre
+base de donnée PostgreSQL (appellée ici `DBname`) avec votre identifiant et mot de passe. Il
+est conseillé de créer un utilisateur spécifique pour Kinto (ici `DBuser`) en plus de votre compte AlwaysData (ici `ADuser`).
+
+* {id_alwaysdata} -> ADuser_DBuser
+* {password} -> le mot de passe
+* {postgresql_host} -> postgresql-ADuser.alwaysdata.net
+* {prefixed_username} -> ADuser_DBname
 
 Vous devez également générer une clé secrète pour ``{hmac_secret}``.
+Pour ce faire vous pouvez utiliser la commande ``uuidgen``.
 
-Pour ce faire vous pouvez utiliser la commande ``uuidgen``
+Pas besoin de changer `{bucket_id}/{collection_id}`.
 
 
 Créer le lanceur du serveur
