@@ -53,11 +53,18 @@ compte SSH.&lt;/p&gt;
 &lt;p&gt;Créez le fichier &lt;tt class="docutils literal"&gt;kinto/kinto.ini&lt;/tt&gt;&lt;/p&gt;
 &lt;p&gt;Vous pouvez utiliser
 &lt;a class="reference external" href="https://github.com/Kinto/kinto-alwaysdata/blob/master/alwaysdata_kinto/alwaysdata_kinto/kinto.ini"&gt;ce modèle de fichier ini&lt;/a&gt;
-en veillant bien à remplacer &lt;tt class="docutils literal"&gt;{id_alwaysdata}&lt;/tt&gt; et à configurer votre
-base de donnée PostgreSQL avec votre identifiant et mot de passe. Il
-est conseillé de créer un utilisateur spécifique pour Kinto.&lt;/p&gt;
-&lt;p&gt;Vous devez également générer une clé secrète pour &lt;tt class="docutils literal"&gt;{hmac_secret}&lt;/tt&gt;.&lt;/p&gt;
-&lt;p&gt;Pour ce faire vous pouvez utiliser la commande &lt;tt class="docutils literal"&gt;uuidgen&lt;/tt&gt;&lt;/p&gt;
+en veillant bien à remplacer les champs de type &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;{...}&lt;/span&gt;&lt;/tt&gt; et à configurer votre
+base de donnée PostgreSQL (appellée ici &lt;cite&gt;DBname&lt;/cite&gt;) avec votre identifiant et mot de passe. Il
+est conseillé de créer un utilisateur spécifique pour Kinto (ici &lt;cite&gt;DBuser&lt;/cite&gt;) en plus de votre compte AlwaysData (ici &lt;cite&gt;ADuser&lt;/cite&gt;).&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;{id_alwaysdata} -&amp;gt; ADuser_DBuser&lt;/li&gt;
+&lt;li&gt;{password} -&amp;gt; le mot de passe&lt;/li&gt;
+&lt;li&gt;{postgresql_host} -&amp;gt; postgresql-ADuser.alwaysdata.net&lt;/li&gt;
+&lt;li&gt;{prefixed_username} -&amp;gt; ADuser_DBname&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Vous devez également générer une clé secrète pour &lt;tt class="docutils literal"&gt;{hmac_secret}&lt;/tt&gt;.
+Pour ce faire vous pouvez utiliser la commande &lt;tt class="docutils literal"&gt;uuidgen&lt;/tt&gt;.&lt;/p&gt;
+&lt;p&gt;Pas besoin de changer &lt;cite&gt;{bucket_id}/{collection_id}&lt;/cite&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="section" id="creer-le-lanceur-du-serveur"&gt;
 &lt;h3&gt;Créer le lanceur du serveur&lt;/h3&gt;

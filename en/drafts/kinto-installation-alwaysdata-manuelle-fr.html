@@ -30,7 +30,7 @@
         <header class="header-article">
             <hgroup>
                 <h5>Publié</h5>
-                <p title="~621 mots">~3mn de lecture 🕑</p>
+                <p title="~657 mots">~3mn de lecture 🕑</p>
                 <p>mar. 01 août 2017</p>
                 <a href="/">&larr; Liste des articles</a>
             </hgroup>
@@ -96,11 +96,18 @@ compte SSH.</p>
 <p>Créez le fichier <tt class="docutils literal">kinto/kinto.ini</tt></p>
 <p>Vous pouvez utiliser
 <a class="reference external" href="https://github.com/Kinto/kinto-alwaysdata/blob/master/alwaysdata_kinto/alwaysdata_kinto/kinto.ini">ce modèle de fichier ini</a>
-en veillant bien à remplacer <tt class="docutils literal">{id_alwaysdata}</tt> et à configurer votre
-base de donnée PostgreSQL avec votre identifiant et mot de passe. Il
-est conseillé de créer un utilisateur spécifique pour Kinto.</p>
-<p>Vous devez également générer une clé secrète pour <tt class="docutils literal">{hmac_secret}</tt>.</p>
-<p>Pour ce faire vous pouvez utiliser la commande <tt class="docutils literal">uuidgen</tt></p>
+en veillant bien à remplacer les champs de type <tt class="docutils literal"><span class="pre">{...}</span></tt> et à configurer votre
+base de donnée PostgreSQL (appellée ici <cite>DBname</cite>) avec votre identifiant et mot de passe. Il
+est conseillé de créer un utilisateur spécifique pour Kinto (ici <cite>DBuser</cite>) en plus de votre compte AlwaysData (ici <cite>ADuser</cite>).</p>
+<ul class="simple">
+<li>{id_alwaysdata} -&gt; ADuser_DBuser</li>
+<li>{password} -&gt; le mot de passe</li>
+<li>{postgresql_host} -&gt; postgresql-ADuser.alwaysdata.net</li>
+<li>{prefixed_username} -&gt; ADuser_DBname</li>
+</ul>
+<p>Vous devez également générer une clé secrète pour <tt class="docutils literal">{hmac_secret}</tt>.
+Pour ce faire vous pouvez utiliser la commande <tt class="docutils literal">uuidgen</tt>.</p>
+<p>Pas besoin de changer <cite>{bucket_id}/{collection_id}</cite>.</p>
 </div>
 <div class="section" id="creer-le-lanceur-du-serveur">
 <h3>Créer le lanceur du serveur</h3>
