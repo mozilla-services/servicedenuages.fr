@@ -237,3 +237,16 @@ Vous pouvez également créer un groupe et utiliser ce groupe comme identifiant.
 
 N'hésitez pas à nous demander de l'aide sur `Slack <http://slack.kinto-storage.org/>`_
 ou `IRC <https://kiwiirc.com/client/irc.freenode.net/?#kinto>`_.
+
+
+Troubleshooting
+===============
+
+Error 503
+---------
+
+> HTTP 503; Error: HTTP 503 Service Unavailable:
+> Service Temporary unavailable due to high load (Service temporary
+> unavailable due to overloading or maintenance, please retry later.)
+
+Can occur if you set the wrong Postgres password.
