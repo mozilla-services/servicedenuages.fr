@@ -132,13 +132,13 @@ gratuit via Let's Encrypt.&lt;/p&gt;
 &lt;h2&gt;Se connecter&lt;/h2&gt;
 &lt;p&gt;Vous pouvez maintenant vous connecter au site et vérifier que tout fonctionne :&lt;/p&gt;
 &lt;ul class="simple"&gt;
-&lt;li&gt;&lt;a class="reference external" href="https://ID_ALWAYDATA.alwaysdata.net/v1/"&gt;https://ID_ALWAYDATA.alwaysdata.net/v1/&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a class="reference external" href="https://ID_ALWAYDATA.alwaysdata.net/v1/__heartbeat__"&gt;https://ID_ALWAYDATA.alwaysdata.net/v1/__heartbeat__&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://ID_ALWAYSDATA.alwaysdata.net/v1/"&gt;https://ID_ALWAYSDATA.alwaysdata.net/v1/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a class="reference external" href="https://ID_ALWAYSDATA.alwaysdata.net/v1/__heartbeat__"&gt;https://ID_ALWAYSDATA.alwaysdata.net/v1/__heartbeat__&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class="section" id="configurer-un-administrateur"&gt;
 &lt;h2&gt;Configurer un administrateur&lt;/h2&gt;
-&lt;p&gt;Connectez-vous à la &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;kinto-admin&lt;/span&gt;&lt;/tt&gt; : &lt;a class="reference external" href="https://ID_ALWAYDATA.alwaysdata.net/v1/admin/"&gt;https://ID_ALWAYDATA.alwaysdata.net/v1/admin/&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Connectez-vous à la &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;kinto-admin&lt;/span&gt;&lt;/tt&gt; : &lt;a class="reference external" href="https://ID_ALWAYSDATA.alwaysdata.net/v1/admin/"&gt;https://ID_ALWAYSDATA.alwaysdata.net/v1/admin/&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;Choisissez un login/password et connectez-vous. Vous allez obtenir un
 identifiant unique pour votre administrateur: &lt;tt class="docutils literal"&gt;&lt;span class="pre"&gt;basicauth:......&lt;/span&gt;&lt;/tt&gt;&lt;/p&gt;
 &lt;p&gt;Vous pouvez ensuite modifier la configuration de votre serveur Kinto
