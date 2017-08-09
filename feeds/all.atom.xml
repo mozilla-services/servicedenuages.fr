@@ -55,7 +55,7 @@ compte SSH.&lt;/p&gt;
 &lt;a class="reference external" href="https://github.com/Kinto/kinto-alwaysdata/blob/master/alwaysdata_kinto/alwaysdata_kinto/kinto.ini"&gt;ce modèle de fichier ini&lt;/a&gt;
 en veillant bien à remplacer &lt;tt class="docutils literal"&gt;{id_alwaysdata}&lt;/tt&gt; et à configurer votre
 base de donnée PostgreSQL avec votre identifiant et mot de passe. Il
-est conseiller de créer un utilisateur spécifique pour Kinto.&lt;/p&gt;
+est conseillé de créer un utilisateur spécifique pour Kinto.&lt;/p&gt;
 &lt;p&gt;Vous devez également générer une clé secrète pour &lt;tt class="docutils literal"&gt;{hmac_secret}&lt;/tt&gt;.&lt;/p&gt;
 &lt;p&gt;Pour ce faire vous pouvez utiliser la commande &lt;tt class="docutils literal"&gt;uuidgen&lt;/tt&gt;&lt;/p&gt;
 &lt;/div&gt;
