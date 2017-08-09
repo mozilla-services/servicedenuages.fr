@@ -194,14 +194,14 @@ Se connecter
 
 Vous pouvez maintenant vous connecter au site et vérifier que tout fonctionne :
 
-- https://ID_ALWAYDATA.alwaysdata.net/v1/
-- https://ID_ALWAYDATA.alwaysdata.net/v1/__heartbeat__
+- https://ID_ALWAYSDATA.alwaysdata.net/v1/
+- https://ID_ALWAYSDATA.alwaysdata.net/v1/__heartbeat__
 
 
 Configurer un administrateur
 ============================
 
-Connectez-vous à la ``kinto-admin`` : https://ID_ALWAYDATA.alwaysdata.net/v1/admin/
+Connectez-vous à la ``kinto-admin`` : https://ID_ALWAYSDATA.alwaysdata.net/v1/admin/
 
 Choisissez un login/password et connectez-vous. Vous allez obtenir un
 identifiant unique pour votre administrateur: ``basicauth:......``
