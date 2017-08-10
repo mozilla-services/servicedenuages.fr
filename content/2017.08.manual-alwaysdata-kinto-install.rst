@@ -188,6 +188,14 @@ SSL
 .. image:: {filename}/images/ad-kinto-install/ssl.png
     :alt: Configuration SSL
 
+Autre nom de domaine
+--------------------
+
+Si vous utilisez autre chose que `xxx.alwaysdata.net`, pensez à modifier :
+
+* `kinto.http_host`
+* `kinto.attachment.base_url`
+
 
 Se connecter
 ============
