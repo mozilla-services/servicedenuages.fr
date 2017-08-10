@@ -30,7 +30,7 @@
         <header class="header-article">
             <hgroup>
                 <h5>Publié</h5>
-                <p title="~657 mots">~3mn de lecture 🕑</p>
+                <p title="~730 mots">~3mn de lecture 🕑</p>
                 <p>mar. 01 août 2017</p>
                 <a href="/">&larr; Liste des articles</a>
             </hgroup>
@@ -172,6 +172,14 @@ gratuit via Let's Encrypt.</p>
 </ul>
 <img alt="Configuration SSL" src="http://www.servicedenuages.fr/images/ad-kinto-install/ssl.png" style="width: 917px; height: auto; max-width: 100%;"/>
 </div>
+<div class="section" id="autre-nom-de-domaine">
+<h3>Autre nom de domaine</h3>
+<p>Si vous utilisez autre chose que <cite>xxx.alwaysdata.net</cite>, pensez à modifier :</p>
+<ul class="simple">
+<li><cite>kinto.http_host</cite></li>
+<li><cite>kinto.attachment.base_url</cite></li>
+</ul>
+</div>
 </div>
 <div class="section" id="se-connecter">
 <h2>Se connecter</h2>
@@ -212,6 +220,18 @@ fichier de configuration.</p>
 <p>Vous pouvez également créer un groupe et utiliser ce groupe comme identifiant.</p>
 <p>N'hésitez pas à nous demander de l'aide sur <a class="reference external" href="http://slack.kinto-storage.org/">Slack</a>
 ou <a class="reference external" href="https://kiwiirc.com/client/irc.freenode.net/?#kinto">IRC</a>.</p>
+</div>
+<div class="section" id="troubleshooting">
+<h2>Troubleshooting</h2>
+<p>Dans tous les cas, les logs sont toujours une aide précieuse.</p>
+<div class="section" id="error-503">
+<h3>Error 503</h3>
+<p>&gt; HTTP 503; Error: HTTP 503 Service Unavailable:
+&gt; Service Temporary unavailable due to high load (Service temporary
+&gt; unavailable due to overloading or maintenance, please retry later.)</p>
+<p>Cette erreur peut se présenter si le mot de passe Postgres a été mal
+configuré.</p>
+</div>
 </div>
 
             <div class="hr"></div>

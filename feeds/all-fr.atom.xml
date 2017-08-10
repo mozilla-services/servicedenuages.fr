@@ -127,6 +127,14 @@ gratuit via Let's Encrypt.&lt;/p&gt;
 &lt;/ul&gt;
 &lt;img alt="Configuration SSL" src="http://www.servicedenuages.fr/images/ad-kinto-install/ssl.png" style="width: 917px; height: auto; max-width: 100%;"/&gt;
 &lt;/div&gt;
+&lt;div class="section" id="autre-nom-de-domaine"&gt;
+&lt;h3&gt;Autre nom de domaine&lt;/h3&gt;
+&lt;p&gt;Si vous utilisez autre chose que &lt;cite&gt;xxx.alwaysdata.net&lt;/cite&gt;, pensez à modifier :&lt;/p&gt;
+&lt;ul class="simple"&gt;
+&lt;li&gt;&lt;cite&gt;kinto.http_host&lt;/cite&gt;&lt;/li&gt;
+&lt;li&gt;&lt;cite&gt;kinto.attachment.base_url&lt;/cite&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class="section" id="se-connecter"&gt;
 &lt;h2&gt;Se connecter&lt;/h2&gt;
@@ -167,6 +175,18 @@ fichier de configuration.&lt;/p&gt;
 &lt;p&gt;Vous pouvez également créer un groupe et utiliser ce groupe comme identifiant.&lt;/p&gt;
 &lt;p&gt;N'hésitez pas à nous demander de l'aide sur &lt;a class="reference external" href="http://slack.kinto-storage.org/"&gt;Slack&lt;/a&gt;
 ou &lt;a class="reference external" href="https://kiwiirc.com/client/irc.freenode.net/?#kinto"&gt;IRC&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="section" id="troubleshooting"&gt;
+&lt;h2&gt;Troubleshooting&lt;/h2&gt;
+&lt;p&gt;Dans tous les cas, les logs sont toujours une aide précieuse.&lt;/p&gt;
+&lt;div class="section" id="error-503"&gt;
+&lt;h3&gt;Error 503&lt;/h3&gt;
+&lt;p&gt;&amp;gt; HTTP 503; Error: HTTP 503 Service Unavailable:
+&amp;gt; Service Temporary unavailable due to high load (Service temporary
+&amp;gt; unavailable due to overloading or maintenance, please retry later.)&lt;/p&gt;
+&lt;p&gt;Cette erreur peut se présenter si le mot de passe Postgres a été mal
+configuré.&lt;/p&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 </content><category term="mozilla"></category></entry><entry><title>Workflow de validation dans Kinto</title><link href="http://www.servicedenuages.fr/kinto-workflows" rel="alternate"></link><published>2016-11-14T00:00:00+01:00</published><updated>2016-11-14T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:www.servicedenuages.fr,2016-11-14:/kinto-workflows</id><summary type="html">&lt;p class="first last"&gt;Debrief des fonctionnalités de validation dans Kinto.&lt;/p&gt;
 </summary><content type="html">&lt;div class="section" id="le-besoin-initial"&gt;
