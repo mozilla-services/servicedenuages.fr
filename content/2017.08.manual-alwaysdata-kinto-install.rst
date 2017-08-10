@@ -242,6 +242,8 @@ ou `IRC <https://kiwiirc.com/client/irc.freenode.net/?#kinto>`_.
 Troubleshooting
 ===============
 
+Dans tous les cas, les logs sont toujours une aide précieuse.
+
 Error 503
 ---------
 
@@ -249,4 +251,5 @@ Error 503
 > Service Temporary unavailable due to high load (Service temporary
 > unavailable due to overloading or maintenance, please retry later.)
 
-Can occur if you set the wrong Postgres password.
+Cette erreur peut se présenter si le mot de passe Postgres a été mal
+configuré.
