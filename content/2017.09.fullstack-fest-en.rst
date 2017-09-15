@@ -1,0 +1,124 @@
+FullstackFest 2017
+##################
+
+:date: 2017-09-15
+:slug: fullstackfest-2017
+:lang: en
+:url: fullstackfest-2017
+:summary: Summary and feedback from Fullstack Fest 2017 in Barcelona
+
+For the :ref:`second time`, I had the chance to go to the Fullstack Fest! And once again, it was great! Thanks Mozilla for letting me be part of it :)
+
+Like last year, the conference has only one track. The two first days were dedicated to backend and the last two about frontend.
+
+Big up for the organizers!
+==========================
+
+The `Codegram team <http://www.codegram.com>`_ has taken care of every detail, and it really makes this event super enjoyable!
+They also did an excellent job at picking speakers and topics, under the common thread:
+
+    Problems of Today, ideas from the future.
+
+(image?)
+
+Trends
+======
+
+* Decentralized Web
+* Offline first
+* Dat / IPFS
+* Serverless
+* Amazon Lambda
+* Distributed tracing/monitoring
+* Progressive Web Apps
+* Functional programming
+* Post CSS / Next CSS
+* React
+* Augmented Reality
+* WebGL / Web VR
+* Internet Of Things
+
+(image?)
+
+Summary
+=======
+
+I filled almost 8 pages in my notebook. I don't think it makes a lot of sense to write extensively here.
+
+
+One sentence summaries
+======================
+
+*The videos are already online! In order to help you choose which one to watch, here is the shortest summary I could come up with for each talk, videos are linked on authors names:*
+
+- Hardware is amazing, software is crap. Use parallelism and keep your data under your control — `Joe Armstrong <https://www.youtube.com/watch?v=itKFrXghGuA&index=2&list=PLe9psSNJBf76DOOKMkDpyo_A5PfZk7JWc>`_, Erlang's inventor.
+
+
+Some thoughts
+=============
+
+The challenges of Web content durability and decentralization are very concerning. The Web of today has too many points of failure, Web engineers are responsible for making it better. For example, 500 attendees cannot collaborate on a document without going through servers outside the room! My great-great-grandchildren might not be able to find a picture of me on the Web! `But read this page <https://ipfs.io/#why>`_ and you'll realize this is not *only* about the future!
+
+    You are cyberwizards!  — Juan Benet
+
+Both frontend and backend talks seem to agree on the fact that REST has strong limitations for high latency connections like on the mobile Web. GraphQL and Falcor are good candidates today, and can be complementary to our usual REST/CRUD endpoints.
+
+Google and Microsoft are following Amazon and its `Lambda <https://aws.amazon.com/lambda/details/>`_ to provide a platform of nanoservices for which you don't pay when idle, and that scale on trafic peaks. A whole app can be decomposed into functions and designed using internal events. Orchestration of those tiny pieces of code is another story (*for a CRUD endpoint, each verb is bound to a function*), but `Serverless <http://blog.serverless.com/defining-serverless/>`_ wants to tackle that.
+
+.. image:: {filename}/images/fullstackfest-vr.jpg
+    :alt: CC-BY @fullstackfest
+    :align: center
+
+Functional programming is in the air. Pure (stateless) functions scale because they can be executed anywere without context. Without side effects, it also becomes obvious to test them. They give backend developers some good pattern for highly available services, and provide the necessary constraints for immutability to frontend developers. I believe that if functional programming is not adopted as much as it could, it is not because of the paradigm and concepts, but because of the disconcerting syntax!
+
+    There is no architecture nirvana!  — Lee Byron
+
+Angular/TypeScript was almost absent from the conference, but we could see a trend around type inference/checking. It really improves developer experience and reduces runtime errors in the end. With projects like Elm, developers feel safe while coding: the compiler is smart and polite, refactoring is fun! The concept of ``null`` is replaced with a notion of *maybe <type>* which makes apps robust.
+
+Everybody seemed to agree that JavaScript transpilation will last for a long time. The language will evolve, and we shouldn't hope for feature freeze. Plus, it really helps developers focus on modern stacks, leveraging modern features like `cancelable promises <https://github.com/tc39/proposal-cancelable-promises>`_. And nowadays it is rather easy to build your app for legacy versions of JavaScript like ES5. But hey, it is a bit absurd that modern browsers have to download big bundles of code full of polyfills! It would be a lot nicer if they were delivered to legacy browsers only — `<!--[if IE 10]>` oh yeah :) — or even better: shipped as something like a browser addon :)
+
+The old times where we could inspect the source code of a page ­— and learn from it — is far! It is sad, but we may have to accept it because WebAssembly goes a lot further and ships code that looks closely to assembler! It's far from the Web we know, but it's still the open Web! Note that it is very different from what we saw in the past with plugins like Java applets, now a WebAssembly function can be called from a usual JS script!
+
+The physical Web is awesome and I'm really excited about this revolution, especially how it could bring a peer-to-peer local Web, using `Web bluetooth <https://developer.mozilla.org/en-US/docs/Web/API/Web_Bluetooth_API>`_ for example. Scott told me that the Mozilla approach with `FlyWeb <https://hacks.mozilla.org/2016/09/flyweb-pure-web-cross-device-interaction/>`_ is slightly different because it goes through Wifi, but both teams in contact. The physical Web is an open project, and Google is pushing it strongly. I'm bothered by the *URL redirections* strategy though because it puts the redirection intermediary in a very strong position. I believe that Google wants to be that intermediary.
+
+    ­Performance is the art of avoiding work — `Paul Lewis <https://developers.google.com/web/fundamentals/performance/rendering/>`_
+
+Personal feedback
+=================
+
+During the backend days, the Amazon Web Services ecosystem was praised for its modularity, ability to scale etc. I know that it reflects the reality — they have `millions of customers <https://en.wikipedia.org/wiki/Amazon_Web_Services#Customer_base>`_ — and I like the concept of course, but the fact that there was almost no mention of their competitors kind of annoyed me. For example, I wish there was at least one talk about the open source orchestration `Kubernetes <https://kubernetes.io>`_.
+
+The *vendors diversity* was slightly better on the frontend, even though React is riding high.
+
+Mozilla was really well represented, via several Tech speakers who gave powerful talks; as well as via Firefox which has great support of the latest Web technologies.
+
+.. image:: {filename}/images/fullstackfest-contest.jpg
+    :alt: Me holding the prize proudly!
+    :align: center
+
+
+Some links
+==========
+
+* https://beakerbrowser.com: Peer-to-peer browser
+* `Hypercore <https://github.com/mafintosh/hypercore>`_: a secure, distributed append-only log
+* https://scuttlebot.io: peer-to-peer log store used as a database, identity provider, and messaging system
+* `Fair Analytics <https://github.com/vesparny/fair-analytics>`_: An analytics server that doesn't undermine user's privacy
+* `Science Fair <http://sciencefair-app.com>`_: p2p desktop science library
+* https://keras.io: The Python Deep Learning library
+* https://bazel.build: Build and test software of any size, quickly and reliably
+* http://exercism.io: Level up your programming skills
+* `Zappa <https://github.com/Miserlou/Zappa>`_: Serverless Python Web Services
+* https://cloudcraft.co: Create smart AWS diagrams and visualize your cloud architecture like a pro
+* https://greensock.com: HTML5 animation for the modern web
+* `JPNG.svg <https://codepen.io/shshaw/full/LVKEdv>`_: Convert JPG to SVG in a codepen :)
+* `SVG Optimizer <https://github.com/svg/svgo>`_
+* Some awesome Web SVG animators/designers: `Tiffany Rayside <https://codepen.io/tmrDevelops/>`_, `Leo Verou <http://lea.verou.me>`_, `Chris Gannon <https://gannon.tv>`_, `Yoksel <https://twitter.com/yoksel_en>`_
+* `Simple Made Easy <https://www.infoq.com/presentations/Simple-Made-Easy>`_
+* `Code Push <https://github.com/Microsoft/code-push>`_: Simplify React Native mobile apps deployment
+* `swarm.js <http://swarmjs.github.io>`_: a sync-centric data storage
+* `synceddb <https://github.com/paldepind/synceddb>`_: makes it easy to write offline-first applications with real-time syncing and server-side persistence
+* `RxDB <https://github.com/pubkey/rxdb>`_ A reactive, offline-first database in javascript
+* `Treat url as a simple data store <http://router.maniak.pro>`_
+* `Johnny Five <https://github.com/rwaldron/johnny-five>`_: JavaScript Robotics and IoT programming framework
+* `W3C Web NFC <https://w3c.github.io/web-nfc/>`_
