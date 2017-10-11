@@ -5,16 +5,21 @@
 :lang: fr
 :url: a-propos
 
-Nous sommes l'équipe «Cloud-services» francophone de
+Nous sommes une équipe «Cloud-services» partiellement francophone à
 `Mozilla <https://www.mozilla.com/>`_ :
-`n1k0 <https://nicolas.perriault.net/>`_,
-`Mathieu <http://mathieu-leplatre.info>`_, `Tarek <http://ziade.org/>`_,
-`Rémy <https://twitter.com/Natim>`_ et `Alexis <http://notmyidea.org>`_.
+`Benson Wong <https://twitter.com/mostlygeek>`_,
+`Ben Hearsum <https://twitter.com/bhearsum>`_,
+`Ethan <https://twitter.com/EthanIsMumbling>`_,
+`Mathieu <https://twitter.com/leplatrem>`_,
+`Magopian <https://twitter.com/magopian>`_
+`Peter <https://twitter.com/peterbe>`_
+and
+`Rémy <https://twitter.com/Natim>`_ .
 
 Après quelques temps à accumuler les expériences sans vraiment les
 partager à l'écrit, nous avons décidé d'ouvrir ce blog, où nous nous
-exprimons principalement en Français, à propos de nos retours
-d'expériences et réflexions en cours.
+exprimons principalement en Français et en Anglais, à propos de nos
+retours d'expériences et réflexions en cours.
 
 N'hésitez pas à intéragir avec nous et à faire des critiques sur les
 solutions proposées, nous souhaitons véritablement réaliser tout cela
