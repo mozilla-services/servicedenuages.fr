@@ -1,0 +1,119 @@
+During the last company «all hands», we've heard many mentions of *Kinto*, mostly from people that we hadn't met before or that wasn't aware we were the authors. Part of this fame may probably be due to the success of Firefox Notes, and the recent addition of the long awaited synchronization features.
+
+It's amazing how we've accomplished with this project in very heterogenous contexts, and sadly we haven't really taken the time to celebrate. This post intends to present the different use-cases we are aware of at Mozilla, with some architecture and metrics details.
+
+
+Firefox remote settings
+=======================
+
+The historical one!
+
+Firefox addons and security engineers edit remote settings like blocklist or certificates revocation lists via the Kinto Admin UI. Reviewing and sign-off features are powered by `kinto-signer`. The several hundreds millions of Firefox browsers regularly poll for changes using the `kinto-changes` endpoint. Two instances are deployed with the same database, a public one read-only behind a CDN, and a private one only accessible via a secured VPN.
+
+The client lies in the Firefox codebase, implemented with `kinto.js`. It verifies `content signatures` and has a specific adapter to store local data in SQlite instead of IndexedDB. Some `Telemetry data` is sent when remote settings are synchronized locally in order to track uptake globally.
+
+In order to manage buckets and collections, as well as groups and their related permissions, we use `kinto-wizard` that reads a YAML file from a Github private repo, and creates or updates the missing objects.
+
+Instance: https://firefox.settings.services.mozilla.com
+Production date:
+Average requests/sec: X (*from N CDN*)
+
+Android assets
+--------------
+
+- fonts, etc
+- kinto-attachment
+
+Android and iOS experiments
+---------------------------
+
+This stack is also used to deliver A/B testing features on Android and iOS.
+
+Abandonned use-cases...
+-----------------------
+
+- fingerprint fonts
+
+Possible evolutions
+-------------------
+
+- There is certainly going to be more types of settings for new use-cases
+- The stack currently uses `kinto-ldap` to authenticate users. We'll switch to OpenID Connect now that the company uses Auth0 everywhere.
+- The `Push team` is working on a solution to replace frequent polling with a push (at that scale nothing is trivial).
+- The Sync team is working on a new data store for profile data. We'll probably replace the current SQlite adapter.
+
+
+WebExtensions storage.sync API
+==============================
+
+The tough one!
+
+Firefox is now compatible with the Web Extensions APIs, that allow addons developers to share a common code-base between different browsers. One of these APIs allows addons to store and sync some data (eg. user-preferences).
+In our implementation, the client encrypts the data before sending it to our servers to guarantee privacy. It might not be the case of Chrome by the way. It uses `kinto.js` and leverages the Firefox Accounts keyring.
+
+This stack allowed us to really stress Kinto. When popular extensions like Adblock switched to Web Extensions, we had database congestions and lots of 5XX errors. We should have been a lot more thorough with load testing, and hence discovered race conditions and scaling bugs the hard way. Most of them are fixed now though.
+
+Instance:
+Production date: July 2017
+Average requests/sec: 1100 (70K/min)
+Data size:
+
+Possible evolutions
+-------------------
+
+- We still have some TOCTOU issues that we Would like to tackle.
+- At some point, we might have to consider some sharding strategy too.
+
+
+Firefox Test Pilot
+==================
+
+Authentication is provided by Firefox Accounts and assured by `kinto-fxa`.
+
+The main challenge here was to reuse the same stack for different Test Pilot extensions, while being able to maintain data isolation and client side encryption.
+
+Each test pilot addon has its own scope, so that an extension has no permission to read the server data produced by another one (*using a kinto-fxa trick that adds prefixes to user ids*). Plus, the client side code fetches a different encryption key per extension, which means an extension has no way to decrypt the local data produced by another one.
+
+By using raw `kinto.js` on a dedicated stack instead of the storage.sync API, the data produced by Test Pilot extensions can be read outside the browser (eg. native mobile apps).
+
+Instance:
+Production date: November 2017
+Average requests/sec:
+Data size:
+
+
+Buildhub
+========
+
+This summer we worked on a comprehensive and standard database of Mozilla products builds. There was no standard solution and many systems within the company were doing it their own way. Our goal was to provide a simple JSON API that applications or scripts could query in order to obtain information about build ids, versions, update channels etc.
+
+We could have developed a custom solution, but using Kinto allowed use to start very quickly and take advantage of the existing ecosystem as well as our deployment automations.
+
+In order to provide efficient and advanced query capabilities we developed `kinto-elasticsearch`, a simple plugin that adds a ``/search`` endpoint to collections of records. It's super powerful for filtering or aggregating records, and it's blazing fast!
+
+The records are created from an Amazon Lambda function that is triggered every time a new archive is published on https://archive.mozilla.org (which is itself powered by S3).
+
+We use the recent Kinto Accounts feature for authentication, where the only user with write access is the lamnbda one.
+To initialize a Kinto instance for buildhub development, most for collection indexing metadata, we also use `kinto-wizard`.
+
+Instance: https://buildhub.prod.mozaws.net
+Production date: July 2017
+Average requests/sec:
+Data size: 1 collection with 1.2 million records (*and growing*)
+
+Possible evolutions
+-------------------
+
+- We may to split the single collection into one per update channel (stable, beta, nightly...)
+
+
+The future...
+=============
+
+Test Pilot is probably the setup where Kinto fits most our initial vision. Frontend apps synchronizing strongly encrypted data, using keys that are obtained from user identity. The only blocker to apply the same approach to any Web app is that Firefox Accounts (and its keys API) is still restricted to Mozilla applications.
+
+The only type of use-case that we don't have yet in production at Mozilla is a collaborative application, where several users interact with the same collection of data, leveraging our sharing and push events features.
+
+We tend to believe Kinto is feature complete. Polishing the documentation could be one of our top priorites. Same goes for the product and marketing aspects, but that doesn't depend only on us. Some of the external plugins are stable enough to be promoted as built-in plugins, which may improve the developer experience.
+
+Of course, there is some amount of technical debt that could be tackled here and there. And to be honest we don't see a huge amount of external contributions and pull requests on the Kinto Github org. The bus factor is quite high!
