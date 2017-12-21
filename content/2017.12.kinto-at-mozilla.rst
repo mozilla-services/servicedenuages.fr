@@ -1,3 +1,12 @@
+Kinto at Mozilla
+################
+
+:lang: en
+:date: 2017-12-20
+:url: kinto-at-mozilla
+:summary: A summary of how Kinto is used at Mozilla
+
+
 During the last company «all hands», we've heard many mentions of *Kinto*, mostly from people that we hadn't met before or that wasn't aware we were the authors. Part of this fame may probably be due to the success of Firefox Notes, and the recent addition of the long awaited synchronization features.
 
 It's amazing how we've accomplished with this project in very heterogenous contexts, and sadly we haven't really taken the time to celebrate. This post intends to present the different use-cases we are aware of at Mozilla, with some architecture and metrics details.
@@ -8,31 +17,49 @@ Firefox remote settings
 
 The historical one!
 
-Firefox addons and security engineers edit remote settings like blocklist or certificates revocation lists via the Kinto Admin UI. Reviewing and sign-off features are powered by `kinto-signer`. The several hundreds millions of Firefox browsers regularly poll for changes using the `kinto-changes` endpoint. Two instances are deployed with the same database, a public one read-only behind a CDN, and a private one only accessible via a secured VPN.
+Firefox engineers edit remote settings like blocklist or certificates revocation lists via the Kinto Admin UI. There are several buckets for each category of settings listed below.
 
-The client lies in the Firefox codebase, implemented with `kinto.js`. It verifies `content signatures` and has a specific adapter to store local data in SQlite instead of IndexedDB. Some `Telemetry data` is sent when remote settings are synchronized locally in order to track uptake globally.
+The hundreds millions of Firefox browsers regularly poll for changes using the `kinto-changes` endpoint. Two instances are deployed with the same database, a public one read-only behind a CDN, and a private one only accessible via a secured VPN.
+
+Since the remote settings are critical, and served via a CDN, we use `kinto-signer` to sign the data in order to guarantee authenticity and integrity. It also brings reviewing and sign-off features as well as previewing changes for the QA team. The history plugin allows to track the changes over time.
+
+The client lies in the Firefox codebase, implemented with `kinto.js`. It verifies `content signatures` to verify that settings are conform, and has a specific adapter to store local data in SQlite instead of IndexedDB. Some `Telemetry data` is sent when remote settings are synchronized locally in order to track uptake globally.
 
 In order to manage buckets and collections, as well as groups and their related permissions, we use `kinto-wizard` that reads a YAML file from a Github private repo, and creates or updates the missing objects.
 
 Instance: https://firefox.settings.services.mozilla.com
-Production date:
-Average requests/sec: X (*from N CDN*)
+Production date: December 2015
+Average requests/sec: 10 (*behind the Cloudfront CDN*)
+
+Blocklists
+----------
+
+The blocklists allow to remotely disable malware addons, malicious or unstable plugins, or some graphical drivers that come to be unstable on certain hardware. A custom plugin, kinto-amo, was implemented to serve the blocklist in the same XML format as addons.mozilla.org used to have — for old Firefox versions.
+
+Certificates revocation
+-----------------------
+
+Certicates sometimes need to be invalidated before they expire. The OneCRL (certificates revocation list) fulfils that goal.
+
+Certificates pinning
+--------------------
+
+When the browser reaches a website via https for the first time, it downloads its certificate. To make sure the certificate is genuine, we use a list of public keys (HPKP) to be compared on the client side.
 
 Android assets
 --------------
 
-- fonts, etc
-- kinto-attachment
+In order to reduce the size of the Android installer, some assets — like fonts or hyphenations dictionnaries — are downloaded asynchronously. The client polls files from *Firefox remote settings*, leveraging `kinto-attachment`_.
 
 Android and iOS experiments
 ---------------------------
 
-This stack is also used to deliver A/B testing features on Android and iOS.
+This stack is also used to deliver A/B testing features on Android and iOS. The client receives metadata for the on-going experiments.
 
-Abandonned use-cases...
------------------------
+Resist fingerprinting with fonts whitelist
+------------------------------------------
 
-- fingerprint fonts
+`The idea <https://bugzilla.mozilla.org/show_bug.cgi?id=1336208>`_ is to deliver some fonts to avoid downloading them while browsing. The client globally works like the Android assets.
 
 Possible evolutions
 -------------------
@@ -53,15 +80,17 @@ In our implementation, the client encrypts the data before sending it to our ser
 
 This stack allowed us to really stress Kinto. When popular extensions like Adblock switched to Web Extensions, we had database congestions and lots of 5XX errors. We should have been a lot more thorough with load testing, and hence discovered race conditions and scaling bugs the hard way. Most of them are fixed now though.
 
-Instance:
+The quota plugin restricts the amount of objects allowed to be stored. It relies on two Memcache instances as cache backends, mainly used for caching authentication.
+
+Instance: https://webextensions.settings.services.mozilla.com
 Production date: July 2017
 Average requests/sec: 1100 (70K/min)
-Data size:
+Data size: XXX millions buckets, XXX collections, XXX records
 
 Possible evolutions
 -------------------
 
-- We still have some TOCTOU issues that we Would like to tackle.
+- We still have some `TOCTOU issues <https://en.wikipedia.org/wiki/Time_of_check_to_time_of_use>`_ that we Would like to tackle.
 - At some point, we might have to consider some sharding strategy too.
 
 
@@ -76,9 +105,9 @@ Each test pilot addon has its own scope, so that an extension has no permission 
 
 By using raw `kinto.js` on a dedicated stack instead of the storage.sync API, the data produced by Test Pilot extensions can be read outside the browser (eg. native mobile apps).
 
-Instance:
+Instance: https://testpilot.settings.services.mozilla.com
 Production date: November 2017
-Average requests/sec:
+Average requests/sec: <1 (40 req/min)
 Data size:
 
 
@@ -98,8 +127,8 @@ To initialize a Kinto instance for buildhub development, most for collection ind
 
 Instance: https://buildhub.prod.mozaws.net
 Production date: July 2017
-Average requests/sec:
-Data size: 1 collection with 1.2 million records (*and growing*)
+Average requests/sec: <0.1 (1 req/min)
+Data size: 1 collection with 740K records (*and growing*)
 
 Possible evolutions
 -------------------
