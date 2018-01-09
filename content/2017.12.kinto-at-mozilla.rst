@@ -25,14 +25,16 @@ Since the remote settings are critical, and served via a CDN, we use `kinto-sign
 
 The client lies in the Firefox codebase, implemented with `kinto.js <https://github.com/Kinto/kinto.js/>`. It verifies `content signatures <https://martinthomson.github.io/http-miser/draft-thomson-http-miser.html>`_ to verify that settings are conformant, and has a specific adapter to store local data in SQLite instead of IndexedDB. Some `Telemetry data <https://telemetry.mozilla.org/>`_ is sent when remote settings are synchronized locally in order to track uptake globally.
 
-In order to manage buckets and collections, as well as groups and their related permissions, we use `kinto-wizard` that reads a YAML file from a Github private repo, and creates or updates the missing objects.
+In order to manage buckets and collections, as well as groups and their related permissions, we use `kinto-wizard <https://github.com/Kinto/kinto-wizard/>`_ that reads a YAML file from a Github private repo, and creates or updates the missing objects.
 
+Summary
+  A few admins edit a source of truth that millions of clients synchronize locally
 Instance
   https://firefox.settings.services.mozilla.com
 Production date
   December 2015
 Average requests/sec
-  10 (*behind the Cloudfront CDN*)
+  1000-2000
 
 .. image:: {filename}/images/kinto-at-mozilla-blocklists-rps.png
     :alt: Datadog screenshot of requests per second graph for Firefox Settings stack
@@ -89,10 +91,16 @@ This stack allowed us to really stress Kinto. When popular extensions like Adblo
 
 The quota plugin restricts the amount of objects allowed to be stored. It relies on two Memcache instances as cache backends, mainly used for caching authentication.
 
-Instance: https://webextensions.settings.services.mozilla.com
-Production date: July 2017
-Average requests/sec: 1100 (70K/min)
-Data size: XXX millions buckets, XXX collections, XXX records
+Summary
+  Many users have their own private bucket and collections with a limited amount of records
+Instance
+  https://webextensions.settings.services.mozilla.com
+Production date
+  July 2017
+Average requests/sec
+  1100 (70K/min)
+Data size
+  XXX millions buckets, XXX collections, XXX records
 
 Possible evolutions
 -------------------
@@ -115,6 +123,8 @@ Each test pilot addon has its own scope, so that an extension has no permission 
 
 By using raw `kinto.js` on a dedicated stack instead of the storage.sync API, the data produced by Test Pilot extensions can be read outside the browser (eg. native mobile apps).
 
+Summary
+  Many users have their own private bucket and collections with a limited amount of records
 Instance
   https://testpilot.settings.services.mozilla.com
 Production date
@@ -122,7 +132,7 @@ Production date
 Average requests/sec
   <1 (40 req/min)
 Data size:
-
+  XXX buckets
 
 .. image:: {filename}/images/kinto-at-mozilla-testpilot-overview.png
     :alt: Screenshot of NewRelic overview for the TestPilot Kinto stack
@@ -145,6 +155,8 @@ The records are created from an Amazon Lambda function that is triggered every t
 We use the recent Kinto Accounts feature for authentication, where the only user with write access is the lambda one.
 To initialize a Kinto instance for buildhub development, most for collection indexing metadata, we also use `kinto-wizard <https://github.com/Kinto/kinto-wizard/>`_.
 
+Summary
+  A set of scripts update a single collection of many records that are looked up by a few clients
 Instance
   https://buildhub.prod.mozaws.net
 Production date
@@ -175,6 +187,6 @@ Test Pilot is probably the setup where Kinto fits most our initial vision. Front
 
 The only type of use-case that we don't have yet in production at Mozilla is a collaborative application, where several users interact with the same collection of data, leveraging our sharing and push events features.
 
-We tend to believe Kinto is feature complete. Polishing the documentation could be one of our top priorites. Same goes for the product and marketing aspects, but that doesn't depend only on us. Some of the external plugins are stable enough to be promoted as built-in plugins, which may improve the developer experience.
+We tend to believe that Kinto is feature complete. Some of the external plugins are stable enough to be promoted as built-in plugins, which may improve the developer experience. Polishing the documentation could be one of our top priorites. Same goes for the product and marketing aspects, but that doesn't depend only on us.
 
-Of course, there is some amount of technical debt that could be tackled here and there. And to be honest we don't see a huge amount of external contributions and pull requests on the Kinto Github org. The bus factor is quite high!
+Of course, there is some amount of technical debt that could be tackled here and there. And to be honest we don't see a huge amount of external contributions and pull requests on the Kinto Github org. The `bus factor <https://en.wikipedia.org/wiki/Bus_factor>`_ is quite high!
