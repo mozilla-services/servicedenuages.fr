@@ -2,28 +2,28 @@ Kinto at Mozilla
 ################
 
 :lang: en
-:date: 2017-12-20
+:date: 2018-01-09
 :url: kinto-at-mozilla
 :summary: A summary of how Kinto is used at Mozilla
 
 
-During the last company «all hands», we've heard many mentions of *Kinto*, mostly from people that we hadn't met before or that wasn't aware we were the authors. Part of this fame may probably be due to the success of Firefox Notes, and the recent addition of the long awaited synchronization features.
+During the last company all hands, we heard many mentions of *Kinto*, mostly from people that we hadn't met before or that weren't aware we were the authors. Part of this fame may probably be due to the success of `Firefox Notes <https://testpilot.firefox.com/experiments/notes>`_, and the recent addition of the long awaited notes synchronization features.
 
-It's amazing how we've accomplished with this project in very heterogenous contexts, and sadly we haven't really taken the time to celebrate. This post intends to present the different use-cases we are aware of at Mozilla, with some architecture and metrics details.
+It's amazing how much we've accomplished with this project in very heterogenous contexts, and sadly we haven't really taken the time to celebrate. This post intends to present the different use-cases we are aware of at Mozilla, with some architecture and metrics details.
 
 
 Firefox remote settings
 =======================
 
-The historical one!
+The original one!
 
-Firefox engineers edit remote settings like blocklist or certificates revocation lists via the Kinto Admin UI. There are several buckets for each category of settings listed below.
+Firefox engineers edit remote settings like blocklist or certificate revocation lists via the `Kinto Admin UI <https://github.com/Kinto/kinto-admin/>`_. There are several buckets for each category of settings listed below.
 
-The hundreds millions of Firefox browsers regularly poll for changes using the `kinto-changes` endpoint. Two instances are deployed with the same database, a public one read-only behind a CDN, and a private one only accessible via a secured VPN.
+The hundreds of millions of Firefox browsers regularly poll for changes using the `kinto-changes <https://github.com/Kinto/kinto-changes>`_ endpoint. Two instances are deployed with the same database, a public one read-only behind a CDN, and a private one only accessible via a secured VPN.
 
-Since the remote settings are critical, and served via a CDN, we use `kinto-signer` to sign the data in order to guarantee authenticity and integrity. It also brings reviewing and sign-off features as well as previewing changes for the QA team. The history plugin allows to track the changes over time.
+Since the remote settings are critical, and served via a CDN, we use `kinto-signer <https://github.com/Kinto/kinto-signer>`_ to sign the data in order to guarantee authenticity and integrity. It also brings reviewing and sign-off features as well as the previewing changes feature for the QA team. The `history plugin <https://kinto.readthedocs.io/en/latest/api/1.x/history.html>`_ allows us to track the changes over time.
 
-The client lies in the Firefox codebase, implemented with `kinto.js`. It verifies `content signatures` to verify that settings are conform, and has a specific adapter to store local data in SQlite instead of IndexedDB. Some `Telemetry data` is sent when remote settings are synchronized locally in order to track uptake globally.
+The client lies in the Firefox codebase, implemented with `kinto.js <https://github.com/Kinto/kinto.js/>`. It verifies `content signatures <https://martinthomson.github.io/http-miser/draft-thomson-http-miser.html>`_ to verify that settings are conformant, and has a specific adapter to store local data in SQLite instead of IndexedDB. Some `Telemetry data <https://telemetry.mozilla.org/>`_ is sent when remote settings are synchronized locally in order to track uptake globally.
 
 In order to manage buckets and collections, as well as groups and their related permissions, we use `kinto-wizard` that reads a YAML file from a Github private repo, and creates or updates the missing objects.
 
@@ -34,22 +34,22 @@ Average requests/sec: 10 (*behind the Cloudfront CDN*)
 Blocklists
 ----------
 
-The blocklists allow to remotely disable malware addons, malicious or unstable plugins, or some graphical drivers that come to be unstable on certain hardware. A custom plugin, kinto-amo, was implemented to serve the blocklist in the same XML format as addons.mozilla.org used to have — for old Firefox versions.
+The blocklists are used to remotely disable malware addons, malicious or unstable plugins, or some graphical drivers that turned out to be unstable on certain hardware. A custom plugin, kinto-amo, was implemented to serve the blocklist in the same XML format as addons.mozilla.org used to have (or old Firefox versions).
 
-Certificates revocation
------------------------
+Certificate revocation
+----------------------
 
 Certicates sometimes need to be invalidated before they expire. The OneCRL (certificates revocation list) fulfils that goal.
 
-Certificates pinning
---------------------
+Certificate pinning
+-------------------
 
 When the browser reaches a website via https for the first time, it downloads its certificate. To make sure the certificate is genuine, we use a list of public keys (HPKP) to be compared on the client side.
 
 Android assets
 --------------
 
-In order to reduce the size of the Android installer, some assets — like fonts or hyphenations dictionnaries — are downloaded asynchronously. The client polls files from *Firefox remote settings*, leveraging `kinto-attachment`_.
+In order to reduce the size of the Android installer, some assets — like fonts or hyphenations dictionaries — are downloaded asynchronously. The client polls files from *Firefox remote settings*, leveraging `kinto-attachment <http://github.com/Kinto/kinto-attachment>`_.
 
 Android and iOS experiments
 ---------------------------
@@ -66,8 +66,8 @@ Possible evolutions
 
 - There is certainly going to be more types of settings for new use-cases
 - The stack currently uses `kinto-ldap` to authenticate users. We'll switch to OpenID Connect now that the company uses Auth0 everywhere.
-- The `Push team` is working on a solution to replace frequent polling with a push (at that scale nothing is trivial).
-- The Sync team is working on a new data store for profile data. We'll probably replace the current SQlite adapter.
+- The `Push team <https://github.com/mozilla-services/autopush>`_ is working on a solution to replace frequent polling with a push (at that scale nothing is trivial).
+- The Sync team is working on a new data store for profile data. We'll probably replace the current SQLite adapter.
 
 
 WebExtensions storage.sync API
@@ -76,7 +76,8 @@ WebExtensions storage.sync API
 The tough one!
 
 Firefox is now compatible with the Web Extensions APIs, that allow addons developers to share a common code-base between different browsers. One of these APIs allows addons to store and sync some data (eg. user-preferences).
-In our implementation, the client encrypts the data before sending it to our servers to guarantee privacy. It might not be the case of Chrome by the way. It uses `kinto.js` and leverages the Firefox Accounts keyring.
+
+In our implementation, the client encrypts the data before sending it to our servers to guarantee privacy. This might not be the case in Chrome by the way. It uses kinto.js and leverages the Firefox Accounts encryption keys.
 
 This stack allowed us to really stress Kinto. When popular extensions like Adblock switched to Web Extensions, we had database congestions and lots of 5XX errors. We should have been a lot more thorough with load testing, and hence discovered race conditions and scaling bugs the hard way. Most of them are fixed now though.
 
@@ -90,18 +91,21 @@ Data size: XXX millions buckets, XXX collections, XXX records
 Possible evolutions
 -------------------
 
-- We still have some `TOCTOU issues <https://en.wikipedia.org/wiki/Time_of_check_to_time_of_use>`_ that we Would like to tackle.
+- We still have some `TOCTOU issues <https://en.wikipedia.org/wiki/Time_of_check_to_time_of_use>`_ that we would like to tackle.
 - At some point, we might have to consider some sharding strategy too.
+
+.. image:: {filename}/images/kinto-at-mozilla-we-rps.png
+    :alt: WebExtensions requests per seconds graphs
 
 
 Firefox Test Pilot
 ==================
 
-Authentication is provided by Firefox Accounts and assured by `kinto-fxa`.
+Authentication is provided by Firefox Accounts and assured by `kinto-fxa <https://github.com/mozilla-services/kinto-fxa/>`_.
 
 The main challenge here was to reuse the same stack for different Test Pilot extensions, while being able to maintain data isolation and client side encryption.
 
-Each test pilot addon has its own scope, so that an extension has no permission to read the server data produced by another one (*using a kinto-fxa trick that adds prefixes to user ids*). Plus, the client side code fetches a different encryption key per extension, which means an extension has no way to decrypt the local data produced by another one.
+Each test pilot addon has its own scope, so that an extension has no permission to read the server data produced by another one (using a kinto-fxa trick that adds prefixes to user ids). Plus, the client side code fetches a different encryption key per extension, which means an extension has no way to decrypt the local data produced by another one.
 
 By using raw `kinto.js` on a dedicated stack instead of the storage.sync API, the data produced by Test Pilot extensions can be read outside the browser (eg. native mobile apps).
 
@@ -110,20 +114,26 @@ Production date: November 2017
 Average requests/sec: <1 (40 req/min)
 Data size:
 
+.. image:: {filename}/images/kinto-at-mozilla-testpilot-overview.png
+    :alt: Screenshot of NewRelic overview for the TestPilot Kinto stack
+
 
 Buildhub
 ========
 
-This summer we worked on a comprehensive and standard database of Mozilla products builds. There was no standard solution and many systems within the company were doing it their own way. Our goal was to provide a simple JSON API that applications or scripts could query in order to obtain information about build ids, versions, update channels etc.
+This summer we worked on a comprehensive and standard database of Mozilla product builds. There was no standard solution and many systems within the company were doing it their own way. Our goal was to provide a simple JSON API that applications or scripts could query in order to obtain information about build ids, versions, update channels etc.
 
-We could have developed a custom solution, but using Kinto allowed use to start very quickly and take advantage of the existing ecosystem as well as our deployment automations.
+.. image:: {filename}/images/kinto-at-mozilla-buildhub-ui.png
+    :alt: Buildhub UI (using SearchKit)
 
-In order to provide efficient and advanced query capabilities we developed `kinto-elasticsearch`, a simple plugin that adds a ``/search`` endpoint to collections of records. It's super powerful for filtering or aggregating records, and it's blazing fast!
+We could have developed a custom solution, but using Kinto allowed us to start very quickly and take advantage of the existing ecosystem as well as our deployment automations.
+
+In order to provide efficient and advanced query capabilities we developed `kinto-elasticsearch <https://github.com/Kinto/kinto-elasticsearch/>`_, a simple plugin that adds a ``/search`` endpoint to collections of records. It's super powerful for filtering or aggregating records, and it's blazing fast!
 
 The records are created from an Amazon Lambda function that is triggered every time a new archive is published on https://archive.mozilla.org (which is itself powered by S3).
 
-We use the recent Kinto Accounts feature for authentication, where the only user with write access is the lamnbda one.
-To initialize a Kinto instance for buildhub development, most for collection indexing metadata, we also use `kinto-wizard`.
+We use the recent Kinto Accounts feature for authentication, where the only user with write access is the lambda one.
+To initialize a Kinto instance for buildhub development, most for collection indexing metadata, we also use `kinto-wizard <https://github.com/Kinto/kinto-wizard/>`_.
 
 Instance: https://buildhub.prod.mozaws.net
 Production date: July 2017
