@@ -34,6 +34,9 @@ Production date
 Average requests/sec
   10 (*behind the Cloudfront CDN*)
 
+.. image:: {filename}/images/kinto-at-mozilla-blocklists-rps.png
+    :alt: Datadog screenshot of requests per second graph for Firefox Settings stack
+
 Blocklists
 ----------
 
