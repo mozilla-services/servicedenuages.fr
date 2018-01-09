@@ -157,6 +157,14 @@ Possible evolutions
 - We may to split the single collection into one per update channel (stable, beta, nightly...)
 
 
+Packaging
+=========
+
+Since we have a variety of plugins, we bundled them into a *distribution* package. `kinto-dist <https://github.com/Kinto/kinto-dist/>`_ is like a meta-package that gathers all the necessary plugins and dependencies for our stacks.
+
+We use Docker in production, following the `Dockerflow <https://github.com/mozilla-services/Dockerflow>`_ conventions.
+
+
 The future...
 =============
 
