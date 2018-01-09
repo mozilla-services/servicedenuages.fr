@@ -27,9 +27,12 @@ The client lies in the Firefox codebase, implemented with `kinto.js <https://git
 
 In order to manage buckets and collections, as well as groups and their related permissions, we use `kinto-wizard` that reads a YAML file from a Github private repo, and creates or updates the missing objects.
 
-Instance: https://firefox.settings.services.mozilla.com
-Production date: December 2015
-Average requests/sec: 10 (*behind the Cloudfront CDN*)
+Instance
+  https://firefox.settings.services.mozilla.com
+Production date
+  December 2015
+Average requests/sec
+  10 (*behind the Cloudfront CDN*)
 
 Blocklists
 ----------
@@ -109,10 +112,14 @@ Each test pilot addon has its own scope, so that an extension has no permission 
 
 By using raw `kinto.js` on a dedicated stack instead of the storage.sync API, the data produced by Test Pilot extensions can be read outside the browser (eg. native mobile apps).
 
-Instance: https://testpilot.settings.services.mozilla.com
-Production date: November 2017
-Average requests/sec: <1 (40 req/min)
+Instance
+  https://testpilot.settings.services.mozilla.com
+Production date
+  November 2017
+Average requests/sec
+  <1 (40 req/min)
 Data size:
+
 
 .. image:: {filename}/images/kinto-at-mozilla-testpilot-overview.png
     :alt: Screenshot of NewRelic overview for the TestPilot Kinto stack
@@ -135,10 +142,14 @@ The records are created from an Amazon Lambda function that is triggered every t
 We use the recent Kinto Accounts feature for authentication, where the only user with write access is the lambda one.
 To initialize a Kinto instance for buildhub development, most for collection indexing metadata, we also use `kinto-wizard <https://github.com/Kinto/kinto-wizard/>`_.
 
-Instance: https://buildhub.prod.mozaws.net
-Production date: July 2017
-Average requests/sec: <0.1 (1 req/min)
-Data size: 1 collection with 740K records (*and growing*)
+Instance
+  https://buildhub.prod.mozaws.net
+Production date
+  July 2017
+Average requests/sec
+  <0.1 (1 req/min)
+Data size
+  1 collection with 740K records (*and growing*)
 
 Possible evolutions
 -------------------
