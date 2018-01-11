@@ -8,7 +8,7 @@
 &lt;p&gt;Firefox engineers edit remote settings like blocklist or certificate revocation lists via the &lt;a class="reference external" href="https://github.com/Kinto/kinto-admin/"&gt;Kinto Admin UI&lt;/a&gt;. There are several buckets for each category of settings listed below.&lt;/p&gt;
 &lt;p&gt;The hundreds of millions of Firefox browsers regularly poll for changes using the &lt;a class="reference external" href="https://github.com/Kinto/kinto-changes"&gt;kinto-changes&lt;/a&gt; endpoint. Two instances are deployed with the same database, a public one read-only behind a CDN, and a private one only accessible via a secured VPN.&lt;/p&gt;
 &lt;p&gt;Since the remote settings are critical, and served via a CDN, we use &lt;a class="reference external" href="https://github.com/Kinto/kinto-signer"&gt;kinto-signer&lt;/a&gt; to sign the data in order to guarantee authenticity and integrity. It also brings reviewing and sign-off features as well as the previewing changes feature for the QA team. The &lt;a class="reference external" href="https://kinto.readthedocs.io/en/latest/api/1.x/history.html"&gt;history plugin&lt;/a&gt; allows us to track the changes over time.&lt;/p&gt;
-&lt;p&gt;The client lies in the Firefox codebase, implemented with &lt;cite&gt;kinto.js &amp;lt;https://github.com/Kinto/kinto.js/&amp;gt;&lt;/cite&gt;. It verifies &lt;a class="reference external" href="https://martinthomson.github.io/http-miser/draft-thomson-http-miser.html"&gt;content signatures&lt;/a&gt; to verify that settings are conformant, and has a specific adapter to store local data in SQLite instead of IndexedDB. Some &lt;a class="reference external" href="https://telemetry.mozilla.org/"&gt;Telemetry data&lt;/a&gt; is sent when remote settings are synchronized locally in order to track uptake globally.&lt;/p&gt;
+&lt;p&gt;The client lies in the Firefox codebase, implemented with &lt;a class="reference external" href="https://github.com/Kinto/kinto.js/"&gt;kinto.js&lt;/a&gt;. It verifies &lt;a class="reference external" href="https://martinthomson.github.io/http-miser/draft-thomson-http-miser.html"&gt;content signatures&lt;/a&gt; to verify that settings are conformant, and has a specific adapter to store local data in SQLite instead of IndexedDB. Some &lt;a class="reference external" href="https://telemetry.mozilla.org/"&gt;Telemetry data&lt;/a&gt; is sent when remote settings are synchronized locally in order to track uptake globally.&lt;/p&gt;
 &lt;p&gt;In order to manage buckets and collections, as well as groups and their related permissions, we use &lt;a class="reference external" href="https://github.com/Kinto/kinto-wizard/"&gt;kinto-wizard&lt;/a&gt; that reads a YAML file from a Github private repo, and creates or updates the missing objects.&lt;/p&gt;
 &lt;dl class="docutils"&gt;
 &lt;dt&gt;Summary&lt;/dt&gt;
@@ -49,7 +49,7 @@
 &lt;h3&gt;Possible evolutions&lt;/h3&gt;
 &lt;ul class="simple"&gt;
 &lt;li&gt;There is certainly going to be more types of settings for new use-cases&lt;/li&gt;
-&lt;li&gt;The stack currently uses &lt;cite&gt;kinto-ldap&lt;/cite&gt; to authenticate users. We'll switch to OpenID Connect now that the company uses Auth0 everywhere.&lt;/li&gt;
+&lt;li&gt;The stack currently uses &lt;a class="reference external" href="https://github.com/Kinto/kinto-ldap"&gt;kinto-ldap&lt;/a&gt; to authenticate users. We'll switch to &lt;a class="reference external" href="https://github.com/Kinto/kinto/pull/1425"&gt;OpenID Connect&lt;/a&gt; now that the company uses Auth0 everywhere.&lt;/li&gt;
 &lt;li&gt;The &lt;a class="reference external" href="https://github.com/mozilla-services/autopush"&gt;Push team&lt;/a&gt; is working on a solution to replace frequent polling with a push (at that scale nothing is trivial).&lt;/li&gt;
 &lt;li&gt;The Sync team is working on a new data store for profile data. We'll probably replace the current SQLite adapter.&lt;/li&gt;
 &lt;/ul&gt;
@@ -60,8 +60,8 @@
 &lt;p&gt;The tough one!&lt;/p&gt;
 &lt;p&gt;Firefox is now compatible with the Web Extensions APIs, that allow addons developers to share a common code-base between different browsers. One of these APIs allows addons to store and sync some data (eg. user-preferences).&lt;/p&gt;
 &lt;p&gt;In our implementation, the client encrypts the data before sending it to our servers to guarantee privacy. This might not be the case in Chrome by the way. It uses kinto.js and leverages the Firefox Accounts encryption keys.&lt;/p&gt;
-&lt;p&gt;This stack allowed us to really stress test Kinto. When popular extensions like Adblock switched to Web Extensions, we had database congestions and lots of 5XX errors. We should have been a lot more thorough with load testing, and hence discovered race conditions and scaling bugs the hard way. Most of them are fixed now though.&lt;/p&gt;
-&lt;p&gt;The quota plugin restricts the amount of objects allowed to be stored. It relies on two Memcache instances as cache backends, mainly used for caching authentication.&lt;/p&gt;
+&lt;p&gt;This stack allowed us to really stress test Kinto. When popular extensions like AdblockPlus switched to Web Extensions, we had database congestions and lots of 5XX errors. We should have been a lot more thorough with load testing, and hence discovered race conditions and scaling bugs the hard way. Most of them are fixed now though.&lt;/p&gt;
+&lt;p&gt;The &lt;a class="reference external" href="https://kinto.readthedocs.io/en/latest/api/1.x/quotas.html"&gt;quota plugin&lt;/a&gt; restricts the amount of objects allowed to be stored. It relies on two Memcache instances as cache backends, mainly used for caching authentication.&lt;/p&gt;
 &lt;dl class="docutils"&gt;
 &lt;dt&gt;Summary&lt;/dt&gt;
 &lt;dd&gt;Many users have their own private bucket and collections with a limited amount of records&lt;/dd&gt;
@@ -110,7 +110,7 @@
 &lt;p&gt;We could have developed a custom solution, but using Kinto allowed us to start very quickly and take advantage of the existing ecosystem as well as our deployment automations.&lt;/p&gt;
 &lt;p&gt;In order to provide efficient and advanced query capabilities we developed &lt;a class="reference external" href="https://github.com/Kinto/kinto-elasticsearch/"&gt;kinto-elasticsearch&lt;/a&gt;, a simple plugin that adds a &lt;tt class="docutils literal"&gt;/search&lt;/tt&gt; endpoint to collections of records. It's super powerful for filtering or aggregating records, and it's blazing fast!&lt;/p&gt;
 &lt;p&gt;The records are created from an Amazon Lambda function that is triggered every time a new archive is published on &lt;a class="reference external" href="https://archive.mozilla.org"&gt;https://archive.mozilla.org&lt;/a&gt; (which is itself powered by S3).&lt;/p&gt;
-&lt;p&gt;We use the recent Kinto Accounts feature for authentication, where the only user with write access is the lambda one.
+&lt;p&gt;We use the recent &lt;a class="reference external" href="https://kinto.readthedocs.io/en/latest/api/1.x/accounts.html"&gt;Kinto Accounts feature&lt;/a&gt; for authentication, where the only user with write access is the lambda one.
 To initialize a Kinto instance for buildhub development, most for collection indexing metadata, we also use &lt;a class="reference external" href="https://github.com/Kinto/kinto-wizard/"&gt;kinto-wizard&lt;/a&gt;.&lt;/p&gt;
 &lt;dl class="docutils"&gt;
 &lt;dt&gt;Summary&lt;/dt&gt;
@@ -127,7 +127,7 @@ To initialize a Kinto instance for buildhub development, most for collection ind
 &lt;div class="section" id="id3"&gt;
 &lt;h3&gt;Possible evolutions&lt;/h3&gt;
 &lt;ul class="simple"&gt;
-&lt;li&gt;We may to split the single collection into one per update channel (stable, beta, nightly...)&lt;/li&gt;
+&lt;li&gt;We may want to split the big single collection into one per update channel (stable, beta, nightly...)&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
