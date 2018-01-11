@@ -87,7 +87,7 @@ Firefox is now compatible with the Web Extensions APIs, that allow addons develo
 
 In our implementation, the client encrypts the data before sending it to our servers to guarantee privacy. This might not be the case in Chrome by the way. It uses kinto.js and leverages the Firefox Accounts encryption keys.
 
-This stack allowed us to really stress Kinto. When popular extensions like Adblock switched to Web Extensions, we had database congestions and lots of 5XX errors. We should have been a lot more thorough with load testing, and hence discovered race conditions and scaling bugs the hard way. Most of them are fixed now though.
+This stack allowed us to really stress test Kinto. When popular extensions like Adblock switched to Web Extensions, we had database congestions and lots of 5XX errors. We should have been a lot more thorough with load testing, and hence discovered race conditions and scaling bugs the hard way. Most of them are fixed now though.
 
 The quota plugin restricts the amount of objects allowed to be stored. It relies on two Memcache instances as cache backends, mainly used for caching authentication.
 
@@ -100,7 +100,7 @@ Production date
 Average requests/sec
   1100 (70K/min)
 Data size
-  XXX millions buckets, XXX collections, XXX records
+  4M buckets, 11M collections, 13M records
 
 Possible evolutions
 -------------------
@@ -132,7 +132,7 @@ Production date
 Average requests/sec
   <1 (40 req/min)
 Data size:
-  XXX buckets
+  700 buckets, 700 collections, 700 records (*only one record per sheet of notes*)
 
 .. image:: {filename}/images/kinto-at-mozilla-testpilot-overview.png
     :alt: Screenshot of NewRelic overview for the TestPilot Kinto stack
@@ -164,7 +164,7 @@ Production date
 Average requests/sec
   <0.1 (1 req/min)
 Data size
-  1 collection with 740K records (*and growing*)
+  1 collection with ~800K records (*and growing*)
 
 Possible evolutions
 -------------------
