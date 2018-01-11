@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Service de nuages, ">
+
+        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+
+        <title>Kinto at Mozilla // Service de nuages // </title>
+
+
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $(".content").fitVids();
+        });
+    </script>
+</head>
+
+<body>
+<div class="pure-g-r" id="layout">
+    <div class="sidebar sidebar-article pure-u">
+        <header class="header-article">
+            <hgroup>
+                <h5>Published</h5>
+                <p title="~1470 words">~6 minutes reading 🕑</p>
+                <p>Tue, 09 January 2018</p>
+                <a href="/en/">&larr; Back to articles</a>
+            </hgroup>
+        </header>
+    </div>
+    <div class="pure-u">
+        <div class="content">
+            <section class="post">
+                <header class="post-header">
+                    <h1>Kinto at Mozilla</h1>
+                        <p class="post-meta">                                <a class="post-category" href="http://www.servicedenuages.fr/tag/mozilla.html">mozilla</a>
+                        </p>
+                </header>
+            </section>
+            <p>During the last company all hands, we heard many mentions of <em>Kinto</em>, mostly from people that we hadn't met before or that weren't aware we were the authors. Part of this fame may probably be due to the success of <a class="reference external" href="https://testpilot.firefox.com/experiments/notes">Firefox Notes</a>, and the recent addition of the long awaited notes synchronization features.</p>
+<p>It's amazing how much we've accomplished with this project in very heterogenous contexts, and sadly we haven't really taken the time to celebrate. This post intends to present the different use-cases we are aware of at Mozilla, with some architecture and metrics details.</p>
+<div class="section" id="firefox-remote-settings">
+<h2>Firefox remote settings</h2>
+<p>The original one!</p>
+<p>Firefox engineers edit remote settings like blocklist or certificate revocation lists via the <a class="reference external" href="https://github.com/Kinto/kinto-admin/">Kinto Admin UI</a>. There are several buckets for each category of settings listed below.</p>
+<p>The hundreds of millions of Firefox browsers regularly poll for changes using the <a class="reference external" href="https://github.com/Kinto/kinto-changes">kinto-changes</a> endpoint. Two instances are deployed with the same database, a public one read-only behind a CDN, and a private one only accessible via a secured VPN.</p>
+<p>Since the remote settings are critical, and served via a CDN, we use <a class="reference external" href="https://github.com/Kinto/kinto-signer">kinto-signer</a> to sign the data in order to guarantee authenticity and integrity. It also brings reviewing and sign-off features as well as the previewing changes feature for the QA team. The <a class="reference external" href="https://kinto.readthedocs.io/en/latest/api/1.x/history.html">history plugin</a> allows us to track the changes over time.</p>
+<p>The client lies in the Firefox codebase, implemented with <cite>kinto.js &lt;https://github.com/Kinto/kinto.js/&gt;</cite>. It verifies <a class="reference external" href="https://martinthomson.github.io/http-miser/draft-thomson-http-miser.html">content signatures</a> to verify that settings are conformant, and has a specific adapter to store local data in SQLite instead of IndexedDB. Some <a class="reference external" href="https://telemetry.mozilla.org/">Telemetry data</a> is sent when remote settings are synchronized locally in order to track uptake globally.</p>
+<p>In order to manage buckets and collections, as well as groups and their related permissions, we use <a class="reference external" href="https://github.com/Kinto/kinto-wizard/">kinto-wizard</a> that reads a YAML file from a Github private repo, and creates or updates the missing objects.</p>
+<dl class="docutils">
+<dt>Summary</dt>
+<dd>A few admins edit a source of truth that millions of clients synchronize locally</dd>
+<dt>Instance</dt>
+<dd><a class="reference external" href="https://firefox.settings.services.mozilla.com">https://firefox.settings.services.mozilla.com</a></dd>
+<dt>Production date</dt>
+<dd>December 2015</dd>
+<dt>Average requests/sec</dt>
+<dd>1000-2000</dd>
+</dl>
+<img alt="Datadog screenshot of requests per second graph for Firefox Settings stack" src="http://www.servicedenuages.fr/en/../images/kinto-at-mozilla-blocklists-rps.png" style="width: 793px; height: auto; max-width: 100%;"/>
+<div class="section" id="blocklists">
+<h3>Blocklists</h3>
+<p>The blocklists are used to remotely disable malware addons, malicious or unstable plugins, or some graphical drivers that turned out to be unstable on certain hardware. A custom plugin, kinto-amo, was implemented to serve the blocklist in the same XML format as addons.mozilla.org used to have (or old Firefox versions).</p>
+</div>
+<div class="section" id="certificate-revocation">
+<h3>Certificate revocation</h3>
+<p>Certicates sometimes need to be invalidated before they expire. The OneCRL (certificates revocation list) fulfils that goal.</p>
+</div>
+<div class="section" id="certificate-pinning">
+<h3>Certificate pinning</h3>
+<p>When the browser reaches a website via https for the first time, it downloads its certificate. To make sure the certificate is genuine, we use a list of public keys (HPKP) to be compared on the client side.</p>
+</div>
+<div class="section" id="android-assets">
+<h3>Android assets</h3>
+<p>In order to reduce the size of the Android installer, some assets — like fonts or hyphenations dictionaries — are downloaded asynchronously. The client polls files from <em>Firefox remote settings</em>, leveraging <a class="reference external" href="http://github.com/Kinto/kinto-attachment">kinto-attachment</a>.</p>
+</div>
+<div class="section" id="android-and-ios-experiments">
+<h3>Android and iOS experiments</h3>
+<p>This stack is also used to deliver A/B testing features on Android and iOS. The client receives metadata for the on-going experiments.</p>
+</div>
+<div class="section" id="resist-fingerprinting-with-fonts-whitelist">
+<h3>Resist fingerprinting with fonts whitelist</h3>
+<p><a class="reference external" href="https://bugzilla.mozilla.org/show_bug.cgi?id=1336208">The idea</a> is to deliver some fonts to avoid downloading them while browsing. The client globally works like the Android assets.</p>
+</div>
+<div class="section" id="possible-evolutions">
+<h3>Possible evolutions</h3>
+<ul class="simple">
+<li>There is certainly going to be more types of settings for new use-cases</li>
+<li>The stack currently uses <cite>kinto-ldap</cite> to authenticate users. We'll switch to OpenID Connect now that the company uses Auth0 everywhere.</li>
+<li>The <a class="reference external" href="https://github.com/mozilla-services/autopush">Push team</a> is working on a solution to replace frequent polling with a push (at that scale nothing is trivial).</li>
+<li>The Sync team is working on a new data store for profile data. We'll probably replace the current SQLite adapter.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="webextensions-storage-sync-api">
+<h2>WebExtensions storage.sync API</h2>
+<p>The tough one!</p>
+<p>Firefox is now compatible with the Web Extensions APIs, that allow addons developers to share a common code-base between different browsers. One of these APIs allows addons to store and sync some data (eg. user-preferences).</p>
+<p>In our implementation, the client encrypts the data before sending it to our servers to guarantee privacy. This might not be the case in Chrome by the way. It uses kinto.js and leverages the Firefox Accounts encryption keys.</p>
+<p>This stack allowed us to really stress test Kinto. When popular extensions like Adblock switched to Web Extensions, we had database congestions and lots of 5XX errors. We should have been a lot more thorough with load testing, and hence discovered race conditions and scaling bugs the hard way. Most of them are fixed now though.</p>
+<p>The quota plugin restricts the amount of objects allowed to be stored. It relies on two Memcache instances as cache backends, mainly used for caching authentication.</p>
+<dl class="docutils">
+<dt>Summary</dt>
+<dd>Many users have their own private bucket and collections with a limited amount of records</dd>
+<dt>Instance</dt>
+<dd><a class="reference external" href="https://webextensions.settings.services.mozilla.com">https://webextensions.settings.services.mozilla.com</a></dd>
+<dt>Production date</dt>
+<dd>July 2017</dd>
+<dt>Average requests/sec</dt>
+<dd>1100 (70K/min)</dd>
+<dt>Data size</dt>
+<dd>4M buckets, 11M collections, 13M records</dd>
+</dl>
+<div class="section" id="id1">
+<h3>Possible evolutions</h3>
+<ul class="simple">
+<li>We still have some <a class="reference external" href="https://en.wikipedia.org/wiki/Time_of_check_to_time_of_use">TOCTOU issues</a> that we would like to tackle.</li>
+<li>At some point, we might have to consider some sharding strategy too.</li>
+</ul>
+<img alt="WebExtensions requests per seconds graphs" src="http://www.servicedenuages.fr/en/../images/kinto-at-mozilla-we-rps.png" style="width: 522px; height: auto; max-width: 100%;"/>
+</div>
+</div>
+<div class="section" id="firefox-test-pilot">
+<h2>Firefox Test Pilot</h2>
+<p>Authentication is provided by Firefox Accounts and assured by <a class="reference external" href="https://github.com/mozilla-services/kinto-fxa/">kinto-fxa</a>.</p>
+<p>The main challenge here was to reuse the same stack for different Test Pilot extensions, while being able to maintain data isolation and client side encryption.</p>
+<p>Each test pilot addon has its own scope, so that an extension has no permission to read the server data produced by another one (using a kinto-fxa trick that adds prefixes to user ids). Plus, the client side code fetches a different encryption key per extension, which means an extension has no way to decrypt the local data produced by another one.</p>
+<p>By using raw <cite>kinto.js</cite> on a dedicated stack instead of the storage.sync API, the data produced by Test Pilot extensions can be read outside the browser (eg. native mobile apps).</p>
+<dl class="docutils">
+<dt>Summary</dt>
+<dd>Many users have their own private bucket and collections with a limited amount of records</dd>
+<dt>Instance</dt>
+<dd><a class="reference external" href="https://testpilot.settings.services.mozilla.com">https://testpilot.settings.services.mozilla.com</a></dd>
+<dt>Production date</dt>
+<dd>November 2017</dd>
+<dt>Average requests/sec</dt>
+<dd>&lt;1 (40 req/min)</dd>
+<dt>Data size:</dt>
+<dd>700 buckets, 700 collections, 700 records (<em>only one record per sheet of notes</em>)</dd>
+</dl>
+<img alt="Screenshot of NewRelic overview for the TestPilot Kinto stack" src="http://www.servicedenuages.fr/en/../images/kinto-at-mozilla-testpilot-overview.png" style="width: 1057px; height: auto; max-width: 100%;"/>
+</div>
+<div class="section" id="buildhub">
+<h2>Buildhub</h2>
+<p>This summer we worked on a comprehensive and standard database of Mozilla product builds. There was no standard solution and many systems within the company were doing it their own way. Our goal was to provide a simple JSON API that applications or scripts could query in order to obtain information about build ids, versions, update channels etc.</p>
+<img alt="Buildhub UI (using SearchKit)" src="http://www.servicedenuages.fr/en/../images/kinto-at-mozilla-buildhub-ui.png" style="width: 800px; height: auto; max-width: 100%;"/>
+<p>We could have developed a custom solution, but using Kinto allowed us to start very quickly and take advantage of the existing ecosystem as well as our deployment automations.</p>
+<p>In order to provide efficient and advanced query capabilities we developed <a class="reference external" href="https://github.com/Kinto/kinto-elasticsearch/">kinto-elasticsearch</a>, a simple plugin that adds a <tt class="docutils literal">/search</tt> endpoint to collections of records. It's super powerful for filtering or aggregating records, and it's blazing fast!</p>
+<p>The records are created from an Amazon Lambda function that is triggered every time a new archive is published on <a class="reference external" href="https://archive.mozilla.org">https://archive.mozilla.org</a> (which is itself powered by S3).</p>
+<p>We use the recent Kinto Accounts feature for authentication, where the only user with write access is the lambda one.
+To initialize a Kinto instance for buildhub development, most for collection indexing metadata, we also use <a class="reference external" href="https://github.com/Kinto/kinto-wizard/">kinto-wizard</a>.</p>
+<dl class="docutils">
+<dt>Summary</dt>
+<dd>A set of scripts update a single collection of many records that are looked up by a few clients</dd>
+<dt>Instance</dt>
+<dd><a class="reference external" href="https://buildhub.prod.mozaws.net">https://buildhub.prod.mozaws.net</a></dd>
+<dt>Production date</dt>
+<dd>July 2017</dd>
+<dt>Average requests/sec</dt>
+<dd>&lt;0.1 (1 req/min)</dd>
+<dt>Data size</dt>
+<dd>1 collection with ~800K records (<em>and growing</em>)</dd>
+</dl>
+<div class="section" id="id3">
+<h3>Possible evolutions</h3>
+<ul class="simple">
+<li>We may to split the single collection into one per update channel (stable, beta, nightly...)</li>
+</ul>
+</div>
+</div>
+<div class="section" id="packaging">
+<h2>Packaging</h2>
+<p>Since we have a variety of plugins, we bundled them into a <em>distribution</em> package. <a class="reference external" href="https://github.com/Kinto/kinto-dist/">kinto-dist</a> is like a meta-package that gathers all the necessary plugins and dependencies for our stacks.</p>
+<p>We use Docker in production, following the <a class="reference external" href="https://github.com/mozilla-services/Dockerflow">Dockerflow</a> conventions.</p>
+</div>
+<div class="section" id="the-future">
+<h2>The future...</h2>
+<p>Test Pilot is probably the setup where Kinto fits most our initial vision. Frontend apps synchronizing strongly encrypted data, using keys that are obtained from user identity. The only blocker to apply the same approach to any Web app is that Firefox Accounts (and its keys API) is still restricted to Mozilla applications.</p>
+<p>The only type of use-case that we don't have yet in production at Mozilla is a collaborative application, where several users interact with the same collection of data, leveraging our sharing and push events features.</p>
+<p>We tend to believe that Kinto is feature complete. Some of the external plugins are stable enough to be promoted as built-in plugins, which may improve the developer experience. Polishing the documentation could be one of our top priorites. Same goes for the product and marketing aspects, but that doesn't depend only on us.</p>
+<p>Of course, there is some amount of technical debt that could be tackled here and there. And to be honest we don't see a huge amount of external contributions and pull requests on the Kinto Github org. The <a class="reference external" href="https://en.wikipedia.org/wiki/Bus_factor">bus factor</a> is quite high!</p>
+</div>
+
+            <div class="hr"></div>
+            <a href="#" class="go-top">Revenir au début</a>
+<div class="comments">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = "servicedenuages"; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div><footer class="footer">
+    <p>&copy; Service de nuages &ndash;
+        Développé avec <a href="https://github.com/PurePelicanTheme/pure">Pure Theme</a>
+        et <a href="http://blog.getpelican.com/">Pelican</a>
+    </p>
+</footer>        </div>
+    </div>
+</div>
+    <script>
+        var $top = $('.go-top');
+
+        // Show or hide the sticky footer button
+        $(window).scroll(function() {
+            if ($(this).scrollTop() > 200) {
+                $top.fadeIn(200);
+            } else {
+                $top.fadeOut(200);
+            }
+        });
+
+        // Animate the scroll to top
+        $top.click(function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop: 0}, 300);
+        })
+
+        // Makes sure that the href="#" attached to the <a> elements
+        // don't scroll you back up the page.
+        $('body').on('click', 'a[href="#"]', function(event) {
+            event.preventDefault();
+        });
+    </script>
+<!-- Piwik -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+  (function() {
+    var u="//piwik.notmyidea.org/";
+    _paq.push(['setTrackerUrl', u+'piwik.php']);
+    _paq.push(['setSiteId', 1]);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script>
+<noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
+<!-- End Piwik Code -->
+  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script data-no-instant>InstantClick.init();</script>
+</body>
+</html>
