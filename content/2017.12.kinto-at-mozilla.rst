@@ -189,4 +189,4 @@ The only type of use-case that we don't have yet in production at Mozilla is a c
 
 We tend to believe that Kinto is feature complete. Some of the external plugins are stable enough to be promoted as built-in plugins, which may improve the developer experience. Polishing the documentation could be one of our top priorites. Same goes for the product and marketing aspects, but that doesn't depend only on us.
 
-Of course, there is some amount of technical debt that could be tackled here and there. And to be honest we don't see a huge amount of external contributions and pull requests on the Kinto Github org. Even if we have more than 75 contributors, the `bus factor <https://en.wikipedia.org/wiki/Bus_factor>`_ is quite high!
+Of course, there is some amount of technical debt that could be tackled here and there. And to be honest we don't see a huge amount of external contributions and pull requests on the Kinto Github org. Even if we received contributions from more than 75 contributors over the last 3 years, the `bus factor <https://en.wikipedia.org/wiki/Bus_factor>`_ is quite high!
