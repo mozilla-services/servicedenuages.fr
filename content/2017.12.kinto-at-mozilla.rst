@@ -42,7 +42,7 @@ Average requests/sec
 Blocklists
 ----------
 
-The blocklists are used to remotely disable malware addons, malicious or unstable plugins, or some graphical drivers that turned out to be unstable on certain hardware. A custom plugin, kinto-amo, was implemented to serve the blocklist in the same XML format as addons.mozilla.org used to have (or old Firefox versions).
+The blocklists are used to remotely disable malware addons, malicious or unstable plugins, or some graphical drivers that turned out to be unstable on certain hardware. A custom plugin, `kinto-amo <https://github.com/mozilla-services/kinto-amo/>`_, was implemented to serve the blocklist in the same XML format as `addons.mozilla.org <https://addons.mozilla.org/>`_ used to have (or old Firefox versions).
 
 Certificate revocation
 ----------------------
@@ -89,7 +89,7 @@ In our implementation, the client encrypts the data before sending it to our ser
 
 This stack allowed us to really stress test Kinto. When popular extensions like Adblock switched to Web Extensions, we had database congestions and lots of 5XX errors. We should have been a lot more thorough with load testing, and hence discovered race conditions and scaling bugs the hard way. Most of them are fixed now though.
 
-The quota plugin restricts the amount of objects allowed to be stored. It relies on two Memcache instances as cache backends, mainly used for caching authentication.
+The quota plugin restricts the amount of objects allowed to be stored. It relies on two Memcache instances as cache backends, mainly used to temporarily cache authentication.
 
 Summary
   Many users have their own private bucket and collections with a limited amount of records
@@ -119,7 +119,7 @@ Authentication is provided by Firefox Accounts and assured by `kinto-fxa <https:
 
 The main challenge here was to reuse the same stack for different Test Pilot extensions, while being able to maintain data isolation and client side encryption.
 
-Each test pilot addon has its own scope, so that an extension has no permission to read the server data produced by another one (using a kinto-fxa trick that adds prefixes to user ids). Plus, the client side code fetches a different encryption key per extension, which means an extension has no way to decrypt the local data produced by another one.
+Each test pilot addon has its own scope, so that an extension has no permission to read the server data produced by another one (using a kinto-fxa configuration that adds prefixes to user ids). Plus, the client side code fetches a different encryption key per extension, which means an extension has no way to decrypt the local data produced by another one.
 
 By using raw `kinto.js` on a dedicated stack instead of the storage.sync API, the data produced by Test Pilot extensions can be read outside the browser (eg. native mobile apps).
 
@@ -130,7 +130,7 @@ Instance
 Production date
   November 2017
 Average requests/sec
-  <1 (40 req/min)
+  <1 (40-80 req/min)
 Data size:
   700 buckets, 700 collections, 700 records (*only one record per sheet of notes*)
 
@@ -141,7 +141,7 @@ Data size:
 Buildhub
 ========
 
-This summer we worked on a comprehensive and standard database of Mozilla product builds. There was no standard solution and many systems within the company were doing it their own way. Our goal was to provide a simple JSON API that applications or scripts could query in order to obtain information about build ids, versions, update channels etc.
+This summer we worked on a comprehensive and standard database of Mozilla product builds. There was no standard solution and many systems within the company were doing it their own way. Our goal was to provide a simple JSON API that applications or scripts could query in order to obtain information about build IDs, versions, update channels etc.
 
 .. image:: {filename}/images/kinto-at-mozilla-buildhub-ui.png
     :alt: Buildhub UI (using SearchKit)
@@ -189,4 +189,4 @@ The only type of use-case that we don't have yet in production at Mozilla is a c
 
 We tend to believe that Kinto is feature complete. Some of the external plugins are stable enough to be promoted as built-in plugins, which may improve the developer experience. Polishing the documentation could be one of our top priorites. Same goes for the product and marketing aspects, but that doesn't depend only on us.
 
-Of course, there is some amount of technical debt that could be tackled here and there. And to be honest we don't see a huge amount of external contributions and pull requests on the Kinto Github org. The `bus factor <https://en.wikipedia.org/wiki/Bus_factor>`_ is quite high!
+Of course, there is some amount of technical debt that could be tackled here and there. And to be honest we don't see a huge amount of external contributions and pull requests on the Kinto Github org. Even if we received contributions from more than 75 contributors over the last 3 years, the `bus factor <https://en.wikipedia.org/wiki/Bus_factor>`_ is quite high!
