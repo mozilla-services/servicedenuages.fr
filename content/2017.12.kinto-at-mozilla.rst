@@ -23,7 +23,7 @@ The hundreds of millions of Firefox browsers regularly poll for changes using th
 
 Since the remote settings are critical, and served via a CDN, we use `kinto-signer <https://github.com/Kinto/kinto-signer>`_ to sign the data in order to guarantee authenticity and integrity. It also brings reviewing and sign-off features as well as the previewing changes feature for the QA team. The `history plugin <https://kinto.readthedocs.io/en/latest/api/1.x/history.html>`_ allows us to track the changes over time.
 
-The client lies in the Firefox codebase, implemented with `kinto.js <https://github.com/Kinto/kinto.js/>`. It verifies `content signatures <https://martinthomson.github.io/http-miser/draft-thomson-http-miser.html>`_ to verify that settings are conformant, and has a specific adapter to store local data in SQLite instead of IndexedDB. Some `Telemetry data <https://telemetry.mozilla.org/>`_ is sent when remote settings are synchronized locally in order to track uptake globally.
+The client lies in the Firefox codebase, implemented with `kinto.js <https://github.com/Kinto/kinto.js/>`_. It verifies `content signatures <https://martinthomson.github.io/http-miser/draft-thomson-http-miser.html>`_ to verify that settings are conformant, and has a specific adapter to store local data in SQLite instead of IndexedDB. Some `Telemetry data <https://telemetry.mozilla.org/>`_ is sent when remote settings are synchronized locally in order to track uptake globally.
 
 In order to manage buckets and collections, as well as groups and their related permissions, we use `kinto-wizard <https://github.com/Kinto/kinto-wizard/>`_ that reads a YAML file from a Github private repo, and creates or updates the missing objects.
 
