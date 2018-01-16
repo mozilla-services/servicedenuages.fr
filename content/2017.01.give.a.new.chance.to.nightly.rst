@@ -214,12 +214,13 @@ Bonus: How to configure Firefox Nightly as my default browser in Linux?
 #. Download the archive in https://nightly.mozilla.org/
 #. ``tar jxf ~/Downloads/firefox*.linux-x86_64.tar.bz2 -C ~/apps/``
 #. Copy current Firefox desktop file: ``cp /usr/share/applications/firefox.desktop ~/apps``
+#. Add ``StartupWMClass=Nightly`` in the ``[Desktop Entry]`` category.
 #. Copy current browser alternative file: ``cp /etc/alternatives/x-www-browser ~/apps``
 #. Copy current launcher file: ``cp /usr/lib/firefox/firefox.sh ~/apps``
 #. Remove the version installed by your package manager: ``sudo apt purge firefox``
 #. Install Firefox: ``sudo ln -s ${HOME}/apps/firefox.sh /usr/bin/firefox``
 #. Install the desktop file: ``sudo cp ~/apps/firefox.desktop /usr/share/applications/``
-#. Install the icon: ``sudo cp ~/apps/firefox/browser/icons/mozicon128.png /usr/share/pixmaps/firefox.png``
+#. Install the icon: ``sudo cp ~/apps/firefox/browser/chrome/icons/default/default128.png /usr/share/pixmaps/firefox.png``
 #. Install the browser alternative: ``cp ~/apps/x-www-browser /etc/alternatives/x-www-browser``
 #. Display an URL in the terminal: ``echo https://www.mozilla.org/``
 #. Close Firefox and click on the link.
