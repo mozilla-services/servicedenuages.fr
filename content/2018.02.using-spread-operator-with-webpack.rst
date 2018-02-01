@@ -7,10 +7,10 @@ How to use the JavaScript spread operator with Webpack
 :summary: A trick to configure webpack so that it handles the spread operator.
 
 
-What is the spread operator?
-============================
+What is the Object Rest Spread operator?
+========================================
 
-One of the cool feature of JavaScript is the spread operator feature:
+One of the cool feature of JavaScript is the `Object Rest Spread operator`_ feature:
 
 .. code-block:: javascript
 
@@ -20,8 +20,12 @@ Before this feature you could write it like that:
 
 .. code-block:: javascript
 
-    const preferences = _extends({}, defaultPreferences, savedPreferences);
+    const preferences = Object.assign({}, defaultPreferences, savedPreferences);
 
+`Click here for more information`_ about this Object Rest Spread feature.
+
+.. _`Object Rest Spread operator`: https://github.com/tc39/proposal-object-rest-spread
+.. _`Click here for more information`: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator
 
 Webpack doesn't really like it
 ==============================
@@ -81,6 +85,6 @@ Conclusion
 This is a simple way to make webpack and the spread operator to work
 nicely together.
 
-Note that this will probably soon be unecessary since webpack is
+Note that this will probably soon be unnecessary since webpack is
 `implementing its support <https://github.com/webpack/webpack/issues/5548#issuecomment-362059410>`_
 as we speak.
