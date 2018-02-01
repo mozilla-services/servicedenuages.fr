@@ -27,8 +27,12 @@ Before this feature you could write it like that:
 .. _`Object Rest Spread operator`: https://github.com/tc39/proposal-object-rest-spread
 .. _`Click here for more information`: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator
 
-Webpack doesn't really like it
-==============================
+Because it is still a stage 3 draft feature, webpack doesn't
+understand this operator yet and raise a ``Unexpected token`` parse
+error.
+
+How to enable the draft feature with webpack
+============================================
 
 Parse failed: Unexpected token
 ------------------------------
@@ -48,8 +52,9 @@ Parse failed: Unexpected token
 Babel to the rescue
 -------------------
 
-You could use the previous version that I showed you before, but you
-can also use a babel plugin to make webpack happy.
+The way to use experimental features in Javascript is to use Babel.
+
+Hopefully for use there is a Babel plugin for this feature.
 
 ``babel-loader`` and ``babel-plugin-transform-object-rest-spread`` to the rescue
 --------------------------------------------------------------------------------
@@ -82,8 +87,7 @@ Configure webpack
 Conclusion
 ==========
 
-This is a simple way to make webpack and the spread operator to work
-nicely together.
+This is a simple way to use this experimental feature with webpack.
 
 Note that this will probably soon be unnecessary since webpack is
 `implementing its support <https://github.com/webpack/webpack/issues/5548#issuecomment-362059410>`_
