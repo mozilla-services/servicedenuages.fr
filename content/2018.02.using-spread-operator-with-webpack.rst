@@ -1,0 +1,86 @@
+How to use the JavaScript spread operator with Webpack
+######################################################
+
+:lang: en
+:date: 2018-02-01
+:url: spread-operator-with-webpack
+:summary: A trick to configure webpack so that it handles the spread operator.
+
+
+What is the spread operator?
+============================
+
+One of the cool feature of JavaScript is the spread operator feature:
+
+.. code-block:: javascript
+
+    const preferences = {...defaultPreferences, ...savedPreferences};
+
+Before this feature you could write it like that:
+
+.. code-block:: javascript
+
+    const preferences = _extends({}, defaultPreferences, savedPreferences);
+
+
+Webpack doesn't really like it
+==============================
+
+Parse failed: Unexpected token
+------------------------------
+
+.. code-block:: javascript
+
+    ERROR in ./src/background/storage.js
+    Module parse failed: Unexpected token (54:28)
+    You may need an appropriate loader to handle this file type.
+    |       // set preferences defaults if not present
+    |       if (!Object.keys(preferences).length) {
+    |         preferences = {...defaultPreferences, ...savedPreferences};
+    |       }
+     @ ./src/background.js
+
+
+Babel to the rescue
+-------------------
+
+You could use the previous version that I showed you before, but you
+can also use a babel plugin to make webpack happy.
+
+``babel-loader`` and ``babel-plugin-transform-object-rest-spread`` to the rescue
+--------------------------------------------------------------------------------
+
+.. code-block:: console
+
+    npm install --save-dev babel-loader babel-plugin-transform-object-rest-spread
+
+Configure webpack
+-----------------
+
+.. code-block:: javascript
+
+    {
+      module: {
+        loaders: [
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader',
+            query: {
+              plugins:[ 'transform-object-rest-spread' ]
+            }
+          }
+        ]
+      }
+    }
+
+
+Conclusion
+==========
+
+This is a simple way to make webpack and the spread operator to work
+nicely together.
+
+Note that this will probably soon be unecessary since webpack is
+`implementing its support <https://github.com/webpack/webpack/issues/5548#issuecomment-362059410>`_
+as we speak.
