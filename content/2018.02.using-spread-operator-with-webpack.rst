@@ -1,0 +1,94 @@
+How to use the JavaScript spread operator with Webpack
+######################################################
+
+:lang: en
+:date: 2018-02-01
+:url: spread-operator-with-webpack
+:summary: A trick to configure webpack so that it handles the spread operator.
+
+
+What is the Object Rest Spread operator?
+========================================
+
+One of the cool feature of JavaScript is the `Object Rest Spread operator`_ feature:
+
+.. code-block:: javascript
+
+    const preferences = {...defaultPreferences, ...savedPreferences};
+
+Before this feature you could write it like that:
+
+.. code-block:: javascript
+
+    const preferences = Object.assign({}, defaultPreferences, savedPreferences);
+
+`Click here for more information`_ about this Object Rest Spread feature.
+
+.. _`Object Rest Spread operator`: https://github.com/tc39/proposal-object-rest-spread
+.. _`Click here for more information`: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator
+
+Because it is still a stage 3 draft feature, webpack doesn't
+understand this operator yet and raise a ``Unexpected token`` parse
+error.
+
+How to enable the draft feature with webpack
+============================================
+
+Parse failed: Unexpected token
+------------------------------
+
+.. code-block:: javascript
+
+    ERROR in ./src/background/storage.js
+    Module parse failed: Unexpected token (54:28)
+    You may need an appropriate loader to handle this file type.
+    |       // set preferences defaults if not present
+    |       if (!Object.keys(preferences).length) {
+    |         preferences = {...defaultPreferences, ...savedPreferences};
+    |       }
+     @ ./src/background.js
+
+
+Babel to the rescue
+-------------------
+
+The way to use experimental features in Javascript is to use Babel.
+
+Hopefully for use there is a Babel plugin for this feature.
+
+``babel-loader`` and ``babel-plugin-transform-object-rest-spread`` to the rescue
+--------------------------------------------------------------------------------
+
+.. code-block:: console
+
+    npm install --save-dev babel-loader babel-plugin-transform-object-rest-spread
+
+Configure webpack
+-----------------
+
+.. code-block:: javascript
+
+    {
+      module: {
+        loaders: [
+          {
+            test: /\.js$/,
+            exclude: /node_modules/,
+            loader: 'babel-loader',
+            query: {
+              plugins:[ 'transform-object-rest-spread' ]
+            }
+          }
+        ]
+      }
+    }
+
+
+Conclusion
+==========
+
+This is a simple way to use this experimental feature with webpack.
+
+Note that this will probably soon be unnecessary since webpack is
+`implementing its support <https://github.com/webpack/webpack/issues/5548#issuecomment-362059410>`_
+as we speak.
