@@ -5,7 +5,7 @@
 :lang: fr
 :url: a-propos
 
-Nous sommes un groupe de développeurs partiellements francophones qui gravitons autour de Kinto :
+Nous sommes un groupe de développeurs partiellement francophones qui gravitons autour de Kinto :
 
 `Alexis <https://twitter.com/ameteaireau>`_,
 `Ethan <https://twitter.com/EthanIsMumbling>`_,
