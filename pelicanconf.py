@@ -21,9 +21,6 @@ TIMEZONE = 'Europe/Paris'
 
 DEFAULT_LANG = u'fr'
 
-# Social widget
-SOCIAL = (('Github', 'https://github.com/mozilla-services'),)
-
 DEFAULT_PAGINATION = False
 
 THEME = "pure"
@@ -33,7 +30,7 @@ COVER_IMG_URL = '/theme/sidebar.jpg'
 SOCIAL = (
     ('envelope', 'http://librelist.com/browser/daybed.dev/'),
     ('rss', SITEURL + 'feeds/all.atom.xml'),
-    ('github', 'https://github.com/mozilla-services/servicedenuages.fr'),
+    ('github', 'https://github.com/Kinto/servicedenuages.fr'),
 )
 
 MENUITEMS = (

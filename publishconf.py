@@ -22,7 +22,7 @@ DELETE_OUTPUT_DIRECTORY = True
 SOCIAL = (
     ('envelope', 'http://librelist.com/browser/daybed.dev/'),
     ('rss', SITEURL + '/feeds/all.atom.xml'),
-    ('github', 'https://github.com/mozilla-services'),
+    ('github', 'https://github.com/Kinto/servicedenuages.fr'),
 )
 
 # Following items are often useful when publishing

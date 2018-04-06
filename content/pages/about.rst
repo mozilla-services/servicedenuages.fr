@@ -5,15 +5,14 @@
 :lang: fr
 :url: a-propos
 
-Nous sommes une équipe «Cloud-services» partiellement francophone à
-`Mozilla <https://www.mozilla.com/>`_ :
-`Benson Wong <https://twitter.com/mostlygeek>`_,
-`Ben Hearsum <https://twitter.com/bhearsum>`_,
+Nous sommes un groupe de développeurs partiellements francophones qui gravitons autour de Kinto :
+
+`Alexis <https://twitter.com/ameteaireau>`_,
 `Ethan <https://twitter.com/EthanIsMumbling>`_,
 `Mathieu <https://twitter.com/leplatrem>`_,
-`Magopian <https://twitter.com/magopian>`_
-`Peter <https://twitter.com/peterbe>`_
-and
+`Magopian <https://twitter.com/magopian>`_,
+`Niko <https://twitter.com/n1k0>`_,
+et
 `Rémy <https://twitter.com/Natim>`_ .
 
 Après quelques temps à accumuler les expériences sans vraiment les
