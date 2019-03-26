@@ -9,8 +9,9 @@ Getting started with Elm 0.19
 Introduction
 ============
 
-Since the last article I wrote two years ago, we have been using Elm
-in production for two years with great success.
+Since the `last article <https://www.servicedenuages.fr/en/getting-started-with-elm>`_
+I wrote two years ago, we have been using Elm in production for two years with
+great success.
 
 This article is an update to Elm 0.19 of the previous one.
 
@@ -30,7 +31,7 @@ frameworks can take a lot of energy, not to mention the challenge in
 making sure your app works on all the available browser versions.
 
 If you want to be able to write front-end application without having
-to cope with the Javascrit fatigue, you should definitely try Elm_.
+to cope with the JavaScript fatigue, you should definitely try Elm_.
 
 Elm brings functional programming to your browser. The language is
 statically typed, so with Elm you won't see any runtime errors caused
@@ -284,9 +285,8 @@ write a program that handles events.
 
 The way Elm handles that is by having:
 
-- a ``Model``, an Elm record: a bit like a JavaScript object with
-  properties, that keep the state of the app
-- an update function that will handle all the app events and update
+- a ``Model`` that keep the state of the app,
+- an ``update`` function that will handle all the app events and update
   the model state accordingly
 - a view function that will return the Virtual DOM that matches the state
   every time it's updated.
@@ -296,8 +296,7 @@ Elm. Basically ``update`` is a reducer.
 
 .. _Redux: http://redux.js.org/
 
-The events and their parameters are defined in a ``Msg`` type, which
-is a bit like a enum that would take parameters.
+The events and their parameters are defined in a ``Msg``.
 
 In order to create our application that handle states, we can use the
 ``sandbox`` from the Browser package:
@@ -472,7 +471,7 @@ the browser.
 Handling a second event
 =======================
 
-Let's add an input to let people choose who to great.
+Let's add an input to let people choose who to greet.
 
 .. code-block:: elm
 
@@ -506,8 +505,8 @@ Let's add an input to let people choose who to great.
                 else
                     { model | name = "Rémy" }
 
-            NewName new_name ->
-                { model | name = new_name }
+            NewName newName ->
+                { model | name = newName }
 
 
     view : Model -> Html Msg
@@ -529,15 +528,15 @@ The ``NewName`` event will be emitted with the content of the input each time we
 Conclusion
 ==========
 
-That's about it. Now that you understood how the events update mecanism works and how
-you can define functions, you now know more than you think about Elm.
+That's about it. Now that you understand how the event update mechanism works and how
+you can define functions, you know more than you think about Elm.
 
-In doubt, the package documentation is really useful: https://package.elm-lang.org/
+When in doubt, the package documentation is really useful: https://package.elm-lang.org/
 
 I hope you try it on your next project and enjoy Elm as much as we do.
 
-Wait a minute? That's it? Do I really know everything? But you didn't
-tell me how I was supposed to handle HTTP requests yet?
+Wait a minute, That's it? Do I really know everything? But you didn't
+tell me how I was supposed to handle HTTP requests yet!
 
 
 Handling HTTP requests
@@ -579,7 +578,7 @@ click of a button or during the init phase.
 Decoding the response
 ---------------------
 
-The expectJson_ tools is expecting a msg with a Result that can be
+The expectJson_ tool is expecting a msg with a Result that can be
 either a `Http.Error`_ or the decoded items.
 
 .. _expectJson: https://package.elm-lang.org/packages/elm/http/latest/Http#expectJson
@@ -589,7 +588,7 @@ We can use ``type Msg = GotItems (Result Http.Error (List Photo))`` to
 define the event.
 
 Then we need to explain how we can build the Photo record from its
-JSON representation by writting a decoder.
+JSON representation by writing a decoder.
 
 .. code-block:: elm
 
@@ -689,7 +688,7 @@ Even if it means installing one more dependency to your project, I
 would recommand using the later form that is more flexible when
 iterating on or refactoring decoders.
 
-Note that in that case the fields order is also important, this will
+Note that in that case field order is also important, this will
 compose a decoder that in the end returns an object and in between
 return partial decoding functions.
 
@@ -760,7 +759,7 @@ The interesting part is the following:
     showPhoto photo =
         a [ href photo.url, title photo.title ] [ img [ src photo.thumbnailUrl ] [] ]
 
-`List.map`_ will take each photos of ``model.photos`` and create a
+`List.map`_ will take each photo of ``model.photos`` and create a
 list of the results of the ``showPhoto`` function.
 
 Because ``showPhoto`` returns a ``Html Msg``, ``List.map`` will return a list of
@@ -773,7 +772,7 @@ element.
 Conclusion
 ==========
 
-What is next ? Starting from here, you can grow your widget. At some
+What's next ? Starting from here, you can grow your widget. At some
 point you might want to create a Single Page App (SPA) and handle URL
 with multiple pages.
 
@@ -782,3 +781,320 @@ recommend you to have a look at `elm-kitchen`_ which will help you to get
 started with it.
 
 .. _`elm-kitchen`: https://allo-media.github.io/elm-kitchen/
+
+
+A word about Elm types and Elm records
+======================================
+
+Elm types
+---------
+
+In Elm everything has a type.
+
+- ``"hello"`` is a ``String``
+- ``4`` is a ``number``
+- ``4.2`` is a ``Float``
+
+Elm itself define the usual types, however our business logic
+sometimes doesn't comply with the existing types.
+
+Let's think about a user, it can be ``Active`` or ``Inactive``.
+
+In other languages we would use an Enum, in Elm_ we can use a type.
+
+.. code-block:: elm
+
+    type Status = Active | Inactive
+
+You might want to use a boolean for this specific case, however using
+a type here will make your code more readable.
+
+The benefit of use a type is that Elm will be able to validate that
+you've handled all the possible cases.
+
+If I want to display the status of my user I would write:
+
+.. code-block:: elm
+
+    displayUser : User -> Html Msg
+    displayUser user =
+        div [] [ text <| user.username ++ " - " ++ statusToString user.status ]
+
+
+    statusToString : Status -> String
+    statusToString status =
+        case status of
+            Active ->
+                "This user is active"
+    
+            Inactive ->
+                "This user is inactive"
+
+But Elm types are also powerful Enum, because the possible cases can
+take parameters.
+
+For instance, I can define a ``Msg`` like that:
+
+.. code-block:: elm
+
+    type Msg
+        = AddTodo
+        | UpdateTodoDescription String
+
+In that case my event ``UpdateTodoDescription`` will have a parameter of
+type ``String``.
+
+.. code-block:: elm
+
+    update : Msg -> Model -> Model
+    update msg model =
+        case msg of
+            AddTodo ->
+                { model
+                    | todos = Todo model.currentInputValue :: model.todos
+                    , currentInputValue = ""
+                }
+    
+            UpdateTodoDescription value ->
+                { model | currentInputValue = value }
+
+
+Elm records and type alias
+--------------------------
+
+If we want to define a user, we will create a record_:
+
+.. _record: https://elm-lang.org/docs/records
+
+.. code-block:: elm
+
+    { username = "Natim", status = Active }
+
+The type annotation of this record can be deduced automatically by Elm_ and would be:
+
+.. code-block:: elm
+
+    { username : String, status : Status }
+
+
+If I create functions that take a user, I would need to define what are the property of this user:
+
+.. code-block:: elm
+
+    getUserName :  { username : String, status : Status } -> String
+    getUserName user =
+        user.username
+
+Instead of doing that, I can create a ``type alias`` to name the type
+annotation of my record:
+
+.. code-block:: elm
+
+    type alias User =
+         { username : String, status : Status }
+
+    getUserName :  User -> String
+    getUserName user =
+        user.username
+
+Because ``user.username`` and ``.username user`` are two acceptable
+way of accessing the username property of our user, we can simplify
+our ``getUserName`` function like that:
+
+.. code-block:: elm
+
+    getUserName :  User -> String
+    getUserName =
+        .username
+
+It is really likely that the state of our app would grow, that's why
+it is recommended to use a type alias for ``Model``.
+
+
+Elm types, a step further
+-------------------------
+
+Elm types can go a step further and we can create composite types, the
+standard library already provide a bunch of them.
+
+For instance ``Maybe``, we can define maybe like that:
+
+.. code-block:: elm
+
+    type Maybe a = Just a | Nothing
+
+You might have seen the lowercase ``a`` here.
+
+It is just to tell elm that it can be any types. The only thing that
+matters is that the type defined should be the same as the type of the
+parameter of Just.
+
+``Maybe String`` will then be either a ``Just value`` with value of
+type ``String`` or a ``Nothing``.
+   
+``Maybe Int`` will then be either a ``Just value`` with value of
+type ``Int`` or a ``Nothing``.
+
+We have the same thing with ``Result`` that can be defined like that:
+
+.. code-block:: elm
+
+    type Result a b = Err a | Ok b
+
+We can then define ``Result Http.Error String`` that will be either
+``Ok value`` with ``value`` of type ``String`` or ``Err error`` with
+``error`` of type ``Http.Error``
+
+What can blow your mind is to have complex types that are self-explanatory:
+
+.. code-block:: elm
+
+    type Username = Username String
+
+    usernameToString = Username -> String
+    usernameToString (Username value) =
+        value
+
+
+You might tell me, yes but it is much more handy to use:
+
+.. code-block:: elm
+
+    type alias Username =
+        String
+
+The only difference is that if you use ``type alias`` elm won't detect this kind of mistake:
+
+.. code-block:: elm
+
+    type alias Username =
+        String
+
+
+    type alias FirstName =
+        String
+
+
+    type alias LastName =
+        String
+
+
+    type Status
+        = Active
+        | Inactive
+
+
+    type alias User =
+        { firstName : FirstName
+        , lastName : LastName
+        , username : Username
+        , status : Status
+        }
+
+
+    createUser : Username -> FirstName -> LastName -> User
+    createUser username firstname lastname =
+        User username firstname lastname Inactive
+
+.. code-block:: console
+
+    Success! Compiled 1 module.
+
+I don't know if you've seen the issue, but basically if we use our ``createUser`` function we will get the following record:
+
+.. code-block:: elm
+
+    { firstName = username, lastName = firstname, username = lastname, status = Inactive }
+
+Which is not exactly what was expected.
+
+This is because for Elm ``Username == FirstName == LastName == String``.
+
+While if we used:
+
+.. code-block:: elm
+
+    type Username =
+        Username String
+
+
+    type FirstName =
+        FirstName String
+
+
+    type LastName =
+        LastName String
+
+
+    type Status
+        = Active
+        | Inactive
+
+
+    type alias User =
+        { firstName : FirstName
+        , lastName : LastName
+        , username : Username
+        , status : Status
+        }
+
+
+    createUser : Username -> FirstName -> LastName -> User
+    createUser username firstname lastname =
+        User username firstname lastname Inactive
+
+The compiler would have told us about the issue:
+
+.. code-block:: console
+
+    Detected errors in 1 module.                                         
+    -- TYPE MISMATCH ------------------------------------------------------ Test.elm
+    
+    The 3rd argument to `User` is not what I expect:
+    
+    31|     User username firstname lastname Inactive
+                                    ^^^^^^^^
+    This `lastname` value is a:
+    
+        LastName
+    
+    But `User` needs the 3rd argument to be:
+    
+        Username
+    
+    Hint: I always figure out the argument types from left to right. If an argument
+    is acceptable, I assume it is “correct” and move on. So the problem may actually
+    be in one of the previous arguments!
+    
+    -- TYPE MISMATCH ------------------------------------------------------ Test.elm
+    
+    The 2nd argument to `User` is not what I expect:
+    
+    31|     User username firstname lastname Inactive
+                          ^^^^^^^^^
+    This `firstname` value is a:
+    
+        FirstName
+    
+    But `User` needs the 2nd argument to be:
+    
+        LastName
+    
+    Hint: I always figure out the argument types from left to right. If an argument
+    is acceptable, I assume it is “correct” and move on. So the problem may actually
+    be in one of the previous arguments!
+    
+    -- TYPE MISMATCH ------------------------------------------------------ Test.elm
+    
+    The 1st argument to `User` is not what I expect:
+    
+    31|     User username firstname lastname Inactive
+                 ^^^^^^^^
+    This `username` value is a:
+    
+        Username
+    
+    But `User` needs the 1st argument to be:
+    
+        FirstName
+				
