@@ -1,0 +1,784 @@
+Getting started with Elm 0.19
+#############################
+
+:lang: en
+:date: 2019-04-01
+:url: getting-started-with-elm-0.19
+:summary: What is Elm? how does it work? How can I try it really fast?
+
+Introduction
+============
+
+Since the last article I wrote two years ago, we have been using Elm
+in production for two years with great success.
+
+This article is an update to Elm 0.19 of the previous one.
+
+
+What is Elm and why should I be interested?
+===========================================
+
+Elm_ is a Web application development platform, providing a programming
+language, a compiler, an architecture and tooling around. It focuses
+on making sure your app state and the HTML that reflects it are always
+in sync.
+
+If you have been doing any frontend development during the last couple
+of years, you might have seen that the JavaScript ecosystem is a bit
+wild. Keeping up-to-date with the growing number of competing
+frameworks can take a lot of energy, not to mention the challenge in
+making sure your app works on all the available browser versions.
+
+If you want to be able to write front-end application without having
+to cope with the Javascrit fatigue, you should definitely try Elm_.
+
+Elm brings functional programming to your browser. The language is
+statically typed, so with Elm you won't see any runtime errors caused
+by inconsistent typing. Being functional and pure, Elm let you write code
+that is completely decoupled, which makes your code more reusable and
+easier to refactor.
+
+
+How is Elm different?
+=====================
+
+Most of the time, using Elm, the two lines it takes to load your app
+from the HTML file is all the JavaScript you will write, as your Elm
+code will be compiled to JavaScript by the Elm compiler.
+
+Most mistakes you make will be caught at compilation time, which
+means that you will barely ever encounter exceptions at runtime in the
+browser. Also that means less unit tests and defensive programming to
+write, which is always good.
+
+Because there is a compilation step, Elm forces you to handle every
+possible case of your model state. It makes sure you covered them on
+the rendering side.
+
+Also, the Elm compiler is *super* smart. It always does its best to
+help you with meaningful messages, provides guidance to fix your types
+and handle uncovered edge cases. It even finds your typos!
+
+.. code-block:: bash
+
+    Cannot find variable `nane`
+
+    13|     hello ++ ", " ++ nane ++ "!"
+                             ^^^^
+    Maybe you want one of the following?
+
+        name
+        tan
+        Cmd.none
+        Sub.none
+
+    Detected errors in 1 module.
+
+The tooling is great. elm-live_ automatically updates the browser
+code to reflect your code update in realtime. It comes with a debugger
+that will show you the list of events and state of your application at
+a given point in time — you can even go back in time and replay previous
+events. elm-format_ will also format your code automatically to avoid
+fighting over coding styles.
+
+.. _elm-live: https://github.com/tomekwi/elm-live
+.. _elm-format: https://github.com/avh4/elm-format
+.. _Elm: http://www.elm-lang.org/
+
+
+Getting started
+===============
+
+Installing Elm
+--------------
+
+First of all install ``elm``, ``elm-format`` and ``elm-live`` using npm_ — the nodejs
+package manager.
+
+.. code-block:: bash
+
+    sudo npm install -g elm elm-format elm-live
+
+.. _npm: https://www.npmjs.com/
+
+
+Looking for an IDE?
+-------------------
+
+Have a look at `Atom <https://atom.io/>`_. Combined with the
+`appropriate extension <https://atom.io/packages/elm-format>`_, it will
+run ``elm-format`` each time you save your file – which is super handy.
+
+Take a moment to make sure your text editor is configured to work well
+with Elm files.
+
+
+Starting your first project
+===========================
+
+No need for boilerplate here, you can just start by running ``elm init``
+to create the minimum ``elm.json`` file mandatory to start an app:
+
+.. code-block:: bash
+
+    ~/tutorial$ elm init
+
+    Hello! Elm projects always start with an elm.json file. I can create them!
+
+    Now you may be wondering, what will be in this file? How do I add Elm files to
+    my project? How do I see it in the browser? How will my code grow? Do I need
+    more directories? What about tests? Etc.
+
+    Check out <https://elm-lang.org/0.19.0/init> for all the answers!
+
+    Knowing all that, would you like me to create an elm.json file now? [Y/n]: 
+    Okay, I created it. Now read that link!
+
+You now have an ``elm.json`` file in your project as well as an empty
+``src/`` directory where you will put your source files.
+
+``elm.json`` is to Elm projects what ``package.json`` is to nodejs ones.
+
+.. code-block:: bash
+
+    ~/tutorial$ tree -L2
+    ├── elm.json
+    └── src
+
+    1 directory, 1 file
+
+
+Creating your first file
+========================
+
+To get started you can simply create a new file named ``src/Main.elm``
+with the following content:
+
+.. code-block:: elm
+
+    import Html
+    main = Html.text "Hello world"
+
+Elm benefits from a full featured module system, with a broad
+ecosystem of external packages available. ``Html`` is part of the core.
+
+Playing with elm-format
+-----------------------
+
+If your editor is well configured with ``elm-format``, you should see
+this as soon as you save it:
+
+.. code-block:: elm
+
+    module Main exposing (main)
+
+    import Html
+
+
+    main =
+        Html.text "Hello world!"
+
+If not, you can run ``elm-format`` manually on your file:
+
+.. code-block:: bash
+
+    ~/tutorial$ elm-format --yes Main.elm
+
+
+Opening your app in the browser
+-------------------------------
+
+One way to run your app is to use ``elm reactor``, the core app browser
+provided by the platform:
+
+.. code-block:: bash
+
+    ~/tutorial$ elm reactor
+    Go to <http://localhost:8000> to see your project dashboard.
+
+Then open http://localhost:8000/src/Main.elm in your favorite Web browser.
+
+
+Learning about the Elm virtual DOM
+==================================
+
+Virtual DOM functions to generate HTML are in the ``Html`` module.
+
+The ``Html`` module we used above to render some text also exposes many
+more functions for rendering HTML tags. You can import them all using:
+
+.. code-block:: elm
+
+    import Html exposing (..)
+
+Note that unlike with some other languages, the Elm compiler will
+complain if you try to import symbols already defined in the current
+module, which makes it actually useful and really enjoyable to use.
+
+You can then use ``text`` directly for instance:
+
+.. code-block:: elm
+
+    main = text "Hello world"
+
+The Virtual DOM HTML nodes are functions named after standard HTML
+tags, and take two parameters:
+
+- A list of attributes
+- A list of children
+
+If I want to create a ``div`` with a link it would look like this:
+
+.. code-block:: elm
+
+    module Main exposing (main)
+
+    import Html exposing (..)
+    import Html.Attributes exposing (..)
+
+
+    main =
+        div
+            [ class "container" ]
+            [ a
+                [ href "http://www.servicedenuages.fr/" ]
+                [ text "Blog" ]
+            ]
+
+We can also create a list of links in our div:
+
+.. code-block:: elm
+
+    module Main exposing (main)
+
+    import Html exposing (..)
+    import Html.Attributes exposing (..)
+
+
+    main =
+        div
+            [ class "container" ]
+            [ ul
+                [ class "links" ]
+                [ li
+                    []
+                    [ a
+                        [ href "http://www.servicedenuages.fr/" ]
+                        [ text "Blog" ]
+                    ]
+                , li
+                    []
+                    [ a
+                        [ href "http://www.elm-lang.org/" ]
+                        [ text "Elm lang" ]
+                    ]
+                ]
+            ]
+
+
+Adding some state
+=================
+
+Now that you know how to render your page in HTML, let's see how to
+write a program that handles events.
+
+The way Elm handles that is by having:
+
+- a ``Model``, an Elm record: a bit like a JavaScript object with
+  properties, that keep the state of the app
+- an update function that will handle all the app events and update
+  the model state accordingly
+- a view function that will return the Virtual DOM that matches the state
+  every time it's updated.
+
+For those who know Redux_, it has been heavily inspired by
+Elm. Basically ``update`` is a reducer.
+
+.. _Redux: http://redux.js.org/
+
+The events and their parameters are defined in a ``Msg`` type, which
+is a bit like a enum that would take parameters.
+
+In order to create our application that handle states, we can use the
+``sandbox`` from the Browser package:
+
+.. code-block:: elm
+
+    module Main exposing (main)
+
+    import Browser
+    import Html exposing (..)
+
+
+    type Msg
+        = NoOp
+
+
+    type alias Model =
+        { name : String }
+
+
+    main =
+        Browser.sandbox { init = { name = "Rémy" }, view = view, update = update }
+
+
+    update : Msg -> Model -> Model
+    update msg model =
+        model
+
+
+    view : Model -> Html Msg
+    view model =
+        text ("Hello " ++ model.name)
+
+We can now handle an event and change the name when we click on it.
+
+.. code-block:: elm
+
+    module Main exposing (main)
+
+    import Browser
+    import Html exposing (..)
+    import Html.Attributes exposing (..)
+    import Html.Events exposing (..)
+
+
+    type Msg
+        = Switch
+
+
+    type alias Model =
+        { name : String }
+
+
+    main =
+        Browser.sandbox { init = { name = "Rémy" }, view = view, update = update }
+
+
+    update : Msg -> Model -> Model
+    update msg model =
+        case msg of
+            Switch ->
+                { model | name = "Séverine" }
+
+
+    view : Model -> Html Msg
+    view model =
+        div []
+            [ text "Hello "
+            , a [ href "#", onClick Switch ] [ text model.name ]
+            ]
+
+You can refresh the page and try it.
+
+If we want to switch back to ``Rémy`` when we click on ``Séverine`` we can add a ``if``:
+
+.. code-block:: elm
+
+    module Main exposing (main)
+
+    import Browser
+    import Html exposing (..)
+    import Html.Attributes exposing (..)
+    import Html.Events exposing (..)
+
+
+    type Msg
+        = Switch
+
+
+    type alias Model =
+        { name : String }
+
+
+    main =
+        Browser.sandbox { init = { name = "Rémy" }, view = view, update = update }
+
+
+    update : Msg -> Model -> Model
+    update msg model =
+        case msg of
+            Switch ->
+                if model.name == "Rémy" then
+                    { model | name = "Séverine" }
+                else
+                    { model | name = "Rémy" }
+
+
+    view : Model -> Html Msg
+    view model =
+        div []
+            [ text "Hello "
+            , a [ href "#", onClick Switch ] [ text model.name ]
+            ]
+
+
+Enabling auto updates with ``elm-live``
+=======================================
+
+``elm reactor`` is good to get started but if you want hot-reloading of
+your app, you might want to setup ``elm-live``.
+
+Once installed, run:
+
+.. code-block:: bash
+
+    $ elm-live src/Main.elm
+
+If you have to use the debugger, you can use the ``--debug`` option:
+
+.. code-block:: bash
+
+    $ elm-live src/Main.elm -- --debug
+
+It will automatically generate an ``index.html`` file with the
+compiled JavaScript, and open it in your default Web browser.
+
+You can use the ``--output`` option to save the JavaScript in its own
+file and load it in the HTML yourself.
+
+First update the ``index.html`` to make it looks like:
+
+.. code-block:: html
+
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <title>Hello world</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="elm.js"></script>
+      </head>
+
+      <body>
+        <div id="sandbox"></div>
+        <script>
+            var app = Elm.Main.init({node: document.getElementById("sandbox")});
+        </script>
+      </body>
+    </html>
+
+
+Then you can run elm-live with the ``--output`` option:
+
+.. code-block:: bash
+
+    $ elm-live src/Main.elm -- --debug --output elm.js
+
+Now each time you will update your Elm code it will refresh the app in
+the browser.
+
+
+Handling a second event
+=======================
+
+Let's add an input to let people choose who to great.
+
+.. code-block:: elm
+
+    module Main exposing (main)
+
+    import Browser
+    import Html exposing (..)
+    import Html.Attributes exposing (..)
+    import Html.Events exposing (..)
+
+
+    type Msg
+        = Switch
+        | NewName String
+
+
+    type alias Model =
+        { name : String }
+
+
+    main =
+        Browser.sandbox { init = { name = "Rémy" }, view = view, update = update }
+
+
+    update : Msg -> Model -> Model
+    update msg model =
+        case msg of
+            Switch ->
+                if model.name == "Rémy" then
+                    { model | name = "Séverine" }
+                else
+                    { model | name = "Rémy" }
+
+            NewName new_name ->
+                { model | name = new_name }
+
+
+    view : Model -> Html Msg
+    view model =
+        div []
+            [ text "Hello "
+            , a [ href "#", onClick Switch ] [ text model.name ]
+            , br [] []
+            , input
+                [ onInput NewName
+                , value model.name
+                ]
+                []
+            ]
+
+The ``NewName`` event will be emitted with the content of the input each time we type in it.
+
+
+Conclusion
+==========
+
+That's about it. Now that you understood how the events update mecanism works and how
+you can define functions, you now know more than you think about Elm.
+
+In doubt, the package documentation is really useful: https://package.elm-lang.org/
+
+I hope you try it on your next project and enjoy Elm as much as we do.
+
+Wait a minute? That's it? Do I really know everything? But you didn't
+tell me how I was supposed to handle HTTP requests yet?
+
+
+Handling HTTP requests
+======================
+
+Fair enough, I remember I asked exactly this question when I was
+introduced to Elm_.
+
+Let's use the `photos collection`_ of `JSON Placeholder`_ to get a list of JSON objects.
+
+.. _`photos collection`: https://jsonplaceholder.typicode.com/photos
+.. _`JSON Placeholder`: https://jsonplaceholder.typicode.com/
+
+In order to do so we will use the `elm/http`_ library.
+
+.. _`elm/http`: https://package.elm-lang.org/packages/elm/http/latest/
+
+The README is really enlightning already and I would recommand you to
+try to use it to create a ``fetchItems`` command.
+
+Sending the request
+-------------------
+
+The first thing is to create a command that we can trigger on the
+click of a button or during the init phase.
+
+.. code-block:: elm
+
+    import Json.Decode as Decode
+
+    fetchItems : Cmd Msg
+    fetchItems =
+      Http.get
+        { url = "https://jsonplaceholder.typicode.com/photos"
+        , expect = Http.expectJson GotItems (Decode.list decodePhoto)
+        }
+
+
+Decoding the response
+---------------------
+
+The expectJson_ tools is expecting a msg with a Result that can be
+either a `Http.Error`_ or the decoded items.
+
+.. _expectJson: https://package.elm-lang.org/packages/elm/http/latest/Http#expectJson
+.. _`Http.Error`: https://package.elm-lang.org/packages/elm/http/latest/Http#Error
+
+We can use ``type Msg = GotItems (Result Http.Error (List Photo))`` to
+define the event.
+
+Then we need to explain how we can build the Photo record from its
+JSON representation by writting a decoder.
+
+.. code-block:: elm
+
+    import Json.Decode as Decode exposing (Decoder)
+    import Http
+
+
+    type Msg =
+        GotItems (Result Http.Error (List Photo))
+
+
+    type alias Photo =
+        { id : Int
+        , title : String
+        , url : String
+        , thumbnailUrl : String
+        }
+
+
+    decodePhoto : Decoder Photo
+    decodePhoto =
+       Decode.map4 Photo
+         (Decode.field "id" Decode.int)
+         (Decode.field "title" Decode.string)
+         (Decode.field "url" Decode.string)
+         (Decode.field "thumbnailUrl" Decode.string)
+
+
+At this stage you might be wondering what is this ``map4`` thing and
+why on Earth we would use a function with the number of field that we
+want to decode.
+
+I am glad you are asking yourself this.
+
+To go back a little bit, there are two ways of creating a record:
+
+1. Using its constructor:
+
+   .. code-block:: elm
+
+       newPhoto : Photo
+       newPhoto =
+           Photo 2
+               "Profile pic"
+               "https://profile.nytimes.com/accounts/1.png"
+               "https://profile.nytimes.com/accounts/thumbs/1.png"
+
+
+2. By defining its fields:
+
+   .. code-block:: elm
+
+       newPhoto : Photo
+       newPhoto =
+           { id = 2
+           , title = "Profile pic"
+           , url = "https://profile.nytimes.com/accounts/1.png"
+           , thumbnailUrl = "https://profile.nytimes.com/accounts/thumbs/1.png"
+           }
+
+Decoders are using the constructor way to create records.
+
+Decoding JSON values into records using ``Decode.map#``
+-------------------------------------------------------
+
+``Decode.map#`` will decode each fields and then build a record using the
+constructor with each decoded values as a parameter. The position of
+the decoded fields is important and should be the same as the type
+alias definition.
+
+
+Decoding JSON values into records using ``Decode.succeed``
+----------------------------------------------------------
+
+We can also create a record and use ``Decode.succeed`` to mark it as
+a decoded value. That's what `NoRedInk/elm-json-decode-pipeline`_ is
+providing.
+
+.. _`NoRedInk/elm-json-decode-pipeline`: https://package.elm-lang.org/packages/NoRedInk/elm-json-decode-pipeline/latest/
+
+Using this, we can use pipes to iteratively define how our record should look like:
+
+.. code-block:: elm
+
+   import Json.Decode as Decode exposing (Decoder)
+   import Json.Decode.Pipeline exposing (required, optional, hardcoded)
+
+    decodePhoto : Decoder Photo
+    decodePhoto =
+       Decode.succeed Photo
+         |> required "id" Decode.int
+         |> required "title" Decode.string
+         |> required "url" Decode.string
+         |> required "thumbnailUrl" Decode.string
+
+Even if it means installing one more dependency to your project, I
+would recommand using the later form that is more flexible when
+iterating on or refactoring decoders.
+
+Note that in that case the fields order is also important, this will
+compose a decoder that in the end returns an object and in between
+return partial decoding functions.
+
+
+Handling the response
+---------------------
+
+Once the response body has been decoded, elm will send a message with
+a result that will be handled by the update function.
+
+A Result is a native Elm type that can either be a success or an
+error.
+
+While defining a Result value, we give the type of the error and the
+type of the value. In our case: ``Result Http.Error (List Photo)``
+
+In our update function we need to handle both cases, when an error
+occured and when the photos list was decoded successfully.
+
+.. code-block:: elm
+
+    update : Msg -> Model -> ( Model, Cmd Msg )
+    update msg model =
+        case msg of
+            GotItems result ->
+                case result of
+                    Ok photos ->
+                        ( { model | error = Nothing, photos = photos }, Cmd.none )
+    
+                    Err err ->
+                        ( { model | error = Just <| errorToString err, photos = [] }, Cmd.none )
+                
+
+We can also write it a bit differently, which makes it more readable:
+
+.. code-block:: elm
+
+    update : Msg -> Model -> ( Model, Cmd Msg )
+    update msg model =
+        case msg of
+            GotItems (Ok photos) ->
+                ( { model | error = Nothing, photos = photos }, Cmd.none )
+    
+            GotItems (Err err) ->
+                ( { model | error = Just <| errorToString err, photos = [] }, Cmd.none )
+
+
+Showing the list of pictures
+============================
+
+Once we are able to fetch our list of photos, we might want to display
+it.
+
+I invite you to have a look at the Ellie with the fully functionnal
+version of the app: https://ellie-app.com/55LtWwHbhkPa1
+
+The interesting part is the following:
+
+.. code-block:: elm
+
+    displayPhotos : List Photo -> Html Msg
+    displayPhotos photos =
+        List.take 100 photos
+            |> List.map showPhoto
+            |> div []
+
+    showPhoto : Photo -> Html Msg
+    showPhoto photo =
+        a [ href photo.url, title photo.title ] [ img [ src photo.thumbnailUrl ] [] ]
+
+`List.map`_ will take each photos of ``model.photos`` and create a
+list of the results of the ``showPhoto`` function.
+
+Because ``showPhoto`` returns a ``Html Msg``, ``List.map`` will return a list of
+``Html Msg``. We can then use this result as a list of children to a ``div []``
+element.
+
+.. _`List.map`: https://package.elm-lang.org/packages/elm/core/latest/List#map
+
+
+Conclusion
+==========
+
+What is next ? Starting from here, you can grow your widget. At some
+point you might want to create a Single Page App (SPA) and handle URL
+with multiple pages.
+
+That's where the Elm Architecture start to be really useful. I would
+recommend you to have a look at `elm-kitchen`_ which will help you to get
+started with it.
+
+.. _`elm-kitchen`: https://allo-media.github.io/elm-kitchen/

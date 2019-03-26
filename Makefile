@@ -15,6 +15,7 @@ INSTALL_STAMP = $(VENV)/.install.stamp
 PYTHON=$(VENV)/bin/python
 PELICAN=$(VENV)/bin/pelican
 PIP=$(VENV)/bin/pip
+PORT := $(shell echo $${PORT-8080})
 
 DEBUG ?= 0
 ifeq ($(DEBUG), 1)
@@ -39,11 +40,7 @@ clean:
 	rm -rf $(VENV)
 
 serve: install
-ifdef PORT
-	cd $(OUTPUTDIR) && $(PYTHON) -m pelican.server $(PORT)
-else
-	cd $(OUTPUTDIR) && $(PYTHON) -m pelican.server 8080
-endif
+	$(PELICAN) -lr -p $(PORT)
 
 regenerate:
 	cd $(OUTPUTDIR) && $(PYTHON) -m pelican.server &

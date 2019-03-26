@@ -4,3 +4,4 @@ ghp-import
 Pillow
 markdown
 pysvg
+cssutils
