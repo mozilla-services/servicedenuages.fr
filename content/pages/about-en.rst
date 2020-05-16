@@ -1,17 +1,17 @@
-À propos
-########
+About this blog
+###############
 
 :slug: a-propos
 :lang: en
 :url: about
 
-We are a "Cloud-services" team at `Mozilla <https://www.mozilla.com/>`_:
-`Benson Wong <https://twitter.com/mostlygeek>`_,
-`Ben Hearsum <https://twitter.com/bhearsum>`_,
+We are a group of Kinto afficionados:
+
+`Alexis <https://twitter.com/ameteaireau>`_,
 `Ethan <https://twitter.com/EthanIsMumbling>`_,
 `Mathieu <https://twitter.com/leplatrem>`_,
-`Magopian <https://twitter.com/magopian>`_
-`Peter <https://twitter.com/peterbe>`_
+`Magopian <https://twitter.com/magopian>`_,
+`Niko <https://twitter.com/n1k0>`_,
 and
 `Rémy <https://twitter.com/Natim>`_ .
 
