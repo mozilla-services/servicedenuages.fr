@@ -52,7 +52,6 @@ regenerate:
 
 publish: install
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
-	echo "www.servicedenuages.fr" > $(OUTPUTDIR)/CNAME
 	cp self-hosting-a-hard-promess.html $(OUTPUTDIR)/en/
 
 github: publish
