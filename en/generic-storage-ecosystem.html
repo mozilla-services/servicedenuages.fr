@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Service de nuages, ">
 
-        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+        <link rel="alternate"  href="https://mozilla-services.github.io/servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
 
         <title>Ecosystem & generic storage // Service de nuages // </title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
-    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+    <link rel="stylesheet" href="https://mozilla-services.github.io/servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="https://mozilla-services.github.io/servicedenuages.fr/theme/css/pygments.css">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
@@ -41,11 +41,11 @@
             <section class="post">
                 <header class="post-header">
                     <h1>Ecosystem &amp; generic storage</h1>
-                        <p class="post-meta">                                <a class="post-category" href="http://www.servicedenuages.fr/tag/mozilla.html">mozilla</a>
+                        <p class="post-meta">                                <a class="post-category" href="https://mozilla-services.github.io/servicedenuages.fr/tag/mozilla.html">mozilla</a>
                         </p>
                 </header>
             </section>
-                        <p><a href="http://www.servicedenuages.fr/en/../stockage-generique-ecosysteme">Lire la version française</a></p>
+                        <p><a href="https://mozilla-services.github.io/servicedenuages.fr/en/../stockage-generique-ecosysteme">Lire la version française</a></p>
             <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">This article was translated from French by Julien/Sphinx. We thank him a lot
@@ -55,7 +55,7 @@ for this effort! Note, that at the beginning of this year,
 </div>
 <p><strong>tl;dr We have to build a service to track payments, and we're hesitant
 to go on with our own solution for storage and synchronization.</strong></p>
-<p>As we wrote in <a class="reference external" href="http://www.servicedenuages.fr/en/../service-de-nuages">the previous article (FR)</a>,
+<p>As we wrote in <a class="reference external" href="https://mozilla-services.github.io/servicedenuages.fr/en/../service-de-nuages">the previous article (FR)</a>,
 we want to build a solution for generic data storage. We're rebooting <a class="reference external" href="http://daybed.readthedocs.io">Daybed</a>
 at Mozilla!</p>
 <p>Our goal is simple: allow developers, whether they are from Mozilla or from the whole world,
@@ -83,7 +83,7 @@ is based on existing and proven standards: Webfinger, OAuth2, CORS and REST.</p>
 There exist several <a class="reference external" href="https://github.com/jcoglan/restore">server implementations</a>
 and there is even a <a class="reference external" href="https://www.npmjs.com/package/remotestorage-server">Node skeleton</a>
 to build a custom server.</p>
-<img alt="Remote Storage widget" class="align-left" src="http://www.servicedenuages.fr/en/../images/remotestorage-widget.png" style="width: 243px; height: auto; max-width: 100%;"/>
+<img alt="Remote Storage widget" class="align-left" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/remotestorage-widget.png" style="width: 243px; height: auto; max-width: 100%;"/>
 <p>The <a class="reference external" href="https://github.com/remotestorage/remotestorage.js/">remoteStorage.js client</a>
 allows us to integrate this solution into Web apps. This client is in charge of the "local store",
 caching, syncing and providing users a widget so that they can choose the server
@@ -158,7 +158,7 @@ collection, ...) might not be dealt with easily.</p>
 </div>
 <div class="section" id="the-payments-use-case">
 <h2>The "Payments" use case</h2>
-<img alt="Put Payments Here  -- Before the Internet - CC-NC-SA Katy Silberger https://www.flickr.com/photos/katysilbs/11163812186" src="http://www.servicedenuages.fr/en/../images/put-payments.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
+<img alt="Put Payments Here  -- Before the Internet - CC-NC-SA Katy Silberger https://www.flickr.com/photos/katysilbs/11163812186" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/put-payments.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
 <p>During the next weeks, we will have to setup a prototype that keeps an history
 of a user's payments and subscriptions.</p>
 <p>The requirements are simple:</p>
@@ -175,7 +175,7 @@ records. The two others can only have read-only access to these records.</p>
 <p>A given application cannot access to some other application payments and a given user cannot access to some other user's payments.</p>
 <div class="section" id="with-remotestorage">
 <h3>With RemoteStorage</h3>
-<img alt="Remote Love - CC-BY-NC Julie https://www.flickr.com/photos/mamajulie2008/2609549461" class="align-center" src="http://www.servicedenuages.fr/en/../images/remote-love.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
+<img alt="Remote Love - CC-BY-NC Julie https://www.flickr.com/photos/mamajulie2008/2609549461" class="align-center" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/remote-love.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
 <p>The idea of <em>Remote Storage</em> is to separate the application from the data that
 the user created with the application.</p>
 <p>In our use case, the "Payment" app is dealing with the data concerning a user.
@@ -204,7 +204,7 @@ JavaScript wrapper (as <a class="reference external" href="https://pythonhosted.
 </div>
 <div class="section" id="a-new-ecosystem">
 <h2>A new ecosystem?</h2>
-<img alt="Wagon wheel - CC-BY-NC-SA arbyreed https://www.flickr.com/photos/19779889@N00/16161808220" src="http://www.servicedenuages.fr/en/../images/wagon-wheel.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
+<img alt="Wagon wheel - CC-BY-NC-SA arbyreed https://www.flickr.com/photos/19779889@N00/16161808220" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/wagon-wheel.jpg" style="width: 640px; height: auto; max-width: 100%;"/>
 <p>It is obvious that <em>PouchDB</em> and <em>Remote Storage</em> are rich projects with dynamic communities. Therefore, it's reasonable to wonder if one should develop another solution.</p>
 <p>When we created the <em>Reading List</em> server, we built it with
 <a class="reference external" href="http://cliquet.readthedocs.io/">Cliquet</a>. We had a chance to setup <a class="reference external" href="http://cliquet.readthedocs.io/en/latest/api/">a very simple protocol</a>, strongly inspired by
@@ -292,7 +292,7 @@ It's always a difficult decision to make... <tt class="docutils literal">&lt;/tr
 This first step might lead us to converge in the end! Maybe our service will end
 up being compatible with Remote Storage, maybe PouchDB will become more agnostic
 regarding the synchronisation protocol...</p>
-<img alt="XKCD — Standards https://xkcd.com/927/" src="http://www.servicedenuages.fr/en/../images/standards.png" style="width: 500px; height: auto; max-width: 100%;"/>
+<img alt="XKCD — Standards https://xkcd.com/927/" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/standards.png" style="width: 500px; height: auto; max-width: 100%;"/>
 <p>Using this new ecosystem for the "Payments" project will allow us to setup a
 suitable permission system (<em>probably built on OAuth scopes</em>). We are also
 looking forward to <a class="reference external" href="http://blog.daybed.io/daybed-revival.html">capitalizing on our Daybed experience for this project</a>.</p>
@@ -384,7 +384,7 @@ public sharing of one's resources from one's <em>Remote Storage</em>.</td></tr>
 </script>
 <noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
 <!-- End Piwik Code -->
-  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script src="https://mozilla-services.github.io/servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
   <script data-no-instant>InstantClick.init();</script>
 </body>
 </html>

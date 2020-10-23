@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Service de nuages, ">
 
-        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+        <link rel="alternate"  href="https://mozilla-services.github.io/servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
 
         <title>Prototyping an app with Kinto // Service de nuages // </title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
-    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+    <link rel="stylesheet" href="https://mozilla-services.github.io/servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="https://mozilla-services.github.io/servicedenuages.fr/theme/css/pygments.css">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
@@ -66,12 +66,12 @@ What if I could store each expense right on the spot, categorize it, and maybe a
 <p>For our proof of concept, we'll use Mozilla's demo server, which is wiped clean every night: https://kinto.dev.mozaws.net/v1/.</p>
 <p>Let's sign in to the <a href="https://kinto.dev.mozaws.net/v1/admin/">admin</a> with the user/pass of our choice.</p>
 <p>Keep in mind that there's no <a href="http://kinto.readthedocs.io/en/stable/api/1.x/authentication.html#a-word-about-users">concept of user in Kinto</a>. Instead, a unique id will be generated from the authentication, and the data you enter/modify will be linked to it. Permissions are based on this mechanism.</p>
-<p><img alt="kinto-admin-sign-in" src="http://www.servicedenuages.fr/images/kinto-admin-sign-in.png" style="width: 2852px; height: auto; max-width: 100%;width: 2852px; height: auto; max-width: 100%;"/></p>
+<p><img alt="kinto-admin-sign-in" src="https://mozilla-services.github.io/servicedenuages.fr/images/kinto-admin-sign-in.png" style="width: 2852px; height: auto; max-width: 100%;width: 2852px; height: auto; max-width: 100%;"/></p>
 <p>Once connected, we can <a href="https://kinto.dev.mozaws.net/v1/admin/#/buckets/create">create a bucket</a>:</p>
-<p><img alt="kinto-admin-connected" src="http://www.servicedenuages.fr/images/kinto-admin-connected.png" style="width: 2806px; height: auto; max-width: 100%;width: 2806px; height: auto; max-width: 100%;"/>
-<img alt="kinto-admin-create-bucket" src="http://www.servicedenuages.fr/images/kinto-admin-create-bucket.png" style="width: 2832px; height: auto; max-width: 100%;width: 2832px; height: auto; max-width: 100%;"/></p>
+<p><img alt="kinto-admin-connected" src="https://mozilla-services.github.io/servicedenuages.fr/images/kinto-admin-connected.png" style="width: 2806px; height: auto; max-width: 100%;width: 2806px; height: auto; max-width: 100%;"/>
+<img alt="kinto-admin-create-bucket" src="https://mozilla-services.github.io/servicedenuages.fr/images/kinto-admin-create-bucket.png" style="width: 2832px; height: auto; max-width: 100%;width: 2832px; height: auto; max-width: 100%;"/></p>
 <p>And then <a href="https://kinto.dev.mozaws.net/v1/admin/#/buckets/track-my-expenses/collections/create">create a collection</a>:</p>
-<p><img alt="kinto-admin-create-collection" src="http://www.servicedenuages.fr/images/kinto-admin-create-collection.png" style="width: 2810px; height: auto; max-width: 100%;width: 2810px; height: auto; max-width: 100%;"/></p>
+<p><img alt="kinto-admin-create-collection" src="https://mozilla-services.github.io/servicedenuages.fr/images/kinto-admin-create-collection.png" style="width: 2810px; height: auto; max-width: 100%;width: 2810px; height: auto; max-width: 100%;"/></p>
 <p>Let's not submit this new collection just yet, we'd first like to add a <a href="https://kinto.readthedocs.io/en/latest/api/1.x/collections.html#collection-json-schema">JSON schema</a>.</p>
 <h2>Add a JSON schema</h2>
 <p>As you can see while creating a collection, we have the option of adding a JSON schema. This schema will be used to validate the data we will submit, before it's stored in a record.
@@ -125,15 +125,15 @@ The schema will also be used to automatically generate the CRUD forms for our da
 <p>Nearly done! Just before submitting this new collection, let's configure the columns to be displayed in the record list page.</p>
 <h2>Final touches</h2>
 <p>By default, the admin will only display one column in the record list page. It would be much more convenient to display the <code>category</code> and <code>price</code> on top of the <code>title</code>:</p>
-<p><img alt="kinto-admin-records-list-columns" src="http://www.servicedenuages.fr/images/kinto-admin-records-list-columns.png" style="width: 2032px; height: auto; max-width: 100%;width: 2032px; height: auto; max-width: 100%;"/></p>
+<p><img alt="kinto-admin-records-list-columns" src="https://mozilla-services.github.io/servicedenuages.fr/images/kinto-admin-records-list-columns.png" style="width: 2032px; height: auto; max-width: 100%;width: 2032px; height: auto; max-width: 100%;"/></p>
 <h2>Profit!</h2>
 <p>We now have everything we need for our proof of concept!</p>
 <p>List the current records (there's none yet):
-<img alt="kinto-admin-list-records" src="http://www.servicedenuages.fr/images/kinto-admin-list-records.png" style="width: 2828px; height: auto; max-width: 100%;width: 2828px; height: auto; max-width: 100%;"/></p>
+<img alt="kinto-admin-list-records" src="https://mozilla-services.github.io/servicedenuages.fr/images/kinto-admin-list-records.png" style="width: 2828px; height: auto; max-width: 100%;width: 2828px; height: auto; max-width: 100%;"/></p>
 <p>Add a new record:
-<img alt="kinto-admin-add-record" src="http://www.servicedenuages.fr/images/kinto-admin-add-record.png" style="width: 2834px; height: auto; max-width: 100%;width: 2834px; height: auto; max-width: 100%;"/></p>
+<img alt="kinto-admin-add-record" src="https://mozilla-services.github.io/servicedenuages.fr/images/kinto-admin-add-record.png" style="width: 2834px; height: auto; max-width: 100%;width: 2834px; height: auto; max-width: 100%;"/></p>
 <p>Display the list of (sortable) records once we added a few:
-<img alt="kinto-admin-list-records-many" src="http://www.servicedenuages.fr/images/kinto-admin-list-records-many.png" style="width: 2834px; height: auto; max-width: 100%;width: 2834px; height: auto; max-width: 100%;"/></p>
+<img alt="kinto-admin-list-records-many" src="https://mozilla-services.github.io/servicedenuages.fr/images/kinto-admin-list-records-many.png" style="width: 2834px; height: auto; max-width: 100%;width: 2834px; height: auto; max-width: 100%;"/></p>
 <p>As you can see, without a single line of code and very small effort, we have a functional, albeit very basic, proof of concept!</p>
 <p>While this is a nice and easy way to have a proof of concept, the admin's role is not meant to fulfill all your needs. If you wanted aggregation or filtering, you would still need a client, your own application.</p>
             <div class="hr"></div>
@@ -199,7 +199,7 @@ The schema will also be used to automatically generate the CRUD forms for our da
 </script>
 <noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
 <!-- End Piwik Code -->
-  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script src="https://mozilla-services.github.io/servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
   <script data-no-instant>InstantClick.init();</script>
 </body>
 </html>

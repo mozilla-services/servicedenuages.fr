@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Service de nuages, ">
 
-        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+        <link rel="alternate"  href="https://mozilla-services.github.io/servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
 
         <title>Kinto at Mozilla // Service de nuages // </title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
-    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+    <link rel="stylesheet" href="https://mozilla-services.github.io/servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="https://mozilla-services.github.io/servicedenuages.fr/theme/css/pygments.css">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
@@ -30,7 +30,7 @@
         <header class="header-article">
             <hgroup>
                 <h5>Published</h5>
-                <p title="~1486 words">~6 minutes reading 🕑</p>
+                <p title="~1485 words">~6 minutes reading 🕑</p>
                 <p>Tue, 09 January 2018</p>
                 <a href="/en/">&larr; Back to articles</a>
             </hgroup>
@@ -41,7 +41,7 @@
             <section class="post">
                 <header class="post-header">
                     <h1>Kinto at Mozilla</h1>
-                        <p class="post-meta">                                <a class="post-category" href="http://www.servicedenuages.fr/tag/mozilla.html">mozilla</a>
+                        <p class="post-meta">                                <a class="post-category" href="https://mozilla-services.github.io/servicedenuages.fr/tag/mozilla.html">mozilla</a>
                         </p>
                 </header>
             </section>
@@ -53,7 +53,7 @@
 <p>Firefox engineers edit remote settings like blocklist or certificate revocation lists via the <a class="reference external" href="https://github.com/Kinto/kinto-admin/">Kinto Admin UI</a>. There are several buckets for each category of settings listed below.</p>
 <p>The hundreds of millions of Firefox browsers regularly poll for changes using the <a class="reference external" href="https://github.com/Kinto/kinto-changes">kinto-changes</a> endpoint. Two instances are deployed with the same database, a public one read-only behind a CDN, and a private one only accessible via a secured VPN.</p>
 <p>Since the remote settings are critical, and served via a CDN, we use <a class="reference external" href="https://github.com/Kinto/kinto-signer">kinto-signer</a> to sign the data in order to guarantee authenticity and integrity. It also brings reviewing and sign-off features as well as the previewing changes feature for the QA team. The <a class="reference external" href="https://kinto.readthedocs.io/en/latest/api/1.x/history.html">history plugin</a> allows us to track the changes over time.</p>
-<p>The client lies in the Firefox codebase, implemented with <cite>kinto.js &lt;https://github.com/Kinto/kinto.js/&gt;</cite>. It verifies <a class="reference external" href="https://martinthomson.github.io/http-miser/draft-thomson-http-miser.html">content signatures</a> to verify that settings are conformant, and has a specific adapter to store local data in SQLite instead of IndexedDB. Some <a class="reference external" href="https://telemetry.mozilla.org/">Telemetry data</a> is sent when remote settings are synchronized locally in order to track uptake globally.</p>
+<p>The client lies in the Firefox codebase, implemented with <a class="reference external" href="https://github.com/Kinto/kinto.js/">kinto.js</a>. It verifies <a class="reference external" href="https://martinthomson.github.io/http-miser/draft-thomson-http-miser.html">content signatures</a> to verify that settings are conformant, and has a specific adapter to store local data in SQLite instead of IndexedDB. Some <a class="reference external" href="https://telemetry.mozilla.org/">Telemetry data</a> is sent when remote settings are synchronized locally in order to track uptake globally.</p>
 <p>In order to manage buckets and collections, as well as groups and their related permissions, we use <a class="reference external" href="https://github.com/Kinto/kinto-wizard/">kinto-wizard</a> that reads a YAML file from a Github private repo, and creates or updates the missing objects.</p>
 <dl class="docutils">
 <dt>Summary</dt>
@@ -65,7 +65,7 @@
 <dt>Average requests/sec</dt>
 <dd>1000-2000</dd>
 </dl>
-<img alt="Datadog screenshot of requests per second graph for Firefox Settings stack" src="http://www.servicedenuages.fr/en/../images/kinto-at-mozilla-blocklists-rps.png" style="width: 793px; height: auto; max-width: 100%;"/>
+<img alt="Datadog screenshot of requests per second graph for Firefox Settings stack" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/kinto-at-mozilla-blocklists-rps.png" style="width: 793px; height: auto; max-width: 100%;"/>
 <div class="section" id="blocklists">
 <h3>Blocklists</h3>
 <p>The blocklists are used to remotely disable malware addons, malicious or unstable plugins, or some graphical drivers that turned out to be unstable on certain hardware. A custom plugin, <a class="reference external" href="https://github.com/mozilla-services/kinto-amo/">kinto-amo</a>, was implemented to serve the blocklist in the same XML format as <a class="reference external" href="https://addons.mozilla.org/">addons.mozilla.org</a> used to have (or old Firefox versions).</p>
@@ -125,7 +125,7 @@
 <li>We still have some <a class="reference external" href="https://en.wikipedia.org/wiki/Time_of_check_to_time_of_use">TOCTOU issues</a> that we would like to tackle.</li>
 <li>At some point, we might have to consider some sharding strategy too.</li>
 </ul>
-<img alt="WebExtensions requests per seconds graphs" src="http://www.servicedenuages.fr/en/../images/kinto-at-mozilla-we-rps.png" style="width: 522px; height: auto; max-width: 100%;"/>
+<img alt="WebExtensions requests per seconds graphs" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/kinto-at-mozilla-we-rps.png" style="width: 522px; height: auto; max-width: 100%;"/>
 </div>
 </div>
 <div class="section" id="firefox-test-pilot">
@@ -146,12 +146,12 @@
 <dt>Data size:</dt>
 <dd>700 buckets, 700 collections, 700 records (<em>only one record per sheet of notes</em>)</dd>
 </dl>
-<img alt="Screenshot of NewRelic overview for the TestPilot Kinto stack" src="http://www.servicedenuages.fr/en/../images/kinto-at-mozilla-testpilot-overview.png" style="width: 1057px; height: auto; max-width: 100%;"/>
+<img alt="Screenshot of NewRelic overview for the TestPilot Kinto stack" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/kinto-at-mozilla-testpilot-overview.png" style="width: 1057px; height: auto; max-width: 100%;"/>
 </div>
 <div class="section" id="buildhub">
 <h2>Buildhub</h2>
 <p>This summer we worked on a comprehensive and standard database of Mozilla product builds. There was no standard solution and many systems within the company were doing it their own way. Our goal was to provide a simple JSON API that applications or scripts could query in order to obtain information about build IDs, versions, update channels etc.</p>
-<img alt="Buildhub UI (using SearchKit)" src="http://www.servicedenuages.fr/en/../images/kinto-at-mozilla-buildhub-ui.png" style="width: 800px; height: auto; max-width: 100%;"/>
+<img alt="Buildhub UI (using SearchKit)" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/kinto-at-mozilla-buildhub-ui.png" style="width: 800px; height: auto; max-width: 100%;"/>
 <p>We could have developed a custom solution, but using Kinto allowed us to start very quickly and take advantage of the existing ecosystem as well as our deployment automations.</p>
 <p>In order to provide efficient and advanced query capabilities we developed <a class="reference external" href="https://github.com/Kinto/kinto-elasticsearch/">kinto-elasticsearch</a>, a simple plugin that adds a <tt class="docutils literal">/search</tt> endpoint to collections of records. It's super powerful for filtering or aggregating records, and it's blazing fast!</p>
 <p>The records are created from an Amazon Lambda function that is triggered every time a new archive is published on <a class="reference external" href="https://archive.mozilla.org">https://archive.mozilla.org</a> (which is itself powered by S3).</p>
@@ -252,7 +252,7 @@ To initialize a Kinto instance for buildhub development, most for collection ind
 </script>
 <noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
 <!-- End Piwik Code -->
-  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script src="https://mozilla-services.github.io/servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
   <script data-no-instant>InstantClick.init();</script>
 </body>
 </html>

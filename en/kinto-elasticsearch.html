@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Service de nuages, ">
 
-        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+        <link rel="alternate"  href="https://mozilla-services.github.io/servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
 
         <title>Kinto and ElasticSearch // Service de nuages // </title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
-    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+    <link rel="stylesheet" href="https://mozilla-services.github.io/servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="https://mozilla-services.github.io/servicedenuages.fr/theme/css/pygments.css">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
@@ -41,7 +41,7 @@
             <section class="post">
                 <header class="post-header">
                     <h1>Kinto and ElasticSearch</h1>
-                        <p class="post-meta">                                <a class="post-category" href="http://www.servicedenuages.fr/tag/mozilla.html">mozilla</a>
+                        <p class="post-meta">                                <a class="post-category" href="https://mozilla-services.github.io/servicedenuages.fr/tag/mozilla.html">mozilla</a>
                         </p>
                 </header>
             </section>
@@ -66,7 +66,7 @@ metadata about released products, as well as a nice UI to explore and browse the
 <p>Kinto gives us a ready-to-use JSON storage API, whose accessibility via <tt class="docutils literal">curl</tt> is rather intuitive,
 and for which we can manage authentication and permissions using simple tokens or LDAP.
 ElasticSearch gives us a rocket fast index that powers the faceted search of our catalog.</p>
-<img alt="Prototype UI using SearchKit" src="http://www.servicedenuages.fr/en/../images/buildhub-searchkit-screenshot.png" style="width: 1253px; height: auto; max-width: 100%;"/>
+<img alt="Prototype UI using SearchKit" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/buildhub-searchkit-screenshot.png" style="width: 1253px; height: auto; max-width: 100%;"/>
 </div>
 <div class="section" id="how-does-it-work">
 <h2>How does it work?</h2>
@@ -95,7 +95,7 @@ You can only access it if you have the permission to read the whole collection.<
 area[name="Italia"];(node["cuisine"="pizza"](area););out;
 </pre>
 <p>We export and save the result as <tt class="docutils literal">export.geojson</tt>.</p>
-<img alt="Screenshot of query on overpass-turbo.eu" src="http://www.servicedenuages.fr/en/../images/overpass-turbo.png" style="width: 1569px; height: auto; max-width: 100%;"/>
+<img alt="Screenshot of query on overpass-turbo.eu" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/overpass-turbo.png" style="width: 1569px; height: auto; max-width: 100%;"/>
 <p>We load it into Kinto using <a class="reference external" href="https://github.com/Kinto/kinto-http.py">kinto-http.py</a>:</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">kinto_http</span>
 
@@ -106,7 +106,7 @@ area[name="Italia"];(node["cuisine"="pizza"](area););out;
 
 <span class="c1"># Create the destination bucket.</span>
 <span class="n">client</span> <span class="o">=</span> <span class="n">kinto_http</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">server_url</span><span class="o">=</span><span class="n">server</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="n">auth</span><span class="p">)</span>
-<span class="n">client</span><span class="o">.</span><span class="n">create_bucket</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">bucket</span><span class="p">,</span> <span class="n">if_not_exists</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">client</span><span class="o">.</span><span class="n">create_bucket</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">bucket</span><span class="p">,</span> <span class="n">if_not_exists</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 <p>We define the index and permissions. Each pizzeria will have a name and a location (long, lat).</p>
 <div class="highlight"><pre><span></span><span class="c1"># Define the ElasticSearch mapping in the collection metadata.</span>
@@ -127,7 +127,7 @@ area[name="Italia"];(node["cuisine"="pizza"](area););out;
     <span class="s2">"read"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"system.Everyone"</span><span class="p">]</span>
 <span class="p">}</span>
 <span class="n">client</span><span class="o">.</span><span class="n">create_collection</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">collection</span><span class="p">,</span> <span class="n">bucket</span><span class="o">=</span><span class="n">bucket</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">collection_metadata</span><span class="p">,</span>
-                         <span class="n">permissions</span><span class="o">=</span><span class="n">collection_permissions</span><span class="p">,</span> <span class="n">if_not_exists</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+                         <span class="n">permissions</span><span class="o">=</span><span class="n">collection_permissions</span><span class="p">,</span> <span class="n">if_not_exists</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 <p>Create a record for each «feature» in the GeoJSON file, using batched requests (one HTTP request includes many creations):</p>
 <div class="highlight"><pre><span></span><span class="n">export</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="s2">"export.geojson"</span><span class="p">))</span>
@@ -227,7 +227,7 @@ area[name="Italia"];(node["cuisine"="pizza"](area););out;
 </pre></div>
 <p>Here you go!</p>
 <p><a class="reference external" href="https://kinto.github.io/kinto-elasticsearch/">Online demo</a></p>
-<img alt="kinto-elasticsearch map search extent" src="http://www.servicedenuages.fr/en/../images/kinto-elasticsearch-demo.gif" style="width: 812px; height: auto; max-width: 100%;"/>
+<img alt="kinto-elasticsearch map search extent" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/kinto-elasticsearch-demo.gif" style="width: 812px; height: auto; max-width: 100%;"/>
 </div>
 </div>
 
@@ -294,7 +294,7 @@ area[name="Italia"];(node["cuisine"="pizza"](area););out;
 </script>
 <noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
 <!-- End Piwik Code -->
-  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script src="https://mozilla-services.github.io/servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
   <script data-no-instant>InstantClick.init();</script>
 </body>
 </html>

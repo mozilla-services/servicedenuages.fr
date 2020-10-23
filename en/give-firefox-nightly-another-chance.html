@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Service de nuages, ">
 
-        <link rel="alternate"  href="http://www.servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
+        <link rel="alternate"  href="https://mozilla-services.github.io/servicedenuages.fr/feeds/all.atom.xml" type="application/atom+xml" title="Service de nuages Full Atom Feed"/>
 
         <title>10 reasons to give another chance to Firefox Nightly // Service de nuages // </title>
 
 
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/pure/0.3.0/pure-min.css">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.1.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pure.css">
-    <link rel="stylesheet" href="http://www.servicedenuages.fr/theme/css/pygments.css">
+    <link rel="stylesheet" href="https://mozilla-services.github.io/servicedenuages.fr/theme/css/pure.css">
+    <link rel="stylesheet" href="https://mozilla-services.github.io/servicedenuages.fr/theme/css/pygments.css">
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/fitvids/1.0.1/jquery.fitvids.min.js"></script>
@@ -30,7 +30,7 @@
         <header class="header-article">
             <hgroup>
                 <h5>Published</h5>
-                <p title="~1311 words">~6 minutes reading 🕑</p>
+                <p title="~1318 words">~6 minutes reading 🕑</p>
                 <p>Mon, 30 January 2017</p>
                 <a href="/en/">&larr; Back to articles</a>
             </hgroup>
@@ -41,7 +41,7 @@
             <section class="post">
                 <header class="post-header">
                     <h1>10 reasons to give another chance to Firefox Nightly</h1>
-                        <p class="post-meta">                                <a class="post-category" href="http://www.servicedenuages.fr/tag/mozilla.html">mozilla</a>
+                        <p class="post-meta">                                <a class="post-category" href="https://mozilla-services.github.io/servicedenuages.fr/tag/mozilla.html">mozilla</a>
                         </p>
                 </header>
             </section>
@@ -50,7 +50,7 @@
 <p>The Firefox Nightly build also known as Firefox Nightly is a version
 of Firefox built from the source code every day at night.</p>
 <p>This means that Firefox updates itself every day!</p>
-<img alt="You've just been upgraded to Firefox Nightly 54!" class="align-center" src="http://www.servicedenuages.fr/en/../images/nightly.png" style="width: 1283px; height: auto; max-width: 100%;"/>
+<img alt="You've just been upgraded to Firefox Nightly 54!" class="align-center" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/nightly.png" style="width: 1283px; height: auto; max-width: 100%;"/>
 </div>
 <div class="section" id="why-aren-t-you-using-nightly-today">
 <h2>Why aren't you using Nightly today?</h2>
@@ -136,7 +136,7 @@ with Firefox Release you will potentially have to wait for 6 weeks.</p>
 </div>
 <div class="section" id="help-add-on-developers-to-validate-that-their-add-ons-are-still-working">
 <h3>Help add-on developers to validate that their add-ons are still working</h3>
-<img alt="Add-ons for Firefox" class="align-center" src="http://www.servicedenuages.fr/en/../images/amo.png" style="width: 1283px; height: auto; max-width: 100%;"/>
+<img alt="Add-ons for Firefox" class="align-center" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/amo.png" style="width: 1283px; height: auto; max-width: 100%;"/>
 <p>Firefox is transitioning from a complex and error-prone way of
 writing add-ons to a standardized way of writing Web extensions, which
 are most likely to be compatible with Chrome and use well known Web
@@ -194,17 +194,18 @@ it, so you don't need to do anything.</p>
 </div>
 <div class="section" id="bonus-how-to-configure-firefox-nightly-as-my-default-browser-in-linux">
 <h2>Bonus: How to configure Firefox Nightly as my default browser in Linux?</h2>
-<img alt="Setup Firefox Nightly on Ubuntu." class="align-center" src="http://www.servicedenuages.fr/en/../images/ubuntu-behavior.png" style="width: 600px; height: auto; max-width: 100%;"/>
+<img alt="Setup Firefox Nightly on Ubuntu." class="align-center" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/ubuntu-behavior.png" style="width: 600px; height: auto; max-width: 100%;"/>
 <ol class="arabic simple">
 <li>Download the archive in <a class="reference external" href="https://nightly.mozilla.org/">https://nightly.mozilla.org/</a></li>
 <li><tt class="docutils literal">tar jxf <span class="pre">~/Downloads/firefox*.linux-x86_64.tar.bz2</span> <span class="pre">-C</span> ~/apps/</tt></li>
 <li>Copy current Firefox desktop file: <tt class="docutils literal">cp /usr/share/applications/firefox.desktop ~/apps</tt></li>
+<li>Add <tt class="docutils literal">StartupWMClass=Nightly</tt> in the <tt class="docutils literal">[Desktop Entry]</tt> category.</li>
 <li>Copy current browser alternative file: <tt class="docutils literal">cp <span class="pre">/etc/alternatives/x-www-browser</span> ~/apps</tt></li>
 <li>Copy current launcher file: <tt class="docutils literal">cp /usr/lib/firefox/firefox.sh ~/apps</tt></li>
 <li>Remove the version installed by your package manager: <tt class="docutils literal">sudo apt purge firefox</tt></li>
 <li>Install Firefox: <tt class="docutils literal">sudo ln <span class="pre">-s</span> <span class="pre">${HOME}/apps/firefox.sh</span> /usr/bin/firefox</tt></li>
 <li>Install the desktop file: <tt class="docutils literal">sudo cp ~/apps/firefox.desktop /usr/share/applications/</tt></li>
-<li>Install the icon: <tt class="docutils literal">sudo cp ~/apps/firefox/browser/icons/mozicon128.png /usr/share/pixmaps/firefox.png</tt></li>
+<li>Install the icon: <tt class="docutils literal">sudo cp ~/apps/firefox/browser/chrome/icons/default/default128.png /usr/share/pixmaps/firefox.png</tt></li>
 <li>Install the browser alternative: <tt class="docutils literal">cp <span class="pre">~/apps/x-www-browser</span> <span class="pre">/etc/alternatives/x-www-browser</span></tt></li>
 <li>Display an URL in the terminal: <tt class="docutils literal">echo <span class="pre">https://www.mozilla.org/</span></tt></li>
 <li>Close Firefox and click on the link.</li>
@@ -283,7 +284,7 @@ it, so you don't need to do anything.</p>
 </script>
 <noscript><p><img src="//piwik.notmyidea.org/piwik.php?idsite=1" style="border:0;" alt="" /></p></noscript>
 <!-- End Piwik Code -->
-  <script src="http://www.servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
+  <script src="https://mozilla-services.github.io/servicedenuages.fr/theme/js/instantclick.min.js" data-no-instant></script>
   <script data-no-instant>InstantClick.init();</script>
 </body>
 </html>
