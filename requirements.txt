@@ -1,4 +1,4 @@
-pelican
+pelican<4
 beautifulsoup4
 ghp-import
 Pillow
