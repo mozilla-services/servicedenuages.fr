@@ -1564,14 +1564,14 @@ What if I could store each expense right on the spot, categorize it, and maybe a
 &lt;/ul&gt;
 &lt;p&gt;Our proof of concept will take advantage of the &lt;a href="https://github.com/Kinto/kinto-admin/"&gt;kinto-admin&lt;/a&gt; UI which gives us a way to create/read/update/delete entries (records).&lt;/p&gt;
 &lt;h2&gt;Create the bucket and the collection&lt;/h2&gt;
-&lt;p&gt;For our proof of concept, we'll use Mozilla's demo server, which is wiped clean every night: https://kinto.dev.mozaws.net/v1/.&lt;/p&gt;
-&lt;p&gt;Let's sign in to the &lt;a href="https://kinto.dev.mozaws.net/v1/admin/"&gt;admin&lt;/a&gt; with the user/pass of our choice.&lt;/p&gt;
+&lt;p&gt;For our proof of concept, we'll use Mozilla's demo server, which is wiped clean every night: https://demo.kinto-storage.org/v1/.&lt;/p&gt;
+&lt;p&gt;Let's sign in to the &lt;a href="https://demo.kinto-storage.org/v1/admin/"&gt;admin&lt;/a&gt; with the user/pass of our choice.&lt;/p&gt;
 &lt;p&gt;Keep in mind that there's no &lt;a href="http://kinto.readthedocs.io/en/stable/api/1.x/authentication.html#a-word-about-users"&gt;concept of user in Kinto&lt;/a&gt;. Instead, a unique id will be generated from the authentication, and the data you enter/modify will be linked to it. Permissions are based on this mechanism.&lt;/p&gt;
 &lt;p&gt;&lt;img alt="kinto-admin-sign-in" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/kinto-admin-sign-in.png" style="width: 2852px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
-&lt;p&gt;Once connected, we can &lt;a href="https://kinto.dev.mozaws.net/v1/admin/#/buckets/create"&gt;create a bucket&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;Once connected, we can &lt;a href="https://demo.kinto-storage.org/v1/admin/#/buckets/create"&gt;create a bucket&lt;/a&gt;:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="kinto-admin-connected" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/kinto-admin-connected.png" style="width: 2806px; height: auto; max-width: 100%;"/&gt;
 &lt;img alt="kinto-admin-create-bucket" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/kinto-admin-create-bucket.png" style="width: 2832px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
-&lt;p&gt;And then &lt;a href="https://kinto.dev.mozaws.net/v1/admin/#/buckets/track-my-expenses/collections/create"&gt;create a collection&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;And then &lt;a href="https://demo.kinto-storage.org/v1/admin/#/buckets/track-my-expenses/collections/create"&gt;create a collection&lt;/a&gt;:&lt;/p&gt;
 &lt;p&gt;&lt;img alt="kinto-admin-create-collection" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/kinto-admin-create-collection.png" style="width: 2810px; height: auto; max-width: 100%;"/&gt;&lt;/p&gt;
 &lt;p&gt;Let's not submit this new collection just yet, we'd first like to add a &lt;a href="https://kinto.readthedocs.io/en/latest/api/1.x/collections.html#collection-json-schema"&gt;JSON schema&lt;/a&gt;.&lt;/p&gt;
 &lt;h2&gt;Add a JSON schema&lt;/h2&gt;
@@ -2435,7 +2435,7 @@ Kinto is a good fit.&lt;/p&gt;
 users. You have the data on one location, and you want it in a different one.&lt;/p&gt;
 &lt;p&gt;With &lt;a class="reference external" href="https://kintojs.readthedocs.io"&gt;Kinto.js&lt;/a&gt;, this is as simple as calling &lt;cite&gt;.sync()&lt;/cite&gt; on the Kinto instance.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;tasks&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Kinto&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
-    &lt;span class="nx"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"https://kinto.dev.mozaws.net/v1"&lt;/span&gt;
+    &lt;span class="nx"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"https://demo.kinto-storage.org/v1"&lt;/span&gt;
 &lt;span class="p"&gt;}).&lt;/span&gt;&lt;span class="nx"&gt;collection&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"tasks"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
 &lt;span class="nx"&gt;tasks&lt;/span&gt;
@@ -2453,7 +2453,7 @@ you can access this data using the HTTP API (that speaks JSON).&lt;/p&gt;
 happy with our current design, but if you have ideas on how to make it evolve,
 &lt;a class="reference external" href="https://kiwiirc.com/client/irc.freenode.net/?#kinto"&gt;we would be really happy to hear them&lt;/a&gt;!&lt;/p&gt;
 &lt;p&gt;Here's an example of how to retrieve your data using the &lt;a class="reference external" href="https://github.com/jkbrzt/httpie"&gt;HTTPie&lt;/a&gt; client.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ http get https://kinto.dev.mozaws.net/v1/buckets/default/collections/kinto_demo_calendar/records --auth&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"null:notsecret"&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ http get https://demo.kinto-storage.org/v1/buckets/default/collections/kinto_demo_calendar/records --auth&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"null:notsecret"&lt;/span&gt;
 
 &lt;span class="o"&gt;{&lt;/span&gt;
     &lt;span class="s2"&gt;"data"&lt;/span&gt;: &lt;span class="o"&gt;[&lt;/span&gt;
@@ -2720,14 +2720,14 @@ it is written in English for people in France.&lt;/p&gt;
 &lt;p&gt;Using the power of Kinto permissions, we can create a collection where
 people will be able to create new records in it but not change them.&lt;/p&gt;
 &lt;p&gt;Using &lt;a class="reference external" href="https://httpie.org"&gt;HTTPie&lt;/a&gt; we can do it like that:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard --auth admin:switchboard
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;http PUT https://demo.kinto-storage.org/v1/buckets/switchboard --auth admin:switchboard
 
 &lt;span class="nb"&gt;echo&lt;/span&gt; &lt;span class="s1"&gt;'{"permissions": {"record:create": ["system.Everyone"]}}'&lt;/span&gt; &lt;span class="p"&gt;|&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
-    http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics &lt;span class="se"&gt;\&lt;/span&gt;
+    http PUT https://demo.kinto-storage.org/v1/buckets/switchboard/collections/metrics &lt;span class="se"&gt;\&lt;/span&gt;
         --auth admin:switchboard
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;Then when people match, we record our metrics:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nx"&gt;fetch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="nx"&gt;fetch&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"https://demo.kinto-storage.org/v1/buckets/switchboard/collections/metrics/records"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="nx"&gt;method&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"POST"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
   &lt;span class="nx"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
       &lt;span class="s2"&gt;"Content-Type"&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"application/json"&lt;/span&gt;
@@ -2740,11 +2740,11 @@ people will be able to create new records in it but not change them.&lt;/p&gt;
 &lt;span class="p"&gt;});&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;You can then count the number of calls with or without the banner:&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ http HEAD &lt;span class="s1"&gt;'https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records?matches=true&amp;amp;inBucket=true'&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;$ http HEAD &lt;span class="s1"&gt;'https://demo.kinto-storage.org/v1/buckets/switchboard/collections/metrics/records?matches=true&amp;amp;inBucket=true'&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
     --auth admin:switchboard &lt;span class="p"&gt;|&lt;/span&gt; grep Total-Records:
 Total-Records: &lt;span class="m"&gt;300&lt;/span&gt;
 
-$ http HEAD &lt;span class="s1"&gt;'https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records?matches=true&amp;amp;inBucket=false'&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
+$ http HEAD &lt;span class="s1"&gt;'https://demo.kinto-storage.org/v1/buckets/switchboard/collections/metrics/records?matches=true&amp;amp;inBucket=false'&lt;/span&gt; &lt;span class="se"&gt;\&lt;/span&gt;
     --auth admin:switchboard --print&lt;span class="o"&gt;=&lt;/span&gt;h &lt;span class="p"&gt;|&lt;/span&gt; grep Total-Records:
 Total-Records: &lt;span class="m"&gt;20&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
@@ -3418,7 +3418,7 @@ will show some specific tools you can use to do this.&lt;/p&gt;
 </content><category term="mozilla"></category></entry><entry><title>Kinto.js 1.0 released</title><link href="https://mozilla-services.github.io/servicedenuages.fr/en/kinto-js-1-0-released" rel="alternate"></link><published>2015-10-27T00:00:00+01:00</published><updated>2015-10-27T00:00:00+01:00</updated><author><name>Service de Nuages</name></author><id>tag:mozilla-services.github.io,2015-10-27:/servicedenuages.fr/en/kinto-js-1-0-released</id><summary type="html">&lt;p class="first last"&gt;After months of development, we're proud to announce the release of Kinto.js 1.0.0 stable.&lt;/p&gt;
 </summary><content type="html">&lt;p&gt;&lt;a class="reference external" href="https://kintojs.readthedocs.io/"&gt;Kinto.js&lt;/a&gt; is an offline-first JavaScript client leveraging the &lt;a class="reference external" href="https://kinto.readthedocs.io/"&gt;Kinto API&lt;/a&gt; for data synchronization. In a world where connectivity isn't always guaranteed, local persistence in the browser has become an &lt;a class="reference external" href="http://offlinefirst.org/"&gt;identified priority&lt;/a&gt; for Web applications, especially on mobile.&lt;/p&gt;
 &lt;p&gt;The basic principle is simple; save your data locally, assuming there's no network connectivity. Then as soon as it's available, retrieve remote changes and push your local data to a remote server.&lt;/p&gt;
-&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;kinto&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Kinto&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="nx"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"https://kinto.dev.mozaws.net/v1/"&lt;/span&gt;&lt;span class="p"&gt;});&lt;/span&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;kinto&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Kinto&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="nx"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"https://demo.kinto-storage.org/v1/"&lt;/span&gt;&lt;span class="p"&gt;});&lt;/span&gt;
 &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;tasks&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="nx"&gt;kinto&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;collection&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"tasks"&lt;/span&gt;&lt;span class="p"&gt;);&lt;/span&gt;
 
 &lt;span class="nx"&gt;tasks&lt;/span&gt;&lt;span class="p"&gt;.&lt;/span&gt;&lt;span class="nx"&gt;create&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;&lt;span class="nx"&gt;label&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"Test kinto.js"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;done&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="kc"&gt;false&lt;/span&gt;&lt;span class="p"&gt;})&lt;/span&gt;
@@ -3806,7 +3806,7 @@ instances within the same origin is now possible with the recently added
 &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;createCollection&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;transformer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;testRun&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;instanceNo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;kinto&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Kinto&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
     &lt;span class="nx"&gt;dbPrefix&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nx"&gt;testRun&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="sb"&gt;-&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nx"&gt;instanceNo&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="nx"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'https://kinto.dev.mozaws.net/v1/'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nx"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'https://demo.kinto-storage.org/v1/'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="nx"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
       &lt;span class="nx"&gt;Authorization&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Basic '&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;btoa&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'public-demo:s3cr3t'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
@@ -4014,7 +4014,7 @@ possible à l'aide de la toute récente option &lt;tt class="docutils literal"&g
 &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;createCollection&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;transformer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;testRun&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;instanceNo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;kinto&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Kinto&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
     &lt;span class="nx"&gt;dbPrefix&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nx"&gt;testRun&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="sb"&gt;-&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nx"&gt;instanceNo&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="nx"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'https://kinto.dev.mozaws.net/v1/'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nx"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'https://demo.kinto-storage.org/v1/'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="nx"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
       &lt;span class="nx"&gt;Authorization&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Basic '&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;btoa&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'public-demo:s3cr3t'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
@@ -5451,7 +5451,7 @@ d'extension.&lt;/p&gt;
 &lt;p&gt;It was a great opportunity for our team to come together, to share our vision and ideas concerning data storage, and to collect use-cases for &lt;a class="reference external" href="https://kinto.readthedocs.io"&gt;Kinto&lt;/a&gt;.&lt;/p&gt;
 &lt;div class="section" id="workshops-and-self-promotion"&gt;
 &lt;h2&gt;Workshops and Self-Promotion&lt;/h2&gt;
-&lt;p&gt;Nicolas presented &lt;a class="reference external" href="https://github.com/mozilla-services/kinto.js"&gt;Kinto.js&lt;/a&gt; at a dedicated workshop in Whistler, the content of which now forms a &lt;a class="reference external" href="http://kintojs.readthedocs.io/en/latest/tutorial/"&gt;introductory tutorial&lt;/a&gt;. The resulting application, simple though it appears, is a great way to learn the basic concepts behind synchronisation in Kinto. Furthermore, we didn't even need to set up a server - Rémy set one up that &lt;a class="reference external" href="https://kinto.dev.mozaws.net/v1/"&gt;resets itself every day&lt;/a&gt;!&lt;/p&gt;
+&lt;p&gt;Nicolas presented &lt;a class="reference external" href="https://github.com/mozilla-services/kinto.js"&gt;Kinto.js&lt;/a&gt; at a dedicated workshop in Whistler, the content of which now forms a &lt;a class="reference external" href="http://kintojs.readthedocs.io/en/latest/tutorial/"&gt;introductory tutorial&lt;/a&gt;. The resulting application, simple though it appears, is a great way to learn the basic concepts behind synchronisation in Kinto. Furthermore, we didn't even need to set up a server - Rémy set one up that &lt;a class="reference external" href="https://demo.kinto-storage.org/v1/"&gt;resets itself every day&lt;/a&gt;!&lt;/p&gt;
 &lt;p&gt;As an aside, we chose to use Vanilla-JS for two reasons: firstly because it allowed us to avoid the framework wars, but also because it proves that we can do so much more with HTML5 and ES6 than was possible a few years ago.&lt;/p&gt;
 &lt;p&gt;Furthermore, this small workshop helped us to realise that we still have large gaps in our documentation, particularly as regards the eco-system and the long-term, global vision for our family of projects. This is an area where we have resolved to do better.&lt;/p&gt;
 &lt;img alt="Kinto.js workshop - CC0" class="align-center" src="https://mozilla-services.github.io/servicedenuages.fr/en/../images/whistler-workshop.jpg" style="width: 1024px; height: auto; max-width: 100%;"/&gt;
@@ -5563,7 +5563,7 @@ les prochains mois.&lt;/p&gt;
 présentation le &lt;a class="reference external" href="http://kintojs.readthedocs.io/en/latest/tutorial/"&gt;tutorial d'introduction&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;L'application résultante, pourtant toute simple, permet d'appréhender les
 concepts de synchronisation de Kinto. Le tout sans installation prélable,
-puisque Rémy a mis en place un &lt;a class="reference external" href="https://kinto.dev.mozaws.net/v1/"&gt;serveur de dev effacé tous les jours&lt;/a&gt;.&lt;/p&gt;
+puisque Rémy a mis en place un &lt;a class="reference external" href="https://demo.kinto-storage.org/v1/"&gt;serveur de dev effacé tous les jours&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Nous avions mis un point d'honneur à faire du Vanilla.JS, déjà pour éviter les
 combats de clochers autour des frameworks, mais aussi pour mettre en évidence qu'avec
 HTML5 et ES6, on n'était plus aussi démunis qu'il y a quelques années.&lt;/p&gt;

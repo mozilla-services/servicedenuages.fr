@@ -275,7 +275,7 @@ jour il faudra comparer avec l'entrée précédente.&lt;/p&gt;
 le client Python de base pour demander ou approuver une revue de changements.&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;kinto_http&lt;/span&gt; &lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="n"&gt;Client&lt;/span&gt;
 
-&lt;span class="n"&gt;editor_client&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Client&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;server_url&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"https://kinto.dev.mozaws.net/v1"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+&lt;span class="n"&gt;editor_client&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;Client&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;server_url&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"https://demo.kinto-storage.org/v1"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
                        &lt;span class="n"&gt;auth&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"token"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s2"&gt;"editor"&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
                        &lt;span class="n"&gt;bucket&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="s2"&gt;"blog"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
 
@@ -286,7 +286,7 @@ le client Python de base pour demander ou approuver une revue de changements.&lt
 Le client JS a une méthode liée au bucket:&lt;/p&gt;
 &lt;div class="highlight"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kr"&gt;import&lt;/span&gt; &lt;span class="nx"&gt;KintoClient&lt;/span&gt; &lt;span class="nx"&gt;from&lt;/span&gt; &lt;span class="s2"&gt;"kinto-http"&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt;
 
-&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;client&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;KintoClient&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"https://kinto.dev.mozaws.net/v1"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+&lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;client&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;KintoClient&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"https://demo.kinto-storage.org/v1"&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="nx"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
     &lt;span class="nx"&gt;Authorization&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s2"&gt;"Basic "&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;btoa&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s2"&gt;"token:test"&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
   &lt;span class="p"&gt;}});&lt;/span&gt;
@@ -1162,7 +1162,7 @@ possible à l'aide de la toute récente option &lt;tt class="docutils literal"&g
 &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;createCollection&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nx"&gt;transformer&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;testRun&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nx"&gt;instanceNo&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="p"&gt;=&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
   &lt;span class="kr"&gt;const&lt;/span&gt; &lt;span class="nx"&gt;kinto&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="k"&gt;new&lt;/span&gt; &lt;span class="nx"&gt;Kinto&lt;/span&gt;&lt;span class="p"&gt;({&lt;/span&gt;
     &lt;span class="nx"&gt;dbPrefix&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nx"&gt;testRun&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="sb"&gt;-&lt;/span&gt;&lt;span class="si"&gt;${&lt;/span&gt;&lt;span class="nx"&gt;instanceNo&lt;/span&gt;&lt;span class="si"&gt;}&lt;/span&gt;&lt;span class="sb"&gt;`&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
-    &lt;span class="nx"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'https://kinto.dev.mozaws.net/v1/'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
+    &lt;span class="nx"&gt;remote&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'https://demo.kinto-storage.org/v1/'&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;
     &lt;span class="nx"&gt;headers&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
       &lt;span class="nx"&gt;Authorization&lt;/span&gt;&lt;span class="o"&gt;:&lt;/span&gt; &lt;span class="s1"&gt;'Basic '&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="nx"&gt;btoa&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="s1"&gt;'public-demo:s3cr3t'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
     &lt;span class="p"&gt;}&lt;/span&gt;
@@ -2060,7 +2060,7 @@ les prochains mois.&lt;/p&gt;
 présentation le &lt;a class="reference external" href="http://kintojs.readthedocs.io/en/latest/tutorial/"&gt;tutorial d'introduction&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;L'application résultante, pourtant toute simple, permet d'appréhender les
 concepts de synchronisation de Kinto. Le tout sans installation prélable,
-puisque Rémy a mis en place un &lt;a class="reference external" href="https://kinto.dev.mozaws.net/v1/"&gt;serveur de dev effacé tous les jours&lt;/a&gt;.&lt;/p&gt;
+puisque Rémy a mis en place un &lt;a class="reference external" href="https://demo.kinto-storage.org/v1/"&gt;serveur de dev effacé tous les jours&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;Nous avions mis un point d'honneur à faire du Vanilla.JS, déjà pour éviter les
 combats de clochers autour des frameworks, mais aussi pour mettre en évidence qu'avec
 HTML5 et ES6, on n'était plus aussi démunis qu'il y a quelques années.&lt;/p&gt;

@@ -63,14 +63,14 @@ What if I could store each expense right on the spot, categorize it, and maybe a
 </ul>
 <p>Our proof of concept will take advantage of the <a href="https://github.com/Kinto/kinto-admin/">kinto-admin</a> UI which gives us a way to create/read/update/delete entries (records).</p>
 <h2>Create the bucket and the collection</h2>
-<p>For our proof of concept, we'll use Mozilla's demo server, which is wiped clean every night: https://kinto.dev.mozaws.net/v1/.</p>
-<p>Let's sign in to the <a href="https://kinto.dev.mozaws.net/v1/admin/">admin</a> with the user/pass of our choice.</p>
+<p>For our proof of concept, we'll use Mozilla's demo server, which is wiped clean every night: https://demo.kinto-storage.org/v1/.</p>
+<p>Let's sign in to the <a href="https://demo.kinto-storage.org/v1/admin/">admin</a> with the user/pass of our choice.</p>
 <p>Keep in mind that there's no <a href="http://kinto.readthedocs.io/en/stable/api/1.x/authentication.html#a-word-about-users">concept of user in Kinto</a>. Instead, a unique id will be generated from the authentication, and the data you enter/modify will be linked to it. Permissions are based on this mechanism.</p>
 <p><img alt="kinto-admin-sign-in" src="https://mozilla-services.github.io/servicedenuages.fr/images/kinto-admin-sign-in.png" style="width: 2852px; height: auto; max-width: 100%;width: 2852px; height: auto; max-width: 100%;"/></p>
-<p>Once connected, we can <a href="https://kinto.dev.mozaws.net/v1/admin/#/buckets/create">create a bucket</a>:</p>
+<p>Once connected, we can <a href="https://demo.kinto-storage.org/v1/admin/#/buckets/create">create a bucket</a>:</p>
 <p><img alt="kinto-admin-connected" src="https://mozilla-services.github.io/servicedenuages.fr/images/kinto-admin-connected.png" style="width: 2806px; height: auto; max-width: 100%;width: 2806px; height: auto; max-width: 100%;"/>
 <img alt="kinto-admin-create-bucket" src="https://mozilla-services.github.io/servicedenuages.fr/images/kinto-admin-create-bucket.png" style="width: 2832px; height: auto; max-width: 100%;width: 2832px; height: auto; max-width: 100%;"/></p>
-<p>And then <a href="https://kinto.dev.mozaws.net/v1/admin/#/buckets/track-my-expenses/collections/create">create a collection</a>:</p>
+<p>And then <a href="https://demo.kinto-storage.org/v1/admin/#/buckets/track-my-expenses/collections/create">create a collection</a>:</p>
 <p><img alt="kinto-admin-create-collection" src="https://mozilla-services.github.io/servicedenuages.fr/images/kinto-admin-create-collection.png" style="width: 2810px; height: auto; max-width: 100%;width: 2810px; height: auto; max-width: 100%;"/></p>
 <p>Let's not submit this new collection just yet, we'd first like to add a <a href="https://kinto.readthedocs.io/en/latest/api/1.x/collections.html#collection-json-schema">JSON schema</a>.</p>
 <h2>Add a JSON schema</h2>

@@ -173,7 +173,7 @@ instances within the same origin is now possible with the recently added
 <span class="kr">const</span> <span class="nx">createCollection</span> <span class="o">=</span> <span class="p">(</span><span class="nx">transformer</span><span class="p">,</span> <span class="nx">testRun</span><span class="p">,</span> <span class="nx">instanceNo</span><span class="p">)</span> <span class="p">=&gt;</span> <span class="p">{</span>
   <span class="kr">const</span> <span class="nx">kinto</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Kinto</span><span class="p">({</span>
     <span class="nx">dbPrefix</span><span class="o">:</span> <span class="sb">`</span><span class="si">${</span><span class="nx">testRun</span><span class="si">}</span><span class="sb">-</span><span class="si">${</span><span class="nx">instanceNo</span><span class="si">}</span><span class="sb">`</span><span class="p">,</span>
-    <span class="nx">remote</span><span class="o">:</span> <span class="s1">'https://kinto.dev.mozaws.net/v1/'</span><span class="p">,</span>
+    <span class="nx">remote</span><span class="o">:</span> <span class="s1">'https://demo.kinto-storage.org/v1/'</span><span class="p">,</span>
     <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
       <span class="nx">Authorization</span><span class="o">:</span> <span class="s1">'Basic '</span> <span class="o">+</span> <span class="nx">btoa</span><span class="p">(</span><span class="s1">'public-demo:s3cr3t'</span><span class="p">)</span>
     <span class="p">}</span>

@@ -173,14 +173,14 @@ it is written in English for people in France.</p>
 <p>Using the power of Kinto permissions, we can create a collection where
 people will be able to create new records in it but not change them.</p>
 <p>Using <a class="reference external" href="https://httpie.org">HTTPie</a> we can do it like that:</p>
-<div class="highlight"><pre><span></span>http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard --auth admin:switchboard
+<div class="highlight"><pre><span></span>http PUT https://demo.kinto-storage.org/v1/buckets/switchboard --auth admin:switchboard
 
 <span class="nb">echo</span> <span class="s1">'{"permissions": {"record:create": ["system.Everyone"]}}'</span> <span class="p">|</span> <span class="se">\</span>
-    http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics <span class="se">\</span>
+    http PUT https://demo.kinto-storage.org/v1/buckets/switchboard/collections/metrics <span class="se">\</span>
         --auth admin:switchboard
 </pre></div>
 <p>Then when people match, we record our metrics:</p>
-<div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records"</span><span class="p">,</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><span class="nx">fetch</span><span class="p">(</span><span class="s2">"https://demo.kinto-storage.org/v1/buckets/switchboard/collections/metrics/records"</span><span class="p">,</span> <span class="p">{</span>
   <span class="nx">method</span><span class="o">:</span> <span class="s2">"POST"</span><span class="p">,</span>
   <span class="nx">headers</span><span class="o">:</span> <span class="p">{</span>
       <span class="s2">"Content-Type"</span><span class="o">:</span> <span class="s2">"application/json"</span>
@@ -193,11 +193,11 @@ people will be able to create new records in it but not change them.</p>
 <span class="p">});</span>
 </pre></div>
 <p>You can then count the number of calls with or without the banner:</p>
-<div class="highlight"><pre><span></span>$ http HEAD <span class="s1">'https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records?matches=true&amp;inBucket=true'</span> <span class="se">\</span>
+<div class="highlight"><pre><span></span>$ http HEAD <span class="s1">'https://demo.kinto-storage.org/v1/buckets/switchboard/collections/metrics/records?matches=true&amp;inBucket=true'</span> <span class="se">\</span>
     --auth admin:switchboard <span class="p">|</span> grep Total-Records:
 Total-Records: <span class="m">300</span>
 
-$ http HEAD <span class="s1">'https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records?matches=true&amp;inBucket=false'</span> <span class="se">\</span>
+$ http HEAD <span class="s1">'https://demo.kinto-storage.org/v1/buckets/switchboard/collections/metrics/records?matches=true&amp;inBucket=false'</span> <span class="se">\</span>
     --auth admin:switchboard --print<span class="o">=</span>h <span class="p">|</span> grep Total-Records:
 Total-Records: <span class="m">20</span>
 </pre></div>
