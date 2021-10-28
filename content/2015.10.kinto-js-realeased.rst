@@ -13,7 +13,7 @@ The basic principle is simple; save your data locally, assuming there's no netwo
 
 .. code-block:: javascript
 
-    const kinto = new Kinto({remote: "https://kinto.dev.mozaws.net/v1/"});
+    const kinto = new Kinto({remote: "https://demo.kinto-storage.org/v1/"});
     const tasks = kinto.collection("tasks");
 
     tasks.create({label: "Test kinto.js", done: false})

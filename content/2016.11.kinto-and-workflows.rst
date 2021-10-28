@@ -131,7 +131,7 @@ le client Python de base pour demander ou approuver une revue de changements.
 
     from kinto_http import Client
 
-    editor_client = Client(server_url="https://kinto.dev.mozaws.net/v1",
+    editor_client = Client(server_url="https://demo.kinto-storage.org/v1",
                            auth=("token", "editor"),
                            bucket="blog")
 
@@ -146,7 +146,7 @@ Le client JS a une méthode liée au bucket:
 
     import KintoClient from "kinto-http";
 
-    const client = new KintoClient("https://kinto.dev.mozaws.net/v1", {
+    const client = new KintoClient("https://demo.kinto-storage.org/v1", {
       headers: {
         Authorization: "Basic " + btoa("token:test")
       }});

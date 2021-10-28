@@ -205,10 +205,10 @@ Using HTTPie_ we can do it like that:
 
 .. code-block:: bash
 
-    http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard --auth admin:switchboard
+    http PUT https://demo.kinto-storage.org/v1/buckets/switchboard --auth admin:switchboard
 
     echo '{"permissions": {"record:create": ["system.Everyone"]}}' | \
-        http PUT https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics \
+        http PUT https://demo.kinto-storage.org/v1/buckets/switchboard/collections/metrics \
             --auth admin:switchboard
 
 .. _HTTPie: https://httpie.org
@@ -217,7 +217,7 @@ Then when people match, we record our metrics:
 
 .. code-block:: javascript
 
-    fetch("https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records", {
+    fetch("https://demo.kinto-storage.org/v1/buckets/switchboard/collections/metrics/records", {
       method: "POST",
       headers: {
           "Content-Type": "application/json"
@@ -234,11 +234,11 @@ You can then count the number of calls with or without the banner:
 
 .. code-block:: bash
 
-    $ http HEAD 'https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records?matches=true&inBucket=true' \
+    $ http HEAD 'https://demo.kinto-storage.org/v1/buckets/switchboard/collections/metrics/records?matches=true&inBucket=true' \
         --auth admin:switchboard | grep Total-Records:
     Total-Records: 300
 
-    $ http HEAD 'https://kinto.dev.mozaws.net/v1/buckets/switchboard/collections/metrics/records?matches=true&inBucket=false' \
+    $ http HEAD 'https://demo.kinto-storage.org/v1/buckets/switchboard/collections/metrics/records?matches=true&inBucket=false' \
         --auth admin:switchboard --print=h | grep Total-Records:
     Total-Records: 20
 

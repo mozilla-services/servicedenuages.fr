@@ -58,7 +58,7 @@ With `Kinto.js`_, this is as simple as calling `.sync()` on the Kinto instance.
 .. code-block:: js
 
    const tasks = new Kinto({
-       remote: "https://kinto.dev.mozaws.net/v1"
+       remote: "https://demo.kinto-storage.org/v1"
    }).collection("tasks");
 
    tasks
@@ -85,7 +85,7 @@ Here's an example of how to retrieve your data using the `HTTPie
 
 .. code-block:: bash
 
-    $ http get https://kinto.dev.mozaws.net/v1/buckets/default/collections/kinto_demo_calendar/records --auth="null:notsecret"
+    $ http get https://demo.kinto-storage.org/v1/buckets/default/collections/kinto_demo_calendar/records --auth="null:notsecret"
 
     {
         "data": [

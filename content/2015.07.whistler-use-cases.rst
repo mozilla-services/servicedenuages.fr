@@ -32,7 +32,7 @@ présentation le `tutorial d'introduction <http://kintojs.readthedocs.io/en/late
 
 L'application résultante, pourtant toute simple, permet d'appréhender les
 concepts de synchronisation de Kinto. Le tout sans installation prélable,
-puisque Rémy a mis en place un `serveur de dev effacé tous les jours <https://kinto.dev.mozaws.net/v1/>`_.
+puisque Rémy a mis en place un `serveur de dev effacé tous les jours <https://demo.kinto-storage.org/v1/>`_.
 
 Nous avions mis un point d'honneur à faire du Vanilla.JS, déjà pour éviter les
 combats de clochers autour des frameworks, mais aussi pour mettre en évidence qu'avec

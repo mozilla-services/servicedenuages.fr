@@ -66,7 +66,7 @@ const createTransformer = (aesKey) => {
 const createCollection = (transformer, testRun, instanceNo) => {
   const kinto = new Kinto({
     dbPrefix: `${testRun}-${instanceNo}`,
-    remote: 'https://kinto.dev.mozaws.net/v1/',
+    remote: 'https://demo.kinto-storage.org/v1/',
     headers: {
       Authorization: 'Basic ' + btoa('public-demo:s3cr3t')
     }
